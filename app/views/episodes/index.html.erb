@@ -1,0 +1,28 @@
+<h1>Listing episodes</h1>
+
+<table>
+  <tr>
+    <th>Podcast</th>
+    <th>Title</th>
+    <th>Synopsis</th>
+    <th>Magnet</th>
+    <th>Published at</th>
+  </tr>
+
+<% for episode in @episodes %>
+  <tr>
+    <td><%=h episode.podcast_id %></td>
+    <td><%=h episode.title %></td>
+    <td><%=h episode.synopsis %></td>
+    <td><%=h episode.magnet %></td>
+    <td><%=h episode.published_at %></td>
+    <td><%= link_to 'Show', episode %></td>
+    <td><%= link_to 'Edit', edit_episode_path(episode) %></td>
+    <td><%= link_to 'Destroy', episode, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New episode', new_episode_path %>

@@ -9,6 +9,49 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20080517042049) do
+
+  create_table "episodes", :force => true do |t|
+    t.integer  "podcast_id"
+    t.text     "summary"
+    t.string   "enclosure_url"
+    t.datetime "published_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "thumbnail_file_size"
+    t.string   "thumbnail_file_name"
+    t.string   "thumbnail_content_type"
+    t.string   "guid"
+    t.string   "enclosure_type"
+    t.integer  "duration"
+    t.string   "title"
+  end
+
+  create_table "podcasts", :force => true do |t|
+    t.string   "title"
+    t.string   "site"
+    t.string   "feed"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.string   "logo_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "feed_etag"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "login"
+    t.string   "email"
+    t.string   "crypted_password",          :limit => 40
+    t.string   "salt",                      :limit => 40
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_token"
+    t.datetime "remember_token_expires_at"
+    t.string   "activation_code",           :limit => 40
+    t.datetime "activated_at"
+    t.string   "state",                                   :default => "passive"
+    t.datetime "deleted_at"
+  end
 
 end

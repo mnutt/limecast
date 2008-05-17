@@ -1,0 +1,28 @@
+<p>
+  <b>Podcast:</b>
+  <%=h @episode.podcast_id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @episode.title %>
+</p>
+
+<p>
+  <b>Summary:</b>
+  <%= @episode.summary %>
+</p>
+
+<p>
+  <b>Download:</b>
+  <%= link_to "Download", @episode.enclosure_url %>
+</p>
+
+<p>
+  <b>Published at:</b>
+  <%=h @episode.published_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_episode_path(@episode) %> |
+<%= link_to 'Back', episodes_path %>

@@ -1,0 +1,25 @@
+<%= image_tag(@podcast.logo.url(:small)) -%>
+<p>
+  <b>Title:</b>
+  <%=h @podcast.title %>
+</p>
+
+<p>
+  <b>Site:</b>
+  <%=h @podcast.site %>
+</p>
+
+<p>
+  <b>Feed:</b>
+  <%=h @podcast.feed %>
+</p>
+
+<h2>Episodes:</h2>
+<ul>
+<% @podcast.episodes.each do |episode| -%>
+  <li><%= link_to (episode.title or "untitled"), episode_url(episode) -%></li>
+<% end -%>
+</ul>
+
+<%= link_to 'Edit', edit_podcast_path(@podcast) %> |
+<%= link_to 'Back', podcasts_path %>

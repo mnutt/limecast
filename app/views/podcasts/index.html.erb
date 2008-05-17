@@ -1,0 +1,30 @@
+<h1>Listing podcasts</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Site</th>
+    <th>Feed</th>
+    <th>Logo file name</th>
+    <th>Logo content type</th>
+    <th>Logo file size</th>
+  </tr>
+
+<% for podcast in @podcasts %>
+  <tr>
+    <td><%=h podcast.title %></td>
+    <td><%=h podcast.site %></td>
+    <td><%=h podcast.feed %></td>
+    <td><%=h podcast.logo_file_name %></td>
+    <td><%=h podcast.logo_content_type %></td>
+    <td><%=h podcast.logo_file_size %></td>
+    <td><%= link_to 'Show', podcast %></td>
+    <td><%= link_to 'Edit', edit_podcast_path(podcast) %></td>
+    <td><%= link_to 'Destroy', podcast, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New podcast', new_podcast_path %>

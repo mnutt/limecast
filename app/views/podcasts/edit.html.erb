@@ -1,0 +1,36 @@
+<h1>Editing podcast</h1>
+
+<% form_for(@podcast) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :site %><br />
+    <%= f.text_field :site %>
+  </p>
+  <p>
+    <%= f.label :feed %><br />
+    <%= f.text_field :feed %>
+  </p>
+  <p>
+    <%= f.label :logo_file_name %><br />
+    <%= f.text_field :logo_file_name %>
+  </p>
+  <p>
+    <%= f.label :logo_content_type %><br />
+    <%= f.text_field :logo_content_type %>
+  </p>
+  <p>
+    <%= f.label :logo_file_size %><br />
+    <%= f.text_field :logo_file_size %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @podcast %> |
+<%= link_to 'Back', podcasts_path %>

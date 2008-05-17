@@ -1,0 +1,28 @@
+<% form_for(@podcast) do |f| %>
+<fieldset style="width: 700px">
+  <%= f.error_messages %>
+
+  <%= image_tag @podcast.logo_link, :style => "float: right;" -%>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title, :value => @podcast.title %>
+  </p>
+  <p>
+    <%= f.label :site %><br />
+    <%= f.text_field :site, :value => @podcast.site %>
+  </p>
+  <p>
+    <%= f.label :feed %><br />
+    <%= f.text_field :feed, :value => @podcast.feed %>
+  </p>
+  <p>
+    <%= f.label :logo_link %><br />
+    <%= f.text_field :logo_link, :value => @podcast.logo_link %>
+  </p>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+</fieldset>
+<% end %>

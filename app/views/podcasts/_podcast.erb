@@ -1,0 +1,4 @@
+<div class="podcast" id="<%= dom_id(podcast) -%>">
+  <%= image_tag podcast.logo.url(:square) -%>
+  <div class="title"><%= link_to podcast.title, podcast_url(podcast) -%></div>
+</div>

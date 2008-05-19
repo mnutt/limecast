@@ -1,6 +1,6 @@
 <h1>Editing podcast</h1>
 
-<% form_for(@podcast) do |f| %>
+<% form_for(@podcast, :html => { :multipart => true }) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -16,16 +16,8 @@
     <%= f.text_field :feed %>
   </p>
   <p>
-    <%= f.label :logo_file_name %><br />
-    <%= f.text_field :logo_file_name %>
-  </p>
-  <p>
-    <%= f.label :logo_content_type %><br />
-    <%= f.text_field :logo_content_type %>
-  </p>
-  <p>
-    <%= f.label :logo_file_size %><br />
-    <%= f.text_field :logo_file_size %>
+    <%= f.label :logo %><br />
+    <%= f.file_field :logo %>
   </p>
   <p>
     <%= f.submit "Update" %>

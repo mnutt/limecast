@@ -1,21 +1,17 @@
-<p>
-  <b>Podcast:</b>
-  <%=h @episode.podcast_id %>
-</p>
+<h1><%=h @episode.title %></h1>
 
 <p>
-  <b>Title:</b>
-  <%=h @episode.title %>
+  <b>Podcast:</b>
+  <%= link_to h(@episode.podcast.title), podcast_url(@episode.podcast) %>
 </p>
 
 <p>
   <b>Summary:</b>
-  <%= @episode.summary %>
+  <%=strip_tags @episode.summary %>
 </p>
 
 <p>
-  <b>Download:</b>
-  <%= link_to "Download", @episode.enclosure_url %>
+  <b><%= link_to "Download Podcast", @episode.enclosure_url %></b>
 </p>
 
 <p>
@@ -23,6 +19,10 @@
   <%=h @episode.published_at %>
 </p>
 
+<h2>Comments</h2>
+<div class="comments">
+  <%= render :partial => 'comments/comments', :object => @episode -%>
+  <%= render :partial => 'comments/add_comment', :object => @episode -%>
+</div>
 
-<%= link_to 'Edit', edit_episode_path(@episode) %> |
 <%= link_to 'Back', episodes_path %>

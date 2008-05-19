@@ -1,17 +1,17 @@
-<%= image_tag(@podcast.logo.url(:small)) -%>
-<p>
-  <b>Title:</b>
-  <%=h @podcast.title %>
-</p>
+<div style="float: right; margin: 20px;">
+  <%= image_tag(@podcast.logo.url(:small)) -%>
+</div>
+
+<h1><%=h @podcast.title %></h1>
 
 <p>
   <b>Site:</b>
-  <%=h @podcast.site %>
+  <%= link_to h(@podcast.site), @podcast.site %>
 </p>
 
 <p>
   <b>Feed:</b>
-  <%=h @podcast.feed %>
+  <%= link_to h(@podcast.feed), @podcast.feed %>
 </p>
 
 <h2>Episodes:</h2>
@@ -21,5 +21,8 @@
 <% end -%>
 </ul>
 
-<%= link_to 'Edit', edit_podcast_path(@podcast) %> |
+<% if @podcast.writable_by?(current_user) -%>
+  <%= link_to 'Edit', edit_podcast_path(@podcast) %> |
+<% end -%>
+
 <%= link_to 'Back', podcasts_path %>

@@ -2,7 +2,9 @@
 <fieldset style="width: 700px">
   <%= f.error_messages %>
 
-  <%= image_tag @podcast.logo_link, :style => "float: right;" -%>
+  <div style="width: 300; height: 300; float: right; overflow: hidden;">
+    <%= image_tag @podcast.logo_link -%>
+  </div>
 
   <p>
     <%= f.label :title %><br />
@@ -17,8 +19,8 @@
     <%= f.text_field :feed, :value => @podcast.feed %>
   </p>
   <p>
-    <%= f.label :logo_link %><br />
-    <%= f.text_field :logo_link, :value => @podcast.logo_link %>
+    <%= f.label :logo %><br />
+    <%= f.text_field :logo, :value => @podcast.logo_link %>
   </p>
 
   <p>

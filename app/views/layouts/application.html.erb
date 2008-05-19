@@ -7,11 +7,32 @@
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 <meta http-equiv="imagetoolbar" content="no" />
 
-<%= javascript_include_tag 'prototype' -%>
+<%= javascript_include_tag 'prototype', 'effects' -%>
 
 </head>
 
 <body>
+  <div class="title" style="font-size:3em; line-height: 1em; margin-top: 10px;">LimeCast</div>
+
+  <% if flash[:error] -%>
+    <div id="error_messages" style="background-color: #FDD; color: #900; border: 1px solid #900;">
+      <%= flash[:error] -%>
+    </div>
+  <% end -%>
+
+  <div id="navigation">
+    <span><%= link_to "Home", root_url -%></span>
+    <span><%= link_to "Podcasts", podcasts_url -%></span>
+    <span><%= link_to "Episodes", episodes_url -%></span>
+    <% if current_user -%>
+      <span>Logged in as <b><%= current_user.login -%></b></span>
+      <span><%= link_to "Logout", logout_url -%><span>
+    <% else -%>
+      <span><%= link_to "Login", login_url -%></span>
+      <span><%= link_to "Signup", signup_url -%></span>
+    <% end -%>
+  </div>
+
   <%= yield -%>
 </body>
 

@@ -6,7 +6,7 @@ module AuthenticatedSystem
       !!current_user
     end
 
-    # Accesses the current user from the session. 
+    # Accesses the current user from the session.
     # Future calls avoid the database because nil is not equal to false.
     def current_user
       @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie) unless @current_user == false
@@ -30,7 +30,7 @@ module AuthenticatedSystem
     #  def authorized?
     #    current_user.login != "bob"
     #  end
-    def authorized?
+    def authenticated?
       logged_in?
     end
 
@@ -49,7 +49,7 @@ module AuthenticatedSystem
     #   skip_before_filter :login_required
     #
     def login_required
-      authorized? || access_denied
+      authenticated? || unauthenticated
     end
 
     # Redirect as appropriate when an access request fails.
@@ -60,9 +60,10 @@ module AuthenticatedSystem
     # behavior in case the user is not authorized
     # to access the requested action.  For example, a popup window might
     # simply close itself.
-    def access_denied
+    def unauthenticated
       respond_to do |format|
         format.html do
+          flash[:error] = "You need to be logged in to do that."
           store_location
           redirect_to new_session_path
         end
@@ -70,6 +71,19 @@ module AuthenticatedSystem
           request_http_basic_authentication 'Web Password'
         end
       end
+    end
+
+    def unauthorized
+      respond_to do |format|
+        format.html do
+          render :text => "You do not have permission to perform this action."
+        end
+      end
+    end
+
+    def authorize_write(thing)
+      raise ArgumentError unless thing.respond_to?(:writable_by?)
+      thing.writable_by?(current_user) || unauthorized
     end
 
     # Store the URI of the current request in the session.

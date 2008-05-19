@@ -1,4 +1,5 @@
 class PodcastsController < ApplicationController
+  before_filter :login_required, :only => [:new, :edit, :create, :update, :destroy]
   # GET /podcasts
   # GET /podcasts.xml
   def index
@@ -23,6 +24,8 @@ class PodcastsController < ApplicationController
 
   def feed_info
     @podcast = Podcast.new_from_feed(params[:feed])
+  rescue
+    render :partial => "bad_feed"
   end
 
   # GET /podcasts/new
@@ -39,12 +42,14 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1/edit
   def edit
     @podcast = Podcast.find(params[:id])
+    authorize_write @podcast
   end
 
   # POST /podcasts
   # POST /podcasts.xml
   def create
     @podcast = Podcast.new(params[:podcast])
+    @podcast.user = current_user
 
     respond_to do |format|
       if @podcast.save

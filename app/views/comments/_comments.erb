@@ -1,0 +1,10 @@
+<% commentable = comments -%>
+<% options ||= {} -%>
+
+<div id="comments_list">
+  <% if commentable.comments.empty? -%>
+    <p>There are no comments.</p>
+  <% else -%>
+    <%= render :partial => 'comments/comment', :collection => commentable.comments -%>
+  <% end -%>
+</div>

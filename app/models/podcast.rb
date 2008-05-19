@@ -4,13 +4,16 @@ require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
   belongs_to :user
-  has_many :episodes
+  has_many :episodes, :dependent => :destroy
 
   attr_accessor :logo_link
 
   has_attached_file :logo,
                     :styles => { :square => ["64x64#", :png],
-                                 :small  => "150x150>" }
+                                 :small  => ["150x150#", :png] }
+
+  after_create :retrieve_episodes_from_feed
+  #before_save :download_logo
 
   def self.new_from_feed(feed)
     podcast = self.new
@@ -34,11 +37,23 @@ class Podcast < ActiveRecord::Base
     podcast
   end
 
-  before_save :download_logo
+  def download_logo
+    return if logo_link.nil?
+
+    @file = PaperClipFile.new
+    @file.original_filename = File.basename(logo_link)
+    open(logo_link) do |f|
+      @file.to_tempfile = Tempfile.new('logo')
+      @file.to_tempfile.write(f.read)
+      @file.content_type = f.content_type
+      attachment_for(:logo).assign @file
+    end
+  end
 
   def retrieve_episodes_from_feed
-    OpenURI.open_uri(feed, "If-None-Match" => (self.feed_etag || "")) do |f|
-      self.update_attribute(:feed_etag, f.meta['etag'])
+    # OpenURI.open_uri(feed, "If-None-Match" => (self.feed_etag || "")) do |f|
+    OpenURI.open_uri(feed) do |f|
+      @etag = f.meta['etag']
       @feed = f.read
     end
 
@@ -46,32 +61,34 @@ class Podcast < ActiveRecord::Base
 
     doc = REXML::Document.new(@feed)
     doc.elements.each('rss/channel/item') do |e|
-      episode = self.episodes.find_or_create_by_guid(e.elements['guid'].text)
+      begin
+        episode = Episode.find_by_guid(e.elements['guid'].text)
+        episode ||= Episode.new(:guid => e.elements['guid'].text)
+      rescue
+        episode = Episode.find_by_guid(e.elements['enclosure'].attributes['url'])
+        episode ||= Episode.new(:guid => e.elements['enclosure'].attributes['url'])
+      end
+      episode.podcast_id = self.id
       episode.title = e.elements['title'].text rescue nil
-      episode.summary = e.elements['itunes:summary'] ? e.elements['itunes:summary'].text : e.elements['description'].text rescue nil
+      episode.summary = e.elements['description'] ? e.elements['description'].text : e.elements['itunes:summary'].text rescue nil
       episode.published_at = Time.parse(e.elements['pubDate'].text) rescue nil
       episode.enclosure_url = e.elements['enclosure'].attributes['url'] rescue nil
       episode.enclosure_type = e.elements['enclosure'].attributes['type'] rescue nil
       episode.duration = Time.parse(e.elements['itunes:duration'].text) - Time.now.beginning_of_day rescue nil
       episode.save
+
       @feed_episodes << episode
     end
 
+    #self.feed_etag = @etag
     @feed_episodes
-  rescue
-    puts "Problem with feed #{self.feed}"
+  rescue OpenURI::HTTPError
+    puts "#{self.feed} not modified, skipping..."
+  #rescue
+  #  puts "Problem with feed #{self.feed}"
   end
 
-  def download_logo
-    return if logo_link.nil?
-
-    @file = PaperClipFile.new
-    @file.original_filename = File.basename(logo_link)
-    open(feed) do |f|
-      @file.to_tempfile = StringIO.new(f.read)
-      @file.content_type = f.content_type
-      @file.size = f.size
-      self.logo.assign @file
-    end
+  def writable_by?(user)
+    user and self.user == user
   end
 end

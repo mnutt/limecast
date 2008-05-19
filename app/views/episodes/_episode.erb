@@ -1,5 +1,5 @@
 <div class="episode">
   <div class="title"><%= link_to episode.title, episode_url(episode) -%></div>
   <div class="podcast_title"><%= episode.podcast.title -%></div>
-  <p class="description"><%=h episode.summary -%></p>
+  <p class="description"><%=strip_tags episode.summary -%></p>
 </div>

@@ -13,7 +13,7 @@ class Podcast < ActiveRecord::Base
                                  :small  => ["150x150#", :png] }
 
   after_create :retrieve_episodes_from_feed
-  #before_save :download_logo
+  before_save :download_logo
 
   def self.new_from_feed(feed)
     podcast = self.new
@@ -45,6 +45,7 @@ class Podcast < ActiveRecord::Base
     open(logo_link) do |f|
       @file.to_tempfile = Tempfile.new('logo')
       @file.to_tempfile.write(f.read)
+      @file.to_tempfile.rewind
       @file.content_type = f.content_type
       attachment_for(:logo).assign @file
     end
@@ -80,12 +81,12 @@ class Podcast < ActiveRecord::Base
       @feed_episodes << episode
     end
 
-    #self.feed_etag = @etag
+    self.feed_etag = @etag
     @feed_episodes
   rescue OpenURI::HTTPError
     puts "#{self.feed} not modified, skipping..."
-  #rescue
-  #  puts "Problem with feed #{self.feed}"
+  rescue
+    puts "Problem with feed #{self.feed}"
   end
 
   def writable_by?(user)

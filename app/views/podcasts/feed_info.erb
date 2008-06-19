@@ -22,6 +22,10 @@
     <%= f.label :logo_link %><br />
     <%= f.text_field :logo_link, :value => @podcast.logo_link %>
   </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :value => @podcast.description, :cols => 26, :rows => 10 %>
+  </p>
 
   <p>
     <%= f.submit "Create" %>

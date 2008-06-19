@@ -4,6 +4,7 @@ require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
   belongs_to :user
+  has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :episodes, :dependent => :destroy
 
   attr_accessor :logo_link
@@ -32,6 +33,9 @@ class Podcast < ActiveRecord::Base
     end
     doc.elements.each('rss/channel/itunes:image') do |e|
       podcast.logo_link = e.attributes['href']
+    end
+    doc.elements.each('rss/channel/itunes:summary') do |e|
+      podcast.description = e.text
     end
 
     podcast

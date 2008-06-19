@@ -4,26 +4,25 @@
 
 <h1><%=h @episode.title %></h1>
 
-<p>
-  <b>Podcast:</b>
-  <%= link_to h(@episode.podcast.title), podcast_url(@episode.podcast) %>
-</p>
-
-<p>
-  <b>Summary:</b>
-  <%=strip_tags @episode.summary %>
-</p>
+<h2>from <%= link_to h(@episode.podcast.title), podcast_url(@episode.podcast) %></h2>
 
 <p>
   <b><%= link_to "Download Podcast", @episode.enclosure_url %></b>
 </p>
 
-<p>
-  <b>Published at:</b>
-  <%=h @episode.published_at %>
-</p>
+<div class="metadata">
+  <div class="publish_date">
+    <div class="title">Publish Date</div>
+    <p><%=h @episode.published_at.strftime("%B %d, %Y") %></p>
+  </div>
 
-<h2>Comments</h2>
+  <div class="summary">
+    <div class="title">Summary</div>
+    <p><%=strip_tags @episode.summary %></p>
+    </div>
+</div>
+
+<h2>Customer Reviews</h2>
 <div class="comments">
   <%= render :partial => 'comments/comments', :object => @episode -%>
   <%= render :partial => 'comments/add_comment', :object => @episode -%>

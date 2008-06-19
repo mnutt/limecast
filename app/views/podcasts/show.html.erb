@@ -4,17 +4,25 @@
 
 <h1><%=h @podcast.title %></h1>
 
-<p>
-  <b>Site:</b>
-  <%= link_to h(@podcast.site), @podcast.site %>
-</p>
+<div class="user"><%=h @podcast.user.login -%></div>
+<div class="site"><%=link_to @podcast.site, h(@podcast.site) %></div>
 
-<p>
-  <b>Feed:</b>
-  <%= link_to h(@podcast.feed), @podcast.feed %>
-</p>
+<div class="subscribe">
+  <%= link_to "Subscribe", @podcast.feed %>
+</div>
 
-<h2>Episodes:</h2>
+<h2>Podcast Description</h2>
+<div class="description">
+  <%= @podcast.description -%>
+</div>
+
+<h2>Customer Reviews</h2>
+<div class="comments">
+  <%= render :partial => 'comments/comments', :object => @podcast -%>
+  <%= render :partial => 'comments/add_comment', :object => @podcast -%>
+</div>
+
+<h2>Episodes</h2>
 <ul>
 <% @podcast.episodes.each do |episode| -%>
   <li><%= link_to (episode.title or "untitled"), episode_url(episode) -%></li>

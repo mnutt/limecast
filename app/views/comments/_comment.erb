@@ -1,4 +1,5 @@
 <div class="comment" id="<%= dom_id(comment) -%>">
-  <cite><%= comment.commenter.login -%> says:</cite>
+  <div class="title"><%=h comment.title -%></div>
+  <cite>by <%= comment.commenter.login -%></cite>
   <p class="body"><%=h comment.body -%></p>
 </div>

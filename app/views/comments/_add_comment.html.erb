@@ -3,11 +3,17 @@
 
 <% if current_user -%>
 <% remote_form_for(:comment, :update => 'comments_list', :position => :bottom, :url => comments_url) do |f| -%>
-  <%= f.label :body, "Add a comment" -%>
-    <div><%= f.text_area :body, :style => "height: 8em; #{ 'width: 95%;' if options[:width] == 'full' }" -%></div>
+  <%= f.label :title -%>
+  <div><%= f.text_field :title -%></div>
+  <%= f.label :body, "Review" -%>
+  <div><%= f.text_area :body, :style => "height: 8em; #{ 'width: 95%;' if options[:width] == 'full' }" -%></div>
 
   <%= f.hidden_field :commentable_id, :value => commentable.id -%>
   <%= f.hidden_field :commentable_type, :value => commentable.class.to_s -%>
   <%= submit_tag "Add" -%>
 <% end -%>
+<% else -%>
+  <span><%= link_to "Login", login_url -%></span> or
+  <span><%= link_to "Signup", signup_url -%></span>
+  to post reviews.
 <% end -%>

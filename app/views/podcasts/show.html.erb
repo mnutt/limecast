@@ -1,20 +1,20 @@
 <%= image_tag(@podcast.logo.url(:small)) -%>
-<p>
-  <b>Title:</b>
-  <%=h @podcast.title %>
-</p>
 
-<p>
-  <b>Site:</b>
-  <%=h @podcast.site %>
-</p>
+<h1><%=h @podcast.title %></h1>
 
-<p>
-  <b>Feed:</b>
-  <%=h @podcast.feed %>
-</p>
+<div class="user"><%=h @podcast.user.login -%></div>
+<div class="site"><%=link_to @podcast.site, h(@podcast.site) %></div>
 
-<h2>Episodes:</h2>
+<div class="subscribe">
+  <%= link_to "Subscribe", @podcast.feed %>
+</div>
+
+<h2>Podcast Description</h2>
+<div class="description">
+  <%= @podcast.description -%>
+</div>
+
+<h2>Episodes</h2>
 <ul>
 <% @podcast.episodes.each do |episode| -%>
   <li><%= link_to (episode.title or "untitled"), episode_url(episode) -%></li>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080517042049) do
+ActiveRecord::Schema.define(:version => 20080619023756) do
 
   create_table "episodes", :force => true do |t|
     t.integer  "podcast_id"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(:version => 20080517042049) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "feed_etag"
+    t.integer  "user_id"
+    t.text     "description"
   end
 
   create_table "users", :force => true do |t|

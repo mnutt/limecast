@@ -37,6 +37,9 @@ class Podcast < ActiveRecord::Base
     doc.elements.each('rss/channel/itunes:summary') do |e|
       podcast.description = e.text
     end
+    doc.elements.each('rss/channel/language') do |e|
+      podcast.language = e.text
+    end
 
     podcast
   end

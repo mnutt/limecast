@@ -1,6 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :comments
 
+  map.namespace :admin do |admin|
+    admin.resources :podcasts
+    admin.resources :episodes
+  end
+
   map.resources :episodes
 
   map.resources :podcasts, :collection => { :feed_info => :any }

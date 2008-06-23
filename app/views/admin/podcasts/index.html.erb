@@ -1,0 +1,36 @@
+<h1>Listing podcasts</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Site</th>
+    <th>Feed</th>
+    <th>Created at</th>
+    <th>Updated at</th>
+    <th>Feed etag</th>
+    <th>User</th>
+    <th>Description</th>
+    <th>Language</th>
+  </tr>
+
+<% for podcast in @podcasts %>
+  <tr>
+    <td><%=h podcast.title %></td>
+    <td><%=h podcast.site %></td>
+    <td><%=h podcast.feed %></td>
+    <td><%=h podcast.created_at %></td>
+    <td><%=h podcast.updated_at %></td>
+    <td><%=h podcast.feed_etag %></td>
+    <td><%=h podcast.user_id %></td>
+    <td><%=h podcast.description %></td>
+    <td><%=h podcast.language %></td>
+    <td><%= link_to 'Show', podcast %></td>
+    <td><%= link_to 'Edit', edit_podcast_path(podcast) %></td>
+    <td><%= link_to 'Destroy', podcast, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New podcast', new_podcast_path %>

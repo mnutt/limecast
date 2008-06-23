@@ -1,0 +1,36 @@
+<h1>Listing episodes</h1>
+
+<table>
+  <tr>
+    <th>Summary</th>
+    <th>Published at</th>
+    <th>Enclosure url</th>
+    <th>Created at</th>
+    <th>Updated at</th>
+    <th>Guid</th>
+    <th>Enclosure type</th>
+    <th>Duration</th>
+    <th>Title</th>
+  </tr>
+
+<% for episode in @episodes %>
+  <tr>
+    <td><%=h episode.summary %></td>
+    <td><%=h episode.published_at %></td>
+    <td><%=h episode.enclosure_url %></td>
+    <td><%=h episode.created_at %></td>
+    <td><%=h episode.updated_at %></td>
+    <td><%=h episode.guid %></td>
+    <td><%=h episode.enclosure_type %></td>
+    <td><%=h episode.duration %></td>
+    <td><%=h episode.title %></td>
+    <td><%= link_to 'Show', episode %></td>
+    <td><%= link_to 'Edit', edit_episode_path(episode) %></td>
+    <td><%= link_to 'Destroy', episode, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New episode', new_episode_path %>

@@ -1,0 +1,48 @@
+<p>
+  <b>Title:</b>
+  <%=h @podcast.title %>
+</p>
+
+<p>
+  <b>Site:</b>
+  <%=h @podcast.site %>
+</p>
+
+<p>
+  <b>Feed:</b>
+  <%=h @podcast.feed %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%=h @podcast.created_at %>
+</p>
+
+<p>
+  <b>Updated at:</b>
+  <%=h @podcast.updated_at %>
+</p>
+
+<p>
+  <b>Feed etag:</b>
+  <%=h @podcast.feed_etag %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @podcast.user_id %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @podcast.description %>
+</p>
+
+<p>
+  <b>Language:</b>
+  <%=h @podcast.language %>
+</p>
+
+
+<%= link_to 'Edit', edit_podcast_path(@podcast) %> |
+<%= link_to 'Back', podcasts_path %>

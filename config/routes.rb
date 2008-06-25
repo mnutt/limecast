@@ -10,6 +10,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :podcasts, :collection => { :feed_info => :any }
 
+  map.resources :tags
+
   map.resources :users
   map.activate  '/activate/:activation_code', :controller => "users", :action => "activate"
   map.signup    '/signup', :controller => "users", :action => "new"

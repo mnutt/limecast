@@ -9,6 +9,8 @@ class Podcast < ActiveRecord::Base
 
   attr_accessor :logo_link
 
+  acts_as_taggable
+
   has_attached_file :logo,
                     :styles => { :square => ["64x64#", :png],
                                  :small  => ["150x150#", :png] }

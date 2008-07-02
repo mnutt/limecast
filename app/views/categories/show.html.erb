@@ -1,0 +1,7 @@
+<h1><%= @category.name -%></h1>
+
+<div id="podcasts">
+<% @category.podcasts.each do |podcast| -%>
+  <%= render :partial => 'podcasts/podcast', :object => podcast -%>
+<% end -%>
+</div>

@@ -1,4 +1,4 @@
-class Admin::PodcastsController < ApplicationController
+class Admin::PodcastsController < AdminController
   # GET /admin_podcasts
   # GET /admin_podcasts.xml
   def index
@@ -20,7 +20,7 @@ class Admin::PodcastsController < ApplicationController
       format.xml  { render :xml => @podcast }
     end
   end
- 
+
   # GET /admin_podcasts/new
   # GET /admin_podcasts/new.xml
   def new
@@ -58,11 +58,12 @@ class Admin::PodcastsController < ApplicationController
   # PUT /admin_podcasts/1.xml
   def update
     @podcast = Podcast.find(params[:id])
+    @podcast.attributes = params[:podcast]
 
     respond_to do |format|
-      if @podcast.update_attributes(params[:podcast])
+      if @podcast.save
         flash[:notice] = 'Podcast was successfully updated.'
-        format.html { redirect_to(@podcast) }
+        format.html { redirect_to(admin_podcast_url(@podcast)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

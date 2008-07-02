@@ -1,4 +1,4 @@
-class Admin::EpisodesController < ApplicationController
+class Admin::EpisodesController < AdminController
   # GET /admin_episodes
   # GET /admin_episodes.xml
   def index

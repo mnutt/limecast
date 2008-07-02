@@ -4,6 +4,7 @@ require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
   belongs_to :user
+  belongs_to :category
   has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :episodes, :dependent => :destroy
 
@@ -12,7 +13,7 @@ class Podcast < ActiveRecord::Base
   acts_as_taggable
 
   has_attached_file :logo,
-                    :styles => { :square => ["64x64#", :png],
+                    :styles => { :square => ["85x85#", :png],
                                  :small  => ["150x150#", :png] }
 
   after_create :retrieve_episodes_from_feed
@@ -46,8 +47,12 @@ class Podcast < ActiveRecord::Base
     podcast
   end
 
+  def to_param
+    "#{self.id}-#{self.title.gsub(/[^A-Za-z0-9]/, "")}"
+  end
+
   def download_logo
-    return if logo_link.nil?
+    return true if logo_link.nil? or logo_link.blank?
 
     @file = PaperClipFile.new
     @file.original_filename = File.basename(logo_link)
@@ -99,6 +104,6 @@ class Podcast < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    user and self.user == user
+    user and self.user_id == user.id
   end
 end

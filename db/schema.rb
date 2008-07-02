@@ -9,7 +9,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080623144131) do
+ActiveRecord::Schema.define(:version => 20080701214920) do
+
+  create_table "admin_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -50,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20080623144131) do
     t.integer  "user_id"
     t.text     "description"
     t.string   "language"
+    t.integer  "category_id"
   end
 
   create_table "taggings", :force => true do |t|
@@ -85,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20080623144131) do
     t.datetime "activated_at"
     t.string   "state",                                   :default => "passive"
     t.datetime "deleted_at"
+    t.boolean  "admin"
   end
 
 end

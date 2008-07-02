@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
     self.class.encrypt(password, salt)
   end
 
+  def admin?
+    self.admin
+  end
+
   def authenticated?(password)
     crypted_password == encrypt(password)
   end

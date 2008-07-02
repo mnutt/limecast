@@ -1,9 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :categories
+
   map.resources :comments
 
   map.namespace :admin do |admin|
+    admin.root :controller => 'admin', :action => 'index'
     admin.resources :podcasts
     admin.resources :episodes
+    admin.resources :categories, :collection => { :order => :any }
   end
 
   map.resources :episodes

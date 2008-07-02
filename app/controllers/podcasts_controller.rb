@@ -31,6 +31,8 @@ class PodcastsController < ApplicationController
   # GET /podcasts/new
   # GET /podcasts/new.xml
   def new
+    login_required
+
     @podcast = Podcast.new
 
     respond_to do |format|
@@ -48,6 +50,8 @@ class PodcastsController < ApplicationController
   # POST /podcasts
   # POST /podcasts.xml
   def create
+    login_required
+
     @podcast = Podcast.new(params[:podcast])
     @podcast.user = current_user
 
@@ -67,9 +71,11 @@ class PodcastsController < ApplicationController
   # PUT /podcasts/1.xml
   def update
     @podcast = Podcast.find(params[:id])
+    authorize_write @podcast
 
+    @podcast.attributes = params[:podcast]
     respond_to do |format|
-      if @podcast.update_attributes(params[:podcast])
+      if @podcast.save
         flash[:notice] = 'Podcast was successfully updated.'
         format.html { redirect_to(@podcast) }
         format.xml  { head :ok }
@@ -84,6 +90,8 @@ class PodcastsController < ApplicationController
   # DELETE /podcasts/1.xml
   def destroy
     @podcast = Podcast.find(params[:id])
+    authorize_write @podcast
+
     @podcast.destroy
 
     respond_to do |format|

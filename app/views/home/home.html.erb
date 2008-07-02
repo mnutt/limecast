@@ -1,2 +1,11 @@
-<h2>Recently Added Episodes</h2>
-<%= render :partial => "episodes/episode", :collection => @episodes -%>
+<div id="recent_podcasts">
+  <h2>Recently Added Podcasts</h2>
+  <%= render :partial => "podcasts/podcast", :collection => @podcasts -%>
+</div>
+
+<div style="clear:both;"></div>
+
+<div id="recent_episodes">
+  <h2>Recently Added Episodes</h2>
+  <%= render :partial => "episodes/episode", :collection => @episodes -%>
+</div>

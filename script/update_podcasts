@@ -1,0 +1,8 @@
+#!/usr/bin/ruby
+root_path = File.join(File.dirname(__FILE__), '..')
+require "#{root_path}/config/environment.rb"
+
+Podcast.find(:all).each do |podcast|
+  puts "Getting episodes for #{podcast.title}"
+  podcast.retrieve_episodes_from_feed
+end

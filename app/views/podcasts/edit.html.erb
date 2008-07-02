@@ -3,30 +3,8 @@
 <% form_for(@podcast, :html => { :multipart => true }) do |f| %>
   <%= f.error_messages %>
 
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :site %><br />
-    <%= f.text_field :site %>
-  </p>
-  <p>
-    <%= f.label :feed %><br />
-    <%= f.text_field :feed %>
-  </p>
-  <p>
-    <%= f.label :tag_list -%><br />
-    <%= f.text_field :tag_list -%>
-  </p>
-  <p>
-    <%= f.label :logo %><br />
-    <%= f.file_field :logo %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description, :value => @podcast.description, :cols => 26, :rows => 10 %>
-  </p>
+  <%= render :partial => 'form', :locals => {:f => f} -%>
+
   <p>
     <%= f.submit "Update" %>
   </p>

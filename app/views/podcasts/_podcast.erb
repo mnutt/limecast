@@ -1,4 +1,5 @@
 <div class="podcast" id="<%= dom_id(podcast) -%>">
-  <%= image_tag podcast.logo.url(:square) -%>
+  <%= link_to image_tag(podcast.logo.url(:square)), podcast_url(podcast) -%>
   <div class="title"><%= link_to podcast.title, podcast_url(podcast) -%></div>
+  <div class="category">in <%= link_to podcast.category.name, category_url(podcast.category) -%></div>
 </div>

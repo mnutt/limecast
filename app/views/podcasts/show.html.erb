@@ -1,12 +1,19 @@
 <h1><%=h @podcast.title %></h1>
 
+<% if @podcast.writable_by?(current_user) -%>
+  <div id="edit_actions">
+    <span><%= link_to "Edit", edit_podcast_url(@podcast) -%></span>
+    <span><%= link_to "Delete", podcast_url(@podcast), :method => 'delete' -%></span>
+  </div>
+<% end -%>
+
 <div class="podcast-thumbnail" style="float: left; margin: 0px 20px 20px 0px;">
   <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
 </div>
 
 <div class="user"><%=h @podcast.user.login -%></div>
-<div class="site"><%=link_to @podcast.site, h(@podcast.site) %></div>
-
+<div class="site">Site: <%=link_to h(@podcast.site), h(@podcast.site) %></div>
+<div class="category">Category: <%= link_to h(@podcast.category.name), category_path(@podcast.category) %></div>
 <div class="subscribe">
   <%= link_to "Subscribe", @podcast.feed %>
 </div>

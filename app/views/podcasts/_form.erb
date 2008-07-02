@@ -1,0 +1,30 @@
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title, :value => @podcast.title %>
+  </p>
+  <p>
+    <%= f.label :site %><br />
+    <%= f.text_field :site, :value => @podcast.site %>
+  </p>
+  <p>
+    <%= f.label :feed %><br />
+    <%= f.text_field :feed, :value => @podcast.feed %>
+  </p>
+  <p>
+    <%= f.label :logo_link %><br />
+    <%= f.text_field :logo_link, :value => @podcast.logo_link %>
+  or
+    <%= f.file_field :logo -%>
+  </p>
+  <p>
+    <%= f.label :category -%><br />
+    <%= f.select :category_id, Category.find(:all, :order => 'position ASC').map{|c| [c.name, c.id]}, :value => @podcast.category_id -%>
+  </p>
+  <p>
+    <%= f.label :tag_list -%><br />
+    <%= f.text_field :tag_list -%>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :value => @podcast.description, :cols => 26, :rows => 10 %>
+  </p>

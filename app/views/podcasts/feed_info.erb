@@ -2,34 +2,13 @@
 <fieldset style="width: 700px">
   <%= f.error_messages %>
 
-  <div style="width: 300; height: 300; float: right; overflow: hidden;">
-    <%= image_tag @podcast.logo_link -%>
-  </div>
+  <% if @podcast.logo_link -%>
+    <div style="float: right;">
+      <%= image_tag @podcast.logo_link, :style => 'width: 300px; height: 300px;' -%>
+    </div>
+  <% end -%>
 
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title, :value => @podcast.title %>
-  </p>
-  <p>
-    <%= f.label :site %><br />
-    <%= f.text_field :site, :value => @podcast.site %>
-  </p>
-  <p>
-    <%= f.label :feed %><br />
-    <%= f.text_field :feed, :value => @podcast.feed %>
-  </p>
-  <p>
-    <%= f.label :logo_link %><br />
-    <%= f.text_field :logo_link, :value => @podcast.logo_link %>
-  </p>
-  <p>
-    <%= f.label :tag_list -%><br />
-    <%= f.text_field :tag_list -%>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description, :value => @podcast.description, :cols => 26, :rows => 10 %>
-  </p>
+  <%= render :partial => 'form', :locals => {:f => f} -%>
 
   <p>
     <%= f.submit "Create" %>

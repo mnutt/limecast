@@ -7,30 +7,41 @@
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 <meta http-equiv="imagetoolbar" content="no" />
 
-<%= javascript_include_tag 'prototype', 'effects', 'reflection' -%>
+<%= javascript_include_tag 'prototype', 'scriptaculous', 'effects', 'controls', 'dragdrop', 'reflection' -%>
 <%= stylesheet_link_tag 'acts_as_taggable_stylesheet' -%>
 <%= stylesheet_link_tag 'application' -%>
 </head>
 
 <body>
-  <div class="title" style="font-size:3em; line-height: 1em; margin-top: 10px;">LimeCast</div>
+  <div class="title" style="font-size:3em; line-height: 1em; margin-top: 10px;"><a href="/" alt="Home">LimeCast</a></div>
 
-  <% if flash[:error] -%>
-    <div id="error_messages" style="background-color: #FDD; color: #900; border: 1px solid #900;">
-      <%= flash[:error] -%>
-    </div>
-  <% end -%>
-
-  <div id="navigation">
-    <span><%= link_to "Home", root_url -%></span>
-    <span><%= link_to "Podcasts", podcasts_url -%></span>
-    <span><%= link_to "Episodes", episodes_url -%></span>
+  <div id="account_navigation">
     <% if current_user -%>
       <span>Logged in as <b><%= current_user.login -%></b></span>
       <span><%= link_to "Logout", logout_url -%><span>
     <% else -%>
       <span><%= link_to "Login", login_url -%></span>
       <span><%= link_to "Signup", signup_url -%></span>
+    <% end -%>
+  </div>
+
+  <% if flash[:error] -%>
+    <div id="error_messages" style="background-color: #FDD; color: #900; border: 1px solid #900;">
+      <%= flash[:error] -%>
+    </div>
+  <% end -%>
+  <!--
+  <div id="navigation">
+    <span><%= link_to "Home", root_url -%></span>
+    <span><%= link_to "Podcasts", podcasts_url -%></span>
+    <span><%= link_to "Episodes", episodes_url -%></span>
+    <span><%= link_to "Categories", categories_url -%></span>
+  </div>
+  -->
+
+  <div id="categories_nav">
+    <% Category.find(:all, :order => 'position ASC').each do |category| -%>
+      <span><%= link_to category.name, category -%></span>
     <% end -%>
   </div>
 

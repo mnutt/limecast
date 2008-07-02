@@ -7,3 +7,21 @@ BODY {
 A {
   color: #5cafc4;
 }
+
+#account_navigation {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.podcast .title,
+.podcast .category {
+  width: 85px;
+  font-size: 0.7em;
+  font-weight: bold;
+}
+
+.podcast {
+  float: left;
+  padding: 10px;
+}

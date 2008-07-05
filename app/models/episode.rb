@@ -7,6 +7,6 @@ class Episode < ActiveRecord::Base
   has_many :comments, :as => :commentable, :dependent => :destroy
 
   def to_param
-    "#{self.id}-#{self.title.gsub(/[^A-Za-z0-9]/, "")}"
+    "#{self.id}-#{self.title.gsub(/[^A-Za-z0-9]/, "-")}"
   end
 end

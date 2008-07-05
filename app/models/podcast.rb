@@ -48,7 +48,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def to_param
-    "#{self.id}-#{self.title.gsub(/[^A-Za-z0-9]/, "")}"
+    "#{self.id}-#{self.title.gsub(/[^A-Za-z0-9]/, "-")}"
   end
 
   def download_logo

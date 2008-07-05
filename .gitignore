@@ -8,3 +8,4 @@ config/database.yml
 public/logos/*
 db/*.sqlite3
 .#*
+vendor/sphinx

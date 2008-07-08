@@ -11,13 +11,6 @@
 
 ActiveRecord::Schema.define(:version => 20080701214920) do
 
-  create_table "admin_categories", :force => true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "position"
@@ -61,7 +54,6 @@ ActiveRecord::Schema.define(:version => 20080701214920) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "feed_etag"
-    t.integer  "user_id"
     t.text     "description"
     t.string   "language"
     t.integer  "category_id"

@@ -1,6 +1,6 @@
 class AddUserIdToPodcasts < ActiveRecord::Migration
   def self.up
-    #add_column :podcasts, :user_id, :integer
+    add_column :podcasts, :user_id, :integer
   end
 
   def self.down

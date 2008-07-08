@@ -1,3 +1,24 @@
+# == Schema Information
+# Schema version: 20080701214920
+#
+# Table name: episodes
+#
+#  id                     :integer       not null, primary key
+#  podcast_id             :integer       
+#  summary                :text          
+#  enclosure_url          :string(255)   
+#  published_at           :datetime      
+#  created_at             :datetime      
+#  updated_at             :datetime      
+#  thumbnail_file_size    :integer       
+#  thumbnail_file_name    :string(255)   
+#  thumbnail_content_type :string(255)   
+#  guid                   :string(255)   
+#  enclosure_type         :string(255)   
+#  duration               :integer       
+#  title                  :string(255)   
+#
+
 class Episode < ActiveRecord::Base
   belongs_to :podcast
 

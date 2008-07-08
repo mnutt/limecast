@@ -1,3 +1,24 @@
+# == Schema Information
+# Schema version: 20080701214920
+#
+# Table name: podcasts
+#
+#  id                :integer       not null, primary key
+#  title             :string(255)   
+#  site              :string(255)   
+#  feed              :string(255)   
+#  logo_file_name    :string(255)   
+#  logo_content_type :string(255)   
+#  logo_file_size    :string(255)   
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  feed_etag         :string(255)   
+#  description       :text          
+#  language          :string(255)   
+#  category_id       :integer       
+#  user_id           :integer(11)   
+#
+
 require 'open-uri'
 require 'rexml/document'
 require 'paperclip_file'

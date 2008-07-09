@@ -24,7 +24,7 @@ class Episode < ActiveRecord::Base
 
   has_attached_file :thumbnail, :whiny_thumbnails => true,
                     :styles => { :square => ["85x85#", :png],
-                                 :small  => ["150x150#", :png] }
+                                 :small  => ["170x170#", :png] }
   has_many :comments, :as => :commentable, :dependent => :destroy
 
   def to_param

@@ -35,7 +35,7 @@ class Podcast < ActiveRecord::Base
 
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
-                                 :small  => ["150x150#", :png] }
+                                 :small  => ["170x170#", :png] }
 
   after_create :retrieve_episodes_from_feed
   before_save :download_logo

@@ -1,0 +1,3 @@
+development:
+  searchd_path: <%= "#{RAILS_ROOT}/vendor/sphinx/bin" %>
+  searchd_file_path: <%= "#{RAILS_ROOT}/db/sphinx/development" %>

@@ -1,5 +1,5 @@
-<div class="comment" id="<%= dom_id(comment) -%>">
-  <div class="title"><%=h comment.title -%></div>
+<div class="review" id="<%= dom_id(comment) -%>">
+  <h5><%=h comment.title -%></h5>
   <cite>by <%= comment.commenter.login -%></cite>
-  <p class="body"><%=h comment.body -%></p>
+  <p><%=h comment.body -%></p>
 </div>

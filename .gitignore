@@ -5,7 +5,10 @@ tmp/**/*
 doc/api
 doc/app
 config/database.yml
+config/development.sphinx.conf
 public/logos/*
 db/*.sqlite3
+db/sphinx/*
 .#*
 vendor/sphinx
+tmp/sphinx*

@@ -1,0 +1,10 @@
+--- 
+user: limecast
+cwd: /home/limecast/limecast.com/current
+log_file: log/mongrel.log
+port: "8000"
+environment: production
+group: limespot
+address: 127.0.0.1
+pid_file: tmp/pids/mongrel.pid
+servers: 5

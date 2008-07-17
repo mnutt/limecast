@@ -14,7 +14,7 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1
   # GET /podcasts/1.xml
   def show
-    @podcast = Podcast.find(params[:id])
+    @podcast = Podcast.find_by_clean_title(params[:podcast])
     @category = @podcast.category
 
     respond_to do |format|

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080701214920) do
+ActiveRecord::Schema.define(:version => 20080717023513) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(:version => 20080701214920) do
     t.text     "description"
     t.string   "language"
     t.integer  "category_id"
+    t.integer  "user_id",           :limit => 11
+    t.string   "clean_title"
   end
 
   create_table "taggings", :force => true do |t|

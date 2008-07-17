@@ -37,6 +37,7 @@ class Podcast < ActiveRecord::Base
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png] }
 
+  before_create :generate_clean_title
   after_create :retrieve_episodes_from_feed
   before_save :download_logo
 
@@ -68,8 +69,12 @@ class Podcast < ActiveRecord::Base
     podcast
   end
 
+  def generate_clean_title
+    self.clean_title = self.to_param
+  end
+
   def to_param
-    "#{self.id}-#{self.title.gsub(/[^A-Za-z0-9]/, "-")}"
+    self.title.gsub(/[^A-Za-z0-9]/, "-")
   end
 
   def download_logo

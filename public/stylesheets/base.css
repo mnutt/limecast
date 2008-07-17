@@ -136,30 +136,34 @@ div#header div#title {
   padding: 13px 0 11px 0;
 }
 div#header div#title h1 {
-  width: 186px;
-  height: 41px;zzz
+  /* width: 186px; */
+  /* height: 41px; */
   padding: 1px 0 0 0;
   position: relative;
   z-index: 1;
 }
 div#header div#title h1 a {
-  background: url("../images/layout/header_title.png") no-repeat left top;
-  text-indent: -5000px;
-  width: 186px;
-  height: 41px;
-  display: block;
-  overflow: hidden;
+  /* background: url("../images/layout/header_title.png") no-repeat left top; */
+  /* text-indent: -5000px; */
+  /* width: 186px; */
+  /* height: 41px; */
+  /* display: block; */
+  /* overflow: hidden; */
 }
 div#header div#title h1 a:hover {
   background-position: left bottom;
 }
 div#header div#title h1 a sup {
-  background: url("../images/layout/header_label.png") no-repeat left top;
-  width: 29px;
+  /* TEMP: */
+  color: #FFF;
+  font-size: 0.5em;
+
+  /* background: url("../images/layout/header_label.png") no-repeat left top; */
+  /* width: 29px; */
   height: 7px;
-  top: -1px;
-  left: 141px;
-  position: absolute;
+  /* top: -1px; */
+  /* left: 141px; */
+  /* position: absolute; */
   overflow: hidden;
 }
 

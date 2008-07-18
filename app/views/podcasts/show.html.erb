@@ -47,9 +47,7 @@
   <div id="episodes">
     <h2>Episodes</h2>
     <ul>
-      <% @podcast.episodes.each do |episode| -%>
-	<li><%= link_to (episode.title or "untitled"), episode_url(episode) -%></li>
-      <% end -%>
+      <%= render :partial => 'episodes/episode', :collection => @podcast.episodes -%>
     </ul>
   </div>
 

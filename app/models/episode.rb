@@ -27,7 +27,13 @@ class Episode < ActiveRecord::Base
                                  :small  => ["170x170#", :png] }
   has_many :comments, :as => :commentable, :dependent => :destroy
 
+  before_create :generate_clean_title
+
+  def generate_clean_title
+    self.clean_title = self.published_at.strftime('%Y-%b-%d-%H-%M')
+  end
+
   def to_param
-    "#{self.id}-#{self.title.gsub(/[^A-Za-z0-9]/, "-")}"
+    clean_title
   end
 end

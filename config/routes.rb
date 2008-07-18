@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => 'admin', :action => 'index'
     admin.resources :podcasts
     admin.resources :episodes
-    admin.resources :categories, :collection => { :order => :any }
+    admin.resources :tags, :member => { :merge => :any }
   end
 
   map.resources :users
@@ -25,10 +25,10 @@ ActionController::Routing::Routes.draw do |map|
   map.search      '/search',      :controller => 'podcasts', :action => 'search'
   map.users       '/users',       :controller => 'users',    :action => 'index'
   map.user        '/user/:user',  :controller => 'users',    :action => 'show'
-  map.tags        '/tag/:tag',    :controller => 'tags',     :action => 'show'
+  map.tag         '/tag/:tag',    :controller => 'tags',     :action => 'show'
 
   map.podcast          '/:podcast',          :controller => 'podcasts', :action => 'show'
   map.podcast_episodes '/:podcast/episodes', :controller => 'episodes', :action => 'index'
   map.podcast_reviews  '/:podcast/reviews',  :controller => 'comments', :action => 'index'
-  map.podcast_episode  '/:podcast/:episode', :controller => 'episodes', :action => 'show'
+  map.episode          '/:podcast/:episode', :controller => 'episodes', :action => 'show'
 end

@@ -13,7 +13,8 @@ class EpisodesController < ApplicationController
   # GET /episodes/1
   # GET /episodes/1.xml
   def show
-    @episode = Episode.find(params[:id])
+    @podcast = Podcast.find_by_clean_title(params[:podcast])
+    @episode = @podcast.episodes.find_by_clean_title(params[:episode])
 
     respond_to do |format|
       format.html # show.html.erb

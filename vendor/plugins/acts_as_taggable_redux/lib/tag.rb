@@ -64,6 +64,10 @@ class Tag < ActiveRecord::Base
   def to_s
     name
   end
+
+  def to_param
+    self.name.gsub(/[^A-Za-z0-9]/, '')
+  end
   
   validates_presence_of :name
 end

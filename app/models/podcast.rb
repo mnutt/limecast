@@ -70,11 +70,11 @@ class Podcast < ActiveRecord::Base
   end
 
   def generate_clean_title
-    self.clean_title = self.to_param
+    self.clean_title = self.title.gsub(/[^A-Za-z0-9]/, "-")
   end
 
   def to_param
-    self.title.gsub(/[^A-Za-z0-9]/, "-")
+    clean_title
   end
 
   def download_logo

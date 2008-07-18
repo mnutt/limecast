@@ -39,9 +39,8 @@
       <div id="nav_wrapper">
         <div id="nav">
           <ul>
-            <% Category.find(:all, :order => 'position ASC').each do |category| -%>
-	      
-	      <li <%= "class='active'" if category == @category -%>><%= link_to "<span>#{h category.name}</span>", category -%></li>
+            <% Tag.find(:all, :conditions => {:special => true}).each do |tag| -%>
+	      <li <%= "class='active'" if tag == @tag -%>><%= link_to "<span>#{h tag.name.titleize}</span>", tag_url(tag) -%></li>
 	    <% end -%>
           </ul>
         </div>
@@ -52,6 +51,7 @@
       <div id="body">
         
         <div id="primary">
+	  <span id="notice"><%= flash[:notice] -%></span>
 	  <%= yield -%>
 	</div>
         

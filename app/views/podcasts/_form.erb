@@ -17,8 +17,12 @@
     <%= f.file_field :logo -%>
   </p>
   <p>
-    <%= f.label :category -%><br />
-    <%= f.select :category_id, Category.find(:all, :order => 'position ASC').map{|c| [c.name, c.id]}, :value => @podcast.category_id -%>
+    Choose a main tag:
+    <% Tag.find_all_by_special(true).each do |tag| %>
+      <span onclick="$('podcast_tag_list').value += ' <%= tag.name -%>'>
+        <%= @tag.name -%>
+      </span>
+    <% end %>
   </p>
   <p>
     <%= f.label :tag_list -%><br />

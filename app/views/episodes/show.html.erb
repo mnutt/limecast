@@ -28,4 +28,4 @@
   <%= render :partial => 'comments/add_comment', :object => @episode -%>
 </div>
 
-<%= link_to 'Back', episodes_path %>
+<%= link_to 'Back', podcast_url(@episode.podcast) %>

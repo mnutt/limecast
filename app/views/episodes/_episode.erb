@@ -1,5 +1,5 @@
 <div class="episode">
-  <div class="title"><%= link_to episode.title, episode_url(episode) -%></div>
+  <div class="title"><%= link_to episode.title, episode_url(:episode => episode.to_param, :podcast => episode.podcast.to_param) -%></div>
   <div class="podcast_title"><%= episode.podcast.title -%></div>
   <p class="description"><%=strip_tags episode.summary -%></p>
 </div>

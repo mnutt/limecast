@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe "/podcasts/new.html.erb" do
-  include PodcastsHelper
   
   before(:each) do
     @podcast = mock_model(Podcast)

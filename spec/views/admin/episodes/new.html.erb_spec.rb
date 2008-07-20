@@ -1,10 +1,9 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin_episodes/new.html.erb" do
-  include Admin::EpisodesHelper
-  
+describe "/admin/episodes/new.html.erb" do
+
   before(:each) do
-    @episode = mock_model(Admin::Episode)
+    @episode = mock_model(Episode)
     @episode.stub!(:new_record?).and_return(true)
     @episode.stub!(:summary).and_return("MyText")
     @episode.stub!(:published_at).and_return(Time.now)
@@ -19,8 +18,8 @@ describe "/admin_episodes/new.html.erb" do
   end
 
   it "should render new form" do
-    render "/admin_episodes/new.html.erb"
-    
+    render "/admin/episodes/new.html.erb"
+
     response.should have_tag("form[action=?][method=post]", admin_episodes_path) do
       with_tag("textarea#episode_summary[name=?]", "episode[summary]")
       with_tag("input#episode_enclosure_url[name=?]", "episode[enclosure_url]")

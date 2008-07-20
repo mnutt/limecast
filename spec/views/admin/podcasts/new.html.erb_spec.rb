@@ -1,10 +1,8 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin_podcasts/new.html.erb" do
-  include Admin::PodcastsHelper
-  
+describe "/admin/podcasts/new.html.erb" do
   before(:each) do
-    @podcast = mock_model(Admin::Podcast)
+    @podcast = mock_model(Podcast)
     @podcast.stub!(:new_record?).and_return(true)
     @podcast.stub!(:title).and_return("MyString")
     @podcast.stub!(:site).and_return("MyString")
@@ -19,8 +17,8 @@ describe "/admin_podcasts/new.html.erb" do
   end
 
   it "should render new form" do
-    render "/admin_podcasts/new.html.erb"
-    
+    render "/admin/podcasts/new.html.erb"
+
     response.should have_tag("form[action=?][method=post]", admin_podcasts_path) do
       with_tag("input#podcast_title[name=?]", "podcast[title]")
       with_tag("input#podcast_site[name=?]", "podcast[site]")

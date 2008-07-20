@@ -1,10 +1,8 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin_podcasts/show.html.erb" do
-  include Admin::PodcastsHelper
-  
+describe "/admin/podcasts/show.html.erb" do
   before(:each) do
-    @podcast = mock_model(Admin::Podcast)
+    @podcast = mock_model(Podcast)
     @podcast.stub!(:title).and_return("MyString")
     @podcast.stub!(:site).and_return("MyString")
     @podcast.stub!(:feed).and_return("MyString")
@@ -19,7 +17,7 @@ describe "/admin_podcasts/show.html.erb" do
   end
 
   it "should render attributes in <p>" do
-    render "/admin_podcasts/show.html.erb"
+    render "/admin/podcasts/show.html.erb"
     response.should have_text(/MyString/)
     response.should have_text(/MyString/)
     response.should have_text(/MyString/)

@@ -1,10 +1,9 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin_episodes/show.html.erb" do
-  include Admin::EpisodesHelper
-  
+describe "/admin/episodes/show.html.erb" do
+
   before(:each) do
-    @episode = mock_model(Admin::Episode)
+    @episode = mock_model(Episode)
     @episode.stub!(:summary).and_return("MyText")
     @episode.stub!(:published_at).and_return(Time.now)
     @episode.stub!(:enclosure_url).and_return("MyString")
@@ -19,7 +18,7 @@ describe "/admin_episodes/show.html.erb" do
   end
 
   it "should render attributes in <p>" do
-    render "/admin_episodes/show.html.erb"
+    render "/admin/episodes/show.html.erb"
     response.should have_text(/MyText/)
     response.should have_text(/MyString/)
     response.should have_text(/MyString/)

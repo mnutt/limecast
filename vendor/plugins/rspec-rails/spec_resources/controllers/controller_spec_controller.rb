@@ -27,6 +27,16 @@ class ControllerSpecController < ActionController::Base
     session[:session_key] = "session value"
   end
       
+  def action_which_gets_cookie
+    raise "expected #{params[:expected].inspect}, got #{cookies[:cookie_key].inspect}" unless (cookies[:cookie_key] == params[:expected])
+    render :text => ""
+  end
+      
+  def action_which_sets_cookie
+    cookies[:cookie_key] = params[:value]
+    render :text => ""
+  end
+      
   def action_with_partial
     render :partial => "controller_spec/partial"
   end

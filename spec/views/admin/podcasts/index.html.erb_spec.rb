@@ -1,10 +1,8 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin_podcasts/index.html.erb" do
-  include Admin::PodcastsHelper
-  
+describe "/admin/podcasts/index.html.erb" do
   before(:each) do
-    podcast_98 = mock_model(Admin::Podcast)
+    podcast_98 = mock_model(Podcast)
     podcast_98.should_receive(:title).and_return("MyString")
     podcast_98.should_receive(:site).and_return("MyString")
     podcast_98.should_receive(:feed).and_return("MyString")
@@ -14,7 +12,7 @@ describe "/admin_podcasts/index.html.erb" do
     podcast_98.should_receive(:user_id).and_return("MyString")
     podcast_98.should_receive(:description).and_return("MyText")
     podcast_98.should_receive(:language).and_return("MyString")
-    podcast_99 = mock_model(Admin::Podcast)
+    podcast_99 = mock_model(Podcast)
     podcast_99.should_receive(:title).and_return("MyString")
     podcast_99.should_receive(:site).and_return("MyString")
     podcast_99.should_receive(:feed).and_return("MyString")
@@ -29,7 +27,7 @@ describe "/admin_podcasts/index.html.erb" do
   end
 
   it "should render list of admin_podcasts" do
-    render "/admin_podcasts/index.html.erb"
+    render "/admin/podcasts/index.html.erb"
     response.should have_tag("tr>td", "MyString", 2)
     response.should have_tag("tr>td", "MyString", 2)
     response.should have_tag("tr>td", "MyString", 2)

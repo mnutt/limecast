@@ -1,0 +1,12 @@
+<h1>Editing user</h1>
+
+<% form_for(@user, :url => admin_user_url(@user)) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', admin_user_path(@user) %> |
+<%= link_to 'Back', admin_users_path %>

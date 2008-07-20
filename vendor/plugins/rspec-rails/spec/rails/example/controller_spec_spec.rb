@@ -87,6 +87,111 @@ require 'controller_spec_controller'
       end.should_not raise_error
     end
 
+    describe "setting cookies in the request" do
+      
+      describe "through request.cookies" do
+        
+        describe "with CGI::Cookie.new" do
+          it "should support a String key" do
+            request.cookies['cookie_key'] = CGI::Cookie.new('cookie_key', 'cookie value')
+            get 'action_which_gets_cookie', :expected => "cookie value"
+          end
+
+          it "should support a Symbol key" do
+            pending("development of a CookieJarProxy") do
+              request.cookies[:cookie_key] = CGI::Cookie.new('cookie_key', 'cookie value')
+              get 'action_which_gets_cookie', :expected => "cookie value"
+            end
+          end
+        end
+
+        describe "with just a value" do
+          it "should support a String key" do
+            pending("development of a CookieJarProxy") do
+              request.cookies['cookie_key'] = 'cookie value'
+              get 'action_which_gets_cookie', :expected => "cookie value"
+            end
+          end
+
+          it "should support a Symbol key" do
+            pending("development of a CookieJarProxy") do
+              request.cookies[:cookie_key] = 'cookie value'
+              get 'action_which_gets_cookie', :expected => "cookie value"
+            end
+          end
+        end
+
+      end
+
+      describe "directly through cookies" do
+        describe "with CGI::Cookie.new" do
+          it "should support a String key" do
+            pending("development of a CookieJarProxy") do
+              cookies['cookie_key'] = CGI::Cookie.new('cookie_key', 'cookie value')
+              get 'action_which_gets_cookie', :expected => "cookie value"
+            end
+          end
+
+          it "should support a Symbol key" do
+            pending("development of a CookieJarProxy") do
+              cookies[:cookie_key] = CGI::Cookie.new('cookie_key', 'cookie value')
+              get 'action_which_gets_cookie', :expected => "cookie value"
+            end
+          end
+        end
+
+        describe "with just a value" do
+          it "should support a String key" do
+            pending("development of a CookieJarProxy") do
+              cookies['cookie_key'] = 'cookie value'
+              get 'action_which_gets_cookie', :expected => "cookie value"
+            end
+          end
+
+          it "should support a Symbol key" do
+            pending("development of a CookieJarProxy") do
+              cookies[:cookie_key] = 'cookie value'
+              get 'action_which_gets_cookie', :expected => "cookie value"
+            end
+          end
+        end
+      end
+      
+    end
+    
+    describe "reading cookies from the response" do
+      
+      describe "through response.cookies" do
+        it "should support a Symbol key" do
+          pending("development of a CookieJarProxy") do
+            get 'action_which_sets_cookie', :value => "cookie value"
+            response.cookies[:cookie_key].should == ["cookie value"]
+          end
+        end
+
+        it "should support a String key" do
+          get 'action_which_sets_cookie', :value => "cookie value"
+          response.cookies['cookie_key'].should == ["cookie value"]
+        end
+      end
+      
+      describe "directly through cookies" do
+        it "should support a Symbol key" do
+          pending("development of a CookieJarProxy") do
+            get 'action_which_sets_cookie', :value => "cookie value"
+            cookies[:cookie_key].should == ["cookie value"]
+          end
+        end
+
+        it "should support a String key" do
+          get 'action_which_sets_cookie', :value => "cookie value"
+          cookies['cookie_key'].should == ["cookie value"]
+        end
+      end
+      
+    end
+    
+
     it "should support custom routes" do
       route_for(:controller => "custom_route_spec", :action => "custom_route").should == "/custom_route"
     end
@@ -120,6 +225,7 @@ require 'controller_spec_controller'
     end
 
     it "should complain when calling stub!(:render) on the controller" do
+      controller.extend Spec::Mocks::Methods
       lambda {
         controller.stub!(:render)
       }.should raise_error(RuntimeError, /stub!\(:render\) has been disabled/)

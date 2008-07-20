@@ -1,8 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe "/podcasts/index.html.erb" do
-  include PodcastsHelper
-  
   before(:each) do
     podcast_98 = mock_model(Podcast)
     podcast_98.should_receive(:title).and_return("MyString")

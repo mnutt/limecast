@@ -1,4 +1,12 @@
-== Version 1.1.4
+=== In Development (git clone git://github.com/dchelimsky/rspec-rails.git)
+
+* Add conditional so Rails 2.1.0 doesn't warn about cache_template_extensions (patch from James Herdman)
+* Fixed stub_model examples to work with Rails 2.1.0 (the code was fine, just the examples needed patching)
+* use hoe for build/release
+* reworked generated examples for rspec_scaffold - thanks to Mikel Lindsaar and Dan Manges for their feedback
+* bye, bye translator
+
+=== Version 1.1.4
 
 Maintenance release.
 
@@ -18,3 +26,4 @@ Maintenance release.
 * Applied patch from Wincent Colaiuta to invert sense of "spec --diff". Closes #281.
 * Allow any type of render in view specs. Closes #57.
 * Applied patch from Ian White to get rspec working with edge rails (8804). Closes #271.
+* Applied patch from Jon Strother to have spec_server reload fixtures. Closes #344.

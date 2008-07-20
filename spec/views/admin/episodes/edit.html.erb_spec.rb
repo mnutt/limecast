@@ -1,10 +1,8 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin_episodes/edit.html.erb" do
-  include Admin::EpisodesHelper
-  
+describe "/admin/episodes/edit.html.erb" do
   before do
-    @episode = mock_model(Admin::Episode)
+    @episode = mock_model(Episode)
     @episode.stub!(:summary).and_return("MyText")
     @episode.stub!(:published_at).and_return(Time.now)
     @episode.stub!(:enclosure_url).and_return("MyString")
@@ -18,9 +16,9 @@ describe "/admin_episodes/edit.html.erb" do
   end
 
   it "should render edit form" do
-    render "/admin_episodes/edit.html.erb"
-    
-    response.should have_tag("form[action=#{episode_path(@episode)}][method=post]") do
+    render "/admin/episodes/edit.html.erb"
+
+    response.should have_tag("form[action=#{admin_episode_path(@episode)}][method=post]") do
       with_tag('textarea#episode_summary[name=?]', "episode[summary]")
       with_tag('input#episode_enclosure_url[name=?]', "episode[enclosure_url]")
       with_tag('input#episode_guid[name=?]', "episode[guid]")

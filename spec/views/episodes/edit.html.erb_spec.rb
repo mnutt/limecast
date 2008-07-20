@@ -1,8 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe "/episodes/edit.html.erb" do
-  include EpisodesHelper
-  
   before do
     @episode = mock_model(Episode)
     @episode.stub!(:podcast_id).and_return("1")

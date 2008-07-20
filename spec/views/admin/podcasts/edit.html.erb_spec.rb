@@ -1,10 +1,8 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe "/admin_podcasts/edit.html.erb" do
-  include Admin::PodcastsHelper
-  
   before do
-    @podcast = mock_model(Admin::Podcast)
+    @podcast = mock_model(Podcast)
     @podcast.stub!(:title).and_return("MyString")
     @podcast.stub!(:site).and_return("MyString")
     @podcast.stub!(:feed).and_return("MyString")
@@ -18,9 +16,9 @@ describe "/admin_podcasts/edit.html.erb" do
   end
 
   it "should render edit form" do
-    render "/admin_podcasts/edit.html.erb"
-    
-    response.should have_tag("form[action=#{podcast_path(@podcast)}][method=post]") do
+    render "/admin/podcasts/edit.html.erb"
+
+    response.should have_tag("form[action=#{admin_podcast_path(@podcast)}][method=post]") do
       with_tag('input#podcast_title[name=?]', "podcast[title]")
       with_tag('input#podcast_site[name=?]', "podcast[site]")
       with_tag('input#podcast_feed[name=?]', "podcast[feed]")

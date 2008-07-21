@@ -25,6 +25,7 @@ require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
   belongs_to :user
+  belongs_to :owner, :class_name => 'User'
   belongs_to :category
   has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :episodes, :dependent => :destroy
@@ -35,7 +36,8 @@ class Podcast < ActiveRecord::Base
 
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
-                                 :small  => ["170x170#", :png] }
+                                 :small  => ["170x170#", :png],
+                                 :icon   => ["16x16#", :png] }
 
   before_create :generate_clean_title
   after_create :retrieve_episodes_from_feed
@@ -65,12 +67,32 @@ class Podcast < ActiveRecord::Base
     doc.elements.each('rss/channel/language') do |e|
       podcast.language = e.text
     end
+    doc.elements.each('rss/channel/itunes:owner/itunes:email') do |e|
+      podcast.email = e.text
+    end
 
     podcast
   end
 
+  def average_time_between_episodes
+    time_span = self.last_episode.published_at - self.first_episode.published_at
+    time_span / self.episodes.count
+  end
+
+  def total_run_time
+    self.episodes.map(&:duration).sum
+  end
+
   def generate_clean_title
     self.clean_title = self.title.gsub(/[^A-Za-z0-9]/, "-")
+  end
+
+  def first_episode
+    self.episodes.find(:first, :order => 'published_at ASC')
+  end
+
+  def last_episode
+    self.episodes.find(:first, :order => 'published_at DESC')
   end
 
   def to_param
@@ -109,13 +131,19 @@ class Podcast < ActiveRecord::Base
         episode = Episode.find_by_guid(e.elements['enclosure'].attributes['url'])
         episode ||= Episode.new(:guid => e.elements['enclosure'].attributes['url'])
       end
+
       episode.podcast_id = self.id
       episode.title = e.elements['title'].text rescue nil
       episode.summary = e.elements['description'] ? e.elements['description'].text : e.elements['itunes:summary'].text rescue nil
       episode.published_at = Time.parse(e.elements['pubDate'].text) rescue nil
       episode.enclosure_url = e.elements['enclosure'].attributes['url'] rescue nil
       episode.enclosure_type = e.elements['enclosure'].attributes['type'] rescue nil
-      episode.duration = Time.parse(e.elements['itunes:duration'].text) - Time.now.beginning_of_day rescue nil
+
+      # Time may be under an hour
+      time = e.elements['itunes:duration'].text rescue "00:00"
+      time = "00:#{time}" if time.size < 6
+      episode.duration = Time.parse(time) - Time.now.beginning_of_day rescue nil
+
       episode.save
 
       @feed_episodes << episode

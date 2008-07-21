@@ -4,7 +4,12 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.xml
   def index
-    @comments = Comment.find(:all)
+    if params[:podcast]
+      @podcast = Podcast.find_by_clean_title(params[:podcast])
+      @comments = @podcast.comments.find(:all)
+    else
+      @comments = Comment.find(:all)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

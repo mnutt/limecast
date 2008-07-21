@@ -15,6 +15,7 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1.xml
   def show
     @podcast = Podcast.find_by_clean_title(params[:podcast])
+    @episodes = @podcast.episodes.find(:all, :limit => 3)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -54,6 +55,7 @@ class PodcastsController < ApplicationController
 
     @podcast = Podcast.new(params[:podcast])
     @podcast.user = current_user
+    @podcast.owner = current_user if Podcast.new_from_feed(@podcast.feed).email == current_user.email
 
     respond_to do |format|
       if @podcast.save

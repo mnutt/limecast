@@ -1,0 +1,23 @@
+<h1><%=h @user.login -%></h1>
+
+<% if @user == current_user -%>
+  This is me!
+  Change password, email (<%= @user.email -%>), or Name.
+<% end -%>
+
+<h4>Makes</h4>
+<%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
+
+<h4>Found</h4>
+<%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
+
+<h4>Reviewed</h4>
+<div class="comments">
+  <% @user.comments.each do |comment| -%>
+    <div id="<%= dom_id(comment) -%>" class="comment">
+      <%= link_with_icon(comment.commentable) -%>
+      <b><%= comment.title -%></b>
+      <%= comment.body -%>
+    </div>
+  <% end -%>
+</div>

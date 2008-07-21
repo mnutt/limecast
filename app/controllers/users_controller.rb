@@ -53,6 +53,10 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def show
+    @user = User.find_by_login(params[:user])
+  end
+
 protected
   def find_user
     @user = User.find(params[:id])

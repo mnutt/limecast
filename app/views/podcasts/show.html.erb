@@ -1,37 +1,71 @@
 <div class="podcast">
-  <h2><%=h @podcast.title %></h2>
-
-  <% if @podcast.writable_by?(current_user) -%>
-    <div id="edit_actions">
-      <span><%= link_to "Edit", edit_podcast_url(@podcast) -%></span>
-      <span><%= link_to "Delete", podcast_url(@podcast), :method => 'delete' -%></span>
-    </div>
-  <% end -%>
-
+  <!--
   <div class="cover">
     <div class="border"></div>
     <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
   </div>
+-->
+
+  <h2><%=h @podcast.title %></h2>
+
+  <% if @podcast.writable_by?(current_user) -%>
+    This is mine!
+    <span id="edit_actions">
+      <span><%= link_to "Edit", edit_podcast_url(@podcast) -%></span>
+      <span><%= link_to "Delete", podcast_url(@podcast), :method => 'delete' -%></span>
+    </span>
+  <% end -%>
+
+  <div class="controls">
+    <%= link_to "<span>RSS</span>", @podcast.feed, :class => 'action_button' %>
+    <% if @podcast.itunes_link -%>
+      <%= link_to "<span>iTunes</span>", @podcast.itunes_link, :class => 'action_button' %>
+      <% end -%>
+      <div style="clear:left;"></div>
+  </div>
 
   <div class="info">
-    <h3><%=h @podcast.user.login -%></h3>
-<!--<div class="site">Site<%=link_to h(@podcast.site), h(@podcast.site) %></div>-->
-    <dl>
-      <dt>Language</dt>
-      <dd>English</dd>
-    </dl>
+    <% if @podcast.user -%>
+    <span class="found_by">Found by <%= link_user_with_icon @podcast.user -%></span>
+    <% end -%>
     
-    <div class="controls">
-      <span class="price">Free</span>
-      <%= link_to "<span>Subscribe</span>", @podcast.feed, :class => 'action_button' %>
-      <div class="clear"></div>
+    <% if @podcast.owner -%>
+      <span class="made_by">Made by <%= link_user_with_icon @podcast.owner -%></span>
+    <% end -%>
+
+    <div class="site">Site: <%=link_to h(@podcast.site), h(@podcast.site) %></div>
+
+    <div class="stats">
+      <div class="totals">
+	<% link_to(podcast_episodes_url(@podcast)) do -%> 
+	  <%= @podcast.episodes.count -%> episodes
+	<% end -%>
+	since <%= link_to @podcast.first_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.first_episode) -%>,
+	every <%= (@podcast.average_time_between_episodes / (60 * 60 * 24) * 100).to_i / 100.0 -%> days
+      </div>
+      <% if @podcast.total_run_time > 60 -%>
+	<div class="runtime">
+	  Total run time <%= date_to_words(@podcast.total_run_time) -%>
+	</div>
+      <% end -%>
+      <div class="newepisode">
+	New episode <%= link_to @podcast.last_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.last_episode) -%>,
+	<%= relative_time(@podcast.last_episode.published_at) -%>
+      </div>
     </div>
   </div>
 
   <div class="description">
     <h4>Podcast Description</h4>
-    
+
     <p><%= @podcast.description -%></p>
+  </div>
+
+  <div class="tags">
+    Tags:
+    <% @podcast.tags.each do |tag| -%>
+      <%= link_to h(tag.name), tag_url(tag) -%>
+    <% end -%>
   </div>
 
   <div id="reviews">
@@ -39,15 +73,18 @@
     <h4>Customer Reviews</h4>
 
     <div class="reviews">
-      <%= render :partial => 'comments/comments', :object => @podcast -%>
+      <%= render :partial => 'comments/comments', :object => @podcast, :locals => {:short => true} -%>
       <%= render :partial => 'comments/add_comment', :object => @podcast -%>
+      <%= link_to "All #{@podcast.comments.count} reviews", podcast_reviews_url(@podcast) -%>
     </div>
   </div>
 
   <div id="episodes">
-    <h2>Episodes</h2>
+
+    <h4>Recent Episodes</h4>
+
     <ul>
-      <%= render :partial => 'episodes/episode', :collection => @podcast.episodes -%>
+      <%= render :partial => 'episodes/episode', :collection => @episodes -%>
     </ul>
   </div>
 

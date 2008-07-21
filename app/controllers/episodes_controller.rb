@@ -2,7 +2,12 @@ class EpisodesController < ApplicationController
   # GET /episodes
   # GET /episodes.xml
   def index
-    @episodes = Episode.find(:all)
+    if params[:podcast]
+      @podcast = Podcast.find_by_clean_title(params[:podcast])
+      @episodes = @podcast.episodes.find(:all)
+    else
+      @episodes = Episode.find(:all)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

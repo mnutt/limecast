@@ -2,20 +2,19 @@
   <%= image_tag(@episode.podcast.logo.url(:small)) -%>
 </div>
 
-<h1><%=h @episode.title %></h1>
+<h2>Episode of <%= link_to h(@episode.podcast.title), podcast_url(@episode.podcast) %></h2>
 
-<h2>from <%= link_to h(@episode.podcast.title), podcast_url(@episode.podcast) %></h2>
+<div class="publish_date">
+  <%=h @episode.published_at.strftime("%Y %b %d") %>
+</div>
+
+<h1><%=h @episode.title %> (<%= pretty_duration(@episode.duration) -%>)</h1>
 
 <p>
   <b><%= link_to "Download Podcast", @episode.enclosure_url %></b>
 </p>
 
 <div class="metadata">
-  <div class="publish_date">
-    <div class="title">Publish Date</div>
-    <p><%=h @episode.published_at.strftime("%B %d, %Y") %></p>
-  </div>
-
   <div class="summary">
     <div class="title">Summary</div>
     <p><%=strip_tags @episode.summary %></p>

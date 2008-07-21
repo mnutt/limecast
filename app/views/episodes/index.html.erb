@@ -1,3 +1,7 @@
-<h1>All episodes</h1>
+<% if @podcast -%>
+  <h1>Episodes for <%=h @podcast.title -%></h1>
+<% else -%>
+ <h1>All episodes</h1>
+<% end -%>
 
 <%= render :partial => "episodes/episode", :collection => @episodes -%>

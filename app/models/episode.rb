@@ -33,6 +33,10 @@ class Episode < ActiveRecord::Base
     self.clean_title = self.published_at.strftime('%Y-%b-%d-%H-%M')
   end
 
+  def pretty_date
+    self.published_at.to_formatted_s(:normal)
+  end
+
   def to_param
     clean_title
   end

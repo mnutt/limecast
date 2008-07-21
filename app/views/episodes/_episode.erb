@@ -1,5 +1,31 @@
-<div class="episode">
-  <div class="title"><%= link_to episode.title, episode_url(:episode => episode.to_param, :podcast => episode.podcast.to_param) -%></div>
-  <div class="podcast_title"><%= episode.podcast.title -%></div>
-  <p class="description"><%=strip_tags episode.summary -%></p>
+<div class="episode" id="<%= dom_id(episode) -%>">
+  <span class="expand" >[ + ]</span>
+
+  <span class="date"><%= link_to episode.pretty_date, episode_url(:episode => episode, :podcast => episode.podcast) -%></span>
+  <span class="title"><%= episode.title -%></span>
+  <% if episode.duration > 0 -%>
+    <span class="duration">(<%= pretty_duration(episode.duration) -%>)</span>
+  <% end -%>
+
+  <div class="full" <% unless episode_counter == 0 -%>style="display: none"<% end -%>>
+    <p class="description"><%=strip_tags episode.summary -%></p>
+    
+    <object type="application/x-shockwave-flash" data="/flash/player.swf" width="290" height="24" id="audioplayer_<%= episode.id -%>">
+      <param name="movie" value="/flash/player.swf" />
+      <param name="FlashVars" value="soundFile=<%= episode.enclosure_url -%>&playerID=<%= episode.id -%>" />
+      <param name="quality" value="high" />
+      <param name="menu" value="false" />
+      <param name="wmode" value="transparent" />
+    </object>
+
+    <div class="download">
+      <%= link_to "Download", episode.enclosure_url -%>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $$('#<%= dom_id(episode) -%> .expand')[0].observe('click', function() {
+      new Effect.toggle($$('#<%= dom_id(episode) -%> .full')[0], 'blind', {duration: 1.0});
+    });
+  </script>
 </div>

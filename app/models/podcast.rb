@@ -80,7 +80,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def total_run_time
-    self.episodes.map(&:duration).sum
+    self.episodes.sum(:duration)
   end
 
   def generate_clean_title

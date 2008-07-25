@@ -3,7 +3,7 @@
 
   <span class="date"><%= link_to episode.pretty_date, episode_url(:episode => episode, :podcast => episode.podcast) -%></span>
   <span class="title"><%= episode.title -%></span>
-  <% if episode.duration > 0 -%>
+  <% if episode.duration and episode.duration > 0 -%>
     <span class="duration">(<%= pretty_duration(episode.duration) -%>)</span>
   <% end -%>
 

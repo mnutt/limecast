@@ -1,4 +1,10 @@
 <div class="review" id="<%= dom_id(comment) -%>">
+  <% if comment.positive -%>
+    <%= image_tag('thumb_up.png', :alt => "Thumbs Up") -%>
+  <% else -%>
+    <%= image_tag('thumb_down.png', :alt => "Thumbs Down") -%>
+  <% end -%>
+
   <h5><%=h comment.title -%></h5>
   <cite>by <%= comment.commenter.login -%></cite>
   <p><%=h comment.body -%></p>

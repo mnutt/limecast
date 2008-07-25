@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of Active Record to incrementally modify your database, and
+# please use the migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080721054637) do
+ActiveRecord::Schema.define(:version => 20080725200750) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20080721054637) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
+    t.boolean  "positive"
   end
 
   create_table "episodes", :force => true do |t|
@@ -48,10 +49,10 @@ ActiveRecord::Schema.define(:version => 20080721054637) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "feed_etag"
-    t.integer  "user_id"
     t.text     "description"
     t.string   "language"
     t.integer  "category_id"
+    t.integer  "user_id"
     t.string   "clean_title"
     t.string   "itunes_link"
     t.integer  "owner_id"
@@ -65,10 +66,10 @@ ActiveRecord::Schema.define(:version => 20080721054637) do
     t.integer "user_id"
   end
 
-  add_index "taggings", ["user_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_user_id_and_taggable_id_and_taggable_type"
-  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
-  add_index "taggings", ["user_id", "tag_id", "taggable_type"], :name => "index_taggings_on_user_id_and_tag_id_and_taggable_type"
   add_index "taggings", ["tag_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_type"
+  add_index "taggings", ["user_id", "tag_id", "taggable_type"], :name => "index_taggings_on_user_id_and_tag_id_and_taggable_type"
+  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
+  add_index "taggings", ["user_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_user_id_and_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
     t.string  "name"
@@ -76,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20080721054637) do
     t.boolean "special",        :default => false
   end
 
-  add_index "tags", ["taggings_count"], :name => "index_tags_on_taggings_count"
   add_index "tags", ["name"], :name => "index_tags_on_name"
+  add_index "tags", ["taggings_count"], :name => "index_tags_on_taggings_count"
 
   create_table "users", :force => true do |t|
     t.string   "login"

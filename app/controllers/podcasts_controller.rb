@@ -34,7 +34,7 @@ class PodcastsController < ApplicationController
   def new
     login_required
 
-    @podcast = Podcast.new
+    @new_podcast = Podcast.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -53,9 +53,11 @@ class PodcastsController < ApplicationController
   def create
     login_required
 
-    @podcast = Podcast.new(params[:podcast])
+    @podcast = Podcast.new_from_feed(params[:podcast][:feed])
+
+    raise PodcastError, "This is a feed, but it does not appear to be a podcast." unless @podcast.has_episodes
     @podcast.user = current_user
-    @podcast.owner = current_user if Podcast.new_from_feed(@podcast.feed).email == current_user.email
+    @podcast.owner = current_user if @podcast.email == current_user.email
 
     respond_to do |format|
       if @podcast.save

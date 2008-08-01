@@ -19,6 +19,8 @@
 #  user_id           :integer(11)   
 #
 
+class PodcastError < StandardError; end
+
 require 'open-uri'
 require 'rexml/document'
 require 'paperclip_file'
@@ -30,8 +32,10 @@ class Podcast < ActiveRecord::Base
   has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :episodes, :dependent => :destroy
 
-  attr_accessor :logo_link
+  attr_accessor :logo_link, :has_episodes
 
+  validates_presence_of :title
+  
   acts_as_taggable
 
   has_attached_file :logo,
@@ -70,6 +74,8 @@ class Podcast < ActiveRecord::Base
     doc.elements.each('rss/channel/itunes:owner/itunes:email') do |e|
       podcast.email = e.text
     end
+
+    has_episodes = true if doc.elements.each('rss/channel/item/enclosure').size > 0
 
     podcast
   end

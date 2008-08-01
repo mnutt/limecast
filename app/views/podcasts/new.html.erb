@@ -1,22 +1,18 @@
-<h1>Add a Podcast</h1>
+<h1>Feed Me</h1>
+<p>Paste the URL of a podcast RSS feed here.</p>
 
-<h4>Found or created?</h4>
-<p>Is this your podcast, or did you find it?  If this is your podcast, the email listed in the
-feed should match the email that you used when you signed up for LimeCast.  You can change your
-email on the account settings page.</p>
-
-<h4>Feed URL</h4>
-<p>The feed url is sometimes referred to the RSS feed or the XML feed.</p>
-
-<% form_remote_tag(:url => feed_info_podcasts_path, :update => 'form_placeholder') do -%>
+<% form_for @new_podcast do |f| -%>
   <p>
-    <%= label_tag "feed" -%><br />
-    <%= text_field_tag :feed -%>
+    <%= f.label "feed" -%><br />
+    <%= f.text_field :feed -%>
     <%= submit_tag "Get Feed" -%>
   </p>
 <% end -%>
 
-<div id="form_placeholder"></div>
+<% if @podcast -%>
+  <p>Added the podcast.</p>
+<% end -%>
 
-
-<%= link_to 'Back', podcasts_path %>
+<% if !logged_in? -%>
+  <p>Take credit for these podcasts by <% link_to "registering", new_user_url -%>.</p>
+<% end -%>

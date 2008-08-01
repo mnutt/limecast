@@ -10,6 +10,7 @@ set :use_sudo,      false
 set :mongrel_conf, "/etc/mongrel_cluster/#{application}.yml"
 
 set :scm, :git
+set :git_enable_submodules, true
 set :repository, "git@github.com:mnutt/limecast.git"
 set :deploy_via, :copy
 set :deploy_strategy, :export
@@ -55,6 +56,10 @@ namespace :limecast do
     task :populate, :roles => :app do
       run "cd #{latest_release}; RAILS_ENV=production rake db:populate"
     end
+  end
+
+  task :refresh_thumbnails, :roles => :app do
+    run "cd #{latest_release}; RAILS_ENV=production rake paperclip:refresh CLASS=Podcast"
   end
 
   # Tasks to run after setup
@@ -131,8 +136,10 @@ CRON
       run <<-CMD
         rm -rf #{latest_release}/sphinx;
         rm -rf #{latest_release}/config/database.yml;
+        rm -rf #{latest_release}/public/logos;
         ln -s #{shared_path}/sphinx    #{latest_release}/sphinx &&
         ln -s #{shared_path}/database.yml   #{latest_release}/config/database.yml &&
+        ln -s #{shared_path}/logos #{latest_release}/public/logos &&
         ln -s #{shared_path}/encryption_key #{latest_release}/config/encryption_key
       CMD
     end

@@ -1,4 +1,4 @@
-BODY {
+/*BODY {
   color: #CCC;
   background-color: #333533;
   font-family: Helvetica, Arial, sans-serif;
@@ -25,4 +25,13 @@ A {
   float: left;
   padding: 10px;
   height: 150px;
+}
+*/
+/**
+* Quick Sign In/Up
+**/
+div#quick_signin {
+  position: absolute;
+  top: 35px;
+  right: 0;
 }

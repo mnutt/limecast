@@ -2,7 +2,7 @@
 * Base.css
 ***************************************************************************************/
 body {
-  background-color: #454545;
+  background-color: #181818;
   font: 62.5% "Lucida Grande", "Lucida Sans", "Bitstream Vera Sans", Verdana, sans-serif;
   margin: 0;
   padding: 0;
@@ -70,155 +70,119 @@ h3 { font-size: 1.2em; }
 h4 { font-size: 1.0em; }
 h5 { font-size: 0.8em; }
 div#layout {
+  min-width: 980px;
   font-size: 1.1em;
   color: #E6E6E6;
 }
-div#layout a,
-div#layout a:visited {
+a, a:visited {
+  text-decoration: underline;
   color: #5CAFC4;
 }
-div#layout a:hover {
+a:hover {
   color: #6DCFE8;
+}
+a.icon {
+  background-repeat: no-repeat;
+  background-position: left center;
+  text-decoration: none;
+  padding: 2px 0 2px 19px;
+}
+a.icon span {
+  text-decoration: underline;
 }
 
 /**
 * Layout
 **/
 div#header,
-div#nav,
 div#body,
 div#footer {
-  width: 980px;
-  padding: 0 10px;
-  margin: 0 auto;
   position: relative;
-  z-index: 1;
 }
 
 /**
 * Header
 **/
 div#header_wrapper {
-  background: #484848 url("../images/layout/header_bg.png") repeat-x left top;
+  background: #3C3C3C url("../images/layout/header_bg.png") repeat-x left top;
 }
-div#header div#account_bar {
-  position: absolute;
-  top: 0;
-  right: 14px;
-  z-index: 1;
+div#header {
+  padding: 0 20px;
 }
-div#header div#account_bar ul li {
-  float: left;
-}
-div#header div#account_bar ul li a {
-  background: url("../images/layout/header_actions.png") no-repeat left top;
-  text-indent: -5000px;
-  height: 27px;
-  overflow: hidden;
-  display: block;
-}
-div#header div#account_bar ul li.signup a {
-  background-position: left top;
-  width: 63px;
-}
-div#header div#account_bar ul li.signup a:hover {
-  background-position: left bottom;
-}
-div#header div#account_bar ul li.signin a {
-  background-position: -63px top;
-  width: 58px;
-}
-div#header div#account_bar ul li.signin a:hover {
-  background-position: -63px bottom;
-}
-
 div#header div#title {
-  padding: 13px 0 11px 0;
+  padding: 7px 0 4px 0;
 }
 div#header div#title h1 {
-  /* width: 186px; */
-  /* height: 41px; */
+  width: 188px;
+  height: 23px;
   padding: 1px 0 0 0;
   position: relative;
   z-index: 1;
 }
 div#header div#title h1 a {
-  /* background: url("../images/layout/header_title.png") no-repeat left top; */
-  /* text-indent: -5000px; */
-  /* width: 186px; */
-  /* height: 41px; */
-  /* display: block; */
-  /* overflow: hidden; */
+   background: url("../images/layout/header_title.png") no-repeat left top; 
+   text-indent: -5000px; 
+   width: 188px; 
+   height: 23px; 
+   display: block; 
+   overflow: hidden; 
 }
 div#header div#title h1 a:hover {
   background-position: left bottom;
 }
-div#header div#title h1 a sup {
-  /* TEMP: */
-  color: #FFF;
-  font-size: 0.5em;
-
-  /* background: url("../images/layout/header_label.png") no-repeat left top; */
-  /* width: 29px; */
-  height: 7px;
-  /* top: -1px; */
-  /* left: 141px; */
-  /* position: absolute; */
+div#header div#title h1 sup {
+  background: url("../images/layout/header_label.png") no-repeat left top;
+  text-indent: -5000px;
+  width: 96px;
+  height: 13px;
+  top: -2px;
+  left: 192px;
+  position: absolute;
   overflow: hidden;
 }
-
-/**
-* Navigation
-**/
-div#nav_wrapper {
-  background: #656565 url("../images/layout/nav_bg.png") repeat-x left top;
-  height: 33px;
-}
-div#nav ul {
-  height: 33px;
+div#header div#account_bar {
+  top: 0;
+  right: 20px;
   position: absolute;
   z-index: 1;
 }
-div#nav ul li {
-  padding: 3px 0 0 0;
-  display: block;
+div#header div#account_bar ul li {
+  margin: 0 0 0 10px;
+  padding: 10px 0 0 0;
   float: left;
 }
-div#nav ul li a {
-  font-size: 1.0em;
-  color: #FFF !important;
-  padding: 0 0 0 10px;
-  display: block;
+div#header div#account_bar ul li.add_podcast a {
+  background-image: url("../images/icons/add.png");
 }
-div#nav ul li a:hover {
-  color: #E0E0E0 !important;
+div#header div#account_bar ul li.search {
+  padding: 5px 0 0 0;
 }
-div#nav ul li a span {
-  padding: 8px 10px 8px 0;
-  display: block;
-  cursor: pointer;
+div#header div#account_bar ul li.user a {
+  background-image: url("../images/icons/user.png");
 }
-div#nav ul li.active a {
-  background: url("../images/layout/nav_tab_bg_left.png") no-repeat left top;
-}
-div#nav ul li.active a span {
-  background: url("../images/layout/nav_tab_bg_right.png") no-repeat right top;
-  padding-bottom: 14px;
+div#header div#account_bar ul li.signup a,
+div#header div#account_bar ul li.signin a {
+  background-image: url("../images/icons/user.png");
 }
 
 /**
 * Body
 **/
-div#body_wrapper {
-  background: url("../images/layout/body_bg.png") repeat-x left top;
-  padding: 20px 0 0 0;
-  min-height: 100px;
+div#body {
+  background-color: #454545;
+}
+div#body div.t {
+  background: url("../images/layout/body_bg_top.png") repeat-x left top;
+}
+div#body div.b {
+  background: url("../images/layout/body_bg_bottom.png") repeat-x left bottom;
 }
 div#body div#primary {
-  width: 700px;
-  float: left;
+  margin: 0 270px 0 0;
+  padding: 20px;
 }
 div#body div#sidebar {
+  padding: 20px;
   width: 230px;
   float: right;
 }
@@ -291,67 +255,44 @@ div#body a.action_button:hover span {
 * html div#body a.button span { height: auto; }
 * html div#body a.action_button span { height: auto; }
 
-/** Stars **/
-div#body ul.rating {
-  background: url("../images/icons/stars.png") no-repeat 0 0;
-  width: 80px;
-  height: 21px;
-  position: relative;
-  clear: both;
-}
-div#body ul.rating li {
-  text-indent: -5000px;
-  cursor: pointer;
-  float: left;
-}
-div#body ul.rating li a {
-  width: 16px;
-  height: 21px;
-  top: 0;
-  left: 0;
-  position: absolute;
-  overflow: hidden;
-  z-index: 200;
-}
-
-div#body ul.rating li.one a { left: 0; }
-div#body ul.rating li.two a { left: 16px; }
-div#body ul.rating li.three a { left: 32px; }
-div#body ul.rating li.four a { left: 48px; }
-div#body ul.rating li.five a { left: 64px; }
-
-div#body .no_star { background-position: 0 0 !important; }
-div#body .one_star { background-position: 0 -21px !important; }
-div#body .two_star { background-position: 0 -42px !important; }
-div#body .three_star { background-position: 0 -63px !important; }
-div#body .four_star { background-position: 0 -84px !important; }
-div#body .five_star { background-position: 0 -105px !important; }
-
-div#body ul.rating li a:hover {
-  background: url("../images/icons/stars.png") no-repeat 0 0;
-  width: 80px;
-  height: 21px;
-  left: 0;
-  overflow: hidden;
-  z-index: 2;
-}
-
-div#body ul.rating li.one a:hover { background-position: 0 -147px; }
-div#body ul.rating li.two a:hover { background-position: 0 -168px; }
-div#body ul.rating li.three a:hover { background-position: 0 -189px; }
-div#body ul.rating li.four a:hover { background-position: 0 -210px; }
-div#body ul.rating li.five a:hover { background-position: 0 -231px; }
-
 /**
 * Footer
 **/
 div#footer_wrapper {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  background: #181818 url("../images/layout/footer_bg.png") repeat-x left top;
+  padding: 20px 0;
 }
 div#footer {
-  border-top: 1px solid #373737;
-  padding: 20px 0;
+  padding: 0 20px;
+}
+
+/**
+* Forms
+**/
+form div.field label {
+  text-align: right;
+  padding: 5px 0;
+  width: 125px;
+  float: left;
+  cursor: pointer;
+}
+form div.field div {
+  margin: 0 0 10px 135px;
+}
+form div.controls {
+  padding: 0 0 0 135px;
+}
+form input.text {
+  background: #FFF url("../images/content/input_bg.png") repeat-x left top;
+  border: 1px solid #212121;
+  color: #676767;
+  padding: 4px;
+}
+form input.button {
+  background: #797979 url("../images/content/button_bg.png") repeat-x left top;
+  border: 1px solid #212121;
+  color: #383838;
+  padding: 4px;
 }
 
 /**
@@ -359,7 +300,6 @@ div#footer {
 **/
 div.podcast {
   position: relative;
-  z-index: 1;
 }
 div.podcast h2 {
   display: block;
@@ -474,10 +414,22 @@ div.review div.stars {
   z-index: 2;
 }
 
+/**
+ Palette
+**/
+div.palette {
+  background-color: #181818;
+  padding: 5px;
+}
+div.palette div.contents {
+  background-color: #6E6E6E;
+  padding: 10px;
+}
+
 
 /* TEMPORARY -- REMOVE */
 
-.podcast .title,
+/*.podcast .title,
 .podcast .category {
   width: 85px;
   font-size: 1em;
@@ -488,6 +440,6 @@ div.review div.stars {
   float: left;
   padding: 10px;
   height: 150px;
-}
+}*/
 
 /* /TEMPORARY */

@@ -1,14 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>LimeWire Podcast Directory Pre-Release Alpha</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-  <%= javascript_include_tag 'prototype', 'scriptaculous', 'effects', 'controls', 'dragdrop', 'mootools', 'reflection', 'audio-player' -%>
-  <script type="text/javascript">
-    AudioPlayer.setup("/flash/player.swf", { width: 300 });
-  </script>
-  <%= stylesheet_link_tag 'base' -%>
+<title>LimeWire Podcast Directory (Pre-Release Alpha)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<%= javascript_include_tag 'prototype', 'scriptaculous', 'effects', 'controls', 'dragdrop', 'mootools', 'reflection', 'audio-player', 'application' -%>
+<script type="text/javascript">
+  AudioPlayer.setup("/flash/player.swf", { width: 300 });
+</script>
+<%= stylesheet_link_tag 'base', 'application' -%>
 </head>
 
 <body>
@@ -20,53 +19,71 @@
       <div id="header">
         <div id="title">
           <h1>
-            <a href="#">LimeWire Podcast Directory Pre-Release<sup>Alpha</sup></a>
+            <a href="/">LimeWire Podcast Directory</a>
+            <sup>Pre-Release Alpha</sup>
           </h1>
         </div>
         <div id="account_bar">
-          <% if current_user -%>
-            <span>Logged in as <%= current_user.login  -%></span>
-          <% else -%>
-            <ul>
-              <li class="signup">
-                <%= link_to "<span>Sign Up</span>", new_user_url -%>
-              </li>
-              <li class="signin">
-                <%= link_to "<span>Sign In</span>", new_session_url -%>
-              </li>
-            </ul>
-          <% end -%>
-        </div>
-      </div>
-
-      <div id="nav_wrapper">
-        <div id="nav">
           <ul>
-            <% Tag.find(:all, :conditions => {:special => true}).each do |tag| -%>
-              <li <%= "class='active'" if tag == @tag -%>><%= link_to "<span>#{h tag.name.titleize}</span>", tag_url(tag) -%></li>
+            <li class="add_podcast">
+              <%= link_to "<span>Add podcast</span>", new_podcast_path, :class => 'icon' %>
+            </li>
+            <li class="search">
+              <% form_for :search, :url => '', :method => 'post' do |form| -%>
+                <%= text_field_tag "query", params[:search], :size => 20, :tabindex => "1", :class => "text" %>
+              <% end -%>
+            </li>
+            <% if current_user -%>
+            <li class="user">
+              <%= link_to "<span>#{current_user.login}</span>", '#', :class => 'icon'  -%>
+            </li>
+            <% else -%>
+            <li class="signup">
+              <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon quick_signin' -%>
+            </li>
             <% end -%>
           </ul>
+          <% unless current_user -%>
+            <div id="quick_signin" class="palette" style="display: none; opacity: 0;">
+              <div class="contents">
+                <% form_tag session_path do -%>
+                <div class="field">
+                  <label for="login">Login</label>
+                  <div><%= text_field_tag 'login', '', :class => 'text' %></div>
+                </div>
+                <div class="field">
+                  <label for="password">Password</label>
+                  <div><%= password_field_tag 'password', '', :class => 'text' %></div>
+                </div>
+                <div class="controls">
+                  <%= submit_tag 'Sign in', :class => 'button' %>
+                </div>
+                <% end -%>
+              </div>
+            </div>
+            <script type="text/javascript">new Lime.Widgets.QuickLogin('quick_signin')</script>
+          <% end -%>
         </div>
       </div>
     </div>
 
     <div id="body_wrapper">
       <div id="body">
+        <div class="t"><div class="b">
 
-        <div id="primary">
-          <span id="notice"><%= flash[:notice] -%></span>
-          <%= yield -%>
-        </div>
+          <div id="sidebar">
+          </div>
 
-        <div id="sidebar">
-          <img src="/images/content/ad.png" title="Advertisement" />
-        </div>
+          <div id="primary">
+            <span id="notice"><%= flash[:notice] -%></span>
+            <%= yield -%>
+          </div>
 
-        <div class="clear"></div>
+          <div class="clear"></div>
 
+        </div></div>
       </div>
     </div>
-
 
     <div id="footer_wrapper">
       <div id="footer">

@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20080701214920
+# Schema version: 20080803201848
 #
 # Table name: podcasts
 #
-#  id                :integer       not null, primary key
+#  id                :integer(4)    not null, primary key
 #  title             :string(255)   
 #  site              :string(255)   
 #  feed              :string(255)   
@@ -13,15 +13,20 @@
 #  created_at        :datetime      
 #  updated_at        :datetime      
 #  feed_etag         :string(255)   
+#  user_id           :integer(4)    
 #  description       :text          
 #  language          :string(255)   
-#  category_id       :integer       
-#  user_id           :integer(11)   
+#  category_id       :integer(4)    
+#  clean_title       :string(255)   
+#  itunes_link       :string(255)   
+#  owner_id          :integer(4)    
+#  email             :string(255)   
 #
 
 class PodcastError < StandardError; end
 
 require 'open-uri'
+require 'timeout'
 require 'rexml/document'
 require 'paperclip_file'
 
@@ -35,6 +40,7 @@ class Podcast < ActiveRecord::Base
   attr_accessor :logo_link, :has_episodes
 
   validates_presence_of :title
+  validates_uniqueness_of :feed
   
   acts_as_taggable
 
@@ -47,35 +53,56 @@ class Podcast < ActiveRecord::Base
   after_create :retrieve_episodes_from_feed
   before_save :download_logo
 
-  def self.new_from_feed(feed)
+  def self.retrieve_feed(url)
+
+    Timeout::timeout(10) do
+      OpenURI::open_uri(url) do |f|
+        f.read
+      end
+    end
+  rescue Timeout::Error
+    raise PodcastError, "Not found. Try again."
+  rescue
+    raise PodcastError, "Weird server error. Try again."
+  end
+
+  def self.new_from_feed(url)
     podcast = self.new
-    podcast.feed = feed
+    podcast.feed = url
 
-    OpenURI.open_uri(feed) do |f|
-      @feed = f.read
-    end
+    begin
+      is_site = (url =~ /^http:\/\/([^\/]+)\/(.*)/)
+      raise PodcastError, "I can't take feeds from that site! Try again." if Blacklist.find_by_domain($1)
+      raise PodcastError, "That's not a web address. Try again." unless is_site
+      feed = retrieve_feed(url)
 
-    doc = REXML::Document.new(@feed)
-    doc.elements.each('rss/channel/title') do |e|
-      podcast.title = e.text
-    end
-    doc.elements.each('rss/channel/link') do |e|
-      podcast.site = e.text
-    end
-    doc.elements.each('rss/channel/itunes:image') do |e|
-      podcast.logo_link = e.attributes['href']
-    end
-    doc.elements.each('rss/channel/itunes:summary') do |e|
-      podcast.description = e.text
-    end
-    doc.elements.each('rss/channel/language') do |e|
-      podcast.language = e.text
-    end
-    doc.elements.each('rss/channel/itunes:owner/itunes:email') do |e|
-      podcast.email = e.text
-    end
+      doc = REXML::Document.new(feed)
+      raise PodcastError, "This is not a podcast feed." unless REXML::XPath.first(doc, "//enclosure")
 
-    has_episodes = true if doc.elements.each('rss/channel/item/enclosure').size > 0
+      doc.elements.each('rss/channel/title') do |e|
+        podcast.title = e.text
+      end
+      doc.elements.each('rss/channel/link') do |e|
+        podcast.site = e.text
+      end
+      doc.elements.each('rss/channel/itunes:image') do |e|
+        podcast.logo_link = e.attributes['href']
+      end
+      doc.elements.each('rss/channel/itunes:summary') do |e|
+        podcast.description = e.text
+      end
+      doc.elements.each('rss/channel/language') do |e|
+        podcast.language = e.text
+      end
+      doc.elements.each('rss/channel/itunes:owner/itunes:email') do |e|
+        podcast.email = e.text
+      end  
+      doc.elements.each('rss/channel/itunes:owner/itunes:name') do |e|
+        podcast.owner_name = e.text
+      end
+    rescue PodcastError => e
+      podcast.errors.add(:feed, e.message)
+    end
 
     podcast
   end
@@ -120,11 +147,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def retrieve_episodes_from_feed
-    # OpenURI.open_uri(feed, "If-None-Match" => (self.feed_etag || "")) do |f|
-    OpenURI.open_uri(feed) do |f|
-      @etag = f.meta['etag']
-      @feed = f.read
-    end
+    @feed = Podcast.retrieve_feed(feed)
 
     @feed_episodes = []
 
@@ -155,7 +178,6 @@ class Podcast < ActiveRecord::Base
       @feed_episodes << episode
     end
 
-    self.feed_etag = @etag
     @feed_episodes
   rescue OpenURI::HTTPError
     puts "#{self.feed} not modified, skipping..."

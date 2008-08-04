@@ -5,12 +5,28 @@
   <p>
     <%= f.label "feed" -%><br />
     <%= f.text_field :feed -%>
-    <%= submit_tag "Get Feed" -%>
+    <%= submit_tag "Add" -%>
   </p>
 <% end -%>
 
 <% if @podcast -%>
-  <p>Added the podcast.</p>
+  <p class="notice">
+    <% if @podcast.new_record? -%>
+      <%= @podcast.errors["feed"] -%>
+    <% else -%>
+      Yum! I've added <%= link_to_thing(@podcast) -%>
+      <% if @podcast.respond_to?(:owner) -%>
+	<% if @podcast.owner == current_user -%>
+	  by you, <%= link_to_profile(@podcast.owner) -%>. More please
+	<% else -%>
+          by <%= link_to_profile(@podcast.owner) -%>. You get +1 point 
+	  and a link for finding it. More please
+	<% end -%>
+      <% else -%>
+	and emailed <%= @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. More please
+      <% end -%>
+    <% end -%>
+  </p>
 <% end -%>
 
 <% if !logged_in? -%>

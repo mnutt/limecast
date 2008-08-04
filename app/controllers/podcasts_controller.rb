@@ -54,19 +54,17 @@ class PodcastsController < ApplicationController
     login_required
 
     @podcast = Podcast.new_from_feed(params[:podcast][:feed])
-
-    raise PodcastError, "This is a feed, but it does not appear to be a podcast." unless @podcast.has_episodes
     @podcast.user = current_user
     @podcast.owner = current_user if @podcast.email == current_user.email
 
     respond_to do |format|
-      if @podcast.save
-        flash[:notice] = 'Podcast was successfully created.'
-        format.html { redirect_to(@podcast) }
-        format.xml  { render :xml => @podcast, :status => :created, :location => @podcast }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @podcast.errors, :status => :unprocessable_entity }
+      format.html do
+        if @podcast.save
+          @new_podcast = Podcast.new
+        else
+          @new_podcast = @podcast
+        end
+        render :action => "new"
       end
     end
   end

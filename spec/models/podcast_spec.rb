@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Podcast do
   before(:each) do
+    mock_feed("#{RAILS_ROOT}/spec/data/example.xml")
     @podcast = Podcast.new
+    @podcast.feed = "http://defaultfeed"
     @podcast.title = "My Podcast"
   end
 
@@ -29,50 +31,102 @@ describe Podcast do
 end
 
 describe Podcast, "creating a new podcast" do
-  it 'should set the feed url'
-  it 'should extract the title'
-  it 'should extract the site link'
-  it 'should extract the logo link'
-  it 'should extract the description'
-  it 'should extract the language'
+
+  before do
+    mock_feed("#{RAILS_ROOT}/spec/data/example.xml")
+
+    @podcast = Podcast.new_from_feed "http://defaultfeed/"
+  end
+
+  it 'should set the feed url' do
+    @podcast.feed.should == "http://defaultfeed/"
+  end
+
+  it 'should extract the title' do
+    @podcast.title.should == "All About Everything"
+  end
+
+  it 'should extract the site link' do
+    @podcast.site.should == "http://www.example.com/podcasts/everything/index.html"
+  end
+
+  it 'should extract the logo link' do
+    @podcast.logo_link.should == "http://summitviewcc.com/picts/PodcastLogo.png"
+  end
+ 
+  it 'should extract the description' do
+    @podcast.description.should =~ /^All About Everything is a show about everything/
+  end
+
+  it 'should extract the language' do
+    @podcast.language.should == "en-us"
+  end
 end
 
-describe Podcast, "creating a new podcast when the user is not the feed owner" do
-  it 'should set the user as the finder'
-  it 'should not set the user as the owner'
-end
+# describe Podcast, "creating a new podcast when the user is not the feed owner" do
+#   it 'should set the user as the finder'
+#   it 'should not set the user as the owner'
+# end
 
-describe Podcast, "creating a new podcast when the user is the feed owner" do
-  it 'should set the user as the finder'
-  it 'should set the user as the owner'
-end
+# describe Podcast, "creating a new podcast when the user is the feed owner" do
+#   it 'should set the user as the finder'
+#   it 'should set the user as the owner'
+# end
 
-describe Podcast, "creating a new podcast when the user is not logged in" do
-  it 'should not set the user as the finder'
-  it 'should not set the user as the owner'
-end
+# describe Podcast, "creating a new podcast when the user is not logged in" do
+#   it 'should not set the user as the finder'
+
+#   it 'should not set the user as the owner'
+# end
 
 describe Podcast, "creating a new podcast with a non-existant URL" do
-  it 'should raise an error that the URL is not contactable'
-  it 'should not save the podcast'
+  it 'should raise an error that the URL is not contactable' do
+    pending "figure out how to make it timeout without waiting"
+    podcast = Podcast.new_from_feed("http://192.168.219.47")
+    podcast.errors["feed"].should == "The server was not contactable."
+  end
 end
 
 describe Podcast, "creating a new podcast with an RSS feed that is not a podcast" do
-  it 'should raise an error that the feed is not a podcast'
-  it 'should not save the podcast'
+  it 'should raise an error that the feed is not a podcast' do
+    mock_feed("#{RAILS_ROOT}/spec/data/regularfeed.xml")
+    podcast = Podcast.new_from_feed("http://regularfeed/")
+    podcast.errors["feed"].should == "This is not a podcast feed."
+  end
 end
 
 describe Podcast, "creating a new podcast with a non-URL string" do
-  it 'should raise an error that the feed is not a URL'
-  it 'should not save the podcast'
+  it 'should raise an error that the feed is not a URL' do
+    podcast = Podcast.new_from_feed("localhost")
+    podcast.errors["feed"].should == "That's not a web address. Try again."
+  end
 end
 
 describe Podcast, "creating a new podcast when a weird server error occurs" do
-  it 'should raise an error that an unknown exception occurred'
-  it 'should not save the podcast'
+  it 'should raise an error that an unknown exception occurred' do
+    podcast = Podcast.new_from_feed("http://localhost:7/")
+    podcast.errors["feed"].should == "Weird server error. Try again."
+  end
+end
+
+describe Podcast, "creating a new podcast that is from a site on the blacklist" do
+  it 'should raise an error that the site is on the blacklist' do
+    Blacklist.create(:domain => "restrictedsite")
+    podcast = Podcast.new_from_feed("http://restrictedsite/bad/feed.xml")
+  end
 end
 
 describe Podcast, "creating a new podcast that already exists in the system" do
-  it 'should raise an error that the podcast has already been registered'
-  it 'should not save the podcast again'
+  it 'should raise an error that the podcast has already been registered' do
+    mock_feed("#{RAILS_ROOT}/spec/data/example.xml")
+    @podcast = Podcast.new_from_feed "#{RAILS_ROOT}/spec/data/example.xml"
+    @podcast.save
+    @podcast = Podcast.new_from_feed "#{RAILS_ROOT}/spec/data/example.xml"
+    @podcast.save.should be_false
+  end
+end
+
+def mock_feed(path)
+  feed = File.read(path)
+  Podcast.stub!(:retrieve_feed).and_return(feed)
 end

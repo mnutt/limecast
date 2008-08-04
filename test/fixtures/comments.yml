@@ -1,16 +1,17 @@
 # == Schema Information
-# Schema version: 20080701214920
+# Schema version: 20080803201848
 #
 # Table name: comments
 #
-#  id               :integer       not null, primary key
-#  user_id          :integer       
+#  id               :integer(4)    not null, primary key
+#  user_id          :integer(4)    
 #  commentable_type :string(255)   
-#  commentable_id   :integer       
+#  commentable_id   :integer(4)    
 #  body             :text          
 #  created_at       :datetime      
 #  updated_at       :datetime      
 #  title            :string(255)   
+#  positive         :boolean(1)    
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

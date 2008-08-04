@@ -28,12 +28,11 @@ module ApplicationHelper
     end
   end
 
-  def link_user_with_icon(user)
-    link_to("#{image_tag('/images/icons/user.png')} #{h(user.login)}", user_url(user))
-  end
-
-  def link_with_icon(thing)
-    link_to("#{image_tag(thing.logo.url(:icon))} #{h(thing.title)}", polymorphic_url(thing))
+  def link_to_thing(thing)
+    link_to polymorphic_url(thing) do
+      link = image_tag(thing.logo.url(:icon))
+      link << h(thing.title)
+    end
   end
 
   def relative_time(date)

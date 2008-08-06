@@ -91,21 +91,21 @@ describe Podcast, "creating a new podcast with an RSS feed that is not a podcast
   it 'should raise an error that the feed is not a podcast' do
     mock_feed("#{RAILS_ROOT}/spec/data/regularfeed.xml")
     podcast = Podcast.new_from_feed("http://regularfeed/")
-    podcast.errors["feed"].should == "This is not a podcast feed."
+    podcast.feed_error.should == "This is not a podcast feed. Try again."
   end
 end
 
 describe Podcast, "creating a new podcast with a non-URL string" do
   it 'should raise an error that the feed is not a URL' do
     podcast = Podcast.new_from_feed("localhost")
-    podcast.errors["feed"].should == "That's not a web address. Try again."
+    podcast.feed_error.should == "That's not a web address. Try again."
   end
 end
 
 describe Podcast, "creating a new podcast when a weird server error occurs" do
   it 'should raise an error that an unknown exception occurred' do
     podcast = Podcast.new_from_feed("http://localhost:7/")
-    podcast.errors["feed"].should == "Weird server error. Try again."
+    podcast.feed_error.should == "Weird server error. Try again."
   end
 end
 

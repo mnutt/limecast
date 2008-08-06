@@ -37,7 +37,7 @@ class Podcast < ActiveRecord::Base
   has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :episodes, :dependent => :destroy
 
-  attr_accessor :logo_link, :has_episodes
+  attr_accessor :logo_link, :has_episodes, :feed_error
 
   validates_presence_of :title
   validates_uniqueness_of :feed
@@ -52,17 +52,20 @@ class Podcast < ActiveRecord::Base
   before_create :generate_clean_title
   after_create :retrieve_episodes_from_feed
   before_save :download_logo
+  before_create :check_for_feed_error
 
   def self.retrieve_feed(url)
 
-    Timeout::timeout(10) do
+    Timeout::timeout(5) do
       OpenURI::open_uri(url) do |f|
         f.read
       end
     end
   rescue Timeout::Error
     raise PodcastError, "Not found. Try again."
-  rescue
+  rescue Errno::ENETUNREACH
+    raise PodcastError, "Not found. Try again."
+  rescue StandardError => e
     raise PodcastError, "Weird server error. Try again."
   end
 
@@ -77,7 +80,7 @@ class Podcast < ActiveRecord::Base
       feed = retrieve_feed(url)
 
       doc = REXML::Document.new(feed)
-      raise PodcastError, "This is not a podcast feed." unless REXML::XPath.first(doc, "//enclosure")
+      raise PodcastError, "This is not a podcast feed. Try again." unless REXML::XPath.first(doc, "//enclosure")
 
       doc.elements.each('rss/channel/title') do |e|
         podcast.title = e.text
@@ -101,10 +104,14 @@ class Podcast < ActiveRecord::Base
         podcast.owner_name = e.text
       end
     rescue PodcastError => e
-      podcast.errors.add(:feed, e.message)
+      podcast.feed_error = e.message
     end
 
     podcast
+  end
+
+  def check_for_feed_error
+    self.feed_error.nil?
   end
 
   def average_time_between_episodes

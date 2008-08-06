@@ -24,7 +24,7 @@ module ApplicationHelper
     link_to user_url(user) do
       link = image_tag('icons/user.png')
       link << h(user.login)
-      link << " (#{user.score})" unless user.podcaster?
+      # link << " (#{user.score})" unless user.podcaster?
     end
   end
 

@@ -26,11 +26,11 @@
 
   <div class="info">
     <% if @podcast.user -%>
-    <span class="found_by">Found by <%= link_user_with_icon @podcast.user -%></span>
+    <span class="found_by">Found by <%= link_to_profile @podcast.user -%></span>
     <% end -%>
     
     <% if @podcast.owner -%>
-      <span class="made_by">Made by <%= link_user_with_icon @podcast.owner -%></span>
+      <span class="made_by">Made by <%= link_to_profile @podcast.owner -%></span>
     <% end -%>
 
     <div class="site">Site: <%=link_to h(@podcast.site), h(@podcast.site) %></div>

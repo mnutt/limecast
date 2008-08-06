@@ -4,6 +4,84 @@ Lime = Class.create();
 Lime.Widgets = Class.create();
 
 /**************************************************************
+* Hover/Focus Behaviors
+**************************************************************/
+Lime.Widgets.Behaviors = Class.create();
+Object.extend(Lime.Widgets.Behaviors.prototype, {
+  initialize: function(options) {
+    this.options = Object.extend({
+      prefix: '_',
+      classNames: {
+        hover: 'hover',
+        focus: 'focus'
+      }
+    }, options || {});
+    this._attach();
+  },
+  _attach: function() {
+    this.elements = $$('input, textarea, button');
+    this.elements.each(function(element) {
+      var type = element.readAttribute('type');
+      if (type != 'hidden') {
+        if (type == 'image') {
+          var filename = element.readAttribute('src');
+          var dot = filename.lastIndexOf('.');
+          var filename_hover = filename.substr(0, dot) + this.options.prefix + this.options.classNames.hover + filename.substr(dot);
+          var filename_focus = filename.substr(0, dot) + this.options.prefix + this.options.classNames.focus + filename.substr(dot);
+        }
+        Event.observe(element, 'mouseover', function(event) {
+          if (type == 'image') element.writeAttribute('src', filename_hover);
+          element.addClassName(this.options.classNames.hover);
+        }.bind(this));
+        Event.observe(element, 'mouseout', function(event) {
+          if (type == 'image') element.writeAttribute('src', filename);
+          element.removeClassName(this.options.classNames.hover);
+        }.bind(this));
+        Event.observe(element, 'focus', function(event) {
+          if (type == 'image') element.writeAttribute('src', filename_focus);
+          element.removeClassName(this.options.classNames.hover)
+                 .addClassName(this.options.classNames.focus);
+        }.bind(this));
+        Event.observe(element, 'blur', function(event) {
+          if (type == 'image') element.writeAttribute('src', filename);
+          element.removeClassName(this.options.classNames.hover)
+                 .removeClassName(this.options.classNames.focus);
+        }.bind(this));
+      }
+    }.bind(this));
+  }
+});
+
+/**************************************************************
+* Search
+**************************************************************/
+Lime.Widgets.Search = Class.create();
+Object.extend(Lime.Widgets.Search.prototype, {
+  initialize: function(container) {
+    if (!$(container)) {
+      throw(container+" doesn't exist.");
+      return false;
+    }
+    this.container = $(container);
+    this._attach();
+  },
+  _attach: function() {
+    this.label = this.container.previous();
+    this.label.hide();
+    this.text = this.label.innerHTML;
+    this.container.value = this.text;
+    Event.observe(this.container, 'focus', function(event) {
+      if (this.container.value == this.text) this.container.value = '';
+      Event.stop(event);
+    }.bind(this));
+    Event.observe(this.container, 'blur', function(event) {
+      if (this.container.value == '') this.container.value = this.text;
+      Event.stop(event);
+    }.bind(this));
+  }
+});
+
+/**************************************************************
 * Quick Login
 **************************************************************/
 Lime.Widgets.QuickLogin = Class.create();
@@ -99,3 +177,6 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
     }
   }
 });
+
+// Load defaults
+document.observe('dom:loaded', function() { new Lime.Widgets.Behaviors; });

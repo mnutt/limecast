@@ -35,3 +35,122 @@ div#quick_signin {
   top: 35px;
   right: 0;
 }
+
+/**
+* Podcast
+**/
+div.podcast {
+  position: relative;
+}
+div.podcast h2 {
+  display: block;
+}
+div.podcast div.cover {
+  padding: 1px 0 0 1px;
+  position: relative;
+  float: left;
+  z-index: 1;
+}
+div.podcast div.cover div.border {
+  border: 1px solid #232323;
+  width: 170px;
+  height: 170px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  display: block;
+  z-index: 1;
+}
+div.podcast div.info {
+  font-size: 1.1em;
+  margin: 0 0 0 192px;
+  width: 250px;
+  height: 230px;
+}
+div.podcast div.info dl {
+  margin: 0 0 25px 0;
+}
+div.podcast div.info dl dt {
+  color: #ABABAB;
+  float: left;
+}
+div.podcast div.info dl dd {
+  text-align: right;
+  margin: 0 0 5px 0;
+}
+div.podcast div.info div.controls span.price {
+  font-size: 0.9em;
+  color: #ABABAB;
+  margin: 5px 5px 0 0;
+  display: block;
+  float: left;
+}
+div.podcast div.description {
+  margin: 0 0 30px 0;
+}
+
+/**
+* Reviews
+**/
+div#reviews {
+  position: relative;
+  z-index: 1;
+}
+div#reviews h4 {
+  margin: 0 0 5px 0;
+}
+div#reviews div.average_rating {
+  color: #A4A4A4;
+  height: 21px;
+  margin: 0 0 10px 0;
+  position: relative;
+  z-index: 1;
+}
+div#reviews div.average_rating span {
+  font-size: 1.1em;
+  margin: 1px 5px 0 0;
+  display: block;
+  float: left;
+}
+div#reviews div.average_rating ul {
+  float: left;
+  clear: none;
+}
+div#reviews div.controls {
+  top: 0;
+  right: 0;
+  position: absolute;
+  z-index: 1;
+}
+div#reviews div.controls ul {
+
+}
+div#reviews div.controls ul li {
+  margin: 0 0 0 4px;
+  float: left;
+}
+div#reviews div.controls ul li a {
+  float: left;
+}
+div.review {
+  position: relative;
+  z-index: 1;
+}
+div.review h5 {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 0 0 5px 0;
+}
+div.review cite {
+  font-style: normal;
+  font-size: 1.0em;
+  color: #ABABAB;
+  margin: 0 0 10px 0;
+  display: block;
+}
+div.review div.stars {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}

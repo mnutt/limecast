@@ -3,7 +3,7 @@
 ***************************************************************************************/
 body {
   background-color: #181818;
-  font: 62.5% "Lucida Grande", "Lucida Sans", "Bitstream Vera Sans", Verdana, sans-serif;
+  font: 62.5% Verdana, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -62,7 +62,8 @@ table, thead, tbody, tr, th, td {
 
 /** Basic Typography **/
 h1, h2, h3, h4, h5 {
-  font-weight: normal;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 100;
 }
 h1 { font-size: 1.8em; }
 h2 { font-size: 1.4em; }
@@ -85,10 +86,19 @@ a.icon {
   background-repeat: no-repeat;
   background-position: left center;
   text-decoration: none;
-  padding: 2px 0 2px 19px;
+  padding: 2px 0 2px 18px;
+  display: block;
 }
 a.icon span {
   text-decoration: underline;
+  cursor: pointer !important;
+}
+* html a.icon {
+  behavior: url("../javascripts/png.htc");
+  padding: 2px 0;
+}
+* html a.icon span {
+  margin: 0 0 0 18px;
 }
 
 /**
@@ -155,7 +165,24 @@ div#header div#account_bar ul li.add_podcast a {
   background-image: url("../images/icons/add.png");
 }
 div#header div#account_bar ul li.search {
+  width: 160px;
   padding: 5px 0 0 0;
+  position: relative;
+}
+div#header div#account_bar ul li.search input.text {
+  width: 122px;
+  height: 14px;
+  padding: 5px 5px 4px 5px;
+  top: 5px;
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+  display: block;
+}
+div#header div#account_bar ul li.search input.image_button {
+  top: 5px;
+  right: 0;
+  position: absolute;
 }
 div#header div#account_bar ul li.user a {
   background-image: url("../images/icons/user.png");
@@ -282,8 +309,12 @@ form div.field div {
 form div.controls {
   padding: 0 0 0 135px;
 }
+form input,
+form textarea {
+  font: 1.0em Verdana, sans-serif;
+}
 form input.text {
-  background: #FFF url("../images/content/input_bg.png") repeat-x left top;
+  background: #F3F3F3 url("../images/content/input_bg.png") repeat-x left top;
   border: 1px solid #212121;
   color: #676767;
   padding: 4px;
@@ -293,125 +324,11 @@ form input.button {
   border: 1px solid #212121;
   color: #383838;
   padding: 4px;
+  cursor: pointer;
 }
-
-/**
-* Podcast
-**/
-div.podcast {
-  position: relative;
-}
-div.podcast h2 {
-  display: block;
-}
-div.podcast div.cover {
-  padding: 1px 0 0 1px;
-  position: relative;
-  float: left;
-  z-index: 1;
-}
-div.podcast div.cover div.border {
-  border: 1px solid #232323;
-  width: 170px;
-  height: 170px;
-  top: 0px;
-  left: 0px;
-  position: absolute;
-  display: block;
-  z-index: 1;
-}
-div.podcast div.info {
-  font-size: 1.1em;
-  margin: 0 0 0 192px;
-  width: 250px;
-  height: 230px;
-}
-div.podcast div.info dl {
-  margin: 0 0 25px 0;
-}
-div.podcast div.info dl dt {
-  color: #ABABAB;
-  float: left;
-}
-div.podcast div.info dl dd {
-  text-align: right;
-  margin: 0 0 5px 0;
-}
-div.podcast div.info div.controls span.price {
-  font-size: 0.9em;
-  color: #ABABAB;
-  margin: 5px 5px 0 0;
-  display: block;
-  float: left;
-}
-div.podcast div.description {
-  margin: 0 0 30px 0;
-}
-
-/**
-* Reviews
-**/
-div#reviews {
-  position: relative;
-  z-index: 1;
-}
-div#reviews h4 {
-  margin: 0 0 5px 0;
-}
-div#reviews div.average_rating {
-  color: #A4A4A4;
-  height: 21px;
-  margin: 0 0 10px 0;
-  position: relative;
-  z-index: 1;
-}
-div#reviews div.average_rating span {
-  font-size: 1.1em;
-  margin: 1px 5px 0 0;
-  display: block;
-  float: left;
-}
-div#reviews div.average_rating ul {
-  float: left;
-  clear: none;
-}
-div#reviews div.controls {
-  top: 0;
-  right: 0;
-  position: absolute;
-  z-index: 1;
-}
-div#reviews div.controls ul {
-
-}
-div#reviews div.controls ul li {
-  margin: 0 0 0 4px;
-  float: left;
-}
-div#reviews div.controls ul li a {
-  float: left;
-}
-div.review {
-  position: relative;
-  z-index: 1;
-}
-div.review h5 {
-  font-weight: bold;
-  font-size: 1.1em;
-  margin: 0 0 5px 0;
-}
-div.review cite {
-  font-style: normal;
-  font-size: 1.0em;
-  color: #ABABAB;
-  margin: 0 0 10px 0;
-  display: block;
-}
-div.review div.stars {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 2;
+form input.image_button {
+  border: 1px solid #212121;
+  cursor: pointer;
 }
 
 /**

@@ -21,18 +21,11 @@ module ApplicationHelper
   end
 
   def link_to_profile(user)
-    link_to user_url(user) do
-      link = image_tag('icons/user.png')
-      link << h(user.login)
-      # link << " (#{user.score})" unless user.podcaster?
-    end
+    link_to "#{image_tag('icons/user.png')} #{h(user.login)}", user_url(user)
   end
 
   def link_to_thing(thing)
-    link_to polymorphic_url(thing) do
-      link = image_tag(thing.logo.url(:icon))
-      link << h(thing.title)
-    end
+    link_to "#{image_tag(thing.logo.url(:icon))} #{h(thing.title)}", polymorphic_url(thing)
   end
 
   def relative_time(date)

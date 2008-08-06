@@ -1,9 +1,3 @@
 <h1>Podcasts</h1>
 
-<%= tag_cloud %>
-
 <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
-
-<br />
-
-<%= link_to 'New podcast', new_podcast_path %>

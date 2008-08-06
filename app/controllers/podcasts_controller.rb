@@ -1,5 +1,5 @@
 class PodcastsController < ApplicationController
-  before_filter :login_required, :only => [:new, :edit, :create, :update, :destroy]
+  before_filter :login_required, :only => [:edit, :update, :destroy]
   # GET /podcasts
   # GET /podcasts.xml
   def index
@@ -32,8 +32,6 @@ class PodcastsController < ApplicationController
   # GET /podcasts/new
   # GET /podcasts/new.xml
   def new
-    login_required
-
     @new_podcast = Podcast.new
 
     respond_to do |format|
@@ -51,11 +49,11 @@ class PodcastsController < ApplicationController
   # POST /podcasts
   # POST /podcasts.xml
   def create
-    login_required
-
     @podcast = Podcast.new_from_feed(params[:podcast][:feed])
-    @podcast.user = current_user
-    @podcast.owner = current_user if @podcast.email == current_user.email
+    if current_user
+      @podcast.user = current_user
+      @podcast.owner = current_user if @podcast.email == current_user.email
+    end
 
     respond_to do |format|
       format.html do

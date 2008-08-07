@@ -1,11 +1,11 @@
-<div class="review" id="<%= dom_id(comment) -%>">
+<li id="<%= dom_id(comment) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
   <% if comment.positive -%>
-    <%= image_tag('thumb_up.png', :alt => "Thumbs Up") -%>
+    <%= image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating') -%>
   <% else -%>
-    <%= image_tag('thumb_down.png', :alt => "Thumbs Down") -%>
+    <%= image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating') -%>
   <% end -%>
 
-  <h5><%=h comment.title -%></h5>
-  <cite>by <%= comment.commenter.login -%></cite>
+  <h4><%=h comment.title -%></h4>
+  <cite>by <%= link_to_profile comment.commenter -%></cite>
   <p><%=h comment.body -%></p>
-</div>
+</li>

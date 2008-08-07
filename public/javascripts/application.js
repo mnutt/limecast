@@ -178,5 +178,40 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
   }
 });
 
+/**************************************************************
+* Toggle
+**************************************************************/
+Lime.Widgets.Toggle = Class.create();
+Object.extend(Lime.Widgets.Toggle.prototype, {
+  initialize: function(options) {
+    this.options = Object.extend({
+      toggle: 'span.expand',
+      classNames: {
+        expanded: 'expanded'
+      }
+    }, options || {});
+    this._attach();
+  },
+  _attach: function() {
+    $$(this.options.toggle).each(function(toggle) {
+      var me = $(toggle), parent = me.up();
+      me.update((parent.hasClassName(this.options.classNames.expanded))? 'Collapse' : 'Expand');
+      toggle.observe('click', function(event) {
+        if (parent.hasClassName(this.options.classNames.expanded) == true) {
+          parent.removeClassName(this.options.classNames.expanded);
+          me.update('Expand');
+        } else {
+          parent.addClassName(this.options.classNames.expanded);
+          me.update('Collapse');
+        }
+        Event.stop(event);
+      }.bind(this));
+    }.bind(this));
+  }
+});
+
 // Load defaults
-document.observe('dom:loaded', function() { new Lime.Widgets.Behaviors; });
+document.observe('dom:loaded', function() {
+  new Lime.Widgets.Behaviors;
+  new Lime.Widgets.Toggle;
+});

@@ -1,7 +1,10 @@
 <% if @podcast -%>
-  <h1>Episodes for <%=h @podcast.title -%></h1>
+  <h2>Episodes for <%=h @podcast.title -%></h2>
 <% else -%>
- <h1>All episodes</h1>
+  <h2>All episodes</h2>
 <% end -%>
 
-<%= render :partial => "episodes/episode", :collection => @episodes -%>
+<ul class="episodes">
+  <%= render :partial => "episodes/episode", :collection => @episodes -%>
+</ul>
+<% reset_cycle('row_class') %>

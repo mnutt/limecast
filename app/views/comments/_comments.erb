@@ -3,7 +3,9 @@
 
 <div id="comments_list">
   <% if commentable.comments.empty? -%>
-    <p>There are no comments yet.</p>
+    <p>
+      <span class="notice">There are no comments yet.</span>
+    </p>
   <% else -%>
     <%= render :partial => 'comments/comment', :collection => commentable.comments -%>
   <% end -%>

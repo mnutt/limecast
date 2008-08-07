@@ -26,7 +26,7 @@
         <div id="account_bar">
           <ul>
             <li class="add_podcast">
-              <%= link_to "<span>Add podcast</span>", new_podcast_path, :class => 'icon' %>
+              <%= link_to "<span>Add podcast</span>", new_podcast_path, :class => 'icon add' %>
             </li>
             <li class="search">
               <% form_for :search, :url => '', :method => 'post' do |form| -%>
@@ -42,11 +42,12 @@
             </li>
             <% else -%>
             <li class="signup">
-              <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon quick_signin' -%>
+              <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon user quick_signin' -%>
             </li>
             <% end -%>
           </ul>
-          <% unless current_user -%>
+          <% #unless current_user
+          if false then -%>
             <div id="quick_signin" class="palette">
               <div class="contents">
                 <% form_tag session_path do -%>
@@ -92,7 +93,31 @@
     <div id="footer_wrapper">
       <div id="footer">
 
-        <p id="copyright">&copy; 2008 Lime Wire LLC. Some Rights Reserved.</p>
+        <ul class="primary">
+          <li class="blog">
+            <%= link_to "<span>Blog</span>", '#' %>
+          </li>
+          <li class="use">
+            <%= link_to "<span>Terms of service</span>", '/user' %>
+          </li>
+          <li class="privacy">
+            <%= link_to "<span>Privacy</span>", '/privacy' %>
+          </li>
+        </ul>
+        
+        <ul class="secondary">
+          <li class="copyright">
+            <%= link_to "<span>Copyright/IP policy</span>", '#' %>
+          </li>
+          <li class="open_source">
+            <%= link_to "<span>Open source</span>", '#' %>
+          </li>
+          <li class="guide">
+            <%= link_to "<span>Podcasting guide</span>", '#' %>
+          </li>
+        </ul>
+        
+        <div class="clear"></div>
 
       </div>
     </div>

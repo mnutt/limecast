@@ -3,9 +3,10 @@
   <%= render :partial => "podcasts/podcast", :collection => @podcasts -%>
 </div>
 
-<div style="clear:both;"></div>
+<div class="clear"></div>
 
 <div id="recent_episodes">
   <h2>Recently Added Episodes</h2>
   <%= render :partial => "episodes/episode", :collection => @episodes -%>
 </div>
+<% reset_cycle('row_class') %>

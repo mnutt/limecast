@@ -1,13 +1,15 @@
-<div class="episode" id="<%= dom_id(episode) -%>">
-  <span class="expand" >[ + ]</span>
+<li id="<%= dom_id(episode) -%>" class="episode <%= cycle('odd','even', :name => 'row_class') -%><% if episode_counter == 0 -%> expanded<% end -%>">
+  <span class="expand" >Expand</span>
 
-  <span class="date"><%= link_to episode.pretty_date, episode_url(:episode => episode, :podcast => episode.podcast) -%></span>
-  <span class="title"><%= episode.title -%></span>
-  <% if episode.duration and episode.duration > 0 -%>
-    <span class="duration">(<%= pretty_duration(episode.duration) -%>)</span>
-  <% end -%>
+  <div class="summary">
+    <span class="date"><%= link_to episode.pretty_date, episode_url(:episode => episode, :podcast => episode.podcast) -%></span>
+    <span class="title"><%= episode.title -%></span>
+    <% if episode.duration and episode.duration > 0 -%>
+      <span class="duration">(<%= pretty_duration(episode.duration) -%>)</span>
+    <% end -%>
+  </div>
 
-  <div class="full" <% unless episode_counter == 0 -%>style="display: none"<% end -%>>
+  <div class="full">
     <p class="description"><%=strip_tags episode.summary -%></p>
     
     <%# TODO: if an mp3 doesn't have .mp3 extension? -%>
@@ -22,13 +24,7 @@
     <% end -%>
 
     <div class="download">
-      <%= link_to "Download", episode.enclosure_url -%>
+      <%= link_to "<span>Download</span>", episode.enclosure_url, :class => 'icon' -%>
     </div>
   </div>
-
-  <script type="text/javascript">
-    $$('#<%= dom_id(episode) -%> .expand')[0].observe('click', function() {
-      new Effect.toggle($$('#<%= dom_id(episode) -%> .full')[0], 'blind', {duration: 1.0});
-    });
-  </script>
-</div>
+</li>

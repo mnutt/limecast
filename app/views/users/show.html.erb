@@ -5,13 +5,13 @@
   Change password, email (<%= @user.email -%>), or Name.
 <% end -%>
 
-<h4>Makes</h4>
+<h3>Makes</h3>
 <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
 
-<h4>Found</h4>
+<h3>Found</h3>
 <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
 
-<h4>Reviewed</h4>
+<h3>Reviewed</h3>
 <div class="comments">
   <% @user.comments.each do |comment| -%>
     <div id="<%= dom_id(comment) -%>" class="comment">

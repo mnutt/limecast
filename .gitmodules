@@ -13,3 +13,6 @@
 [submodule "vendor/plugins/httparty"]
 	path = vendor/plugins/httparty
 	url = git://github.com/jnunemaker/httparty
+[submodule "vendor/plugins/in_place_editing"]
+	path = vendor/plugins/in_place_editing
+	url = git://github.com/rails/in_place_editing.git

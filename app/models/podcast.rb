@@ -75,6 +75,7 @@ class Podcast < ActiveRecord::Base
 
     begin
       is_site = (url =~ /^http:\/\/([^\/]+)\/(.*)/)
+      raise PodcastError, "That feed has already been added to the system. Try again" if Podcast.find_by_feed(url)
       raise PodcastError, "I can't take feeds from that site! Try again." if Blacklist.find_by_domain($1)
       raise PodcastError, "That's not a web address. Try again." unless is_site
       feed = retrieve_feed(url)

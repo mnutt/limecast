@@ -23,7 +23,7 @@
   <%= f.hidden_field :commentable_type, :value => commentable.class.to_s -%>
 
   <div class="align">
-    <%= f.radio_button :positive, true, :selected => "selected" -%>
+    <%= f.radio_button :positive, true, :checked => "checked" -%>
     <%= f.label :positive, "Thumbs Up" -%>
     <%= f.radio_button :positive, false -%>
     <%= f.label :positive, "Thumbs Down" -%>

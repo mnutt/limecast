@@ -1,23 +1,37 @@
 <% commentable = add_comment -%>
 <% options ||= {} -%>
 
+<h3>Write a review</h3>
+
 <% if current_user -%>
 <% remote_form_for(:comment, :update => 'comments_list', :position => :bottom, :url => comments_url) do |f| -%>
+  <div class="field">
   <%= f.label :title -%>
-  <div><%= f.text_field :title -%></div>
+    <div>
+      <%= f.text_field :title, :class => 'text' -%>
+    </div>
+  </div>
 
-  <%= f.label :body, "Review" -%>
-  <div><%= f.text_area :body, :style => "height: 8em; #{ 'width: 95%;' if options[:width] == 'full' }" -%></div>
+  <div class="field">
+    <%= f.label :body, "Review" -%>
+    <div>
+      <%= f.text_area :body, :class => "text#{ ' full' if options[:width] == 'full' }", :rows => '10' -%>
+    </div>
+  </div>
 
   <%= f.hidden_field :commentable_id, :value => commentable.id -%>
   <%= f.hidden_field :commentable_type, :value => commentable.class.to_s -%>
 
-  <%= f.radio_button :positive, true, :selected => "selected" -%>
-  <%= f.label :positive, "Thumbs Up" -%>
-  <%= f.radio_button :positive, false -%>
-  <%= f.label :positive, "Thumbs Down" -%>
+  <div class="align">
+    <%= f.radio_button :positive, true, :selected => "selected" -%>
+    <%= f.label :positive, "Thumbs Up" -%>
+    <%= f.radio_button :positive, false -%>
+    <%= f.label :positive, "Thumbs Down" -%>
+  </div>
 
-  <%= submit_tag "Add" -%>
+  <div class="controls">
+    <%= submit_tag "Add", :class => 'button' -%>
+  </div>
 <% end -%>
 <% else -%>
   <span><%= link_to "Login", login_url -%></span> or

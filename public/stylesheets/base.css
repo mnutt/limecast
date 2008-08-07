@@ -87,7 +87,6 @@ a.icon {
   background-position: left center;
   text-decoration: none;
   padding: 2px 0 2px 18px;
-  display: block;
 }
 a.icon span {
   text-decoration: underline;
@@ -100,6 +99,17 @@ a.icon span {
 * html a.icon span {
   margin: 0 0 0 18px;
 }
+a.inline_icon {
+  text-decoration: none;
+}
+a.inline_icon img {
+  position: relative;
+  top: 4px;
+}
+a.inline_icon span {
+  text-decoration: underline;
+  cursor: pointer !important;
+}
 
 /**
 * Layout
@@ -108,6 +118,7 @@ div#header,
 div#body,
 div#footer {
   position: relative;
+  font-size: 1.1em;
 }
 
 /**
@@ -171,8 +182,8 @@ div#header div#account_bar ul li.search {
 }
 div#header div#account_bar ul li.search input.text {
   width: 122px;
-  height: 14px;
-  padding: 5px 5px 4px 5px;
+  height: 15px;
+  padding: 4px 5px;
   top: 5px;
   left: 0;
   position: absolute;
@@ -184,11 +195,8 @@ div#header div#account_bar ul li.search input.image_button {
   right: 0;
   position: absolute;
 }
-div#header div#account_bar ul li.user a {
-  background-image: url("../images/icons/user.png");
-}
-div#header div#account_bar ul li.signup a,
-div#header div#account_bar ul li.signin a {
+div#header div#account_bar ul li.user a,
+div#header div#account_bar ul li.signup a  {
   background-image: url("../images/icons/user.png");
 }
 
@@ -215,21 +223,21 @@ div#body div#sidebar {
 }
 div#body h2 {
   font-size: 2.0em;
-  margin: 0 0 20px 0;
-}
-div#body h3 {
   margin: 0 0 10px 0;
 }
-div#body h4 {
-  text-transform: uppercase;
+div#body h3 {
   font-size: 1.6em;
+  margin: 0 0 10px 0;
   color: #ABABAB;
-  margin: 0 0 15px 0;
+}
+div#body h4 {
+  font-size: 1.2em;
 }
 div#body p {
-  font-size: 1.1em;
-  line-height: 1.6em;
   margin: 0 0 15px 0;
+}
+div#body span.notice {
+  color: #ABABAB;
 }
 
 /** Buttons **/
@@ -292,6 +300,13 @@ div#footer_wrapper {
 div#footer {
   padding: 0 20px;
 }
+div#footer ul {
+  clear: both;
+}
+div#footer ul li {
+  margin: 0 5px 0 0;
+  float: left;
+}
 
 /**
 * Forms
@@ -301,19 +316,25 @@ form div.field label {
   padding: 5px 0;
   width: 125px;
   float: left;
-  cursor: pointer;
 }
 form div.field div {
   margin: 0 0 10px 135px;
 }
+form div.align {
+  padding: 10px 10px 10px 135px;
+}
 form div.controls {
   padding: 0 0 0 135px;
+}
+form label {
+  cursor: pointer !important;
 }
 form input,
 form textarea {
   font: 1.0em Verdana, sans-serif;
 }
-form input.text {
+form input.text,
+form textarea.text {
   background: #F3F3F3 url("../images/content/input_bg.png") repeat-x left top;
   border: 1px solid #212121;
   color: #676767;
@@ -342,21 +363,3 @@ div.palette div.contents {
   background-color: #6E6E6E;
   padding: 10px;
 }
-
-
-/* TEMPORARY -- REMOVE */
-
-/*.podcast .title,
-.podcast .category {
-  width: 85px;
-  font-size: 1em;
-  font-weight: bold;
-}
-
-.podcast_thumb {
-  float: left;
-  padding: 10px;
-  height: 150px;
-}*/
-
-/* /TEMPORARY */

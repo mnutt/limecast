@@ -1,3 +1,5 @@
-<h1>All comments for <%=h @podcast.title -%></h1>
+<h2>All comments for <%=h @podcast.title -%></h2>
 
-<%= render :partial => 'comment', :collection => @comments -%>
+<ul class="reviews">
+  <%= render :partial => 'comment', :collection => @comments -%>
+</ul>

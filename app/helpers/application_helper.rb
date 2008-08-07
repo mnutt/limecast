@@ -21,11 +21,11 @@ module ApplicationHelper
   end
 
   def link_to_profile(user)
-    link_to "#{image_tag('icons/user.png')} #{h(user.login)}", user_url(user)
+    link_to "<span>#{h(user.login)}</span>", user_url(user), :class => 'icon user'
   end
 
   def link_to_thing(thing)
-    link_to "#{image_tag(thing.logo.url(:icon))} #{h(thing.title)}", polymorphic_url(thing)
+    link_to "#{image_tag(thing.logo.url(:icon))} <span>#{h(thing.title)}</span>", polymorphic_url(thing), :class => 'inline_icon'
   end
 
   def relative_time(date)

@@ -1,32 +1,3 @@
-/*BODY {
-  color: #CCC;
-  background-color: #333533;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-A {
-  color: #5cafc4;
-}
-
-#account_navigation {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-}
-
-.podcast .title,
-.podcast .category {
-  width: 85px;
-  font-size: 0.7em;
-  font-weight: bold;
-}
-
-.podcast {
-  float: left;
-  padding: 10px;
-  height: 150px;
-}
-*/
 /**
 * Quick Sign In/Up
 **/
@@ -37,18 +8,27 @@ div#quick_signin {
 }
 
 /**
+* Podcasts
+**/
+ul.podcasts li.podcast {
+  padding: 10px;
+}
+ul.podcasts li.odd {
+  background-color: #565656;
+}
+
+/**
 * Podcast
 **/
 div.podcast {
+  padding: 0 0 0 190px;
   position: relative;
-}
-div.podcast h2 {
-  display: block;
 }
 div.podcast div.cover {
+  top: 0;
+  left: 0;
   padding: 1px 0 0 1px;
-  position: relative;
-  float: left;
+  position: absolute;
   z-index: 1;
 }
 div.podcast div.cover div.border {
@@ -61,96 +41,155 @@ div.podcast div.cover div.border {
   display: block;
   z-index: 1;
 }
-div.podcast div.info {
-  font-size: 1.1em;
-  margin: 0 0 0 192px;
-  width: 250px;
-  height: 230px;
-}
-div.podcast div.info dl {
-  margin: 0 0 25px 0;
-}
-div.podcast div.info dl dt {
-  color: #ABABAB;
-  float: left;
-}
-div.podcast div.info dl dd {
-  text-align: right;
-  margin: 0 0 5px 0;
-}
-div.podcast div.info div.controls span.price {
-  font-size: 0.9em;
-  color: #ABABAB;
-  margin: 5px 5px 0 0;
-  display: block;
-  float: left;
-}
-div.podcast div.description {
-  margin: 0 0 30px 0;
-}
-
-/**
-* Reviews
-**/
-div#reviews {
-  position: relative;
-  z-index: 1;
-}
-div#reviews h4 {
-  margin: 0 0 5px 0;
-}
-div#reviews div.average_rating {
-  color: #A4A4A4;
-  height: 21px;
-  margin: 0 0 10px 0;
-  position: relative;
-  z-index: 1;
-}
-div#reviews div.average_rating span {
-  font-size: 1.1em;
-  margin: 1px 5px 0 0;
-  display: block;
-  float: left;
-}
-div#reviews div.average_rating ul {
-  float: left;
-  clear: none;
-}
-div#reviews div.controls {
+div.podcast div#edit_actions {
+  position: absolute;
   top: 0;
   right: 0;
-  position: absolute;
-  z-index: 1;
 }
-div#reviews div.controls ul {
-
-}
-div#reviews div.controls ul li {
-  margin: 0 0 0 4px;
-  float: left;
-}
-div#reviews div.controls ul li a {
-  float: left;
-}
-div.review {
-  position: relative;
-  z-index: 1;
-}
-div.review h5 {
+div.podcast div#edit_actions span.label {
   font-weight: bold;
-  font-size: 1.1em;
-  margin: 0 0 5px 0;
+  float: left;
 }
-div.review cite {
+div.podcast div#edit_actions ul {
+  float: left;
+}
+div.podcast div#edit_actions ul li {
+  margin: 0 0 0 5px;
+  float: left;
+}
+div.podcast div#edit_actions ul li.edit a {
+  background-image: url("../images/icons/edit.png");
+}
+div.podcast div#edit_actions ul li.delete a {
+  background-image: url("../images/icons/delete.png");
+}
+div.podcast div.urls,
+div.podcast div.authors {
+  margin: 0 0 10px 0;
+  clear: both;
+}
+div.podcast div.urls ul li {
+  margin: 0 10px 0 0;
+  float: left;
+}
+div.podcast div.urls ul li.rss a {
+  background-image: url("../images/icons/rss.png");
+}
+div.podcast div.urls ul li.itunes a {
+  background-image: url("../images/icons/itunes.png");
+}
+div.podcast div.authors ul li {
+  margin: 0 10px 0 0;
+  float: left;
+}
+div.podcast div.authors ul li.user a {
+  background-image: url("../images/icons/user.png");
+}
+div.podcast div.stats {
+  margin: 0 0 20px 0;
+}
+div.podcast div.stats p {
+  font-size: 1.0em !important;
+  line-height: 1.4em !important;
+  margin: 0 !important;
+}
+div.podcast div.tags {
+  margin: 0 0 20px 0;
+}
+
+/* Episodes */
+div.podcast div.episodes {
+  margin: 0 0 20px 0;
+}
+div.podcast div.episodes h3 {
+  float: left;
+}
+div.podcast div.episodes a.all_episodes {
+  float: right;
+}
+ul.episodes {
+  clear: both;
+}
+ul.episodes li.episode {
+  padding: 10px 10px 10px 36px;
+  position: relative;
+}
+ul.episodes li.odd {
+  background-color: #565656;
+}
+ul.episodes li.episode div.full {
+  display: none;
+}
+ul.episodes li.episode span.expand {
+  background-image: url("../images/icons/expand.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -5000px;
+  width: 16px;
+  width: 16px;
+  top: 10px;
+  left: 10px;
+  position: absolute;
+  display: block;
+  z-index: 1;
+  cursor: pointer;
+}
+ul.episodes li.expanded div.summary {
+  padding: 0 0 5px 0;
+}
+ul.episodes li.expanded div.full {
+  display: block;
+}
+ul.episodes li.expanded span.expand {
+  background-image: url("../images/icons/collapse.png");
+}
+ul.episodes div.download {
+  margin: 10px 0 0 0;
+}
+ul.episodes div.download a {
+  background-image: url("../images/icons/download.png");
+}
+
+/* Reviews */
+div.podcast div.reviews {
+  margin: 0 0 20px 0;
+}
+div.podcast div.reviews h3 {
+  float: left;
+}
+div.podcast div.reviews a.all_reviews {
+  float: right;
+}
+div.podcast div.reviews ul.reviews {
+  margin: 0 0 20px 0;
+}
+ul.reviews {
+  clear: both;
+}
+ul.reviews li.review {
+  padding: 10px;
+  position: relative;
+}
+ul.reviews li.review img.rating {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+ul.reviews li.review cite {
   font-style: normal;
-  font-size: 1.0em;
   color: #ABABAB;
   margin: 0 0 10px 0;
   display: block;
 }
-div.review div.stars {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 2;
+ul.reviews li.review cite a {
+  background-image: url("../images/icons/user.png");
+}
+ul.reviews li.review p {
+  margin: 0 !important;
+}
+ul.reviews li.odd {
+  background-color: #565656;
+}
+div.podcast div.reviews form {
+  clear: both;
 }

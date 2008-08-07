@@ -2,7 +2,8 @@
 
 <% if @user == current_user -%>
   This is me!
-  Change password, email (<%= @user.email -%>), or Name.
+  Change password, email 
+  (<%= in_place_editor_field :user, :email, {}, :url => "/users/#{@user.id}" -%>)
 <% end -%>
 
 <h4>Makes</h4>
@@ -15,7 +16,7 @@
 <div class="comments">
   <% @user.comments.each do |comment| -%>
     <div id="<%= dom_id(comment) -%>" class="comment">
-      <%= link_with_icon(comment.commentable) -%>
+      <%= link_to_thing(comment.commentable) -%>
       <b><%= comment.title -%></b>
       <%= comment.body -%>
     </div>

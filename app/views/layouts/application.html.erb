@@ -26,7 +26,7 @@
         <div id="account_bar">
           <ul>
             <li class="add_podcast">
-              <%= link_to "<span>Add podcast</span>", new_podcast_path, :class => 'icon' %>
+              <%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon' %>
             </li>
             <li class="search">
               <% form_for :search, :url => '', :method => 'post' do |form| -%>
@@ -38,7 +38,7 @@
             </li>
             <% if current_user -%>
             <li class="user">
-              <%= link_to "<span>#{current_user.login}</span>", '#', :class => 'icon'  -%>
+              <%= link_to "<span>#{current_user.login}</span>", user_path(current_user), :class => 'icon'  -%>
             </li>
             <% else -%>
             <li class="signup">

@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.add_podcast '/add',         :controller => 'podcasts', :action => 'new'
   map.all         '/all',         :controller => 'podcasts', :action => 'index'
   map.search      '/search',      :controller => 'podcasts', :action => 'search'
-  map.users       '/users',       :controller => 'users',    :action => 'index'
+  map.all_users   '/users',       :controller => 'users',    :action => 'index'
   map.user        '/user/:user',  :controller => 'users',    :action => 'show'
   map.tag         '/tag/:tag',    :controller => 'tags',     :action => 'show'
 

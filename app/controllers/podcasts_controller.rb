@@ -3,7 +3,7 @@ class PodcastsController < ApplicationController
   # GET /podcasts
   # GET /podcasts.xml
   def index
-    @podcasts = Podcast.find(:all)
+    @podcasts = Podcast.find(:all, :order => "title ASC")
 
     respond_to do |format|
       format.html # index.html.erb

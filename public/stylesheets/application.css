@@ -193,3 +193,18 @@ ul.reviews li.odd {
 div.podcast div.reviews form {
   clear: both;
 }
+
+
+/**
+ * Static Pages 
+*/
+
+#terms li {
+  list-style: decimal;
+  margin-bottom: 0.5em;
+  line-height: 1.4em !important;
+}
+
+#terms ol {
+  margin-bottom: 1em;
+}

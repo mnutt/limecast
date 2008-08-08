@@ -28,6 +28,10 @@ ActionController::Routing::Routes.draw do |map|
   map.all_users   '/users',       :controller => 'users',    :action => 'index'
   map.user        '/user/:user',  :controller => 'users',    :action => 'show'
   map.tag         '/tag/:tag',    :controller => 'tags',     :action => 'show'
+  map.use         '/use',         :controller => 'home',     :action => 'use'
+  map.privacy     '/privacy',     :controller => 'home',     :action => 'privacy'
+  map.team        '/team',        :controller => 'home',     :action => 'team'
+  map.guide       '/guide',       :controller => 'home',     :action => 'guide'
 
   map.podcast          '/:podcast',          :controller => 'podcasts', :action => 'show'
   map.podcast_episodes '/:podcast/episodes', :controller => 'episodes', :action => 'index'

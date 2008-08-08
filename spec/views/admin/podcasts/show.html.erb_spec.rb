@@ -6,6 +6,9 @@ describe "/admin/podcasts/show.html.erb" do
     @podcast.stub!(:title).and_return("MyString")
     @podcast.stub!(:site).and_return("MyString")
     @podcast.stub!(:feed).and_return("MyString")
+    @picture = ""
+    @picture.stub!(:url).and_return("http://host/photo.jpg")
+    @podcast.stub!(:logo).and_return(@picture)
     @podcast.stub!(:created_at).and_return(Time.now)
     @podcast.stub!(:updated_at).and_return(Time.now)
     @podcast.stub!(:feed_etag).and_return("MyString")

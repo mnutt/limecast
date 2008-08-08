@@ -1,6 +1,6 @@
 <h1>New podcast</h1>
 
-<% form_for(@podcast) do |f| %>
+<% form_for(["admin", @podcast]) do |f| %>
   <%= f.error_messages %>
 
   <p>

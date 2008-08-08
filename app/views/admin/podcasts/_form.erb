@@ -11,6 +11,14 @@
     <%= f.text_field :feed, :value => @podcast.feed %>
   </p>
   <p>
+    <%= f.label :feed_etag %><br />
+    <%= f.text_field :feed_etag, :value => @podcast.feed_etag %>
+  </p>
+  <p>
+    <%= f.label :language %><br />
+    <%= f.text_field :language, :value => @podcast.language %>
+  </p>
+  <p>
     <%= f.label :itunes_link %><br />
     <%= f.text_field :itunes_link, :value => @podcast.itunes_link %>
   </p>

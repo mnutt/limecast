@@ -6,6 +6,9 @@ describe "/admin_podcasts/edit.html.erb" do
     @podcast.stub!(:title).and_return("MyString")
     @podcast.stub!(:site).and_return("MyString")
     @podcast.stub!(:feed).and_return("MyString")
+    @podcast.stub!(:itunes_link).and_return("MyString")
+    @podcast.stub!(:logo_link).and_return("MyString")
+    @podcast.stub!(:tag_list).and_return("MyString")
     @podcast.stub!(:created_at).and_return(Time.now)
     @podcast.stub!(:updated_at).and_return(Time.now)
     @podcast.stub!(:feed_etag).and_return("MyString")
@@ -28,5 +31,3 @@ describe "/admin_podcasts/edit.html.erb" do
     end
   end
 end
-
-

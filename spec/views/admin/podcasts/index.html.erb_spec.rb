@@ -23,7 +23,7 @@ describe "/admin/podcasts/index.html.erb" do
     podcast_99.should_receive(:description).and_return("MyText")
     podcast_99.should_receive(:language).and_return("MyString")
 
-    assigns[:admin_podcasts] = [podcast_98, podcast_99]
+    assigns[:podcasts] = [podcast_98, podcast_99]
   end
 
   it "should render list of admin_podcasts" do

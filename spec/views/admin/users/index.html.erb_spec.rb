@@ -5,7 +5,7 @@ describe "/admin_users/index.html.erb" do
     user_98 = mock_model(User)
     user_99 = mock_model(User)
 
-    assigns[:admin_users] = [user_98, user_99]
+    assigns[:users] = [user_98, user_99]
   end
 
   it "should render list of admin_users" do

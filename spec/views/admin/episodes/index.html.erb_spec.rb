@@ -23,7 +23,7 @@ describe "/admin/episodes/index.html.erb" do
     episode_99.should_receive(:duration).and_return("1")
     episode_99.should_receive(:title).and_return("MyString")
 
-    assigns[:admin_episodes] = [episode_98, episode_99]
+    assigns[:episodes] = [episode_98, episode_99]
   end
 
   it "should render list of admin_episodes" do

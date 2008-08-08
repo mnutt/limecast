@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :podcasts
     admin.resources :episodes
     admin.resources :tags, :member => { :merge => :any }
+    admin.resources :users
   end
 
   map.resources :users

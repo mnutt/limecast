@@ -1,12 +1,12 @@
 <h1>Editing podcast</h1>
 
-<% form_for(@podcast, :url => admin_podcast_url(@podcast)) do |f| %>
+<% form_for(["admin", @podcast]) do |f| %>
   <%= f.error_messages %>
-  <%= render :partial => 'podcasts/form', :locals => {:f => f} -%>
+  <%= render :partial => 'admin/podcasts/form', :locals => {:f => f} -%>
   <p>
     <%= f.submit "Update" %>
   </p>
 <% end %>
 
-<%= link_to 'Show', @podcast %> |
+<%= link_to 'Show', admin_podcast_path(@podcast) %> |
 <%= link_to 'Back', admin_podcasts_path %>

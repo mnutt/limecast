@@ -1,6 +1,6 @@
 <h1>New episode</h1>
 
-<% form_for(@episode) do |f| %>
+<% form_for(["admin", @episode]) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -44,4 +44,4 @@
   </p>
 <% end %>
 
-<%= link_to 'Back', episodes_path %>
+<%= link_to 'Back', admin_episodes_path %>

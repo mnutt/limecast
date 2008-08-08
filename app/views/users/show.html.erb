@@ -6,19 +6,29 @@
   (<%= in_place_editor_field :user, :email, {}, :url => "/users/#{@user.id}" -%>)
 <% end -%>
 
-<h3>Makes</h3>
-<%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
+<% if @user.owned_podcasts.count > 0 -%>
+  <h3>Makes</h3>
+  <ul class="podcasts">
+    <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
+  </ul>
+<% end -%>
 
-<h3>Found</h3>
-<%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
+<% if @user.podcasts.count > 0 -%>
+  <h3>Found</h3>
+  <ul class="podcasts">
+    <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
+  </ul>
+<% end -%>
 
-<h3>Reviewed</h3>
-<div class="comments">
-  <% @user.comments.each do |comment| -%>
-    <div id="<%= dom_id(comment) -%>" class="comment">
-      <%= link_to_thing(comment.commentable) -%>
-      <b><%= comment.title -%></b>
-      <%= comment.body -%>
-    </div>
-  <% end -%>
-</div>
+<% if @user.comments.count > 0 -%>
+  <h3>Reviewed</h3>
+  <div class="comments">
+    <% @user.comments.each do |comment| -%>
+      <div id="<%= dom_id(comment) -%>" class="comment">
+	<%= link_to_thing(comment.commentable) -%>
+	<b><%= comment.title -%></b>
+	<%= comment.body -%>
+      </div>
+    <% end -%>
+  </div>
+<% end -%>

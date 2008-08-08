@@ -40,6 +40,9 @@
             <li class="user">
               <%= link_to "<span>#{current_user.login}</span>", user_path(current_user), :class => 'icon'  -%>
             </li>
+	    <li>
+	      <%= link_to "Log out", session_url, :method => 'delete' -%>
+	    </li>
             <% else -%>
             <li class="signup">
               <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon user quick_signin' -%>

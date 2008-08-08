@@ -185,6 +185,16 @@ CRON
     task :stop, :roles => :app do
       run "cd #{latest_release}; RAILS_ENV=production rake ts:stop"
     end
+
+    desc 'Reindexes the Sphinx server'
+    task :reindex, :roles => :app do
+      run "cd #{latest_release}; RAILS_ENV=production rake ts:index"
+    end
+
+    desc 'Configures the Sphinx server'
+    task :configure, :roles => :app do
+      run "cd #{latest_release}; RAILS_ENV=production rake ts:config"
+    end
   end
 end
 
@@ -254,4 +264,6 @@ after 'deploy:update_code', 'limecast:update'
 # after 'deploy:cold', 'limecast:deploy:populate'
 # after 'deploy:cold', 'limecast:sphinx:reset'
 
+after 'deploy', 'limecast:sphinx:configure'
+after 'deploy', 'limecast:sphinx:reindex'
 after 'deploy', 'limecast:sphinx:restart'

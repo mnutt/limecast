@@ -173,17 +173,17 @@ CRON
 
     desc 'Restarts the Sphinx server'
     task :restart, :roles => :app do
-      run "cd #{latest_release}; RAILS_ENV=production rake sphincter:restart_searchd"
+      run "cd #{latest_release}; RAILS_ENV=production rake ts:restart"
     end
 
     desc 'Starts the Sphinx server'
     task :start, :roles => :app do
-      run "cd #{latest_release}; RAILS_ENV=production rake sphincter:start_searchd"
+      run "cd #{latest_release}; RAILS_ENV=production rake ts:start"
     end
 
     desc 'Stops the Sphinx server'
     task :stop, :roles => :app do
-      run "cd #{latest_release}; RAILS_ENV=production rake sphincter:stop_searchd"
+      run "cd #{latest_release}; RAILS_ENV=production rake ts:stop"
     end
   end
 end
@@ -254,4 +254,4 @@ after 'deploy:update_code', 'limecast:update'
 # after 'deploy:cold', 'limecast:deploy:populate'
 # after 'deploy:cold', 'limecast:sphinx:reset'
 
-# after 'deploy', 'limecast:sphinx:restart'
+after 'deploy', 'limecast:sphinx:restart'

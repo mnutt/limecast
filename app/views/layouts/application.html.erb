@@ -3,7 +3,7 @@
 <head>
 <title>LimeWire Podcast Directory (Pre-Release Alpha)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<%= javascript_include_tag 'prototype', 'scriptaculous', 'effects', 'controls', 'dragdrop', 'mootools', 'reflection', 'audio-player', 'application' -%>
+<%= javascript_include_tag 'prototype', 'scriptaculous', 'effects', 'controls', 'dragdrop', 'reflection', 'audio-player', 'application' -%>
 <script type="text/javascript">
   AudioPlayer.setup("/flash/player.swf", { width: 300 });
 </script>
@@ -29,12 +29,12 @@
               <%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon add' %>
             </li>
             <li class="search">
-              <% form_for :search, :url => '', :method => 'post' do |form| -%>
+              <% form_for :search, :url => search_url do |form| -%>
                 <label for="query">Search...</label>
-                <%= text_field_tag "query", params[:search], :size => 15, :class => "text" %>
+                <%= text_field_tag "q", params[:search], :size => 15, :class => "text" %>
                 <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
               <% end -%>
-              <script type="text/javascript">new Lime.Widgets.Search('query')</script>
+              <script type="text/javascript">new Lime.Widgets.Search('q')</script>
             </li>
             <% if current_user -%>
             <li class="user">

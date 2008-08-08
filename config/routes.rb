@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   # Resources
   map.resources :categories
   map.resources :comments
-  map.resources :podcasts, :collection => { :feed_info => :any }
+  map.resources :podcasts
   map.resources :tags
 
   map.namespace :admin do |admin|
@@ -15,9 +15,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users
   map.resource  :session
-  map.signup    '/signup', :controller => 'users',    :action => 'new'
-  map.login     '/login',  :controller => 'sessions', :action => 'new'
-  map.logout    '/logout', :controller => 'sessions', :action => 'destroy'
+  map.search    '/search/:query', :controller => 'podcasts', :action => 'search'
+  map.signup    '/signup',        :controller => 'users',    :action => 'new'
+  map.login     '/login',         :controller => 'sessions', :action => 'new'
+  map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'
   map.activate  '/activate/:activation_code', :controller => 'users', :action => 'activate'
 
   map.root                        :controller => 'home',     :action => 'home'

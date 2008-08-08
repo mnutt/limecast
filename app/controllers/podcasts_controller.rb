@@ -23,6 +23,16 @@ class PodcastsController < ApplicationController
     end
   end
 
+  # GET /search
+  def search
+    if params[:q]
+      redirect_to :controller => 'podcasts', :action => 'search', :query => params[:q]
+    else
+      @query = params[:query]
+      @podcasts = Podcast.search(@query)
+    end
+  end
+
   def feed_info
     @podcast = Podcast.new_from_feed(params[:feed])
   rescue

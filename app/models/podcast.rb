@@ -54,6 +54,18 @@ class Podcast < ActiveRecord::Base
   before_save :download_logo
   before_create :check_for_feed_error
 
+  define_index do
+    indexes :title, :site, :description
+    indexes user.login, :as => :user
+    indexes owner.login, :as => :owner
+    indexes episodes.title, :as => :episode_title
+    indexes episodes.summary, :as => :episode_summary
+    indexes comments.title, :as => :comment_title
+    indexes comments.body, :as => :comment_body
+
+    has :created_at
+  end
+
   def self.retrieve_feed(url)
 
     Timeout::timeout(5) do

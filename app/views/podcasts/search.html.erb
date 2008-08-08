@@ -1,0 +1,9 @@
+<h2>Search results for "<%= h(@query) -%>"</h2>
+
+<% if @podcasts.size > 0 -%>
+  <ul class="podcasts">
+    <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
+  </ul>
+<% else -%>
+  <p>There were no podcasts found that matched your search terms.</p>
+<% end -%>

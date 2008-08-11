@@ -28,15 +28,18 @@ class Episode < ActiveRecord::Base
                                  :small  => ["170x170#", :png] }
   has_many :comments, :as => :commentable, :dependent => :destroy
 
-  before_create :generate_clean_url
+  validates_presence_of :podcast_id
 
-  def generate_clean_url
+  before_create :generate_url
+
+  def generate_url
     self.clean_title = self.published_at.strftime('%Y-%b-%d')
-    conflict = Episode.find_by_clean_title(self.clean_title)
+    conflict = Episode.find(:first, :conditions => {:podcast_id => podcast.id, :clean_title => self.clean_title})
     self.clean_title += "-2" if conflict and conflict != self
 
-    i = 3 # Number to attach to the end of the title to make it unique
-    while(Episode.find_by_clean_title(self.clean_title) and conflict != self)
+    i = 2 # Number to attach to the end of the title to make it unique
+    while(Episode.find(:first, :conditions => {:podcast_id => podcast.id, :clean_title => clean_title}) and conflict != self)
+      i += 1
       self.clean_title.chop!
       self.clean_title += i.to_s
     end
@@ -50,5 +53,9 @@ class Episode < ActiveRecord::Base
 
   def to_param
     clean_title
+  end
+
+  def writable_by?(user)
+    self.podcast.writable_by?(user)
   end
 end

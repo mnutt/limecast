@@ -222,11 +222,11 @@ class Podcast < ActiveRecord::Base
     @feed_episodes
   rescue OpenURI::HTTPError
     puts "#{self.feed} not modified, skipping..."
-  rescue
-    puts "Problem with feed #{self.feed}"
+  rescue StandardError => e
+    puts "Problem with feed #{self.feed}: #{e.message}"
   end
 
   def writable_by?(user)
-    user and self.user_id == user.id
+    user and self.user_id == user.id || self.owner_id == user.id
   end
 end

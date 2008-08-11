@@ -1,4 +1,22 @@
-require File.dirname(__FILE__) + "/spec_helper"
+require File.expand_path(File.dirname(__FILE__) + "/spec_helper")
+
+class ExplodesOnSecondInstantiationScenario < Scenario::Base
+  cattr_accessor :instance
+  def initialize(*args)
+    raise "Should only be created once" if self.class.instance
+    self.class.instance = super(*args)
+  end
+end
+
+describe "Scenario loading" do
+  scenario :explodes_on_second_instantiation
+  
+  it "should work" do
+  end
+  
+  it 'should work again' do
+  end
+end
 
 describe "Scenario loading" do
   it "should load from configured directories" do
@@ -19,23 +37,19 @@ describe "Scenario loading" do
     end
     klass.new.methods.should include('hello')
   end
+  
+  it "should provide a built-in scenario named :blank which clears all tables found in schema.rb" do
+    Scenario.load(:blank)
+    BlankScenario
+  end
 end
 
-describe "Scenario example helper methods" do
+describe Scenarios::TableMethods do
   scenario :things
   
   it "should understand namespaced models" do
     create_record "ModelModule::Model", :raking, :name => "Raking", :description => "Moving leaves around"
     models(:raking).should_not be_nil
-  end
-  
-  it "should include pluralized record name readers" do
-    things(:one).should be_kind_of(Thing)
-    things(:two).name.should == "two"
-  end
-  
-  it "should include singular record id reader" do
-    thing_id(:one).should be_kind_of(Fixnum)
   end
   
   it "should include record creation methods" do
@@ -46,6 +60,53 @@ describe "Scenario example helper methods" do
   it "should include other example helper methods" do
     create_thing("The Thing")
     things(:the_thing).name.should == "The Thing"
+  end
+  
+  describe "for retrieving objects" do
+    it "should have a pluralized name" do
+      should respond_to("things")
+      should_not respond_to("thing")
+    end
+    
+    it "should answer a single object given a single name" do
+      things(:one).should be_kind_of(Thing)
+      things("one").should be_kind_of(Thing)
+      things(:two).name.should == "two"
+    end
+    
+    it "should answer an array of objects given multiple names" do
+      things(:one, :two).should be_kind_of(Array)
+      things(:one, :two).should eql([things(:one), things(:two)])
+    end
+    
+    it "should just return the argument if an AR instance is given" do
+      thing = things(:one)
+      things(thing).should eql(thing)
+    end
+  end
+  
+  describe "for retrieving ids" do
+    it "should have a singular name" do
+      should respond_to("thing_id")
+      should_not respond_to("thing_ids")
+      should_not respond_to("things_id")
+    end
+    
+    it "should answer a single id given a single name" do
+      thing_id(:one).should be_kind_of(Fixnum)
+      thing_id("one").should be_kind_of(Fixnum)
+    end
+    
+    it "should answer an array of ids given multiple names" do
+      thing_id(:one, :two).should be_kind_of(Array)
+      thing_id(:one, :two).should eql([thing_id(:one), thing_id(:two)])
+      thing_id("one", "two").should eql([thing_id(:one), thing_id(:two)])
+    end
+    
+    it "should answer the id of the argument if an AR instance id given" do
+      thing = things(:one)
+      thing_id(thing).should == thing.id
+    end
   end
 end
 
@@ -99,12 +160,26 @@ describe "Overlapping scenarios" do
   end
 end
 
-describe "create_record class method" do
+describe "create_record table method" do
   scenario :empty
   
   it "should automatically set timestamps" do
     create_record :note, :first, :content => "first note"
     note = notes(:first)
     note.created_at.should be_instance_of(Time)
+  end
+end
+
+describe "create_model table method" do
+  scenario :empty
+  
+  it "should support symbolic names" do
+    thing = create_model Thing, :mything, :name => "My Thing", :description => "For testing"
+    things(:mything).should == thing
+  end
+  
+  it "should blast any table touched as a side effect of creating a model (callbacks, observers, etc.)" do
+    create_model SideEffectyThing
+    blasted_tables.should include(Thing.table_name)
   end
 end

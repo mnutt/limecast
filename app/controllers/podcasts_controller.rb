@@ -68,6 +68,12 @@ class PodcastsController < ApplicationController
     respond_to do |format|
       format.html do
         if @podcast.save
+          # Save the podcast in the user's cookie, for later
+          if !current_user
+            session.data[:podcasts] ||= []
+            session.data[:podcasts] << @podcast.id
+          end
+
           @new_podcast = Podcast.new
         else
           @new_podcast = @podcast

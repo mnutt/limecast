@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :login_required, :only => [:new, :create, :update]
+  before_filter :login_required, :only => [:new, :update]
 
   # GET /comments
   # GET /comments.xml
@@ -48,10 +48,14 @@ class CommentsController < ApplicationController
   # POST /comments.xml
   def create
     @comment = Comment.new(params[:comment])
-    @comment.commenter = current_user
+    @comment.commenter = current_user unless current_user.nil?
 
     respond_to do |format|
       if @comment.save
+        if !current_user
+          session.data[:comments] ||= []
+          session.data[:comments] << @comment.id
+        end
         flash[:notice] = 'Comment was successfully added.'
         format.html { redirect_to url_for([@comment.commentable]) }
         format.js { render :partial => 'comments/comment', :object => @comment }

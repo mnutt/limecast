@@ -16,6 +16,8 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.register! if @user.valid?
     if @user.errors.empty?
+      claim_podcasts
+
       self.current_user = @user
       redirect_back_or_default('/')
       flash[:notice] = "Thanks for signing up!"
@@ -74,6 +76,29 @@ class UsersController < ApplicationController
 protected
   def find_user
     @user = User.find(params[:id])
+  end
+
+  def claim_podcasts
+    return if session.data[:podcasts].nil?
+
+    Podcast.find_all_by_id(session.data[:podcasts]).each do |podcast|
+      podcast.user = @user if podcast.user.nil?
+      podcast.owner = @user if podcast.owner.nil? and podcast.email == @user.email
+      podcast.save
+    end
+
+    session.data.delete(:podcasts)
+  end
+
+  def claim_comments
+    return if session.data[:comments].nil?
+
+    Comment.find_all_by_id(session.data[:comments]).each do |comment|
+      comment.user = @user if comment.user.nil?
+      comment.save
+    end
+
+    session.data.delete(:comments)
   end
 
 end

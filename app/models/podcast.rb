@@ -1,26 +1,27 @@
 # == Schema Information
-# Schema version: 20080803201848
+# Schema version: 20080803203636
 #
 # Table name: podcasts
 #
 #  id                :integer(4)    not null, primary key
-#  title             :string(255)   
-#  site              :string(255)   
-#  feed              :string(255)   
-#  logo_file_name    :string(255)   
-#  logo_content_type :string(255)   
-#  logo_file_size    :string(255)   
-#  created_at        :datetime      
-#  updated_at        :datetime      
-#  feed_etag         :string(255)   
-#  user_id           :integer(4)    
-#  description       :text          
-#  language          :string(255)   
-#  category_id       :integer(4)    
-#  clean_title       :string(255)   
-#  itunes_link       :string(255)   
-#  owner_id          :integer(4)    
-#  email             :string(255)   
+#  title             :string(255)
+#  site              :string(255)
+#  feed              :string(255)
+#  logo_file_name    :string(255)
+#  logo_content_type :string(255)
+#  logo_file_size    :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  feed_etag         :string(255)
+#  user_id           :integer(4)
+#  description       :text
+#  language          :string(255)
+#  category_id       :integer(4)
+#  clean_title       :string(255)
+#  itunes_link       :string(255)
+#  owner_id          :integer(4)
+#  email             :string(255)
+#  owner_name        :string(255)
 #
 
 class PodcastError < StandardError; end
@@ -34,14 +35,14 @@ class Podcast < ActiveRecord::Base
   belongs_to :user
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
-  has_many :comments, :as => :commentable, :dependent => :destroy
+  has_many :comments, :as => :commentable, :conditions => "user_id IS NOT NULL", :dependent => :destroy
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
 
   attr_accessor :logo_link, :has_episodes, :feed_error
 
   validates_presence_of :title
   validates_uniqueness_of :feed
-  
+
   acts_as_taggable
 
   has_attached_file :logo,
@@ -113,7 +114,7 @@ class Podcast < ActiveRecord::Base
       end
       doc.elements.each('rss/channel/itunes:owner/itunes:email') do |e|
         podcast.email = e.text
-      end  
+      end
       doc.elements.each('rss/channel/itunes:owner/itunes:name') do |e|
         podcast.owner_name = e.text
       end
@@ -206,6 +207,7 @@ class Podcast < ActiveRecord::Base
       episode.published_at = Time.parse(e.elements['pubDate'].text) rescue nil
       episode.enclosure_url = e.elements['enclosure'].attributes['url'] rescue nil
       episode.enclosure_type = e.elements['enclosure'].attributes['type'] rescue nil
+      episode.enclosure_size = e.elements['enclosure'].attributes['length'] rescue nil
 
       # Time may be under an hour
       time = e.elements['itunes:duration'].text rescue "00:00"

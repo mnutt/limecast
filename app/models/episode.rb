@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080803201848
+# Schema version: 20080803203636
 #
 # Table name: episodes
 #
@@ -28,10 +28,20 @@ class Episode < ActiveRecord::Base
                                  :small  => ["170x170#", :png] }
   has_many :comments, :as => :commentable, :dependent => :destroy
 
-  before_create :generate_clean_title
+  before_create :generate_clean_url
 
-  def generate_clean_title
-    self.clean_title = self.published_at.strftime('%Y-%b-%d-%H-%M')
+  def generate_clean_url
+    self.clean_title = self.published_at.strftime('%Y-%b-%d')
+    conflict = Episode.find_by_clean_title(self.clean_title)
+    self.clean_title += "-2" if conflict and conflict != self
+
+    i = 3 # Number to attach to the end of the title to make it unique
+    while(Episode.find_by_clean_title(self.clean_title) and conflict != self)
+      self.clean_title.chop!
+      self.clean_title += i.to_s
+    end
+
+    self.clean_title
   end
 
   def pretty_date

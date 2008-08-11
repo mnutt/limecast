@@ -1,27 +1,22 @@
-<div style="float: right; margin: 20px;">
-  <%= image_tag(@episode.podcast.logo.url(:small)) -%>
-</div>
+<p>Episode of <%= link_to_thing(@episode.podcast) %></p>
 
-<h2>Episode of <%= link_to h(@episode.podcast.title), podcast_url(@episode.podcast) %></h2>
-
-<div class="publish_date">
+<h1 class="publish_date">
   <%=h @episode.published_at.strftime("%Y %b %d") %>
-</div>
+</h1>
 
-<h1><%=h @episode.title %> (<%= pretty_duration(@episode.duration) -%>)</h1>
+<p class="title"><%=h @episode.title %> (<%= pretty_duration(@episode.duration) -%>)</p>
+
+<div class="metadata">
+  <div class="summary">
+    <p><%=strip_tags @episode.summary %></p>
+    </div>
+</div>
 
 <p>
   <b><%= link_to "Download Podcast", @episode.enclosure_url %></b>
 </p>
 
-<div class="metadata">
-  <div class="summary">
-    <div class="title">Summary</div>
-    <p><%=strip_tags @episode.summary %></p>
-    </div>
-</div>
-
-<h2>Customer Reviews</h2>
+<h2>Reviews</h2>
 <div class="comments">
   <%= render :partial => 'comments/comments', :object => @episode -%>
   <%= render :partial => 'comments/add_comment', :object => @episode -%>

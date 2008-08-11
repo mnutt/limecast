@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080803201848
+# Schema version: 20080803203636
 #
 # Table name: users
 #
@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
   before_save :encrypt_password
-  validates_format_of       :password, :with => /^\w+$/, :if => :password_required?
+  # validates_format_of       :password, :with => /^\w+$/, :if => :password_required?
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.

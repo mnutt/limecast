@@ -6,6 +6,20 @@
   <% end -%>
 
   <h4><%=h comment.title -%></h4>
-  <cite>by <%= link_to_profile comment.commenter -%></cite>
+
+  <% if comment.commenter -%>
+    <cite>by <%= link_to_profile comment.commenter -%></cite>
+  <% else -%>
+    <%= link_to "Sign up", new_user_path -%> to register your comment.
+  <% end -%>
   <p><%=h comment.body -%></p>
+
+  <% if @comment -%>
+    <script type="text/javascript">
+      if($$('#comments_list li').size() % 2 == 0) {
+        $('<%= dom_id(comment) -%>').removeClassName('odd');
+        $('<%= dom_id(comment) -%>').addClassName('even');
+      }
+    </script>
+  <% end -%>
 </li>

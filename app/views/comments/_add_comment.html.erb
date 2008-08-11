@@ -3,7 +3,6 @@
 
 <h3>Write a review</h3>
 
-<% if current_user -%>
 <% remote_form_for(:comment, :update => 'comments_list', :position => :bottom, :url => comments_url) do |f| -%>
   <div class="field">
   <%= f.label :title -%>
@@ -23,18 +22,14 @@
   <%= f.hidden_field :commentable_type, :value => commentable.class.to_s -%>
 
   <div class="align">
+    Podcast Rating: 
     <%= f.radio_button :positive, true, :checked => "checked" -%>
-    <%= f.label :positive, "Thumbs Up" -%>
+    <%= f.label :positive, image_tag("icons/thumbs_up.png"), :onclick => "$('comment_positive_true').checked = true;" -%>
     <%= f.radio_button :positive, false -%>
-    <%= f.label :positive, "Thumbs Down" -%>
+    <%= f.label :positive, image_tag("icons/thumbs_down.png"), :onclick => "$('comment_positive_false').checked = true;" -%>
   </div>
 
   <div class="controls">
     <%= submit_tag "Add", :class => 'button' -%>
   </div>
-<% end -%>
-<% else -%>
-  <span><%= link_to "Login", login_url -%></span> or
-  <span><%= link_to "Signup", signup_url -%></span>
-  to post reviews.
 <% end -%>

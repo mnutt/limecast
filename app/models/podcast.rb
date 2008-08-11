@@ -49,7 +49,8 @@ class Podcast < ActiveRecord::Base
                                  :small  => ["170x170#", :png],
                                  :icon   => ["16x16#", :png] }
 
-  before_create :generate_clean_title
+  before_create :sanitize_title
+  before_create :generate_url
   after_create :retrieve_episodes_from_feed
   before_save :download_logo
   before_create :check_for_feed_error
@@ -136,8 +137,26 @@ class Podcast < ActiveRecord::Base
     self.episodes.sum(:duration)
   end
 
-  def generate_clean_title
-    self.clean_title = self.title.gsub(/[^A-Za-z0-9]/, "-")
+  def generate_url
+    self.clean_title = self.title
+    # Remove all non-alphanumeric non-space characters
+    self.clean_title.gsub!(/[^A-Za-z0-9\s]/, "")
+    # Condense spaces and turn them into dashes
+    self.clean_title.gsub!(/[\s]+/, '-')
+  end
+
+  def sanitize_title
+    # Remove anything in parentheses
+    self.title.gsub!(/[\s+]\(.*\)/, "")
+
+    self.title
+  end
+
+  def sanitize_description
+    sentences = self.description.split('.')
+    sentences.select { |sentence| commas = 0
+                                  sentence.split('').each {|char| commas += 1 if char == ','}
+                                  commas < 5 }.join(".")
   end
 
   def first_episode

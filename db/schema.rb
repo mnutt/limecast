@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080803203636) do
+ActiveRecord::Schema.define(:version => 20080808201626) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20080803203636) do
     t.string   "itunes_link"
     t.integer  "owner_id"
     t.string   "email"
-    t.string   "owner_name"
+    t.string   "name_param"
   end
 
   create_table "taggings", :force => true do |t|

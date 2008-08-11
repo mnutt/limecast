@@ -76,7 +76,7 @@ class Podcast < ActiveRecord::Base
       end
     end
   rescue Timeout::Error
-    raise PodcastError, "Not found. Try again."
+    raise PodcastError, "Not found. (timeout) Try again."
   rescue Errno::ENETUNREACH
     raise PodcastError, "Not found. Try again."
   rescue StandardError => e
@@ -209,10 +209,19 @@ class Podcast < ActiveRecord::Base
       episode.enclosure_type = e.elements['enclosure'].attributes['type'] rescue nil
       episode.enclosure_size = e.elements['enclosure'].attributes['length'] rescue nil
 
-      # Time may be under an hour
-      time = e.elements['itunes:duration'].text rescue "00:00"
-      time = "00:#{time}" if time.size < 6
-      episode.duration = Time.parse(time) - Time.now.beginning_of_day rescue nil
+      begin
+        # Time may be under an hour
+        time = e.elements['itunes:duration'].text rescue "00:00"
+        time = "00:#{time}" if time.size < 6
+        time_multiplier = [24 * 60, 60, 1]
+        episode.duration = time.split(":").map { |t| 
+          seconds = t.to_i * time_multiplier[0]
+          time_multiplier.shift
+          seconds
+        }.sum 
+      rescue 
+        episode.duration = 0
+      end
 
       episode.save
 

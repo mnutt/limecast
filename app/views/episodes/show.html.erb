@@ -1,25 +1,33 @@
-<p>Episode of <%= link_to_thing(@episode.podcast) %></p>
+<div class="podcast">
+  <div class="cover">
+    <div class="border"></div>
+    <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
+  </div>
 
-<h1 class="publish_date">
-  <%=h @episode.published_at.strftime("%Y %b %d") %>
-</h1>
-
-<p class="title"><%=h @episode.title %> (<%= pretty_duration(@episode.duration) -%>)</p>
-
-<div class="metadata">
-  <div class="summary">
-    <p><%=strip_tags @episode.summary %></p>
+  <div class="episode">
+    <p>Episode of <%= link_to_thing(@episode.podcast) %></p>
+    
+    <h1 class="publish_date">
+      <%=h @episode.published_at.strftime("%Y %b %d") %>
+    </h1>
+    
+    <p class="title"><%=h @episode.title %> (<%= pretty_duration(@episode.duration) -%>)</p>
+    
+    <div class="metadata">
+      <div class="summary">
+	<p><%=strip_tags @episode.summary %></p>
+      </div>
     </div>
+    
+    <p>
+      <b><%= link_to "Download Podcast", @episode.enclosure_url %></b>
+    </p>
+    
+    <h2>Reviews</h2>
+    <div class="comments">
+      <%= render :partial => 'comments/comments', :object => @episode -%>
+      <%= render :partial => 'comments/add_comment', :object => @episode -%>
+    </div>
+  </div>
+  
 </div>
-
-<p>
-  <b><%= link_to "Download Podcast", @episode.enclosure_url %></b>
-</p>
-
-<h2>Reviews</h2>
-<div class="comments">
-  <%= render :partial => 'comments/comments', :object => @episode -%>
-  <%= render :partial => 'comments/add_comment', :object => @episode -%>
-</div>
-
-<%= link_to 'Back', podcast_url(@episode.podcast) %>

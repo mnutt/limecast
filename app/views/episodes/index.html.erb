@@ -1,10 +1,18 @@
-<% if @podcast -%>
-  <h2>Episodes for <%=h @podcast.title -%></h2>
-<% else -%>
-  <h2>All episodes</h2>
-<% end -%>
+<div class="podcast">
 
-<ul class="episodes">
-  <%= render :partial => "episodes/episode", :collection => @episodes -%>
-</ul>
+  <div class="cover">
+    <div class="border"></div>
+    <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
+  </div>
+
+  <% if @podcast -%>
+    <h2>Episodes for <%=h @podcast.title -%></h2>
+  <% else -%>
+    <h2>All episodes</h2>
+  <% end -%>
+  
+  <ul class="episodes">
+    <%= render :partial => "episodes/episode", :collection => @episodes -%>
+  </ul>
+</div>
 <% reset_cycle('row_class') %>

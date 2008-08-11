@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080811024956) do
+ActiveRecord::Schema.define(:version => 20080811193456) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -103,6 +103,8 @@ ActiveRecord::Schema.define(:version => 20080811024956) do
     t.string   "state",                                   :default => "passive"
     t.datetime "deleted_at"
     t.boolean  "admin"
+    t.string   "reset_password_code"
+    t.datetime "reset_password_sent_at"
   end
 
 end

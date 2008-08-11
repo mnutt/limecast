@@ -83,8 +83,17 @@
           </div>
 
           <div id="primary">
-            <span id="notice"><%= flash[:notice] -%></span>
-            <%= yield -%>
+	    <% if flash[:notice] -%>
+              <span id="notice">
+		<% if Array === flash[:notice] -%>
+		  <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+		<% else -%>
+		  <%= flash[:notice] -%>
+		<% end -%>
+	      </span>
+	    <% end -%>
+            
+	    <%= yield -%>
           </div>
 
           <div class="clear"></div>

@@ -363,3 +363,18 @@ div.palette div.contents {
   background-color: #6E6E6E;
   padding: 10px;
 }
+
+/**
+ Notices
+**/
+
+#primary #notice {
+  display: block;
+  background-color: #555;
+  padding: 0.7em;
+  margin-bottom: 1em;
+}
+
+#primary #notice p {
+  margin-bottom: 0;
+}

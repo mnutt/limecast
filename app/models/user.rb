@@ -84,6 +84,10 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest("--#{salt}--#{password}--")
   end
 
+  def self.generate_code(salt)
+    Digest::MD5.hexdigest("CODE FOR #{salt} at #{Time.now}")
+  end
+
   # Encrypts the password with the user salt
   def encrypt(password)
     self.class.encrypt(password, salt)
@@ -120,6 +124,14 @@ class User < ActiveRecord::Base
     self.remember_token_expires_at = nil
     self.remember_token            = nil
     save(false)
+  end
+
+  def generate_reset_password_code
+    unless attributes["reset_password_code"]
+      self.reset_password_code = User.generate_code("reset_password_code for #{email}")
+      self.reset_password_sent_at = Time.now
+      self.reset_password_code
+    end
   end
 
   # Returns true if the user has just been activated.

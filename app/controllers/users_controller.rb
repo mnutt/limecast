@@ -55,6 +55,46 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+
+  def reset_password
+    @code = params[:code] or unauthorized
+    @user = User.find_by_reset_password_code(@code) or unauthorized
+
+    if request.post?
+      if @user.update_attributes(params[:user])
+        @user.reset_password_code = nil
+        @user.reset_password_sent_at = nil
+        @user.save
+
+        self.current_user = @user
+        flash[:notice] = 'Password updated successfully.'
+        redirect_to user_url(@user)
+      else
+        flash[:notice] = 'The passwords do not match.'
+      end
+    end
+  end
+
+  def send_password
+    @user = User.find_by_email(params[:email]) unless params[:email].blank?
+
+    if @user
+      if @user.reset_password_sent_at and @user.reset_password_sent_at > 10.minutes.ago then
+        flash[:notice] = 'A reset password message was sent less than 10 minutes ago.  Please check your Inbox.'
+      else
+        @user.generate_reset_password_code
+        @user.save
+        UserMailer.deliver_reset_password(@user, request.host_with_port)
+
+        flash[:notice] = [ "Password reset email sent", "Please check your Inbox for a message from LimeWire and click the provided link to reset your password." ]
+      end
+      redirect_to new_session_path
+    else
+      flash[:notice] = 'Sorry, could not find a user with that email.'
+      redirect_to forgot_password_path
+    end
+  end
+
   def show
     @user = User.find_by_login(params[:user])
   end

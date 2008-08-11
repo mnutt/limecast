@@ -188,6 +188,7 @@ class Podcast < ActiveRecord::Base
       episode.published_at = Time.parse(e.elements['pubDate'].text) rescue nil
       episode.enclosure_url = e.elements['enclosure'].attributes['url'] rescue nil
       episode.enclosure_type = e.elements['enclosure'].attributes['type'] rescue nil
+      episode.enclosure_size = e.elements['enclosure'].attributes['length'] rescue nil
 
       # Time may be under an hour
       time = e.elements['itunes:duration'].text rescue "00:00"

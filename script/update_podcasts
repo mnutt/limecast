@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 root_path = File.join(File.dirname(__FILE__), '..')
 require "#{root_path}/config/environment.rb"
 

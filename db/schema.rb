@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080803203636) do
+ActiveRecord::Schema.define(:version => 20080811024956) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20080803203636) do
     t.integer  "duration"
     t.string   "title"
     t.string   "clean_title"
+    t.integer  "enclosure_size"
   end
 
   create_table "podcasts", :force => true do |t|

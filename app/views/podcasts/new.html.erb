@@ -30,5 +30,5 @@
 <% end -%>
 
 <% if !logged_in? -%>
-  <p>Take credit for these podcasts by <% link_to "registering", new_user_url -%>.</p>
+  <%= render :partial => 'users/signup_inline' -%>
 <% end -%>

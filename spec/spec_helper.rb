@@ -6,6 +6,7 @@ $: << File.dirname(__FILE__)
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
+require 'scenarios'
 
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true

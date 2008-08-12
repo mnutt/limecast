@@ -19,10 +19,18 @@ class UsersController < ApplicationController
       claim_podcasts
 
       self.current_user = @user
-      redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up!"
+      respond_to do |format|
+        format.html do
+          redirect_back_or_default('/')
+          flash[:notice] = "Thanks for signing up!"
+        end
+        format.js
+      end
     else
-      render :action => 'new'
+      respond_to do |format|
+        format.html { render :action => 'new' }
+        format.js
+      end
     end
   end
 

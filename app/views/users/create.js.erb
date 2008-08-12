@@ -1,0 +1,8 @@
+<% if @user.new_record? -%>
+  <%= @user.errors.full_messages.join(", ") -%>
+<% else -%>
+  <p>Successfully created <%= link_to_profile(@user) -%>.  Enjoy!</p>
+  <script type="text/javascript">
+    $('inline_login_form').hide();
+  </script>
+<% end -%>

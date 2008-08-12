@@ -56,15 +56,14 @@ ActiveRecord::Schema.define(:version => 20080811193456) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "feed_etag"
+    t.integer  "user_id"
     t.text     "description"
     t.string   "language"
     t.integer  "category_id"
-    t.integer  "user_id"
     t.string   "clean_title"
     t.string   "itunes_link"
     t.integer  "owner_id"
     t.string   "email"
-    t.string   "name_param"
     t.string   "owner_name"
   end
 

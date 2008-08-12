@@ -8,17 +8,27 @@ class SessionsController < ApplicationController
   end
 
   def create
-    self.current_user = User.authenticate(params[:email], params[:password])
+    self.current_user = User.authenticate(params[:user][:email], params[:user][:password])
     if logged_in?
       if params[:remember_me] == "1"
         current_user.remember_me unless current_user.remember_token?
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      redirect_back_or_default('/')
-      flash[:notice] = "Logged in successfully"
+      respond_to do |format|
+        format.html do
+          flash[:notice] = "Logged in successfully"
+          redirect_back_or_default('/')
+        end
+        format.js
+      end
     else
-      flash.now[:notice] = "There was a problem logging in"
-      render :action => 'new'
+      respond_to do |format|
+        format.html do
+          flash.now[:notice] = "There was a problem logging in"
+          render :action => 'new'
+        end
+        format.js
+      end
     end
   end
 

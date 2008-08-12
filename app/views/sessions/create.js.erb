@@ -1,0 +1,10 @@
+<% if logged_in? -%>
+  <p>Successfully logged in as <%= link_to_profile current_user -%>.</p>
+  <script type="text/javascript">
+    if($('quick_signin').visible()) {
+      $('quick_signin').fade({ afterFinish: function() { window.location.reload() } });
+    }
+  </script>
+<% else -%>
+  <p>There was a problem logging in.  Please check your credentials.</p>
+<% end -%>

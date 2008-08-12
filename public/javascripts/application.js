@@ -111,23 +111,18 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
     this.isActive = false;
   },
   _attach: function() {
-    Event.observe(this.container, 'mouseover', function(event) {
+    Event.observe(this.anchor, 'click', function(event) {
       this._show();
       Event.stop(event);
+      Event.observe(document, 'click', function(event) {
+	element = event.element();
+	// TODO: It's supposed to bubble! Why won't it bubble???
+	if(!element.ancestors().include($('quick_signin'))) {
+	  this._hide();
+	}
+      }.bind(this), false);
     }.bind(this), false);
-    Event.observe(this.container, 'mouseout', function(event) {
-      this._startHideTimer();
-      Event.stop(event);
-    }.bind(this), false);
-    Event.observe(this.anchor, 'mouseover', function(event) {
-      this._show();
-      Event.stop(event);
-    }.bind(this), false);
-    Event.observe(this.anchor, 'mouseout', function(event) {
-      this._startHideTimer();
-      Event.stop(event);
-    }.bind(this), false);
-    Event.observe(this.login_form, "submit", this._hide.bind(this), false);
+    // Event.observe(this.login_form, "submit", this._hide.bind(this), false);
     Event.observe(document, 'keypress', this._keypress.bindAsEventListener(this));
   },
   _keypress: function(event) {

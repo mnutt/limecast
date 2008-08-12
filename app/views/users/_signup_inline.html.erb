@@ -1,11 +1,43 @@
-<% remote_form_for :user, :url => session_url do |f| -%>
-  <%= f.label :login -%>
-  <%= f.text_field :login, :style => 'width: 10em;' -%>
+<%# Can only have one of these per page, due to the ids -%>
+
+<div id="inline_login">
+  <div id="inline_login_form">
+    <% remote_form_for :user, :url => session_url, :update => 'response_container' do |f| -%>
+      <%= f.label :email -%>
+      <%= f.text_field :email, :style => 'width: 12em;' -%>
+      
+      <%= f.label :password -%>
+      <%= f.password_field :password, :style => 'width: 7em;' -%>
+
+      <span id="signup_username_field" style="display: none;">
+	<%= f.label :login, "User" -%>
+	<%= f.text_field :login, :style => 'width: 7em;' -%>
+      </span>
+      
+      <span id="login_buttons">
+	<%= link_to "I forgot", reset_password_url -%>      
+	<%= submit_tag "Login", :id => "login_button" -%>
+      </span>
+
+      <input type="button" value="Sign up" name="signup" id="signup_button" />
+      <script type="text/javascript">
+	$('signup_button').observe('click', function() {
+	  if(!$('signup_username_field').visible()) {
+	    $('signup_username_field').show();
+	    $('user_login').focus();
+	    $('login_buttons').hide();
+	  } else {
+	    new Ajax.Updater('response_container', 
+	                     '<%= users_url -%>', 
+	                     { asynchronous: true, 
+                               method: 'post', 
+	                       evalScripts:true, 
+	                       parameters:Form.serialize(this.form) });
+	  }
+	});
+      </script>
+    <% end -%>
+  </div>
   
-  <%= f.label :password -%>
-  <%= f.password_field :password, :style => 'width: 10em;' -%>
-
-  <%= link_to "I forgot", reset_password_url -%>
-
-  <%= submit_tag "Signup" -%>
-<% end -%>
+  <div id="response_container"></div>
+</div>

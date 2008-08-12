@@ -92,6 +92,9 @@ a.icon span {
   text-decoration: underline;
   cursor: pointer !important;
 }
+a.user {
+  background-image: url("../images/icons/user.png");
+}
 * html a.icon {
   behavior: url("../javascripts/png.htc");
   padding: 2px 0;

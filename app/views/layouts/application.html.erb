@@ -49,27 +49,8 @@
             </li>
             <% end -%>
           </ul>
-          <% #unless current_user
-          if false then -%>
-            <div id="quick_signin" class="palette">
-              <div class="contents">
-                <% form_tag session_path do -%>
-                <div class="field">
-                  <label for="login">Login</label>
-                  <div><%= text_field_tag 'login', '', :class => 'text' %></div>
-                </div>
-                <div class="field">
-                  <label for="password">Password</label>
-                  <div><%= password_field_tag 'password', '', :class => 'text' %></div>
-                </div>
-                <div class="controls">
-                  <%= submit_tag 'Sign in', :class => 'button' %>
-                  <%= submit_tag 'Sign up', :type => 'button', :class => 'button' %>
-                </div>
-                <% end -%>
-              </div>
-            </div>
-            <script type="text/javascript">new Lime.Widgets.QuickLogin('quick_signin')</script>
+          <% unless current_user -%>
+            <%= render :partial => 'users/quick_signin' -%>
           <% end -%>
         </div>
       </div>

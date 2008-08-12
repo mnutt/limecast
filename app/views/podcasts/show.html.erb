@@ -57,18 +57,28 @@
   <div class="stats">
     <p class="totals">
       <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
-      since <%= link_to @podcast.first_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.first_episode) -%>,
-      every <%= (@podcast.average_time_between_episodes / (60 * 60 * 24) * 100).to_i / 100.0 -%> days
+
+      <% if @podcast.episodes.size > 0 -%>
+	since <%= link_to @podcast.first_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.first_episode) -%>,
+      <% end -%>
+
+      <% if @podcast.episodes.size > 1 -%>
+	every <%= (@podcast.average_time_between_episodes / (60 * 60 * 24) * 100).to_i / 100.0 -%> days
+      <% end -%>
     </p>
+
     <% if @podcast.total_run_time > 60 -%>
     <p class="run_time">
       Total run time <%= date_to_words(@podcast.total_run_time) -%>
     </p>
     <% end -%>
-    <p class="new_episode">
-      New episode <%= link_to @podcast.last_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.last_episode) -%>,
-      <%= relative_time(@podcast.last_episode.published_at) -%>
-    </p>
+
+    <% if @podcast.episodes.size > 0 -%>
+      <p class="new_episode">
+	New episode <%= link_to @podcast.last_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.last_episode) -%>,
+	<%= relative_time(@podcast.last_episode.published_at) -%>
+      </p>
+    <% end -%>
   </div>
   
   <div class="description">

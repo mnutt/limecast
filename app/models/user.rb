@@ -74,8 +74,8 @@ class User < ActiveRecord::Base
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
-  def self.authenticate(login, password)
-    u = find :first, :conditions => {:login => login} # need to get the salt
+  def self.authenticate(email, password)
+    u = find :first, :conditions => {:email => email} # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 
@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
     # before filter
     def encrypt_password
       return if password.blank?
-      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
+      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--") if new_record?
       self.crypted_password = encrypt(password)
     end
 

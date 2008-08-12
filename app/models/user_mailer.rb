@@ -1,22 +1,24 @@
 class UserMailer < ActionMailer::Base
-  def signup_notification(user, host)
+  FROM_HOST = "http://podcasts.limewire.com"
+
+  def signup_notification(user)
     setup_email(user)
-    @subject    += 'Please activate your new account'
+    subject     'Please activate your new account'
   
-    body :user => user, :host => host
+    body :user => user, :host => FROM_HOST
   end
   
-  def activation(user, host)
+  def activation(user)
     setup_email(user)
-    @subject       'Your account has been activated!'
-    body :user => user, :host => host
+    subject       'Your account has been activated!'
+    body :user => user, :host => FROM_HOST
   end
 
-  def reset_password(user, host)
+  def reset_password(user)
     setup_email(user)
     subject    "LimeWire Podcast Directory Reset Password"
 
-    body :user => user, :host => host
+    body :user => user, :host => FROM_HOST
   end
   
   protected

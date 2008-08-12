@@ -4,4 +4,4 @@ Your account has been created.
 
 Visit this url to activate your account:
 
-  <%= activate_url(:code => @user.activation_code %>
+  <%= activate_url(:activation_code => @user.activation_code, :host => @host) %>

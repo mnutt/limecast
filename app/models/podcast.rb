@@ -35,7 +35,7 @@ class Podcast < ActiveRecord::Base
   belongs_to :user
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
-  has_many :comments, :as => :commentable, :conditions => "user_id IS NOT NULL", :dependent => :destroy
+  has_many :comments, :as => :commentable, :conditions => "comments.user_id IS NOT NULL", :dependent => :destroy
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
 
   attr_accessor :logo_link, :has_episodes, :feed_error

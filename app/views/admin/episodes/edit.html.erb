@@ -1,6 +1,6 @@
 <h1>Editing episode</h1>
 
-<% form_for(["admin", @episode]) do |f| %>
+<% form_for(@episode, :url => admin_episode_path(@episode.id)) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -44,5 +44,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', admin_episode_path(@episode) %> |
+<%= link_to 'Show', admin_episode_path(@episode.id) %> |
 <%= link_to 'Back', admin_episodes_path %>

@@ -24,9 +24,9 @@
     <td><%=h podcast.user_id %></td>
     <td><%=h podcast.description %></td>
     <td><%=h podcast.language %></td>
-    <td><%= link_to 'Show', admin_podcast_path(podcast) %></td>
-    <td><%= link_to 'Edit', edit_admin_podcast_path(podcast) %></td>
-    <td><%= link_to 'Destroy', admin_podcast_path(podcast), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', admin_podcast_path(podcast.id) %></td>
+    <td><%= link_to 'Edit', edit_admin_podcast_path(podcast.id) %></td>
+    <td><%= link_to 'Destroy', admin_podcast_path(podcast.id), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

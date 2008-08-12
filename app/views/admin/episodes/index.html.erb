@@ -24,9 +24,9 @@
 	<td><%=h episode.enclosure_type %></td>
 	<td><%=h episode.duration %></td>
 	<td><%=h episode.title %></td>
-	<td><%= link_to 'Show', admin_episode_path(episode) %></td>
-	<td><%= link_to 'Edit', edit_admin_episode_path(episode) %></td>
-	<td><%= link_to 'Destroy', admin_episode_path(episode), :confirm => 'Are you sure?', :method => :delete %></td>
+	<td><%= link_to 'Show', admin_episode_path(episode.id) %></td>
+	<td><%= link_to 'Edit', edit_admin_episode_path(episode.id) %></td>
+	<td><%= link_to 'Destroy', admin_episode_path(episode.id), :confirm => 'Are you sure?', :method => :delete %></td>
       </tr>
     <% end %>
   <% end -%>

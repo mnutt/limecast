@@ -139,7 +139,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def generate_url
-    self.clean_title = self.title
+    self.clean_title = self.title.clone
     # Remove all non-alphanumeric non-space characters
     self.clean_title.gsub!(/[^A-Za-z0-9\s]/, "")
     # Condense spaces and turn them into dashes

@@ -96,7 +96,6 @@ a.user {
   background-image: url("../images/icons/user.png");
 }
 * html a.icon {
-  behavior: url("../javascripts/png.htc");
   padding: 2px 0;
 }
 * html a.icon span {
@@ -141,18 +140,18 @@ div#header div#title h1 {
   height: 23px;
   padding: 1px 0 0 0;
   position: relative;
-  z-index: 1;
+  display: block;
 }
 div#header div#title h1 a {
-   background: url("../images/layout/header_title.png") no-repeat left top; 
-   text-indent: -5000px; 
-   width: 188px; 
-   height: 23px; 
-   display: block; 
-   overflow: hidden; 
+   background: url("../images/layout/header_title.png") no-repeat left top;
+   text-indent: -5000px;
+   width: 188px;
+   height: 23px;
+   display: block;
+   overflow: hidden;
 }
 div#header div#title h1 a:hover {
-  background-position: left bottom;
+  background-position: left -23px;
 }
 div#header div#title h1 sup {
   background: url("../images/layout/header_label.png") no-repeat left top;
@@ -208,12 +207,14 @@ div#header div#account_bar ul li.signup a  {
 **/
 div#body {
   background-color: #454545;
+  width: 100%;
 }
 div#body div.t {
   background: url("../images/layout/body_bg_top.png") repeat-x left top;
 }
 div#body div.b {
   background: url("../images/layout/body_bg_bottom.png") repeat-x left bottom;
+  *height: 0.01%;
 }
 div#body div#primary {
   margin: 0 270px 0 0;
@@ -299,6 +300,7 @@ div#body a.action_button:hover span {
 div#footer_wrapper {
   background: #181818 url("../images/layout/footer_bg.png") repeat-x left top;
   padding: 20px 0;
+  *height: 0.01%;
 }
 div#footer {
   padding: 0 20px;

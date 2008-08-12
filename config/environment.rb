@@ -7,6 +7,7 @@
 # HACK: production server doesn't have LD_LIBRARY_PATH set right, do it
 # ourselves instead
 ENV['LD_LIBRARY_PATH'] = "#{ENV['LD_LIBRARY_PATH']}:/usr/local/lib"
+ENV['PATH'] = "#{ENV['PATH']}:/usr/local/bin"
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 # RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION

@@ -13,6 +13,7 @@
     <p class="description"><%=strip_tags episode.summary -%></p>
     
     <%# TODO: if an mp3 doesn't have .mp3 extension? -%>
+    <!--
     <% if episode.enclosure_url =~ /mp3$/ -%>
       <object type="application/x-shockwave-flash" data="/flash/player.swf" width="290" height="24" id="audioplayer_<%= episode.id -%>">
         <param name="movie" value="/flash/player.swf" />
@@ -22,6 +23,7 @@
         <param name="wmode" value="transparent" />
       </object>
     <% end -%>
+    -->
 
     <div class="download">
       <%= link_to "<span>Download</span>", episode.enclosure_url, :class => 'icon' -%>

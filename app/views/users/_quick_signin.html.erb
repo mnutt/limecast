@@ -1,49 +1,55 @@
-<div id="quick_signin" class="palette">
+<div id="quick_signin" class="palette" style="display: none; opacity: 0;">
   <div class="contents">
     <% form_for :user, :url => session_path, :html => { :id => 'top_signin_form' } do |f| -%>
       <div class="field">
-	<label for="email">Email</label>
-	<div><%= f.text_field 'email', :class => 'text' %></div>
+        <label for="email">Email</label>
+        <div>
+          <%= f.text_field 'email', :class => 'text' %>
+        </div>
       </div>
       <div class="field">
-	<label for="password">Password</label>
-	<div><%= f.password_field 'password', :class => 'text' %></div>
+        <label for="password">Password</label>
+        <div>
+          <%= f.password_field 'password', :class => 'text' %>
+        </div>
       </div>
-      <div id="top_signup_username_field" style="display:none;" class="field">
-	<label for="login">Login</label>
-	<div><%= f.text_field 'login', :class => 'text', :id => 'top_user_login' %></div>
+      <div id="top_signup_username_field" style="display: none;" class="field">
+        <label for="login">Login</label>
+        <div>
+          <%= f.text_field 'login', :class => 'text', :id => 'top_user_login' %>
+        </div>
       </div>
       <div class="controls">
-	<span id="top_login_buttons">
-          <%= submit_tag 'Sign in', :class => 'button', :id => 'top_signin_button' %>
-	</span>
-	<script type="text/javascript">
- 	  $('top_signin_form').observe('submit', function(event) {
-  	    Event.stop(event);
-	    new Ajax.Updater('top_response_container',
-	      '/session', 
-	      { asynchronous:true, 
-	        evalScripts:true, 
-	        parameters:Form.serialize(this) });
- 	  });
-	</script>
-	<%= submit_tag 'Sign up', :type => 'button', :class => 'button', :id => 'top_signup_button' %>
-	<script type="text/javascript">
-	  $('top_signup_button').observe('click', function() {
-	    if(!$('top_signup_username_field').visible()) {
-	      $('top_signup_username_field').show();
-	      $('top_user_login').focus();
-	      $('top_login_buttons').hide();
-	    } else {
-	      new Ajax.Updater('top_response_container', 
-	        '<%= users_url -%>', 
-	        { asynchronous: true, 
-                  method: 'post', 
-	          evalScripts:true, 
-	          parameters:Form.serialize(this.form) });
-	    }
-	  });
-	</script>
+      <span id="top_login_buttons">
+        <%= submit_tag 'Sign in', :class => 'button', :id => 'top_signin_button' %>
+      </span>
+      <script type="text/javascript">
+         $('top_signin_form').observe('submit', function(event) {
+            Event.stop(event);
+          new Ajax.Updater('top_response_container',
+            '/session', 
+            { asynchronous:true, 
+              evalScripts:true, 
+              parameters:Form.serialize(this) });
+         });
+      </script>
+      <%= submit_tag 'Sign up', :type => 'button', :class => 'button', :id => 'top_signup_button' %>
+      <script type="text/javascript">
+        $('top_signup_button').observe('click', function() {
+          if(!$('top_signup_username_field').visible()) {
+            $('top_signup_username_field').show();
+            $('top_user_login').focus();
+            $('top_login_buttons').hide();
+          } else {
+            new Ajax.Updater('top_response_container', 
+              '<%= users_url -%>', 
+              { asynchronous: true, 
+                      method: 'post', 
+                evalScripts:true, 
+                parameters:Form.serialize(this.form) });
+          }
+        });
+      </script>
       </div>
       <div id="top_response_container"></div>
     <% end -%>

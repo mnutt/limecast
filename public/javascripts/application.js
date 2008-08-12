@@ -115,11 +115,11 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
       this._show();
       Event.stop(event);
       Event.observe(document, 'click', function(event) {
-	element = event.element();
-	// TODO: It's supposed to bubble! Why won't it bubble???
-	if(!element.ancestors().include($('quick_signin'))) {
-	  this._hide();
-	}
+        element = event.element();
+        // TODO: It's supposed to bubble! Why won't it bubble???
+        if(!element.ancestors().include($('quick_signin'))) {
+          this._hide();
+        }
       }.bind(this), false);
     }.bind(this), false);
     // Event.observe(this.login_form, "submit", this._hide.bind(this), false);

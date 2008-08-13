@@ -1,3 +1,6 @@
+class Unauthenticated < StandardError; end
+class Forbidden < StandardError; end
+
 module AuthenticatedSystem
   protected
     # Returns true or false if the user is logged in.
@@ -61,28 +64,16 @@ module AuthenticatedSystem
     # to access the requested action.  For example, a popup window might
     # simply close itself.
     def unauthenticated
-      respond_to do |format|
-        format.html do
-          flash[:error] = "You need to be logged in to do that."
-          store_location
-          redirect_to new_session_path
-        end
-        format.any do
-          request_http_basic_authentication 'Web Password'
-        end
-      end
+      store_location
+      raise Unauthenticated
     end
 
     def unauthorized
-      respond_to do |format|
-        format.html do
-          render :text => "You do not have permission to perform this action."
-        end
-      end
+      raise Forbidden
     end
 
     def authorize_write(thing)
-      raise ArgumentError unless thing.respond_to?(:writable_by?)
+      raise Forbidden unless thing.respond_to?(:writable_by?)
       thing.writable_by?(current_user) || unauthorized
     end
 

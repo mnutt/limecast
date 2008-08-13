@@ -99,7 +99,7 @@ namespace :limecast do
 
       # Ugh, duplication w/ Rakefile
       require 'openssl'
-      encryption_key = [ OpenSSL::Random.random_bytes(16) ].pack('m*')
+      encryption_key = [ OpenSSL::Random.random_bytes(60) ].pack('m*')
       put encryption_key, "#{shared_path}/private/encryption_key.txt", :mode => 0600
     end
 

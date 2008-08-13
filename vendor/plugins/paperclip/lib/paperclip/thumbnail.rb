@@ -47,6 +47,7 @@ module Paperclip
         "#{ File.expand_path(dst.path) }"
       end_command
       success = system(command.gsub(/\s+/, " "))
+      RAILS_DEFAULT_LOGGER.info "#{command.gsub(/\s+/, " ")}: #{success}"
 
       if success && $?.exitstatus != 0 && @whiny_thumbnails
         raise PaperclipError, "There was an error processing this thumbnail"

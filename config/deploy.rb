@@ -95,12 +95,12 @@ namespace :limecast do
 
     desc 'Creates an encryption key (if necessary) and links it to config/encryption_key'
     task :encryption_key, :roles => :app do
-      run "test ! -f #{shared_path}/encryption_key || cp #{shared_path}/encryption_key #{shared_path}/encryption_key.1"
+      run "test ! -f #{shared_path}/private/encryption_key.txt || cp #{shared_path}/private/encryption_key.txt #{shared_path}/private/encryption_key.txt.1"
 
       # Ugh, duplication w/ Rakefile
       require 'openssl'
       encryption_key = [ OpenSSL::Random.random_bytes(16) ].pack('m*')
-      put encryption_key, "#{shared_path}/encryption_key", :mode => 0600
+      put encryption_key, "#{shared_path}/private/encryption_key.txt", :mode => 0600
     end
 
     desc 'Creates the log directory required by Sphinx'
@@ -108,7 +108,8 @@ namespace :limecast do
       run <<-CMD
         mkdir #{shared_path}/log/sphinx &&
         mkdir #{shared_path}/sphinx &&
-        mkdir #{shared_path}/vendor
+        mkdir #{shared_path}/vendor &&
+        mkdir #{shared_path}/private
       CMD
     end
 
@@ -137,10 +138,11 @@ CRON
         rm -rf #{latest_release}/sphinx;
         rm -rf #{latest_release}/config/database.yml;
         rm -rf #{latest_release}/public/logos;
+        rm -rf #{latest_release}/private;
         ln -s #{shared_path}/sphinx    #{latest_release}/sphinx &&
         ln -s #{shared_path}/database.yml   #{latest_release}/config/database.yml &&
         ln -s #{shared_path}/logos #{latest_release}/public/logos &&
-        ln -s #{shared_path}/encryption_key #{latest_release}/config/encryption_key
+        ln -s #{shared_path}/private #{latest_release}/private
       CMD
     end
 

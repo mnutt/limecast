@@ -223,6 +223,7 @@ div#body div#primary {
 div#body div#sidebar {
   padding: 20px;
   width: 230px;
+  height: 0px;
   float: right;
 }
 div#body h2 {

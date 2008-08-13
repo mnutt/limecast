@@ -41,9 +41,13 @@ Rails::Initializer.run do |config|
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
+
+  key_file = "#{RAILS_ROOT}/private/encryption_key.txt"
+  key = File.read(key_file).chomp if File.exist?(key_file)
+
   config.action_controller.session = {
     :session_key => '_limecast_session',
-    :secret      => 'c287fbd1abb59a0d04aca1b9960c6c10890d89187dc178fc8fea93bae944686f279b43375d212555b847fe0b46d17db420d8ee1ef8149cf7e27f0ed50fbd5cd7'
+    :secret      => key
   }
 
   # Use the database for sessions instead of the cookie-based default,

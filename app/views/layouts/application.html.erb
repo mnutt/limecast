@@ -58,64 +58,62 @@
 
     <div id="body_wrapper">
       <div id="body">
-        <div class="t"><div class="b">
 
-          <div id="sidebar">
-	    <%= @ads -%>
-          </div>
+        <div id="sidebar">
+          <%= @ads -%>
+        </div>
 
-          <div id="primary">
-            <% if flash[:notice] -%>
-              <span id="notice">
-              <% if Array === flash[:notice] -%>
-                <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
-              <% else -%>
-                <%= flash[:notice] -%>
-              <% end -%>
-              </span>
+        <div id="primary">
+          <% if flash[:notice] -%>
+            <span id="notice">
+            <% if Array === flash[:notice] -%>
+              <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+            <% else -%>
+              <%= flash[:notice] -%>
             <% end -%>
+            </span>
+          <% end -%>
 
-            <%= yield -%>
-          </div>
+          <%= yield -%>
+        </div>
 
-          <div class="clear"></div>
-
-        </div></div>
-      </div>
-    </div>
-
-    <div id="footer_wrapper">
-      <div id="footer">
-
-        <ul class="primary">
-          <li class="blog">
-            <%= link_to "<span>Blog</span>", 'http://podcasts.limespot.com/' %>
-          </li>
-          <li class="use">
-            <%= link_to "<span>Terms of service</span>", use_url %>
-          </li>
-          <li class="privacy">
-            <%= link_to "<span>Privacy</span>", '/privacy' %>
-          </li>
-        </ul>
-<!--        
-        <ul class="secondary">
-          <li class="copyright">
-            <%= link_to "<span>Copyright/IP policy</span>", '#' %>
-          </li>
-          <li class="open_source">
-            <%= link_to "<span>Open source</span>", '#' %>
-          </li>
-          <li class="guide">
-            <%= link_to "<span>Podcasting guide</span>", '#' %>
-          </li>
-        </ul>
--->
-        
         <div class="clear"></div>
 
       </div>
     </div>
+
+  </div>
+</div>
+
+<div id="footer_wrapper">
+  <div id="footer">
+
+    <ul class="primary">
+      <li class="blog">
+        <%= link_to "<span>Blog</span>", 'http://podcasts.limespot.com/' %>
+      </li>
+      <li class="use">
+        <%= link_to "<span>Terms of service</span>", use_url %>
+      </li>
+      <li class="privacy">
+        <%= link_to "<span>Privacy</span>", '/privacy' %>
+      </li>
+    </ul>
+<!--        
+    <ul class="secondary">
+      <li class="copyright">
+        <%= link_to "<span>Copyright/IP policy</span>", '#' %>
+      </li>
+      <li class="open_source">
+        <%= link_to "<span>Open source</span>", '#' %>
+      </li>
+      <li class="guide">
+        <%= link_to "<span>Podcasting guide</span>", '#' %>
+      </li>
+    </ul>
+-->
+
+    <div class="clear"></div>
 
   </div>
 </div>

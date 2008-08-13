@@ -55,15 +55,23 @@
   </div>
   
   <div class="stats">
+
+    <% if @podcast.episodes.size > 0 -%>
+      <p class="new_episode">
+        New episode <%= link_to @podcast.last_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.last_episode) -%>
+        <%= relative_time(@podcast.last_episode.published_at) -%>
+      </p>
+    <% end -%>
+
     <p class="totals">
       <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
 
       <% if @podcast.episodes.size > 0 -%>
-	since <%= link_to @podcast.first_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.first_episode) -%>,
+        since <%= link_to @podcast.first_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.first_episode) -%>
       <% end -%>
 
       <% if @podcast.episodes.size > 1 -%>
-	every <%= (@podcast.average_time_between_episodes / (60 * 60 * 24) * 100).to_i / 100.0 -%> days
+        every <%= (@podcast.average_time_between_episodes / (60 * 60 * 24) * 100).to_i / 100.0 -%> days
       <% end -%>
     </p>
 
@@ -71,13 +79,6 @@
     <p class="run_time">
       Total run time <%= date_to_words(@podcast.total_run_time) -%>
     </p>
-    <% end -%>
-
-    <% if @podcast.episodes.size > 0 -%>
-      <p class="new_episode">
-	New episode <%= link_to @podcast.last_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.last_episode) -%>,
-	<%= relative_time(@podcast.last_episode.published_at) -%>
-      </p>
     <% end -%>
   </div>
   
@@ -99,19 +100,19 @@
   
   <div class="episodes">
     <h3>Recent Episodes</h3>
-    <% link_to(podcast_episodes_url(@podcast), :class => 'all_episodes') do -%><span>All <%= @podcast.episodes.count -%> episodes</span><% end -%>
     <ul class="episodes">
       <%= render :partial => 'episodes/episode', :collection => @episodes -%>
     </ul>
+    <% link_to(podcast_episodes_url(@podcast), :class => 'all_episodes') do -%><span>All <%= @podcast.episodes.count -%> episodes</span><% end -%>
     <% reset_cycle('row_class') %>
   </div>
   
   <div class="reviews">
     <h3>Reviews</h3>
-    <%= link_to "All #{@podcast.comments.count} reviews", podcast_reviews_url(@podcast), :class => 'all_reviews' -%>
     <ul class="reviews">
       <%= render :partial => 'comments/comments', :object => @podcast, :locals => {:short => true} -%>
     </ul>
+    <%= link_to "All #{@podcast.comments.count} reviews", podcast_reviews_url(@podcast), :class => 'all_reviews' -%>
     <%= render :partial => 'comments/add_comment', :object => @podcast -%>
     <% reset_cycle('row_class') %>
   </div>

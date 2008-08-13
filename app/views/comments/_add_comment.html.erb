@@ -1,11 +1,9 @@
 <% commentable = add_comment -%>
 <% options ||= {} -%>
 
-<h3>Write a review</h3>
-
 <% remote_form_for(:comment, :update => 'comments_list', :position => :bottom, :url => comments_url) do |f| -%>
   <div class="field">
-  <%= f.label :title -%>
+    <%= f.label :title -%>
     <div>
       <%= f.text_field :title, :class => 'text' -%>
     </div>
@@ -30,6 +28,6 @@
   </div>
 
   <div class="controls">
-    <%= submit_tag "Add", :class => 'button' -%>
+    <%= submit_tag "Save", :class => 'button' -%>
   </div>
 <% end -%>

@@ -1,11 +1,15 @@
 /***************************************************************************************
 * Base.css
 ***************************************************************************************/
+html {
+  height: 100%;
+}
 body {
-  background-color: #181818;
+  background-color: #2F2F2F;
   font: 62.5% Verdana, sans-serif;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 .clear {
   clear: both;
@@ -70,17 +74,25 @@ h2 { font-size: 1.4em; }
 h3 { font-size: 1.2em; }
 h4 { font-size: 1.0em; }
 h5 { font-size: 0.8em; }
-div#layout {
-  min-width: 980px;
+div#document {
   font-size: 1.1em;
-  color: #E6E6E6;
+  min-height: 100%;
+}
+* html div#document {
+  height: 100%;
+}
+div#layout {
+  font-size: 1.1em;
+  color: #CBCBCB;
+  min-width: 980px;
+  padding: 0 0 34px 0;
 }
 a, a:visited {
   text-decoration: underline;
-  color: #5CAFC4;
+  color: #CBCBCB;
 }
 a:hover {
-  color: #6DCFE8;
+  color: #FFF;
 }
 a.icon {
   background-repeat: no-repeat;
@@ -114,23 +126,13 @@ a.inline_icon span {
 }
 
 /**
-* Layout
-**/
-div#header,
-div#body,
-div#footer {
-  position: relative;
-  font-size: 1.1em;
-}
-
-/**
 * Header
 **/
 div#header_wrapper {
-  background: #3C3C3C url("../images/layout/header_bg.png") repeat-x left top;
+  background-color: #181818;
 }
 div#header {
-  padding: 0 20px;
+  padding: 0 8px;
 }
 div#header div#title {
   padding: 7px 0 4px 0;
@@ -165,7 +167,7 @@ div#header div#title h1 sup {
 }
 div#header div#account_bar {
   top: 0;
-  right: 20px;
+  right: 10px;
   position: absolute;
   z-index: 1;
 }
@@ -205,33 +207,26 @@ div#header div#account_bar ul li.signup a  {
 /**
 * Body
 **/
-div#body {
-  background-color: #454545;
+div#body_wrapper {
   width: 100%;
 }
-div#body div.t {
-  background: url("../images/layout/body_bg_top.png") repeat-x left top;
-}
-div#body div.b {
-  background: url("../images/layout/body_bg_bottom.png") repeat-x left bottom;
-  *height: 0.01%;
-}
 div#body div#primary {
-  margin: 0 270px 0 0;
-  padding: 20px;
+  margin: 0 280px 0 0;
+  padding: 30px 20px 30px 220px;
+  position: relative;
 }
 div#body div#sidebar {
-  padding: 20px;
+  padding: 30px 20px;
   width: 230px;
   height: 0px;
   float: right;
 }
 div#body h2 {
-  font-size: 2.0em;
+  font-size: 3.0em;
   margin: 0 0 10px 0;
 }
 div#body h3 {
-  font-size: 1.6em;
+  font-size: 2.4em;
   margin: 0 0 10px 0;
   color: #ABABAB;
 }
@@ -299,12 +294,13 @@ div#body a.action_button:hover span {
 * Footer
 **/
 div#footer_wrapper {
-  background: #181818 url("../images/layout/footer_bg.png") repeat-x left top;
-  padding: 20px 0;
-  *height: 0.01%;
+  background-color: #181818;
+  height: 34px;
+  margin: -34px 0 0 0;
+  position: relative;
 }
 div#footer {
-  padding: 0 20px;
+  padding: 10px 8px;
 }
 div#footer ul {
   clear: both;
@@ -312,6 +308,12 @@ div#footer ul {
 div#footer ul li {
   margin: 0 5px 0 0;
   float: left;
+}
+div#note {
+  background-color: orange;
+  position: relative;
+  height: 16px;
+  margin-top: -16px;
 }
 
 /**

@@ -26,7 +26,11 @@
         <div id="account_bar">
           <ul>
             <li class="add_podcast">
-              <%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon add' %>
+	      <% if @new_podcast -%>
+		<span>Add podcast</span>
+	      <% else -%>
+		<%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon add' %>
+	      <% end -%>
             </li>
             <li class="search">
               <% form_for :search, :url => search_url do |form| -%>

@@ -1,9 +1,12 @@
 <h1><%=h @user.login -%></h1>
 
 <% if @user == current_user -%>
-  This is me!
-  Change password, email 
-  (<%= in_place_editor_field :user, :email, {}, :url => "/users/#{@user.id}" -%>)
+  <p>
+    This is me!
+    Change password, email 
+    (<%= in_place_editor_field :user, :email, {}, :url => "/users/#{@user.id}" -%>)
+    <%= link_to "Log out", session_url, :method => 'delete' -%>
+  </p>
 <% end -%>
 
 <% if @user.owned_podcasts.count > 0 -%>
@@ -11,6 +14,7 @@
   <ul class="podcasts">
     <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
   </ul>
+  <% reset_cycle('row_class') %>
 <% end -%>
 
 <% if @user.podcasts.count > 0 -%>
@@ -18,17 +22,19 @@
   <ul class="podcasts">
     <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
   </ul>
+  <% reset_cycle('row_class') %>
 <% end -%>
 
 <% if @user.comments.count > 0 -%>
   <h3>Reviewed</h3>
-  <div class="comments">
+  <ul class="comments">
     <% @user.comments.each do |comment| -%>
-      <div id="<%= dom_id(comment) -%>" class="comment">
-	<%= link_to_thing(comment.commentable) -%>
-	<b><%= comment.title -%></b>
-	<%= comment.body -%>
-      </div>
+      <li id="<%= dom_id(comment) -%>" class="comment <%= cycle('odd','even', :name => 'row_class') -%>">
+        <%= link_to_thing(comment.commentable) -%>
+        <h4><%= comment.title -%></h4>
+        <%= comment.body -%>
+      </li>
     <% end -%>
-  </div>
+  </ul>
+  <% reset_cycle('row_class') %>
 <% end -%>

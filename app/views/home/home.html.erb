@@ -2,6 +2,7 @@
   <h2>Recently Added Podcasts</h2>
   <%= render :partial => "podcasts/podcast", :collection => @podcasts -%>
 </div>
+<% reset_cycle('row_class') %>
 
 <div class="clear"></div>
 

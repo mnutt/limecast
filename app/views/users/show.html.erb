@@ -5,7 +5,7 @@
     This is me!
     Change password, email 
     (<%= in_place_editor_field :user, :email, {}, :url => "/users/#{@user.id}" -%>)
-    <%= link_to "Log out", session_url, :method => 'delete' -%>
+    <%= link_to "Sign out", session_url, :method => 'delete' -%>
   </p>
 <% end -%>
 

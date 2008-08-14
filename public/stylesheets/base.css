@@ -372,6 +372,19 @@ form input.image_button {
   border: 1px solid #212121;
   cursor: pointer;
 }
+form div.huge {
+  font-size: 2em;
+}
+form div.huge label {
+  display: none;
+}
+form div.huge div {
+  margin: 0 0 10px 0;
+  position: relative;
+}
+form div.huge div input.text {
+  width: 99%;
+}
 
 /**
  Palette

@@ -214,11 +214,10 @@ ul.comments li.comment h4 {
 /**
  * Static Pages 
 */
-#terms li {
+ol#terms li {
   list-style: decimal;
-  margin-bottom: 0.5em;
-  line-height: 1.4em !important;
+  margin: 0 0 15px;
 }
-#terms ol {
-  margin-bottom: 1em;
+ol#terms li ol {
+  margin: 0 0 15px 0;
 }

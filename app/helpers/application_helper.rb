@@ -44,6 +44,6 @@ module ApplicationHelper
       seconds = seconds % 60
     end
     pretty_time_array << seconds.to_s + " sec"
-    pretty_time_array.join(", ")
+    pretty_time_array.join(" ")
   end
 end

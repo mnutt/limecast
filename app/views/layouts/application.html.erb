@@ -44,9 +44,6 @@
             <li class="user">
               <%= link_to "<span>#{current_user.login}</span>", user_path(current_user), :class => 'icon'  -%>
             </li>
-            <li>
-              <%= link_to "Log out", session_url, :method => 'delete' -%>
-            </li>
             <% else -%>
             <li class="signup">
               <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon user quick_signin' -%>
@@ -81,8 +78,6 @@
           <%= yield -%>
         </div>
 
-        <div class="clear"></div>
-
       </div>
     </div>
 
@@ -97,25 +92,12 @@
         <%= link_to "<span>Blog</span>", 'http://podcasts.limespot.com/' %>
       </li>
       <li class="use">
-        <%= link_to "<span>Terms of service</span>", use_url %>
+        <%= link_to "<span>Terms of use</span>", use_url %>
       </li>
       <li class="privacy">
         <%= link_to "<span>Privacy</span>", '/privacy' %>
       </li>
     </ul>
-<!--        
-    <ul class="secondary">
-      <li class="copyright">
-        <%= link_to "<span>Copyright/IP policy</span>", '#' %>
-      </li>
-      <li class="open_source">
-        <%= link_to "<span>Open source</span>", '#' %>
-      </li>
-      <li class="guide">
-        <%= link_to "<span>Podcasting guide</span>", '#' %>
-      </li>
-    </ul>
--->
 
     <div class="clear"></div>
 

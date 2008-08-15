@@ -63,7 +63,7 @@ div.podcast div#edit_actions ul li.delete a {
 div.podcast div.urls,
 div.podcast div.authors {
   margin: 0 0 10px 0;
-  clear: both;
+  clear: left;
 }
 div.podcast div.urls ul li {
   margin: 0 10px 0 0;
@@ -175,7 +175,6 @@ ul.reviews li.review p {
 }
 div.podcast div.reviews form {
   margin: 30px 0 0 0;
-  clear: both;
 }
 div.podcast div.reviews form div.field label {
   display: none;
@@ -195,13 +194,30 @@ div.podcast div.reviews form div.field textarea.text {
 }
 
 /**
+ * Comments
+*/
+ul.comments li.comment {
+  padding: 10px 0;
+  position: relative;
+  *height: 0.01%;
+}
+ul.comments li.comment a.inline_icon {
+  margin: 0 5px -3px 0;
+  float: left;
+}
+ul.comments li.comment h4 {
+  font-weight: bold;
+  margin: 2px 5px -2px 0;
+  float: left;
+}
+
+/**
  * Static Pages 
 */
-#terms li {
+ol#terms li {
   list-style: decimal;
-  margin-bottom: 0.5em;
-  line-height: 1.4em !important;
+  margin: 0 0 15px;
 }
-#terms ol {
-  margin-bottom: 1em;
+ol#terms li ol {
+  margin: 0 0 15px 0;
 }

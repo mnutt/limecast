@@ -98,6 +98,7 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
     this.container = $(container);
     this.anchor = $$("a." + this.container.id)[0];
     this.login_form = $$("#" + this.container.id + " form")[0];
+    this.close = $$("#" + this.container.id + " a.close")[0];
     this.options = Object.extend({
       autoFocus: true,
       opacity: 1.0,
@@ -109,6 +110,9 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
   _reset: function() {
     this.container.hide();
     this.container.setStyle({opacity: '0'});
+    this.login_form.reset();
+    $('top_signup_username_field').hide();
+    $('top_login_buttons').show();
     this._clearHideTimer();
     this.isActive = false;
   },
@@ -124,7 +128,10 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
         }
       }.bind(this), false);
     }.bind(this), false);
-    // Event.observe(this.login_form, "submit", this._hide.bind(this), false);
+    Event.observe(this.close, 'click', function(event) {
+      this._hide();
+      Event.stop(event);
+    }.bind(this), false);
     Event.observe(document, 'keypress', this._keypress.bindAsEventListener(this));
   },
   _keypress: function(event) {

@@ -129,7 +129,7 @@ a.inline_icon span {
 * Header
 **/
 div#header_wrapper {
-  background-color: #181818;
+  background: #181818 url("../images/layout/header_border.png") repeat-x left bottom;
 }
 div#header {
   padding: 0 8px;
@@ -304,7 +304,7 @@ div#body a.action_button:hover span {
 * Footer
 **/
 div#footer_wrapper {
-  background-color: #181818;
+  background: #181818 url("../images/layout/footer_border.png") repeat-x left top;
   height: 34px;
   margin: -34px 0 0 0;
   position: relative;

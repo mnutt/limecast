@@ -130,6 +130,7 @@ a.inline_icon span {
 **/
 div#header_wrapper {
   background: #181818 url("../images/layout/header_border.png") repeat-x left bottom;
+  position: relative;
 }
 div#header {
   padding: 0 8px;

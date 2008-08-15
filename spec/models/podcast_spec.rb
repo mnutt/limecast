@@ -156,3 +156,24 @@ describe Podcast, "cleaning up the site url" do
     @podcast.clean_site.should == "test.host"
   end
 end
+
+describe Podcast, "generating the clean title url" do
+  before do
+    @podcast = Podcast.new
+  end
+
+  it 'should remove leading and trailing whitespaces' do
+    @podcast.title = ' title '
+    @podcast.generate_url.should == 'title'
+  end
+
+  it 'should remove non-alphanumeric characters' do
+    @podcast.title = ' ^$(title '
+    @podcast.generate_url.should == 'title'
+  end
+
+  it 'should convert interior spaces to dashes' do
+    @podcast.title = ' my $title '
+    @podcast.generate_url.should == 'my-title'
+  end
+end

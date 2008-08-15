@@ -12,5 +12,8 @@
   <% else -%>
     <%= link_to "Sign up", new_user_path -%> to register your comment.
   <% end -%>
-  <p><%=h comment.body -%></p>
+  <p>
+    <%=h comment.body -%>
+    <%= link_to '#', review_url(:podcast => comment.commentable, :id => comment), :title => 'permalink' -%>
+  </p>
 </li>

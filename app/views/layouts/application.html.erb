@@ -35,7 +35,7 @@
             <li class="search">
               <% form_for :search, :url => search_url do |form| -%>
                 <label for="query">Search...</label>
-                <%= text_field_tag "q", params[:search], :size => 15, :class => "text" %>
+                <%= text_field_tag "q", params[:query], :size => 15, :class => "text" %>
                 <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
               <% end -%>
               <script type="text/javascript">new Lime.Widgets.Search('q')</script>

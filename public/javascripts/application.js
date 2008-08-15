@@ -63,7 +63,9 @@ Object.extend(Lime.Widgets.Search.prototype, {
       return false;
     }
     this.container = $(container);
-    this._attach();
+    if(this.container.value == '') {
+      this._attach();
+    }
   },
   _attach: function() {
     this.label = this.container.previous();

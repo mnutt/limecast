@@ -18,8 +18,8 @@ class EpisodesController < ApplicationController
   # GET /episodes/1
   # GET /episodes/1.xml
   def show
-    @podcast = Podcast.find_by_clean_title(params[:podcast])
-    @episode = @podcast.episodes.find_by_clean_title(params[:episode])
+    @podcast = Podcast.find_by_clean_title(params[:podcast]) or raise ActiveRecord::RecordNotFound
+    @episode = @podcast.episodes.find_by_clean_title(params[:episode]) or raise ActiveRecord::RecordNotFound
 
     respond_to do |format|
       format.html # show.html.erb

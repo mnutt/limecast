@@ -138,6 +138,11 @@ class Podcast < ActiveRecord::Base
     self.episodes.sum(:duration)
   end
 
+  def clean_site
+    self.site.match(/(http:\/\/)?(.*)/)
+    $2.chomp('/')
+  end
+
   def generate_url
     self.clean_title = self.title.clone
     # Remove all non-alphanumeric non-space characters

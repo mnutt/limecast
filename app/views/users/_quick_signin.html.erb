@@ -1,4 +1,7 @@
 <div id="quick_signin" class="palette" style="display: none; opacity: 0;">
+  <div class="titlebar">
+    <a href="#" class="close">Exit</a>
+  </div>
   <div class="contents">
     <% form_for :user, :url => session_path, :html => { :id => 'top_signin_form' } do |f| -%>
       <div class="field">

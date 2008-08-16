@@ -129,7 +129,8 @@ a.inline_icon span {
 * Header
 **/
 div#header_wrapper {
-  background-color: #181818;
+  background: #181818 url("../images/layout/header_border.png") repeat-x left bottom;
+  position: relative;
 }
 div#header {
   padding: 0 8px;
@@ -304,7 +305,7 @@ div#body a.action_button:hover span {
 * Footer
 **/
 div#footer_wrapper {
-  background-color: #181818;
+  background: #181818 url("../images/layout/footer_border.png") repeat-x left top;
   height: 34px;
   margin: -34px 0 0 0;
   position: relative;
@@ -319,12 +320,6 @@ div#footer ul li {
   margin: 0 5px 0 0;
   float: left;
 }
-div#note {
-  background-color: orange;
-  position: relative;
-  height: 16px;
-  margin-top: -16px;
-}
 
 /**
 * Forms
@@ -332,17 +327,17 @@ div#note {
 form div.field label {
   text-align: right;
   padding: 5px 0;
-  width: 125px;
+  width: 80px;
   float: left;
 }
 form div.field div {
-  margin: 0 0 10px 135px;
+  margin: 0 0 10px 90px;
 }
 form div.align {
   padding: 10px 10px 10px 135px;
 }
 form div.controls {
-  padding: 0 0 0 135px;
+  padding: 0 0 0 90px;
 }
 form input,
 form textarea {
@@ -392,23 +387,36 @@ form div.huge div input.text {
 div.palette {
   background-color: #2F2F2F;
   border: 1px solid #181818;
-  padding: 5px;
+}
+div.palette div.titlebar {
+/*  text-align: right;*/
+  background-color: orange;
+}
+div.palette div.titlebar a.close {
+  background: url("../images/icons/close.png") no-repeat center;
+  text-indent: -5000px;
+  width: 16px;
+  height: 16px;
+  margin: 5px 5px 0 0;
+  overflow: hidden;
+  display: block;
+  float: right;
 }
 div.palette div.contents {
   padding: 10px;
+  clear: both;
 }
 
 /**
  Notices
 **/
-
-#primary #notice {
-  display: block;
+div#primary div#notice {
   background-color: #555;
-  padding: 0.7em;
-  margin-bottom: 1em;
+  margin: 0 0 15px 0;
+  padding: 10px;
+  display: block;
 }
 
-#primary #notice p {
-  margin-bottom: 0;
+div#primary div#notice p {
+  margin: 0;
 }

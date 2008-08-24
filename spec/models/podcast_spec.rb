@@ -130,3 +130,50 @@ def mock_feed(path)
   feed = File.read(path)
   Podcast.stub!(:retrieve_feed).and_return(feed)
 end
+
+describe Podcast, "cleaning up the site url" do
+  before do
+    @podcast = Podcast.new
+  end
+  
+  it 'should remove a leading http://' do
+    @podcast.site = "http://test.host"
+    @podcast.clean_site.should == "test.host"
+  end
+
+  it 'should remove a trailing slash' do
+    @podcast.site = "http://test.host/"
+    @podcast.clean_site.should == "test.host"
+  end
+
+  it 'should allow for a path' do
+    @podcast.site = "http://test.host/path/to/page"
+    @podcast.clean_site.should == "test.host/path/to/page"
+  end
+
+  it 'should not modify a non-url' do
+    @podcast.site = "test.host"
+    @podcast.clean_site.should == "test.host"
+  end
+end
+
+describe Podcast, "generating the clean title url" do
+  before do
+    @podcast = Podcast.new
+  end
+
+  it 'should remove leading and trailing whitespaces' do
+    @podcast.title = ' title '
+    @podcast.generate_url.should == 'title'
+  end
+
+  it 'should remove non-alphanumeric characters' do
+    @podcast.title = ' ^$(title '
+    @podcast.generate_url.should == 'title'
+  end
+
+  it 'should convert interior spaces to dashes' do
+    @podcast.title = ' my $title '
+    @podcast.generate_url.should == 'my-title'
+  end
+end

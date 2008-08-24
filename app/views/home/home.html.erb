@@ -1,12 +1,10 @@
 <div id="recent_podcasts">
-  <h2>Recently Added Podcasts</h2>
-  <%= render :partial => "podcasts/podcast", :collection => @podcasts -%>
+  <h2>Podcasts</h2>
+  <ul class="podcasts">
+    <%= render :partial => "podcasts/podcast", :collection => @podcasts -%>
+  </ul>
+
+  <p><%= link_to "All Podcasts", all_path -%></p>
 </div>
 
-<div class="clear"></div>
-
-<div id="recent_episodes">
-  <h2>Recently Added Episodes</h2>
-  <%= render :partial => "episodes/episode", :collection => @episodes -%>
-</div>
 <% reset_cycle('row_class') %>

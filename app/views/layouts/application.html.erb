@@ -26,12 +26,16 @@
         <div id="account_bar">
           <ul>
             <li class="add_podcast">
-              <%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon add' %>
+	      <% if @new_podcast -%>
+		<span>Add podcast</span>
+	      <% else -%>
+		<%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon add' %>
+	      <% end -%>
             </li>
             <li class="search">
               <% form_for :search, :url => search_url do |form| -%>
                 <label for="query">Search...</label>
-                <%= text_field_tag "q", params[:search], :size => 15, :class => "text" %>
+                <%= text_field_tag "q", params[:query], :size => 15, :class => "text" %>
                 <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
               <% end -%>
               <script type="text/javascript">new Lime.Widgets.Search('q')</script>
@@ -39,9 +43,6 @@
             <% if current_user -%>
             <li class="user">
               <%= link_to "<span>#{current_user.login}</span>", user_path(current_user), :class => 'icon'  -%>
-            </li>
-            <li>
-              <%= link_to "Log out", session_url, :method => 'delete' -%>
             </li>
             <% else -%>
             <li class="signup">
@@ -58,64 +59,47 @@
 
     <div id="body_wrapper">
       <div id="body">
-        <div class="t"><div class="b">
 
-          <div id="sidebar">
-	    <%= @ads -%>
-          </div>
+        <div id="sidebar">
+          <%= @ads -%>
+        </div>
 
-          <div id="primary">
-            <% if flash[:notice] -%>
-              <span id="notice">
-              <% if Array === flash[:notice] -%>
-                <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
-              <% else -%>
-                <%= flash[:notice] -%>
-              <% end -%>
-              </span>
+        <div id="primary">
+          <% if flash[:notice] -%>
+            <span id="notice">
+            <% if Array === flash[:notice] -%>
+              <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+            <% else -%>
+              <%= flash[:notice] -%>
             <% end -%>
+            </span>
+          <% end -%>
 
-            <%= yield -%>
-          </div>
-
-          <div class="clear"></div>
-
-        </div></div>
-      </div>
-    </div>
-
-    <div id="footer_wrapper">
-      <div id="footer">
-
-        <ul class="primary">
-          <li class="blog">
-            <%= link_to "<span>Blog</span>", 'http://podcasts.limespot.com/' %>
-          </li>
-          <li class="use">
-            <%= link_to "<span>Terms of service</span>", use_url %>
-          </li>
-          <li class="privacy">
-            <%= link_to "<span>Privacy</span>", '/privacy' %>
-          </li>
-        </ul>
-<!--        
-        <ul class="secondary">
-          <li class="copyright">
-            <%= link_to "<span>Copyright/IP policy</span>", '#' %>
-          </li>
-          <li class="open_source">
-            <%= link_to "<span>Open source</span>", '#' %>
-          </li>
-          <li class="guide">
-            <%= link_to "<span>Podcasting guide</span>", '#' %>
-          </li>
-        </ul>
--->
-        
-        <div class="clear"></div>
+          <%= yield -%>
+        </div>
 
       </div>
     </div>
+
+  </div>
+</div>
+
+<div id="footer_wrapper">
+  <div id="footer">
+
+    <ul class="primary">
+      <li class="blog">
+        <%= link_to "<span>Blog</span>", 'http://podcasts.limespot.com/' %>
+      </li>
+      <li class="use">
+        <%= link_to "<span>Terms of use</span>", use_url %>
+      </li>
+      <li class="privacy">
+        <%= link_to "<span>Privacy</span>", '/privacy' %>
+      </li>
+    </ul>
+
+    <div class="clear"></div>
 
   </div>
 </div>

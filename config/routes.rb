@@ -15,14 +15,18 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users
   map.resource  :session
+
   map.search    '/search/:query', :controller => 'podcasts', :action => 'search'
+
   map.signup    '/signup',        :controller => 'users',    :action => 'new'
   map.login     '/login',         :controller => 'sessions', :action => 'new'
   map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'
+
   map.activate  '/activate/:activation_code', :controller => 'users', :action => 'activate'
   map.reset_password '/reset_password/:code', :controller => 'users', :action => 'reset_password', :code => nil
-  map.send_password  '/send_password',  :controller => 'users', :action => 'send_password', :code => nil
+  map.send_password  '/send_password',        :controller => 'users', :action => 'send_password',  :code => nil
   map.forgot_password '/forgot_password',     :controller => 'users', :action => 'forgot_password'
+
   map.root                        :controller => 'home',     :action => 'home'
   map.add_podcast '/add',         :controller => 'podcasts', :action => 'new'
   map.all         '/all',         :controller => 'podcasts', :action => 'index'
@@ -30,13 +34,15 @@ ActionController::Routing::Routes.draw do |map|
   map.all_users   '/users',       :controller => 'users',    :action => 'index'
   map.user        '/user/:user',  :controller => 'users',    :action => 'show'
   map.tag         '/tag/:tag',    :controller => 'tags',     :action => 'show'
+
   map.use         '/use',         :controller => 'home',     :action => 'use'
   map.privacy     '/privacy',     :controller => 'home',     :action => 'privacy'
   map.team        '/team',        :controller => 'home',     :action => 'team'
   map.guide       '/guide',       :controller => 'home',     :action => 'guide'
 
- map.podcast          '/:podcast',          :controller => 'podcasts', :action => 'show'
- map.podcast_episodes '/:podcast/episodes', :controller => 'episodes', :action => 'index'
- map.podcast_reviews  '/:podcast/reviews',  :controller => 'comments', :action => 'index'
- map.episode          '/:podcast/:episode', :controller => 'episodes', :action => 'show'
+ map.podcast          '/:podcast',             :controller => 'podcasts', :action => 'show'
+ map.podcast_episodes '/:podcast/episodes',    :controller => 'episodes', :action => 'index'
+ map.podcast_reviews  '/:podcast/reviews',     :controller => 'comments', :action => 'index'
+ map.review           '/:podcast/reviews/:id', :controller => 'comments', :action => 'show'
+ map.episode          '/:podcast/:episode',    :controller => 'episodes', :action => 'show'
 end

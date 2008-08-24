@@ -11,24 +11,19 @@ div#quick_signin {
 * Podcasts
 **/
 ul.podcasts li.podcast {
-  padding: 10px;
+  padding: 10px 0;
   *height: 0.01%;
-}
-ul.podcasts li.odd {
-  background-color: #565656;
 }
 
 /**
 * Podcast
 **/
 div.podcast {
-  padding: 0 0 0 190px;
-  position: relative;
   *height: 0.01%;
 }
 div.podcast div.cover {
-  top: 0;
-  left: 0;
+  top: 30px;
+  left: 20px;
   padding: 1px 0 0 1px;
   position: absolute;
   z-index: 1;
@@ -68,7 +63,7 @@ div.podcast div#edit_actions ul li.delete a {
 div.podcast div.urls,
 div.podcast div.authors {
   margin: 0 0 10px 0;
-  clear: both;
+  clear: left;
 }
 div.podcast div.urls ul li {
   margin: 0 10px 0 0;
@@ -104,22 +99,13 @@ div.podcast div.episodes {
   margin: 0 0 20px 0;
   *height: 0.01%;
 }
-div.podcast div.episodes h3 {
-  float: left;
-}
-div.podcast div.episodes a.all_episodes {
-  float: right;
-}
-ul.episodes {
-  clear: both;
+div.podcast div.episodes ul.episodes {
+  margin: 0 0 10px 0;
 }
 ul.episodes li.episode {
-  padding: 10px 10px 10px 36px;
+  padding: 10px 0 10px 26px;
   position: relative;
   *height: 0.01%;
-}
-ul.episodes li.odd {
-  background-color: #565656;
 }
 ul.episodes li.episode div.full {
   display: none;
@@ -132,7 +118,7 @@ ul.episodes li.episode span.expand {
   width: 16px;
   height: 16px;
   top: 10px;
-  left: 10px;
+  left: 0;
   position: absolute;
   display: block;
   z-index: 1;
@@ -156,36 +142,30 @@ ul.episodes div.download a.icon {
 
 /* Reviews */
 div.podcast div.reviews {
-  margin: 0 0 20px 0;
   *height: 0.01%;
 }
-div.podcast div.reviews h3 {
-  float: left;
-}
-div.podcast div.reviews a.all_reviews {
-  float: right;
-}
 div.podcast div.reviews ul.reviews {
-  margin: 0 0 20px 0;
-}
-ul.reviews {
-  clear: both;
+  margin: 0 0 10px 0;
 }
 ul.reviews li.review {
-  padding: 10px;
+  padding: 10px 0;
   position: relative;
   *height: 0.01%;
 }
 ul.reviews li.review img.rating {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  margin: 0 3px 0 0;
+  float: left;
+}
+ul.reviews li.review h4 {
+  font-weight: bold;
+  margin: 2px 5px -2px 0;
+  float: left;
 }
 ul.reviews li.review cite {
   font-style: normal;
   color: #ABABAB;
-  margin: 0 0 10px 0;
-  display: block;
+  margin: 0 5px 0 0;
+  float: left;
 }
 ul.reviews li.review cite a {
   background-image: url("../images/icons/user.png");
@@ -193,21 +173,51 @@ ul.reviews li.review cite a {
 ul.reviews li.review p {
   margin: 0 !important;
 }
-ul.reviews li.odd {
-  background-color: #565656;
-}
 div.podcast div.reviews form {
-  clear: both;
+  margin: 30px 0 0 0;
+}
+div.podcast div.reviews form div.field label {
+  display: none;
+}
+div.podcast div.reviews form div.field div {
+  margin: 0 0 10px 0;
+}
+div.podcast div.reviews form div.align {
+  padding: 10px 0;
+}
+div.podcast div.reviews form div.controls {
+  padding: 0;
+}
+div.podcast div.reviews form div.field input.text,
+div.podcast div.reviews form div.field textarea.text {
+  width: 99%;
+}
+
+/**
+ * Comments
+*/
+ul.comments li.comment {
+  padding: 10px 0;
+  position: relative;
+  *height: 0.01%;
+}
+ul.comments li.comment a.inline_icon {
+  margin: 0 5px -3px 0;
+  float: left;
+}
+ul.comments li.comment h4 {
+  font-weight: bold;
+  margin: 2px 5px -2px 0;
+  float: left;
 }
 
 /**
  * Static Pages 
 */
-#terms li {
+ol#terms li {
   list-style: decimal;
-  margin-bottom: 0.5em;
-  line-height: 1.4em !important;
+  margin: 0 0 15px;
 }
-#terms ol {
-  margin-bottom: 1em;
+ol#terms li ol {
+  margin: 0 0 15px 0;
 }

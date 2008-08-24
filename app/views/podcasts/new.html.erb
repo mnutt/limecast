@@ -1,12 +1,13 @@
-<h1>Feed Me</h1>
-<p>Paste the URL of a podcast RSS feed here.</p>
+<h2>Feed me</h2>
+<p>Know the address of a podcast? Add it to the LimeWire Podcast Directory:</p>
 
 <% form_for @new_podcast do |f| -%>
-  <p>
-    <%= f.label "feed" -%><br />
-    <%= f.text_field :feed -%>
-    <%= submit_tag "Add" -%>
-  </p>
+  <div class="field huge">
+    <%= f.label "Feed" -%>
+    <div>
+      <%= f.text_field :feed, :class => 'text' -%>
+    </div>
+  </div>
 <% end -%>
 
 <% if @podcast -%>
@@ -16,14 +17,14 @@
     <% else -%>
       Yum! I've added <%= link_to_thing(@podcast) -%>
       <% if @podcast.respond_to?(:owner) and @podcast.owner -%>
-	<% if current_user and @podcast.owner == current_user -%>
-	  by you, <%= link_to_profile(@podcast.owner) -%>. More please
-	<% else -%>
+        <% if current_user and @podcast.owner == current_user -%>
+          by you, <%= link_to_profile(@podcast.owner) -%>. More please
+        <% else -%>
           by <%= link_to_profile(@podcast.owner) -%>. You get +1 point 
-	  and a link for finding it. More please
-	<% end -%>
+          and a link for finding it. More please
+        <% end -%>
       <% else -%>
-	and emailed <%= @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. More please
+        and emailed <%= @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. More please
       <% end -%>
     <% end -%>
   </p>

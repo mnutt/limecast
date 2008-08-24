@@ -138,12 +138,19 @@ class Podcast < ActiveRecord::Base
     self.episodes.sum(:duration)
   end
 
+  def clean_site
+    self.site.match(/(http:\/\/)?(.*)/)
+    $2.chomp('/')
+  end
+
   def generate_url
-    self.clean_title = self.title.clone
+    # Remove leading and trailing spaces
+    self.clean_title = self.title.clone.strip
     # Remove all non-alphanumeric non-space characters
     self.clean_title.gsub!(/[^A-Za-z0-9\s]/, "")
     # Condense spaces and turn them into dashes
     self.clean_title.gsub!(/[\s]+/, '-')
+    self.clean_title
   end
 
   def sanitize_title

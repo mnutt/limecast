@@ -1,27 +1,29 @@
 # == Schema Information
-# Schema version: 20080803203636
+# Schema version: 20080829144522
 #
 # Table name: podcasts
 #
 #  id                :integer(4)    not null, primary key
-#  title             :string(255)
-#  site              :string(255)
-#  feed              :string(255)
-#  logo_file_name    :string(255)
-#  logo_content_type :string(255)
-#  logo_file_size    :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  feed_etag         :string(255)
-#  user_id           :integer(4)
-#  description       :text
-#  language          :string(255)
-#  category_id       :integer(4)
-#  clean_title       :string(255)
-#  itunes_link       :string(255)
-#  owner_id          :integer(4)
-#  email             :string(255)
-#  owner_name        :string(255)
+#  title             :string(255)   
+#  site              :string(255)   
+#  feed_url          :string(255)   
+#  logo_file_name    :string(255)   
+#  logo_content_type :string(255)   
+#  logo_file_size    :string(255)   
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  feed_etag         :string(255)   
+#  description       :text          
+#  language          :string(255)   
+#  category_id       :integer(4)    
+#  user_id           :integer(4)    
+#  clean_title       :string(255)   
+#  itunes_link       :string(255)   
+#  owner_id          :integer(4)    
+#  email             :string(255)   
+#  name_param        :string(255)   
+#  owner_name        :string(255)   
+#  feed_content      :text          
 #
 
 class PodcastError < StandardError; end
@@ -40,8 +42,7 @@ class Podcast < ActiveRecord::Base
 
   attr_accessor :logo_link, :has_episodes, :feed_error
 
-  validates_presence_of :title
-  validates_uniqueness_of :feed
+  validates_uniqueness_of :feed_url
 
   acts_as_taggable
 
@@ -50,10 +51,21 @@ class Podcast < ActiveRecord::Base
                                  :small  => ["170x170#", :png],
                                  :icon   => ["16x16#", :png] }
 
+  acts_as_state_machine :initial => :pending
+  state :pending
+  state :parsed
+
   before_create :sanitize_title
-  before_create :generate_url
-  after_create :retrieve_episodes_from_feed
-  before_save :download_logo
+
+  async_after_create do |p|
+    p.retrieve_podcast_info_from_feed
+    p.retrieve_episodes_from_feed
+    p.download_logo
+    p.generate_url
+    p.state = "parsed"
+    p.save!
+  end
+
   before_create :check_for_feed_error
 
   define_index do
@@ -83,46 +95,48 @@ class Podcast < ActiveRecord::Base
     raise PodcastError, "Weird server error. Try again."
   end
 
-  def self.new_from_feed(url)
-    podcast = self.new
-    podcast.feed = url
-
+  def retrieve_podcast_info_from_feed
     begin
-      is_site = (url =~ /^http:\/\/([^\/]+)\/(.*)/)
-      raise PodcastError, "That feed has already been added to the system. Try again" if Podcast.find_by_feed(url)
+      is_site = (feed_url =~ /^http:\/\/([^\/]+)\/(.*)/)
       raise PodcastError, "I can't take feeds from that site! Try again." if Blacklist.find_by_domain($1)
       raise PodcastError, "That's not a web address. Try again." unless is_site
-      feed = retrieve_feed(url)
+      feed_content = Podcast.retrieve_feed(feed_url)
 
-      doc = REXML::Document.new(feed)
+      doc = REXML::Document.new(feed_content)
       raise PodcastError, "This is not a podcast feed. Try again." unless REXML::XPath.first(doc, "//enclosure")
 
       doc.elements.each('rss/channel/title') do |e|
-        podcast.title = e.text
+        self.title = e.text
       end
       doc.elements.each('rss/channel/link') do |e|
-        podcast.site = e.text
+        self.site = e.text
       end
       doc.elements.each('rss/channel/itunes:image') do |e|
-        podcast.logo_link = e.attributes['href']
+        self.logo_link = e.attributes['href']
       end
       doc.elements.each('rss/channel/itunes:summary') do |e|
-        podcast.description = e.text
+        self.description = e.text
       end
       doc.elements.each('rss/channel/language') do |e|
-        podcast.language = e.text
+        self.language = e.text
       end
       doc.elements.each('rss/channel/itunes:owner/itunes:email') do |e|
-        podcast.email = e.text
+        self.email = e.text
       end
       doc.elements.each('rss/channel/itunes:owner/itunes:name') do |e|
-        podcast.owner_name = e.text
+        self.owner_name = e.text
       end
     rescue PodcastError => e
-      podcast.feed_error = e.message
+      self.feed_error = e.message
     end
 
-    podcast
+    if user
+      self.user = user
+      self.owner = user if self.email == user.email
+    end
+
+    self.state = "parsed"
+    self.save!
   end
 
   def check_for_feed_error
@@ -144,6 +158,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def generate_url
+    return true if pending?
     # Remove leading and trailing spaces
     self.clean_title = self.title.clone.strip
     # Remove all non-alphanumeric non-space characters
@@ -154,6 +169,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def sanitize_title
+    return true if pending?
     # Remove anything in parentheses
     self.title.gsub!(/[\s+]\(.*\)/, "")
 
@@ -194,11 +210,9 @@ class Podcast < ActiveRecord::Base
   end
 
   def retrieve_episodes_from_feed
-    @feed = Podcast.retrieve_feed(feed)
+    feed_content = Podcast.retrieve_feed(feed_url)
 
-    @feed_episodes = []
-
-    doc = REXML::Document.new(@feed)
+    doc = REXML::Document.new(feed_content)
     doc.elements.each('rss/channel/item') do |e|
       begin
         episode = Episode.find_by_guid(e.elements['guid'].text)
@@ -231,15 +245,11 @@ class Podcast < ActiveRecord::Base
       end
 
       episode.save
-
-      @feed_episodes << episode
     end
-
-    @feed_episodes
   rescue OpenURI::HTTPError
-    puts "#{self.feed} not modified, skipping..."
+    puts "#{self.feed_url} not modified, skipping..."
   rescue StandardError => e
-    puts "Problem with feed #{self.feed}: #{e.message}"
+    puts "Problem with feed #{self.feed_url}: #{e.message}"
   end
 
   def writable_by?(user)

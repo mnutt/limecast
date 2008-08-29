@@ -27,7 +27,7 @@
         <%=link_to h(@podcast.clean_site), h(@podcast.site) %>
       </li>
       <li class="rss">
-        <%= link_to "<span>RSS</span>", @podcast.feed, :class => 'icon' %>
+        <%= link_to "<span>RSS</span>", @podcast.feed_url, :class => 'icon' %>
       </li>
     <% if @podcast.itunes_link -%>
       <li class="itunes">

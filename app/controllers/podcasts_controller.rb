@@ -56,30 +56,28 @@ class PodcastsController < ApplicationController
     authorize_write @podcast
   end
 
+  def status
+    raise "no"
+    @podcast = Podcast.find_by_feed_url(params[:feed])
+    #if @podcast.user.nil? and current_user.nil?
+    #  session.data[:podcasts] ||= []
+    #  session.data[:podcasts] << @podcast.id unless session.data[:podcasts].include?(@podcast.id)
+    #end
+    
+    if @podcast.state == "parsed"
+      render :text => "podcast parsed", :layout => false
+    else
+      render :text => "fetching podcast", :layout => false
+    end
+  end
+
   # POST /podcasts
   # POST /podcasts.xml
   def create
-    @podcast = Podcast.new_from_feed(params[:podcast][:feed])
-    if current_user
-      @podcast.user = current_user
-      @podcast.owner = current_user if @podcast.email == current_user.email
-    end
-
+    @podcast = Podcast.create!(:feed_url => params[:podcast][:feed_url], 
+                               :user     => current_user)
     respond_to do |format|
-      format.html do
-        if @podcast.save
-          # Save the podcast in the user's cookie, for later
-          if !current_user
-            session.data[:podcasts] ||= []
-            session.data[:podcasts] << @podcast.id
-          end
-
-          @new_podcast = Podcast.new
-        else
-          @new_podcast = @podcast
-        end
-        render :action => "new"
-      end
+      format.js { render :text => "Podcast added.  Parsing..." }
     end
   end
 

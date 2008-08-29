@@ -1,6 +1,6 @@
 <%# Can only have one of these per page, due to the ids -%>
 
-<div id="inline_login">
+<div id="inline_login" style="display:none">
   <div id="inline_login_form">
     <% remote_form_for :user, :url => session_url, :update => 'response_container' do |f| -%>
       <%= f.label :email -%>

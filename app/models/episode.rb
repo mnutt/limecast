@@ -58,4 +58,8 @@ class Episode < ActiveRecord::Base
   def writable_by?(user)
     self.podcast.writable_by?(user)
   end
+
+  def enclosure_magnet_url
+    "magnet:?xs=#{enclosure_url}"
+  end
 end

@@ -28,5 +28,12 @@
     <div class="download">
       <%= link_to "<span>Download</span>", episode.enclosure_url, :class => 'icon' -%>
     </div>
+
+    <div class="download">
+      <%= link_to "<span>Magnet</span>", episode.enclosure_magnet_url, :class => 'icon' -%>
+    </div>
+    
+    <div class="clear"></div>
+
   </div>
 </li>

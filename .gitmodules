@@ -13,3 +13,6 @@
 [submodule "vendor/plugins/scenarios"]
 	path = vendor/plugins/scenarios
 	url = git://github.com/aiwilliams/scenarios.git
+[submodule "vendor/plugins/async-observer"]
+	path = vendor/plugins/async-observer
+	url = git://github.com/kr/async-observer.git

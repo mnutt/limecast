@@ -10,9 +10,10 @@ set :use_sudo,      false
 set :mongrel_conf, "/etc/mongrel_cluster/#{application}.yml"
 
 set :scm, :git
-set :git_enable_submodules, true
+set :git_enable_submodules, 1
 set :repository, "git@github.com:mnutt/limecast.git"
 set :deploy_via, :copy
+set :git_shallow_clone, 1
 set :deploy_strategy, :export
 
 depend :remote, :command, 'wget'
@@ -47,6 +48,11 @@ end
 desc 'Tail the production log'
 task :tail, :roles => :app do
   run "tail -f #{shared_path}/log/production.log"
+end
+
+desc 'Rails console'
+task :console, :roles => :app do
+  run "cd #{latest_release} && script/console production"
 end
 
 namespace :limecast do

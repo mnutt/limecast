@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080803203636
+# Schema version: 20080829144522
 #
 # Table name: users
 #
@@ -17,6 +17,8 @@
 #  state                     :string(255)   default("passive")
 #  deleted_at                :datetime      
 #  admin                     :boolean(1)    
+#  reset_password_code       :string(255)   
+#  reset_password_sent_at    :datetime      
 #
 
 require 'digest/sha1'

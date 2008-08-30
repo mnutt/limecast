@@ -1,17 +1,27 @@
 <h2>Feed me</h2>
 <p>Know the address of a podcast? Add it to the LimeWire Podcast Directory:</p>
 
-<% form_for @new_podcast do |f| -%>
+<script type="text/javascript">
+  function pollForPodcast() {
+    feed = $('podcast_feed_url').value;
+    new Ajax.PeriodicalUpdater('notice', 
+                               '/podcasts/status?feed=' + encodeURIComponent(feed), 
+                               {method: 'get', frequency: 2, decay: 1});
+  }
+</script>
+
+<% remote_form_for @new_podcast, :success => 'pollForPodcast()' do |f| -%>
   <div class="field huge">
     <%= f.label "Feed" -%>
     <div>
-      <%= f.text_field :feed, :class => 'text' -%>
+      <%= f.text_field :feed_url, :class => 'text' -%>
+      <%= submit_tag "Add", :class => 'button' -%>
     </div>
   </div>
 <% end -%>
 
 <% if @podcast -%>
-  <p class="notice">
+  <p id="notice">
     <% if @podcast.new_record? -%>
       <%= @podcast.feed_error -%>
     <% else -%>
@@ -28,6 +38,8 @@
       <% end -%>
     <% end -%>
   </p>
+<% else -%>
+  <p id="notice"></p>
 <% end -%>
 
 <% if !logged_in? -%>

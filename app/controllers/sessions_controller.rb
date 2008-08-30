@@ -8,8 +8,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    self.current_user = User.authenticate(params[:user][:email], params[:user][:password])
+    self.current_user = @user = User.authenticate(params[:user][:email], params[:user][:password])
     if logged_in?
+      claim_podcasts
       if params[:remember_me] == "1"
         current_user.remember_me unless current_user.remember_token?
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
@@ -38,5 +39,19 @@ class SessionsController < ApplicationController
     reset_session
     flash[:notice] = "You have been logged out."
     redirect_back_or_default('/')
+  end
+
+  protected
+
+  def claim_podcasts
+    return if session.data[:podcasts].nil?
+
+    Podcast.find_all_by_id(session.data[:podcasts]).each do |podcast|
+      podcast.user = @user if podcast.user.nil?
+      podcast.owner = @user if podcast.owner.nil? and podcast.email == @user.email
+      podcast.save
+    end
+
+    session.data.delete(:podcasts)
   end
 end

@@ -1,10 +1,13 @@
 <% if logged_in? -%>
-  <p>Successfully logged in as <%= link_to_profile current_user -%>.</p>
   <script type="text/javascript">
     if($('quick_signin').visible()) {
       $('quick_signin').fade({ afterFinish: function() { window.location.reload() } });
+    } else {
+      if($('inline_login')) { $('inline_login').hide(); }
+      $$('#account_bar .signup')[0].update('<%= link_to_profile current_user -%>');
     }
   </script>
+
 <% else -%>
-  <p>There was a problem logging in.  Please check your credentials.</p>
+  <p>Email and password don't match. <%= link_to "I forgot my password", forgot_password_url -%></p>
 <% end -%>

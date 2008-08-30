@@ -96,8 +96,14 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
       return false;
     }
     this.container = $(container);
-    this.anchor = $$("a." + this.container.id)[0];
+    this.anchor = $$("a.link_to_" + container)[0];
     this.login_form = $$("#" + this.container.id + " form")[0];
+    this.signup_button = $$("#" + this.container.id + " .signup_button")[0];
+    this.signin_button = $$("#" + this.container.id + " .signin_button")[0];
+    this.login_buttons = $$("#" + this.container.id + " .login_buttons")[0];
+    this.login_field = $$("#" + this.container.id + " .login_field")[0];
+    this.login_input_field = $$("#" + this.container.id + " .login_input_field")[0];
+    this.response_container = $$("#" + this.container.id + " .response_container")[0];
     this.close = $$("#" + this.container.id + " a.close")[0];
     this.options = Object.extend({
       autoFocus: true,
@@ -105,41 +111,72 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
       hideDelay: 1.0
     }, options || {});
     this._attach();
-    this._reset();
+    if(this.anchor) { this._reset(); }
   },
   _reset: function() {
     this.container.hide();
     this.container.setStyle({opacity: '0'});
     this.login_form.reset();
-    $('top_signup_username_field').hide();
-    $('top_login_buttons').show();
+    this.login_field.hide();
+    this.response_container.update("");
+    this.login_buttons.show();
     this._clearHideTimer();
     this.isActive = false;
   },
   _attach: function() {
-    Event.observe(this.anchor, 'click', function(event) {
-      this._show();
-      Event.stop(event);
-      Event.observe(document, 'click', function(event) {
-        element = event.element();
-        // TODO: It's supposed to bubble! Why won't it bubble???
-        if(!element.ancestors().include($('quick_signin'))) {
-          this._hide();
-        }
+    if(this.anchor) { // If there is an open/close button
+      Event.observe(this.anchor, 'click', function(event) {
+        this._show();
+        Event.stop(event);
+         Event.observe(document, 'click', function(event) {
+           element = event.element();
+           // TODO: It's supposed to bubble! Why won't it bubble???
+           if(!element.ancestors().include(this.container)) {
+             this._hide();
+           }
+         }.bind(this), false);
       }.bind(this), false);
-    }.bind(this), false);
-    Event.observe(this.close, 'click', function(event) {
-      this._hide();
-      Event.stop(event);
-    }.bind(this), false);
+      Event.observe(this.close, 'click', function(event) {
+        this._hide();
+        Event.stop(event);
+      }.bind(this), false);
+    }
+
     Event.observe(document, 'keypress', this._keypress.bindAsEventListener(this));
+
+    Event.observe(this.login_form, 'submit', function(event) {
+      Event.stop(event);
+      this.signin_button.onClick();
+    });
+
+    Event.observe(this.signup_button, 'click', function() {
+      if(!this.login_field.visible()) {
+        this.login_field.show();
+        this.login_input_field.focus();
+        this.login_buttons.hide();
+      } else {
+        new Ajax.Updater(this.response_container,
+			 '/users',
+			 { asynchronous: true,
+  			   method:       'post',
+			   evalScripts:  true,
+			   parameters:   Form.serialize(this.login_form) });
+      }
+    }.bind(this));
+
+    Event.observe(this.signin_button, 'click', function(event) {
+      Event.stop(event);
+      new Ajax.Updater(this.response_container,
+		       '/session',
+		       { asynchronous:true,
+                       evalScripts:true,
+                       parameters:Form.serialize(this.login_form) });
+    }.bind(this));
   },
   _keypress: function(event) {
     var code = event.keyCode;
     if (code === 27) {
       this._hide();
-    } else if (code === 9) {
-      this._show();
     }
   },
   _show: function() {

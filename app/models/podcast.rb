@@ -40,7 +40,7 @@ class Podcast < ActiveRecord::Base
   has_many :comments, :as => :commentable, :conditions => "comments.user_id IS NOT NULL", :dependent => :destroy
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
 
-  attr_accessor :logo_link, :has_episodes, :feed_error
+  attr_accessor :logo_link, :has_episodes
 
   validates_uniqueness_of :feed_url
 
@@ -54,16 +54,24 @@ class Podcast < ActiveRecord::Base
   acts_as_state_machine :initial => :pending
   state :pending
   state :parsed
+  state :failed
 
   before_create :sanitize_title
 
   async_after_create do |p|
-    p.retrieve_podcast_info_from_feed
-    p.retrieve_episodes_from_feed
-    p.download_logo
-    p.generate_url
-    p.state = "parsed"
-    p.save!
+    begin
+      p.retrieve_podcast_info_from_feed
+      p.retrieve_episodes_from_feed
+      p.download_logo
+      p.state = "parsed"
+      p.sanitize_title
+      p.generate_url
+      p.save!
+    rescue
+      p.state = "failed"
+      p.feed_error ||= "There was a problem with the feed"
+      p.save!
+    end
   end
 
   before_create :check_for_feed_error
@@ -102,7 +110,12 @@ class Podcast < ActiveRecord::Base
       raise PodcastError, "That's not a web address. Try again." unless is_site
       feed_content = Podcast.retrieve_feed(feed_url)
 
-      doc = REXML::Document.new(feed_content)
+      begin
+        doc = REXML::Document.new(feed_content)
+      rescue
+        raise PodcastError, "There was a problem parsing the feed."
+      end
+
       raise PodcastError, "This is not a podcast feed. Try again." unless REXML::XPath.first(doc, "//enclosure")
 
       doc.elements.each('rss/channel/title') do |e|
@@ -135,7 +148,6 @@ class Podcast < ActiveRecord::Base
       self.owner = user if self.email == user.email
     end
 
-    self.state = "parsed"
     self.save!
   end
 
@@ -174,13 +186,6 @@ class Podcast < ActiveRecord::Base
     self.title.gsub!(/[\s+]\(.*\)/, "")
 
     self.title
-  end
-
-  def sanitize_description
-    sentences = self.description.split('.')
-    sentences.select { |sentence| commas = 0
-                                  sentence.split('').each {|char| commas += 1 if char == ','}
-                                  commas < 5 }.join(".")
   end
 
   def first_episode

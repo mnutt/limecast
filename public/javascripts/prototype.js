@@ -1486,7 +1486,12 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   },
 
   updateComplete: function(response) {
-    if (this.options.decay) {
+   if (this.options.stopOnText) {
+     if(response.responseText.match(this.options.stopOnText)) {
+       this.stop(); return;
+     }
+   }
+   if (this.options.decay) {
       this.decay = (response.responseText == this.lastText ?
         this.decay * this.options.decay : 1);
 

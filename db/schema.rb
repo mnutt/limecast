@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080829145446) do
+ActiveRecord::Schema.define(:version => 20080830222527) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -56,18 +56,18 @@ ActiveRecord::Schema.define(:version => 20080829145446) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "feed_etag"
+    t.integer  "user_id"
     t.text     "description"
     t.string   "language"
     t.integer  "category_id"
-    t.integer  "user_id"
     t.string   "clean_title"
     t.string   "itunes_link"
     t.integer  "owner_id"
     t.string   "email"
-    t.string   "name_param"
     t.string   "owner_name"
     t.text     "feed_content"
     t.string   "state"
+    t.string   "feed_error"
   end
 
   create_table "taggings", :force => true do |t|

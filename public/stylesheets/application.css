@@ -195,6 +195,13 @@ div.podcast div.reviews form div.field textarea.text {
 }
 
 /**
+ * Adding Podcasts
+*/
+div.status_message {
+  height: 2.5em;
+}
+
+/**
  * Comments
 */
 ul.comments li.comment {

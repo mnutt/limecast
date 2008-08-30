@@ -1,16 +1,12 @@
 <h2>Feed me</h2>
 <p>Know the address of a podcast? Add it to the LimeWire Podcast Directory:</p>
 
-<script type="text/javascript">
-  function pollForPodcast() {
-    feed = $('podcast_feed_url').value;
-    new Ajax.PeriodicalUpdater('notice', 
-                               '/podcasts/status?feed=' + encodeURIComponent(feed), 
-                               {method: 'get', frequency: 2, decay: 1});
-  }
-</script>
+<div id="added_podcast_list"></div>
 
-<% remote_form_for @new_podcast, :success => 'pollForPodcast()' do |f| -%>
+<div id="status"></div>
+
+<% remote_form_for @new_podcast, :success => 'new Lime.Widgets.Add.Podcast()',
+                                 :failure => 'new Lime.Widgets.Add.Podcast()' do |f| -%>
   <div class="field huge">
     <%= f.label "Feed" -%>
     <div>
@@ -20,28 +16,18 @@
   </div>
 <% end -%>
 
-<% if @podcast -%>
-  <p id="notice">
-    <% if @podcast.new_record? -%>
-      <%= @podcast.feed_error -%>
-    <% else -%>
-      Yum! I've added <%= link_to_thing(@podcast) -%>
-      <% if @podcast.respond_to?(:owner) and @podcast.owner -%>
-        <% if current_user and @podcast.owner == current_user -%>
-          by you, <%= link_to_profile(@podcast.owner) -%>. More please
-        <% else -%>
-          by <%= link_to_profile(@podcast.owner) -%>. You get +1 point 
-          and a link for finding it. More please
-        <% end -%>
-      <% else -%>
-        and emailed <%= @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. More please
-      <% end -%>
-    <% end -%>
-  </p>
-<% else -%>
-  <p id="notice"></p>
-<% end -%>
+<div id="form_clone" style="display:none">
+  <form>
+    <div class="field huge">
+      <label for="podcast_feed_url">Feed</label>
+      <div>
+	<input type='text' class="text" value="CHANGE" disabled style="background: #222" />
+	<input type='submit' value="Add" class="button" disabled  style="background: #666" />
+      </div>
+    </div>
+  </form>
+</div>
 
 <% if !logged_in? -%>
-  <%= render :partial => 'users/signup_inline' -%>
+  <%= render :partial => 'users/quick_signin', :locals => {:options => {:name => "inline_signin"}} -%>
 <% end -%>

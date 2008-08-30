@@ -57,17 +57,14 @@ class PodcastsController < ApplicationController
   end
 
   def status
-    raise "no"
     @podcast = Podcast.find_by_feed_url(params[:feed])
-    #if @podcast.user.nil? and current_user.nil?
-    #  session.data[:podcasts] ||= []
-    #  session.data[:podcasts] << @podcast.id unless session.data[:podcasts].include?(@podcast.id)
-    #end
     
-    if @podcast.state == "parsed"
-      render :text => "podcast parsed", :layout => false
+    if @podcast.nil?
+      render :text => "Error: podcast not found."
+    elsif @podcast.state == "parsed" or @podcast.state == "failed"
+      render :partial => 'podcasts/added_podcast'
     else
-      render :text => "fetching podcast", :layout => false
+      render :partial => "loading"
     end
   end
 
@@ -76,8 +73,10 @@ class PodcastsController < ApplicationController
   def create
     @podcast = Podcast.create!(:feed_url => params[:podcast][:feed_url], 
                                :user     => current_user)
-    respond_to do |format|
-      format.js { render :text => "Podcast added.  Parsing..." }
+
+    if current_user.nil?
+      session.data[:podcasts] ||= []
+      session.data[:podcasts] << @podcast.id
     end
   end
 

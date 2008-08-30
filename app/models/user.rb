@@ -23,8 +23,8 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  has_many :podcasts, :dependent => :destroy
-  has_many :owned_podcasts, :class_name => 'Podcast', :foreign_key => 'owner_id', :dependent => :destroy
+  has_many :podcasts, :conditions => {:state => "parsed"}, :dependent => :destroy
+  has_many :owned_podcasts, :conditions => {:state => "parsed"}, :class_name => 'Podcast', :foreign_key => 'owner_id', :dependent => :destroy
   has_many :comments
 
   # Virtual attribute for the unencrypted password

@@ -3,7 +3,7 @@ class PodcastsController < ApplicationController
   # GET /podcasts
   # GET /podcasts.xml
   def index
-    @podcasts = Podcast.find(:all, :order => "title ASC")
+    @podcasts = Podcast.find(:all, :conditions => {:state => "parsed"}, :order => "title ASC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -29,7 +29,7 @@ class PodcastsController < ApplicationController
       redirect_to :controller => 'podcasts', :action => 'search', :query => params[:q]
     else
       @query = params[:query]
-      @podcasts = Podcast.search(@query)
+      @podcasts = Podcast.search(@query, :conditions => {:state => "parsed"})
     end
   end
 
@@ -78,6 +78,8 @@ class PodcastsController < ApplicationController
       session.data[:podcasts] ||= []
       session.data[:podcasts] << @podcast.id
     end
+
+    render :nothing => true
   end
 
   # PUT /podcasts/1

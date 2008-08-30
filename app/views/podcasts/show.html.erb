@@ -59,7 +59,6 @@
     <% if @podcast.episodes.size > 0 -%>
       <p class="new_episode">
         New episode <%= link_to @podcast.last_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.last_episode) -%>
-        <%= relative_time(@podcast.last_episode.published_at) -%>
       </p>
     <% end -%>
 
@@ -77,7 +76,7 @@
 
     <% if @podcast.total_run_time > 60 -%>
     <p class="run_time">
-      Total run time <%= date_to_words(@podcast.total_run_time) -%>
+      Total run time <%= time_to_words(@podcast.total_run_time) -%>
     </p>
     <% end -%>
   </div>

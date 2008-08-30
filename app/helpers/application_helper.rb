@@ -1,22 +1,18 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  def date_to_words(date)
-    if date < 10 then
-      return 'just a moment'
-    elsif date < 40  then
-      return 'less than ' + (date * 1.5).to_i.to_s.slice(0,1) + '0 seconds'
-    elsif date < 60 then
-      return 'less than a minute'
-    elsif date < 60 * 1.3  then
-      return "1 minute"
-    elsif date < 60 * 50  then
-      return "#{(date / 60).to_i} minutes"
-    elsif date < 60  * 60  * 1.4 then
-      return 'about 1 hour'
-    elsif date < 60  * 60 * (24 / 1.02) then
-      return "about #{(date / 60 / 60 * 1.02).to_i} hours"
-    else
-      return "about #{(date / 60 / 60 * 1.02 / 24).to_i} days"
+  def time_to_words(time)
+    if time < 1.minute then
+      return "#{time} sec"
+    elsif time < 10.minutes  then
+      return "#{(time / 1.minute)} min #{(time % 1.minute)} sec"
+    elsif time < 1.hour  then
+      return "#{(time / 1.minute)} min"
+    elsif time < 1.day then
+      return "#{(time / 1.hour)} hr #{(time % 1.hour / 1.minute)} min"
+    elsif time < 7.days then
+      return "#{(time / 1.day)} day #{(time % 1.day / 1.hour)} hr"
+    else # more than 7 days
+      return "#{(time / 1.day)} day"
     end
   end
 

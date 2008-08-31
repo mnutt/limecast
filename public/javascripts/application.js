@@ -278,7 +278,7 @@ Object.extend(Lime.Widgets.Add.Podcast.prototype, {
     podcast = Builder.node('div', { className: "added_podcast" }, [ form, status ]);
     $('added_podcast_list').appendChild(podcast);
     this._updater = new Ajax.PeriodicalUpdater(status,
-                                               '/status/' + encodeURIComponent(feed_url),
+                                               '/status/' + encodeURIComponent(feed_url).replace(/%2F/g, '/'),
                                                {method: 'get', frequency: 1, decay: 2, stopOnText: "status_message"});
 
 

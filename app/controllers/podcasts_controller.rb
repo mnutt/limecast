@@ -57,6 +57,7 @@ class PodcastsController < ApplicationController
   end
 
   def status
+    params[:feed] = params[:feed].join('/') if params[:feed].respond_to?(:join)
     @podcast = Podcast.find_by_feed_url(params[:feed])
     
     if @podcast.nil?

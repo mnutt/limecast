@@ -5,8 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :podcasts
   map.resources :tags
 
+  map.admin '/admin', :controller => 'admin', :action => 'index'
   map.namespace :admin do |admin|
-    admin.root :controller => 'admin', :action => 'index'
     admin.resources :podcasts
     admin.resources :episodes
     admin.resources :tags, :member => { :merge => :any }

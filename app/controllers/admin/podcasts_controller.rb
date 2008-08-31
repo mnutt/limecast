@@ -34,7 +34,7 @@ class Admin::PodcastsController < AdminController
 
   # GET /admin_podcasts/1/edit
   def edit
-    @podcast = Podcast.find(params[:id])
+    @podcast = Podcast.find_by_clean_title(params[:id])
   end
 
   # POST /admin_podcasts
@@ -57,7 +57,7 @@ class Admin::PodcastsController < AdminController
   # PUT /admin_podcasts/1
   # PUT /admin_podcasts/1.xml
   def update
-    @podcast = Podcast.find(params[:id])
+    @podcast = Podcast.find_by_clean_title(params[:id])
     @podcast.attributes = params[:podcast]
 
     respond_to do |format|

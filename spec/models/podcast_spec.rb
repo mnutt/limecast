@@ -3,9 +3,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Podcast do
   before(:each) do
     mock_feed("#{RAILS_ROOT}/spec/data/example.xml")
-    @podcast = Podcast.new
-    @podcast.feed = "http://defaultfeed"
-    @podcast.title = "My Podcast"
+    @podcast = Podcast.new(:feed_url => "http://defaultfeed/index.rss",
+                           :title => "My Podcast",
+                           :state => "parsed")
   end
 
   it "should be valid" do
@@ -25,8 +25,18 @@ describe Podcast do
   end
 
   it 'should have a param with the name in it' do
-    @podcast.save
+    @podcast.generate_url
     @podcast.to_param.should == "My-Podcast"
+  end
+end
+
+describe Podcast, "creating a new podcast" do
+  before do
+    @podcast = Podcast.create(:feed_url => "http://defaultfeed/index.rss")
+  end
+
+  it 'should be pending' do
+    @podcast.state.should == "pending"
   end
 end
 
@@ -35,31 +45,32 @@ describe Podcast, "creating a new podcast" do
   before do
     mock_feed("#{RAILS_ROOT}/spec/data/example.xml")
 
-    @podcast = Podcast.new_from_feed "http://defaultfeed/"
+    @podcast = Podcast.create!(:feed_url => "http://defaultfeed/")
   end
 
   it 'should set the feed url' do
-    @podcast.feed.should == "http://defaultfeed/"
+    @podcast.reload.feed_url.should == "http://defaultfeed/"
   end
 
   it 'should extract the title' do
-    @podcast.title.should == "All About Everything"
+    # raise @podcast.to_yaml
+    @podcast.reload.title.should == "All About Everything"
   end
 
   it 'should extract the site link' do
-    @podcast.site.should == "http://www.example.com/podcasts/everything/index.html"
+    @podcast.reload.site.should == "http://www.example.com/podcasts/everything/index.html"
   end
 
   it 'should extract the logo link' do
-    @podcast.logo_link.should == "http://summitviewcc.com/picts/PodcastLogo.png"
+    @podcast.reload.logo_link.should == "http://summitviewcc.com/picts/PodcastLogo.png"
   end
  
   it 'should extract the description' do
-    @podcast.description.should =~ /^All About Everything is a show about everything/
+    @podcast.reload.description.should =~ /^All About Everything is a show about everything/
   end
 
   it 'should extract the language' do
-    @podcast.language.should == "en-us"
+    @podcast.reload.language.should == "en-us"
   end
 end
 
@@ -82,46 +93,46 @@ end
 describe Podcast, "creating a new podcast with a non-existant URL" do
   it 'should raise an error that the URL is not contactable' do
     pending "figure out how to make it timeout without waiting"
-    podcast = Podcast.new_from_feed("http://192.168.219.47")
-    podcast.errors["feed"].should == "The server was not contactable."
+    podcast = Podcast.create!(:feed_url => "http://192.168.219.47", :state => "pending")
+    podcast.feed_error.should == "The server was not contactable."
   end
 end
 
 describe Podcast, "creating a new podcast with an RSS feed that is not a podcast" do
   it 'should raise an error that the feed is not a podcast' do
     mock_feed("#{RAILS_ROOT}/spec/data/regularfeed.xml")
-    podcast = Podcast.new_from_feed("http://regularfeed/")
+    podcast = Podcast.create!(:feed_url => "http://regularfeed/", :state => "pending")
     podcast.feed_error.should == "This is not a podcast feed. Try again."
   end
 end
 
 describe Podcast, "creating a new podcast with a non-URL string" do
   it 'should raise an error that the feed is not a URL' do
-    podcast = Podcast.new_from_feed("localhost")
+    podcast = Podcast.create!(:feed_url => "localhost", :state => "pending")
     podcast.feed_error.should == "That's not a web address. Try again."
   end
 end
 
 describe Podcast, "creating a new podcast when a weird server error occurs" do
   it 'should raise an error that an unknown exception occurred' do
-    podcast = Podcast.new_from_feed("http://localhost:7/")
+    podcast = Podcast.create!(:feed_url => "http://localhost:7/", :state => "pending")
     podcast.feed_error.should == "Weird server error. Try again."
   end
 end
 
 describe Podcast, "creating a new podcast that is from a site on the blacklist" do
   it 'should raise an error that the site is on the blacklist' do
-    Blacklist.create(:domain => "restrictedsite")
-    podcast = Podcast.new_from_feed("http://restrictedsite/bad/feed.xml")
+    Blacklist.create!(:domain => "restrictedsite")
+    podcast = Podcast.create!(:feed_url => "http://restrictedsite/bad/feed.xml", :state => "pending")
   end
 end
 
 describe Podcast, "creating a new podcast that already exists in the system" do
   it 'should raise an error that the podcast has already been registered' do
     mock_feed("#{RAILS_ROOT}/spec/data/example.xml")
-    @podcast = Podcast.new_from_feed "#{RAILS_ROOT}/spec/data/example.xml"
+    @podcast = Podcast.new(:feed_url => "#{RAILS_ROOT}/spec/data/example.xml", :state => "pending")
     @podcast.save
-    @podcast = Podcast.new_from_feed "#{RAILS_ROOT}/spec/data/example.xml"
+    @podcast = Podcast.new(:feed_url => "#{RAILS_ROOT}/spec/data/example.xml", :state => "pending")
     @podcast.save.should be_false
   end
 end
@@ -133,11 +144,21 @@ end
 
 describe Podcast, "cleaning up the site url" do
   before do
-    @podcast = Podcast.new
+    @podcast = Podcast.new(:state => "parsed")
   end
   
   it 'should remove a leading http://' do
     @podcast.site = "http://test.host"
+    @podcast.clean_site.should == "test.host"
+  end
+
+  it 'should remove a leading www.' do
+    @podcast.site = "www.test.host"
+    @podcast.clean_site.should == "test.host"
+  end
+
+  it 'should remove both a leading http and www' do
+    @podcast.site = "http://www.test.host"
     @podcast.clean_site.should == "test.host"
   end
 
@@ -159,7 +180,7 @@ end
 
 describe Podcast, "generating the clean title url" do
   before do
-    @podcast = Podcast.new
+    @podcast = Podcast.new(:state => "parsed")
   end
 
   it 'should remove leading and trailing whitespaces' do

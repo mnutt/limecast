@@ -60,6 +60,8 @@ class Podcast < ActiveRecord::Base
 
   async_after_create do |p|
     begin
+      p.check_for_feed_error
+      p.retrieve_feed
       p.retrieve_podcast_info_from_feed
       p.retrieve_episodes_from_feed
       p.download_logo
@@ -74,8 +76,6 @@ class Podcast < ActiveRecord::Base
     end
   end
 
-  before_create :check_for_feed_error
-
   define_index do
     indexes :title, :site, :description
     indexes user.login, :as => :user
@@ -89,58 +89,52 @@ class Podcast < ActiveRecord::Base
   end
 
   def self.retrieve_feed(url)
-
     Timeout::timeout(5) do
       OpenURI::open_uri(url) do |f|
         f.read
       end
     end
   rescue Timeout::Error
-    raise PodcastError, "Not found. (timeout) Try again."
+    self.feed_error = "Not found. (timeout) Try again."
   rescue Errno::ENETUNREACH
-    raise PodcastError, "Not found. Try again."
+    self.feed_error = "Not found. Try again."
   rescue StandardError => e
-    raise PodcastError, "Weird server error. Try again."
+    self.feed_error = "Weird server error. Try again."
+  end
+
+  def retrieve_feed
+    self.feed_content = Podcast.retrieve_feed(self.feed_url)
   end
 
   def retrieve_podcast_info_from_feed
     begin
-      is_site = (feed_url =~ /^http:\/\/([^\/]+)\/(.*)/)
-      raise PodcastError, "I can't take feeds from that site! Try again." if Blacklist.find_by_domain($1)
-      raise PodcastError, "That's not a web address. Try again." unless is_site
-      feed_content = Podcast.retrieve_feed(feed_url)
+      doc = REXML::Document.new(feed_content)
+    rescue
+      raise PodcastError, "There was a problem parsing the feed."
+    end
 
-      begin
-        doc = REXML::Document.new(feed_content)
-      rescue
-        raise PodcastError, "There was a problem parsing the feed."
-      end
+    raise PodcastError, "This is not a podcast feed. Try again." unless REXML::XPath.first(doc, "//enclosure")
 
-      raise PodcastError, "This is not a podcast feed. Try again." unless REXML::XPath.first(doc, "//enclosure")
-
-      doc.elements.each('rss/channel/title') do |e|
-        self.title = e.text
-      end
-      doc.elements.each('rss/channel/link') do |e|
-        self.site = e.text
-      end
-      doc.elements.each('rss/channel/itunes:image') do |e|
-        self.logo_link = e.attributes['href']
-      end
-      doc.elements.each('rss/channel/itunes:summary') do |e|
-        self.description = e.text
-      end
-      doc.elements.each('rss/channel/language') do |e|
-        self.language = e.text
-      end
-      doc.elements.each('rss/channel/itunes:owner/itunes:email') do |e|
-        self.email = e.text
-      end
-      doc.elements.each('rss/channel/itunes:owner/itunes:name') do |e|
-        self.owner_name = e.text
-      end
-    rescue PodcastError => e
-      self.feed_error = e.message
+    doc.elements.each('rss/channel/title') do |e|
+      self.title = e.text
+    end
+    doc.elements.each('rss/channel/link') do |e|
+      self.site = e.text
+    end
+    doc.elements.each('rss/channel/itunes:image') do |e|
+      self.logo_link = e.attributes['href']
+    end
+    doc.elements.each('rss/channel/itunes:summary') do |e|
+      self.description = e.text
+    end
+    doc.elements.each('rss/channel/language') do |e|
+      self.language = e.text
+    end
+    doc.elements.each('rss/channel/itunes:owner/itunes:email') do |e|
+      self.email = e.text
+    end
+    doc.elements.each('rss/channel/itunes:owner/itunes:name') do |e|
+      self.owner_name = e.text
     end
 
     if user
@@ -149,10 +143,15 @@ class Podcast < ActiveRecord::Base
     end
 
     self.save!
+  rescue PodcastError => e
+    self.feed_error = e.message
+    raise PodcastError, self.feed_error
   end
 
   def check_for_feed_error
-    self.feed_error.nil?
+    self.feed_error = "I can't take feeds from that site! Try again." if Blacklist.find_by_domain($1)
+    self.feed_error = "That's not a web address. Try again." unless feed_url =~ /^http:\/\/([^\/]+)\/(.*)/
+    raise PodcastError, self.feed_error if self.feed_error
   end
 
   def average_time_between_episodes
@@ -165,8 +164,8 @@ class Podcast < ActiveRecord::Base
   end
 
   def clean_site
-    self.site.match(/(http:\/\/)?(.*)/)
-    $2.chomp('/')
+    self.site.match(/(http:\/\/)?(www.)?(.*)/)
+    $3.chomp('/') rescue nil
   end
 
   def generate_url
@@ -184,6 +183,16 @@ class Podcast < ActiveRecord::Base
     return true if pending?
     # Remove anything in parentheses
     self.title.gsub!(/[\s+]\(.*\)/, "")
+
+    conflict = Podcast.find_by_clean_title(self.clean_title)
+    self.clean_title += " 2" if conflict and conflict != self
+
+    i = 2 # Number to attach to the end of the title to make it unique
+    while(Podcast.find_by_clean_title(self.clean_title) and conflict != self)
+      i += 1
+      self.clean_title.chop!
+      self.clean_title += i.to_s
+    end
 
     self.title
   end
@@ -215,9 +224,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def retrieve_episodes_from_feed
-    feed_content = Podcast.retrieve_feed(feed_url)
-
-    doc = REXML::Document.new(feed_content)
+    doc = REXML::Document.new(self.feed_content)
     doc.elements.each('rss/channel/item') do |e|
       begin
         episode = Episode.find_by_guid(e.elements['guid'].text)
@@ -254,7 +261,8 @@ class Podcast < ActiveRecord::Base
   rescue OpenURI::HTTPError
     puts "#{self.feed_url} not modified, skipping..."
   rescue StandardError => e
-    puts "Problem with feed #{self.feed_url}: #{e.message}"
+    self.feed_error = "Problem retrieving episodes from the feed"
+    raise PodcastError, self.feed_error
   end
 
   def writable_by?(user)

@@ -210,6 +210,16 @@ CRON
     task :restart do
       run "cd #{latest_release}; RAILS_ENV=production rake async:restart"
     end
+
+    desc 'Starts the async_observer worker'
+    task :start do
+      run "cd #{latest_release}; RAILS_ENV=production rake async:start"
+    end
+
+    desc 'Starts the async_observer worker'
+    task :stop do
+      run "cd #{latest_release}; RAILS_ENV=production rake async:stop"
+    end
   end
 end
 

@@ -204,47 +204,17 @@ CRON
       run "cd #{latest_release}; RAILS_ENV=production rake ts:config"
     end
   end
-end
 
-# Mongrel cluster tasks
-namespace :mongrel do
-  namespace :cluster do
-    desc 'Restarts Mongrel processes'
-    task :restart, :roles => :app do
-      run "mongrel_rails cluster::restart -C #{mongrel_conf}"
-    end
-
-    desc 'Starts Mongrel processes'
-    task :start, :roles => :app do
-      run "mongrel_rails cluster::start -C #{mongrel_conf}"
-    end
-
-    desc 'Checks the status of Mongrel processes'
-    task :status, :roles => :app do
-      run "mongrel_rails cluster::status -C #{mongrel_conf}"
-    end
-
-    desc 'Stops the Mongrel processes'
-    task :stop, :roles => :app do
-      run "mongrel_rails cluster::stop -C #{mongrel_conf}"
+  namespace :async do
+    desc 'Restarts the async_observer worker'
+    task :restart do
+      run "cd #{latest_release}; RAILS_ENV=production rake async:restart"
     end
   end
 end
 
 # Override built-in deploy tasks
 namespace :deploy do
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    mongrel.cluster.restart
-  end
-
-  task :start, :roles => :app do
-    mongrel.cluster.start
-  end
-
-  task :stop, :roles => :app do
-    mongrel.cluster.stop
-  end
-
   namespace :web do
     task :disable, :roles => :web, :except => { :no_release => true } do
       require 'erb'
@@ -275,3 +245,4 @@ after 'deploy:update_code', 'limecast:update'
 after 'deploy', 'limecast:sphinx:configure'
 after 'deploy', 'limecast:sphinx:reindex'
 after 'deploy', 'limecast:sphinx:restart'
+after 'deploy', 'limecast:async:restart'

@@ -15,4 +15,4 @@
 	url = git://github.com/aiwilliams/scenarios.git
 [submodule "vendor/plugins/async-observer"]
 	path = vendor/plugins/async-observer
-	url = git://github.com/kr/async-observer.git
+	url = git://github.com/mnutt/async-observer.git

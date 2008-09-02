@@ -39,9 +39,7 @@ div.podcast div.cover div.border {
   z-index: 1;
 }
 div.podcast div#edit_actions {
-  position: absolute;
-  top: 0;
-  right: 0;
+  line-height: 2em;
 }
 div.podcast div#edit_actions span.label {
   font-weight: bold;

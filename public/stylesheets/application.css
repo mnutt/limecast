@@ -23,7 +23,7 @@ div.podcast {
 }
 div.podcast div.cover {
   top: 30px;
-  left: 20px;
+  left: 30px;
   padding: 1px 0 0 1px;
   position: absolute;
   z-index: 1;
@@ -38,16 +38,12 @@ div.podcast div.cover div.border {
   display: block;
   z-index: 1;
 }
-div.podcast div#edit_actions {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
 div.podcast div#edit_actions span.label {
   font-weight: bold;
   float: left;
 }
 div.podcast div#edit_actions ul {
+  margin: 0 0 5px 0;
   float: left;
 }
 div.podcast div#edit_actions ul li {
@@ -87,7 +83,7 @@ div.podcast div.stats {
 }
 div.podcast div.stats p {
   font-size: 1.0em !important;
-  line-height: 1.4em !important;
+  line-height: 1.2em !important;
   margin: 0 !important;
 }
 div.podcast div.tags {
@@ -134,8 +130,8 @@ ul.episodes li.expanded span.expand {
   background-image: url("../images/icons/collapse.png");
 }
 ul.episodes div.download {
+  margin: 0 10px 0 0;
   float: left;
-  margin: 10px 10px 0 0;
 }
 ul.episodes div.download a.icon {
   background-image: url("../images/icons/download.png");

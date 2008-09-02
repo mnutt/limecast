@@ -67,12 +67,13 @@ table, thead, tbody, tr, th, td {
 /** Basic Typography **/
 h1, h2, h3, h4, h5 {
   font-family: Helvetica, Arial, sans-serif;
-  font-weight: 100;
+  font-weight: normal;
+  margin: 0 0 5px 0;
 }
-h1 { font-size: 1.8em; }
-h2 { font-size: 1.4em; }
-h3 { font-size: 1.2em; }
-h4 { font-size: 1.0em; }
+h1 { font-size: 2.6em; }
+h2 { font-size: 2.2em; }
+h3 { font-size: 1.6em; }
+h4 { font-size: 1.2em; }
 h5 { font-size: 0.8em; }
 div#document {
   font-size: 1.1em;
@@ -84,7 +85,7 @@ div#document {
 div#layout {
   font-size: 1.1em;
   color: #CBCBCB;
-  min-width: 980px;
+  min-width: 800px;
   padding: 0 0 34px 0;
 }
 a, a:visited {
@@ -141,6 +142,7 @@ div#header div#title {
 div#header div#title h1 {
   width: 188px;
   height: 23px;
+  margin: 0;
   padding: 1px 0 0 0;
   position: relative;
   display: block;
@@ -218,31 +220,15 @@ div#body_wrapper {
   height: 660px;
 }
 div#body div#primary {
-  margin: 0 200px 0 0;
-  padding: 30px 20px 30px 220px;
+  margin: 0 220px 0 0;
+  padding: 30px 30px 30px 230px;
   position: relative;
   *height: 0.01%;
 }
 div#body div#sidebar {
-  padding: 30px 20px;
+  padding: 30px 30px;
   width: 160px;
   float: right;
-}
-div#body h1 {
-  font-size: 4.0em;
-  margin: 0 0 10px 0;
-}
-div#body h2 {
-  font-size: 3.0em;
-  margin: 0 0 10px 0;
-}
-div#body h3 {
-  font-size: 2.4em;
-  margin: 0 0 10px 0;
-  color: #ABABAB;
-}
-div#body h4 {
-  font-size: 1.2em;
 }
 div#body p {
   margin: 0 0 15px 0;
@@ -350,6 +336,10 @@ form textarea.text {
   color: #676767;
   padding: 4px;
 }
+form input.text.focus,
+form textarea.text.focus {
+  color: #212121;
+}
 form input.button {
   background-color: #AEAEAE;
   border: 1px solid #212121;
@@ -368,7 +358,7 @@ form input.image_button {
   cursor: pointer;
 }
 form div.huge {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 form div.huge label {
   display: none;

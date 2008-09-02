@@ -266,6 +266,6 @@ class Podcast < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    user and self.user_id == user.id || self.owner_id == user.id
+    user and (self.user_id == user.id || self.owner_id == user.id || user.admin?)
   end
 end

@@ -8,8 +8,6 @@
     <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
   </div>
 
-  <h2><%=h @podcast.title %></h2>
-
   <% if @podcast.writable_by?(current_user) -%>
     <div id="edit_actions">
       <span class="label">This is mine!</span>
@@ -18,11 +16,14 @@
           <%= link_to "<span>Edit</span>", edit_podcast_url(@podcast), :class => 'icon' -%>
         </li>
         <li class="delete">
-          <%= link_to "<span>Delete</span>", podcast_url(@podcast), :method => 'delete', :class => 'icon' -%>
+          <%= link_to "<span>Delete</span>", "/podcasts/#{@podcast.id}", :method => 'delete', :class => 'icon' -%>
         </li>
       </ul>
+      <div class="clear"></div>
     </div>
   <% end -%>
+
+  <h2><%=h @podcast.title %></h2>
 
   <div class="urls">
     <ul>

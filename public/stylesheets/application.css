@@ -38,6 +38,12 @@ div.podcast div.cover div.border {
   display: block;
   z-index: 1;
 }
+<<<<<<< HEAD:public/stylesheets/application.css
+=======
+div.podcast div#edit_actions {
+  line-height: 2em;
+}
+>>>>>>> 0872ccd3b66930a81e4c8c237dd0f8247f04aa7a:public/stylesheets/application.css
 div.podcast div#edit_actions span.label {
   font-weight: bold;
   float: left;

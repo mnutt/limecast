@@ -66,3 +66,8 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
 end
+
+# Load /lib files
+%w{string_ext fixnum_ext}.each do |lib|
+  require lib
+end

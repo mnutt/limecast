@@ -33,15 +33,15 @@ class Duration
   protected
 
   def to_days(dur)
-    dur / (60 * 60 * 24)
+    dur / 1.day
   end
 
   def to_hours(dur)
-    dur / (60 * 60)
+    dur / 1.hour
   end
 
   def to_minutes(dur)
-    dur / 60
+    dur / 1.minute
   end
 
   def label(unit, abbreviated, singular = false)

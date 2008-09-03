@@ -14,7 +14,7 @@
       <%=h @episode.published_at.strftime("%Y %b %d") %>
     </h1>
     
-    <p class="title"><%=h @episode.title %> (<%= pretty_duration(@episode.duration) -%>)</p>
+    <p class="title"><%=h @episode.title %> (<%= time_to_words(@episode.duration) -%>)</p>
     
     <div class="metadata">
       <div class="summary">

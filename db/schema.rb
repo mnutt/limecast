@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(:version => 20080830222527) do
   end
 
   create_table "comments", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",          :limit => 11
     t.string   "commentable_type"
-    t.integer  "commentable_id"
+    t.integer  "commentable_id",   :limit => 11
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -29,21 +29,21 @@ ActiveRecord::Schema.define(:version => 20080830222527) do
   end
 
   create_table "episodes", :force => true do |t|
-    t.integer  "podcast_id"
+    t.integer  "podcast_id",             :limit => 11
     t.text     "summary"
     t.string   "enclosure_url"
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "thumbnail_file_size"
+    t.integer  "thumbnail_file_size",    :limit => 11
     t.string   "thumbnail_file_name"
     t.string   "thumbnail_content_type"
     t.string   "guid"
     t.string   "enclosure_type"
-    t.integer  "duration"
+    t.integer  "duration",               :limit => 11
     t.string   "title"
     t.string   "clean_title"
-    t.integer  "enclosure_size"
+    t.integer  "enclosure_size",         :limit => 11
   end
 
   create_table "podcasts", :force => true do |t|
@@ -56,13 +56,13 @@ ActiveRecord::Schema.define(:version => 20080830222527) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "feed_etag"
-    t.integer  "user_id"
+    t.integer  "user_id",           :limit => 11
     t.text     "description"
     t.string   "language"
-    t.integer  "category_id"
+    t.integer  "category_id",       :limit => 11
     t.string   "clean_title"
     t.string   "itunes_link"
-    t.integer  "owner_id"
+    t.integer  "owner_id",          :limit => 11
     t.string   "email"
     t.string   "owner_name"
     t.text     "feed_content"
@@ -71,10 +71,10 @@ ActiveRecord::Schema.define(:version => 20080830222527) do
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer "tag_id"
-    t.integer "taggable_id"
+    t.integer "tag_id",        :limit => 11
+    t.integer "taggable_id",   :limit => 11
     t.string  "taggable_type"
-    t.integer "user_id"
+    t.integer "user_id",       :limit => 11
   end
 
   add_index "taggings", ["tag_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_type"
@@ -84,8 +84,8 @@ ActiveRecord::Schema.define(:version => 20080830222527) do
 
   create_table "tags", :force => true do |t|
     t.string  "name"
-    t.integer "taggings_count", :default => 0,     :null => false
-    t.boolean "special",        :default => false
+    t.integer "taggings_count", :limit => 11, :default => 0,     :null => false
+    t.boolean "special",                      :default => false
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name"

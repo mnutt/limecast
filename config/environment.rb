@@ -68,6 +68,6 @@ Rails::Initializer.run do |config|
 end
 
 # Load /lib files
-%w{string_ext fixnum_ext}.each do |lib|
+%w{string_ext integer_ext}.each do |lib|
   require lib
 end

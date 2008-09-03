@@ -68,6 +68,6 @@ Rails::Initializer.run do |config|
 end
 
 # Load /lib files
-%w{file_size duration string_ext integer_ext}.each do |lib|
+%w{file_size duration date_ext string_ext integer_ext}.each do |lib|
   require lib
 end

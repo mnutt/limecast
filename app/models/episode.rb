@@ -48,10 +48,6 @@ class Episode < ActiveRecord::Base
     self.clean_title
   end
 
-  def pretty_date
-    self.published_at.to_formatted_s(:normal)
-  end
-
   def to_param
     clean_title
   end

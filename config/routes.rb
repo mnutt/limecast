@@ -38,6 +38,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.use         '/use',         :controller => 'home',     :action => 'use'
   map.privacy     '/privacy',     :controller => 'home',     :action => 'privacy'
+  map.stats       '/stats',       :controller => 'home',     :action => 'stats'
   map.team        '/team',        :controller => 'home',     :action => 'team'
   map.guide       '/guide',       :controller => 'home',     :action => 'guide'
 

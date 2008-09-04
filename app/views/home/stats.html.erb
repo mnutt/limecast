@@ -1,0 +1,22 @@
+<% @title = "Usage Stats" -%>
+
+<h2>Usage stats</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Users</th>
+      <th>Podcasts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @dates.each_with_index do |date, i| -%>
+      <tr>
+        <td><%= date -%></td>
+        <td><%= @user_stats[i] -%></td>
+        <td><%= @podcast_stats[i] -%></td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>

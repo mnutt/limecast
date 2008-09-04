@@ -74,6 +74,8 @@ class User < ActiveRecord::Base
     transitions :from => :suspended, :to => :passive
   end
 
+  named_scope :older_than, lambda {|date| {:conditions => ["users.created_at < (?)", date]} }
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(email, password)
     u = find :first, :conditions => {:email => email} # need to get the salt

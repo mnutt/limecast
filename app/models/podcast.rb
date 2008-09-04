@@ -87,7 +87,7 @@ class Podcast < ActiveRecord::Base
 
     has :created_at, :state
   end
- 
+
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
 
   def self.retrieve_feed(url)

@@ -160,7 +160,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def total_run_time
-    self.episodes.sum(:duration)
+    self.episodes.sum(:duration) || 0
   end
 
   def clean_site

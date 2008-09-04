@@ -164,8 +164,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def clean_site
-    self.site.match(/(http:\/\/)?(www.)?(.*)/)
-    $3.chomp('/') rescue nil
+    self.site.to_url
   end
 
   def generate_url

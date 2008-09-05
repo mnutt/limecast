@@ -17,4 +17,10 @@
 class Comment < ActiveRecord::Base
   belongs_to :commentable, :polymorphic => true
   belongs_to :commenter, :class_name => 'User', :foreign_key => 'user_id'
+
+  named_scope :older_than, lambda {|date| {:conditions => ["comments.created_at < (?)", date]} }
+
+  def editable?
+    commentable.comments.older_than(this.created_at).count < 1
+  end
 end

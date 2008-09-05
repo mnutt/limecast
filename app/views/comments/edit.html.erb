@@ -1,0 +1,29 @@
+<% options ||= {} -%>
+
+<% form_for @comment, comments_url, :method => :post do |f| -%>
+  <div class="field">
+    <%= f.label :title -%>
+    <div>
+      <%= f.text_field :title, :class => 'text' -%>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :body, "Review" -%>
+    <div>
+      <%= f.text_area :body, :class => "text full", :rows => '10' -%>
+    </div>
+  </div>
+
+  <div class="align">
+    Podcast Rating: 
+    <%= f.radio_button :positive, true, :checked => "checked" -%>
+    <%= f.label :positive, image_tag("icons/thumbs_up.png"), :onclick => "$('comment_positive_true').checked = true;" -%>
+    <%= f.radio_button :positive, false -%>
+    <%= f.label :positive, image_tag("icons/thumbs_down.png"), :onclick => "$('comment_positive_false').checked = true;" -%>
+  </div>
+
+  <div class="controls">
+    <%= submit_tag "Update", :class => 'button' -%>
+  </div>
+<% end -%>

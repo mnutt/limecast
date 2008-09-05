@@ -42,9 +42,10 @@ ActionController::Routing::Routes.draw do |map|
   map.team        '/team',        :controller => 'home',     :action => 'team'
   map.guide       '/guide',       :controller => 'home',     :action => 'guide'
 
-  map.podcast          '/:podcast',             :controller => 'podcasts', :action => 'show'
-  map.podcast_episodes '/:podcast/episodes',    :controller => 'episodes', :action => 'index'
-  map.podcast_reviews  '/:podcast/reviews',     :controller => 'comments', :action => 'index'
-  map.review           '/:podcast/reviews/:id', :controller => 'comments', :action => 'show'
-  map.episode          '/:podcast/:episode',    :controller => 'episodes', :action => 'show'
+  map.podcast          '/:podcast',                  :controller => 'podcasts', :action => 'show'
+  map.podcast_episodes '/:podcast/episodes',         :controller => 'episodes', :action => 'index'
+  map.podcast_reviews  '/:podcast/reviews',          :controller => 'comments', :action => 'index'
+  map.review           '/:podcast/reviews/:id',      :controller => 'comments', :action => 'show'
+  map.edit_review      '/:podcast/reviews/:id/edit', :controller => 'comments', :action => 'edit'
+  map.episode          '/:podcast/:episode',         :controller => 'episodes', :action => 'show'
 end

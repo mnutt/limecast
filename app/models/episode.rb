@@ -28,6 +28,7 @@ class Episode < ActiveRecord::Base
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png] }
   has_many :comments, :as => :commentable, :dependent => :destroy
+  has_many :commenters, :through => :comments
 
   validates_presence_of :podcast_id
 
@@ -58,5 +59,9 @@ class Episode < ActiveRecord::Base
 
   def enclosure_magnet_url
     "magnet:?xs=#{enclosure_url}"
+  end
+
+  def can_accept_comment_from?(user)
+    commenters.count(:conditions => {:id => user.id}) < 1
   end
 end

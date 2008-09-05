@@ -42,6 +42,8 @@ class CommentsController < ApplicationController
   # GET /comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
+
+    redirect_to(:back) rescue redirect_to('/') unless @comment.editable?
   end
 
   # POST /comments

@@ -2,11 +2,9 @@
 # http://github.com/thoughtbot/factory_girl/tree/master
 
 Factory.define :podcast do |p|
-  #p.title    'Podcast'
-  #p.site     'http://podcasts.example.com'
-  #p.feed_url 'http://podcasts.example.com/feed.xml'
-
-  #p.association :user, :factory => :user
+  p.title    'Podcast'
+  p.site     'http://podcasts.example.com'
+  p.feed_url 'http://podcasts.example.com/feed.xml'
 end
 
 Factory.define :user do |u|
@@ -23,5 +21,10 @@ Factory.define :admin_user, :class => User do |u|
   u.salt     'NaCl'
 
   u.admin true
+end
+
+Factory.define :podcast_comment, :class => Comment do |c|
+  c.association :user, :factory => :user
+  c.association :commentable, :factory => :podcast
 end
 

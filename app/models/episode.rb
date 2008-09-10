@@ -61,7 +61,7 @@ class Episode < ActiveRecord::Base
     "magnet:?xs=#{enclosure_url}"
   end
 
-  def can_accept_comment_from?(user)
-    commenters.count(:conditions => {:id => user.id}) < 1
+  def been_reviewed_by?(user)
+    commenters.count(:conditions => {:id => user.id}) > 0
   end
 end

@@ -7,3 +7,6 @@
 [submodule "vendor/plugins/thinking-sphinx"]
 	path = vendor/plugins/thinking-sphinx
 	url = git://github.com/freelancing-god/thinking-sphinx.git
+[submodule "vendor/gems/factory_girl"]
+	path = vendor/gems/factory_girl
+	url = git://github.com/thoughtbot/factory_girl.git

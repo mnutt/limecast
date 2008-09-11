@@ -30,7 +30,7 @@ class Episode < ActiveRecord::Base
   has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :commenters, :through => :comments
 
-  validates_presence_of :podcast_id
+  validates_presence_of :podcast_id, :published_at
 
   before_create :generate_url
 

@@ -76,17 +76,17 @@ class Podcast < ActiveRecord::Base
     end
   end
 
-  define_index do
-    indexes :title, :site, :description
-    indexes user.login, :as => :user
-    indexes owner.login, :as => :owner
-    indexes episodes.title, :as => :episode_title
-    indexes episodes.summary, :as => :episode_summary
-    indexes comments.title, :as => :comment_title
-    indexes comments.body, :as => :comment_body
+  # define_index do
+  #   indexes :title, :site, :description
+  #   indexes user.login, :as => :user
+  #   indexes owner.login, :as => :owner
+  #   indexes episodes.title, :as => :episode_title
+  #   indexes episodes.summary, :as => :episode_summary
+  #   indexes comments.title, :as => :comment_title
+  #   indexes comments.body, :as => :comment_body
 
-    has :created_at, :state
-  end
+  #   has :created_at, :state
+  # end
 
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
 

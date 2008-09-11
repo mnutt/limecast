@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
     end
 
     rescue_from CGI::Session::CookieStore::TamperedWithCookie, :with => :tampered_cookie
-    rescue_from ThinkingSphinx::ConnectionError,
-                Riddle::ResponseError,                         :with => :sphinx_error
+    # rescue_from ThinkingSphinx::ConnectionError,
+    #             Riddle::ResponseError,                         :with => :sphinx_error
     rescue_from Forbidden,                                     :with => :redirect_with_forbidden
     rescue_from Unauthenticated,                               :with => :redirect_with_unauthenticated
     rescue_from ActionController::InvalidAuthenticityToken,    :with => :redirect_with_unauthenticated

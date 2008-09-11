@@ -1,6 +1,21 @@
-# require File.dirname(__FILE__) + '/../spec_helper'
-# 
-# describe Episode do
+require File.dirname(__FILE__) + '/../spec_helper'
+
+describe Episode do
+  before do
+    @episode = Factory.create(:episode)
+    @user    = Factory.create(:user)
+  end
+
+  it 'should not have been_reviewed_by? a user if the episode has no comments' do
+    @episode.been_reviewed_by?(@user).should be_false
+  end
+
+  it 'should have been_reviewed_by? a user if they commented on an episode' do
+    Factory.create(:comment, :episode => @episode, :user => @user)
+    @episode.been_reviewed_by?(@user).should be_true
+  end
+end
+
 #   scenario :podcasts
 # 
 #   before(:each) do

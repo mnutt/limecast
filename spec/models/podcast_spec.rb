@@ -1,6 +1,10 @@
-# require File.dirname(__FILE__) + '/../spec_helper'
-# 
-# describe Podcast do
+require File.dirname(__FILE__) + '/../spec_helper'
+
+describe Podcast do
+  before do
+    Factory.create :podcast
+  end
+end
 #   before(:each) do
 #     mock_feed("#{RAILS_ROOT}/spec/data/example.xml")
 #     @podcast = Podcast.new(:feed_url => "http://defaultfeed/index.rss",

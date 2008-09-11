@@ -113,3 +113,11 @@ class Spec::Rails::Example::PluginExampleGroup < Spec::Rails::Example::ViewExamp
   end
 end
 Spec::Example::ExampleGroupFactory.register(:plugin, Spec::Rails::Example::PluginExampleGroup)
+
+
+# Stub out ThinkingSphinx
+module ThinkingSphinx::ActiveRecord
+  def in_core_index?
+    false
+  end
+end

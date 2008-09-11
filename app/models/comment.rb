@@ -21,6 +21,6 @@ class Comment < ActiveRecord::Base
   named_scope :older_than, lambda {|date| {:conditions => ["comments.created_at < (?)", date]} }
 
   def editable?
-    commentable.comments.older_than(this.created_at).count < 1
+    commentable.comments.older_than(self.created_at).count < 1
   end
 end

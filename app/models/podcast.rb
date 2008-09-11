@@ -38,6 +38,8 @@ class Podcast < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
   has_many :comments, :as => :commentable, :conditions => "comments.user_id IS NOT NULL", :dependent => :destroy
+  has_many :commenters, :through => :comments
+
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
 
   attr_accessor :logo_link, :has_episodes
@@ -268,5 +270,9 @@ class Podcast < ActiveRecord::Base
 
   def writable_by?(user)
     user and (self.user_id == user.id || self.owner_id == user.id || user.admin?)
+  end
+
+  def been_reviewed_by?(user)
+    commenters.count(:conditions => {:id => user.id}) > 0
   end
 end

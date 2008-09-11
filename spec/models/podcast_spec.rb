@@ -2,7 +2,17 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Podcast do
   before do
-    Factory.create :podcast
+    @podcast = Factory.create(:podcast)
+    @user    = Factory.create(:user)
+  end
+
+  it "should not have been_reviewed_by? a user if the podcast has no comments" do
+    @podcast.been_reviewed_by?(@user).should be_false
+  end
+
+  it "should have been_reviewed_by? a user if the podcast has been commented on by that user" do
+    Factory.create(:podcast_comment, :commentable => @podcast, :commenter => @user)
+    @podcast.been_reviewed_by?(@user).should be_true
   end
 end
 #   before(:each) do

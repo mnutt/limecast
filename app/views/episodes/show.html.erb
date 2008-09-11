@@ -29,7 +29,9 @@
     <h2>Reviews</h2>
     <div class="comments">
       <%= render :partial => 'comments/comments', :object => @episode -%>
-      <%= render :partial => 'comments/add_comment', :object => @episode -%>
+      <% if show_add_form?(@episode) %>
+        <%= render :partial => 'comments/add_comment', :object => @episode -%>
+      <% end %>
     </div>
   </div>
   

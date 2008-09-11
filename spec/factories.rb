@@ -8,9 +8,10 @@ Factory.define :podcast do |p|
 end
 
 Factory.define :episode do |e|
-  e.association :podcast, :factory => :podcast
-  e.summary     'This is the first episode of a show! w0000t'
-  e.title       'Episode One'
+  e.association  :podcast, :factory => :podcast
+  e.summary      'This is the first episode of a show! w0000t'
+  e.title        'Episode One'
+  e.published_at Time.now
 end
 
 Factory.define :user do |u|
@@ -30,12 +31,12 @@ Factory.define :admin_user, :class => User do |u|
 end
 
 Factory.define :podcast_comment, :class => Comment do |c|
-  c.association :user, :factory => :user
+  c.association :commenter, :factory => :user
   c.association :commentable, :factory => :podcast
 end
 
 Factory.define :episode_comment, :class => Comment do |c|
-  c.association :user, :factory => :user
+  c.association :commenter, :factory => :user
   c.association :commentable, :factory => :podcast
 end
 

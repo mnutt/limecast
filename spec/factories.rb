@@ -14,9 +14,16 @@ Factory.define :episode do |e|
   e.published_at Time.now
 end
 
+Factory.sequence :login do |n|
+  "tester#{n}"
+end
+Factory.sequence :email do |n|
+  "tester#{n}@podcasts.example.com"
+end
+
 Factory.define :user do |u|
-  u.login    'tester'
-  u.email    'tester@podcasts.example.com'
+  u.login    { Factory.next :login }
+  u.email    { Factory.next :email }
   u.password 'password'
   u.salt     'NaCl'
 end

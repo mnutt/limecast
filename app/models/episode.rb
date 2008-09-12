@@ -34,17 +34,20 @@ class Episode < ActiveRecord::Base
 
   before_create :generate_url
 
-  def generate_url
-    self.clean_title = self.published_at.strftime('%Y-%b-%d')
-    conflict = Episode.find(:first, :conditions => {:podcast_id => podcast.id, :clean_title => self.clean_title})
-    self.clean_title += "-2" if conflict and conflict != self
+  named_scope :with_same_title_as, lambda {|who| {:conditions => {:podcast_id => who.podcast.id, :clean_title => who.clean_title}} }
+  named_scope :without, lambda {|who| who.id.nil? ? {} : {:conditions => ["episodes.id NOT IN (?)", who.id]} }
 
-    i = 2 # Number to attach to the end of the title to make it unique
-    while(Episode.find(:first, :conditions => {:podcast_id => podcast.id, :clean_title => clean_title}) and conflict != self)
+  def generate_url
+    base_title = self.published_at.to_date.to_s(:url)
+    
+    i = 1
+    begin
+      self.clean_title = base_title.dup
+      self.clean_title << "-#{i}" unless i == 1
+
+      count = Episode.with_same_title_as(self).without(self).count
       i += 1
-      self.clean_title.chop!
-      self.clean_title += i.to_s
-    end
+    end while count > 0
 
     self.clean_title
   end

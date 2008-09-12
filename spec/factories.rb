@@ -11,7 +11,7 @@ Factory.define :episode do |e|
   e.association  :podcast, :factory => :podcast
   e.summary      'This is the first episode of a show! w0000t'
   e.title        'Episode One'
-  e.published_at Time.now
+  e.published_at Time.parse("Aug 1, 2008")
 end
 
 Factory.sequence :login do |n|

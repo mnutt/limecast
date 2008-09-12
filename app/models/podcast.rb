@@ -61,20 +61,24 @@ class Podcast < ActiveRecord::Base
   before_create :sanitize_title
 
   async_after_create do |p|
+    p.async_after_create
+  end
+
+  def async_after_create
     begin
-      p.check_for_feed_error
-      p.retrieve_feed
-      p.retrieve_podcast_info_from_feed
-      p.retrieve_episodes_from_feed
-      p.download_logo
-      p.state = "parsed"
-      p.sanitize_title
-      p.generate_url
-      p.save!
+      self.check_for_feed_error
+      self.retrieve_feed
+      self.retrieve_podcast_info_from_feed
+      self.retrieve_episodes_from_feed
+      self.download_logo
+      self.state = "parsed"
+      self.sanitize_title
+      self.generate_url
+      self.save!
     rescue
-      p.state = "failed"
-      p.feed_error ||= "There was a problem with the feed"
-      p.save!
+      self.state = "failed"
+      self.feed_error ||= "There was a problem with the feed"
+      self.save!
     end
   end
 

@@ -65,6 +65,6 @@ class Episode < ActiveRecord::Base
   end
 
   def been_reviewed_by?(user)
-    commenters.count(:conditions => {:id => user.id}) > 0
+    !!user && commenters.count(:conditions => {:id => user.id}) > 0
   end
 end

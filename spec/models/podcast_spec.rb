@@ -14,6 +14,10 @@ describe Podcast do
     Factory.create(:podcast_comment, :commentable => @podcast, :commenter => @user)
     @podcast.been_reviewed_by?(@user).should be_true
   end
+
+  it 'should not have_been_reviewed_by? a nil user' do
+    @podcast.been_reviewed_by?(nil).should be_false
+  end
 end
 #   before(:each) do
 #     mock_feed("#{RAILS_ROOT}/spec/data/example.xml")

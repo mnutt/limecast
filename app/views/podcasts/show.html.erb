@@ -116,7 +116,7 @@
       <%= render :partial => 'comments/comments', :object => @podcast, :locals => {:short => true} -%>
     </ul>
     <%= link_to "All #{@podcast.comments.count} reviews", podcast_reviews_url(@podcast), :class => 'all_reviews' -%>
-    <% if show_add_form?(@podcast) %>
+    <% if show_add_comment?(@podcast) %>
       <%= render :partial => 'comments/add_comment', :object => @podcast -%>
     <% end %>
     <% reset_cycle('row_class') %>

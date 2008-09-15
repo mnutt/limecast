@@ -8,13 +8,7 @@
     </p>
   <% else -%>
     <% commentable.comments.each do |comment| -%>
-      <% if comment.commenter == current_user -%>
-        <% form_for comment, :url => comment_url(comment), :method => :put do |f| -%>
-          <%= render :partial => 'comments/comment_form', :locals => {:commentable => comment, :options => options, :f => f} -%>
-        <% end -%>
-      <% else -%>
-        <%= render :partial => 'comments/comment', :object => comment -%>
-      <% end -%>
+      <%= render :partial => 'comments/comment', :object => comment -%>
     <% end -%>
   <% end -%>
 </div>

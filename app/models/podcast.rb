@@ -59,6 +59,7 @@ class Podcast < ActiveRecord::Base
   state :failed
 
   before_create :sanitize_title
+  after_create  :distribute_point
 
   async_after_create do |p|
     p.async_after_create
@@ -278,5 +279,14 @@ class Podcast < ActiveRecord::Base
 
   def been_reviewed_by?(user)
     !!user && commenters.count(:conditions => {:id => user.id}) > 0
+  end
+
+  protected
+
+  def distribute_point
+    return if user.nil?
+
+    self.user.score += 1
+    self.user.save
   end
 end

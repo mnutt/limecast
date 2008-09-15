@@ -1,10 +1,36 @@
-# require File.dirname(__FILE__) + '/../spec_helper'
-# 
-# # Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead.
-# # Then, you can remove it from this and the functional test.
-# include AuthenticatedTestHelper
-# 
-# describe User do
+require File.dirname(__FILE__) + '/../spec_helper'
+
+# Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead.
+# Then, you can remove it from this and the functional test.
+include AuthenticatedTestHelper
+
+describe User do
+  before do
+    @user = Factory.create(:user)
+  end
+
+  describe 'commenting on an Episode' do
+    it 'should increase score' do
+      lambda do
+        Factory.create(:episode_comment, :commenter => @user)
+      end.should change { @user.score }.by(1)
+    end
+  end
+  describe 'commenting on a Podcast' do
+    it 'should increase score' do
+      lambda do
+        Factory.create(:podcast_comment, :commenter => @user)
+      end.should change { @user.score }.by(1)
+    end
+  end
+  describe 'adding a Podcast' do
+    it 'should increase score' do
+      lambda do
+        Factory.create(:podcast, :user => @user)
+      end.should change { @user.score }.by(1)
+    end
+  end
+end
 #   fixtures :users
 # 
 #   describe 'being created' do

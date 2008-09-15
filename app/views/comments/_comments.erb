@@ -7,6 +7,14 @@
       <span class="notice">There are no comments yet.</span>
     </p>
   <% else -%>
-    <%= render :partial => 'comments/comment', :collection => commentable.comments -%>
+    <% commentable.comments.each do |comment| -%>
+      <% if comment.commenter == current_user -%>
+        <% form_for comment, :url => comment_url(comment), :method => :put do |f| -%>
+          <%= render :partial => 'comments/comment_form', :locals => {:commentable => comment, :options => options, :f => f} -%>
+        <% end -%>
+      <% else -%>
+        <%= render :partial => 'comments/comment', :object => comment -%>
+      <% end -%>
+    <% end -%>
   <% end -%>
 </div>

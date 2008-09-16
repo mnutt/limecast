@@ -27,7 +27,7 @@ class Episode < ActiveRecord::Base
   has_attached_file :thumbnail, :whiny_thumbnails => true,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png] }
-  has_many :comments, :as => :commentable, :dependent => :destroy
+  has_many :comments, :dependent => :destroy
   has_many :commenters, :through => :comments
 
   validates_presence_of :podcast_id, :published_at

@@ -37,8 +37,6 @@ class Podcast < ActiveRecord::Base
   belongs_to :user
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
-  has_many :comments, :as => :commentable, :conditions => "comments.user_id IS NOT NULL", :dependent => :destroy
-  has_many :commenters, :through => :comments
 
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
 
@@ -89,8 +87,6 @@ class Podcast < ActiveRecord::Base
   #   indexes owner.login, :as => :owner
   #   indexes episodes.title, :as => :episode_title
   #   indexes episodes.summary, :as => :episode_summary
-  #   indexes comments.title, :as => :comment_title
-  #   indexes comments.body, :as => :comment_body
 
   #   has :created_at, :state
   # end
@@ -278,7 +274,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def been_reviewed_by?(user)
-    !!user && commenters.count(:conditions => {:id => user.id}) > 0
+    self.episodes.last.been_reviewed_by?(user)
   end
 
   protected

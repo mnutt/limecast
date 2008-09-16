@@ -11,7 +11,7 @@ describe Episode do
   end
 
   it 'should have been_reviewed_by? a user if they commented on an episode' do
-    Factory.create(:episode_comment, :commentable => @episode, :commenter => @user)
+    Factory.create(:episode_comment, :episode => @episode, :commenter => @user)
     @episode.been_reviewed_by?(@user).should be_true
   end
 

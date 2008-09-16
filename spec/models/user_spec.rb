@@ -16,13 +16,7 @@ describe User do
       end.should change { @user.score }.by(1)
     end
   end
-  describe 'commenting on a Podcast' do
-    it 'should increase score' do
-      lambda do
-        Factory.create(:podcast_comment, :commenter => @user)
-      end.should change { @user.score }.by(1)
-    end
-  end
+
   describe 'adding a Podcast' do
     it 'should increase score' do
       lambda do

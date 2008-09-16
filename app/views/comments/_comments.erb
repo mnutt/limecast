@@ -1,13 +1,13 @@
-<% commentable = comments -%>
+<% episode = comments -%>
 <% options ||= {} -%>
 
 <div id="comments_list">
-  <% if commentable.comments.empty? -%>
+  <% if episode.comments.empty? -%>
     <p>
       <span class="notice">There are no comments yet.</span>
     </p>
   <% else -%>
-    <% commentable.comments.each do |comment| -%>
+    <% episode.comments.each do |comment| -%>
       <%= render :partial => 'comments/comment', :object => comment -%>
     <% end -%>
   <% end -%>

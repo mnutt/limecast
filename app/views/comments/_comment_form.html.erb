@@ -1,5 +1,7 @@
 <% options ||= {} -%>
 
+<% f.hidden_field :episode_id -%>
+
 <div class="field">
   <%= f.label :title -%>
   <div>
@@ -13,9 +15,6 @@
     <%= f.text_area :body, :class => "text#{ ' full' if options[:width] == 'full' }", :rows => '10' -%>
   </div>
 </div>
-
-<%= f.hidden_field :commentable_id, :value => commentable.id -%>
-<%= f.hidden_field :commentable_type, :value => commentable.class.to_s -%>
 
 <div class="align">
   Podcast Rating: 

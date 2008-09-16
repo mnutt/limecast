@@ -59,15 +59,8 @@ class CommentsController < ApplicationController
           session.data[:comments] << @comment.id
         end
 
-
         flash[:notice] = 'Comment was successfully added.'
-        format.html {
-          if @comment.commentable.class == Episode
-            redirect_to episode_url(@comment.commentable.podcast, @comment.commentable)
-          else
-            redirect_to url_for([@comment.commentable])
-          end
-        }
+        format.html { redirect_to episode_url(@comment.episode.podcast, @comment.episode) }
         format.js { render :partial => 'comments/comment', :object => @comment }
         format.xml  { render :xml => @comment, :status => :created, :location => @comment }
       else

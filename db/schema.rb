@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080915183845) do
+ActiveRecord::Schema.define(:version => 20080916195606) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -19,13 +19,12 @@ ActiveRecord::Schema.define(:version => 20080915183845) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
-    t.string   "commentable_type"
-    t.integer  "commentable_id"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
     t.boolean  "positive"
+    t.integer  "episode_id"
   end
 
   create_table "episodes", :force => true do |t|

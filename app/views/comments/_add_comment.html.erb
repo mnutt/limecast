@@ -1,6 +1,6 @@
 <% commentable = add_comment -%>
 <% options ||= {} -%>
 
-<% remote_form_for(:comment, :update => 'comments_list', :position => :bottom, :url => comments_url) do |f| -%>
+<% form_for :comment, :url => comments_url do |f| -%>
   <%= render :partial => "comments/comment_form", :locals => {:commentable => commentable, :options => options, :f => f} %>
 <% end -%>

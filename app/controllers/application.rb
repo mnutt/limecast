@@ -1,5 +1,6 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
+require 'thinking_sphinx' # HACK: fix weird TS require issues
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
@@ -29,8 +30,8 @@ class ApplicationController < ActionController::Base
     end
 
     rescue_from CGI::Session::CookieStore::TamperedWithCookie, :with => :tampered_cookie
-    # rescue_from ThinkingSphinx::ConnectionError,
-    #             Riddle::ResponseError,                         :with => :sphinx_error
+    rescue_from ThinkingSphinx::ConnectionError,
+                Riddle::ResponseError,                         :with => :sphinx_error
     rescue_from Forbidden,                                     :with => :redirect_with_forbidden
     rescue_from Unauthenticated,                               :with => :redirect_with_unauthenticated
     rescue_from ActionController::InvalidAuthenticityToken,    :with => :redirect_with_unauthenticated

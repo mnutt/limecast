@@ -5,6 +5,7 @@ require "#{root_path}/config/environment.rb"
 Podcast.find(:all, :conditions => {:state => "parsed"}).each do |podcast|
   begin
     puts "Getting episodes for #{podcast.title}"
+    podcast.retrieve_feed
     podcast.retrieve_podcast_info_from_feed
     podcast.retrieve_episodes_from_feed
     podcast.download_logo

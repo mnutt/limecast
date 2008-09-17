@@ -14,9 +14,11 @@
   <% end -%>
   <p>
     <%=h comment.body -%>
-    <% "link_to '#', review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink'" -%>
-    <% if show_edit_comment?(comment) %>
-      <% "link_to 'edit', edit_review_url(:podcast => comment.episode.podcast.title, :id => comment.id), :title => 'permalink'" -%>
+    <% unless comment.id.nil? %>
+      <%= link_to '#', review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%>
+      <% if show_edit_comment?(comment) %>
+        <%= link_to 'edit', edit_review_url(:podcast => comment.episode.podcast.to_param, :id => comment), :title => 'permalink' -%>
+      <% end %>
     <% end %>
   </p>
 </li>

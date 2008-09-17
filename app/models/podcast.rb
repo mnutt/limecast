@@ -87,8 +87,6 @@ class Podcast < ActiveRecord::Base
     indexes owner.login, :as => :owner
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary
-    indexes comments.title, :as => :comment_title
-    indexes comments.body, :as => :comment_body
 
     has :created_at, :state
   end

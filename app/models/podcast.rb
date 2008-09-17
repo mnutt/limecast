@@ -37,8 +37,6 @@ class Podcast < ActiveRecord::Base
   belongs_to :user
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
-  has_many :comments, :as => :commentable, :conditions => "comments.user_id IS NOT NULL", :dependent => :destroy
-  has_many :commenters, :through => :comments
 
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
 
@@ -59,6 +57,7 @@ class Podcast < ActiveRecord::Base
   state :failed
 
   before_create :sanitize_title
+  after_create  :distribute_point
 
   async_after_create do |p|
     p.async_after_create
@@ -82,17 +81,17 @@ class Podcast < ActiveRecord::Base
     end
   end
 
-  # define_index do
-  #   indexes :title, :site, :description
-  #   indexes user.login, :as => :user
-  #   indexes owner.login, :as => :owner
-  #   indexes episodes.title, :as => :episode_title
-  #   indexes episodes.summary, :as => :episode_summary
-  #   indexes comments.title, :as => :comment_title
-  #   indexes comments.body, :as => :comment_body
+  define_index do
+    indexes :title, :site, :description
+    indexes user.login, :as => :user
+    indexes owner.login, :as => :owner
+    indexes episodes.title, :as => :episode_title
+    indexes episodes.summary, :as => :episode_summary
+    indexes comments.title, :as => :comment_title
+    indexes comments.body, :as => :comment_body
 
-  #   has :created_at, :state
-  # end
+    has :created_at, :state
+  end
 
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
 
@@ -277,6 +276,15 @@ class Podcast < ActiveRecord::Base
   end
 
   def been_reviewed_by?(user)
-    commenters.count(:conditions => {:id => user.id}) > 0
+    self.episodes.last.been_reviewed_by?(user)
+  end
+
+  protected
+
+  def distribute_point
+    return if user.nil?
+
+    self.user.score += 1
+    self.user.save
   end
 end

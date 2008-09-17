@@ -15,17 +15,27 @@
 #
 
 class Comment < ActiveRecord::Base
-  belongs_to :commentable, :polymorphic => true
+  belongs_to :episode
   belongs_to :commenter, :class_name => 'User', :foreign_key => 'user_id'
+
+  after_create :distribute_point
 
   named_scope :newer_than, lambda {|who| {:conditions => ["comments.created_at >= (?)", who.created_at]} }
   named_scope :without, lambda {|who| {:conditions => ["comments.id NOT IN (?)", who.id]} }
 
   def editable?
-    self.commentable.
+    self.episode.
       comments.
       newer_than(self).
       without(self).
       count < 1
   end
+
+  protected
+
+  def distribute_point
+    self.commenter.score += 1
+    self.commenter.save
+  end
+
 end

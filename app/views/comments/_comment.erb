@@ -14,9 +14,9 @@
   <% end -%>
   <p>
     <%=h comment.body -%>
-    <%= link_to '#', review_url(:podcast => comment.commentable, :id => comment), :title => 'permalink' -%>
-    <% if show_edit_link?(comment) %>
-      <%= link_to 'edit', edit_review_url(:podcast => comment.commentable, :id => comment), :title => 'permalink' -%>
+    <% "link_to '#', review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink'" -%>
+    <% if show_edit_comment?(comment) %>
+      <% "link_to 'edit', edit_review_url(:podcast => comment.episode.podcast.title, :id => comment.id), :title => 'permalink'" -%>
     <% end %>
   </p>
 </li>

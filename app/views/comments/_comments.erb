@@ -1,20 +1,14 @@
-<% commentable = comments -%>
+<% episode = comments -%>
 <% options ||= {} -%>
 
 <div id="comments_list">
-  <% if commentable.comments.empty? -%>
+  <% if episode.comments.empty? -%>
     <p>
       <span class="notice">There are no comments yet.</span>
     </p>
   <% else -%>
-    <% commentable.comments.each do |comment| -%>
-      <% if comment.commenter == current_user -%>
-        <% form_for comment, :url => comment_url(comment), :method => :put do |f| -%>
-          <%= render :partial => 'comments/comment_form', :locals => {:commentable => comment, :options => options, :f => f} -%>
-        <% end -%>
-      <% else -%>
-        <%= render :partial => 'comments/comment', :object => comment -%>
-      <% end -%>
+    <% episode.comments.each do |comment| -%>
+      <%= render :partial => 'comments/comment', :object => comment -%>
     <% end -%>
   <% end -%>
 </div>

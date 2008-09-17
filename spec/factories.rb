@@ -3,8 +3,8 @@
 
 Factory.define :podcast do |p|
   p.title    'Podcast'
-  p.site     'http://podcasts.example.com'
-  p.feed_url 'http://podcasts.example.com/feed.xml'
+  p.site     { Factory.next :site }
+  p.feed_url { "#{Factory.next :site}/feed.xml" }
 end
 
 Factory.define :episode do |e|
@@ -19,6 +19,9 @@ Factory.sequence :login do |n|
 end
 Factory.sequence :email do |n|
   "tester#{n}@podcasts.example.com"
+end
+Factory.sequence :site do |n|
+  "http://myp#{'o'*n}dcast.com"
 end
 
 Factory.define :user do |u|
@@ -37,13 +40,8 @@ Factory.define :admin_user, :class => User do |u|
   u.admin true
 end
 
-Factory.define :podcast_comment, :class => Comment do |c|
-  c.association :commenter, :factory => :user
-  c.association :commentable, :factory => :podcast
-end
-
 Factory.define :episode_comment, :class => Comment do |c|
   c.association :commenter, :factory => :user
-  c.association :commentable, :factory => :podcast
+  c.association :episode, :factory => :episode
 end
 

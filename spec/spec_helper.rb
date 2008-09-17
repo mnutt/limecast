@@ -8,6 +8,7 @@ require 'spec'
 require 'spec/rails'
 require 'scenarios'
 require 'factory_girl'
+require 'thinking_sphinx'
 
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
@@ -115,9 +116,9 @@ end
 Spec::Example::ExampleGroupFactory.register(:plugin, Spec::Rails::Example::PluginExampleGroup)
 
 
-# # Stub out ThinkingSphinx
-# module ThinkingSphinx::ActiveRecord
-#   def in_core_index?
-#     false
-#   end
-# end
+# Stub out ThinkingSphinx
+module ThinkingSphinx::ActiveRecord
+  def in_core_index?
+    false
+  end
+end

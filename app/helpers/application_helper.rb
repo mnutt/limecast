@@ -5,7 +5,10 @@ module ApplicationHelper
   end
 
   def link_to_profile(user)
-    link_to "<span>#{h(user.login)}</span>", user_url(user), :class => 'icon user'
+    link_text = h(user.login)
+    link_text += " (#{user.score})" unless user.podcaster?
+
+    link_to "<span>#{link_text}</span>", user_url(user), :class => 'icon user'
   end
 
   def link_to_thing(thing)

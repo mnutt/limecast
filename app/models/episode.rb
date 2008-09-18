@@ -67,4 +67,8 @@ class Episode < ActiveRecord::Base
   def been_reviewed_by?(user)
     !!user && commenters.count(:conditions => {:id => user.id}) > 0
   end
+
+  def open_for_comments?
+    self.podcast.last_episode == self
+  end
 end

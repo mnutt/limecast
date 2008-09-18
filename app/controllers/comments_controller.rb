@@ -93,7 +93,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to(comments_url) }
+      format.html { redirect_to episode_url(@comment.episode.podcast, @comment.episode) }
       format.xml  { head :ok }
     end
   end

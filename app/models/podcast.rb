@@ -202,11 +202,13 @@ class Podcast < ActiveRecord::Base
   end
 
   def first_episode
-    self.episodes.find(:first, :order => 'published_at ASC')
+    self.episodes.reload
+    self.episodes.first
   end
 
   def last_episode
-    self.episodes.find(:first, :order => 'published_at DESC')
+    self.episodes.reload
+    self.episodes.last
   end
 
   def to_param
@@ -271,10 +273,6 @@ class Podcast < ActiveRecord::Base
 
   def writable_by?(user)
     user and (self.user_id == user.id || self.owner_id == user.id || user.admin?)
-  end
-
-  def been_reviewed_by?(user)
-    self.episodes.last.been_reviewed_by?(user)
   end
 
   protected

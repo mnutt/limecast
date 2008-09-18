@@ -17,7 +17,8 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_title(params[:podcast]) or raise ActiveRecord::RecordNotFound
     @episodes = @podcast.episodes.find(:all, :limit => 3)
 
-    @comment = @podcast.episodes.last.comments.build
+    @comments = @podcast.last_episode.comments
+    @comment  = @podcast.last_episode.comments.build
 
     respond_to do |format|
       format.html # show.html.erb

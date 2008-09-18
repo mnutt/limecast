@@ -113,10 +113,10 @@
   <div class="reviews">
     <h3>Reviews</h3>
     <ul class="reviews">
-      <%= render :partial => 'comments/comments', :object => @podcast, :locals => {:short => true} -%>
+      <%= render :partial => 'comments/comments', :object => @podcast.last_episode, :locals => {:short => true} -%>
     </ul>
-    <%= link_to "All #{@podcast.comments.count} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
-    <% unless @podcast.episode.been_reviewed_by?(current_user) %>
+    <%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
+    <% unless @podcast.last_episode.been_reviewed_by?(current_user) %>
       <%= render :partial => 'comments/add_comment', :object => @podcast -%>
     <% end %>
     <% reset_cycle('row_class') %>

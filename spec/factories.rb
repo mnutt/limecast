@@ -40,7 +40,7 @@ Factory.define :admin_user, :class => User do |u|
   u.admin true
 end
 
-Factory.define :episode_comment, :class => Comment do |c|
+Factory.define :comment, :class => Comment do |c|
   c.association :commenter, :factory => :user
   c.association :episode, :factory => :episode
 end

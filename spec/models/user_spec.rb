@@ -12,7 +12,7 @@ describe User do
   describe 'commenting on an Episode' do
     it 'should increase score' do
       lambda do
-        Factory.create(:episode_comment, :commenter => @user)
+        Factory.create(:comment, :commenter => @user)
       end.should change { @user.score }.by(1)
     end
   end

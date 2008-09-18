@@ -24,11 +24,7 @@ class Comment < ActiveRecord::Base
   named_scope :without, lambda {|who| {:conditions => ["comments.id NOT IN (?)", who.id]} }
 
   def editable?
-    self.episode.
-      comments.
-      newer_than(self).
-      without(self).
-      count < 1
+    self.episode.open_for_comments?
   end
 
   protected

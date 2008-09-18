@@ -44,8 +44,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.podcast          '/:podcast',                  :controller => 'podcasts', :action => 'show'
   map.podcast_episodes '/:podcast/episodes',         :controller => 'episodes', :action => 'index'
-  map.podcast_reviews  '/:podcast/reviews',          :controller => 'comments', :action => 'index'
-  map.review           '/:podcast/reviews/:id',      :controller => 'comments', :action => 'show'
+
+  map.resource :review, :controller => 'comments', :path_prefix => '/:podcast'
+
   map.edit_review      '/:podcast/reviews/:id/edit', :controller => 'comments', :action => 'edit'
   map.episode          '/:podcast/:episode',         :controller => 'episodes', :action => 'show'
 end

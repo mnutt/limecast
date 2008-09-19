@@ -22,6 +22,9 @@ class Comment < ActiveRecord::Base
 
   named_scope :newer_than, lambda {|who| {:conditions => ["comments.created_at >= (?)", who.created_at]} }
   named_scope :without, lambda {|who| {:conditions => ["comments.id NOT IN (?)", who.id]} }
+  named_scope :for_podcast, lambda {|podcast| {:conditions => {:episode_id => podcast.episodes.map(&:id)}} }
+  named_scope :that_are_positive, :conditions => {:positive => true}
+  named_scope :that_are_negative, :conditions => {:positive => false}
 
   def editable?
     self.episode.open_for_comments?

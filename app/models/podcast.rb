@@ -211,6 +211,10 @@ class Podcast < ActiveRecord::Base
     self.episodes.last
   end
 
+  def comments
+    Comment.for_podcast(self)
+  end
+
   def to_param
     clean_title
   end

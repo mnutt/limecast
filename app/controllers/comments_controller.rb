@@ -4,12 +4,8 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.xml
   def index
-    if params[:podcast]
-      @podcast = Podcast.find_by_clean_title(params[:podcast])
-      @comments = @podcast.comments.find(:all)
-    else
-      @comments = Comment.find(:all)
-    end
+    @podcast = Podcast.find_by_clean_title(params[:podcast])
+    @comments = filter(@podcast.comments, params[:filter])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -97,4 +93,15 @@ class CommentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  protected
+
+  def filter(comments, f)
+    case f
+    when "positive": comments.that_are_positive
+    when "negative": comments.that_are_negative
+    else comments
+    end
+  end
+
 end

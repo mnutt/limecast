@@ -1,21 +1,21 @@
-  <div class="status_message">
-    <% if @podcast.state == "failed" -%>
-      <%= @podcast.feed_error -%>
-    <% else -%>
-      <% if session.data[:podcasts] and session.data[:podcasts].include?(@podcast.id) -%>
-	Yum! I've added <%= link_to_thing(@podcast) -%>
-	<% if @podcast.respond_to?(:owner) and @podcast.owner -%>
-	  <% if current_user and @podcast.owner == current_user -%>
-            by you, <%= link_to_profile(@podcast.owner) -%>. More please
-	  <% else -%>
-            by <%= link_to_profile(@podcast.owner) -%>. You get +1 point 
-            and a link for finding it. More please
-	  <% end -%>
-	<% else -%>
-	  and emailed <%= @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. More please
-	<% end -%>
+<div class="status_message">
+  <% if @podcast.state == "failed" -%>
+    <%= @podcast.feed_error -%>
+  <% else -%>
+    <% if session.data[:podcasts] and session.data[:podcasts].include?(@podcast.id) -%>
+      Yum! I've added <%= link_to_thing(@podcast) -%>
+      <% if @podcast.respond_to?(:owner) and @podcast.owner -%>
+        <% if current_user and @podcast.owner == current_user -%>
+          by you, <%= link_to_profile(@podcast.owner) -%>. More please
+        <% else -%>
+          by <%= link_to_profile(@podcast.owner) -%>. You get +1 point 
+          and a link for finding it. More please
+        <% end -%>
       <% else -%>
-	I've already got <%= link_to_thing(@podcast) -%>!  Try again
+        and emailed <%= @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. More please
       <% end -%>
+    <% else -%>
+      I've already got <%= link_to_thing(@podcast) -%>!  Try again
     <% end -%>
-  </div>
+  <% end -%>
+</div>

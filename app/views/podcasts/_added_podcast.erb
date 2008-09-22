@@ -6,16 +6,16 @@
       Yum! I've added <%= link_to_thing(@podcast) -%>
       <% if @podcast.respond_to?(:owner) and @podcast.owner -%>
         <% if current_user and @podcast.owner == current_user -%>
-          by you, <%= link_to_profile(@podcast.owner) -%>. More please
+          by you, <%= link_to_profile(@podcast.owner) -%>. <span class="arrow_down">More please</span>
         <% else -%>
           by <%= link_to_profile(@podcast.owner) -%>. You get +1 point 
-          and a link for finding it. More please
+          and a link for finding it. <span class="arrow_down">More please</span>
         <% end -%>
       <% else -%>
-        and emailed <%= @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. More please
+        and emailed <%= @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. <span class="arrow_down">More please</span>
       <% end -%>
     <% else -%>
-      I've already got <%= link_to_thing(@podcast) -%>!  Try again
+      I've already got <%= link_to_thing(@podcast) -%>! <span class="arrow_down">Try again</span>
     <% end -%>
   <% end -%>
 </div>

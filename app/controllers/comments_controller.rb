@@ -82,6 +82,25 @@ class CommentsController < ApplicationController
     end
   end
 
+  def rate
+    session[:comments_rated] ||= []
+
+    unless session[:comments_rated].include?(params[:id])
+      @comment = Comment.find(params[:id])
+
+      case params[:rating]
+      when /not/
+        @comment.update_attributes(:not_insightful => @comment.not_insightful + 1)
+      when /insightful/
+        @comment.update_attributes(:insightful => @comment.insightful + 1)
+      end
+
+      session[:comments_rated] << params[:id]
+    end
+
+    redirect_to(:back)
+  end
+
   # DELETE /comments/1
   # DELETE /comments/1.xml
   def destroy

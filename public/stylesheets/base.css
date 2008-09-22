@@ -137,11 +137,11 @@ div#header {
   padding: 0 8px;
 }
 div#header div#title {
-  padding: 7px 0 4px 0;
+  padding: 7px 0;
 }
 div#header div#title h1 {
-  width: 188px;
-  height: 23px;
+  width: 82px;
+  height: 20px;
   margin: 0;
   padding: 1px 0 0 0;
   position: relative;
@@ -150,21 +150,21 @@ div#header div#title h1 {
 div#header div#title h1 a {
    background: url("../images/layout/header_title.png") no-repeat left top;
    text-indent: -5000px;
-   width: 188px;
-   height: 23px;
+   width: 82px;
+   height: 20px;
    display: block;
    overflow: hidden;
 }
 div#header div#title h1 a:hover {
-  background-position: left -23px;
+  background-position: left -20px;
 }
 div#header div#title h1 sup {
   background: url("../images/layout/header_label.png") no-repeat left top;
   text-indent: -5000px;
-  width: 96px;
+  width: 35px;
   height: 13px;
   top: -2px;
-  left: 192px;
+  left: 87px;
   position: absolute;
   overflow: hidden;
 }

@@ -70,7 +70,7 @@
       <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
 
       <% if @podcast.episodes.size > 0 -%>
-        since <%= link_to @podcast.first_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.first_episode) -%>
+        since <%= link_to @podcast.episodes.oldest.first.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.episodes.oldest.first) -%>
       <% end -%>
 
       <% if @podcast.episodes.size > 1 -%>

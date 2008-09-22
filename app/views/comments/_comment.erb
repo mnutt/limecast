@@ -16,10 +16,8 @@
     <%=h comment.body -%>
     <% unless comment.id.nil? %>
       <%= link_to '#', review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%>
-      <% if comment.editable? %>
-        <%= link_to 'edit', edit_review_url(:podcast => comment.episode.podcast.to_param, :id => comment) -%>
-        <%= link_to 'delete', review_url(:podcast => comment.episode.podcast.to_param, :id => comment), :method => :delete -%>
-      <% end %>
+      <%= render :partial => 'comments/comment_modify_links', :object => comment -%>
+      <%= render :partial => 'comments/comment_rating_links', :object => comment -%>
     <% end %>
   </p>
 </li>

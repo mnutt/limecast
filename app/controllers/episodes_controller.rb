@@ -21,7 +21,7 @@ class EpisodesController < ApplicationController
     @podcast = Podcast.find_by_clean_title(params[:podcast]) or raise ActiveRecord::RecordNotFound
     @episode = @podcast.episodes.find_by_clean_title(params[:episode]) or raise ActiveRecord::RecordNotFound
 
-    @comment = @episode.comments.build
+    @comment = Comment.new(:episode => @episode)
 
     respond_to do |format|
       format.html # show.html.erb

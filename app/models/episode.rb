@@ -36,6 +36,8 @@ class Episode < ActiveRecord::Base
 
   named_scope :with_same_title_as, lambda {|who| {:conditions => {:podcast_id => who.podcast.id, :clean_title => who.clean_title}} }
   named_scope :without, lambda {|who| who.id.nil? ? {} : {:conditions => ["episodes.id NOT IN (?)", who.id]} }
+  named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at DESC"} }
+  named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at ASC"} }
 
   def generate_url
     base_title = self.published_at.to_date.to_s(:url)
@@ -69,6 +71,6 @@ class Episode < ActiveRecord::Base
   end
 
   def open_for_comments?
-    self.podcast.last_episode == self
+    self.podcast.episodes.newest.first.id == self.id
   end
 end

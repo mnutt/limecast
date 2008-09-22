@@ -17,8 +17,8 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_title(params[:podcast]) or raise ActiveRecord::RecordNotFound
     @episodes = @podcast.episodes.find(:all, :limit => 3)
 
-    @comments = @podcast.last_episode.comments
-    @comment  = @podcast.last_episode.comments.build
+    @comments = with(@podcast.episodes.newest.first) {|ep| ep.nil? ? [] : ep.comments }
+    @comment  = Comment.new(:episode => @podcast.episodes.newest.first)
 
     respond_to do |format|
       format.html # show.html.erb

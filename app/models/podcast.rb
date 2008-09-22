@@ -38,7 +38,7 @@ class Podcast < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
 
-  has_many :episodes, :order => "published_at DESC", :dependent => :destroy
+  has_many :episodes, :dependent => :destroy
 
   attr_accessor :logo_link, :has_episodes
 
@@ -161,7 +161,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def average_time_between_episodes
-    time_span = self.last_episode.published_at - self.first_episode.published_at
+    time_span = self.episodes.newest.first.published_at - self.episodes.oldest.first.published_at
     time_span / self.episodes.count
   end
 
@@ -200,16 +200,6 @@ class Podcast < ActiveRecord::Base
     end
 
     self.title
-  end
-
-  def first_episode
-    self.episodes.reload
-    self.episodes.first
-  end
-
-  def last_episode
-    self.episodes.reload
-    self.episodes.last
   end
 
   def comments

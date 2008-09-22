@@ -62,7 +62,7 @@
 
     <% if @podcast.episodes.size > 0 -%>
       <p class="new_episode">
-        New episode <%= link_to @podcast.last_episode.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.last_episode) -%>
+        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.episodes.newest.first) -%>
       </p>
     <% end -%>
 
@@ -113,10 +113,10 @@
   <div class="reviews">
     <h3>Reviews</h3>
     <ul class="reviews">
-      <%= render :partial => 'comments/comments', :object => @podcast.last_episode, :locals => {:short => true} -%>
+      <%= render :partial => 'comments/comments', :object => @podcast.episodes.newest.first, :locals => {:short => true} -%>
     </ul>
     <%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
-    <% unless @podcast.last_episode.been_reviewed_by?(current_user) %>
+    <% unless @podcast.episodes.newest.first.been_reviewed_by?(current_user) %>
       <%= render :partial => 'comments/add_comment', :object => @podcast -%>
     <% end %>
     <% reset_cycle('row_class') %>

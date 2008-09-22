@@ -1,0 +1,5 @@
+<% comment = comment_modify_links -%>
+<% if comment.editable? && comment.commenter == current_user %>
+  <%= link_to 'Edit', edit_review_url(:podcast => comment.episode.podcast.to_param, :id => comment) -%>
+  <%= link_to 'Delete', review_url(:podcast => comment.episode.podcast.to_param, :id => comment), :method => :delete -%>
+<% end %>

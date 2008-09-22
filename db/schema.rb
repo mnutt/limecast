@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(:version => 20080922184801) do
     t.string   "title"
     t.boolean  "positive"
     t.integer  "episode_id"
-    t.integer  "insightful"
-    t.integer  "not_insightful"
+    t.integer  "insightful",     :default => 0
+    t.integer  "not_insightful", :default => 0
   end
 
   create_table "episodes", :force => true do |t|

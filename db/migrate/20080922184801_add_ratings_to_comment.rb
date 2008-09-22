@@ -1,7 +1,7 @@
 class AddRatingsToComment < ActiveRecord::Migration
   def self.up
-    add_column :comments, :insightful, :integer
-    add_column :comments, :not_insightful, :integer
+    add_column :comments, :insightful, :integer, :default => 0
+    add_column :comments, :not_insightful, :integer, :default => 0
   end
 
   def self.down

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080916195606) do
+ActiveRecord::Schema.define(:version => 20080922184801) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(:version => 20080916195606) do
     t.string   "title"
     t.boolean  "positive"
     t.integer  "episode_id"
+    t.integer  "insightful"
+    t.integer  "not_insightful"
   end
 
   create_table "episodes", :force => true do |t|

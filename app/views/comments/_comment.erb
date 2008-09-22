@@ -19,8 +19,8 @@
       <% if comment.editable? %>
         <%= link_to 'Edit', edit_review_url(:podcast => comment.episode.podcast.to_param, :id => comment) -%>
         <%= link_to 'Delete', review_url(:podcast => comment.episode.podcast.to_param, :id => comment), :method => :delete -%>
-        <%= link_to 'Insightful', rate_review_url(:podcast => comment.episode.podcast.to_param, :id => comment, :rating => 'insightful') -%>
-        <%= link_to 'Not So Much', rate_review_url(:podcast => comment.episode.podcast.to_param, :id => comment, :rating => 'not_insightful') -%>
+        <%= link_to "Insightful (#{comment.insightful})", rate_review_url(:podcast => comment.episode.podcast.to_param, :id => comment, :rating => 'insightful') -%>
+        <%= link_to "Not So Much (#{comment.not_insightful})", rate_review_url(:podcast => comment.episode.podcast.to_param, :id => comment, :rating => 'not_insightful') -%>
       <% end %>
     <% end %>
   </p>

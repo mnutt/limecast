@@ -7,6 +7,13 @@ Factory.define :podcast do |p|
   p.feed_url { "#{Factory.next :site}/feed.xml" }
 end
 
+Factory.define :parsed_podcast, :class => Podcast do |p|
+  p.title    'Podcast'
+  p.state    'parsed'
+  p.site     { Factory.next :site }
+  p.feed_url { "#{Factory.next :site}/feed.xml" }
+end
+
 Factory.define :episode do |e|
   e.association  :podcast, :factory => :podcast
   e.summary      'This is the first episode of a show! w0000t'

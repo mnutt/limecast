@@ -12,7 +12,7 @@ describe Comment do
   end
 
   it "shouldn't be modifiable if it is on an episode that isnt most recent." do
-    Factory.create(:episode, :podcast => @podcast)
+    Factory.create(:episode, :podcast => @podcast, :published_at => 20.days.from_now)
 
     # Original comment
     @comment.should_not be_editable

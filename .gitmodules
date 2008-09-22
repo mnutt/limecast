@@ -10,3 +10,6 @@
 [submodule "vendor/gems/factory_girl"]
 	path = vendor/gems/factory_girl
 	url = git://github.com/thoughtbot/factory_girl.git
+[submodule "vendor/plugins/acts_as_state_machine"]
+	path = vendor/plugins/acts_as_state_machine
+	url = git://github.com/freels/acts_as_state_machine.git

@@ -16,7 +16,7 @@ class UserMailer < ActionMailer::Base
 
   def reset_password(user)
     setup_email(user)
-    subject    "LimeWire Podcast Directory Reset Password"
+    subject    "LimeCast Reset Password"
 
     body :user => user, :host => FROM_HOST
   end
@@ -24,7 +24,7 @@ class UserMailer < ActionMailer::Base
   protected
     def setup_email(user)
       @recipients  = "#{user.email}"
-      @from        = "LimeWire Podcast Directory <podcasts@limewire.com>"
+      @from        = "LimeCast <podcasts@limewire.com>"
       @sent_on     = Time.now
     end
 end

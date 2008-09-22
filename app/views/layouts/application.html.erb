@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>
-  <%= "#{@title} - " if @title -%> LimeWire Podcast Directory
+  <%= "#{@title} - " if @title -%> LimeCast
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <%= javascript_include_tag 'prototype', 'scriptaculous', 'effects', 'controls', 'dragdrop', 'reflection', 'audio-player', 'application' -%>
@@ -21,18 +21,18 @@
       <div id="header">
         <div id="title">
           <h1>
-            <a href="/">LimeWire Podcast Directory</a>
-            <sup>Pre-Release Alpha</sup>
+            <a href="/">LimeCast</a>
+            <sup>Alpha</sup>
           </h1>
         </div>
         <div id="account_bar">
           <ul>
             <li class="add_podcast">
-	      <% if @new_podcast -%>
-		<span>Add podcast</span>
-	      <% else -%>
-		<%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon add' %>
-	      <% end -%>
+            <% if @new_podcast -%>
+              <span>Add podcast</span>
+            <% else -%>
+              <%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon add' %>
+            <% end -%>
             </li>
             <li class="search">
               <% form_for :search, :url => search_url do |form| -%>
@@ -63,9 +63,9 @@
       <div id="body">
 
         <div id="sidebar">
-	  <% if @show_ads -%>
-            <%= @ads -%>
-	  <% end -%>
+        <% if @show_ads -%>
+          <%= @ads -%>
+        <% end -%>
         </div>
 
         <div id="primary">

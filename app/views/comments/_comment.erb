@@ -17,8 +17,10 @@
     <% unless comment.id.nil? %>
       <%= link_to '#', review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%>
       <% if comment.editable? %>
-        <%= link_to 'edit', edit_review_url(:podcast => comment.episode.podcast.to_param, :id => comment) -%>
-        <%= link_to 'delete', review_url(:podcast => comment.episode.podcast.to_param, :id => comment), :method => :delete -%>
+        <%= link_to 'Edit', edit_review_url(:podcast => comment.episode.podcast.to_param, :id => comment) -%>
+        <%= link_to 'Delete', review_url(:podcast => comment.episode.podcast.to_param, :id => comment), :method => :delete -%>
+        <%= link_to 'Insightful', rate_review_url(:podcast => comment.episode.podcast.to_param, :id => comment, :rating => 'insightful') -%>
+        <%= link_to 'Not So Much', rate_review_url(:podcast => comment.episode.podcast.to_param, :id => comment, :rating => 'not_insightful') -%>
       <% end %>
     <% end %>
   </p>

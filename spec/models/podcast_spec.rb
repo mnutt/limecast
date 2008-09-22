@@ -5,35 +5,30 @@ describe Podcast do
     @podcast = Factory.create(:podcast)
     @user    = Factory.create(:user)
   end
+
+  it "should be valid" do
+    @podcast.should be_valid
+  end
+
+  it 'should have a logo' do
+    @file = PaperClipFile.new
+    @podcast.attachment_for(:logo).assign(@file)
+    @podcast.logo.should_not be_nil
+  end
+
+  it 'should be taggable' do
+    @podcast.tag_list = "hi"
+    @podcast.save
+    @podcast.tags.size.should == 1
+  end
+
+  it 'should have a param with the name in it' do
+    @podcast.state = 'parsed'
+    @podcast.generate_url
+    @podcast.clean_title.should == "Podcast"
+  end
 end
-#   before(:each) do
-#     mock_feed("#{RAILS_ROOT}/spec/data/example.xml")
-#     @podcast = Podcast.new(:feed_url => "http://defaultfeed/index.rss",
-#                            :title => "My Podcast",
-#                            :state => "parsed")
-#   end
-# 
-#   it "should be valid" do
-#     @podcast.should be_valid
-#   end
-# 
-#   it 'should have a logo' do
-#     @file = PaperClipFile.new
-#     @podcast.attachment_for(:logo).assign(@file)
-#     @podcast.logo.should_not be_nil
-#   end
-# 
-#   it 'should be taggable' do
-#     @podcast.tag_list = "hi"
-#     @podcast.save
-#     @podcast.tags.size.should == 1
-#   end
-# 
-#   it 'should have a param with the name in it' do
-#     @podcast.generate_url
-#     @podcast.to_param.should == "My-Podcast"
-#   end
-# end
+
 # 
 # describe Podcast, "creating a new podcast" do
 #   before do

@@ -13,3 +13,6 @@
 [submodule "vendor/plugins/acts_as_state_machine"]
 	path = vendor/plugins/acts_as_state_machine
 	url = git://github.com/freels/acts_as_state_machine.git
+[submodule "vendor/plugins/jrails"]
+	path = vendor/plugins/jrails
+	url = git://github.com/aaronchi/jrails.git

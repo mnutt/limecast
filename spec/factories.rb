@@ -20,6 +20,9 @@ Factory.define :episode do |e|
   e.association  :podcast, :factory => :podcast
   e.summary      'This is the first episode of a show! w0000t'
   e.title        'Episode One'
+  e.clean_title  '2008-Aug-1'
+  e.duration     60
+
   e.published_at Time.parse("Aug 1, 2008")
 end
 

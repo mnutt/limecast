@@ -1,15 +1,11 @@
-# require File.dirname(__FILE__) + '/../spec_helper'
-# 
+require File.dirname(__FILE__) + '/../spec_helper'
+
 # describe EpisodesController do
-#   describe "handling GET /episodes" do
+#   describe "handling GET /:podcast/episodes" do
 # 
 #     before(:each) do
-#       @episode = mock_model(Episode)
-#       Episode.stub!(:find).and_return([@episode])
-#     end
-#   
-#     def do_get
-#       get :index
+#       @episode = Factory.create(:episode)
+#       @podcast = @episode.podcast
 #     end
 #   
 #     it "should be successful" do
@@ -32,6 +28,9 @@
 #       assigns[:episodes].should == [@episode]
 #     end
 #   end
+# end
+
+
 # 
 #   describe "handling GET /episodes.xml" do
 # 

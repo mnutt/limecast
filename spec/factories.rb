@@ -5,6 +5,8 @@ Factory.define :podcast do |p|
   p.title    'Podcast'
   p.site     { Factory.next :site }
   p.feed_url { "#{Factory.next :site}/feed.xml" }
+
+  p.clean_title { Factory.next :title }
 end
 
 Factory.define :parsed_podcast, :class => Podcast do |p|
@@ -29,6 +31,9 @@ Factory.sequence :email do |n|
 end
 Factory.sequence :site do |n|
   "http://myp#{'o'*n}dcast.com"
+end
+Factory.sequence :title do |n|
+  "P#{'o'*n}dcast"
 end
 
 Factory.define :user do |u|

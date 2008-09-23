@@ -1,34 +1,38 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-# describe EpisodesController do
-#   describe "handling GET /:podcast/episodes" do
-# 
-#     before(:each) do
-#       @episode = Factory.create(:episode)
-#       @podcast = @episode.podcast
-#     end
-#   
-#     it "should be successful" do
-#       do_get
-#       response.should be_success
-#     end
-# 
-#     it "should render index template" do
-#       do_get
-#       response.should render_template('index')
-#     end
-#   
-#     it "should find all episodes" do
-#       Episode.should_receive(:find).with(:all).and_return([@episode])
-#       do_get
-#     end
-#   
-#     it "should assign the found episodes for the view" do
-#       do_get
-#       assigns[:episodes].should == [@episode]
-#     end
-#   end
-# end
+describe EpisodesController do
+  describe "handling GET /:podcast/episodes" do
+
+    before(:each) do
+      @episode = Factory.create(:episode)
+      @podcast = @episode.podcast
+    end
+
+    def do_get(title)
+      get :index, :podcast => title
+    end
+  
+    it "should be successful" do
+      do_get(@podcast.clean_title)
+      response.should be_success
+    end
+
+    it "should render index template" do
+      do_get(@podcast.clean_title)
+      response.should render_template('index')
+    end
+  
+    it "should find all episodes" do
+      Episode.should_receive(:find).and_return([@episode])
+      do_get(@podcast.clean_title)
+    end
+  
+    it "should assign the found episodes for the view" do
+      do_get(@podcast.clean_title)
+      assigns[:episodes].should == [@episode]
+    end
+  end
+end
 
 
 # 

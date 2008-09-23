@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe EpisodesController do
-  describe "handling GET /:podcast/episodes" do
-    before(:each) do
-      @episode = Factory.create(:episode)
-      @podcast = @episode.podcast
-    end
+  before(:each) do
+    @episode = Factory.create(:episode)
+    @podcast = @episode.podcast
+  end
 
+  describe "handling GET /:podcast/episodes" do
     def do_get(podcast)
       get :index, :podcast => podcast
     end
@@ -33,11 +33,6 @@ describe EpisodesController do
   end
 
   describe "handling GET /:podcast/:episode" do
-    before(:each) do
-      @episode = Factory.create(:episode)
-      @podcast = @episode.podcast
-    end
-  
     def do_get(podcast, episode)
       get :show, :podcast => podcast, :episode => episode
     end
@@ -58,33 +53,24 @@ describe EpisodesController do
     end
   end
 
-end
-# 
-# 
-#   describe "handling DELETE /episodes/1" do
-# 
-#     before(:each) do
-#       @episode = mock_model(Episode, :destroy => true)
-#       Episode.stub!(:find).and_return(@episode)
-#     end
-#   
-#     def do_delete
-#       delete :destroy, :id => "1"
+#   describe "handling DELETE /:podcast/:episodes" do
+#     def do_get(podcast, episode)
+#       get :destroy, :podcast => podcast, :episode => episode
 #     end
 # 
 #     it "should find the episode requested" do
-#       Episode.should_receive(:find).with("1").and_return(@episode)
-#       do_delete
+#       Episode.should_receive(:find).and_return(@episode)
+#       do_get(@podcast.clean_title, @episode.clean_title)
 #     end
 #   
 #     it "should call destroy on the found episode" do
 #       @episode.should_receive(:destroy)
-#       do_delete
+#       do_get(@podcast.clean_title, @episode.clean_title)
 #     end
 #   
 #     it "should redirect to the episodes list" do
-#       do_delete
+#       do_get(@podcast.clean_title, @episode.clean_title)
 #       response.should redirect_to(episodes_url)
 #     end
 #   end
-# end
+end

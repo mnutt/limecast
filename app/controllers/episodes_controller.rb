@@ -8,11 +8,6 @@ class EpisodesController < ApplicationController
     else
       @episodes = Episode.find(:all)
     end
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @episodes }
-    end
   end
 
   # GET /episodes/1
@@ -22,11 +17,6 @@ class EpisodesController < ApplicationController
     @episode = @podcast.episodes.find_by_clean_title(params[:episode]) or raise ActiveRecord::RecordNotFound
 
     @comment = Comment.new(:episode => @episode)
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @episode }
-    end
   end
 
   # DELETE /episodes/1
@@ -36,10 +26,5 @@ class EpisodesController < ApplicationController
 
     @episode = Episode.find(params[:id])
     @episode.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(episodes_url) }
-      format.xml  { head :ok }
-    end
   end
 end

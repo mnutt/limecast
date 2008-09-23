@@ -32,38 +32,40 @@ describe EpisodesController do
       assigns[:episodes].should == [@episode]
     end
   end
+
+
+  describe "handling GET /episodes.xml" do
+
+    before(:each) do
+      @episode = Factory.create(:episode)
+      @podcast = @episode.podcast
+
+      @episode.stub!(:to_xml).and_return("XML")
+    end
+
+    def do_get(title)
+      @request.env["HTTP_ACCEPT"] = "application/xml"
+      get :index, :podcast => title
+    end
+  
+    it "should be successful" do
+      do_get(@podcast.clean_title)
+      response.should be_success
+    end
+
+    it "should find all episodes" do
+      Episode.should_receive(:find).and_return(@episodes)
+      do_get(@podcast.clean_title)
+    end
+  
+    it "should render the found episodes as xml" do
+      @episodes.should_receive(:to_xml).and_return("XML")
+      do_get(@podcast.clean_title)
+      response.body.should == "XML"
+    end
+  end
+
 end
-
-
-# 
-#   describe "handling GET /episodes.xml" do
-# 
-#     before(:each) do
-#       @episodes = mock("Array of Episodes", :to_xml => "XML")
-#       Episode.stub!(:find).and_return(@episodes)
-#     end
-#   
-#     def do_get
-#       @request.env["HTTP_ACCEPT"] = "application/xml"
-#       get :index
-#     end
-#   
-#     it "should be successful" do
-#       do_get
-#       response.should be_success
-#     end
-# 
-#     it "should find all episodes" do
-#       Episode.should_receive(:find).with(:all).and_return(@episodes)
-#       do_get
-#     end
-#   
-#     it "should render the found episodes as xml" do
-#       @episodes.should_receive(:to_xml).and_return("XML")
-#       do_get
-#       response.body.should == "XML"
-#     end
-#   end
 # 
 #   describe "handling GET /episodes/1" do
 # 

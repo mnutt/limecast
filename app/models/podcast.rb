@@ -39,6 +39,13 @@ class Podcast < ActiveRecord::Base
   belongs_to :category
 
   has_many :episodes, :dependent => :destroy
+  has_attached_file :logo,
+                    :styles => { :square => ["85x85#", :png],
+                                 :small  => ["170x170#", :png],
+                                 :icon   => ["16x16#", :png] }
+
+  named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
+  named_scope :parsed, :conditions => {:state => "parsed"}
 
   attr_accessor :logo_link, :has_episodes
 
@@ -46,39 +53,28 @@ class Podcast < ActiveRecord::Base
 
   acts_as_taggable
 
-  has_attached_file :logo,
-                    :styles => { :square => ["85x85#", :png],
-                                 :small  => ["170x170#", :png],
-                                 :icon   => ["16x16#", :png] }
-
   acts_as_state_machine :initial => :pending
   state :pending
-  state :parsed
+  state :fetched, :enter => Proc.new { |p| p.retrieve_feed }
+  state :parsed, :enter => Proc.new { |p| p.parse_feed }
   state :failed
 
-  before_create :sanitize_title
-  after_create  :distribute_point
-
-  async_after_create do |p|
-    p.async_after_create
+  event :fetch do
+    transitions :from => "pending", :to => "fetched"
   end
 
-  def async_after_create
-    begin
-      self.check_for_feed_error
-      self.retrieve_feed
-      self.retrieve_podcast_info_from_feed
-      self.retrieve_episodes_from_feed
-      self.download_logo
-      self.state = "parsed"
-      self.sanitize_title
-      self.generate_url
-      self.save!
-    rescue
-      self.state = "failed"
-      self.feed_error ||= "There was a problem with the feed"
-      self.save!
-    end
+  event :parse do
+    transitions :from => "fetched", :to => "parsed"
+  end
+
+  event :fail do
+    transitions :from => ["pending", "fetched"], :to => "failed"
+  end
+
+  # HACK: because initial state doesn't get set until first save...
+  def initialize(*args)
+    super
+    self.state ||= "pending"
   end
 
   define_index do
@@ -91,8 +87,18 @@ class Podcast < ActiveRecord::Base
     has :created_at, :state
   end
 
-  named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
-  named_scope :parsed, :conditions => {:state => "parsed"}
+  after_create  :distribute_point
+
+#   async_after_create do |p|
+#     begin
+#       fetch!
+#       parse!
+#     rescue
+#       fail!
+#     ensure
+#       self.save!
+#     end
+#   end
 
   def self.retrieve_feed(url)
     Timeout::timeout(5) do
@@ -110,6 +116,14 @@ class Podcast < ActiveRecord::Base
 
   def retrieve_feed
     self.feed_content = Podcast.retrieve_feed(self.feed_url)
+  end
+
+  def parse_feed
+    retrieve_podcast_info_from_feed
+    retrieve_episodes_from_feed
+    download_logo
+    sanitize_title
+    generate_url
   end
 
   def retrieve_podcast_info_from_feed

@@ -7,11 +7,18 @@ Factory.define :podcast do |p|
   p.feed_url { "#{Factory.next :site}/feed.xml" }
 end
 
+Factory.define :fetched_podcast, :class => Podcast do |p|
+  p.title         'Fetched Podcast'
+  p.feed_content  { File.open("#{RAILS_ROOT}/spec/data/example.xml").read }
+  p.state         'fetched'
+  p.feed_url      "http://fetchedpodcast/feed.xml"
+end
+
 Factory.define :parsed_podcast, :class => Podcast do |p|
   p.title    'Podcast'
   p.state    'parsed'
   p.site     { Factory.next :site }
-  p.feed_url { "#{Factory.next :site}/feed.xml" }
+  p.feed_url "http://parsedpodcast/feed.xml" 
 end
 
 Factory.define :episode do |e|

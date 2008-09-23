@@ -29,50 +29,68 @@ describe Podcast do
   end
 end
 
-# 
-# describe Podcast, "creating a new podcast" do
-#   before do
-#     @podcast = Podcast.create(:feed_url => "http://defaultfeed/index.rss")
-#   end
-# 
-#   it 'should be pending' do
-#     @podcast.state.should == "pending"
-#   end
-# end
-# 
-# describe Podcast, "creating a new podcast" do
-# 
-#   before do
-#     mock_feed("#{RAILS_ROOT}/spec/data/example.xml")
-# 
-#     @podcast = Podcast.create!(:feed_url => "http://defaultfeed/")
-#   end
-# 
-#   it 'should set the feed url' do
-#     @podcast.reload.feed_url.should == "http://defaultfeed/"
-#   end
-# 
-#   it 'should extract the title' do
-#     # raise @podcast.to_yaml
-#     @podcast.reload.title.should == "All About Everything"
-#   end
-# 
-#   it 'should extract the site link' do
-#     @podcast.reload.site.should == "http://www.example.com/podcasts/everything/index.html"
-#   end
-# 
-#   it 'should extract the logo link' do
-#     @podcast.reload.logo_link.should == "http://summitviewcc.com/picts/PodcastLogo.png"
-#   end
-#  
-#   it 'should extract the description' do
-#     @podcast.reload.description.should =~ /^All About Everything is a show about everything/
-#   end
-# 
-#   it 'should extract the language' do
-#     @podcast.reload.language.should == "en-us"
-#   end
-# end
+describe Podcast, "creating a new podcast" do
+  before do
+    @podcast = Podcast.create!(:feed_url => "http://defaultfeed/index.rss")
+  end
+
+  it 'should be pending' do
+    @podcast.state.should == "pending"
+  end
+end
+
+describe Podcast, "fetching a podcast" do
+  before do
+    @podcast = Factory.create(:podcast)
+    @podcast.state = "pending"
+  end
+
+  it 'should call retrieve_feed with the feed_url' do
+    Podcast.should_receive(:retrieve_feed).with(@podcast.feed_url)
+    @podcast.fetch!
+  end
+
+  it 'should populate the feed_content field' do
+    content = File.open("#{RAILS_ROOT}/spec/data/example.xml").read
+    Podcast.stub!(:retrieve_feed).and_return(content)
+    @podcast.fetch!
+    @podcast.feed_content.should =~ /^\<\?xml version/
+    @podcast.feed_content.size.should == 3243
+  end
+end
+
+describe Podcast, "parsing a podcast" do
+
+  before do
+    @podcast = Factory.create(:fetched_podcast)
+    @podcast.parse_feed
+  end
+
+  it 'should set the feed url' do
+    @podcast.reload.feed_url.should == "http://fetchedpodcast/feed.xml"
+  end
+
+  it 'should extract the title' do
+    # raise @podcast.to_yaml
+    @podcast.reload.title.should == "All About Everything"
+  end
+
+  it 'should extract the site link' do
+    @podcast.reload.site.should == "http://www.example.com/podcasts/everything/index.html"
+  end
+
+  it 'should extract the logo link' do
+    @podcast.reload.logo_link.should == "http://summitviewcc.com/picts/PodcastLogo.png"
+  end
+ 
+  it 'should extract the description' do
+    @podcast.reload.description.should =~ /^All About Everything is a show about everything/
+  end
+
+  it 'should extract the language' do
+    @podcast.reload.language.should == "en-us"
+  end
+end
 # 
 # # describe Podcast, "creating a new podcast when the user is not the feed owner" do
 # #   it 'should set the user as the finder'

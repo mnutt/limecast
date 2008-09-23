@@ -13,4 +13,5 @@ db/sphinx/*
 .#*
 vendor/sphinx
 tmp/sphinx*
+tmp/restart.txt
 *.swp

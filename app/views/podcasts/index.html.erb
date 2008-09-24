@@ -2,12 +2,8 @@
 
 <h2>All Podcasts</h2>
 
-<ul class="podcasts" style="float:left; width: 50%">
-  <%= render :partial => 'podcasts/podcast', :collection => @podcasts.slice(0, @podcasts.size / 2) -%>
-</ul>
-
-<ul class="podcasts" style="float:left; width: 50%">
-  <%= render :partial => 'podcasts/podcast', :collection => @podcasts.slice(@podcasts.size / 2, @podcasts.size) -%>
+<ul class="podcasts">
+  <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
 </ul>
 
 <% reset_cycle('row_class') %>

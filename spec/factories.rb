@@ -21,6 +21,8 @@ Factory.define :parsed_podcast, :class => Podcast do |p|
   p.state    'parsed'
   p.site     { Factory.next :site }
   p.feed_url "http://parsedpodcast/feed.xml" 
+
+  p.clean_url { Factory.next :title }
 end
 
 Factory.define :episode do |e|

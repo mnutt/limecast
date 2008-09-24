@@ -91,6 +91,37 @@ describe Podcast, "parsing a podcast" do
     @podcast.reload.language.should == "en-us"
   end
 end
+
+describe Podcast, "finding a podcast" do
+  before do
+    @podcast         = Factory.create(:podcast)
+    @fetched_podcast = Factory.create(:fetched_podcast)
+    @parsed_podcast  = Factory.create(:parsed_podcast)
+
+    @all     = Podcast.all
+    @fetched = Podcast.fetched.all
+    @parsed  = Podcast.parsed.all
+  end
+
+  it 'should be able to find all 3 podcasts with a call to "all"' do
+    @all.should be_an(Array)
+    @all.length.should == 3
+    [@podcast, @fetched_podcast, @parsed_podcast].each {|p| @all.includes?(p).should be_true }
+  end
+
+  it 'should be able to find just 1 podcast with a call to "fetched"' do
+    @fetched.should be_an(Array)
+    @fetched.length.should == 1
+    [@fetched_podcast].each {|p| @fetched.includes?(p).should be_true }
+  end
+
+  it 'should be able to find just 1 podcast with a call to "parsed"' do
+    @parsed.should be_an(Array)
+    @parsed.length.should == 1
+    [@parsed_parsed].each {|p| @parsed.includes?(p).should be_true }
+  end
+end
+
 # 
 # # describe Podcast, "creating a new podcast when the user is not the feed owner" do
 # #   it 'should set the user as the finder'

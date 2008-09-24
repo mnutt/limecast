@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080829144522
+# Schema version: 20080922184801
 #
 # Table name: podcasts
 #
@@ -24,6 +24,8 @@
 #  name_param        :string(255)   
 #  owner_name        :string(255)   
 #  feed_content      :text          
+#  state             :string(255)   
+#  feed_error        :string(255)   
 #
 
 class PodcastError < StandardError; end

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080829144522
+# Schema version: 20080922184801
 #
 # Table name: users
 #
@@ -19,6 +19,7 @@
 #  admin                     :boolean(1)    
 #  reset_password_code       :string(255)   
 #  reset_password_sent_at    :datetime      
+#  score                     :integer(4)    default(0)
 #
 
 require 'digest/sha1'

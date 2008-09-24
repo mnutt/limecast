@@ -1,17 +1,18 @@
 # == Schema Information
-# Schema version: 20080829144522
+# Schema version: 20080922184801
 #
 # Table name: comments
 #
-#  id               :integer(4)    not null, primary key
-#  user_id          :integer(4)    
-#  commentable_type :string(255)   
-#  commentable_id   :integer(4)    
-#  body             :text          
-#  created_at       :datetime      
-#  updated_at       :datetime      
-#  title            :string(255)   
-#  positive         :boolean(1)    
+#  id             :integer(4)    not null, primary key
+#  user_id        :integer(4)    
+#  body           :text          
+#  created_at     :datetime      
+#  updated_at     :datetime      
+#  title          :string(255)   
+#  positive       :boolean(1)    
+#  episode_id     :integer(4)    
+#  insightful     :integer(4)    default(0)
+#  not_insightful :integer(4)    default(0)
 #
 
 class Comment < ActiveRecord::Base

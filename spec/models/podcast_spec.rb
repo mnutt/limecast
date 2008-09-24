@@ -112,13 +112,13 @@ describe Podcast, "finding a podcast" do
   it 'should be able to find just 1 podcast with a call to "fetched"' do
     @fetched.should be_an(Array)
     @fetched.length.should == 1
-    [@fetched_podcast].each {|p| @fetched.includes?(p).should be_true }
+    [@fetched_podcast].each {|p| @fetched.include?(p).should be_true }
   end
 
   it 'should be able to find just 1 podcast with a call to "parsed"' do
     @parsed.should be_an(Array)
     @parsed.length.should == 1
-    [@parsed_parsed].each {|p| @parsed.includes?(p).should be_true }
+    [@parsed_podcast].each {|p| @parsed.include?(p).should be_true }
   end
 end
 

@@ -73,12 +73,6 @@ class Podcast < ActiveRecord::Base
     transitions :from => ["pending", "fetched"], :to => "failed"
   end
 
-  # HACK: because initial state doesn't get set until first save...
-  def initialize(*args)
-    super
-    self.state ||= "pending"
-  end
-
   define_index do
     indexes :title, :site, :description
     indexes user.login, :as => :user

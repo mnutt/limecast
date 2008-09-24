@@ -129,12 +129,16 @@ module ScottBarron                   #:nodoc:
           
           self.send(:include, ScottBarron::Acts::StateMachine::InstanceMethods)
 
-          before_create               :set_initial_state
           after_create                :run_initial_state_actions
         end
       end
       
       module InstanceMethods
+        def initialize(*args) #:nodoc:
+          super
+          set_initial_state
+        end
+        
         def set_initial_state #:nodoc:
           write_attribute self.class.state_column, self.class.initial_state.to_s
         end

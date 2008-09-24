@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080922184801
+# Schema version: 20080924035304
 #
 # Table name: podcasts
 #
@@ -17,7 +17,7 @@
 #  language          :string(255)   
 #  category_id       :integer(4)    
 #  user_id           :integer(4)    
-#  clean_title       :string(255)   
+#  clean_url         :string(255)   
 #  itunes_link       :string(255)   
 #  owner_id          :integer(4)    
 #  email             :string(255)   
@@ -26,6 +26,7 @@
 #  feed_content      :text          
 #  state             :string(255)   
 #  feed_error        :string(255)   
+#  custom_title      :string(255)   
 #
 
 class PodcastError < StandardError; end
@@ -91,16 +92,16 @@ class Podcast < ActiveRecord::Base
 
   after_create  :distribute_point
 
-#   async_after_create do |p|
-#     begin
-#       fetch!
-#       parse!
-#     rescue
-#       fail!
-#     ensure
-#       self.save!
-#     end
-#   end
+  def async_create
+    begin
+      fetch!
+      parse!
+    rescue
+      fail!
+    ensure
+      self.save!
+    end
+  end
 
   def self.retrieve_feed(url)
     Timeout::timeout(5) do
@@ -125,7 +126,7 @@ class Podcast < ActiveRecord::Base
     retrieve_episodes_from_feed
     download_logo
     sanitize_title
-    generate_url
+    sanitize_url
   end
 
   def retrieve_podcast_info_from_feed
@@ -189,30 +190,30 @@ class Podcast < ActiveRecord::Base
     self.site.to_url
   end
 
-  def generate_url
-    return true if pending?
+  def sanitize_url
     # Remove leading and trailing spaces
-    self.clean_title = self.title.clone.strip
+    self.clean_url = self.title.clone.strip
+
     # Remove all non-alphanumeric non-space characters
-    self.clean_title.gsub!(/[^A-Za-z0-9\s]/, "")
+    self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")
+
     # Condense spaces and turn them into dashes
-    self.clean_title.gsub!(/[\s]+/, '-')
-    self.clean_title
+    self.clean_url.gsub!(/[\s]+/, '-')
+    self.clean_url
   end
 
   def sanitize_title
-    return true if pending?
     # Remove anything in parentheses
     self.title.gsub!(/[\s+]\(.*\)/, "")
 
-    conflict = Podcast.find_by_clean_title(self.clean_title)
-    self.clean_title += " 2" if conflict and conflict != self
+    conflict = Podcast.find_by_title(self.title)
+    self.title = "#{self.title} 2" if conflict and conflict != self
 
     i = 2 # Number to attach to the end of the title to make it unique
-    while(Podcast.find_by_clean_title(self.clean_title) and conflict != self)
+    while(Podcast.find_by_title(self.title) and conflict != self)
       i += 1
-      self.clean_title.chop!
-      self.clean_title += i.to_s
+      self.title.chop!
+      self.title = "#{self.title}#{i.to_s}"
     end
 
     self.title
@@ -223,7 +224,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def to_param
-    clean_title
+    clean_url
   end
 
   def download_logo

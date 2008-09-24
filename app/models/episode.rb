@@ -17,7 +17,7 @@
 #  enclosure_type         :string(255)   
 #  duration               :integer(4)    
 #  title                  :string(255)   
-#  clean_title            :string(255)   
+#  clean_url              :string(255)   
 #  enclosure_size         :integer(4)    
 #
 
@@ -34,7 +34,7 @@ class Episode < ActiveRecord::Base
 
   before_create :generate_url
 
-  named_scope :with_same_title_as, lambda {|who| {:conditions => {:podcast_id => who.podcast.id, :clean_title => who.clean_title}} }
+  named_scope :with_same_title_as, lambda {|who| {:conditions => {:podcast_id => who.podcast.id, :clean_url => who.clean_url}} }
   named_scope :without, lambda {|who| who.id.nil? ? {} : {:conditions => ["episodes.id NOT IN (?)", who.id]} }
   named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at DESC"} }
   named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at ASC"} }
@@ -44,18 +44,18 @@ class Episode < ActiveRecord::Base
     
     i = 1
     begin
-      self.clean_title = base_title.dup
-      self.clean_title << "-#{i}" unless i == 1
+      self.clean_url = base_title.dup
+      self.clean_url << "-#{i}" unless i == 1
 
       count = Episode.with_same_title_as(self).without(self).count
       i += 1
     end while count > 0
 
-    self.clean_title
+    self.clean_url
   end
 
   def to_param
-    clean_title
+    clean_url
   end
 
   def writable_by?(user)

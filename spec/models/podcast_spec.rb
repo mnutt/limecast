@@ -24,8 +24,8 @@ describe Podcast do
 
   it 'should have a param with the name in it' do
     @podcast.state = 'parsed'
-    @podcast.generate_url
-    @podcast.clean_title.should == "Podcast"
+    @podcast.sanitize_url
+    @podcast.clean_url.should == "Podcast"
   end
 end
 

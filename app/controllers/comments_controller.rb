@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.xml
   def index
-    @podcast = Podcast.find_by_clean_title(params[:podcast])
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
     @comments = filter(@podcast.comments, params[:filter])
 
     respond_to do |format|

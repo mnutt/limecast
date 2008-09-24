@@ -101,25 +101,27 @@
     <% end -%>
   </div>
   
-  <div class="episodes">
-    <h3>Recent Episodes</h3>
-    <ul class="episodes">
-      <%= render :partial => 'episodes/episode', :collection => @episodes -%>
-    </ul>
-    <% link_to(podcast_episodes_url(@podcast), :class => 'all_episodes') do -%><span>All <%= @podcast.episodes.count -%> episodes</span><% end -%>
-    <% reset_cycle('row_class') %>
-  </div>
-  
-  <div class="reviews">
-    <h3>Reviews</h3>
-    <ul class="reviews">
-      <%= render :partial => 'comments/comments', :object => @podcast.episodes.newest.first, :locals => {:short => true} -%>
-    </ul>
-    <%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
-    <% unless @podcast.episodes.newest.first.been_reviewed_by?(current_user) %>
-      <%= render :partial => 'comments/add_comment', :object => @podcast -%>
-    <% end %>
-    <% reset_cycle('row_class') %>
-  </div>
+  <% unless @podcast.episodes.empty? %>
+    <div class="episodes">
+      <h3>Recent Episodes</h3>
+      <ul class="episodes">
+        <%= render :partial => 'episodes/episode', :collection => @episodes -%>
+      </ul>
+      <% link_to(podcast_episodes_url(@podcast), :class => 'all_episodes') do -%><span>All <%= @podcast.episodes.count -%> episodes</span><% end -%>
+      <% reset_cycle('row_class') %>
+    </div>
+    
+    <div class="reviews">
+      <h3>Reviews</h3>
+      <ul class="reviews">
+        <%= render :partial => 'comments/comments', :object => @podcast.episodes.newest.first, :locals => {:short => true} -%>
+      </ul>
+      <%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
+      <% unless @podcast.episodes.newest.first.been_reviewed_by?(current_user) %>
+        <%= render :partial => 'comments/add_comment', :object => @podcast -%>
+      <% end %>
+      <% reset_cycle('row_class') %>
+    </div>
+  <% end %>
   
 </div>

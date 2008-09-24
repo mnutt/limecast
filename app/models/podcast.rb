@@ -48,7 +48,6 @@ class Podcast < ActiveRecord::Base
                                  :icon   => ["16x16#", :png] }
 
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
-  named_scope :parsed, :conditions => {:state => "parsed"}
 
   attr_accessor :logo_link, :has_episodes
 

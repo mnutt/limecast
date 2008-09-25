@@ -52,6 +52,11 @@ describe PodcastsController do
   end
 
   describe "handling GET /add" do
+
+    before(:each) do
+      @podcast = Podcast.new
+    end
+  
     def do_get
       get :new
     end
@@ -70,7 +75,31 @@ describe PodcastsController do
       do_get
       assigns[:podcast].should be_a(Podcast)
     end
+  
+    it "should not save the new podcast" do
+      @podcast.should_not_receive(:save)
+      do_get
+    end
   end
+
+  describe "handling POST /podcasts when not logged in" do
+    def do_post
+      post :create, :podcast => {:feed_url => "http://mypodcast/feed.xml"}
+    end
+
+    it 'should save the podcast' do
+      do_post
+      assigns(:podcast).should be_kind_of(Podcast)
+      assigns(:podcast).should_not be_new_record
+    end
+
+    it 'should add the podcast to the session' do
+      do_post
+      podcast = assigns(:podcast)
+      session.data[:podcasts].should include(podcast.id)
+    end
+  end
+
 # 
 #   describe "handling GET /podcasts/1/edit" do
 # 
@@ -103,32 +132,6 @@ describe PodcastsController do
 #       assigns[:podcast].should equal(@podcast)
 #     end
 #   end
-# 
-#   describe "handling POST /podcasts" do
-# 
-#     before(:each) do
-#       @podcast = mock_model(Podcast, :to_param => "1")
-#       Podcast.stub!(:new).and_return(@podcast)
-#     end
-#     
-#     describe "with successful save" do
-#   
-#       def do_post
-#         @podcast.should_receive(:save).and_return(true)
-#         post :create, :podcast => {}
-#       end
-#   
-#       it "should create a new podcast" do
-#         Podcast.should_receive(:new).with({}).and_return(@podcast)
-#         do_post
-#       end
-# 
-#       it "should redirect to the new podcast" do
-#         do_post
-#         response.should redirect_to(podcast_url("1"))
-#       end
-#       
-#     end
 #     
 #     describe "with failed save" do
 # 

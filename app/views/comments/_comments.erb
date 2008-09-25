@@ -2,11 +2,7 @@
 <% options ||= {} -%>
 
 <div id="comments_list">
-  <% if episode.comments.empty? -%>
-    <p>
-      <span class="notice">There are no comments yet.</span>
-    </p>
-  <% else -%>
+  <% unless episode.comments.empty? -%>
     <% episode.comments.each do |comment| -%>
       <%= render :partial => 'comments/comment', :object => comment -%>
     <% end -%>

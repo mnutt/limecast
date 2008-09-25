@@ -5,7 +5,7 @@ html {
   height: 100%;
 }
 body {
-  background-color: #2F2F2F;
+  background-color: #2B2D2F;
   font: 62.5% Verdana, sans-serif;
   margin: 0;
   padding: 0;
@@ -93,7 +93,7 @@ a, a:visited {
   color: #CBCBCB;
 }
 a:hover {
-  color: #FFF;
+  color: #E5E5E5;
 }
 a.icon {
   background-repeat: no-repeat;

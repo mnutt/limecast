@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     end
 
     @user = User.new(params[:user])
+    @user.state = 'passive'
     @user.register! if @user.valid?
     if @user.errors.empty?
       claim_podcasts

@@ -1,4 +1,5 @@
 <% @title = "Add Podcast" -%>
+<% javascript_include "podcasts_new" -%>
 
 <h2>Feed me</h2>
 <p>Know the address of a podcast? Add it to LimeCast:</p>
@@ -7,7 +8,6 @@
 
 <div id="status"></div>
 
-<script type="text/javascript" src="/javascripts/podcasts_new.js"></script>
 <% form_for @podcast, :id => 'new_podcast', :method => 'post' do |f| -%>
   <div class="field huge">
     <%= f.label "Feed" -%>

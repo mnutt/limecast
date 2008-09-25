@@ -197,7 +197,7 @@ div.podcast div.reviews form div.field textarea.text {
  * Adding Podcasts
 */
 div.status_message {
-  height: 2.5em;
+  margin-bottom: 1em;
 }
 span.arrow_down {
   background: url("../images/icons/arrow_down.png") no-repeat right center;

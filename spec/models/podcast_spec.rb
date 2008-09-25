@@ -96,7 +96,9 @@ describe Podcast, "finding a podcast" do
   before do
     @podcast         = Factory.create(:podcast)
     @fetched_podcast = Factory.create(:fetched_podcast)
+    @fetched_podcast.reload.state.should == "fetched"
     @parsed_podcast  = Factory.create(:parsed_podcast)
+    @parsed_podcast.reload.state.should == "parsed"
 
     @all     = Podcast.all
     @fetched = Podcast.fetched.all

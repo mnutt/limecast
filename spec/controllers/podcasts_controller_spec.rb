@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PodcastsController do
   describe "handling GET /" do
-
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
     end
@@ -28,7 +27,6 @@ describe PodcastsController do
   end
 
   describe "handling GET /:podcast" do
-
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
     end
@@ -53,7 +51,7 @@ describe PodcastsController do
     end
   end
 
-  describe "handling GET /podcasts/new" do
+  describe "handling GET /add" do
 
     before(:each) do
       @podcast = Podcast.new
@@ -67,26 +65,20 @@ describe PodcastsController do
       do_get
       response.should be_success
     end
-  
+
     it "should render new template" do
       do_get
       response.should render_template('new')
     end
-  
-    it "should create an new podcast" do
-      Podcast.should_receive(:new).and_return(@podcast)
+
+    it "should assign the new podcast for the view" do
       do_get
+      assigns[:podcast].should be_a(Podcast)
     end
   
     it "should not save the new podcast" do
       @podcast.should_not_receive(:save)
       do_get
-    end
-  
-    it "should assign the new podcast for the view" do
-      do_get
-      assigns[:new_podcast].should be_kind_of(Podcast)
-      assigns[:new_podcast].should be_new_record
     end
   end
 

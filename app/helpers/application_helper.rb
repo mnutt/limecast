@@ -1,5 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def javascript_include(*scripts)
+    @javascript_includes ||= []
+    @javascript_includes << scripts
+  end
+
   def time_to_words(time)
     time.to_duration
   end

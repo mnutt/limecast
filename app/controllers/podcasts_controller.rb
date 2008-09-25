@@ -30,7 +30,7 @@ class PodcastsController < ApplicationController
   end
 
   def new
-    @new_podcast = Podcast.new
+    @podcast = Podcast.new
   end
 
   def edit

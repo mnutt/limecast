@@ -83,20 +83,38 @@ describe PodcastsController do
   end
 
   describe "handling POST /podcasts when not logged in" do
-    def do_post
+    before(:each) do
       post :create, :podcast => {:feed_url => "http://mypodcast/feed.xml"}
     end
 
     it 'should save the podcast' do
-      do_post
       assigns(:podcast).should be_kind_of(Podcast)
       assigns(:podcast).should_not be_new_record
     end
 
     it 'should add the podcast to the session' do
-      do_post
-      podcast = assigns(:podcast)
-      session.data[:podcasts].should include(podcast.id)
+      session.data[:podcasts].should include(assigns(:podcast).id)
+    end
+
+    it 'should not associate the podcast with a user' do
+      assigns(:podcast).user.should be_nil
+    end
+  end
+
+  describe "handling POST /podcasts when logged in" do
+    before(:each) do
+      @user = Factory.create(:user)
+      login(@user)
+      post :create, :podcast => {:feed_url => "http://mypodcast/feed.xml"}
+    end
+
+    it 'should save the podcast' do
+      assigns(:podcast).should be_kind_of(Podcast)
+      assigns(:podcast).should_not be_new_record
+    end
+
+    it 'should associate the podcast with the user' do
+      assigns(:podcast).user.should == @user
     end
   end
 

@@ -7,8 +7,8 @@
 
 <div id="status"></div>
 
-<% remote_form_for @new_podcast, :success => 'new Lime.Widgets.Add.Podcast()',
-                                 :failure => 'new Lime.Widgets.Add.Podcast()' do |f| -%>
+<script type="text/javascript" src="/javascripts/podcasts_new.js"></script>
+<% form_for @podcast, :id => 'new_podcast', :method => 'post' do |f| -%>
   <div class="field huge">
     <%= f.label "Feed" -%>
     <div>
@@ -18,16 +18,17 @@
   </div>
 <% end -%>
 
-<div id="form_clone" style="display:none">
+<div id="added_podcast" style="display: none;">
   <form>
     <div class="field huge">
-      <label for="podcast_feed_url">Feed</label>
+      <label>Feed</label>
       <div>
-	<input type='text' class="text" value="CHANGE" disabled style="background: #222" />
-	<input type='submit' value="Add" class="button" disabled  style="background: #666" />
+        <input type='text'   class="text"   disabled="disabled" style="background: #222" />
+        <input type='submit' class="button" disabled="disabled" style="background: #666" value="Add" />
       </div>
     </div>
   </form>
+  <div class="status" />
 </div>
 
 <% if !logged_in? -%>

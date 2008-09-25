@@ -1,5 +1,6 @@
 <% @title = "#{h(@podcast.title)} #{h(@episode.title)}" -%>
 <% @show_ads = true -%>
+<% javascript_include "comment_edit" -%>
 
 <div class="podcast">
   <div class="cover">
@@ -29,7 +30,7 @@
     <h2>Reviews</h2>
     <div class="comments">
       <%= render :partial => 'comments/comments', :object => @episode -%>
-      <% if !@episode.been_reviewed_by?(current_user) && @episode.open_for_comments? %>
+      <% if can_add_comments?(@episode) %>
         <%= render :partial => 'comments/add_comment', :object => @episode -%>
       <% end %>
     </div>

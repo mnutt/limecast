@@ -1,23 +1,33 @@
 <li id="<%= dom_id(comment) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
-  <% if comment.positive -%>
-    <%= image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating') -%>
-  <% else -%>
-    <%= image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating') -%>
-  <% end -%>
+  <div class="show_review">
+    <% if comment.positive -%>
+      <%= image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating') -%>
+    <% else -%>
+      <%= image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating') -%>
+    <% end -%>
 
-  <h4><%=h comment.title -%></h4>
+    <h4><%=h comment.title -%></h4>
 
-  <% if comment.commenter -%>
-    <cite>by <%= link_to_profile comment.commenter -%></cite>
-  <% else -%>
-    <%= link_to "Sign up", new_user_path -%> to register your comment.
+    <% if comment.commenter -%>
+      <cite>by <%= link_to_profile comment.commenter -%></cite>
+    <% else -%>
+      <%= link_to "Sign up", new_user_path -%> to register your comment.
+    <% end -%>
+    <p>
+      <span class="comment_body"><%=h comment.body -%></span>
+      <% unless comment.id.nil? %>
+        <%= link_to '#', review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%>
+        <%= render :partial => 'comments/comment_modify_links', :object => comment -%>
+        <%= render :partial => 'comments/comment_rating_links', :object => comment -%>
+      <% end %>
+    </p>
+  </div>
+
+  <% if can_edit_comment?(comment) %>
+    <div class="edit_review" style="display: none;">
+      <% form_for comment do |f| -%>
+        <%= render :partial => 'comments/comment_form', :locals => {:f => f} -%>
+      <% end -%>
+    </div>
   <% end -%>
-  <p>
-    <%=h comment.body -%>
-    <% unless comment.id.nil? %>
-      <%= link_to '#', review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%>
-      <%= render :partial => 'comments/comment_modify_links', :object => comment -%>
-      <%= render :partial => 'comments/comment_rating_links', :object => comment -%>
-    <% end %>
-  </p>
 </li>

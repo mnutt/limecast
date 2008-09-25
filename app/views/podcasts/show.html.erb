@@ -1,5 +1,6 @@
 <% @title = h(@podcast.title) -%>
 <% @show_ads = true -%>
+<% javascript_include "comment_edit" -%>
 
 <div class="podcast">
 
@@ -122,7 +123,7 @@
  	      <%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
       <% end -%>
 
-      <% unless @podcast.episodes.newest.first.been_reviewed_by?(current_user) %>
+      <% if can_add_comments?(@podcast.episodes.newest.first) %>
         <%= render :partial => 'comments/add_comment', :object => @podcast -%>
       <% end %>
       <% reset_cycle('row_class') %>

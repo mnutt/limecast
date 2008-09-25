@@ -1,5 +1,6 @@
 class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token, :only => :status
 
   def index
     @podcasts = Podcast.parsed.find(:all, :order => "title ASC")
@@ -38,7 +39,6 @@ class PodcastsController < ApplicationController
   end
 
   def status
-    params[:feed] = params[:feed].join('/') if params[:feed].respond_to?(:join)
     @podcast = Podcast.find_by_feed_url(params[:feed])
     
     if @podcast.nil?

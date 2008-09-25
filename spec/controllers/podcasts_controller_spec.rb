@@ -126,6 +126,27 @@ describe PodcastsController do
     end
   end
 
+  describe "handling POST /status for a podcast that has been parsed" do
+    before(:each) do
+      @podcast = Factory.create(:parsed_podcast)
+      post :status, :feed => @podcast.feed_url
+    end
+
+    it 'should return something' do
+      response.should render_template('podcasts/added_podcast')
+    end
+  end
+
+  describe "handling POST /status for a podcast that has not yet been parsed" do
+    before(:each) do
+      @podcast = Factory.create(:podcast)
+      post :status, :feed => @podcast.feed_url
+    end
+
+    it 'should return something' do
+      response.should render_template('podcasts/loading')
+    end
+  end
 # 
 #   describe "handling GET /podcasts/1/edit" do
 # 

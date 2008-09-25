@@ -113,10 +113,15 @@
     
     <div class="reviews">
       <h3>Reviews</h3>
-      <ul class="reviews">
-        <%= render :partial => 'comments/comments', :object => @podcast.episodes.newest.first, :locals => {:short => true} -%>
-      </ul>
-      <%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
+
+      <% unless @comments.empty? -%>
+	<ul class="reviews">
+          <%= render :partial => 'comments/comments', :object => @podcast.episodes.newest.first, :locals => {:short => true} -%>
+	</ul>
+
+	<%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
+      <% end -%>
+
       <% unless @podcast.episodes.newest.first.been_reviewed_by?(current_user) %>
         <%= render :partial => 'comments/add_comment', :object => @podcast -%>
       <% end %>

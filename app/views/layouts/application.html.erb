@@ -12,6 +12,12 @@
 <%= javascript_include_tag 'jquery' -%>
 <%= javascript_include_tag 'jquery-periodic' -%>
 <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
+<script type="text/javascript">
+  jQuery.noConflict();
+</script>
+
+<%= javascript_include_tag 'prototype', 'application', 'scriptaculous', 'reflection' -%>
+
 </head>
 
 <body>
@@ -42,7 +48,7 @@
                 <%= text_field_tag "q", params[:query], :size => 15, :class => "text" %>
                 <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
               <% end -%>
-              <script type="text/javascript">//new Lime.Widgets.Search('q')</script>
+              <script type="text/javascript">new Lime.Widgets.Search('q')</script>
             </li>
             <% if current_user -%>
             <li class="user">

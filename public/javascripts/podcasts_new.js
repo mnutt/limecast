@@ -1,31 +1,31 @@
-$(document).ready(function(){
-  $('form#new_podcast').submit(function(){
-    $.ajax({
-      data:     $(this).serialize(),
+jQuery(document).ready(function(){
+  jQuery('form#new_podcast').submit(function(){
+    jQuery.ajax({
+      data:     jQuery(this).serialize(),
       dataType: 'script',
       type:     'post',
       url:      '/podcasts'
     });
 
-    var feed_url = $(this).find('#podcast_feed_url').attr('value');
-    var form_clone = $('#added_podcast').clone();
+    var feed_url = jQuery(this).find('#podcast_feed_url').attr('value');
+    var form_clone = jQuery('#added_podcast').clone();
     form_clone.find('.text').attr('value', feed_url);
     form_clone.show();
 
-    $('#added_podcast_list').append(form_clone);
+    jQuery('#added_podcast_list').append(form_clone);
 
-    if($('#inline_login'))
-      $('#inline_login').show();
+    if(jQuery('#inline_login'))
+      jQuery('#inline_login').show();
 
-    $.periodic(function(controller){
+    jQuery.periodic(function(controller){
       var callback = function(response) {
-        $('#status').html(response);
+        jQuery('#status').html(response);
 
         if(/loading/g.test(response))
           controller.stop();
       };
     
-      $.ajax({
+      jQuery.ajax({
         url:     '/status/' + encodeURIComponent(feed_url).replace(/%2F/g, '/'),
         success: callback,
         error:   callback

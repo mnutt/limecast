@@ -7,8 +7,6 @@ set :remote_home,   "/home/#{user}"
 set :deploy_to,     "#{remote_home}/limecast.com"
 set :use_sudo,      false
 
-set :mongrel_conf, "/etc/mongrel_cluster/#{application}.yml"
-
 set :scm, :git
 set :git_enable_submodules, 1
 set :repository, "git@github.com:mnutt/limecast.git"
@@ -20,8 +18,6 @@ depend :remote, :command, 'wget'
 depend :remote, :command, 'git'
 
 # Any way to reduce duplication w/ environment.rb?
-depend :remote, :gem, 'mongrel',         '=1.0.1'
-depend :remote, :gem, 'mongrel_cluster', '=1.0.2'
 depend :remote, :gem, 'mysql',           '=2.7'
 
 # =============================================================================

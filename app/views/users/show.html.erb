@@ -32,7 +32,7 @@
   <ul class="comments">
     <% @user.comments.each do |comment| -%>
       <li id="<%= dom_id(comment) -%>" class="comment <%= cycle('odd','even', :name => 'row_class') -%>">
-        <%= link_to_thing(comment.commentable) -%>
+        <%= link_to_thing(comment.episode.podcast) -%>
         <h4><%= comment.title -%></h4>
         <%= comment.body -%>
       </li>

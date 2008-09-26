@@ -1,44 +1,48 @@
 jQuery(document).ready(function(){
   jQuery('form#new_podcast').submit(function(){
+
+    var poll_for_status = function(response) {
+      var feed_url = jQuery('#podcast_feed_url').attr('value');
+      var form_clone = jQuery('#added_podcast').clone();
+      form_clone.attr('id', null);
+      form_clone.find('.text').attr('value', feed_url);
+      form_clone.show();
+
+      jQuery('#podcast_feed_url').val("");
+      jQuery('#added_podcast_list').append(form_clone);
+
+
+      if(jQuery('#inline_signin'))
+        jQuery('#inline_signin').show();
+
+      jQuery.periodic(function(controller){
+        var callback = function(response) {
+          form_clone.find('.status').html(response);
+          if(/finished/g.test(response))
+            controller.stop();
+        };
+
+        jQuery.ajax({
+	  url:      '/status',
+          type:     'post',
+          data:     {feed: feed_url},
+          dataType: 'html',
+          success:  callback,
+          error:    callback
+        });
+
+        return true;
+      }, {frequency: 1});
+
+    };
+
     jQuery.ajax({
       data:     jQuery(this).serialize(),
       dataType: 'script',
       type:     'post',
-      url:      '/podcasts'
+      url:      '/podcasts',
+      success:  poll_for_status
     });
-
-    var feed_url = jQuery(this).find('#podcast_feed_url').attr('value');
-    var form_clone = jQuery('#added_podcast').clone();
-    form_clone.attr('id', null);
-    form_clone.find('.text').attr('value', feed_url);
-    form_clone.show();
-
-    jQuery('#podcast_feed_url').val("");
-    jQuery('#added_podcast_list').append(form_clone);
-
-
-    if(jQuery('#inline_login'))
-      jQuery('#inline_login').show();
-
-    jQuery.periodic(function(controller){
-      var callback = function(response) {
-        form_clone.find('.status').html(response);
-        if(/status_message/g.test(response))
-          controller.stop();
-      };
-
-      jQuery.ajax({
-	url:      '/status',
-	type:     'post',
-	data:     {feed: feed_url},
-	dataType: 'html',
-        success:  callback,
-        error:    callback
-      });
-
-      return true;
-    }, {frequency: 1});
-
     // Keep form from submitting
     return false;
   });

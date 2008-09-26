@@ -42,17 +42,27 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_feed_url(params[:feed])
     
     if @podcast.nil?
-      render :text => "Error: podcast not found."
-    elsif @podcast.state == "parsed" or @podcast.state == "failed"
-      render :partial => 'podcasts/added_podcast'
+      render :partial => 'status_error'
+    elsif @podcast.parsed? && podcast_created_just_now_by_user?(@podcast)
+      render :partial => 'status_added'
+    elsif @podcast.parsed?
+      render :partial => 'status_conflict'
+    elsif @podcast.failed?
+      render :partial => 'status_failed'
+    elsif @podcast.pending?
+      render :partial => 'status_loading'
     else
-      render :partial => "loading"
+      render :partial => 'status_error'
     end
   end
 
   def create
-    @podcast = Podcast.create!(:feed_url => params[:podcast][:feed_url], 
-                               :user     => current_user)
+    @podcast = Podcast.new(:feed_url => params[:podcast][:feed_url], 
+                           :user     => current_user)
+
+    if @podcast.valid?
+      @podcast.save
+    end
 
     if current_user.nil?
       session.data[:podcasts] ||= []
@@ -84,4 +94,18 @@ class PodcastsController < ApplicationController
 
     redirect_to(podcasts_url)
   end
+
+  protected
+  
+    def podcast_in_session?(podcast)
+      (session.data[:podcasts] and session.data[:podcasts].include?(podcast.id))
+    end
+    
+    def podcast_created_by_user?(podcast)
+      podcast_in_session?(podcast) or podcast.writable_by?(current_user)
+    end
+
+    def podcast_created_just_now_by_user?(podcast)
+      podcast_created_by_user?(podcast) && podcast.just_created?
+    end
 end

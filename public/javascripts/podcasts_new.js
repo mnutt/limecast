@@ -22,11 +22,10 @@ jQuery(document).ready(function(){
     jQuery.periodic(function(controller){
       var callback = function(response) {
         jQuery('#status').html(response);
-
-        if(/loading/g.test(response))
+        if(/status_message/g.test(response))
           controller.stop();
       };
-    
+
       jQuery.ajax({
 	url:      '/status',
 	type:     'post',

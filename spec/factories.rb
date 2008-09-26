@@ -2,9 +2,9 @@
 # http://github.com/thoughtbot/factory_girl/tree/master
 
 Factory.define :podcast do |p|
-  p.title    'Podcast'
-  p.site     { Factory.next :site }
-  p.feed_url { "#{Factory.next :site}/feed.xml" }
+  p.title     'Podcast'
+  p.site      { Factory.next :site }
+  p.feed_url  { "#{Factory.next :site}/feed.xml" }
 
   p.clean_url { Factory.next :title }
 end
@@ -17,10 +17,19 @@ Factory.define :fetched_podcast, :class => Podcast do |p|
 end
 
 Factory.define :parsed_podcast, :class => Podcast do |p|
-  p.title    'Podcast'
-  p.state    'parsed'
-  p.site     { Factory.next :site }
-  p.feed_url "http://parsedpodcast/feed.xml" 
+  p.title     'Podcast'
+  p.state     'parsed'
+  p.site      { Factory.next :site }
+  p.feed_url  "http://parsedpodcast/feed.xml" 
+
+  p.clean_url { Factory.next :title }
+end
+
+Factory.define :failed_podcast, :class => Podcast do |p|
+  p.title     'Podcast'
+  p.state     'failed'
+  p.site      { Factory.next :site }
+  p.feed_url  { "#{Factory.next :site}/feed.xml" }
 
   p.clean_url { Factory.next :title }
 end

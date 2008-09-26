@@ -234,6 +234,10 @@ class Podcast < ActiveRecord::Base
     end
   end
 
+  def just_created?
+    self.created_at > 2.minutes.ago
+  end
+
   def retrieve_episodes_from_feed
     doc = REXML::Document.new(self.feed_content)
     doc.elements.each('rss/channel/item') do |e|

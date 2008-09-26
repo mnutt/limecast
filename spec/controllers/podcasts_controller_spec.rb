@@ -118,25 +118,57 @@ describe PodcastsController do
     end
   end
 
-  describe "handling POST /status for a podcast that has been parsed" do
-    before(:each) do
-      @podcast = Factory.create(:parsed_podcast)
-      post :status, :feed => @podcast.feed_url
+  describe "POST /status" do
+    describe "for a podcast that has not yet been parsed" do
+      before(:each) do
+        @podcast = Factory.create(:podcast)
+        post :status, :feed => @podcast.feed_url
+      end
+      
+      it 'should return something' do
+        response.should render_template('podcasts/_status_loading')
+      end
     end
 
-    it 'should return something' do
-      response.should render_template('podcasts/added_podcast')
-    end
-  end
+    describe "for a podcast that has been parsed" do
+      before(:each) do
+        @podcast = Factory.create(:parsed_podcast)
+        controller.should_receive(:podcast_created_just_now_by_user?).and_return(true)
 
-  describe "handling POST /status for a podcast that has not yet been parsed" do
-    before(:each) do
-      @podcast = Factory.create(:podcast)
-      post :status, :feed => @podcast.feed_url
+        post :status, :feed => @podcast.feed_url
+      end
+      
+      it 'should return something' do
+        response.should render_template('podcasts/_status_added')
+      end
     end
 
-    it 'should return something' do
-      response.should render_template('podcasts/loading')
+    describe "for a podcast that has failed" do
+      describe "because it was not a web address" do
+        before(:each) do
+          @podcast = Factory.create(:failed_podcast)
+          post :status, :feed => @podcast.feed_url
+        end 
+        
+        it 'should render the error template' do
+          response.should render_template('podcasts/_status_failed')
+        end
+      end
+
+      describe "because it was not found" do
+      end
+
+      describe "because it had a weird server error" do
+      end
+
+      describe "because it is on the blacklist" do
+      end
+
+      describe "because it is not an RSS feed" do
+      end
+
+      describe "because it is a text feed" do
+      end
     end
   end
 # 

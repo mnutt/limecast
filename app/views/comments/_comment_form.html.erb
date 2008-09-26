@@ -1,6 +1,17 @@
 <% options ||= {} -%>
+<% options[:show_rating] = true unless options.has_key?(:show_rating) -%>
 
 <%= f.hidden_field :episode_id -%>
+
+<% if options[:show_rating] -%>
+<div class="align">
+  Podcast Rating:
+  <%= f.radio_button :positive, true, :checked => "checked" -%>
+  <%= f.label :positive, image_tag("icons/thumbs_up.png"), :onclick => "$('comment_positive_true').checked = true;" -%>
+  <%= f.radio_button :positive, false -%>
+  <%= f.label :positive, image_tag("icons/thumbs_down.png"), :onclick => "$('comment_positive_false').checked = true;" -%>
+</div>
+<% end -%>
 
 <div class="field">
   <%= f.label :title -%>
@@ -14,14 +25,6 @@
   <div>
     <%= f.text_area :body, :class => "text#{ ' full' if options[:width] == 'full' }", :rows => '10' -%>
   </div>
-</div>
-
-<div class="align">
-  Podcast Rating: 
-  <%= f.radio_button :positive, true, :checked => "checked" -%>
-  <%= f.label :positive, image_tag("icons/thumbs_up.png"), :onclick => "$('comment_positive_true').checked = true;" -%>
-  <%= f.radio_button :positive, false -%>
-  <%= f.label :positive, image_tag("icons/thumbs_down.png"), :onclick => "$('comment_positive_false').checked = true;" -%>
 </div>
 
 <div class="controls">

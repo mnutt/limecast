@@ -26,6 +26,10 @@ describe PodcastsController do
     it "should map { :controller => 'podcasts', :action => 'destroy', :id => 1} to /podcasts/1" do
       route_for(:controller => "podcasts", :action => "destroy", :id => 1).should == "/podcasts/1"
     end
+
+    it "should map { :controller => 'podcasts', :action => 'cover', :id => 1} to /podcasts/1/cover" do
+      route_for(:controller => "podcasts", :action => "cover", :podcast => "mypodcast").should == "/mypodcast/cover"
+    end
   end
 
   describe "route recognition" do
@@ -56,6 +60,10 @@ describe PodcastsController do
   
     it "should generate params { :controller => 'podcasts', action => 'destroy', id => '1' } from DELETE /podcasts/1" do
       params_from(:delete, "/podcasts/1").should == {:controller => "podcasts", :action => "destroy", :id => "1"}
+    end
+
+    it "should generate params { :controller => 'podcasts', action => 'cover', id => '1' } from GET /podcasts/1" do
+      params_from(:get, "/mypodcast/cover").should == {:controller => "podcasts", :action => "cover", :podcast => "mypodcast"}
     end
   end
 end

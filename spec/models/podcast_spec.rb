@@ -124,6 +124,20 @@ describe Podcast, "finding a podcast" do
   end
 end
 
+describe Podcast, "downloading the logo" do
+  before do
+    @podcast = Factory.create(:parsed_podcast)
+    @podcast.logo_link = "http://badlink/"
+  end
+
+  it 'should not set the logo_filename for a bad link' do
+    lambda {
+      @podcast.download_logo
+    }.should raise_error(SocketError)
+    @podcast.logo_file_name.should be_nil
+  end
+end
+
 # 
 # # describe Podcast, "creating a new podcast when the user is not the feed owner" do
 # #   it 'should set the user as the finder'

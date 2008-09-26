@@ -56,6 +56,10 @@ class PodcastsController < ApplicationController
     end
   end
 
+  def cover
+    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
+  end
+
   def create
     @podcast = Podcast.new(:feed_url => params[:podcast][:feed_url], 
                            :user     => current_user)

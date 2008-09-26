@@ -13,3 +13,6 @@
 [submodule "vendor/plugins/acts_as_state_machine"]
 	path = vendor/plugins/acts_as_state_machine
 	url = git://github.com/mnutt/acts_as_state_machine.git
+[submodule "vendor/plugins/rpodcast"]
+	path = vendor/plugins/rpodcast
+	url = git://github.com/mnutt/rpodcast.git

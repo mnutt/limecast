@@ -23,7 +23,7 @@ jQuery(document).ready(function(){
         };
 
         jQuery.ajax({
-	  url:      '/status',
+          url:      '/status',
           type:     'post',
           data:     {feed: feed_url},
           dataType: 'html',
@@ -33,7 +33,6 @@ jQuery(document).ready(function(){
 
         return true;
       }, {frequency: 1});
-
     };
 
     jQuery.ajax({

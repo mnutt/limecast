@@ -11,10 +11,12 @@
 
 <%= javascript_include_tag 'jquery' -%>
 <%= javascript_include_tag 'jquery-periodic' -%>
-<%= javascript_include_tag @javascript_includes if @javascript_includes -%>
 <script type="text/javascript">
   jQuery.noConflict();
+  AUTH_TOKEN = "<%= form_authenticity_token -%>";
 </script>
+
+<%= javascript_include_tag @javascript_includes if @javascript_includes -%>
 
 <%= javascript_include_tag 'prototype', 'application', 'scriptaculous', 'reflection' -%>
 

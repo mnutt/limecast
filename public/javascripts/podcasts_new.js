@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
 
     jQuery.periodic(function(controller){
       var callback = function(response) {
-        jQuery('#status').html(response);
+        form_clone.find('.status').html(response);
         if(/status_message/g.test(response))
           controller.stop();
       };

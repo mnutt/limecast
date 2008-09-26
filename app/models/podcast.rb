@@ -88,6 +88,7 @@ class Podcast < ActiveRecord::Base
   def async_create
     begin
       fetch!
+      raise if self.feed_error
       parse!
     rescue
       fail!
@@ -102,16 +103,20 @@ class Podcast < ActiveRecord::Base
         f.read
       end
     end
-  rescue Timeout::Error
-    self.feed_error = "Not found. (timeout) Try again."
-  rescue Errno::ENETUNREACH
-    self.feed_error = "Not found. Try again."
-  rescue StandardError => e
-    self.feed_error = "Weird server error. Try again."
   end
 
   def retrieve_feed
     self.feed_content = Podcast.retrieve_feed(self.feed_url)
+  rescue Timeout::Error
+    self.feed_error = "Not found. (timeout)"
+  rescue SocketError
+    self.feed_error = "Not found."
+  rescue Errno::ENETUNREACH
+    self.feed_error = "Not found."
+  rescue OpenURI::HTTPError
+    self.feed_error = "Not found."
+  rescue StandardError => e
+    self.feed_error = "Weird server error."
   end
 
   def parse_feed

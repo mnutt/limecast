@@ -9,11 +9,12 @@ jQuery(document).ready(function(){
 
     var feed_url = jQuery(this).find('#podcast_feed_url').attr('value');
     var form_clone = jQuery('#added_podcast').clone();
+    form_clone.attr('id', null);
     form_clone.find('.text').attr('value', feed_url);
     form_clone.show();
 
-    jQuery('#added_podcast_list').append(form_clone);
     jQuery('#podcast_feed_url').val("");
+    jQuery('#added_podcast_list').append(form_clone);
 
 
     if(jQuery('#inline_login'))

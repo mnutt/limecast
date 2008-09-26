@@ -27,7 +27,9 @@
       </div>
     </div>
   </form>
-  <div class="status" />
+  <div class="status">
+    <%= render :partial => 'status_loading' -%>
+  </div>
 </div>
 
 <% if !logged_in? -%>

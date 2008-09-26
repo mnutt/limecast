@@ -1,6 +1,6 @@
 <% @title = "#{h(@podcast.title)} #{h(@episode.title)}" -%>
 <% @show_ads = true -%>
-<% javascript_include "comment_edit" -%>
+<% javascript_include "comment_edit", "comment_delete" -%>
 
 <div class="podcast">
   <%= render :partial => 'podcasts/small_cover' -%>

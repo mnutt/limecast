@@ -11,10 +11,19 @@
 
 <%= javascript_include_tag 'jquery' -%>
 <%= javascript_include_tag 'jquery-periodic' -%>
-<%= javascript_include_tag @javascript_includes if @javascript_includes -%>
 <script type="text/javascript">
   jQuery.noConflict();
+
+  jQuery.ajaxSetup({
+    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+  })
+
+  <% if protect_against_forgery? -%>
+  AUTH_TOKEN = "<%= form_authenticity_token -%>";
+  <% end -%>
 </script>
+
+<%= javascript_include_tag @javascript_includes if @javascript_includes -%>
 
 <%= javascript_include_tag 'prototype', 'application', 'scriptaculous', 'reflection' -%>
 
@@ -44,11 +53,10 @@
             </li>
             <li class="search">
               <% form_for :search, :url => search_url do |form| -%>
-                <label for="query">Search...</label>
-                <%= text_field_tag "q", params[:query], :size => 15, :class => "text" %>
+                <label for="query" class="search">Search...</label>
+                <%= text_field_tag "q", params[:query], :size => 15, :class => "text search" %>
                 <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
               <% end -%>
-              <script type="text/javascript">new Lime.Widgets.Search('q')</script>
             </li>
             <% if current_user -%>
             <li class="user">

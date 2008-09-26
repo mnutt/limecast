@@ -55,32 +55,24 @@ Object.extend(Lime.Widgets.Behaviors.prototype, {
 /**************************************************************
 * Search
 **************************************************************/
-Lime.Widgets.Search = Class.create();
-Object.extend(Lime.Widgets.Search.prototype, {
-  initialize: function(container) {
-    if (!$(container)) {
-      throw(container+" doesn't exist.");
-      return false;
-    }
-    this.container = $(container);
-    if(this.container.value == '') {
-      this._attach();
-    }
-  },
-  _attach: function() {
-    this.label = this.container.previous();
-    this.label.hide();
-    this.text = this.label.innerHTML;
-    this.container.value = this.text;
-    Event.observe(this.container, 'focus', function(event) {
-      if (this.container.value == this.text) this.container.value = '';
-      Event.stop(event);
-    }.bind(this));
-    Event.observe(this.container, 'blur', function(event) {
-      if (this.container.value == '') this.container.value = this.text;
-      Event.stop(event);
-    }.bind(this));
-  }
+jQuery(document).ready(function(){
+  var search_box   = jQuery('input.search');
+  var search_label = jQuery('label.search');
+
+  var set_to_blank = function(){
+    if(search_box.val() == search_label.text())
+      search_box.val('');
+  };
+
+  var set_to_label_text = function(){
+    if(search_box.val() == '')
+      search_box.val(search_label.text());
+  };
+
+  search_box.focus(set_to_blank);
+  search_box.blur(set_to_label_text);
+
+  set_to_label_text();
 });
 
 /**************************************************************

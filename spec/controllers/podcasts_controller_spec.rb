@@ -125,7 +125,7 @@ describe PodcastsController do
         post :status, :feed => @podcast.feed_url
       end
       
-      it 'should return something' do
+      it 'should render the loading template' do
         response.should render_template('podcasts/_status_loading')
       end
     end
@@ -138,7 +138,7 @@ describe PodcastsController do
         post :status, :feed => @podcast.feed_url
       end
       
-      it 'should return something' do
+      it 'should render the added template' do
         response.should render_template('podcasts/_status_added')
       end
     end
@@ -219,30 +219,52 @@ describe PodcastsController do
 #     end
 #   end
 # 
-#   describe "handling DELETE /podcasts/1" do
-# 
-#     before(:each) do
-#       @podcast = mock_model(Podcast, :destroy => true)
-#       Podcast.stub!(:find).and_return(@podcast)
-#     end
-#   
-#     def do_delete
-#       delete :destroy, :id => "1"
-#     end
-# 
-#     it "should find the podcast requested" do
-#       Podcast.should_receive(:find).with("1").and_return(@podcast)
-#       do_delete
-#     end
-#   
-#     it "should call destroy on the found podcast" do
-#       @podcast.should_receive(:destroy)
-#       do_delete
-#     end
-#   
-#     it "should redirect to the podcasts list" do
-#       do_delete
-#       response.should redirect_to(podcasts_url)
-#     end
-#   end
+  describe "handling DELETE /podcasts/1" do
+    describe "when user is the podcast owner" do
+
+      before(:each) do
+        @user = mock_model(User)
+        @podcast = mock_model(Podcast, :destroy => true)
+        Podcast.stub!(:find).and_return(@podcast)
+        @podcast.should_receive(:writable_by?).and_return(true)
+        login(@user)
+      end
+      
+      def do_delete
+        delete :destroy, :id => "1"
+      end
+      
+      it "should find the podcast requested" do
+        Podcast.should_receive(:find).with("1").and_return(@podcast)
+        do_delete
+      end
+      
+      it "should call destroy on the found podcast" do
+        @podcast.should_receive(:destroy)
+        do_delete
+      end
+      
+      it "should redirect to the podcasts list" do
+        do_delete
+        response.should redirect_to(podcasts_url)
+      end
+    end
+
+    describe "when user is not authorized" do
+
+      before(:each) do
+        @user = mock_model(User)
+        @podcast = mock_model(Podcast, :destroy => true)
+        Podcast.stub!(:find).and_return(@podcast)
+        @podcast.should_receive(:writable_by?).and_return(false)
+        login(@user)
+      end
+      
+      it "should redirect to the podcasts list" do
+        lambda {
+          delete :destroy, :id => "1"
+        }.should raise_error(Forbidden)
+      end
+    end
+  end
 end

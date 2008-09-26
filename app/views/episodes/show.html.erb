@@ -3,13 +3,10 @@
 <% javascript_include "comment_edit", "comment_delete" -%>
 
 <div class="podcast">
-  <div class="cover">
-    <div class="border"></div>
-    <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
-  </div>
+  <%= render :partial => 'podcasts/small_cover' -%>
 
   <div class="episode">
-    <p>Episode of <%= link_to_thing(@episode.podcast) %></p>
+    <p><%= link_to(h(@episode.podcast.title), @episode.podcast) %></p>
     
     <h1 class="publish_date">
       <%=h @episode.published_at.strftime("%Y %b %d") %>

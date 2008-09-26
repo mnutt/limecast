@@ -1,0 +1,6 @@
+  <div class="cover">
+    <% link_to cover_url(:podcast => @podcast) do -%>
+      <div class="border"></div>
+      <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
+    <% end -%>
+  </div>

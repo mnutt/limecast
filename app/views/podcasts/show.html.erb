@@ -4,10 +4,7 @@
 
 <div class="podcast">
 
-  <div class="cover">
-    <div class="border"></div>
-    <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
-  </div>
+  <%= render :partial => 'podcasts/small_cover' -%>
 
   <% if @podcast.writable_by?(current_user) -%>
     <div id="edit_actions">

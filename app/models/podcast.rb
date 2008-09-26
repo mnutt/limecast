@@ -45,6 +45,7 @@ class Podcast < ActiveRecord::Base
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],
+                                 :large  => ["600x600>", :png],
                                  :icon   => ["16x16#", :png] }
 
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
@@ -229,8 +230,8 @@ class Podcast < ActiveRecord::Base
     return true if logo_link.nil? or logo_link.blank?
 
     @file = PaperClipFile.new
-    @file.original_filename = File.basename(logo_link)
     open(logo_link) do |f|
+      @file.original_filename = File.basename(logo_link)
       @file.to_tempfile = Tempfile.new('logo')
       @file.to_tempfile.write(f.read)
       @file.to_tempfile.rewind

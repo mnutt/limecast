@@ -29,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root                        :controller => 'home',     :action => 'home'
   map.add_podcast '/add',         :controller => 'podcasts', :action => 'new'
-  map.status      '/status/*feed',:controller => 'podcasts', :action => 'status'
+  map.status      '/status',      :controller => 'podcasts', :action => 'status'
   map.all         '/all',         :controller => 'podcasts', :action => 'index'
   map.search      '/search',      :controller => 'podcasts', :action => 'search'
   map.all_users   '/users',       :controller => 'users',    :action => 'index'

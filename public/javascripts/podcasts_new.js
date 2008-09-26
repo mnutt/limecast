@@ -13,6 +13,8 @@ jQuery(document).ready(function(){
     form_clone.show();
 
     jQuery('#added_podcast_list').append(form_clone);
+    jQuery('#podcast_feed_url').val("");
+
 
     if(jQuery('#inline_login'))
       jQuery('#inline_login').show();
@@ -26,9 +28,12 @@ jQuery(document).ready(function(){
       };
     
       jQuery.ajax({
-        url:     '/status/' + encodeURIComponent(feed_url).replace(/%2F/g, '/'),
-        success: callback,
-        error:   callback
+	url:      '/status',
+	type:     'post',
+	data:     {feed: feed_url},
+	dataType: 'html',
+        success:  callback,
+        error:    callback
       });
 
       return true;

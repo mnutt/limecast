@@ -13,6 +13,11 @@
 <%= javascript_include_tag 'jquery-periodic' -%>
 <script type="text/javascript">
   jQuery.noConflict();
+
+  jQuery.ajaxSetup({
+    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+  })
+
   AUTH_TOKEN = "<%= form_authenticity_token -%>";
 </script>
 

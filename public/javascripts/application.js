@@ -214,39 +214,25 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
 /**************************************************************
 * Toggle
 **************************************************************/
-Lime.Widgets.Toggle = Class.create();
-Object.extend(Lime.Widgets.Toggle.prototype, {
-  initialize: function(options) {
-    this.options = Object.extend({
-      toggle: 'span.expand',
-      classNames: {
-        expanded: 'expanded'
+jQuery(document).ready(function(){
+  jQuery('li.expandable').map(function(){
+    var expandable_li = jQuery(this);
+
+    expandable_li.find('span.expand').click(function(){
+      if(expandable_li.hasClass('expanded')) {
+        expandable_li.removeClass('expanded');
+        expandable_li.find('span.expand').text('Collapse');
+      } else {
+        expandable_li.addClass('expanded');
+        expandable_li.find('span.expand').text('Expand');
       }
-    }, options || {});
-    this._attach();
-  },
-  _attach: function() {
-    $$(this.options.toggle).each(function(toggle) {
-      var me = $(toggle), parent = me.up();
-      me.update((parent.hasClassName(this.options.classNames.expanded))? 'Collapse' : 'Expand');
-      toggle.observe('click', function(event) {
-        if (parent.hasClassName(this.options.classNames.expanded) == true) {
-          parent.removeClassName(this.options.classNames.expanded);
-          me.update('Expand');
-        } else {
-          parent.addClassName(this.options.classNames.expanded);
-          me.update('Collapse');
-        }
-        Event.stop(event);
-      }.bind(this));
-    }.bind(this));
-  }
+    });
+  });
 });
 
 // Load defaults
 document.observe('dom:loaded', function() {
   new Lime.Widgets.Behaviors;
-  new Lime.Widgets.Toggle;
 });
 
 /**************************************************************

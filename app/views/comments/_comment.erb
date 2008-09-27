@@ -6,7 +6,14 @@
       <%= image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating') -%>
     <% end -%>
 
-    <h4><%=h comment.title -%></h4>
+
+    <h4>
+      <% if comment.id.nil? %>
+        <%=h comment.title -%>
+      <% else -%>
+        <%= link_to h(comment.title), review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%>
+      <% end -%>
+    </h4>
 
     <% if comment.commenter -%>
       <cite>by <%= link_to_profile comment.commenter -%></cite>
@@ -16,7 +23,6 @@
     <p>
       <span class="comment_body"><%=h comment.body -%></span>
       <% unless comment.id.nil? %>
-        <%= link_to '#', review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%>
         <%= render :partial => 'comments/comment_modify_links', :object => comment -%>
         <%= render :partial => 'comments/comment_rating_links', :object => comment -%>
       <% end %>
@@ -26,7 +32,7 @@
   <% if can_edit_comment?(comment) %>
     <div class="edit_review" style="display: none;">
       <% form_for comment do |f| -%>
-        <%= render :partial => 'comments/comment_form', :locals => {:f => f} -%>
+        <%= render :partial => 'comments/comment_form', :locals => {:f => f, :options => {:show_rating => false}} -%>
       <% end -%>
     </div>
   <% end -%>

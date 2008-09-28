@@ -88,16 +88,14 @@
     <p><%= @podcast.description -%></p>
   </div>
   
+  <% if @podcast.tags.length > 0 then %>
   <div class="tags">
     Tags:
-    <% if @podcast.tags.length > 0 then %>
       <% @podcast.tags.each do |tag| -%>
         <%= link_to "<span>#{h(tag.name)}</span>", tag_url(tag) -%>
       <% end -%>
-    <% else -%>
-      <span class="notice">No one has added any tags yet!</span>
-    <% end -%>
   </div>
+  <% end -%>
   
   <% unless @podcast.episodes.empty? %>
     <div class="episodes">

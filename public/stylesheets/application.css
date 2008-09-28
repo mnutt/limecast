@@ -132,12 +132,16 @@ ul.episodes li.expanded div.full {
 ul.episodes li.expanded span.expand {
   background-image: url("../images/icons/collapse.png");
 }
-ul.episodes div.download {
+ul.episodes div.download,
+ul.episodes div.limewire {
   margin: 0 10px 0 0;
   float: left;
 }
 ul.episodes div.download a.icon {
   background-image: url("../images/icons/download.png");
+}
+ul.episodes div.limewire a.icon {
+  background-image: url("../images/icons/limewire.png");
 }
 
 /* Reviews */

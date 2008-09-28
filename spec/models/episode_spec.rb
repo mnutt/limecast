@@ -36,6 +36,18 @@ describe Episode do
   end
 end
 
+describe Episode, "finding episodes for a podcast" do
+  before(:each) do
+    @podcast = Factory.create(:podcast)
+    @first =  Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 2.days.ago)
+    @second = Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 1.day.ago)
+  end
+
+  it 'should list the most recent episode first' do
+    @podcast.episodes.should == [@second, @first]
+  end
+end
+
 describe Episode, "generating a URL" do
   before(:each) do
     @episode = Factory.create(:episode)

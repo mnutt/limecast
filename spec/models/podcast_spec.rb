@@ -135,7 +135,7 @@ end
 describe Podcast, "downloading the logo" do
   before do
     @podcast = Factory.create(:parsed_podcast)
-    @podcast.logo_link = "http://badlink/"
+    @podcast.logo_link = "http://google.com/"
   end
 
   it 'should not set the logo_filename for a bad link' do

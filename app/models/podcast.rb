@@ -235,6 +235,7 @@ class Podcast < ActiveRecord::Base
 
     @file = PaperClipFile.new
     open(logo_link) do |f|
+      raise SocketError, "file is not an image" unless f.content_type.split("/").first == "image"
       @file.original_filename = File.basename(logo_link)
       @file.to_tempfile = Tempfile.new('logo')
       @file.to_tempfile.write(f.read)

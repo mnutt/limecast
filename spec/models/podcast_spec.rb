@@ -27,6 +27,14 @@ describe Podcast do
     @podcast.sanitize_url
     @podcast.clean_url.should == "Podcast"
   end
+
+  it 'should use the custom_title if set' do
+    @podcast.title.should == "Podcast"
+    @podcast.custom_title = "My Podcast"
+    @podcast.title.should == "My Podcast"
+    @podcast.title = "Different Podcast"
+    @podcast.title.should == "My Podcast"
+  end
 end
 
 describe Podcast, "creating a new podcast" do

@@ -218,6 +218,10 @@ class Podcast < ActiveRecord::Base
     self.title
   end
 
+  def title
+    (self.custom_title.nil? or self.custom_title.blank?) ? super : self.custom_title
+  end
+
   def comments
     Comment.for_podcast(self)
   end

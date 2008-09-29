@@ -70,7 +70,7 @@ describe UsersController, "handling POST /user/:user" do
       assigns(:user).reload.email.should == "newemail@example.com"
     end
     
-    it "should redirect to the podcasts list" do
+    it "should redirect to the user page" do
       response.should redirect_to(user_url(:user => @user))
     end
   end
@@ -84,10 +84,24 @@ describe UsersController, "handling POST /user/:user" do
       login(@user)
     end
     
-    it "should redirect to the podcasts list" do
+    it "should be forbidden" do
       lambda {
         post :update, :user => @user.login, :user_attr => {:email => "newemail@example.com"}
       }.should raise_error(Forbidden)
+    end
+  end
+
+  describe "when user enters malicious params" do
+    
+    before(:each) do
+      @user = Factory.create(:user)
+      login(@user)
+
+      post :update, :user => @user.login, :user_attr => {:score => "584"}
+    end
+    
+    it "should redirect to the podcasts list" do
+      assigns(:user).score.should == 0
     end
   end
 end

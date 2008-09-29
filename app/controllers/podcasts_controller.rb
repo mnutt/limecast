@@ -24,19 +24,8 @@ class PodcastsController < ApplicationController
     end
   end
 
-  def feed_info
-    @podcast = Podcast.new_from_feed(params[:feed])
-  rescue
-    render :partial => "bad_feed"
-  end
-
   def new
     @podcast = Podcast.new
-  end
-
-  def edit
-    @podcast = Podcast.find(params[:id])
-    authorize_write @podcast
   end
 
   def status
@@ -82,7 +71,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
-    @podcast.attributes = params[:podcast_attr]
+    @podcast.attributes = params[:podcast_attr].keep_keys([:custom_title, :itunes_link])
 
     if @podcast.save
       flash[:notice] = 'Podcast was successfully updated.'

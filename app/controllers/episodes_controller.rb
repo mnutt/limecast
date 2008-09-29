@@ -22,7 +22,7 @@ class EpisodesController < ApplicationController
   # DELETE /episodes/1
   # DELETE /episodes/1.xml
   def destroy
-    unauthorized unless @episode.writable_by?(user)
+    unauthorized unless @episode.writable_by?(current_user)
 
     @episode = Episode.find(params[:id])
     @episode.destroy

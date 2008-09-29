@@ -325,5 +325,20 @@ describe PodcastsController do
         }.should raise_error(Forbidden)
       end
     end
+
+    describe "when user enters malicious params" do
+      
+      before(:each) do
+        @user = Factory.create(:user)
+        @podcast = Factory.create(:podcast, :user_id => @user.id, :email => "test@example.com")
+        login(@user)
+        
+        post :update, :podcast => @podcast.clean_url, :podcast_attr => {:email => "malicious@example.com"}
+      end
+      
+      it "should not change the params" do
+        assigns(:podcast).email.should == "test@example.com"
+      end
+    end
   end
 end

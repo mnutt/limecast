@@ -45,7 +45,7 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.xml
   def create
-    @comment = Comment.new(params[:comment])
+    @comment = Comment.new(params[:comment].keep_keys([:title, :body, :positive, :episode_id]))
     @comment.commenter = current_user unless current_user.nil?
 
     respond_to do |format|

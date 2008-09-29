@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
 
-  # render new.rhtml
+  # render new.html.erb
   def new
   end
 
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       return
     end
 
-    @user = User.new(params[:user])
+    @user = User.new(params[:user].keep_keys([:email, :password, :password_confirmation, :login]))
     @user.state = 'passive'
     @user.register! if @user.valid?
     if @user.errors.empty?
@@ -116,17 +116,13 @@ class UsersController < ApplicationController
     @user = User.find_by_login(params[:user])
     @user == current_user || unauthorized
 
-    respond_to do |format|
-      format.html do
-        if @user.update_attributes!(params[:user_attr])
-          flash[:notice] = "Your account settings were successfully saved."
-        else
-          flash[:notice] = "There was a problem saving your settings."
-        end
-        
-        redirect_to user_url(@user)
-      end
+    if @user.update_attributes!(params[:user_attr].keep_keys([:email]))
+      flash[:notice] = "Your account settings were successfully saved."
+    else
+      flash[:notice] = "There was a problem saving your settings."
     end
+
+    redirect_to user_url(:user => @user)
   end
 
 protected

@@ -51,5 +51,6 @@ ActionController::Routing::Routes.draw do |map|
   map.podcast_episodes '/:podcast/episodes',         :controller => 'episodes', :action => 'index'
   map.episode          '/:podcast/:episode',         :controller => 'episodes', :action => 'show'
 
-  map.podcast          '/:podcast',                  :controller => 'podcasts', :action => 'show'
+  map.podcast          '/:podcast',                  :controller => 'podcasts', :action => 'show',   :conditions => {:method => :get}
+  map.podcast          '/:podcast',                  :controller => 'podcasts', :action => 'update', :conditions => {:method => :post}
 end

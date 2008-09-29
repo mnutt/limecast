@@ -7,6 +7,7 @@ class PodcastsController < ApplicationController
   end
 
   def show
+    raise ActiveRecord::RecordNotFound if params[:podcast].nil?
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
     @episodes = @podcast.episodes.find(:all, :limit => 3)
 
@@ -77,10 +78,11 @@ class PodcastsController < ApplicationController
   end
 
   def update
-    @podcast = Podcast.find(params[:id])
+    raise ActiveRecord::RecordNotFound if params[:podcast].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
-    @podcast.attributes = params[:podcast]
+    @podcast.attributes = params[:podcast_attr]
 
     if @podcast.save
       flash[:notice] = 'Podcast was successfully updated.'

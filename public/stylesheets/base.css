@@ -312,7 +312,7 @@ div#footer ul li {
 **/
 form div.field label {
   text-align: right;
-  padding: 5px 0;
+  padding: 5px 10px 5px 0px;
   width: 80px;
   float: left;
 }
@@ -400,13 +400,13 @@ div.palette div.contents {
 /**
  Notices
 **/
-div#primary div#notice {
+div#primary span#notice {
   background-color: #555;
   margin: 0 0 15px 0;
   padding: 10px;
   display: block;
 }
 
-div#primary div#notice p {
+div#primary span#notice p {
   margin: 0;
 }

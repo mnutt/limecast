@@ -209,6 +209,13 @@ span.arrow_down {
 }
 
 /**
+ * Showing Podcasts
+*/
+div#edit_form {
+  margin-bottom: 1em;
+}
+
+/**
  * Comments
 */
 ul.comments li.comment {

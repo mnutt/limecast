@@ -1,0 +1,21 @@
+<div id="edit_form" style="display:none">
+  <% form_for :podcast_attr, @podcast do |f| -%>
+    <div class="field">
+      <%= f.label :custom_title, "Title" -%>
+      <div>
+	<%= f.text_field :custom_title, :class => "text" -%>
+      </div>
+    </div>
+    
+    <div class="field">
+      <%= f.label :itunes_link, "iTunes Link" -%>
+      <div>
+	<%= f.text_field :itunes_link, :class => "text" -%>
+      </div>
+    </div>
+    
+    <div class="controls">
+      <%= submit_tag "Save", :class => "button" -%>
+    </div>
+  <% end -%>
+</div>

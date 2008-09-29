@@ -282,4 +282,48 @@ describe PodcastsController do
       end
     end
   end
+
+  describe "handling POST /:podcast" do
+    describe "when user is the podcast owner" do
+
+      before(:each) do
+        @user = Factory.create(:user)
+        @podcast = Factory.create(:parsed_podcast)
+        Podcast.stub!(:find_by_clean_url).and_return(@podcast)
+        @podcast.should_receive(:writable_by?).and_return(true)
+        login(@user)
+
+        post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title", :itunes_link => "http://ituneslink/"}
+      end
+      
+      it "should find the podcast requested" do
+        assigns(:podcast).id.should == @podcast.id
+      end
+      
+      it "should update the found podcast" do
+        assigns(:podcast).reload.title.should == "Custom Title"
+      end
+      
+      it "should redirect to the podcasts list" do
+        response.should redirect_to(podcast_url(:podcast => @podcast))
+      end
+    end
+
+    describe "when user is not authorized" do
+
+      before(:each) do
+        @user = Factory.create(:user)
+        @podcast = Factory.create(:parsed_podcast)
+        Podcast.stub!(:find_by_clean_url).and_return(@podcast)
+        @podcast.should_receive(:writable_by?).and_return(false)
+        login(@user)
+      end
+      
+      it "should redirect to the podcasts list" do
+        lambda {
+          post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title", :itunes_link => "http://ituneslink/"}
+        }.should raise_error(Forbidden)
+      end
+    end
+  end
 end

@@ -71,6 +71,8 @@ describe Podcast, "parsing a podcast" do
 
   before do
     @podcast = Factory.create(:fetched_podcast)
+    @podcast.stub!(:retrieve_feed)
+    @podcast.stub!(:download_logo)
     @podcast.parse_feed
   end
 
@@ -79,7 +81,6 @@ describe Podcast, "parsing a podcast" do
   end
 
   it 'should extract the title' do
-    # raise @podcast.to_yaml
     @podcast.reload.title.should == "All About Everything"
   end
 
@@ -135,14 +136,37 @@ end
 describe Podcast, "downloading the logo" do
   before do
     @podcast = Factory.create(:parsed_podcast)
-    @podcast.logo_link = "http://google.com/"
+    @podcast.logo_link = "http://google.com"
   end
 
   it 'should not set the logo_filename for a bad link' do
+    pending "too slow"
     lambda {
       @podcast.download_logo
     }.should raise_error(SocketError)
     @podcast.logo_file_name.should be_nil
+  end
+end
+
+describe Podcast, "getting the average time between episodes" do
+  before do
+    @podcast = Factory.create(:podcast)
+    @first = Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 4.days.ago)
+  end
+
+  it 'should be zero for only one episode' do
+    @podcast.average_time_between_episodes.should == 0
+  end
+
+  it 'should be one day for three episodes spaced one day apart' do
+    @second =  Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 3.days.ago)
+    @third =   Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 2.day.ago)
+    @podcast.episodes.count.should == 3
+    @podcast.average_time_between_episodes.should be_close(1.day.to_f, 1.minute)
+  end
+
+  it 'should be zero for podcasts with no episodes' do
+    Factory.create(:podcast).average_time_between_episodes.should == 0
   end
 end
 

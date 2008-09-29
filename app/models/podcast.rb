@@ -41,7 +41,7 @@ class Podcast < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
 
-  has_many :episodes, :order => "published_at DESC", :dependent => :destroy
+  has_many :episodes, :dependent => :destroy
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],
@@ -177,8 +177,9 @@ class Podcast < ActiveRecord::Base
   end
 
   def average_time_between_episodes
+    return 0 if self.episodes.count < 2
     time_span = self.episodes.newest.first.published_at - self.episodes.oldest.first.published_at
-    time_span / self.episodes.count
+    time_span / (self.episodes.count - 1)
   end
 
   def total_run_time

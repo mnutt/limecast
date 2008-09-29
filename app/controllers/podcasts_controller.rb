@@ -9,7 +9,7 @@ class PodcastsController < ApplicationController
   def show
     raise ActiveRecord::RecordNotFound if params[:podcast].nil?
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
-    @episodes = @podcast.episodes.find(:all, :limit => 3)
+    @episodes = @podcast.episodes.find(:all, :order => "published_at DESC", :limit => 3)
 
     @comments = with(@podcast.episodes.newest.first) {|ep| ep.nil? ? [] : ep.comments }
     @comment  = Comment.new(:episode => @podcast.episodes.newest.first)

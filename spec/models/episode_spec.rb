@@ -44,7 +44,7 @@ describe Episode, "finding episodes for a podcast" do
   end
 
   it 'should list the most recent episode first' do
-    @podcast.episodes.should == [@second, @first]
+    @podcast.episodes.find(:all, :order => "published_at DESC").should == [@second, @first]
   end
 end
 

@@ -4,7 +4,7 @@ class EpisodesController < ApplicationController
   def index
     if params[:podcast]
       @podcast = Podcast.find_by_clean_url(params[:podcast])
-      @episodes = @podcast.episodes.find(:all)
+      @episodes = @podcast.episodes.find(:all, :order => "published_at DESC")
     else
       @episodes = Episode.find(:all)
     end

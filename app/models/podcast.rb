@@ -232,8 +232,6 @@ class Podcast < ActiveRecord::Base
   end
 
   def download_logo
-    return true if logo_link.nil? or logo_link.blank?
-
     @file = PaperClipFile.new
     open(logo_link) do |f|
       raise SocketError, "file is not an image" unless f.content_type.split("/").first == "image"
@@ -244,6 +242,8 @@ class Podcast < ActiveRecord::Base
       @file.content_type = f.content_type
       attachment_for(:logo).assign @file
     end
+  rescue
+    return false
   end
 
   def just_created?

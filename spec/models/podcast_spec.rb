@@ -140,9 +140,7 @@ describe Podcast, "downloading the logo" do
   end
 
   it 'should not set the logo_filename for a bad link' do
-    lambda {
-      @podcast.download_logo
-    }.should raise_error(SocketError)
+    @podcast.download_logo.should == false
     @podcast.logo_file_name.should be_nil
   end
 end

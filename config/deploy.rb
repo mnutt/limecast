@@ -224,6 +224,13 @@ CRON
   end
 end
 
+namespace :passenger do
+  desc "Restart application"
+  task :restart do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+end
+
 # Override built-in deploy tasks
 namespace :deploy do
   namespace :web do
@@ -253,7 +260,10 @@ after 'deploy:update_code', 'limecast:update'
 # after 'deploy:cold', 'limecast:deploy:populate'
 # after 'deploy:cold', 'limecast:sphinx:reset'
 
+after 'deploy', 'passenger:restart'
+after 'deploy', 'limecast:sphinx:stop'
 after 'deploy', 'limecast:sphinx:configure'
 after 'deploy', 'limecast:sphinx:reindex'
-after 'deploy', 'limecast:sphinx:restart'
+after 'deploy', 'limecast:sphinx:reindex'
+after 'deploy', 'limecast:sphinx:start'
 after 'deploy', 'limecast:async:restart'

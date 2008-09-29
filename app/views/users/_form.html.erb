@@ -1,0 +1,14 @@
+<div id="edit_form" style="display:none">
+  <% form_for :user_attr, current_user do |f| -%>
+    <div class="field">
+      <%= f.label :email, "Email" -%>
+      <div>
+	<%= f.text_field :email, :class => "text" -%>
+      </div>
+    </div>
+    
+    <div class="controls">
+      <%= submit_tag "Save", :class => "button" -%>
+    </div>
+  <% end -%>
+</div>

@@ -33,7 +33,8 @@ ActionController::Routing::Routes.draw do |map|
   map.all         '/all',         :controller => 'podcasts', :action => 'index'
   map.search      '/search',      :controller => 'podcasts', :action => 'search'
   map.all_users   '/users',       :controller => 'users',    :action => 'index'
-  map.user        '/user/:user',  :controller => 'users',    :action => 'show'
+  map.user        '/user/:user',  :controller => 'users',    :action => 'show', :conditions => {:method => :get}
+  map.user        '/user/:user',  :controller => 'users',    :action => 'update', :conditions => {:method => :post}
   map.tag         '/tag/:tag',    :controller => 'tags',     :action => 'show'
 
   map.use         '/use',         :controller => 'home',     :action => 'use'

@@ -1,42 +1,52 @@
 <% @title = h(@user.login) -%>
+<% javascript_include "comment_edit", "comment_delete", "inline_edit_form" -%>
+<div class="user">
+  <h1><%=h @user.login -%></h1>
 
-<h1><%=h @user.login -%></h1>
-
-<% if @user == current_user -%>
-  <p>
-    This is me!
-    Change password, email 
-    (<%= in_place_editor_field :user, :email, {}, :url => "/users/#{@user.id}" -%>)
-    <%= link_to "Sign out", session_url, :method => 'delete' -%>
-  </p>
-<% end -%>
-
-<% if @user.owned_podcasts.count > 0 -%>
-  <h3>Makes</h3>
-  <ul class="podcasts">
-    <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
-  </ul>
-  <% reset_cycle('row_class') %>
-<% end -%>
-
-<% if @user.podcasts.count > 0 -%>
-  <h3>Found</h3>
-  <ul class="podcasts">
-    <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
-  </ul>
-  <% reset_cycle('row_class') %>
-<% end -%>
-
-<% if @user.comments.count > 0 -%>
-  <h3>Reviewed</h3>
-  <ul class="comments">
-    <% @user.comments.each do |comment| -%>
-      <li id="<%= dom_id(comment) -%>" class="comment <%= cycle('odd','even', :name => 'row_class') -%>">
-        <%= link_to_thing(comment.episode.podcast) -%>
-        <h4><%= comment.title -%></h4>
-        <%= comment.body -%>
-      </li>
-    <% end -%>
-  </ul>
-  <% reset_cycle('row_class') %>
-<% end -%>
+  <% if @user == current_user -%>
+    <div id="edit_actions">
+      <span class="label">This is me!</span>
+      <ul>
+	<li class="edit">
+          <%= link_to "<span>Edit</span>", edit_user_url(current_user), :class => 'icon' -%>
+	</li>
+	<li class="logout">
+	  <%= link_to "<span>Sign out</span>", session_url, :method => 'delete', :class => 'icon' -%>
+	</li>
+      </ul>
+      <div class="clear"></div>
+      
+      <%= render :partial => "form" -%>
+    </div>  
+  <% end -%>
+  
+  <% if @user.owned_podcasts.count > 0 -%>
+    <h3>Makes</h3>
+    <ul class="podcasts">
+      <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
+    </ul>
+    <% reset_cycle('row_class') %>
+  <% end -%>
+  
+  <% if @user.podcasts.count > 0 -%>
+    <h3>Found</h3>
+    <ul class="podcasts">
+      <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
+    </ul>
+    <% reset_cycle('row_class') %>
+  <% end -%>
+  
+  <% if @user.comments.count > 0 -%>
+    <h3>Reviewed</h3>
+    <ul class="comments">
+      <% @user.comments.each do |comment| -%>
+	<li id="<%= dom_id(comment) -%>" class="comment <%= cycle('odd','even', :name => 'row_class') -%>">
+          <%= link_to_thing(comment.episode.podcast) -%>
+          <h4><%= comment.title -%></h4>
+          <%= comment.body -%>
+	</li>
+      <% end -%>
+    </ul>
+    <% reset_cycle('row_class') %>
+  <% end -%>
+</div>

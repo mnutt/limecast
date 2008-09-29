@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :update]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
   def new
@@ -113,15 +113,18 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find_by_login(params[:user])
     @user == current_user || unauthorized
 
     respond_to do |format|
-      format.js do
-        if @user.update_attributes!(params[:user])
-          render :text => @user.reload.attributes[params[:user].keys.first]
+      format.html do
+        if @user.update_attributes!(params[:user_attr])
+          flash[:notice] = "Your account settings were successfully saved."
         else
-          render :text => "There was a problem saving.  Please refresh the page."
+          flash[:notice] = "There was a problem saving your settings."
         end
+        
+        redirect_to user_url(@user)
       end
     end
   end

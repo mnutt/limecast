@@ -8,6 +8,31 @@ div#quick_signin.top_bar {
 }
 
 /**
+* Users
+**/
+div.user div#edit_actions {
+  line-height: 2em;
+}
+div.user div#edit_actions span.label {
+  font-weight: bold;
+  float: left;
+}
+div.user div#edit_actions ul {
+  margin: 0 0 5px 0;
+  float: left;
+}
+div.user div#edit_actions ul li {
+  margin: 0 0 0 5px;
+  float: left;
+}
+div.user div#edit_actions ul li.edit a {
+  background-image: url("../images/icons/edit.png");
+}
+div.user div#edit_actions ul li.logout a {
+  background-image: url("../images/icons/user.png") !important;
+}
+
+/**
 * Podcasts
 **/
 ul.podcasts li.podcast {

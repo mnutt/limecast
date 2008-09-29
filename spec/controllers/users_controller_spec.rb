@@ -51,3 +51,43 @@ describe UsersController do
       :password => 'quire', :password_confirmation => 'quire' }.merge(options)
   end
 end
+
+describe UsersController, "handling POST /user/:user" do
+  describe "when user is the podcast owner" do
+
+    before(:each) do
+      @user = Factory.create(:user)
+      login(@user)
+      
+      post :update, :user => @user.login, :user_attr => {:email => "newemail@example.com"}
+    end
+    
+    it "should find the user requested" do
+      assigns(:user).id.should == @user.id
+    end
+    
+    it "should update the found podcast" do
+      assigns(:user).reload.email.should == "newemail@example.com"
+    end
+    
+    it "should redirect to the podcasts list" do
+      response.should redirect_to(user_url(:user => @user))
+    end
+  end
+  
+  describe "when user is not authorized" do
+    
+    before(:each) do
+      @user = Factory.create(:user)
+      User.should_receive(:find_by_login).and_return(@user)
+      @user.should_receive(:==).and_return(false)
+      login(@user)
+    end
+    
+    it "should redirect to the podcasts list" do
+      lambda {
+        post :update, :user => @user.login, :user_attr => {:email => "newemail@example.com"}
+      }.should raise_error(Forbidden)
+    end
+  end
+end

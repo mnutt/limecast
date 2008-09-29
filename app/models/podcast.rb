@@ -84,7 +84,7 @@ class Podcast < ActiveRecord::Base
     has :created_at, :state
   end
 
-  after_create  :distribute_point
+  after_create  :distribute_point, :if => '!user.nil?'
 
   def async_create
     begin
@@ -299,8 +299,6 @@ class Podcast < ActiveRecord::Base
   protected
 
   def distribute_point
-    return if user.nil?
-
     self.user.score += 1
     self.user.save
   end

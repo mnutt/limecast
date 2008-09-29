@@ -305,3 +305,65 @@ describe Podcast, "generating the clean url" do
     @podcast.sanitize_url.should == 'my-title'
   end
 end
+
+describe Podcast, "permissions" do
+  describe "an admin" do
+    before do
+      @user = Factory.create(:admin_user)
+      @podcast = Factory.create(:parsed_podcast)
+    end
+    
+    it 'should have write access' do
+      @podcast.writable_by?(@user).should == true
+    end
+  end
+
+  describe "the finder" do
+    before do
+      @user = Factory.create(:user)
+      @podcast = Factory.create(:parsed_podcast, :user_id => @user.id)
+    end
+
+    it 'should have write access' do
+      @podcast.writable_by?(@user).should == true
+    end
+
+    it 'should not have write access if finder is unconfirmed' do
+      @user.state = "pending"
+      @podcast.writable_by?(@user).should == false
+    end
+
+    it 'should not have write access if there is an owner set' do
+      @owner = Factory.create(:user)
+      @podcast.owner = @owner
+      @podcast.writable_by?(@user).should == false
+    end
+  end
+
+  describe "the owner" do
+    before do
+      @user = Factory.create(:user)
+      @podcast = Factory.create(:parsed_podcast, :owner_id => @user.id)
+    end
+
+    it 'should have write access' do
+      @podcast.writable_by?(@user).should == true
+    end
+
+    it 'should not have write access if owner is unconfirmed' do
+      @user.state = "pending"
+      @podcast.writable_by?(@user).should == false
+    end
+  end
+
+  describe "another user" do
+    before do
+      @user = Factory.create(:user)
+      @podcast = Factory.create(:parsed_podcast)
+    end
+    
+    it 'should not have write access' do
+      @podcast.writable_by?(@user).should == false
+    end
+  end
+end

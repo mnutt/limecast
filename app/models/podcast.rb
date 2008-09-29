@@ -293,7 +293,8 @@ class Podcast < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    user and (self.user_id == user.id || self.owner_id == user.id || user.admin?)
+    # TODO: refactor
+    !!(user and user.active? and ((self.user_id == user.id && !self.owner_id) || self.owner_id == user.id || user.admin?))
   end
 
   protected

@@ -239,59 +239,69 @@ end
 #   Podcast.stub!(:retrieve_feed).and_return(feed)
 # end
 # 
-# describe Podcast, "cleaning up the site url" do
-#   before do
-#     @podcast = Podcast.new(:state => "parsed")
-#   end
-#   
-#   it 'should remove a leading http://' do
-#     @podcast.site = "http://test.host"
-#     @podcast.clean_site.should == "test.host"
-#   end
-# 
-#   it 'should remove a leading www.' do
-#     @podcast.site = "www.test.host"
-#     @podcast.clean_site.should == "test.host"
-#   end
-# 
-#   it 'should remove both a leading http and www' do
-#     @podcast.site = "http://www.test.host"
-#     @podcast.clean_site.should == "test.host"
-#   end
-# 
-#   it 'should remove a trailing slash' do
-#     @podcast.site = "http://test.host/"
-#     @podcast.clean_site.should == "test.host"
-#   end
-# 
-#   it 'should allow for a path' do
-#     @podcast.site = "http://test.host/path/to/page"
-#     @podcast.clean_site.should == "test.host/path/to/page"
-#   end
-# 
-#   it 'should not modify a non-url' do
-#     @podcast.site = "test.host"
-#     @podcast.clean_site.should == "test.host"
-#   end
-# end
-# 
-# describe Podcast, "generating the clean title url" do
-#   before do
-#     @podcast = Podcast.new(:state => "parsed")
-#   end
-# 
-#   it 'should remove leading and trailing whitespaces' do
-#     @podcast.title = ' title '
-#     @podcast.generate_url.should == 'title'
-#   end
-# 
-#   it 'should remove non-alphanumeric characters' do
-#     @podcast.title = ' ^$(title '
-#     @podcast.generate_url.should == 'title'
-#   end
-# 
-#   it 'should convert interior spaces to dashes' do
-#     @podcast.title = ' my $title '
-#     @podcast.generate_url.should == 'my-title'
-#   end
-# end
+describe Podcast, "cleaning up the site url" do
+  before do
+    @podcast = Podcast.new(:state => "parsed")
+  end
+  
+  it 'should remove a leading http://' do
+    @podcast.site = "http://test.host"
+    @podcast.clean_site.should == "test.host"
+  end
+
+  it 'should remove a leading www.' do
+    @podcast.site = "www.test.host"
+    @podcast.clean_site.should == "test.host"
+  end
+
+  it 'should remove both a leading http and www' do
+    @podcast.site = "http://www.test.host"
+    @podcast.clean_site.should == "test.host"
+  end
+
+  it 'should remove a trailing slash' do
+    @podcast.site = "http://test.host/"
+    @podcast.clean_site.should == "test.host"
+  end
+
+  it 'should remove a trailing index.html' do
+    @podcast.site = "http://test.host/index.html"
+    @podcast.clean_site.should == "test.host"
+  end
+
+  it 'should remove trailing parameters' do
+    @podcast.site = "http://test.host/podcast/?ref=rss"
+    @podcast.clean_site.should == "test.host/podcast"
+  end
+
+  it 'should allow for a path' do
+    @podcast.site = "http://test.host/path/to/page"
+    @podcast.clean_site.should == "test.host/path/to/page"
+  end
+
+  it 'should not modify a non-url' do
+    @podcast.site = "test.host"
+    @podcast.clean_site.should == "test.host"
+  end
+end
+
+describe Podcast, "generating the clean url" do
+  before do
+    @podcast = Factory.create(:parsed_podcast)
+  end
+
+  it 'should remove leading and trailing whitespaces' do
+    @podcast.title = ' title '
+    @podcast.sanitize_url.should == 'title'
+  end
+
+  it 'should remove non-alphanumeric characters' do
+    @podcast.title = ' ^$(title '
+    @podcast.sanitize_url.should == 'title'
+  end
+
+  it 'should convert interior spaces to dashes' do
+    @podcast.title = ' my $title '
+    @podcast.sanitize_url.should == 'my-title'
+  end
+end

@@ -140,7 +140,6 @@ describe Podcast, "downloading the logo" do
   end
 
   it 'should not set the logo_filename for a bad link' do
-    pending "too slow"
     lambda {
       @podcast.download_logo
     }.should raise_error(SocketError)

@@ -23,6 +23,7 @@
   <% end -%>
 </script>
 
+<%= javascript_include_tag 'default_input_text_helper' %>
 <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
 
 <%= javascript_include_tag 'prototype', 'application', 'scriptaculous', 'reflection' -%>
@@ -53,7 +54,7 @@
             </li>
             <li class="search">
               <% form_for :search, :url => search_url do |form| -%>
-                <label for="query" class="search">Search...</label>
+                <label for="q" class="default search">Search...</label>
                 <%= text_field_tag "q", params[:query], :size => 15, :class => "text search" %>
                 <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
               <% end -%>

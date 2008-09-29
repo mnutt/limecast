@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
     transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
   end
 
+  event :change_email do
+    transitions :from => [:pending, :active, :passive], :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
+  end
+
   event :activate do
     transitions :from => :pending, :to => :active
   end

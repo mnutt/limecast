@@ -63,6 +63,7 @@ Factory.define :user do |u|
   u.password              'password'
   u.password_confirmation 'password'
   u.salt                  'NaCl'
+  u.state                 'active'
 end
 
 Factory.define :admin_user, :class => User do |u|
@@ -71,6 +72,7 @@ Factory.define :admin_user, :class => User do |u|
   u.password              'password'
   u.password_confirmation 'password'
   u.salt                  'NaCl'
+  u.state                 'active'
 
   u.admin true
 end

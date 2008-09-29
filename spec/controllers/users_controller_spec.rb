@@ -53,7 +53,7 @@ describe UsersController do
 end
 
 describe UsersController, "handling POST /user/:user" do
-  describe "when user is the podcast owner" do
+  describe "when user is the current user" do
 
     before(:each) do
       @user = Factory.create(:user)
@@ -66,8 +66,13 @@ describe UsersController, "handling POST /user/:user" do
       assigns(:user).id.should == @user.id
     end
     
-    it "should update the found podcast" do
+    it "should update the user" do
       assigns(:user).reload.email.should == "newemail@example.com"
+    end
+
+    it "should set the user to pending" do
+      assigns(:user).state.should == "pending"
+      assigns(:user).activation_code.should_not be_nil
     end
     
     it "should redirect to the user page" do

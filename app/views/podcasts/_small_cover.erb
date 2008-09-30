@@ -1,7 +1,5 @@
-<% link_to_cover ||= false -%>
-
   <div class="cover">
-    <% link_to link_to_cover ? cover_url(@podcast) : podcast_url(@podcast) do -%>
+    <% link_to cover_url(@podcast) do -%>
       <div class="border"></div>
       <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
     <% end -%>

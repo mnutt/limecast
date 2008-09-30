@@ -4,7 +4,7 @@
 
 <div class="podcast">
 
-  <%= render :partial => 'podcasts/small_cover', :locals => {:link_to_cover => true} -%>
+  <%= render :partial => 'podcasts/small_cover' -%>
 
   <% if @podcast.writable_by?(current_user) -%>
     <div id="edit_actions">

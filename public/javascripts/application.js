@@ -125,19 +125,19 @@ Object.extend(Lime.Widgets.QuickLogin.prototype, {
         this.login_buttons.hide();
       } else {
         new Ajax.Updater(this.response_container,
-			 '/users',
-			 { asynchronous: true,
-  			   method:       'post',
-			   evalScripts:  true,
-			   parameters:   Form.serialize(this.login_form) });
+       '/users',
+       { asynchronous: true,
+         method:       'post',
+         evalScripts:  true,
+         parameters:   Form.serialize(this.login_form) });
       }
     }.bind(this));
 
     Event.observe(this.signin_button, 'click', function(event) {
       Event.stop(event);
       new Ajax.Updater(this.response_container,
-		       '/session',
-		       { asynchronous:true,
+           '/session',
+           { asynchronous:true,
                        evalScripts:true,
                        parameters:Form.serialize(this.login_form) });
     }.bind(this));

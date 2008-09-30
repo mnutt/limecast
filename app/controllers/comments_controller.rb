@@ -31,13 +31,10 @@ class CommentsController < ApplicationController
           session.data[:comments] << @comment.id
         end
 
-        flash[:notice] = 'Comment was successfully added.'
-        format.html { redirect_to episode_url(@comment.episode.podcast, @comment.episode) }
-        format.js { render :partial => 'comments/comment', :object => @comment }
-        format.xml  { render :xml => @comment, :status => :created, :location => @comment }
+        format.html { redirect_to :back }
+        format.js   { render :partial => 'comments/comment', :object => @comment }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
       end
     end
   end

@@ -224,10 +224,15 @@ CRON
   end
 end
 
-namespace :passenger do
+namespace :deploy do
   desc "Restart application"
-  task :restart do
+  task :restart, :roles => :app do
     run "touch #{current_path}/tmp/restart.txt"
+  end
+
+  [:start, :stop].each do |t|
+    desc "#{t} task is a no-op with mod_rails"
+    task t, :roles => :app do ; end
   end
 end
 
@@ -260,7 +265,6 @@ after 'deploy:update_code', 'limecast:update'
 # after 'deploy:cold', 'limecast:deploy:populate'
 # after 'deploy:cold', 'limecast:sphinx:reset'
 
-after 'deploy', 'passenger:restart'
 after 'deploy', 'limecast:sphinx:stop'
 after 'deploy', 'limecast:sphinx:configure'
 after 'deploy', 'limecast:sphinx:reindex'

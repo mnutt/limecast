@@ -73,6 +73,8 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
 
+    session.data[:comments].delete(params[:id])
+
     respond_to do |format|
       format.js   { render :nothing => true }
       format.html { redirect_to episode_url(@comment.episode.podcast, @comment.episode) }

@@ -206,20 +206,20 @@ CRON
     end
   end
 
-  namespace :async do
-    desc 'Restarts the async_observer worker'
+  namespace :jobs do
+    desc 'Restarts the delayed_job worker'
     task :restart do
-      run "cd #{latest_release}; RAILS_ENV=production rake async:restart"
+      run "cd #{latest_release}; RAILS_ENV=production rake jobs:restart"
     end
 
-    desc 'Starts the async_observer worker'
+    desc 'Starts the delayed_job worker'
     task :start do
-      run "cd #{latest_release}; RAILS_ENV=production rake async:start"
+      run "cd #{latest_release}; RAILS_ENV=production rake jobs:start"
     end
 
-    desc 'Starts the async_observer worker'
+    desc 'Starts the delayed_job worker'
     task :stop do
-      run "cd #{latest_release}; RAILS_ENV=production rake async:stop"
+      run "cd #{latest_release}; RAILS_ENV=production rake jobs:stop"
     end
   end
 end
@@ -266,4 +266,4 @@ after 'deploy', 'limecast:sphinx:configure'
 after 'deploy', 'limecast:sphinx:reindex'
 after 'deploy', 'limecast:sphinx:reindex'
 after 'deploy', 'limecast:sphinx:start'
-after 'deploy', 'limecast:async:restart'
+after 'deploy', 'limecast:jobs:restart'

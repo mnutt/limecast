@@ -11,36 +11,36 @@ describe SessionsController do
   end
 
   it 'logins and redirects' do
-    post :create, :user => { :email => @user.email, :password => @user.password }
+    post :create, :user => { :login => @user.login, :password => @user.password }
     session[:user_id].should_not be_nil
     response.should be_redirect
   end
   
   it 'fails login and does not redirect' do
-    post :create, :user => { :email => @user.email, :password => "xxxx" }
+    post :create, :user => { :login => @user.login, :password => "xxxx" }
     session[:user_id].should be_nil
     response.should be_success
   end
 
   it 'logs out' do
-    post :create, :user => { :email => @user.email, :password => @user.password }
+    post :create, :user => { :login => @user.login, :password => @user.password }
     get :destroy
     session[:user_id].should be_nil
     response.should be_redirect
   end
 
   it 'remembers me' do
-    post :create, :user => { :email => @user.email, :password => @user.password }, :remember_me => "1"
+    post :create, :user => { :login => @user.login, :password => @user.password }, :remember_me => "1"
     response.cookies["auth_token"].should_not be_nil
   end
   
   it 'does not remember me' do
-    post :create, :user => { :email => @user.email, :password => @user.password }, :remember_me => "0"
+    post :create, :user => { :login => @user.login, :password => @user.password }, :remember_me => "0"
     response.cookies["auth_token"].should be_nil
   end
 
   it 'deletes token on logout' do
-    post :create, :user => { :email => @user.email, :password => @user.password }
+    post :create, :user => { :login => @user.login, :password => @user.password }
     get :destroy
     response.cookies["auth_token"].should == []
   end

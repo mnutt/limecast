@@ -16,3 +16,6 @@
 [submodule "vendor/plugins/rpodcast"]
 	path = vendor/plugins/rpodcast
 	url = git://github.com/mnutt/rpodcast.git
+[submodule "vendor/plugins/delayed_job"]
+	path = vendor/plugins/delayed_job
+	url = git://github.com/tobi/delayed_job.git

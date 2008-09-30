@@ -15,10 +15,3 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
-
-config.after_initialize do
-  AsyncObserver::Queue.queue = Beanstalk::Pool.new(%w(localhost:11300))
-
-  # This value should change every time you make a release of your app.
-  AsyncObserver::Queue.app_version = `git show --pretty=oneline`.split(' ').first
-end

@@ -206,28 +206,33 @@ CRON
     end
   end
 
-  namespace :async do
-    desc 'Restarts the async_observer worker'
+  namespace :jobs do
+    desc 'Restarts the delayed_job worker'
     task :restart do
-      run "cd #{latest_release}; RAILS_ENV=production rake async:restart"
+      run "cd #{latest_release}; RAILS_ENV=production rake jobs:restart"
     end
 
-    desc 'Starts the async_observer worker'
+    desc 'Starts the delayed_job worker'
     task :start do
-      run "cd #{latest_release}; RAILS_ENV=production rake async:start"
+      run "cd #{latest_release}; RAILS_ENV=production rake jobs:start"
     end
 
-    desc 'Starts the async_observer worker'
+    desc 'Starts the delayed_job worker'
     task :stop do
-      run "cd #{latest_release}; RAILS_ENV=production rake async:stop"
+      run "cd #{latest_release}; RAILS_ENV=production rake jobs:stop"
     end
   end
 end
 
-namespace :passenger do
+namespace :deploy do
   desc "Restart application"
-  task :restart do
+  task :restart, :roles => :app do
     run "touch #{current_path}/tmp/restart.txt"
+  end
+
+  [:start, :stop].each do |t|
+    desc "#{t} task is a no-op with mod_rails"
+    task t, :roles => :app do ; end
   end
 end
 
@@ -260,10 +265,9 @@ after 'deploy:update_code', 'limecast:update'
 # after 'deploy:cold', 'limecast:deploy:populate'
 # after 'deploy:cold', 'limecast:sphinx:reset'
 
-after 'deploy', 'passenger:restart'
 after 'deploy', 'limecast:sphinx:stop'
 after 'deploy', 'limecast:sphinx:configure'
 after 'deploy', 'limecast:sphinx:reindex'
 after 'deploy', 'limecast:sphinx:reindex'
 after 'deploy', 'limecast:sphinx:start'
-after 'deploy', 'limecast:async:restart'
+after 'deploy', 'limecast:jobs:restart'

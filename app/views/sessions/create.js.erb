@@ -1,13 +1,5 @@
-<% if logged_in? -%>
-  <script type="text/javascript">
-    if($('quick_signin').visible()) {
-      $('quick_signin').fade({ afterFinish: function() { window.location.reload() } });
-    } else {
-      if($('inline_login')) { $('inline_login').hide(); }
-      $$('#account_bar .signup')[0].update('<%= link_to_profile current_user -%>');
-    }
-  </script>
-
+<% if logged_in? %>
+  { status: 'success', html: '<%= link_to_profile current_user %>' }
 <% else -%>
-  <p>Email and password don't match. <%= link_to "I forgot my password", forgot_password_url -%></p>
+  { status: 'error', html: '<p>Email and password don\'t match. <%= link_to %{I forgot my password}, forgot_password_url -%></p>' } 
 <% end -%>

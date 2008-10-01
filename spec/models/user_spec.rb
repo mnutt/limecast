@@ -45,26 +45,14 @@ describe User do
     lambda { u = Factory.create(:user, :password => nil) }.should raise_error(ActiveRecord::RecordInvalid)
   end
 
-  it 'requires password confirmation' do
-    lambda { u = Factory.create(:user, :password_confirmation => nil) }.should raise_error(ActiveRecord::RecordInvalid)
-  end
-
   it 'requires email' do
     lambda { u = Factory.create(:user, :email => nil) }.should raise_error(ActiveRecord::RecordInvalid)
   end
 
   describe 'reseting password' do
     it 'should still authenticate user' do
-      @user.update_attributes!(:password => 'new password', :password_confirmation => 'new password')
+      @user.update_attributes!(:password => 'new password')
       User.authenticate(@user.email, 'new password').should == @user
-    end
-
-    describe 'without matching password confirmation' do
-      it 'should fail' do
-        lambda do
-          @user.update_attributes!(:password => 'a password', :password_confirmation => 'an entirely different password')
-        end.should raise_error(ActiveRecord::RecordInvalid)
-      end
     end
   end
 

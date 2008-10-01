@@ -90,6 +90,25 @@ jQuery(document).ready(function(){
 
     return should_submit;
   });
+
+  login_box.find('form').bind('submit', function(){
+    jQuery.ajax({
+      type:    'post',
+      url:     jQuery(this).attr('action'),
+      data:    jQuery(this).serialize(),
+      dataType: "json",
+      success: function(resp){
+        if(resp.success) {
+          jQuery('#account_bar .signup').html(resp.html);
+          login_box.hide();
+        } else {
+          login_box.find('div.response_container').html(resp.html);
+        }
+      }
+    });
+
+    return false;
+  });
 });
 
 /**************************************************************

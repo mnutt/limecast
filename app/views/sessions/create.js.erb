@@ -1,5 +1,5 @@
 <% if logged_in? %>
-  { status: 'success', html: '<%= link_to_profile current_user %>' }
+  { success: true, html: '<%= link_to_profile current_user %>' }
 <% else -%>
-  { status: 'error', html: '<p>Email and password don\'t match. <%= link_to %{I forgot my password}, forgot_password_url -%></p>' } 
+  { success: false, html: '<p>Email and password don\'t match. <%= link_to %{I forgot my password}, forgot_password_url -%></p>' } 
 <% end -%>

@@ -30,15 +30,10 @@ describe SessionsController do
   end
 
   it 'remembers me' do
-    post :create, :user => { :login => @user.login, :password => @user.password }, :remember_me => "1"
+    post :create, :user => { :login => @user.login, :password => @user.password }
     response.cookies["auth_token"].should_not be_nil
   end
   
-  it 'does not remember me' do
-    post :create, :user => { :login => @user.login, :password => @user.password }, :remember_me => "0"
-    response.cookies["auth_token"].should be_nil
-  end
-
   it 'deletes token on logout' do
     post :create, :user => { :login => @user.login, :password => @user.password }
     get :destroy

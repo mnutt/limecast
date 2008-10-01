@@ -8,28 +8,19 @@ class SessionsController < ApplicationController
   end
 
   def create
-    self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
-    if logged_in?
-      claim_podcasts
-      if params[:remember_me] == "1"
-        current_user.remember_me unless current_user.remember_token?
-        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
-      end
-      respond_to do |format|
-        format.html do
+    authenticate
+
+    respond_to do |format|
+      format.html do
+        if logged_in?
           flash[:notice] = "Logged in successfully"
           redirect_back_or_default('/')
-        end
-        format.js
-      end
-    else
-      respond_to do |format|
-        format.html do
+        else
           flash.now[:notice] = "There was a problem logging in"
           render :action => 'new'
         end
-        format.js
       end
+      format.js
     end
   end
 
@@ -42,6 +33,20 @@ class SessionsController < ApplicationController
   end
 
   protected
+
+  def authenticate
+    self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
+
+    if logged_in?
+      claim_podcasts
+      set_cookies
+    end
+  end
+
+  def set_cookies
+    current_user.remember_me unless current_user.remember_token?
+    cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+  end
 
   def claim_podcasts
     return if session.data[:podcasts].nil?

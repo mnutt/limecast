@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080924040647) do
+ActiveRecord::Schema.define(:version => 20080929205131) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(:version => 20080924040647) do
     t.integer  "episode_id"
     t.integer  "insightful",     :default => 0
     t.integer  "not_insightful", :default => 0
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.string   "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "episodes", :force => true do |t|
@@ -57,15 +69,14 @@ ActiveRecord::Schema.define(:version => 20080924040647) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "feed_etag"
+    t.integer  "user_id"
     t.text     "description"
     t.string   "language"
     t.integer  "category_id"
-    t.integer  "user_id"
     t.string   "clean_url"
     t.string   "itunes_link"
     t.integer  "owner_id"
     t.string   "email"
-    t.string   "name_param"
     t.string   "owner_name"
     t.text     "feed_content"
     t.string   "state"

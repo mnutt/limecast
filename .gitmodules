@@ -19,3 +19,6 @@
 [submodule "vendor/plugins/delayed_job"]
 	path = vendor/plugins/delayed_job
 	url = git://github.com/tobi/delayed_job.git
+[submodule "vendor/gems/gchart"]
+	path = vendor/gems/gchart
+	url = git://github.com/abhay/gchart.git

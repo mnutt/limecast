@@ -65,7 +65,7 @@
             </li>
             <% else -%>
             <li class="signup">
-              <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon user link_to_quick_signin' -%>
+              <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon user sign_up' -%>
             </li>
             <% end -%>
           </ul>
@@ -78,26 +78,35 @@
 
     <div id="body_wrapper">
       <div id="body">
+	<% if @full_width %>
 
-        <div id="sidebar">
-        <% if @show_ads -%>
-          <%= @ads -%>
-        <% end -%>
-        </div>
+	  <div id="full_width">
+	    <%= yield -%>
+	  </div>
 
-        <div id="primary">
-          <% if flash[:notice] -%>
-            <span id="notice">
-            <% if Array === flash[:notice] -%>
-              <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
-            <% else -%>
-              <%= flash[:notice] -%>
+	<% else %>
+
+          <div id="sidebar">
+            <% if @show_ads -%>
+              <%= @ads -%>
             <% end -%>
-            </span>
-          <% end -%>
+          </div>
+	  
+          <div id="primary">
+            <% if flash[:notice] -%>
+              <span id="notice">
+		<% if Array === flash[:notice] -%>
+		  <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+		<% else -%>
+		  <%= flash[:notice] -%>
+		<% end -%>
+              </span>
+            <% end -%>
+	    
+            <%= yield -%>
+          </div>
 
-          <%= yield -%>
-        </div>
+	<% end -%>
 
       </div>
     </div>

@@ -1,18 +1,19 @@
 <% options ||= {} -%>
 <% options[:top_bar] ||= false -%>
-<% options[:name] ||= "quick_signin" -%>
 
-<div id="<%= options[:name] -%>" class="<% if options[:top_bar] -%>palette top_bar<% end -%>" 
-                       style="display: none; <% if options[:top_bar] -%>opacity: 0;<% end -%>">
+<div id="quick_signin" class="<% if options[:top_bar] -%>palette top_bar<% end -%>" 
+                       style="display: none;">
   <div class="titlebar">
-    <a href="#" class="close" <% unless options[:top_bar] -%> style="display: none"<% end -%>>Exit</a>
+    <% if options[:top_bar] -%>
+      <a href="#" class="close">Exit</a>
+    <% end -%>
   </div>
   <div class="contents">
     <% form_for :user, :url => session_path do |f| -%>
       <div class="field">
-        <label for="email">Email</label>
+        <label for="login">User Name</label>
         <div>
-          <%= f.text_field 'email', :class => 'text' %>
+          <%= f.text_field 'login', :class => 'text'%>
         </div>
       </div>
       <div class="field">
@@ -21,22 +22,19 @@
           <%= f.password_field 'password', :class => 'text' %>
         </div>
       </div>
-      <div class="field login_field" style="display: none;">
-        <label for="login">User Name</label>
+      <div class="field sign_up" style="display: none;">
+        <label for="email">Email</label>
         <div>
-          <%= f.text_field 'login', :class => 'text', :class => 'login_input_field' %>
+          <%= f.text_field 'email', :class => 'text' %>
         </div>
       </div>
 
       <div class="response_container"></div>
 
       <div class="controls">
-      <span class="login_buttons">
-        <%= submit_tag 'Sign in', :class => 'button', :class => 'signin_button' %>
-      </span>
-      <%= submit_tag 'Sign up', :type => 'button', :class => 'signup_button' %>
+        <%= submit_tag 'Sign in', :class => 'button signin_button' %>
+        <%= submit_tag 'Sign up', :class => 'button signup_button' %>
       </div>
     <% end -%>
   </div>
 </div>
-<script type="text/javascript">var quick = new Lime.Widgets.QuickLogin('<%= options[:name] -%>')</script>

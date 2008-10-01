@@ -1,4 +1,5 @@
 <% options ||= {} -%>
+<% javascript_include "comment_new" -%>
 
 <% form_for @comment, :url => comments_url do |f| -%>
   <%= render :partial => "comments/comment_form", :locals => {:options => options, :f => f} %>

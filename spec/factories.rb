@@ -61,7 +61,6 @@ Factory.define :user do |u|
   u.login                 { Factory.next :login }
   u.email                 { Factory.next :email }
   u.password              'password'
-  u.password_confirmation 'password'
   u.salt                  'NaCl'
   u.state                 'active'
 end
@@ -70,7 +69,6 @@ Factory.define :admin_user, :class => User do |u|
   u.login                 'admin'
   u.email                 'admin@podcasts.example.com'
   u.password              'password'
-  u.password_confirmation 'password'
   u.salt                  'NaCl'
   u.state                 'active'
 

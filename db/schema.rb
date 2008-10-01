@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080924040647) do
+ActiveRecord::Schema.define(:version => 20080929205131) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(:version => 20080924040647) do
     t.integer  "episode_id"
     t.integer  "insightful",     :default => 0
     t.integer  "not_insightful", :default => 0
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.string   "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "episodes", :force => true do |t|

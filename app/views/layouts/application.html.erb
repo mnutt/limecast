@@ -23,6 +23,7 @@
   <% end -%>
 </script>
 
+<%= javascript_include_tag 'default_input_text_helper' %>
 <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
 
 <%= javascript_include_tag 'prototype', 'application', 'scriptaculous', 'reflection' -%>
@@ -38,7 +39,7 @@
       <div id="header">
         <div id="title">
           <h1>
-            <a href="/">LimeCast</a>
+            <a href="/all">LimeCast</a>
             <sup>Alpha</sup>
           </h1>
         </div>
@@ -53,7 +54,7 @@
             </li>
             <li class="search">
               <% form_for :search, :url => search_url do |form| -%>
-                <label for="query" class="search">Search...</label>
+                <label for="q" class="default search">Search...</label>
                 <%= text_field_tag "q", params[:query], :size => 15, :class => "text search" %>
                 <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
               <% end -%>
@@ -64,7 +65,7 @@
             </li>
             <% else -%>
             <li class="signup">
-              <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon user link_to_quick_signin' -%>
+              <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon user sign_up' -%>
             </li>
             <% end -%>
           </ul>

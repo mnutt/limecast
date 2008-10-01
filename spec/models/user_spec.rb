@@ -29,6 +29,12 @@ describe User do
     it 'increments User#count' do
       lambda { Factory.create(:user) }.should change(User, :count).by(1)
     end
+
+    it 'should fail when login field has "@"' do
+      lambda {
+        Factory.create(:user, :login => "thisisalogin@me")
+      }.should raise_error(ActiveRecord::RecordInvalid)
+    end
   end
 
   it 'should require login' do
@@ -67,8 +73,12 @@ describe User do
     User.authenticate('this_is_my_new_login@gmail.com', 'password').should == @user
   end
 
-  it 'should authenticate user' do
+  it 'should authenticate user with email' do
     User.authenticate(@user.email, "password").should == @user
+  end
+
+  it 'should authenticate user with login name' do
+    User.authenticate(@user.login, "password").should == @user
   end
 
   it 'sets remember token' do

@@ -52,163 +52,44 @@ Object.extend(Lime.Widgets.Behaviors.prototype, {
   }
 });
 
-/**************************************************************
-* Search
-**************************************************************/
 jQuery(document).ready(function(){
-  var search_box   = jQuery('input.search');
-  var search_label = jQuery('label.search');
+  var login_box      = jQuery('#quick_signin');
+  var show_box_link  = jQuery('a.sign_up');
+  var close_box_link = login_box.find('a.close');
+  var sign_in_button = login_box.find('input.signin_button');
+  var sign_up_button = login_box.find('input.signup_button');
+  var sign_up_fields = login_box.find('.sign_up');
+  var login_field    = login_box.find('#user_login');
+  var email_field    = login_box.find('.sign_up input');
 
-  var set_to_blank = function(){
-    if(search_box.val() == search_label.text())
-      search_box.val('');
-  };
+  // Keypress to handle pressing escape to close box.
+  login_box.find('input').keydown(function(e){
+    if(e.keyCode == 27)
+      login_box.toggle();
+  });
 
-  var set_to_label_text = function(){
-    if(search_box.val() == '')
-      search_box.val(search_label.text());
-  };
+  // When any of the appropriate things are clicked, the login box will disappear.
+  jQuery.each([show_box_link,close_box_link], function(i, x){
+    x.click(function(){
+      sign_up_fields.hide();
+      sign_in_button.show();
+      login_box.toggle();
+      login_field.focus();
 
-  search_box.focus(set_to_blank);
-  search_box.blur(set_to_label_text);
-
-  set_to_label_text();
-});
-
-/**************************************************************
-* Quick Login
-**************************************************************/
-Lime.Widgets.QuickLogin = Class.create();
-Object.extend(Lime.Widgets.QuickLogin.prototype, {
-  isActive: false,
-  hideTimer: null,
-  initialize: function(container, options) {
-    if (!$(container)) {
-      throw(container+" doesn't exist.");
       return false;
-    }
-    this.container = $(container);
-    this.anchor = $$("a.link_to_" + container)[0];
-    this.login_form = $$("#" + this.container.id + " form")[0];
-    this.signup_button = $$("#" + this.container.id + " .signup_button")[0];
-    this.signin_button = $$("#" + this.container.id + " .signin_button")[0];
-    this.login_buttons = $$("#" + this.container.id + " .login_buttons")[0];
-    this.login_field = $$("#" + this.container.id + " .login_field")[0];
-    this.login_input_field = $$("#" + this.container.id + " .login_input_field")[0];
-    this.response_container = $$("#" + this.container.id + " .response_container")[0];
-    this.close = $$("#" + this.container.id + " a.close")[0];
-    this.options = Object.extend({
-      autoFocus: true,
-      opacity: 1.0,
-      hideDelay: 1.0
-    }, options || {});
-    this._attach();
-    if(this.anchor) { this._reset(); }
-  },
-  _reset: function() {
-    this.container.hide();
-    this.container.setStyle({opacity: '0'});
-    this.login_form.reset();
-    this.login_field.hide();
-    this.response_container.update("");
-    this.login_buttons.show();
-    this._clearHideTimer();
-    this.isActive = false;
-  },
-  _attach: function() {
-    if(this.anchor) { // If there is an open/close button
-      Event.observe(this.anchor, 'click', function(event) {
-        this._show();
-        Event.stop(event);
-         Event.observe(document, 'click', function(event) {
-           element = event.element();
-           // TODO: It's supposed to bubble! Why won't it bubble???
-           if(!element.ancestors().include(this.container)) {
-             this._hide();
-           }
-         }.bind(this), false);
-      }.bind(this), false);
-      Event.observe(this.close, 'click', function(event) {
-        this._hide();
-        Event.stop(event);
-      }.bind(this), false);
-    }
-
-    Event.observe(document, 'keypress', this._keypress.bindAsEventListener(this));
-
-    Event.observe(this.login_form, 'submit', function(event) {
-      Event.stop(event);
-      this.signin_button.onClick();
     });
+  });
 
-    Event.observe(this.signup_button, 'click', function() {
-      if(!this.login_field.visible()) {
-        this.login_field.show();
-        this.login_input_field.focus();
-        this.login_buttons.hide();
-      } else {
-        new Ajax.Updater(this.response_container,
-			 '/users',
-			 { asynchronous: true,
-  			   method:       'post',
-			   evalScripts:  true,
-			   parameters:   Form.serialize(this.login_form) });
-      }
-    }.bind(this));
+  sign_up_button.click(function(){
+    // We only want to submit the form if the sign in button is no longer there.
+    var should_submit = sign_in_button.css('display') == 'none';
 
-    Event.observe(this.signin_button, 'click', function(event) {
-      Event.stop(event);
-      new Ajax.Updater(this.response_container,
-		       '/session',
-		       { asynchronous:true,
-                       evalScripts:true,
-                       parameters:Form.serialize(this.login_form) });
-    }.bind(this));
-  },
-  _keypress: function(event) {
-    var code = event.keyCode;
-    if (code === 27) {
-      this._hide();
-    }
-  },
-  _show: function() {
-    if (this.isActive === false) {
-      this.container.show();
-      new Effect.Fade(this.container, {
-        from: 0,
-        to: this.options.opacity,
-        duration: 0.1,
-        afterFinish: function() {
-          if (this.options.autoFocus === true) {
-            this.login_form.focusFirstElement();
-          }
-        }.bind(this)
-      });
-      this.isActive = true;
-    }
-    this._clearHideTimer();
-  },
-  _hide: function() {
-    new Effect.Fade(this.container, {
-      from: this.options.opacity,
-      to: 0,
-      duration: 0.2,
-      afterFinish: function() {
-        this._reset();
-      }.bind(this)
-    });
-  },
-  _startHideTimer: function() {
-    this.hideTimer = setTimeout(function() {
-      this._hide();
-    }.bind(this), (this.options.hideDelay*1000));
-  },
-  _clearHideTimer: function() {
-    if (this.hideTimer) {
-      clearTimeout(this.hideTimer);
-      this.hideTimer = null;
-    }
-  }
+    sign_up_fields.show();
+    email_field.focus();
+    sign_in_button.hide();
+
+    return should_submit;
+  });
 });
 
 /**************************************************************
@@ -234,30 +115,3 @@ jQuery(document).ready(function(){
 document.observe('dom:loaded', function() {
   new Lime.Widgets.Behaviors;
 });
-
-/**************************************************************
-* Add Podcast
-**************************************************************/
-
-// Lime.Widgets.Add = Class.create();
-// Lime.Widgets.Add.Podcast = Class.create();
-// Object.extend(Lime.Widgets.Add.Podcast, {
-//   list: Array
-// });
-// Object.extend(Lime.Widgets.Add.Podcast.prototype, {
-//   initialize: function() {
-//     feed_url = $('podcast_feed_url').value;
-//     $('new_podcast').reset();
-//     form_html = $('form_clone').innerHTML.replace(/CHANGE/, feed_url);
-
-//     status = Builder.node('div', { className: "status" });
-//     form = Builder.node('div', { className: "form" });
-//     form.innerHTML = form_html;
-//     podcast = Builder.node('div', { className: "added_podcast" }, [ form, status ]);
-//     $('added_podcast_list').appendChild(podcast);
-//     this._updater = new Ajax.PeriodicalUpdater(status, '/status',
-//                                                { method: 'get', frequency: 1, decay: 2, stopOnText: "status_message", postBody: feed_url });
-
-//     if($('inline_login')) { $('inline_login').show(); }
-//   }
-// });

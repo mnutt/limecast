@@ -26,10 +26,3 @@ config.action_mailer.smtp_settings = {
   :port    => 25,
   :domain  => "podcasts.limewire.com"
 }
-
-config.after_initialize do
-  AsyncObserver::Queue.queue = Beanstalk::Pool.new(%w(localhost:11300))
-
-  # This value should change every time you make a release of your app.
-  AsyncObserver::Queue.app_version = `pwd`.split('/').last.chomp
-end

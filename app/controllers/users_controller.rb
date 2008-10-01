@@ -117,7 +117,10 @@ class UsersController < ApplicationController
     @user == current_user || unauthorized
 
     if @user.update_attributes!(params[:user_attr].keep_keys([:email]))
-      flash[:notice] = "Your account settings were successfully saved."
+      @user.change_email!
+      UserMailer.deliver_signup_notification(@user)
+
+      flash[:notice] = "Your account settings were successfully saved.  You will have to re-confirm your email if you changed it."
     else
       flash[:notice] = "There was a problem saving your settings."
     end
@@ -151,6 +154,11 @@ protected
     end
 
     session.data.delete(:comments)
+  end
+
+  def reconfirm_email(user)
+    user.change_email!
+    UserMailer.deliver_signup_notification(user)
   end
 
 end

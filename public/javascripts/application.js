@@ -65,7 +65,7 @@ jQuery(document).ready(function(){
   // Keypress to handle pressing escape to close box.
   login_box.find('input').keydown(function(e){
     if(e.keyCode == 27)
-      login_box.toggle();
+      login_box.hide();
   });
 
   // When any of the appropriate things are clicked, the login box will disappear.

@@ -219,6 +219,15 @@ div#body_wrapper {
 * html div#body_wrapper {
   height: 660px;
 }
+
+div#body div#full_width {
+  margin: 0 auto;
+  max-width: 970px;
+  padding: 30px;
+  pasition: relative;
+  *height: 0.01%;
+}
+
 div#body div#primary {
   margin: 0 220px 0 0;
   padding: 30px 30px 30px 230px;

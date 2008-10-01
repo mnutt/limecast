@@ -9,7 +9,7 @@
     <p><%= link_to(h(@episode.podcast.title), @episode.podcast) %></p>
     
     <h1 class="publish_date">
-      <%=h @episode.published_at.strftime("%Y %b %d") %>
+      <%=h @episode.date_title %>
     </h1>
     
     <p class="title"><%=h @episode.title %> (<%= time_to_words(@episode.duration) -%>)</p>

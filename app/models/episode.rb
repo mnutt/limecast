@@ -54,6 +54,10 @@ class Episode < ActiveRecord::Base
     self.clean_url
   end
 
+  def date_title
+    self.published_at.strftime("%Y %b %d")
+  end
+
   def to_param
     clean_url
   end

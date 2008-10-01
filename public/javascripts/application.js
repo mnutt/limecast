@@ -61,6 +61,7 @@ jQuery(document).ready(function(){
   var sign_up_fields = login_box.find('.sign_up');
   var login_field    = login_box.find('#user_login');
   var email_field    = login_box.find('.sign_up input');
+  var form           = login_box.find('form');
 
   // Keypress to handle pressing escape to close box.
   login_box.find('input').keydown(function(e){
@@ -75,6 +76,7 @@ jQuery(document).ready(function(){
       sign_in_button.show();
       login_box.toggle();
       login_field.focus();
+      form.attr('action', '/sessions');
 
       return false;
     });
@@ -87,11 +89,12 @@ jQuery(document).ready(function(){
     sign_up_fields.show();
     email_field.focus();
     sign_in_button.hide();
+    form.attr('action', '/users');
 
     return should_submit;
   });
 
-  login_box.find('form').bind('submit', function(){
+  form.bind('submit', function(){
     jQuery.ajax({
       type:    'post',
       url:     jQuery(this).attr('action'),

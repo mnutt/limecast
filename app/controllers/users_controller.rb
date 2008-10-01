@@ -13,11 +13,11 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
-    if self.current_user = @user = User.authenticate(params[:user][:email], params[:user][:password])
+    if self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
       return
     end
 
-    @user = User.new(params[:user].keep_keys([:email, :password, :password_confirmation, :login]))
+    @user = User.new(params[:user].keep_keys([:email, :password, :login]))
     @user.state = 'passive'
     @user.register! if @user.valid?
     if @user.errors.empty?

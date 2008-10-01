@@ -36,8 +36,13 @@ div.user div#edit_actions ul li.logout a {
 * Podcasts
 **/
 ul.podcasts li.podcast {
-  padding: 10px 0;
+  padding: 0 0 14px 0;
   *height: 0.01%;
+}
+
+div.multicolumn ul.podcasts li.podcast {
+  float: left;
+  width: 32.5%;
 }
 
 /**

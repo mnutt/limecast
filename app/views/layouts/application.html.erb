@@ -78,26 +78,35 @@
 
     <div id="body_wrapper">
       <div id="body">
+	<% if @full_width %>
 
-        <div id="sidebar">
-        <% if @show_ads -%>
-          <%= @ads -%>
-        <% end -%>
-        </div>
+	  <div id="full_width">
+	    <%= yield -%>
+	  </div>
 
-        <div id="primary">
-          <% if flash[:notice] -%>
-            <span id="notice">
-            <% if Array === flash[:notice] -%>
-              <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
-            <% else -%>
-              <%= flash[:notice] -%>
+	<% else %>
+
+          <div id="sidebar">
+            <% if @show_ads -%>
+              <%= @ads -%>
             <% end -%>
-            </span>
-          <% end -%>
+          </div>
+	  
+          <div id="primary">
+            <% if flash[:notice] -%>
+              <span id="notice">
+		<% if Array === flash[:notice] -%>
+		  <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+		<% else -%>
+		  <%= flash[:notice] -%>
+		<% end -%>
+              </span>
+            <% end -%>
+	    
+            <%= yield -%>
+          </div>
 
-          <%= yield -%>
-        </div>
+	<% end -%>
 
       </div>
     </div>
@@ -110,13 +119,16 @@
 
     <ul class="primary">
       <li class="blog">
-        <%= link_to "<span>Blog</span>", 'http://podcasts.limespot.com/' %>
+        <%= link_to "<span>Blog</span>", 'http://limecast.limespot.com/' %>
       </li>
       <li class="use">
         <%= link_to "<span>Terms of use</span>", use_url %>
       </li>
       <li class="privacy">
         <%= link_to "<span>Privacy</span>", '/privacy' %>
+      </li>
+      <li class="opensource">
+        <%= link_to "<span>Open source</span>", "http://wiki.limewire.org/index.php?title=LimeCast" %>
       </li>
     </ul>
 

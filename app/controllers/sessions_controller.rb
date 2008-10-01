@@ -48,7 +48,7 @@ class SessionsController < ApplicationController
 
     Podcast.find_all_by_id(session.data[:podcasts]).each do |podcast|
       podcast.user = @user if podcast.user.nil?
-      podcast.owner = @user if podcast.owner.nil? and podcast.email == @user.email
+      podcast.owner = @user if podcast.owner.nil? and podcast.owner_email == @user.email
       podcast.save
     end
 

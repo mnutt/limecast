@@ -117,8 +117,7 @@ class UsersController < ApplicationController
     @user == current_user || unauthorized
 
     if @user.update_attributes!(params[:user_attr].keep_keys([:email]))
-      @user.change_email!
-      UserMailer.deliver_signup_notification(@user)
+      reconfirm_email(@user)
 
       flash[:notice] = "Your account settings were successfully saved.  You will have to re-confirm your email if you changed it."
     else
@@ -138,7 +137,7 @@ protected
 
     Podcast.find_all_by_id(session.data[:podcasts]).each do |podcast|
       podcast.user = @user if podcast.user.nil?
-      podcast.owner = @user if podcast.owner.nil? and podcast.email == @user.email
+      podcast.owner = @user if podcast.owner.nil? and podcast.owner_email == @user.email
       podcast.save
     end
 

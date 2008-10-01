@@ -20,7 +20,7 @@
 #  clean_url         :string(255)   
 #  itunes_link       :string(255)   
 #  owner_id          :integer(4)    
-#  email             :string(255)   
+#  owner_email       :string(255)   
 #  name_param        :string(255)   
 #  owner_name        :string(255)   
 #  feed_content      :text          
@@ -129,45 +129,25 @@ class Podcast < ActiveRecord::Base
   end
 
   def retrieve_podcast_info_from_feed
-    begin
-      doc = REXML::Document.new(feed_content)
-    rescue
-      raise PodcastError, "There was a problem parsing the feed."
-    end
+    parsed_feed = RPodcast::Feed.new(feed_content)
+    self.attributes = {:title => parsed_feed.title,
+                       :logo_link => parsed_feed.image,
+                       :description => parsed_feed.summary,
+                       :language => parsed_feed.language,
+                       :owner_email => parsed_feed.owner_email,
+                       :owner_name => parsed_feed.owner_name,
+                       :site => parsed_feed.link}
 
-    raise PodcastError, "This is not a podcast feed. Try again." unless REXML::XPath.first(doc, "//enclosure")
-
-    doc.elements.each('rss/channel/title') do |e|
-      self.title = e.text
-    end
-    doc.elements.each('rss/channel/link') do |e|
-      self.site = e.text
-    end
-    doc.elements.each('rss/channel/itunes:image') do |e|
-      self.logo_link = e.attributes['href']
-    end
-    doc.elements.each('rss/channel/itunes:summary') do |e|
-      self.description = e.text
-    end
-    doc.elements.each('rss/channel/language') do |e|
-      self.language = e.text
-    end
-    doc.elements.each('rss/channel/itunes:owner/itunes:email') do |e|
-      self.email = e.text
-    end
-    doc.elements.each('rss/channel/itunes:owner/itunes:name') do |e|
-      self.owner_name = e.text
-    end
-
-    if user
-      self.user = user
-      self.owner = user if self.email == user.email
-    end
+    set_owner
 
     self.save!
   rescue PodcastError => e
     self.feed_error = e.message
     raise PodcastError, self.feed_error
+  end
+
+  def set_owner
+    self.owner = User.find_by_email(self.owner_email)
   end
 
   def check_for_feed_error
@@ -251,45 +231,24 @@ class Podcast < ActiveRecord::Base
   end
 
   def retrieve_episodes_from_feed
-    doc = REXML::Document.new(self.feed_content)
-    doc.elements.each('rss/channel/item') do |e|
-      begin
-        episode = Episode.find_by_guid(e.elements['guid'].text)
-        episode ||= Episode.new(:guid => e.elements['guid'].text)
-      rescue
-        episode = Episode.find_by_guid(e.elements['enclosure'].attributes['url'])
-        episode ||= Episode.new(:guid => e.elements['enclosure'].attributes['url'])
-      end
-
-      episode.podcast_id = self.id
-      episode.title = e.elements['title'].text rescue nil
-      episode.summary = e.elements['description'] ? e.elements['description'].text : e.elements['itunes:summary'].text rescue nil
-      episode.published_at = Time.parse(e.elements['pubDate'].text) rescue nil
-      episode.enclosure_url = e.elements['enclosure'].attributes['url'] rescue nil
-      episode.enclosure_type = e.elements['enclosure'].attributes['type'] rescue nil
-      episode.enclosure_size = e.elements['enclosure'].attributes['length'] rescue nil
-
-      begin
-        # Time may be under an hour
-        time = e.elements['itunes:duration'].text rescue "00:00"
-        time = "00:#{time}" if time.size < 6
-        time_multiplier = [24 * 60, 60, 1]
-        episode.duration = time.split(":").map { |t| 
-          seconds = t.to_i * time_multiplier[0]
-          time_multiplier.shift
-          seconds
-        }.sum 
-      rescue 
-        episode.duration = 0
-      end
-
+    parsed_episodes = RPodcast::Episode.parse(feed_content)
+    parsed_episodes.each do |parsed_episode|
+      episode = self.episodes.find_by_guid(parsed_episode.guid) || self.episodes.new
+      episode.attributes = {:summary =>        parsed_episode.summary,
+                            :guid =>           parsed_episode.guid,
+                            :published_at =>   parsed_episode.published_at,
+                            :title =>          parsed_episode.title,
+                            :enclosure_type => parsed_episode.enclosure.type,
+                            :enclosure_size => parsed_episode.enclosure.size,
+                            :enclosure_url =>  parsed_episode.enclosure.url,
+                            :duration =>       parsed_episode.duration}
       episode.save
     end
   rescue OpenURI::HTTPError
     puts "#{self.feed_url} not modified, skipping..."
-  rescue StandardError => e
-    self.feed_error = "Problem retrieving episodes from the feed"
-    raise PodcastError, self.feed_error
+  #rescue StandardError => e
+  #  self.feed_error = "Problem retrieving episodes from the feed"
+  #  raise PodcastError, self.feed_error
   end
 
   def writable_by?(user)

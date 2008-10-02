@@ -20,9 +20,9 @@
       </div>
     </div>
     
-    <p>
-      <b><%= link_to "Download Podcast", @episode.enclosure_url %></b>
-    </p>
+    <%= render :partial => 'episodes/download', :object => @episode -%>
+
+    <div class="clear"></div>
     
     <h2>Reviews</h2>
     <div class="comments">

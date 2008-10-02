@@ -29,7 +29,7 @@
   <div class="urls">
     <ul>
       <li class="site">
-        <%=link_to h(@podcast.clean_site), h(@podcast.site) %>
+        <%= link_to h(@podcast.clean_site), h(@podcast.site) %>
       </li>
       <li class="rss">
         <%= link_to "<span>RSS</span>", @podcast.feed_url, :class => 'icon' %>
@@ -88,7 +88,7 @@
   
   <div class="description">
     <h3>Description</h3>
-    <p><%= @podcast.description -%></p>
+    <p><%=h @podcast.description -%></p>
   </div>
   
   <% if @podcast.tags.length > 0 then %>

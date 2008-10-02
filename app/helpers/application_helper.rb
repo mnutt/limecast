@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def time_to_words(time)
-    time.to_duration
+    time.to_i.to_duration
   end
 
   def link_to_profile(user)
@@ -22,6 +22,6 @@ module ApplicationHelper
 
   def relative_time(date)
     time_ago = Time.now - date
-    date_to_words(time_ago) + " ago"
+    time_to_words(time_ago) + " ago"
   end
 end

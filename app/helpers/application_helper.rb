@@ -22,6 +22,6 @@ module ApplicationHelper
 
   def relative_time(date)
     time_ago = Time.now - date
-    time_to_words(time_ago) + " ago"
+    time_to_words(time_ago).to_s + " ago"
   end
 end

@@ -2,8 +2,6 @@
 <% javascript_include "inline_edit_form" -%>
 
 <div class="user">
-  <h1><%=h @user.login -%></h1>
-
   <% if @user == current_user -%>
     <div id="edit_actions">
       <span class="label">This is me!</span>
@@ -20,6 +18,8 @@
       <%= render :partial => "form" -%>
     </div>  
   <% end -%>
+
+  <h1><%=h @user.login -%></h1>
   
   <% if @user.owned_podcasts.count > 0 -%>
     <h3>Makes</h3>

@@ -18,11 +18,11 @@
       <div class="summary">
         <p><%=strip_tags @episode.summary %></p>
       </div>
-    </div>
     
-    <%= render :partial => 'episodes/download', :object => @episode -%>
-
-    <div class="clear"></div>
+      <%= render :partial => 'episodes/download', :object => @episode -%>
+      
+      <div class="clear"></div>
+    </div>
     
     <h2>Reviews</h2>
     <div class="comments">

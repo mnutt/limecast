@@ -74,8 +74,8 @@ namespace :limecast do
     desc 'Setup initial shared resources'
     task :default, :roles => :app do
       database_config
+      create_shared
       encryption_key
-      sphinx
       crontab
     end
 
@@ -110,12 +110,13 @@ namespace :limecast do
       put encryption_key, "#{shared_path}/private/encryption_key.txt", :mode => 0600
     end
 
-    desc 'Creates the log directory required by Sphinx'
-    task :sphinx, :roles => :app do
+    desc 'Creates shared directories'
+    task :create_shared, :roles => :app do
       run <<-CMD
         mkdir #{shared_path}/log/sphinx &&
         mkdir #{shared_path}/sphinx &&
         mkdir #{shared_path}/vendor &&
+        mkdir #{shared_path}/logos &&
         mkdir #{shared_path}/private
       CMD
     end
@@ -123,7 +124,7 @@ namespace :limecast do
     desc 'Configure the crontab'
     task :crontab, :roles => :app do
       cron = <<-CRON
-5,35 * * * * cd #{current_path} && RAILS_ENV=production rake sphincter:reindex
+5,35 * * * * cd #{current_path} && RAILS_ENV=production rake ts:in
 CRON
       run "rm -rf #{shared_path}/crontab"
       put cron, "#{shared_path}/crontab"
@@ -135,12 +136,12 @@ CRON
   namespace :update do
     desc 'Tasks to run after update'
     task :default do
-      shared
+      symlink_shared
       sphinx
     end
 
     desc 'Creates symlinks for shared resources'
-    task :shared, :roles => :app do
+    task :symlink_shared, :roles => :app do
       run <<-CMD
         rm -rf #{latest_release}/sphinx;
         rm -rf #{latest_release}/config/database.yml;

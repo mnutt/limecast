@@ -107,6 +107,9 @@ class Podcast < ActiveRecord::Base
   end
 
   def retrieve_feed
+    raise PodcastError, "That's not a web address." unless self.feed_url =~ /^http:\/\//
+    feed_site = self.feed_url.split('/')[2]
+    raise PodcastError, "This feed site is not allowed." if Blacklist.find_by_domain(feed_site)
     self.feed_content = Podcast.retrieve_feed(self.feed_url)
   rescue Timeout::Error
     self.feed_error = "Not found. (timeout)"
@@ -116,6 +119,8 @@ class Podcast < ActiveRecord::Base
     self.feed_error = "Not found."
   rescue OpenURI::HTTPError
     self.feed_error = "Not found."
+  rescue PodcastError => e
+    self.feed_error = e.message
   rescue StandardError => e
     self.feed_error = "Weird server error."
   end
@@ -141,7 +146,7 @@ class Podcast < ActiveRecord::Base
     set_owner
 
     self.save!
-  rescue PodcastError => e
+  rescue RPodcast::PodcastError => e
     self.feed_error = e.message
     raise PodcastError, self.feed_error
   end

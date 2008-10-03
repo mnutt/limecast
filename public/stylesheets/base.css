@@ -68,7 +68,7 @@ table, thead, tbody, tr, th, td {
 h1, h2, h3, h4, h5 {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
-  margin: 0 0 5px 0;
+  margin: 0 0 14px 0;
 }
 h1 { font-size: 2.6em; }
 h2 { font-size: 2.2em; }

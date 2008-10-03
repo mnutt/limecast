@@ -91,7 +91,7 @@ div.podcast div#edit_actions ul li.delete a {
 }
 div.podcast div.urls,
 div.podcast div.authors {
-  margin: 0 0 10px 0;
+  margin: 0 0 14px 0;
   clear: left;
 }
 div.podcast div.urls ul li {
@@ -112,7 +112,7 @@ div.podcast div.authors ul li.user a {
   background-image: url("../images/icons/user.png") !important;
 }
 div.podcast div.stats {
-  margin: 0 0 20px 0;
+  margin: 0 0 14px 0;
 }
 div.podcast div.stats p {
   font-size: 1.0em !important;
@@ -125,14 +125,11 @@ div.podcast div.tags {
 
 /* Episodes */
 div.podcast div.episodes {
-  margin: 0 0 20px 0;
+  margin: 0 0 14px 0;
   *height: 0.01%;
 }
-div.podcast div.episodes ul.episodes {
-  margin: 0 0 10px 0;
-}
 ul.episodes li.episode {
-  padding: 10px 0 10px 26px;
+  padding: 0 0 14px 26px;
   position: relative;
   *height: 0.01%;
 }
@@ -146,16 +143,17 @@ ul.episodes li.episode span.expand {
   text-indent: -5000px;
   width: 16px;
   height: 16px;
-  top: 10px;
+  top: 0;
   left: 0;
   position: absolute;
   display: block;
   z-index: 1;
   cursor: pointer;
 }
-ul.episodes li.expanded div.summary {
-  padding: 0 0 5px 0;
-}
+/* ul.episodes li.expanded div.summary {
+ *  padding: 0 0 5px 0;
+ * }
+ */
 ul.episodes li.expanded div.full {
   display: block;
 }
@@ -164,7 +162,7 @@ ul.episodes li.expanded span.expand {
 }
 .episode div.download,
 .episode div.limewire {
-  margin: 0 10px 10px 0;
+  margin: 0 10px 0 0;
   float: left;
 }
 .episode div.download a.icon {
@@ -173,9 +171,11 @@ ul.episodes li.expanded span.expand {
 .episode div.limewire a.icon {
   background-image: url("../images/icons/limewire.png");
 }
-
 div.episode h1.publish_date {
   font-size: 2.2em;
+}
+div.episode div.metadata {
+  margin: 0 0 14px;
 }
 
 /* Reviews */
@@ -183,10 +183,10 @@ div.podcast div.reviews {
   *height: 0.01%;
 }
 div.podcast div.reviews ul.reviews {
-  margin: 0 0 10px 0;
+  margin: 0;
 }
 ul.reviews li.review {
-  padding: 10px 0;
+  padding: 0 0 14px 0;
   position: relative;
   *height: 0.01%;
 }

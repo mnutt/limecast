@@ -25,13 +25,7 @@
     <% end -%>
     -->
 
-    <div class="download">
-      <%= link_to "<span>Download</span>", episode.enclosure_url, :class => 'icon' -%>
-    </div>
-
-    <div class="limewire">
-      <%= link_to "<span>Magnet</span>", episode.enclosure_magnet_url, :class => 'icon' -%>
-    </div>
+    <%= render :partial => 'episodes/download', :object => episode -%>
     
     <div class="clear"></div>
 

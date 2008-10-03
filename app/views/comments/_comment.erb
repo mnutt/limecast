@@ -1,4 +1,4 @@
-<li id="<%= dom_id(comment) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
+<li id="<%=h dom_id(comment) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
   <div class="show_review">
     <% if comment.positive -%>
       <%= image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating') -%>

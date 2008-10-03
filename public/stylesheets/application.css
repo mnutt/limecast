@@ -162,16 +162,20 @@ ul.episodes li.expanded div.full {
 ul.episodes li.expanded span.expand {
   background-image: url("../images/icons/collapse.png");
 }
-ul.episodes div.download,
-ul.episodes div.limewire {
-  margin: 0 10px 0 0;
+.episode div.download,
+.episode div.limewire {
+  margin: 0 10px 10px 0;
   float: left;
 }
-ul.episodes div.download a.icon {
+.episode div.download a.icon {
   background-image: url("../images/icons/download.png");
 }
-ul.episodes div.limewire a.icon {
+.episode div.limewire a.icon {
   background-image: url("../images/icons/limewire.png");
+}
+
+div.episode h1.publish_date {
+  font-size: 2.2em;
 }
 
 /* Reviews */
@@ -208,7 +212,7 @@ ul.reviews li.review p {
   margin: 0 !important;
 }
 div.podcast div.reviews form {
-  margin: 30px 0 0 0;
+  margin: 0;
 }
 div.podcast div.reviews form div.field label {
   display: none;

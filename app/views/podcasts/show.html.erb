@@ -29,7 +29,7 @@
   <div class="urls">
     <ul>
       <li class="site">
-        <%=link_to h(@podcast.clean_site), h(@podcast.site) %>
+        <%= link_to h(@podcast.clean_site), h(@podcast.site) %>
       </li>
       <li class="rss">
         <%= link_to "<span>RSS</span>", @podcast.feed_url, :class => 'icon' %>
@@ -63,7 +63,8 @@
 
     <% if @podcast.episodes.size > 0 -%>
       <p class="new_episode">
-        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.episodes.newest.first) -%>
+        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.episodes.newest.first) -%>,
+	<%= relative_time(@podcast.episodes.newest.first.published_at) -%>
       </p>
     <% end -%>
 
@@ -75,7 +76,7 @@
       <% end -%>
 
       <% if @podcast.episodes.size > 1 -%>
-        every <%= (@podcast.average_time_between_episodes / (60 * 60 * 24) * 100).to_i / 100.0 -%> days
+        every <%= time_to_words(@podcast.average_time_between_episodes) -%>
       <% end -%>
     </p>
 
@@ -88,7 +89,7 @@
   
   <div class="description">
     <h3>Description</h3>
-    <p><%= @podcast.description -%></p>
+    <p><%=h @podcast.description -%></p>
   </div>
   
   <% if @podcast.tags.length > 0 then %>

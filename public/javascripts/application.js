@@ -79,7 +79,7 @@ jQuery(document).ready(function(){
   jQuery('#account_bar .signup').click(function(){
     if(signin_container.css('display') == 'none') {
       signin_container.show();
-      signin_container.find('input#user_login').focus();
+      signin_container.find('input.login').focus();
     } else {
       reset_container();
     }

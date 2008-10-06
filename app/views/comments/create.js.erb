@@ -1,0 +1,2 @@
+{ logged_in: <%= !!current_user %>,
+  html:      '<%= render(:partial => 'comments/comment', :object => @comment).gsub("'",'"').gsub("\n", "") %>' }

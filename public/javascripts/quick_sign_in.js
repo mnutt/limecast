@@ -1,5 +1,7 @@
 jQuery.fn.extend({
   quickSignIn: function(opts) {
+    if(opts.ajax == null) { opts.ajax = true; }
+
     var me = $(this);
 
     me.find('input.signup_button').click(function(){
@@ -16,21 +18,29 @@ jQuery.fn.extend({
       return should_submit;
     });
 
-    me.find('form').bind('submit', function(){
-      jQuery.ajax({
-        type:    'post',
-        url:     jQuery(this).attr('action'),
-        data:    jQuery(this).serialize(),
-        dataType: "json",
-        success: function(resp){
-          // Call handlers
-          if(resp.success && opts.success) { opts.success(resp); }
-          if(!resp.success && opts.error)  { opts.error(resp); }
-        }
-      });
+    if(opts.ajax) {
+      me.find('form').bind('submit', function(){
+        jQuery.ajax({
+          type:    'post',
+          url:     jQuery(this).attr('action'),
+          data:    jQuery(this).serialize(),
+          dataType: "json",
+          success: function(resp){
+            if(resp.success) {
+              jQuery('#account_bar .signup').html(resp.html);
+            } else {
+              me.find('.response_container').html(resp.html);
+            }
 
-      return false;
-    });
+            // Call handlers
+            if(resp.success && opts.success) { opts.success(resp); }
+            if(!resp.success && opts.error)  { opts.error(resp); }
+          }
+        });
+
+        return false;
+      });
+    }
 
     return jQuery(this);
   }

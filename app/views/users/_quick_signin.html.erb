@@ -1,7 +1,7 @@
 <% options ||= {} -%>
 <% options[:top_bar] ||= false -%>
 
-<div id="quick_signin" class="<% if options[:top_bar] -%>palette top_bar<% end -%>" 
+<div class="quick_signin <% if options[:top_bar] -%>palette top_bar<% else -%>inline<% end -%>"
                        style="display: none;">
   <div class="titlebar">
     <% if options[:top_bar] -%>
@@ -13,7 +13,7 @@
       <div class="field">
         <label for="login">User Name</label>
         <div>
-          <%= f.text_field 'login', :class => 'text login'%>
+          <%= f.text_field 'login', :class => 'text login' %>
         </div>
       </div>
       <div class="field">

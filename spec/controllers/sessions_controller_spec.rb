@@ -8,6 +8,8 @@ describe SessionsController do
 
   before do
     @user = Factory.create(:user)
+
+    request.env["HTTP_REFERER"] = "/"
   end
 
   it 'logins and redirects' do

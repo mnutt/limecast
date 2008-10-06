@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       format.html do
         if logged_in?
           flash[:notice] = "Logged in successfully"
-          redirect_back_or_default('/')
+          redirect_to :back
         else
           flash.now[:notice] = "There was a problem logging in"
           render :action => 'new'
@@ -39,6 +39,7 @@ class SessionsController < ApplicationController
 
     if logged_in?
       claim_podcasts
+      claim_comment
       set_cookies
     end
   end
@@ -46,6 +47,16 @@ class SessionsController < ApplicationController
   def set_cookies
     current_user.remember_me unless current_user.remember_token?
     cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+  end
+
+  def claim_comment
+    return if session[:comment].nil?
+
+    c = Comment.new(session[:comment])
+    c.commenter = current_user
+    c.save
+
+    session.data.delete(:comment)
   end
 
   def claim_podcasts

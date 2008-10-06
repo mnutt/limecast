@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     @user.register! if @user.valid?
     if @user.errors.empty?
       claim_podcasts
+      claim_comment
 
       self.current_user = @user
       respond_to do |format|
@@ -144,15 +145,14 @@ protected
     session.data.delete(:podcasts)
   end
 
-  def claim_comments
-    return if session.data[:comments].nil?
+  def claim_comment
+    return if session[:comment].nil?
 
-    Comment.find_all_by_id(session.data[:comments]).each do |comment|
-      comment.user = @user if comment.user.nil?
-      comment.save
-    end
+    c = Comment.new(session[:comment])
+    c.commenter = current_user
+    c.save
 
-    session.data.delete(:comments)
+    session.data.delete(:comment)
   end
 
   def reconfirm_email(user)

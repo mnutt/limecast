@@ -245,7 +245,7 @@ task :release_times, :roles => :app do
   puts "RELEASES"
   puts '=' * 40
 
-  release_dirs.each do |r|
+  release_dirs.reverse.each do |r|
     puts %{  * #{Time.parse(r.to_s).strftime("%A,\t%B %d at %I:%M%p").gsub(" 0", " ")} }
   end
 end

@@ -1,57 +1,52 @@
-if(typeof Prototype=='undefined') throw("application.js requires the Prototype JavaScript framework.");
-
-Lime = Class.create();
-Lime.Widgets = Class.create();
+if(typeof jQuery=='undefined') throw("application.js requires the jQuery JavaScript framework.");
 
 /**************************************************************
 * Hover/Focus Behaviors
 **************************************************************/
-Lime.Widgets.Behaviors = Class.create();
-Object.extend(Lime.Widgets.Behaviors.prototype, {
-  initialize: function(options) {
-    this.options = Object.extend({
-      prefix: '_',
-      classNames: {
-        hover: 'hover',
-        focus: 'focus'
-      }
-    }, options || {});
-    this._attach();
-  },
-  _attach: function() {
-    this.elements = $$('input, textarea, button');
-    this.elements.each(function(element) {
-      var type = element.readAttribute('type');
-      if (type != 'hidden') {
-        if (type == 'image') {
-          var filename = element.readAttribute('src');
-          var dot = filename.lastIndexOf('.');
-          var filename_hover = filename.substr(0, dot) + this.options.prefix + this.options.classNames.hover + filename.substr(dot);
-          var filename_focus = filename.substr(0, dot) + this.options.prefix + this.options.classNames.focus + filename.substr(dot);
-        }
-        Event.observe(element, 'mouseover', function(event) {
-          if (type == 'image') element.writeAttribute('src', filename_hover);
-          element.addClassName(this.options.classNames.hover);
-        }.bind(this));
-        Event.observe(element, 'mouseout', function(event) {
-          if (type == 'image') element.writeAttribute('src', filename);
-          element.removeClassName(this.options.classNames.hover);
-        }.bind(this));
-        Event.observe(element, 'focus', function(event) {
-          if (type == 'image') element.writeAttribute('src', filename_focus);
-          element.removeClassName(this.options.classNames.hover)
-                 .addClassName(this.options.classNames.focus);
-        }.bind(this));
-        Event.observe(element, 'blur', function(event) {
-          if (type == 'image') element.writeAttribute('src', filename);
-          element.removeClassName(this.options.classNames.hover)
-                 .removeClassName(this.options.classNames.focus);
-        }.bind(this));
-      }
-    }.bind(this));
+jQuery(document).ready(function() {
+  var elements = jQuery('input, textarea, button');
+  var options = {
+    prefix: '_',
+    classNames: {
+      hover: 'hover',
+      focus: 'focus'
+    }
   }
+  elements.each(function() {
+    var me = jQuery(this);
+    var type = me.attr('type');
+    if (type != 'hidden') {
+      if (type == 'image') {
+        var filename = me.attr('src');
+        var dot = filename.lastIndexOf('.');
+        var filename_hover = filename.substr(0, dot) + options.prefix + options.classNames.hover + filename.substr(dot);
+        var filename_focus = filename.substr(0, dot) + options.prefix + options.classNames.focus + filename.substr(dot);
+      }
+      me.mouseover(function(e) {
+        if (type == 'image') me.attr({src: filename_hover});
+        me.addClass(options.classNames.hover);
+      })
+      .mouseout(function(e) {
+        if (type == 'image') me.attr({src: filename});
+        me.removeClass(options.classNames.hover);
+      })
+      .focus(function(e) {
+        if (type == 'image') me.attr({src: filename_focus});
+        me.removeClass(options.classNames.hover)
+          .addClass(options.classNames.focus);
+      })
+      .blur(function(e) {
+        if (type == 'image') me.attr({src: filename});
+        me.removeClass(options.classNames.hover)
+          .removeClass(options.classNames.focus);
+      });
+    }
+  });
 });
 
+/**************************************************************
+* Sign In
+**************************************************************/
 jQuery(document).ready(function(){
   var signin_container = jQuery('.quick_signin.top_bar');
 
@@ -105,9 +100,4 @@ jQuery(document).ready(function(){
       }
     });
   });
-});
-
-// Load defaults
-document.observe('dom:loaded', function() {
-  new Lime.Widgets.Behaviors;
 });

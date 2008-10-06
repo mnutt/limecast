@@ -1,9 +1,7 @@
 module CommentsHelper
   def can_add_comments?(episode)
-    comment_in_session = Comment.find(:all, :conditions => { :id => (session.data[:comments] || []) }).map(&:episode_id).includes?(episode.id)
-
     if current_user.nil?
-      !comment_in_session && episode.open_for_comments?
+      episode.open_for_comments?
     else
       !episode.been_reviewed_by?(current_user) && episode.open_for_comments?
     end

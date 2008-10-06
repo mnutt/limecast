@@ -1,10 +1,10 @@
 jQuery(document).ready(function(){
   jQuery('.quick_signin.inline').quickSignIn({
-    ajax: false
+    success: function(){ window.location.reload(); }
   });
 
   jQuery('form#new_comment').submit(function(){
-    var new_comment_form = $(this);
+    var new_comment_form = jQuery(this);
     jQuery.ajax({
       type:    'post',
       url:     jQuery(this).attr('action'),

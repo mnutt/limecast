@@ -52,9 +52,11 @@ class SessionsController < ApplicationController
   def claim_comment
     return if session[:comment].nil?
 
-    c = Comment.new(session[:comment])
-    c.commenter = current_user
-    c.save
+    if Comment.count(:conditions => {:episode_id => session[:comment][:episode_id], :user_id => current_user.id}) == 0
+      c = Comment.new(session[:comment])
+      c.commenter = current_user
+      c.save
+    end
 
     session.data.delete(:comment)
   end

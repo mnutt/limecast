@@ -21,10 +21,11 @@ class UsersController < ApplicationController
     @user.state = 'passive'
     @user.register! if @user.valid?
     if @user.errors.empty?
+      self.current_user = @user
+
       claim_podcasts
       claim_comment
 
-      self.current_user = @user
       respond_to do |format|
         format.html do
           redirect_back_or_default('/')
@@ -148,9 +149,11 @@ protected
   def claim_comment
     return if session[:comment].nil?
 
-    c = Comment.new(session[:comment])
-    c.commenter = current_user
-    c.save
+    if Comment.count(:conditions => {:episode_id => session[:comment][:episode_id], :user_id => current_user.id}) == 0
+      c = Comment.new(session[:comment])
+      c.commenter = current_user
+      c.save
+    end
 
     session.data.delete(:comment)
   end

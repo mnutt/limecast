@@ -1,4 +1,5 @@
 require 'capistrano/ext/multistage'
+require 'time'
 
 set :keep_releases, 5
 set :application,   "limecast"
@@ -245,7 +246,7 @@ task :release_times, :roles => :app do
   puts '=' * 40
 
   release_dirs.each do |r|
-    puts Time.parse(r.to_s).to_s
+    puts %{  * #{Time.parse(r.to_s).strftime("%A,\t%B %d at %I:%M%p").gsub(" 0", " ")} }
   end
 end
 

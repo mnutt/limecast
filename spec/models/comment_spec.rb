@@ -17,5 +17,9 @@ describe Comment do
     # Original comment
     @comment.should_not be_editable
   end
+
+  it 'should not be valid if there is no commenter' do
+    Factory.build(:comment, :commenter => nil).should_not be_valid
+  end
 end
 

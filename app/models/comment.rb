@@ -21,6 +21,8 @@ class Comment < ActiveRecord::Base
 
   after_create :distribute_point, :if => '!commenter.nil?'
 
+  validates_presence_of :user_id
+
   named_scope :newer_than, lambda {|who| {:conditions => ["comments.created_at >= (?)", who.created_at]} }
   named_scope :without, lambda {|who| {:conditions => ["comments.id NOT IN (?)", who.id]} }
   named_scope :for_podcast, lambda {|podcast| {:conditions => {:episode_id => podcast.episodes.map(&:id)}} }

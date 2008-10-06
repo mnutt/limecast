@@ -1,5 +1,6 @@
 <% options ||= {} -%>
 <% options[:top_bar] ||= false -%>
+<% options[:suffix] ||= rand(10000) -%>
 
 <div class="quick_signin <% if options[:top_bar] -%>palette top_bar<% else -%>inline<% end -%>"
                        style="display: none;">
@@ -11,21 +12,21 @@
   <div class="contents">
     <% form_for :user, :url => session_path do |f| -%>
       <div class="field">
-        <label for="login">User Name</label>
+        <label for="user_login_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>User Name</label>
         <div>
-          <%= f.text_field 'login', :class => 'text login' %>
+          <%= f.text_field "login_#{options[:suffix]}", :class => 'text login', :name => "user[login]" %>
         </div>
       </div>
       <div class="field">
-        <label for="password">Password</label>
+        <label for="user_password_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Password</label>
         <div>
-          <%= f.password_field 'password', :class => 'text' %>
+          <%= f.password_field "password_#{options[:suffix]}", :class => 'text', :name => "user[password]" %>
         </div>
       </div>
       <div class="field sign_up" style="display: none;">
-        <label for="email">Email</label>
+        <label for="user_email_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Email</label>
         <div>
-          <%= f.text_field 'email', :class => 'text' %>
+          <%= f.text_field "email_#{options[:suffix]}", :class => 'text', :name => "user[email]" %>
         </div>
       </div>
 

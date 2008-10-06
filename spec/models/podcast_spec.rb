@@ -180,7 +180,7 @@ describe Podcast, "creating a new podcast with an RSS feed that is not a podcast
     podcast = Factory.create(:fetched_podcast)
     podcast.stub!(:feed_content).and_return(File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read)
     podcast.async_create
-    podcast.feed_error.should == "This is not a podcast feed."
+    podcast.feed_error.should == "RPodcast::NoEnclosureError"
   end
 end
 
@@ -188,7 +188,7 @@ describe Podcast, "creating a new podcast with a non-URL string" do
   it 'should raise an error that the feed is not a URL' do
     podcast = Podcast.create!(:feed_url => "localhost", :state => "pending")
     podcast.async_create
-    podcast.feed_error.should == "That's not a web address."
+    podcast.feed_error.should == "RPodcast::InvalidAddressError"
   end
 end
 
@@ -196,7 +196,7 @@ describe Podcast, "creating a new podcast when a weird server error occurs" do
   it 'should raise an error that an unknown exception occurred' do
     podcast = Podcast.create!(:feed_url => "http://localhost:7/", :state => "pending")
     podcast.async_create
-    podcast.feed_error.should == "Weird server error."
+    podcast.feed_error.should == "Errno::ECONNREFUSED"
   end
 end
 
@@ -205,7 +205,7 @@ describe Podcast, "creating a new podcast that is from a site on the blacklist" 
     Blacklist.create!(:domain => "restrictedsite")
     podcast = Podcast.create!(:feed_url => "http://restrictedsite/bad/feed.xml", :state => "pending")
     podcast.async_create
-    podcast.feed_error.should == "This feed site is not allowed."
+    podcast.feed_error.should == "RPodcast::BannedFeedError"
   end
 end
 

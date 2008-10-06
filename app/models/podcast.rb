@@ -71,7 +71,7 @@ class Podcast < ActiveRecord::Base
   end
 
   event :fail do
-    transitions :from => ["pending", "fetched"], :to => "failed"
+    transitions :from => ["pending", "fetched", "parsed"], :to => "failed"
   end
 
   define_index do
@@ -87,15 +87,11 @@ class Podcast < ActiveRecord::Base
   after_create  :distribute_point, :if => '!user.nil?'
 
   def async_create
-    begin
-      fetch!
-      raise if self.feed_error
-      parse!
-    rescue
-      fail!
-    ensure
-      self.save!
-    end
+    check_for_feed_error
+    fetch! unless self.feed_error
+    parse! unless self.feed_error
+    fail! if self.feed_error
+    self.save!
   end
 
   def self.retrieve_feed(url)
@@ -107,27 +103,19 @@ class Podcast < ActiveRecord::Base
   end
 
   def retrieve_feed
-    raise PodcastError, "That's not a web address." unless self.feed_url =~ /^http:\/\//
+    raise RPodcast::InvalidAddressError, "That's not a web address." unless self.feed_url =~ /^http:\/\//
+
     feed_site = self.feed_url.split('/')[2]
-    raise PodcastError, "This feed site is not allowed." if Blacklist.find_by_domain(feed_site)
+    raise RPodcast::BannedFeedError, "This feed site is not allowed." if Blacklist.find_by_domain(feed_site)
+
     self.feed_content = Podcast.retrieve_feed(self.feed_url)
-  rescue Timeout::Error
-    self.feed_error = "Not found. (timeout)"
-  rescue SocketError
-    self.feed_error = "Not found."
-  rescue Errno::ENETUNREACH
-    self.feed_error = "Not found."
-  rescue OpenURI::HTTPError
-    self.feed_error = "Not found."
-  rescue PodcastError => e
-    self.feed_error = e.message
   rescue StandardError => e
-    self.feed_error = "Weird server error."
+    self.feed_error = e.class.to_s
   end
 
   def parse_feed
-    retrieve_podcast_info_from_feed
-    retrieve_episodes_from_feed
+    retrieve_podcast_info_from_feed or return false
+    retrieve_episodes_from_feed or return false
     download_logo
     sanitize_title
     sanitize_url
@@ -146,9 +134,9 @@ class Podcast < ActiveRecord::Base
     set_owner
 
     self.save!
-  rescue RPodcast::PodcastError => e
-    self.feed_error = e.message
-    raise PodcastError, self.feed_error
+  rescue StandardError => e
+    self.feed_error = e.class.to_s
+    return false
   end
 
   def set_owner
@@ -156,9 +144,10 @@ class Podcast < ActiveRecord::Base
   end
 
   def check_for_feed_error
-    self.feed_error = "I can't take feeds from that site! Try again." if Blacklist.find_by_domain($1)
-    self.feed_error = "That's not a web address. Try again." unless feed_url =~ /^http:\/\/([^\/]+)\/(.*)/
-    raise PodcastError, self.feed_error if self.feed_error
+    raise RPodcast::BannedFeedError if Blacklist.find_by_domain($1)
+    raise RPodcast::InvalidAddressError unless feed_url =~ /^http:\/\/([^\/]+)/
+  rescue StandardError => e
+    self.feed_error = e.class.to_s
   end
 
   def average_time_between_episodes
@@ -249,11 +238,9 @@ class Podcast < ActiveRecord::Base
                             :duration =>       parsed_episode.duration}
       episode.save
     end
-  rescue OpenURI::HTTPError
-    puts "#{self.feed_url} not modified, skipping..."
-  #rescue StandardError => e
-  #  self.feed_error = "Problem retrieving episodes from the feed"
-  #  raise PodcastError, self.feed_error
+  rescue StandardError => e
+    self.feed_error = e.class.to_s
+    return false
   end
 
   def writable_by?(user)

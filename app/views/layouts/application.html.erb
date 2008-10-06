@@ -62,7 +62,7 @@
             </li>
             <% if current_user -%>
             <li class="user">
-              <%= link_to "<span>#{current_user.login}</span>", user_path(current_user), :class => 'icon'  -%>
+              <%= link_to_profile current_user  -%>
             </li>
             <% else -%>
             <li class="signup">

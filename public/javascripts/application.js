@@ -48,7 +48,7 @@ jQuery(document).ready(function() {
 * Sign In
 **************************************************************/
 jQuery(document).ready(function(){
-  var signin_container = jQuery('#quick_signin');
+  var signin_container = jQuery('.quick_signin.top_bar');
 
   function reset_container() {
     signin_container.hide();
@@ -59,11 +59,7 @@ jQuery(document).ready(function(){
 
   signin_container.quickSignIn({
     success: function(resp){
-      jQuery('#account_bar .signup').html(resp.html);
       reset_container();
-    },
-    error: function(resp){
-      signin_container.find('.response_container').html(resp.html);
     }
   });
 

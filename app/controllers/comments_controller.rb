@@ -21,20 +21,22 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(params[:comment].keep_keys([:title, :body, :positive, :episode_id]))
-    @comment.commenter = current_user unless current_user.nil?
+    comment_params = params[:comment].keep_keys([:title, :body, :positive, :episode_id])
+    @comment = Comment.new(comment_params)
 
     respond_to do |format|
-      if @comment.save
-        if !current_user
-          session.data[:comments] ||= []
-          session.data[:comments] << @comment.id
-        end
+      if current_user
+        @comment.commenter = current_user
 
-        format.html { redirect_to :back }
-        format.js   { render :partial => 'comments/comment', :object => @comment }
+        if @comment.save
+          format.html { redirect_to :back }
+          format.js
+        else
+          format.html { render :action => "new" }
+        end
       else
-        format.html { render :action => "new" }
+        session[:comment] = comment_params
+        format.js
       end
     end
   end

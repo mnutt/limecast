@@ -21,9 +21,11 @@ class UsersController < ApplicationController
     @user.state = 'passive'
     @user.register! if @user.valid?
     if @user.errors.empty?
-      claim_podcasts
-
       self.current_user = @user
+
+      claim_podcasts
+      claim_comment
+
       respond_to do |format|
         format.html do
           redirect_back_or_default('/')
@@ -144,15 +146,16 @@ protected
     session.data.delete(:podcasts)
   end
 
-  def claim_comments
-    return if session.data[:comments].nil?
+  def claim_comment
+    return if session[:comment].nil?
 
-    Comment.find_all_by_id(session.data[:comments]).each do |comment|
-      comment.user = @user if comment.user.nil?
-      comment.save
+    if Comment.count(:conditions => {:episode_id => session[:comment][:episode_id], :user_id => current_user.id}) == 0
+      c = Comment.new(session[:comment])
+      c.commenter = current_user
+      c.save
     end
 
-    session.data.delete(:comments)
+    session.data.delete(:comment)
   end
 
   def reconfirm_email(user)

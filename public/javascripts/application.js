@@ -53,66 +53,44 @@ Object.extend(Lime.Widgets.Behaviors.prototype, {
 });
 
 jQuery(document).ready(function(){
-  var login_box      = jQuery('#quick_signin');
-  var show_box_link  = jQuery('a.sign_up');
-  var close_box_link = login_box.find('a.close');
-  var sign_in_button = login_box.find('input.signin_button');
-  var sign_up_button = login_box.find('input.signup_button');
-  var sign_up_fields = login_box.find('.sign_up');
-  var login_field    = login_box.find('#user_login');
-  var email_field    = login_box.find('.sign_up input');
-  var form           = login_box.find('form');
+  var signin_container = jQuery('#quick_signin');
+
+  function reset_container() {
+    signin_container.hide();
+    signin_container.find('.sign_up').hide();
+    signin_container.find('form').attr('action', '/session');
+    signin_container.find('input.signin_button').show();
+  }
+
+  signin_container.quickSignIn({
+    success: function(resp){
+      jQuery('#account_bar .signup').html(resp.html);
+      reset_container();
+    },
+    error: function(resp){
+      signin_container.find('.response_container').html(resp.html);
+    }
+  });
 
   // Keypress to handle pressing escape to close box.
-  login_box.find('input').keydown(function(e){
-    if(e.keyCode == 27)
-      login_box.hide();
+  signin_container.find('input').keydown(function(e){
+    if(e.keyCode == 27) { reset_container(); }
   });
-
-  // When any of the appropriate things are clicked, the login box will disappear.
-  jQuery.each([show_box_link,close_box_link], function(i, x){
-    x.click(function(){
-      sign_up_fields.hide();
-      sign_in_button.show();
-      login_box.toggle();
-      login_field.focus();
-      form.attr('action', '/sessions');
-
-      return false;
-    });
-  });
-
-  sign_up_button.click(function(){
-    // We only want to submit the form if the sign in button is no longer there.
-    var should_submit = sign_in_button.css('display') == 'none';
-
-    sign_up_fields.show();
-    email_field.focus();
-    sign_in_button.hide();
-    form.attr('action', '/users');
-
-    return should_submit;
-  });
-
-  form.bind('submit', function(){
-    jQuery.ajax({
-      type:    'post',
-      url:     jQuery(this).attr('action'),
-      data:    jQuery(this).serialize(),
-      dataType: "json",
-      success: function(resp){
-        if(resp.success) {
-          jQuery('#account_bar .signup').html(resp.html);
-          login_box.hide();
-        } else {
-          login_box.find('div.response_container').html(resp.html);
-        }
-      }
-    });
+  jQuery('#account_bar .signup').click(function(){
+    if(signin_container.css('display') == 'none') {
+      signin_container.show();
+      signin_container.find('input#user_login').focus();
+    } else {
+      reset_container();
+    }
 
     return false;
   });
+  signin_container.find('a.close').click(function(){
+    reset_container();
+  });
 });
+
 
 /**************************************************************
 * Toggle

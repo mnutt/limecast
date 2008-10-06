@@ -12,21 +12,21 @@
   <div class="contents">
     <% form_for :user, :url => session_path do |f| -%>
       <div class="field">
-        <label for="user_login_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>User Name</label>
+        <label for="login_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>User Name</label>
         <div>
-          <%= f.text_field "login_#{options[:suffix]}", :class => 'text login', :name => "user[login]" %>
+          <input type="text" id="login_<%= options[:suffix] -%>" class='text login' name="user[login]" />
         </div>
       </div>
       <div class="field">
-        <label for="user_password_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Password</label>
+        <label for="password_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Password</label>
         <div>
-          <%= f.password_field "password_#{options[:suffix]}", :class => 'text', :name => "user[password]" %>
+          <input type="password" id="password_<%= options[:suffix] -%>" class='text' name="user[password]" />
         </div>
       </div>
       <div class="field sign_up" style="display: none;">
-        <label for="user_email_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Email</label>
+        <label for="email_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Email</label>
         <div>
-          <%= f.text_field "email_#{options[:suffix]}", :class => 'text', :name => "user[email]" %>
+          <input type="text" id="email_<%= options[:suffix] -%>" class='text' name="user[email]" />
         </div>
       </div>
 

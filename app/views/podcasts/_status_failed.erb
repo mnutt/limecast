@@ -1,4 +1,17 @@
 <div class="status_message finished">
-  <%=h @podcast.feed_error -%>
+  <% if @podcast.feed_error == "RPodcast::InvalidXMLError" -%>
+    That's not an RSS feed.
+  <% elsif @podcast.feed_error == "RPodcast::NoEnclosureError" -%>
+    That's a text RSS feed, not an audio or video podcast.
+  <% elsif @podcast.feed_error == "RPodcast::InvalidAddressError" -%>
+    That's not a web address.
+  <% elsif @podcast.feed_error == "RPodcast::BannedFeedError" -%>
+    I can't take feeds from that site!
+  <% elsif %w(SocketError Timeout::Error Errno::ENETUNREACH OpenURI::HTTPError).include?(@podcast.feed_error) -%>
+    Not found.
+  <% else -%>
+    Weird server error. (<%= @podcast.feed_error -%>)
+  <% end -%>
+
   <span class="arrow_down">Try again</span>
 </div>

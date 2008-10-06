@@ -56,6 +56,7 @@ class Podcast < ActiveRecord::Base
 
   acts_as_taggable
 
+  # Events
   acts_as_state_machine :initial => :pending
   state :pending
   state :fetched, :enter => Proc.new { |p| p.retrieve_feed }
@@ -71,9 +72,12 @@ class Podcast < ActiveRecord::Base
   end
 
   event :fail do
-    transitions :from => ["pending", "fetched"], :to => "failed"
+    transitions :from => ["pending", "fetched", "parsed"], :to => "failed"
   end
 
+  after_create  :distribute_point, :if => '!user.nil?'
+
+  # Search
   define_index do
     indexes :title, :site, :description
     indexes user.login, :as => :user
@@ -84,20 +88,6 @@ class Podcast < ActiveRecord::Base
     has :created_at, :state
   end
 
-  after_create  :distribute_point, :if => '!user.nil?'
-
-  def async_create
-    begin
-      fetch!
-      raise if self.feed_error
-      parse!
-    rescue
-      fail!
-    ensure
-      self.save!
-    end
-  end
-
   def self.retrieve_feed(url)
     Timeout::timeout(5) do
       OpenURI::open_uri(url) do |f|
@@ -106,59 +96,12 @@ class Podcast < ActiveRecord::Base
     end
   end
 
-  def retrieve_feed
-    raise PodcastError, "That's not a web address." unless self.feed_url =~ /^http:\/\//
-    feed_site = self.feed_url.split('/')[2]
-    raise PodcastError, "This feed site is not allowed." if Blacklist.find_by_domain(feed_site)
-    self.feed_content = Podcast.retrieve_feed(self.feed_url)
-  rescue Timeout::Error
-    self.feed_error = "Not found. (timeout)"
-  rescue SocketError
-    self.feed_error = "Not found."
-  rescue Errno::ENETUNREACH
-    self.feed_error = "Not found."
-  rescue OpenURI::HTTPError
-    self.feed_error = "Not found."
-  rescue PodcastError => e
-    self.feed_error = e.message
-  rescue StandardError => e
-    self.feed_error = "Weird server error."
-  end
-
-  def parse_feed
-    retrieve_podcast_info_from_feed
-    retrieve_episodes_from_feed
-    download_logo
-    sanitize_title
-    sanitize_url
-  end
-
-  def retrieve_podcast_info_from_feed
-    parsed_feed = RPodcast::Feed.new(feed_content)
-    self.attributes = {:title => parsed_feed.title,
-                       :logo_link => parsed_feed.image,
-                       :description => parsed_feed.summary,
-                       :language => parsed_feed.language,
-                       :owner_email => parsed_feed.owner_email,
-                       :owner_name => parsed_feed.owner_name,
-                       :site => parsed_feed.link}
-
-    set_owner
-
+  def async_create
+    check_for_feed_error
+    fetch! unless self.feed_error
+    parse! unless self.feed_error
+    fail! if self.feed_error
     self.save!
-  rescue RPodcast::PodcastError => e
-    self.feed_error = e.message
-    raise PodcastError, self.feed_error
-  end
-
-  def set_owner
-    self.owner = User.find_by_email(self.owner_email)
-  end
-
-  def check_for_feed_error
-    self.feed_error = "I can't take feeds from that site! Try again." if Blacklist.find_by_domain($1)
-    self.feed_error = "That's not a web address. Try again." unless feed_url =~ /^http:\/\/([^\/]+)\/(.*)/
-    raise PodcastError, self.feed_error if self.feed_error
   end
 
   def average_time_between_episodes
@@ -167,53 +110,19 @@ class Podcast < ActiveRecord::Base
     time_span / (self.episodes.count - 1)
   end
 
-  def total_run_time
-    self.episodes.sum(:duration) || 0
+  def check_for_feed_error
+    raise RPodcast::BannedFeedError if Blacklist.find_by_domain($1)
+    raise RPodcast::InvalidAddressError unless feed_url =~ /^http:\/\/([^\/]+)/
+  rescue StandardError => e
+    self.feed_error = e.class.to_s
   end
 
   def clean_site
     self.site.to_url
   end
 
-  def sanitize_url
-    # Remove leading and trailing spaces
-    self.clean_url = self.title.clone.strip
-
-    # Remove all non-alphanumeric non-space characters
-    self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")
-
-    # Condense spaces and turn them into dashes
-    self.clean_url.gsub!(/[\s]+/, '-')
-    self.clean_url
-  end
-
-  def sanitize_title
-    # Remove anything in parentheses
-    self.title.gsub!(/[\s+]\(.*\)/, "")
-
-    conflict = Podcast.find_by_title(self.title)
-    self.title = "#{self.title} 2" if conflict and conflict != self
-
-    i = 2 # Number to attach to the end of the title to make it unique
-    while(Podcast.find_by_title(self.title) and conflict != self)
-      i += 1
-      self.title.chop!
-      self.title = "#{self.title}#{i.to_s}"
-    end
-
-    self.title
-  end
-
-  def title
-    (self.custom_title.nil? or self.custom_title.blank?) ? super : self.custom_title
-  end
-
   def comments
     Comment.for_podcast(self)
-  end
-
-  def to_param
-    clean_url
   end
 
   def download_logo
@@ -235,6 +144,25 @@ class Podcast < ActiveRecord::Base
     self.created_at > 2.minutes.ago
   end
 
+  def parse_feed
+    retrieve_podcast_info_from_feed or return false
+    retrieve_episodes_from_feed or return false
+    download_logo
+    sanitize_title
+    sanitize_url
+  end
+
+  def retrieve_feed
+    raise RPodcast::InvalidAddressError, "That's not a web address." unless self.feed_url =~ /^http:\/\//
+
+    feed_site = self.feed_url.split('/')[2]
+    raise RPodcast::BannedFeedError, "This feed site is not allowed." if Blacklist.find_by_domain(feed_site)
+
+    self.feed_content = Podcast.retrieve_feed(self.feed_url)
+  rescue StandardError => e
+    self.feed_error = e.class.to_s
+  end
+
   def retrieve_episodes_from_feed
     parsed_episodes = RPodcast::Episode.parse(feed_content)
     parsed_episodes.each do |parsed_episode|
@@ -249,11 +177,72 @@ class Podcast < ActiveRecord::Base
                             :duration =>       parsed_episode.duration}
       episode.save
     end
-  rescue OpenURI::HTTPError
-    puts "#{self.feed_url} not modified, skipping..."
-  #rescue StandardError => e
-  #  self.feed_error = "Problem retrieving episodes from the feed"
-  #  raise PodcastError, self.feed_error
+  rescue StandardError => e
+    self.feed_error = e.class.to_s
+    return false
+  end
+
+  def retrieve_podcast_info_from_feed
+    parsed_feed = RPodcast::Feed.new(feed_content)
+    self.attributes = {:title => parsed_feed.title,
+                       :logo_link => parsed_feed.image,
+                       :description => parsed_feed.summary,
+                       :language => parsed_feed.language,
+                       :owner_email => parsed_feed.owner_email,
+                       :owner_name => parsed_feed.owner_name,
+                       :site => parsed_feed.link}
+
+    set_owner
+
+    self.save!
+  rescue StandardError => e
+    self.feed_error = e.class.to_s
+    return false
+  end
+
+  def sanitize_title
+    # Remove anything in parentheses
+    self.title.gsub!(/[\s+]\(.*\)/, "")
+
+    conflict = Podcast.find_by_title(self.title)
+    self.title = "#{self.title} 2" if conflict and conflict != self
+
+    i = 2 # Number to attach to the end of the title to make it unique
+    while(Podcast.find_by_title(self.title) and conflict != self)
+      i += 1
+      self.title.chop!
+      self.title = "#{self.title}#{i.to_s}"
+    end
+
+    self.title
+  end
+
+  def sanitize_url
+    # Remove leading and trailing spaces
+    self.clean_url = self.title.clone.strip
+
+    # Remove all non-alphanumeric non-space characters
+    self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")
+
+    # Condense spaces and turn them into dashes
+    self.clean_url.gsub!(/[\s]+/, '-')
+    self.clean_url
+  end
+
+  def set_owner
+    self.owner = User.find_by_email(self.owner_email)
+  end
+
+  def total_run_time
+    self.episodes.sum(:duration) || 0
+  end
+
+  def title
+    (self.custom_title.nil? or self.custom_title.blank?) ? super : self.custom_title
+  end
+
+  def to_param
+    clean_url
   end
 
   def writable_by?(user)

@@ -237,6 +237,18 @@ namespace :deploy do
   end
 end
 
+task :release_times, :roles => :app do
+  release_dirs = releases
+
+  puts '=' * 40
+  puts "RELEASES"
+  puts '=' * 40
+
+  release_dirs.each do |r|
+    puts Time.parse(r.to_s).to_s
+  end
+end
+
 # Override built-in deploy tasks
 namespace :deploy do
   namespace :web do

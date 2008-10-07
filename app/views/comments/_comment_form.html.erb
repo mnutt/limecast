@@ -7,9 +7,9 @@
 <div class="align">
   Podcast Rating:
   <%= f.radio_button :positive, true, :checked => "checked" -%>
-  <label for="comment_positive_true"><%= image_tag("icons/thumbs_up.png") -%></label>
+  <%= f.label :positive, image_tag("icons/thumbs_up.png"), :onclick => "$('comment_positive_true').checked = true;" -%>
   <%= f.radio_button :positive, false -%>
-  <label for="comment_positive_false"><%= image_tag("icons/thumbs_down.png") -%></label>
+  <%= f.label :positive, image_tag("icons/thumbs_down.png"), :onclick => "$('comment_positive_false').checked = true;" -%>
 </div>
 <% end -%>
 

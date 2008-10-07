@@ -122,9 +122,12 @@
  	        <%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
         <% end -%>
 
-      <% if can_add_comments?(@podcast.episodes.newest.first) %>
+      <% if can_add_comments?(@podcast.episodes.newest.first) -%>
         <%= render :partial => 'comments/add_comment', :object => @podcast -%>
-      <% end %>
+			<% end -%>
+
+      <div id="edit_comment" />
+
       <% reset_cycle('row_class') %>
     </div>
   <% end %>

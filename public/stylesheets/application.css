@@ -1,7 +1,7 @@
 /**
 * Quick Sign In/Up
 **/
-div#quick_signin.top_bar {
+div.quick_signin.top_bar {
   position: absolute;
   top: 35px;
   right: 0;

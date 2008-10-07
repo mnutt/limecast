@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def link_to_thing(thing)
-    link_to "#{image_tag(thing.logo.url(:icon))} <span>#{h(thing.title)}</span>", polymorphic_url(thing), :class => 'inline_icon'
+    link_to "#{image_tag(thing.logo.url(:icon))} <span>#{h(thing.custom_title)}</span>", polymorphic_url(thing), :class => 'inline_icon'
   end
 
   def relative_time(date)

@@ -1,4 +1,4 @@
-<% @title = "#{h(@podcast.title)} Episodes" -%>
+<% @title = "#{h(@podcast.custom_title)} Episodes" -%>
 <% @show_ads = true -%>
 
 <div class="podcast">
@@ -9,7 +9,7 @@
   </div>
 
   <% if @podcast -%>
-    <h2>Episodes for <%=h @podcast.title -%></h2>
+    <h2>Episodes for <%=h @podcast.custom_title -%></h2>
   <% else -%>
     <h2>All episodes</h2>
   <% end -%>

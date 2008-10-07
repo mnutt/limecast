@@ -75,6 +75,7 @@ class Podcast < ActiveRecord::Base
     transitions :from => ["pending", "fetched", "parsed"], :to => "failed"
   end
 
+  before_save   :cache_custom_title
   after_create  :distribute_point, :if => '!user.nil?'
 
   # Search
@@ -237,10 +238,6 @@ class Podcast < ActiveRecord::Base
     self.episodes.sum(:duration) || 0
   end
 
-  def title
-    (self.custom_title.nil? or self.custom_title.blank?) ? super : self.custom_title
-  end
-
   def to_param
     clean_url
   end
@@ -255,5 +252,9 @@ class Podcast < ActiveRecord::Base
   def distribute_point
     self.user.score += 1
     self.user.save
+  end
+
+  def cache_custom_title
+    self.custom_title = custom_title.blank? ? title : custom_title
   end
 end

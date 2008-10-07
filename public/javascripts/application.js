@@ -102,3 +102,16 @@ jQuery(document).ready(function(){
     });
   });
 });
+
+
+// Makes clicking labels check their associated checkbox/radio button
+jQuery(document).ready(function(){
+  jQuery('label').map(function(){
+    var field = jQuery('#' + jQuery(this).attr('for'));
+    if(field.is('input[type=radio]') || field.is('input[type=checkbox]')) {
+      $(this).click(function() {
+        field.attr('checked', true);
+      });
+    }
+  });
+});

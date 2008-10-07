@@ -22,6 +22,7 @@ class CommentsController < ApplicationController
 
   def create
     comment_params = params[:comment].keep_keys([:title, :body, :positive, :episode_id])
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
     @comment = Comment.new(comment_params)
 
     respond_to do |format|

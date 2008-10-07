@@ -301,7 +301,7 @@ describe PodcastsController do
       end
       
       it "should update the found podcast" do
-        assigns(:podcast).reload.title.should == "Custom Title"
+        assigns(:podcast).reload.custom_title.should == "Custom Title"
       end
       
       it "should redirect to the podcasts list" do

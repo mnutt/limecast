@@ -31,9 +31,10 @@ describe Podcast do
   it 'should use the custom_title if set' do
     @podcast.title.should == "Podcast"
     @podcast.custom_title = "My Podcast"
-    @podcast.title.should == "My Podcast"
-    @podcast.title = "Different Podcast"
-    @podcast.title.should == "My Podcast"
+    @podcast.custom_title.should == "My Podcast"
+    @podcast.custom_title = nil
+    @podcast.send(:cache_custom_title)
+    @podcast.custom_title.should == "Podcast"
   end
 end
 

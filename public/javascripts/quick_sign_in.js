@@ -2,7 +2,7 @@ jQuery.fn.extend({
   quickSignIn: function(opts) {
     if(opts.ajax == null) { opts.ajax = true; }
 
-    var me = $(this);
+    var me = jQuery(this);
 
     me.find('input.signup_button').click(function(){
       // We only want to submit the form if the sign in button is no longer there.

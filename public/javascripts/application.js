@@ -60,6 +60,7 @@ jQuery(document).ready(function(){
   signin_container.quickSignIn({
     success: function(resp){
       reset_container();
+      jQuery('#account_bar .signup').unbind('click');
     }
   });
 

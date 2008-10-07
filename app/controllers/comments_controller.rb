@@ -45,11 +45,16 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
 
-    if @comment.update_attributes(params[:comment])
-      flash[:notice] = 'Comment was successfully updated.'
-      redirect_to url_for([@comment.commentable])
-    else
-      render :action => "edit"
+    respond_to do |format|
+      if @comment.update_attributes(params[:comment])
+        flash[:notice] = 'Comment was successfully updated.'
+
+        format.html { redirect_to :back }
+      else
+        format.html { render :action => "edit" }
+      end
+
+      format.js { render :nothing => true }
     end
   end
 

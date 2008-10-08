@@ -44,7 +44,7 @@ class Podcast < ActiveRecord::Base
 
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
 
-  attr_accessor :logo_link, :has_episodes
+  attr_accessor :has_episodes
 
   acts_as_taggable
 
@@ -64,6 +64,48 @@ class Podcast < ActiveRecord::Base
 
     has :created_at
   end
+
+
+  def itunes_link
+    self.feed ||= Feed.new
+    self.feed.itunes_link
+  end
+
+  def feed_itunes_link=(v)
+    self.feed ||= Feed.new
+    self.feed.itunes_link = v
+  end
+
+  def feed_error
+    self.feed ||= Feed.new
+    self.feed.error
+  end
+
+  def feed_error=(v)
+    self.feed ||= Feed.new
+    self.feed.error = v
+  end
+
+  def feed_content
+    self.feed ||= Feed.new
+    self.feed.content
+  end
+
+  def feed_content=(v)
+    self.feed ||= Feed.new
+    self.feed.content = v
+  end
+
+  def feed_url
+    self.feed ||= Feed.new
+    self.feed.url
+  end
+
+  def feed_url=(v)
+    self.feed ||= Feed.new
+    self.feed.url = v
+  end
+
 
   def average_time_between_episodes
     return 0 if self.episodes.count < 2

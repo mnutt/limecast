@@ -52,31 +52,31 @@ class Feed < ActiveRecord::Base
 
     fetch
     parse
-  rescue
-    self.update_attributes(:feed_error => $!.class.to_s)
+  rescue Exception
+    self.update_attributes(:error => $!.class.to_s)
   end
 
   def fetch
     Timeout::timeout(5) do
       OpenURI::open_uri(self.url) do |f|
-        self.feed_content = f.read
+        self.content = f.read
       end
     end
+  rescue NoMethodError
+    raise InvalidAddressException
   end
 
   def parse
     update_podcast_info!
     update_episodes!
-
-    download_logo
   end
 
-  def download_logo
+  def download_logo(link)
     file = PaperClipFile.new
-    file.original_filename = File.basename(logo_link)
+    file.original_filename = File.basename(link)
 
-    open(logo_link) do |f|
-      return unless f.content_type ~= /^image/
+    open(link) do |f|
+      return unless f.content_type =~ /^image/
 
       file.content_type = f.content_type
       file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
@@ -89,7 +89,7 @@ class Feed < ActiveRecord::Base
   end
 
   def update_episodes!
-    RPodcast::Episode.parse(feed_content).each do |e|
+    RPodcast::Episode.parse(content).each do |e|
       # XXX: Definitely need to figure out something better for this.
       episode = self.podcast.episodes.find_by_guid(e.guid) || self.podcast.episodes.find_by_summary(e) || self.podcast.episodes.find_by_title(e) || self.podcast.episodes.new
       episode.update_attributes(
@@ -106,21 +106,23 @@ class Feed < ActiveRecord::Base
   end
 
   def update_podcast_info!
-    parsed_feed = RPodcast::Feed.new(feed_content)
+    parsed_feed = RPodcast::Feed.new(content)
+
     self.podcast.update_attributes(
       :title       => parsed_feed.title,
-      :logo_link   => parsed_feed.image,
       :description => parsed_feed.summary,
       :language    => parsed_feed.language,
       :owner_email => parsed_feed.owner_email,
       :owner_name  => parsed_feed.owner_name,
       :site        => parsed_feed.link
     )
+
+    self.download_logo(parsed_feed.image)
   end
   
   protected
 
   def sanitize
-    self.feed_url.gsub!(%r{^feed://}, "http://")
+    self.url.gsub!(%r{^feed://}, "http://")
   end
 end

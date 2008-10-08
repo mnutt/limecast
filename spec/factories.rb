@@ -1,35 +1,35 @@
 # Trying out factory girl. Check out the documentation here.
 # http://github.com/thoughtbot/factory_girl/tree/master
 
+Factory.define :feed do |f|
+  f.url     { "#{Factory.next :site}/feed.xml" }
+  f.content { File.open("#{RAILS_ROOT}/spec/data/example.xml").read }
+end
+
 Factory.define :podcast do |p|
   p.title     'Podcast'
   p.site      { Factory.next :site }
-  p.feed_url  { "#{Factory.next :site}/feed.xml" }
 
   p.clean_url { Factory.next :title }
 end
 
 Factory.define :fetched_podcast, :class => Podcast do |p|
-  p.title         'Fetched Podcast'
-  p.feed_content  { File.open("#{RAILS_ROOT}/spec/data/example.xml").read }
-  p.state         'fetched'
-  p.feed_url      "http://fetchedpodcast/feed.xml"
+  p.title 'Fetched Podcast'
+  p.feed  { Factory.create(:feed, :url => "http://fetchedpodcast/feed.xml") }
 end
 
 Factory.define :parsed_podcast, :class => Podcast do |p|
-  p.title     'Podcast'
-  p.state     'parsed'
-  p.site      { Factory.next :site }
-  p.feed_url  "http://parsedpodcast/feed.xml" 
+  p.title 'Podcast'
+  p.site  { Factory.next :site }
+  p.feed  { Factory.create(:feed, :url => "http://parsedpodcast/feed.xml", :content => nil) }
 
   p.clean_url { Factory.next :title }
 end
 
 Factory.define :failed_podcast, :class => Podcast do |p|
-  p.title     'Podcast'
-  p.state     'failed'
-  p.site      { Factory.next :site }
-  p.feed_url  { "#{Factory.next :site}/feed.xml" }
+  p.title 'Podcast'
+  p.site  { Factory.next :site }
+  p.feed  { Factory.create(:feed) }
 
   p.clean_url { Factory.next :title }
 end

@@ -1,16 +1,16 @@
 <div class="status_message finished">
-  <% if @podcast.feed_error == "RPodcast::InvalidXMLError" -%>
+  <% if @feed.error == "RPodcast::InvalidXMLError" -%>
     That's not an RSS feed.
-  <% elsif @podcast.feed_error == "RPodcast::NoEnclosureError" -%>
+  <% elsif @feed.error == "RPodcast::NoEnclosureError" -%>
     That's a text RSS feed, not an audio or video podcast.
-  <% elsif @podcast.feed_error == "RPodcast::InvalidAddressError" -%>
+  <% elsif @feed.error == "Feed::InvalidAddressException" -%>
     That's not a web address.
-  <% elsif @podcast.feed_error == "RPodcast::BannedFeedError" -%>
+  <% elsif @feed.error == "Feed::BannedFeedException" -%>
     I can't take feeds from that site!
-  <% elsif %w(SocketError Timeout::Error Errno::ENETUNREACH OpenURI::HTTPError).include?(@podcast.feed_error) -%>
+  <% elsif %w(SocketError Timeout::Error Errno::ENETUNREACH OpenURI::HTTPError).include?(@feed.error) -%>
     Not found.
   <% else -%>
-    Weird server error. (<%= @podcast.feed_error -%>)
+    Weird server error. (<%= @feed.error -%>)
   <% end -%>
 
   <span class="arrow_down">Try again</span>

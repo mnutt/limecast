@@ -3,7 +3,7 @@ class PodcastsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :status
 
   def index
-    @podcasts = Podcast.parsed.find(:all, :order => "title ASC")
+    @podcasts = Podcast.find(:all, :order => "title ASC")
   end
 
   def show
@@ -20,7 +20,7 @@ class PodcastsController < ApplicationController
       redirect_to :controller => 'podcasts', :action => 'search', :query => params[:q]
     else
       @query = params[:query]
-      @podcasts = Podcast.search(@query, :conditions => {:state => "parsed"})
+      @podcasts = Podcast.search(@query)
     end
   end
 
@@ -29,17 +29,17 @@ class PodcastsController < ApplicationController
   end
 
   def status
-    @podcast = Podcast.find_by_feed_url(params[:feed])
+    @feed = Feed.find_by_url(params[:feed])
     
-    if @podcast.nil?
+    if @feed.nil?
       render :partial => 'status_error'
-    elsif @podcast.parsed? && podcast_created_just_now_by_user?(@podcast)
+    elsif @feed.parsed? && podcast_created_just_now_by_user?(@feed.podcast)
       render :partial => 'status_added'
-    elsif @podcast.parsed?
+    elsif @feed.parsed?
       render :partial => 'status_conflict'
-    elsif @podcast.failed?
+    elsif @feed.failed?
       render :partial => 'status_failed'
-    elsif @podcast.pending? or @podcast.fetched?
+    elsif @feed.pending? or @feed.fetched?
       render :partial => 'status_loading'
     else
       render :partial => 'status_error'

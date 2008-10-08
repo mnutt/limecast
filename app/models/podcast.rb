@@ -29,19 +29,13 @@
 #  custom_title      :string(255)   
 #
 
-class PodcastError < StandardError; end
-
-require 'open-uri'
-require 'timeout'
-require 'rexml/document'
-require 'paperclip_file'
-
 class Podcast < ActiveRecord::Base
   belongs_to :user
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
-
+  has_one  :feed
   has_many :episodes, :dependent => :destroy
+
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],
@@ -52,31 +46,13 @@ class Podcast < ActiveRecord::Base
 
   attr_accessor :logo_link, :has_episodes
 
-  validates_uniqueness_of :feed_url
-
   acts_as_taggable
 
-  # Events
-  acts_as_state_machine :initial => :pending
-  state :pending
-  state :fetched, :enter => Proc.new { |p| p.retrieve_feed }
-  state :parsed, :enter => Proc.new { |p| p.parse_feed }
-  state :failed
-
-  event :fetch do
-    transitions :from => "pending", :to => "fetched"
-  end
-
-  event :parse do
-    transitions :from => "fetched", :to => "parsed"
-  end
-
-  event :fail do
-    transitions :from => ["pending", "fetched", "parsed"], :to => "failed"
-  end
-
-  before_save   :cache_custom_title
-  after_create  :distribute_point, :if => '!user.nil?'
+  before_save  :attempt_to_find_owner
+  before_save  :cache_custom_title
+  before_save  :sanitize_title
+  before_save  :sanitize_url
+  after_create :distribute_point, :if => '!user.nil?'
 
   # Search
   define_index do
@@ -86,36 +62,13 @@ class Podcast < ActiveRecord::Base
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary
 
-    has :created_at, :state
-  end
-
-  def self.retrieve_feed(url)
-    Timeout::timeout(5) do
-      OpenURI::open_uri(url) do |f|
-        f.read
-      end
-    end
-  end
-
-  def async_create
-    check_for_feed_error
-    fetch! unless self.feed_error
-    parse! unless self.feed_error
-    fail! if self.feed_error
-    self.save!
+    has :created_at
   end
 
   def average_time_between_episodes
     return 0 if self.episodes.count < 2
     time_span = self.episodes.newest.first.published_at - self.episodes.oldest.first.published_at
     time_span / (self.episodes.count - 1)
-  end
-
-  def check_for_feed_error
-    raise RPodcast::BannedFeedError if Blacklist.find_by_domain($1)
-    raise RPodcast::InvalidAddressError unless feed_url =~ /^http:\/\/([^\/]+)/
-  rescue StandardError => e
-    self.feed_error = e.class.to_s
   end
 
   def clean_site
@@ -126,80 +79,24 @@ class Podcast < ActiveRecord::Base
     Comment.for_podcast(self)
   end
 
-  def download_logo
-    @file = PaperClipFile.new
-    open(logo_link) do |f|
-      raise SocketError, "file is not an image" unless f.content_type.split("/").first == "image"
-      @file.original_filename = File.basename(logo_link)
-      @file.to_tempfile = Tempfile.new('logo')
-      @file.to_tempfile.write(f.read)
-      @file.to_tempfile.rewind
-      @file.content_type = f.content_type
-      attachment_for(:logo).assign @file
-    end
-  rescue
-    return false
-  end
-
   def just_created?
     self.created_at > 2.minutes.ago
   end
 
-  def parse_feed
-    retrieve_podcast_info_from_feed or return false
-    retrieve_episodes_from_feed or return false
-    download_logo
-    sanitize_title
-    sanitize_url
+  def total_run_time
+    self.episodes.sum(:duration) || 0
   end
 
-  def retrieve_feed
-    raise RPodcast::InvalidAddressError, "That's not a web address." unless self.feed_url =~ /^http:\/\//
-
-    feed_site = self.feed_url.split('/')[2]
-    raise RPodcast::BannedFeedError, "This feed site is not allowed." if Blacklist.find_by_domain(feed_site)
-
-    self.feed_content = Podcast.retrieve_feed(self.feed_url)
-  rescue StandardError => e
-    self.feed_error = e.class.to_s
+  def to_param
+    clean_url
   end
 
-  def retrieve_episodes_from_feed
-    parsed_episodes = RPodcast::Episode.parse(feed_content)
-    parsed_episodes.each do |parsed_episode|
-      episode = self.episodes.find_by_guid(parsed_episode.guid) || self.episodes.new
-      episode.attributes = {:summary =>        parsed_episode.summary,
-                            :guid =>           parsed_episode.guid,
-                            :published_at =>   parsed_episode.published_at,
-                            :title =>          parsed_episode.title,
-                            :enclosure_type => parsed_episode.enclosure.type,
-                            :enclosure_size => parsed_episode.enclosure.size,
-                            :enclosure_url =>  parsed_episode.enclosure.url,
-                            :duration =>       parsed_episode.duration}
-      episode.save
-    end
-  rescue StandardError => e
-    self.feed_error = e.class.to_s
-    return false
+  def writable_by?(user)
+    # TODO: refactor
+    !!(user and user.active? and ((self.user_id == user.id && !self.owner_id) || self.owner_id == user.id || user.admin?))
   end
 
-  def retrieve_podcast_info_from_feed
-    parsed_feed = RPodcast::Feed.new(feed_content)
-    self.attributes = {:title => parsed_feed.title,
-                       :logo_link => parsed_feed.image,
-                       :description => parsed_feed.summary,
-                       :language => parsed_feed.language,
-                       :owner_email => parsed_feed.owner_email,
-                       :owner_name => parsed_feed.owner_name,
-                       :site => parsed_feed.link}
-
-    set_owner
-
-    self.save!
-  rescue StandardError => e
-    self.feed_error = e.class.to_s
-    return false
-  end
+  protected
 
   def sanitize_title
     # Remove anything in parentheses
@@ -230,25 +127,6 @@ class Podcast < ActiveRecord::Base
     self.clean_url
   end
 
-  def set_owner
-    self.owner = User.find_by_email(self.owner_email)
-  end
-
-  def total_run_time
-    self.episodes.sum(:duration) || 0
-  end
-
-  def to_param
-    clean_url
-  end
-
-  def writable_by?(user)
-    # TODO: refactor
-    !!(user and user.active? and ((self.user_id == user.id && !self.owner_id) || self.owner_id == user.id || user.admin?))
-  end
-
-  protected
-
   def distribute_point
     self.user.score += 1
     self.user.save
@@ -256,5 +134,10 @@ class Podcast < ActiveRecord::Base
 
   def cache_custom_title
     self.custom_title = custom_title.blank? ? title : custom_title
+  end
+
+  def attempt_to_find_owner
+    self.owner = User.find_by_email(self.owner_email)
+    true
   end
 end

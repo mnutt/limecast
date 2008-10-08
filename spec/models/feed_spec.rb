@@ -107,5 +107,13 @@ describe Feed, "being created" do
       @podcast.reload.user.should be_nil
     end
   end
+
+  describe "with a non-existent URL" do
+    it 'should save the error that the URL is not contactable' do
+      pending "figure out how to make it timeout without waiting"
+      @feed.url = "http://192.168.219.47"
+      @feed.error.should == "The server was not contactable."
+    end
+  end
 end
 

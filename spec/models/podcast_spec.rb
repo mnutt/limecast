@@ -23,8 +23,7 @@ describe Podcast do
   end
 
   it 'should have a param with the name in it' do
-    @podcast.state = 'parsed'
-    @podcast.sanitize_url
+    @podcast.send(:sanitize_url)
     @podcast.clean_url.should == "Podcast"
   end
 
@@ -35,114 +34,6 @@ describe Podcast do
     @podcast.custom_title = nil
     @podcast.send(:cache_custom_title)
     @podcast.custom_title.should == "Podcast"
-  end
-end
-
-describe Podcast, "creating a new podcast" do
-  before do
-    @podcast = Podcast.create!(:feed_url => "http://defaultfeed/index.rss")
-  end
-
-  it 'should be pending' do
-    @podcast.state.should == "pending"
-  end
-end
-
-describe Podcast, "fetching a podcast" do
-  before do
-    @podcast = Factory.create(:podcast)
-    @podcast.state = "pending"
-  end
-
-  it 'should call retrieve_feed with the feed_url' do
-    Podcast.should_receive(:retrieve_feed).with(@podcast.feed_url)
-    @podcast.fetch!
-  end
-
-  it 'should populate the feed_content field' do
-    content = File.open("#{RAILS_ROOT}/spec/data/example.xml").read
-    Podcast.stub!(:retrieve_feed).and_return(content)
-    @podcast.fetch!
-    @podcast.feed_content.should =~ /^\<\?xml version/
-    @podcast.feed_content.size.should == 3243
-  end
-end
-
-describe Podcast, "parsing a podcast" do
-
-  before do
-    @podcast = Factory.create(:fetched_podcast)
-    @podcast.stub!(:retrieve_feed)
-    @podcast.stub!(:download_logo)
-    @podcast.parse_feed
-  end
-
-  it 'should set the feed url' do
-    @podcast.reload.feed_url.should == "http://fetchedpodcast/feed.xml"
-  end
-
-  it 'should extract the title' do
-    @podcast.reload.title.should == "All About Everything"
-  end
-
-  it 'should extract the site link' do
-    @podcast.reload.site.should == "http://www.example.com/podcasts/everything/index.html"
-  end
-
-  it 'should extract the logo link' do
-    @podcast.reload.logo_link.should == "http://summitviewcc.com/picts/PodcastLogo.png"
-  end
- 
-  it 'should extract the description' do
-    @podcast.reload.description.should =~ /^All About Everything is a show about everything/
-  end
-
-  it 'should extract the language' do
-    @podcast.reload.language.should == "en-us"
-  end
-end
-
-describe Podcast, "finding a podcast" do
-  before do
-    @podcast         = Factory.create(:podcast)
-    @fetched_podcast = Factory.create(:fetched_podcast)
-    @fetched_podcast.reload.state.should == "fetched"
-    @parsed_podcast  = Factory.create(:parsed_podcast)
-    @parsed_podcast.reload.state.should == "parsed"
-
-    @all     = Podcast.all
-    @fetched = Podcast.fetched.all
-    @parsed  = Podcast.parsed.all
-  end
-
-  it 'should be able to find all 3 podcasts with a call to "all"' do
-    @all.should be_an(Array)
-    @all.length.should == 3
-    [@podcast, @fetched_podcast, @parsed_podcast].each {|p| @all.includes?(p).should be_true }
-  end
-
-  it 'should be able to find just 1 podcast with a call to "fetched"' do
-    @fetched.should be_an(Array)
-    @fetched.length.should == 1
-    [@fetched_podcast].each {|p| @fetched.include?(p).should be_true }
-  end
-
-  it 'should be able to find just 1 podcast with a call to "parsed"' do
-    @parsed.should be_an(Array)
-    @parsed.length.should == 1
-    [@parsed_podcast].each {|p| @parsed.include?(p).should be_true }
-  end
-end
-
-describe Podcast, "downloading the logo" do
-  before do
-    @podcast = Factory.create(:parsed_podcast)
-    @podcast.logo_link = "http://google.com"
-  end
-
-  it 'should not set the logo_filename for a bad link' do
-    @podcast.download_logo.should == false
-    @podcast.logo_file_name.should be_nil
   end
 end
 
@@ -168,61 +59,9 @@ describe Podcast, "getting the average time between episodes" do
   end
 end
 
-describe Podcast, "creating a new podcast with a non-existent URL" do
-  it 'should raise an error that the URL is not contactable' do
-    pending "figure out how to make it timeout without waiting"
-    podcast = Podcast.create!(:feed_url => "http://192.168.219.47", :state => "pending")
-    podcast.feed_error.should == "The server was not contactable."
-  end
-end
-
-describe Podcast, "creating a new podcast with an RSS feed that is not a podcast" do
-  it 'should raise an error that the feed is not a podcast' do
-    podcast = Factory.create(:fetched_podcast)
-    podcast.stub!(:feed_content).and_return(File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read)
-    podcast.async_create
-    podcast.feed_error.should == "RPodcast::NoEnclosureError"
-  end
-end
-
-describe Podcast, "creating a new podcast with a non-URL string" do
-  it 'should raise an error that the feed is not a URL' do
-    podcast = Podcast.create!(:feed_url => "localhost", :state => "pending")
-    podcast.async_create
-    podcast.feed_error.should == "RPodcast::InvalidAddressError"
-  end
-end
-
-describe Podcast, "creating a new podcast when a weird server error occurs" do
-  it 'should raise an error that an unknown exception occurred' do
-    podcast = Podcast.create!(:feed_url => "http://localhost:7/", :state => "pending")
-    podcast.async_create
-    podcast.feed_error.should == "Errno::ECONNREFUSED"
-  end
-end
-
-describe Podcast, "creating a new podcast that is from a site on the blacklist" do
-  it 'should raise an error that the site is on the blacklist' do
-    Blacklist.create!(:domain => "restrictedsite")
-    podcast = Podcast.create!(:feed_url => "http://restrictedsite/bad/feed.xml", :state => "pending")
-    podcast.async_create
-    podcast.feed_error.should == "RPodcast::BannedFeedError"
-  end
-end
-
-describe Podcast, "creating a new podcast when the submitting user is the podcast owner" do
-  it 'should associate the podcast with the user as owner' do
-    user = Factory.create(:user, :email => "john.doe@example.com")
-    podcast = Factory.create(:fetched_podcast)
-    podcast.async_create
-    podcast.owner.should == user
-    podcast.user.should be_nil
-  end
-end
-
 describe Podcast, "cleaning up the site url" do
   before do
-    @podcast = Podcast.new(:state => "parsed")
+    @podcast = Factory.create(:podcast)
   end
   
   it 'should remove a leading http://' do
@@ -273,17 +112,17 @@ describe Podcast, "generating the clean url" do
 
   it 'should remove leading and trailing whitespaces' do
     @podcast.title = ' title '
-    @podcast.sanitize_url.should == 'title'
+    @podcast.send(:sanitize_url).should == 'title'
   end
 
   it 'should remove non-alphanumeric characters' do
     @podcast.title = ' ^$(title '
-    @podcast.sanitize_url.should == 'title'
+    @podcast.send(:sanitize_url).should == 'title'
   end
 
   it 'should convert interior spaces to dashes' do
     @podcast.title = ' my $title '
-    @podcast.sanitize_url.should == 'my-title'
+    @podcast.send(:sanitize_url).should == 'my-title'
   end
 end
 
@@ -324,10 +163,14 @@ describe Podcast, "permissions" do
   describe "the owner" do
     before do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:parsed_podcast, :owner_id => @user.id)
+      @podcast = Factory.create(:fetched_podcast, :owner_id => @user.id)
+      @podcast.owner_id = @user.id
+      @podcast.save
     end
 
     it 'should have write access' do
+      @podcast.reload
+
       @podcast.writable_by?(@user).should == true
     end
 

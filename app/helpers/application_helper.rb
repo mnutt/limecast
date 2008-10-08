@@ -5,8 +5,8 @@ module ApplicationHelper
     @javascript_includes << scripts
   end
 
-  def time_to_words(time)
-    time.to_i.to_duration
+  def time_to_words(time, abbr=true)
+    time.to_i.to_duration.to_s(abbr)
   end
 
   def link_to_profile(user)
@@ -20,8 +20,8 @@ module ApplicationHelper
     link_to "#{image_tag(thing.logo.url(:icon))} <span>#{h(thing.custom_title)}</span>", polymorphic_url(thing), :class => 'inline_icon'
   end
 
-  def relative_time(date)
+  def relative_time(date, abbr=true)
     time_ago = Time.now - date
-    time_to_words(time_ago).to_s + " ago"
+    time_to_words(time_ago, abbr) + " ago"
   end
 end

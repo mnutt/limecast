@@ -63,8 +63,8 @@
 
     <% if @podcast.episodes.size > 0 -%>
       <p class="new_episode">
-        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.episodes.newest.first) -%>,
-        <%= relative_time(@podcast.episodes.newest.first.published_at) -%>
+        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.newest.first) -%>,
+        <%= relative_time(@podcast.episodes.newest.first.published_at, false) -%>
       </p>
     <% end -%>
 
@@ -72,17 +72,17 @@
       <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
 
       <% if @podcast.episodes.size > 0 -%>
-        since <%= link_to @podcast.episodes.oldest.first.published_at.to_formatted_s(:normal), episode_url(@podcast, @podcast.episodes.oldest.first) -%>
+        since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.oldest.first) -%>
       <% end -%>
 
       <% if @podcast.episodes.size > 1 -%>
-        every <%= time_to_words(@podcast.average_time_between_episodes) -%>
+        every <%= time_to_words(@podcast.average_time_between_episodes, false) -%>
       <% end -%>
     </p>
 
     <% if @podcast.total_run_time > 60 -%>
     <p class="run_time">
-      Total run time <%= time_to_words(@podcast.total_run_time) -%>
+      Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
     </p>
     <% end -%>
   </div>

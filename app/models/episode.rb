@@ -55,7 +55,7 @@ class Episode < ActiveRecord::Base
   end
 
   def date_title
-    self.published_at.strftime("%Y %b %d")
+    self.published_at.to_date
   end
 
   def to_param

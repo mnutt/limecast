@@ -179,7 +179,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def attempt_to_find_owner
-    self.owner = User.find_by_email(self.owner_email)
+    self.owner ||= User.find_by_email(self.owner_email)
     true
   end
 end

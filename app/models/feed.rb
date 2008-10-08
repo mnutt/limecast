@@ -42,9 +42,15 @@ class Feed < ActiveRecord::Base
 
   before_create :sanitize
 
+  validates_presence_of :url
   validates_uniqueness_of :url
 
   acts_as_taggable
+
+  def pending?; self.state == 'pending' || self.state.nil? end
+  def parsed?;  self.state == 'parsed' end
+  def fetched?; self.state == 'fetched' end
+  def failed?;  self.state == 'failed' end
 
   def async_create
     raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
@@ -53,7 +59,7 @@ class Feed < ActiveRecord::Base
     fetch
     parse
   rescue Exception
-    self.update_attributes(:error => $!.class.to_s)
+    self.update_attributes(:state => 'failed', :error => $!.class.to_s)
   end
 
   def fetch
@@ -62,6 +68,7 @@ class Feed < ActiveRecord::Base
         self.content = f.read
       end
     end
+    self.update_attributes(:state => 'fetched')
   rescue NoMethodError
     raise InvalidAddressException
   end
@@ -69,6 +76,7 @@ class Feed < ActiveRecord::Base
   def parse
     update_podcast_info!
     update_episodes!
+    self.update_attributes(:state => 'parsed')
   end
 
   def download_logo(link)

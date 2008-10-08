@@ -12,6 +12,6 @@ db/*.sqlite3
 db/sphinx/*
 .#*
 vendor/sphinx
-tmp/sphinx*
+tmp/*
 tmp/restart.txt
 *.swp

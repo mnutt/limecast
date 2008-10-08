@@ -71,7 +71,7 @@ class Podcast < ActiveRecord::Base
     self.feed.itunes_link
   end
 
-  def feed_itunes_link=(v)
+  def itunes_link=(v)
     self.feed ||= Feed.new
     self.feed.itunes_link = v
   end
@@ -141,6 +141,8 @@ class Podcast < ActiveRecord::Base
   protected
 
   def sanitize_title
+    return if self.title.nil?
+
     # Remove anything in parentheses
     self.title.gsub!(/[\s+]\(.*\)/, "")
 
@@ -158,6 +160,8 @@ class Podcast < ActiveRecord::Base
   end
 
   def sanitize_url
+    return if self.title.nil?
+
     # Remove leading and trailing spaces
     self.clean_url = self.title.clone.strip
 

@@ -35,11 +35,11 @@ Factory.define :failed_podcast, :class => Podcast do |p|
 end
 
 Factory.define :episode do |e|
-  e.association  :podcast, :factory => :podcast
-  e.summary      'This is the first episode of a show! w0000t'
-  e.title        'Episode One'
-  e.clean_url    '2008-Aug-1'
-  e.duration     60
+  e.association :podcast, :factory => :podcast
+  e.summary     'This is the first episode of a show! w0000t'
+  e.title       'Episode One'
+  e.clean_url   '2008-Aug-1'
+  e.duration    60
 
   e.published_at Time.parse("Aug 1, 2008")
 end
@@ -58,19 +58,19 @@ Factory.sequence :title do |n|
 end
 
 Factory.define :user do |u|
-  u.login                 { Factory.next :login }
-  u.email                 { Factory.next :email }
-  u.password              'password'
-  u.salt                  'NaCl'
-  u.state                 'active'
+  u.login    { Factory.next :login }
+  u.email    { Factory.next :email }
+  u.password 'password'
+  u.salt     'NaCl'
+  u.state    'active'
 end
 
 Factory.define :admin_user, :class => User do |u|
-  u.login                 'admin'
-  u.email                 'admin@podcasts.example.com'
-  u.password              'password'
-  u.salt                  'NaCl'
-  u.state                 'active'
+  u.login    'admin'
+  u.email    'admin@podcasts.example.com'
+  u.password 'password'
+  u.salt     'NaCl'
+  u.state    'active'
 
   u.admin true
 end

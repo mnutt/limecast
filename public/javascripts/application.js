@@ -55,6 +55,7 @@ jQuery(document).ready(function(){
     signin_container.find('.sign_up').hide();
     signin_container.find('form').attr('action', '/session');
     signin_container.find('input.signin_button').show();
+    signin_container.find('form')[0].reset();
   }
 
   signin_container.quickSignIn({

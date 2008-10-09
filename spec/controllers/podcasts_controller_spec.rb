@@ -132,7 +132,7 @@ describe PodcastsController do
     describe "for a podcast that has not yet been parsed" do
       before(:each) do
         @podcast = Factory.create(:podcast)
-        post :status, :feed => @podcast.feed_url
+        post :status, :feed => @podcast.feed.url
       end
       
       it 'should render the loading template' do
@@ -145,7 +145,7 @@ describe PodcastsController do
         @podcast = Factory.create(:parsed_podcast)
         controller.should_receive(:podcast_created_just_now_by_user?).and_return(true)
 
-        post :status, :feed => @podcast.feed_url
+        post :status, :feed => @podcast.feed.url
       end
       
       it 'should render the added template' do
@@ -157,7 +157,7 @@ describe PodcastsController do
       describe "because it was not a web address" do
         before(:each) do
           @podcast = Factory.create(:failed_podcast)
-          post :status, :feed => @podcast.feed_url
+          post :status, :feed => @podcast.feed.url
         end 
         
         it 'should render the error template' do

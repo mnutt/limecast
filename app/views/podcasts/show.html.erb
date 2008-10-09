@@ -32,11 +32,11 @@
         <%= link_to h(@podcast.clean_site), h(@podcast.site) %>
       </li>
       <li class="rss">
-        <%= link_to "<span>RSS</span>", @podcast.feed_url, :class => 'icon' %>
+        <%= link_to "<span>RSS</span>", @podcast.feed.url, :class => 'icon' %>
       </li>
-    <% if @podcast.itunes_link and !@podcast.itunes_link.blank? -%>
+    <% if @podcast.feed.itunes_link and !@podcast.feed.itunes_link.blank? -%>
       <li class="itunes">
-        <%= link_to "<span>iTunes</span>", @podcast.itunes_link, :class => 'icon' %>
+        <%= link_to "<span>iTunes</span>", @podcast.feed.itunes_link, :class => 'icon' %>
       </li>
     <% end -%>
     </ul>

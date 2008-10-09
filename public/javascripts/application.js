@@ -56,6 +56,7 @@ jQuery(document).ready(function(){
     signin_container.find('form').attr('action', '/session');
     signin_container.find('input.signin_button').show();
     signin_container.find('form')[0].reset();
+    signin_container.find('div.response_container').html('<a href="/forgot_password">I forgot my password</a>');
   }
 
   signin_container.quickSignIn({

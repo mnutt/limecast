@@ -3,7 +3,7 @@ class PodcastsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :status
 
   def index
-    @podcasts = Podcast.find(:all, :order => "title ASC")
+    @podcasts = Podcast.parsed.find(:all, :order => "title ASC")
   end
 
   def show

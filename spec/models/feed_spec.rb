@@ -115,5 +115,13 @@ describe Feed, "being created" do
       @feed.error.should == "The server was not contactable."
     end
   end
+
+  describe "but failing to be parsed" do
+    it "should delete the Podcast" do
+      @feed.update_attributes(:state => 'failed')
+      @feed.reload
+      @feed.podcast.should be_nil
+    end
+  end
 end
 

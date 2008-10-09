@@ -9,6 +9,7 @@ class Feed < ActiveRecord::Base
   belongs_to :podcast
 
   before_create :sanitize
+  before_save :remove_empty_podcast
 
   validates_presence_of :url
   validates_uniqueness_of :url
@@ -110,5 +111,9 @@ class Feed < ActiveRecord::Base
 
   def sanitize
     self.url.gsub!(%r{^feed://}, "http://")
+  end
+
+  def remove_empty_podcast
+    self.podcast.destroy if self.failed? && !self.podcast.nil?
   end
 end

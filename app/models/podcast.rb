@@ -29,6 +29,8 @@
 #  custom_title      :string(255)   
 #
 
+require 'paperclip_file'
+
 class Podcast < ActiveRecord::Base
   belongs_to :user
   belongs_to :owner, :class_name => 'User'

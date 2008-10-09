@@ -31,8 +31,6 @@
 
 require 'open-uri'
 require 'timeout'
-require 'rexml/document'
-require 'paperclip_file'
 
 class Feed < ActiveRecord::Base
   class BannedFeedException     < Exception; def message; "This feed site is not allowed." end end

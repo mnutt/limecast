@@ -75,7 +75,7 @@ class Feed < ActiveRecord::Base
   end
 
   def parse
-    update_podcast_info!
+    update_podcast!
     update_episodes!
     self.update_attributes(:state => 'parsed')
   end
@@ -91,6 +91,7 @@ class Feed < ActiveRecord::Base
       file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
         tmp.write(f.read)
         tmp.rewind 
+        tmp
       end
     end
 
@@ -114,7 +115,7 @@ class Feed < ActiveRecord::Base
     end
   end
 
-  def update_podcast_info!
+  def update_podcast!
     parsed_feed = RPodcast::Feed.new(content)
 
     attrs = {

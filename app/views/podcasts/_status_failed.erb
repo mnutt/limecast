@@ -1,7 +1,7 @@
 <div class="status_message finished">
   <% if @feed.error == "RPodcast::InvalidXMLError" -%>
     That's not an RSS feed.
-  <% elsif @feed.error == "RPodcast::NoEnclosureError" -%>
+  <% elsif @feed.error == "RPodcast::NoEnclosureError" || @feed.error == "Feed::NoEnclosureException" -%>
     That's a text RSS feed, not an audio or video podcast.
   <% elsif @feed.error == "Feed::InvalidAddressException" -%>
     That's not a web address.

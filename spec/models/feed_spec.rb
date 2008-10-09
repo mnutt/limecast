@@ -64,7 +64,7 @@ describe Feed, "being created" do
 
       @feed.extend(StopFetch)
       @feed.async_create
-      @feed.error.should == "RPodcast::NoEnclosureError"
+      @feed.error.should == "Feed::NoEnclosureException"
     end
   end
 

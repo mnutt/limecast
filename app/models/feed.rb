@@ -37,6 +37,7 @@ require 'paperclip_file'
 class Feed < ActiveRecord::Base
   class BannedFeedException     < Exception; def message; "This feed site is not allowed." end end
   class InvalidAddressException < Exception; def message; "That's not a web address." end end
+  class NoEnclosureException    < Exception; def message; "That's a text RSS feed, not an audio or video podcast." end end
 
   belongs_to :podcast
 
@@ -134,6 +135,8 @@ class Feed < ActiveRecord::Base
     end
 
     self.download_logo(parsed_feed.image)
+  rescue Exception
+    raise NoEnclosureException
   end
   
   protected

@@ -43,6 +43,9 @@ class Podcast < ActiveRecord::Base
                                  :icon   => ["16x16#", :png] }
 
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
+  named_scope :parsed, lambda {
+    { :conditions => {:id => Feed.parsed.map(&:podcast_id).uniq } }
+  }
 
   attr_accessor :has_episodes
 
@@ -64,7 +67,6 @@ class Podcast < ActiveRecord::Base
 
     has :created_at
   end
-
 
   def itunes_link
     self.feed ||= Feed.new

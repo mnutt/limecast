@@ -331,7 +331,8 @@ form div.field div {
 form div.align {
   padding: 10px 10px 10px 135px;
 }
-form div.controls {
+form div.controls,
+form div.response_container {
   padding: 0 0 0 90px;
 }
 form input,

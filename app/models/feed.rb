@@ -47,6 +47,7 @@ class Feed < ActiveRecord::Base
 
   acts_as_taggable
 
+  named_scope :parsed,  :conditions => {:state => 'parsed'}
   def pending?; self.state == 'pending' || self.state.nil? end
   def parsed?;  self.state == 'parsed' end
   def fetched?; self.state == 'fetched' end
@@ -116,14 +117,20 @@ class Feed < ActiveRecord::Base
   def update_podcast_info!
     parsed_feed = RPodcast::Feed.new(content)
 
-    self.podcast.update_attributes(
+    attrs = {
       :title       => parsed_feed.title,
       :description => parsed_feed.summary,
       :language    => parsed_feed.language,
       :owner_email => parsed_feed.owner_email,
       :owner_name  => parsed_feed.owner_name,
       :site        => parsed_feed.link
-    )
+    }
+
+    if self.podcast.nil?
+      self.podcast = Podcast.new(attrs)
+    else
+      self.podcast.update_attributes(attrs)
+    end
 
     self.download_logo(parsed_feed.image)
   end

@@ -8,12 +8,12 @@
 <div id="added_podcast_list"></div>
 
 
-<% form_for @podcast, :id => 'new_podcast', :method => 'post' do |f| -%>
+<% form_for :feed, :id => 'new_podcast', :method => 'post' do |f| -%>
   <div class="field huge">
     <%= f.label "Feed" -%>
     <div>
-      <label for='podcast_feed_url' class='default' style="display:none;">http://example.com/rss.xml</label>
-      <%= f.text_field :feed_url, :class => 'text' -%>
+      <label for='feed_url' class='default' style="display:none;">http://example.com/rss.xml</label>
+      <%= f.text_field :url, :class => 'text' -%>
       <%= submit_tag "Add", :class => 'button' -%>
     </div>
   </div>

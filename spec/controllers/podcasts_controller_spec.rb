@@ -85,11 +85,6 @@ describe PodcastsController do
       do_get
       response.should render_template('new')
     end
-
-    it "should assign the new podcast for the view" do
-      do_get
-      assigns[:podcast].should be_a(Podcast)
-    end
   
     it "should not save the new podcast" do
       @podcast.should_not_receive(:save)
@@ -99,7 +94,7 @@ describe PodcastsController do
 
   describe "handling POST /podcasts when not logged in" do
     before(:each) do
-      post :create, :podcast => {:feed_url => "http://mypodcast/feed.xml"}
+      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
     end
 
     it 'should save the podcast' do
@@ -120,7 +115,7 @@ describe PodcastsController do
     before(:each) do
       @user = Factory.create(:user)
       login(@user)
-      post :create, :podcast => {:feed_url => "http://mypodcast/feed.xml"}
+      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
     end
 
     it 'should save the podcast' do

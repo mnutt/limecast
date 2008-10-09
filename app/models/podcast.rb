@@ -71,42 +71,34 @@ class Podcast < ActiveRecord::Base
   end
 
   def itunes_link
-    self.feed ||= Feed.new
     self.feed.itunes_link
   end
 
   def itunes_link=(v)
-    self.feed ||= Feed.new
     self.feed.itunes_link = v
   end
 
   def feed_error
-    self.feed ||= Feed.new
     self.feed.error
   end
 
   def feed_error=(v)
-    self.feed ||= Feed.new
     self.feed.error = v
   end
 
   def feed_content
-    self.feed ||= Feed.new
     self.feed.content
   end
 
   def feed_content=(v)
-    self.feed ||= Feed.new
     self.feed.content = v
   end
 
   def feed_url
-    self.feed ||= Feed.new
     self.feed.url
   end
 
   def feed_url=(v)
-    self.feed ||= Feed.new
     self.feed.url = v
   end
 

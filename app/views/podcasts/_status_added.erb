@@ -5,7 +5,7 @@
     <% if current_user and @feed.podcast.owner == current_user -%>
       by you, <%= link_to_profile(@feed.podcast.owner) -%>. <span class="arrow_down">More please</span>
     <% else -%>
-      by <%= link_to_profile(@feed.podcast.owner) -%>. You get +1 point 
+      by <%= link_to_profile(@feed.podcast.owner) -%>. You get +1 point
       and a link for finding it. <span class="arrow_down">More please</span>
     <% end -%>
   <% else -%>

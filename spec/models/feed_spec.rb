@@ -29,7 +29,7 @@ describe Feed, "being parsed" do
   it 'should set the site link of the podcast' do
     @podcast.reload.site.should == "http://www.example.com/podcasts/everything/index.html"
   end
- 
+
   it 'should set the description of the podcast' do
     @podcast.reload.description.should =~ /^All About Everything is a show about everything/
   end
@@ -93,7 +93,7 @@ describe Feed, "being created" do
       @feed.error.should == "Feed::BannedFeedException"
     end
   end
-  
+
   describe "when the submitting user is the podcast owner" do
     it 'should associate the podcast with the user as owner' do
       user = Factory.create(:user, :email => "john.doe@example.com")

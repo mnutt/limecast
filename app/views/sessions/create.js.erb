@@ -5,7 +5,7 @@
 <% elsif params[:user][:password].blank? -%>
   { success: false, html: '<p>Please type your password</p>' } 
 <% elsif @unknown_email -%>
-  { success: false, html: '<p>This email is new to us.  Are you trying to <a href="#" class="inline_signup_button">Sign Up</a>' }
+  { success: false, html: '<p>This email is new to us.  Are you trying to <a href="#" class="inline_signup_button">Sign Up</a>?' }
 <% else -%>
   { success: false, html: '<p>Email and password don\'t match. <%= link_to %{I forgot my password}, forgot_password_url -%></p>' } 
 <% end -%>

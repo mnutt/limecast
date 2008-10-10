@@ -70,16 +70,21 @@ class Feed < ActiveRecord::Base
   def update_episodes!
     RPodcast::Episode.parse(self.content).each do |e|
       # XXX: Definitely need to figure out something better for this.
-      episode = self.podcast.episodes.find_by_guid(e.guid) || self.podcast.episodes.find_by_summary(e) || self.podcast.episodes.find_by_title(e) || self.podcast.episodes.new
+      episode = self.podcast.episodes.find_by_summary(e) || self.podcast.episodes.find_by_title(e) || self.podcast.episodes.new
+      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new
+
       episode.update_attributes(
-        :summary        => e.summary,
-        :guid           => e.guid,
-        :published_at   => e.published_at,
-        :title          => e.title,
-        :enclosure_type => e.enclosure.type,
-        :enclosure_size => e.enclosure.size,
-        :enclosure_url  => e.enclosure.url,
-        :duration       => e.duration
+        :summary      => e.summary,
+        :published_at => e.published_at,
+        :title        => e.title,
+        :duration     => e.duration
+      )
+      source.update_attributes(
+        :guid       => e.guid,
+        :type       => e.enclosure.type,
+        :size       => e.enclosure.size,
+        :url        => e.enclosure.url,
+        :episode_id => episode.id
       )
     end
   end
@@ -87,20 +92,15 @@ class Feed < ActiveRecord::Base
   def update_podcast!
     parsed_feed = RPodcast::Feed.new(self.content)
 
-    attrs = {
+    self.podcast ||= Podcast.new
+    self.podcast.update_attributes(
       :title       => parsed_feed.title,
       :description => parsed_feed.summary,
       :language    => parsed_feed.language,
       :owner_email => parsed_feed.owner_email,
       :owner_name  => parsed_feed.owner_name,
       :site        => parsed_feed.link
-    }
-
-    if self.podcast.nil?
-      self.podcast = Podcast.new(attrs)
-    else
-      self.podcast.update_attributes(attrs)
-    end
+    )
 
     self.download_logo(parsed_feed.image)
   rescue Exception

@@ -29,6 +29,7 @@ class Episode < ActiveRecord::Base
                                  :small  => ["170x170#", :png] }
   has_many :comments, :dependent => :destroy
   has_many :commenters, :through => :comments
+  has_one :source
 
   validates_presence_of :podcast_id, :published_at
 
@@ -64,10 +65,6 @@ class Episode < ActiveRecord::Base
 
   def writable_by?(user)
     self.podcast.writable_by?(user)
-  end
-
-  def enclosure_magnet_url
-    "magnet:?xs=#{enclosure_url}"
   end
 
   def been_reviewed_by?(user)

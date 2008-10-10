@@ -36,8 +36,14 @@ Factory.define :episode do |e|
   e.title       'Episode One'
   e.clean_url   '2008-Aug-1'
   e.duration    60
+  e.source      { Factory.create :source }
 
   e.published_at Time.parse("Aug 1, 2008")
+end
+
+Factory.define :source do |s|
+  s.url  "http://example.com/source.mpg"
+  s.guid { (Time.now.to_i * rand).to_s }
 end
 
 Factory.sequence :login do |n|

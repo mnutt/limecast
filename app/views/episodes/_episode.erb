@@ -14,10 +14,10 @@
     
     <%# TODO: if an mp3 doesn't have .mp3 extension? -%>
     <!--
-    <% if episode.enclosure_url =~ /mp3$/ -%>
+    <% if episode.source.url =~ /mp3$/ -%>
       <object type="application/x-shockwave-flash" data="/flash/player.swf" width="290" height="24" id="audioplayer_<%= episode.id -%>">
         <param name="movie" value="/flash/player.swf" />
-        <param name="FlashVars" value="soundFile=<%= episode.enclosure_url -%>&playerID=<%= episode.id -%>" />
+        <param name="FlashVars" value="soundFile=<%= episode.source.url -%>&playerID=<%= episode.id -%>" />
         <param name="quality" value="high" />
         <param name="menu" value="false" />
         <param name="wmode" value="transparent" />

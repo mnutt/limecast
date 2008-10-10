@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081010194019) do
+ActiveRecord::Schema.define(:version => 20081010205531) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -44,19 +44,15 @@ ActiveRecord::Schema.define(:version => 20081010194019) do
   create_table "episodes", :force => true do |t|
     t.integer  "podcast_id"
     t.text     "summary"
-    t.string   "enclosure_url"
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "thumbnail_file_size"
     t.string   "thumbnail_file_name"
     t.string   "thumbnail_content_type"
-    t.string   "guid"
-    t.string   "enclosure_type"
     t.integer  "duration"
     t.string   "title"
     t.string   "clean_url"
-    t.integer  "enclosure_size"
   end
 
   create_table "feeds", :force => true do |t|
@@ -86,6 +82,14 @@ ActiveRecord::Schema.define(:version => 20081010194019) do
     t.string   "owner_email"
     t.string   "owner_name"
     t.string   "custom_title"
+  end
+
+  create_table "sources", :force => true do |t|
+    t.string  "url"
+    t.string  "type"
+    t.string  "guid"
+    t.integer "size"
+    t.integer "episode_id"
   end
 
   create_table "taggings", :force => true do |t|

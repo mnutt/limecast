@@ -28,11 +28,12 @@ class PodcastsController < ApplicationController
   end
 
   def status
-    @feed = Feed.find_by_url(params[:feed])
+    @feed    = Feed.find_by_url(params[:feed])
+    @podcast = @feed.podcast
     
     if @feed.nil?
       render :partial => 'status_error'
-    elsif @feed.parsed? && podcast_created_just_now_by_user?(@feed.podcast)
+    elsif @feed.parsed? && podcast_created_just_now_by_user?(@podcast)
       render :partial => 'status_added'
     elsif @feed.parsed?
       render :partial => 'status_conflict'

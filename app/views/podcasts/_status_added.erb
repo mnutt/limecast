@@ -1,14 +1,14 @@
 <div class="status_message finished">
-  Yum! I've added <%= link_to_thing(@feed.podcast) -%>
+  Yum! I've added <%= link_to_thing(@podcast) -%>
   
-  <% if @feed.podcast.respond_to?(:owner) and @feed.podcast.owner -%>
-    <% if current_user and @feed.podcast.owner == current_user -%>
-      by you, <%= link_to_profile(@feed.podcast.owner) -%>. <span class="arrow_down">More please</span>
+  <% if @podcast.respond_to?(:owner) and @podcast.owner -%>
+    <% if current_user and @podcast.owner == current_user -%>
+      by you, <%= link_to_profile(@podcast.owner) -%>. <span class="arrow_down">More please</span>
     <% else -%>
-      by <%= link_to_profile(@feed.podcast.owner) -%>. You get +1 point
+      by <%= link_to_profile(@podcast.owner) -%>. You get +1 point
       and a link for finding it. <span class="arrow_down">More please</span>
     <% end -%>
   <% else -%>
-    and emailed <%=h @feed.podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. <span class="arrow_down">More please</span>
+    and emailed <%=h @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. <span class="arrow_down">More please</span>
   <% end -%>
 </div>

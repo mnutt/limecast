@@ -9,17 +9,13 @@ end
 
 describe Feed, "being parsed" do
   before do
-    @podcast = Factory.create(:fetched_podcast)
-    @feed = @podcast.feed
+    @feed = Factory.create(:feed)
+    @podcast = Factory.create(:podcast, :feed => @feed)
     # Stubbing does NOT want to work here. This is an
     # ugly solution, but it works just fine.
     @feed.extend(StopDownloadLogo)
 
     @feed.parse
-  end
-
-  it 'should set the feed url' do
-    @podcast.reload.feed.url.should == "http://fetchedpodcast/feed.xml"
   end
 
   it 'should set the title of the podcast' do
@@ -41,7 +37,7 @@ end
 
 describe Feed, "downloading the logo for its podcast" do
   before do
-    @podcast = Factory.create(:fetched_podcast)
+    @podcast = Factory.create(:podcast)
     @feed = @podcast.feed
   end
 
@@ -53,17 +49,17 @@ end
 
 describe Feed, "being created" do
   before do
-    @podcast = Factory.create(:fetched_podcast)
+    @podcast = Factory.create(:podcast)
     @feed = @podcast.feed
   end
 
 
   describe 'with normal RSS feed' do
     it 'should save the error that the feed is not for a podcast' do
-      @feed.content = File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
-
       @feed.extend(StopFetch)
+      @feed.content = File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
       @feed.async_create
+
       @feed.error.should == "Feed::NoEnclosureException"
     end
   end
@@ -71,8 +67,8 @@ describe Feed, "being created" do
   describe 'with a non-URL string' do
     it 'should save the error that the feed is not a URL' do
       @feed.url = "localhost"
-
       @feed.async_create
+
       @feed.error.should == "Feed::InvalidAddressException"
     end
   end
@@ -81,6 +77,7 @@ describe Feed, "being created" do
     it 'should save the error that an unknown exception occurred' do
       @feed.url = 'http://localhost:7'
       @feed.async_create
+
       @feed.error.should == "Errno::ECONNREFUSED"
     end
   end
@@ -90,6 +87,7 @@ describe Feed, "being created" do
       Blacklist.create!(:domain => "restrictedsite")
       @feed.url = "http://restrictedsite/bad/feed.xml"
       @feed.async_create
+
       @feed.error.should == "Feed::BannedFeedException"
     end
   end
@@ -97,6 +95,7 @@ describe Feed, "being created" do
   describe "when the submitting user is the podcast owner" do
     it 'should associate the podcast with the user as owner' do
       user = Factory.create(:user, :email => "john.doe@example.com")
+      @podcast.feed = @feed = Factory.create(:feed)
 
       @feed.extend(StopFetch)
       @feed.extend(StopDownloadLogo)

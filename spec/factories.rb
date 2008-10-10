@@ -14,11 +14,6 @@ Factory.define :podcast do |p|
   p.clean_url { Factory.next :title }
 end
 
-Factory.define :fetched_podcast, :class => Podcast do |p|
-  p.title 'Fetched Podcast'
-  p.feed  { Factory.create(:feed, :url => "http://fetchedpodcast/feed.xml", :state => 'fetched') }
-end
-
 Factory.define :parsed_podcast, :class => Podcast do |p|
   p.title 'Podcast'
   p.site  { Factory.next :site }

@@ -163,7 +163,7 @@ describe Podcast, "permissions" do
   describe "the owner" do
     before do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:fetched_podcast, :owner_id => @user.id)
+      @podcast = Factory.create(:podcast, :owner_id => @user.id)
       @podcast.owner_id = @user.id
       @podcast.save
     end

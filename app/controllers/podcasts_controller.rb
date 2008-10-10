@@ -39,7 +39,7 @@ class PodcastsController < ApplicationController
       render :partial => 'status_conflict'
     elsif @feed.failed?
       render :partial => 'status_failed'
-    elsif @feed.pending? or @feed.fetched?
+    elsif @feed.pending?
       render :partial => 'status_loading'
     else
       render :partial => 'status_error'

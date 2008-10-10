@@ -19,13 +19,11 @@ class Feed < ActiveRecord::Base
   named_scope :parsed,  :conditions => {:state => 'parsed'}
   def pending?; self.state == 'pending' || self.state.nil? end
   def parsed?;  self.state == 'parsed' end
-  def fetched?; self.state == 'fetched' end
   def failed?;  self.state == 'failed' end
 
-  def async_create
-    raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
-    raise BannedFeedException if Blacklist.find_by_domain($2)
+  attr_accessor :content
 
+  def async_create
     fetch
     parse
   rescue Exception
@@ -33,12 +31,14 @@ class Feed < ActiveRecord::Base
   end
 
   def fetch
+    raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
+    raise BannedFeedException if Blacklist.find_by_domain($2)
+
     Timeout::timeout(5) do
       OpenURI::open_uri(self.url) do |f|
         self.content = f.read
       end
     end
-    self.update_attributes(:state => 'fetched')
   rescue NoMethodError
     raise InvalidAddressException
   end
@@ -68,7 +68,7 @@ class Feed < ActiveRecord::Base
   end
 
   def update_episodes!
-    RPodcast::Episode.parse(content).each do |e|
+    RPodcast::Episode.parse(self.content).each do |e|
       # XXX: Definitely need to figure out something better for this.
       episode = self.podcast.episodes.find_by_guid(e.guid) || self.podcast.episodes.find_by_summary(e) || self.podcast.episodes.find_by_title(e) || self.podcast.episodes.new
       episode.update_attributes(
@@ -85,7 +85,7 @@ class Feed < ActiveRecord::Base
   end
 
   def update_podcast!
-    parsed_feed = RPodcast::Feed.new(content)
+    parsed_feed = RPodcast::Feed.new(self.content)
 
     attrs = {
       :title       => parsed_feed.title,

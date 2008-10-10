@@ -3,6 +3,7 @@ module UsersHelper
     forgot_password = link_to("I forgot my password", forgot_password_url)
 
     if user.errors[:email]
+      return "Email and password don\\'t match. #{forgot_password}"   if @user.errors[:email].include?("email and password don't match")
       return "This email is already signed up! #{forgot_password}" if @user.errors[:email].include?("has already been taken")
       return 'Please type your email address'                      if @user.errors[:email].include?("can't be blank") or @user.errors[:email].include?("is invalid")
     elsif @user.errors[:login]

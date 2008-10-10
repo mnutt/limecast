@@ -12,16 +12,18 @@ jQuery.fn.extend({
       me.find('.sign_up input').focus();
       me.find('input.signin_button').hide();
 
-      // Set password message and focus password field if it is left blank
-      if(me.find('input.password').val() == "") {
-	me.find('div.response_container').text("Please choose a password");
-	me.find('input.password').focus();
-      }
+      if(!opts.ajax) {
+	// Set password message and focus password field if it is left blank
+	if(me.find('input.password').val() == "") {
+	  me.find('div.response_container').text("Please choose a password");
+	  me.find('input.password').focus();
+	}
 
-      // Set username message and focus username field if it is left blank
-      if(me.find('input.login').val() == "") {
-	me.find('div.response_container').text("Choose your new user name");
-	me.find('input.login').focus();
+	// Set username message and focus username field if it is left blank
+	if(me.find('input.login').val() == "") {
+	  me.find('div.response_container').text("Choose your new user name");
+	  me.find('input.login').focus();
+	}
       }
 
       // Set the forms action to /users to call UsersController#create
@@ -48,7 +50,7 @@ jQuery.fn.extend({
             if(resp.success && opts.success) { opts.success(resp); }
             if(!resp.success && opts.error)  { opts.error(resp); }
           }
-        });
+	});
 
         return false;
       });

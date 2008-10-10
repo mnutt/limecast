@@ -6,6 +6,10 @@ div.quick_signin.top_bar {
   top: 35px;
   right: 0;
 }
+div.quick_signin form input.text,
+div.quick_signin form div.response_container {
+  width: 200px;
+}
 
 /**
 * Users

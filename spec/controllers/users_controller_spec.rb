@@ -44,6 +44,116 @@ describe UsersController do
   end
 end
 
+describe UsersController, "handling POST /users" do
+  describe "when the email is bad" do
+    before do
+      post :create, :user => {:login => 'quire'}, :format => 'js'
+    end
+
+    it 'should not succeed' do
+      decode(response)["success"].should be_false
+    end
+
+    it 'should report that the email address should be entered' do
+      decode(response)["html"].should =~ /type your email/
+    end
+  end
+
+  describe "when the password is bad" do
+    before do
+      post :create, :user => {:email => "quire@example.com", :login => 'quire'}, :format => 'js'
+    end
+
+    it 'should not succeed' do
+      decode(response)["success"].should be_false
+    end
+
+    it 'should report that the password should be entered' do
+      decode(response)["html"].should =~ /choose a password/
+    end
+  end
+
+  describe "when the user name is bad" do
+    before do
+      post :create, :user => {:email => "quire@example.com", :password => 'goodpass'}, :format => 'js'
+    end
+
+    it 'should not succeed' do
+      decode(response)["success"].should be_false
+    end
+
+    it 'should report that the user name should be entered' do
+      decode(response)["html"].should =~ /Choose your new user name/
+    end
+  end
+
+  describe "when the email is known, and the password is right" do
+    before do
+      @user = Factory.create(:user, :login => 'quire', :password => 'quire', :email => 'quire@example.com')
+      post :create, :user => {:login => 'quire', :password => 'quire'}, :format => 'js'
+    end
+    
+    it 'should succeed' do
+      decode(response)["success"].should be_true
+    end
+
+    it 'should return the user link' do
+      decode(response)["html"].should =~ /quire \(0\)/
+    end
+  end
+
+  describe "when the email is known, but the password is wrong" do
+    before do
+      @user = Factory.create(:user, :login => 'quire', :email => 'quire@example.com')
+      
+      post :create, :user => {:login => 'quire', 
+                              :email => 'quire@example.com', 
+                              :password => 'bad'}, :format => 'js'
+    end
+    
+    it 'should not succeed' do
+      decode(response)["success"].should be_false
+    end
+
+    it 'should report that the email matches, but password is wrong' do
+      decode(response)["html"].should =~ /This email is already signed up/
+    end
+  end
+
+  describe "when the user name has already been taken" do
+    before do
+      @user = Factory.create(:user)
+      post :create, :user => {:login => @user.login, :password => "goodpass", :email => "quire@example.com"}, :format => 'js'
+    end
+
+    it 'should not succeed' do
+      decode(response)["success"].should be_false
+    end
+
+    it 'should report that the username has already been taken' do
+      response.body.should =~ /Sorry, this name is taken/
+    end
+  end
+
+  def decode(response)
+    ActiveSupport::JSON.decode(response.body.gsub("'", ""))
+  end
+
+  describe "when the new user can be created" do
+    before do
+      post :create, :user => {:login => "quire", :password => "goodpass", :email => "quire@example.com"}, :format => 'js'
+    end
+
+    it 'should succeed' do
+      decode(response)["success"].should be_true
+    end
+
+    it 'should return the link_to_user' do
+      decode(response)["html"].should =~ /quire \(0\)/
+    end
+  end
+end
+
 describe UsersController, "handling POST /user/:user" do
   describe "when user is the current user" do
 

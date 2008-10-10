@@ -25,10 +25,7 @@ depend :remote, :gem, 'mysql',           '=2.7'
 # TASKS
 # =============================================================================
 
-desc <<DESC
-An imaginary backup task. (Execute the 'show_tasks' task to display all
-available tasks.)
-DESC
+desc "Backup database"
 task :backup, :roles => :db, :only => { :primary => true } do
   # the on_rollback handler is only executed if this task is executed within
   # a transaction (see below), AND it or a subsequent task fails.
@@ -66,6 +63,7 @@ namespace :limecast do
     end
   end
 
+  desc "Re-generate all podcast thumbnails"
   task :refresh_thumbnails, :roles => :app do
     run "cd #{latest_release}; RAILS_ENV=production rake paperclip:refresh CLASS=Podcast"
   end
@@ -238,6 +236,7 @@ namespace :deploy do
   end
 end
 
+desc "Lists all of the deployed releases by date"
 task :release_times, :roles => :app do
   release_dirs = releases
 
@@ -253,6 +252,7 @@ end
 # Override built-in deploy tasks
 namespace :deploy do
   namespace :web do
+    desc 'Takes the application offline with a maintenance message'
     task :disable, :roles => :web, :except => { :no_release => true } do
       require 'erb'
       on_rollback { run "rm #{shared_path}/system/maintenance.html" }

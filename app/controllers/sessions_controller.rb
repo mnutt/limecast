@@ -20,7 +20,9 @@ class SessionsController < ApplicationController
           render :action => 'new'
         end
       end
-      format.js
+      format.js do
+        @unknown_email = params[:user][:login] =~ /@/ and !User.find_by_email(params[:user][:login])
+      end
     end
   end
 

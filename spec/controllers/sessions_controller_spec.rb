@@ -19,9 +19,17 @@ describe SessionsController do
   end
   
   it 'fails login and does not redirect' do
-    post :create, :user => { :login => @user.login, :password => "xxxx" }
+    post :create, :user => { :login => @user.login, :password => "xxxx" }, :format => 'js'
     session[:user_id].should be_nil
     response.should be_success
+    response.body.should =~ /Email and password don/
+  end
+
+  it 'fails login and notices when new email has been given' do
+    post :create, :user => { :login => 'newemail@example.com', :password => 'xxxx' }, :format => 'js'
+    session[:user_id].should be_nil
+    response.should be_success
+    response.body.should =~ /This email is new to us./
   end
 
   it 'logs out' do

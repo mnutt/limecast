@@ -29,7 +29,7 @@ class PodcastsController < ApplicationController
 
   def status
     @feed    = Feed.find_by_url(params[:feed])
-    @podcast = @feed.podcast
+    @podcast = @feed.podcast unless @feed.nil?
     
     if @feed.nil?
       render :partial => 'status_error'

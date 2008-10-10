@@ -8,16 +8,16 @@
 <div id="added_podcast_list"></div>
 
 
-<% form_for :feed, :id => 'new_podcast', :method => 'post' do |f| -%>
+<form method="post" id="new_podcast" action="/podcasts/new">
   <div class="field huge">
-    <%= f.label "Feed" -%>
+    <label>Feed</label>
     <div>
       <label for='feed_url' class='default' style="display:none;">http://example.com/rss.xml</label>
-      <%= f.text_field :url, :class => 'text' -%>
-      <%= submit_tag "Add", :class => 'button' -%>
+      <input type='text'   class="text"   id="feed_url" name="feed[url]" />
+      <input type='submit' class="button" value="Add" />
     </div>
   </div>
-<% end -%>
+</form>
 
 <div id="added_podcast" style="display: none;">
   <form>

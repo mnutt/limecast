@@ -15,7 +15,7 @@ div.quick_signin form div.response_container {
 * Users
 **/
 div.user div#edit_actions {
-  line-height: 2em;
+  margin: 0 0 14px 0;
 }
 div.user div#edit_actions span.label {
   font-weight: bold;
@@ -73,7 +73,7 @@ div.podcast div.cover div.border {
   z-index: 1;
 }
 div.podcast div#edit_actions {
-  line-height: 2em;
+  margin: 0 0 14px 0;
 }
 div.podcast div#edit_actions span.label {
   font-weight: bold;
@@ -194,26 +194,16 @@ ul.reviews li.review {
   position: relative;
   *height: 0.01%;
 }
-ul.reviews li.review img.rating {
-  margin: 0 3px 0 0;
-  float: left;
-}
-ul.reviews li.review h4 {
-  font-weight: bold;
-  margin: 2px 5px -2px 0;
-  float: left;
-}
 ul.reviews li.review cite {
   font-style: normal;
   color: #ABABAB;
   margin: 0 5px 0 0;
-  float: left;
+}
+ul.reviews li.review span.comment_rating img {
+  margin-bottom: -2px;
 }
 ul.reviews li.review cite a {
   background-image: url("../images/icons/user.png");
-}
-ul.reviews li.review p {
-  margin: 0 !important;
 }
 div.podcast div.reviews form {
   margin: 0;
@@ -229,7 +219,7 @@ div.podcast div.reviews form div.align {
 }
 div.podcast div.reviews form div.align input,
 div.podcast div.reviews form div.align label {
-  margin-bottom: -20px;
+  margin-bottom: -2px;
 }
 div.podcast div.reviews form div.align label img {
   height: 14px;

@@ -20,6 +20,9 @@ h1, h2, h3, h4, h5 {
   margin: 0;
   padding: 0;
 }
+h3 { /* 14px HACK!! */
+  padding-top: 2px;
+}
 ul, li, dl, dt, dd {
   list-style: none;
   margin: 0;

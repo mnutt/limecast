@@ -222,10 +222,17 @@ div.podcast div.reviews form div.field label {
   display: none;
 }
 div.podcast div.reviews form div.field div {
-  margin: 0 0 10px 0;
+  margin: 0;
 }
 div.podcast div.reviews form div.align {
-  padding: 10px 0;
+  padding: 0 0 14px 0;
+}
+div.podcast div.reviews form div.align input,
+div.podcast div.reviews form div.align label {
+  margin-bottom: -20px;
+}
+div.podcast div.reviews form div.align label img {
+  height: 14px;
 }
 div.podcast div.reviews form div.controls {
   padding: 0;

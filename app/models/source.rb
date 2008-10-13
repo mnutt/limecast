@@ -1,24 +1,14 @@
 # == Schema Information
-# Schema version: 20080922184801
+# Schema version: 20081010205531
 #
-# Table name: episodes
+# Table name: sources
 #
-#  id                     :integer(4)    not null, primary key
-#  podcast_id             :integer(4)    
-#  summary                :text          
-#  enclosure_url          :string(255)   
-#  published_at           :datetime      
-#  created_at             :datetime      
-#  updated_at             :datetime      
-#  thumbnail_file_size    :integer(4)    
-#  thumbnail_file_name    :string(255)   
-#  thumbnail_content_type :string(255)   
-#  guid                   :string(255)   
-#  enclosure_type         :string(255)   
-#  duration               :integer(4)    
-#  title                  :string(255)   
-#  clean_url              :string(255)   
-#  enclosure_size         :integer(4)    
+#  id         :integer(4)    not null, primary key
+#  url        :string(255)   
+#  type       :string(255)   
+#  guid       :string(255)   
+#  size       :integer(4)    
+#  episode_id :integer(4)    
 #
 
 class Source < ActiveRecord::Base

@@ -1,3 +1,27 @@
+# == Schema Information
+# Schema version: 20081010205531
+#
+# Table name: podcasts
+#
+#  id                :integer(4)    not null, primary key
+#  title             :string(255)   
+#  site              :string(255)   
+#  logo_file_name    :string(255)   
+#  logo_content_type :string(255)   
+#  logo_file_size    :string(255)   
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  user_id           :integer(4)    
+#  description       :text          
+#  language          :string(255)   
+#  category_id       :integer(4)    
+#  clean_url         :string(255)   
+#  owner_id          :integer(4)    
+#  owner_email       :string(255)   
+#  owner_name        :string(255)   
+#  custom_title      :string(255)   
+#
+
 require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base

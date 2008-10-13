@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20081010205531
+#
+# Table name: feeds
+#
+#  id          :integer(4)    not null, primary key
+#  url         :string(255)   
+#  error       :string(255)   
+#  itunes_link :string(255)   
+#  podcast_id  :integer(4)    
+#  created_at  :datetime      
+#  updated_at  :datetime      
+#  state       :string(255)   
+#
+
 require 'open-uri'
 require 'timeout'
 

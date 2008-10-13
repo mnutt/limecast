@@ -29,7 +29,8 @@
 
   <% if can_edit_comment?(comment) %>
     <%= render :partial => 'comments/comment_modify_links', :object => comment -%>
-  <% else -%>
-    <%= render :partial => 'comments/comment_rating_links', :object => comment -%>
   <% end -%>
+  
+  <%= render :partial => 'comments/comment_rating_links', :object => comment -%>
+
 </li>

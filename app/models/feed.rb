@@ -96,6 +96,7 @@ class Feed < ActiveRecord::Base
       )
       source.update_attributes(
         :guid       => e.guid,
+        :format     => e.enclosure.format.to_s,
         :type       => e.enclosure.type,
         :size       => e.enclosure.size,
         :url        => e.enclosure.url,

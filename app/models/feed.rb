@@ -101,8 +101,6 @@ class Feed < ActiveRecord::Base
         :url        => e.enclosure.url,
         :episode_id => episode.id
       )
-
-			p source
     end
   end
 

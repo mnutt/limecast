@@ -1,16 +1,19 @@
 <% episode = download -%>
 
+<%= render :partial => 'episodes/super_button', :locals => {:sources => episode.sources} -%>
+<!--
 <% episode.sources.each do |source| -%>
   <div class="download">
-    <% link_to source.url, :class => 'icon' do -%>
+    <%# link_to source.url, :class => 'icon' do -%>
       <span>Download</span> 
       <% if source.size -%>
-        (<%= source.format.capitalize -%>, <%= FileSize.new(source.size).to_s -%>)
+        (<%#= source.format.capitalize -%>, <%#= source.size.to_file_size -%>)
       <% end -%>
-    <% end -%>
+    <%# end -%>
   </div>
   
   <div class="limewire">
-    <%= link_to "<span>Magnet</span>", source.magnet_url, :title => "Open the download with the LimeWire client so that it can use P2P to speed up the transfer" -%>
+    <%#= link_to "<span>Magnet</span>", source.magnet_url, :title => "Open the download with the LimeWire client so that it can use P2P to speed up the transfer" -%>
   </div>
 <% end -%>
+-->

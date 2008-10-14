@@ -13,8 +13,4 @@
 
 class Source < ActiveRecord::Base
   belongs_to :episode
-
-  def magnet_url
-    "magnet:?xs=#{self.url}"
-  end
 end

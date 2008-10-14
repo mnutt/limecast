@@ -24,12 +24,9 @@ class Feed < ActiveRecord::Base
   belongs_to :podcast
 
   before_create :sanitize
-  before_save :remove_empty_podcast
 
-  validates_presence_of :url
+  validates_presence_of   :url
   validates_uniqueness_of :url
-
-  acts_as_taggable
 
   named_scope :parsed,  :conditions => {:state => 'parsed'}
   def pending?; self.state == 'pending' || self.state.nil? end
@@ -99,6 +96,7 @@ class Feed < ActiveRecord::Base
         :format     => e.enclosure.format.to_s,
         :type       => e.enclosure.type,
         :size       => e.enclosure.size,
+        :bitrate    => e.enclosure.bitrate,
         :url        => e.enclosure.url,
         :episode_id => episode.id
       )
@@ -119,6 +117,7 @@ class Feed < ActiveRecord::Base
       :site        => parsed_feed.link
     )
   rescue Exception
+		p $!
     raise NoEnclosureException
   end
 
@@ -126,9 +125,5 @@ class Feed < ActiveRecord::Base
 
   def sanitize
     self.url.gsub!(%r{^feed://}, "http://")
-  end
-
-  def remove_empty_podcast
-    self.podcast.destroy if self.failed? && !self.podcast.nil?
   end
 end

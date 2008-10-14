@@ -127,4 +127,6 @@ jQuery(document).ready(function(){
       });
     }
   });
+
+  jQuery('div.super_button').superButton();
 });

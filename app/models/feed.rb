@@ -41,8 +41,8 @@ class Feed < ActiveRecord::Base
   def async_create
     fetch
     parse
-  rescue Exception
-    self.update_attributes(:state => 'failed', :error => $!.class.to_s)
+  # rescue Exception
+  #   self.update_attributes(:state => 'failed', :error => $!.class.to_s)
   end
 
   def fetch
@@ -85,7 +85,7 @@ class Feed < ActiveRecord::Base
   def update_episodes!
     RPodcast::Episode.parse(self.content).each do |e|
       # XXX: Definitely need to figure out something better for this.
-      episode = self.podcast.episodes.find_by_summary(e) || self.podcast.episodes.find_by_title(e) || self.podcast.episodes.new
+      episode = self.podcast.episodes.find_by_summary(e.summary) || self.podcast.episodes.find_by_title(e.title) || self.podcast.episodes.new
       source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new
 
       episode.update_attributes(
@@ -101,13 +101,15 @@ class Feed < ActiveRecord::Base
         :url        => e.enclosure.url,
         :episode_id => episode.id
       )
+
+			p source
     end
   end
 
   def update_podcast!
     parsed_feed = RPodcast::Feed.new(self.content)
 
-    self.podcast ||= Podcast.new
+    self.podcast = Podcast.find_by_site(parsed_feed.link) || self.podcast
     self.podcast.update_attributes(
       :title       => parsed_feed.title,
       :description => parsed_feed.summary,

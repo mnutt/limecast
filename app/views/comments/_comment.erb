@@ -1,27 +1,36 @@
+<% with_podcast ||= false -%>
+
 <li id="<%=h dom_id(comment) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
-  <div class="show_review">
+  <% if with_podcast -%>
+    <%= link_to_thing(comment.episode.podcast) -%>
+  <% end -%>
+
+  <span class="comment_rating">
     <% if comment.positive -%>
       <%= image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating') -%>
     <% else -%>
       <%= image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating') -%>
     <% end -%>
+  </span>
+  
+  <span class="comment_title">
+    <%= link_to h(comment.title), review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%>
+  </span>
 
-    <h4><%= link_to h(comment.title), review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%></h4>
-    <cite>by <%= link_to_profile comment.commenter -%></cite>
+  <span class="comment_body">
+    <%=h comment.body -%>
+  </span>
 
-    <p>
-      <span class="comment_body"><%=h comment.body -%></span>
+  <cite><%= link_to_profile comment.commenter -%></cite>
 
-      <%= render :partial => 'comments/comment_modify_links', :object => comment -%>
-      <%= render :partial => 'comments/comment_rating_links', :object => comment -%>
-    </p>
-  </div>
+  <span class="comment_episode">
+    <%= link_to comment.episode.date_title, episode_url(comment.episode.podcast, comment.episode) -%>
+  </span>
 
   <% if can_edit_comment?(comment) %>
-    <div class="edit_review" style="display: none;">
-      <% form_for comment do |f| -%>
-        <%= render :partial => 'comments/comment_form', :locals => {:f => f, :options => {:show_rating => false}} -%>
-      <% end -%>
-    </div>
+    <%= render :partial => 'comments/comment_modify_links', :object => comment -%>
   <% end -%>
+  
+  <%= render :partial => 'comments/comment_rating_links', :object => comment -%>
+
 </li>

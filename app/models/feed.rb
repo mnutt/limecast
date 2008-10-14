@@ -51,7 +51,7 @@ class Feed < ActiveRecord::Base
 
     Timeout::timeout(5) do
       OpenURI::open_uri(self.url) do |f|
-        self.content = f.read
+        @content = f.read
       end
     end
   rescue NoMethodError
@@ -83,7 +83,7 @@ class Feed < ActiveRecord::Base
   end
 
   def update_episodes!
-    RPodcast::Episode.parse(self.content).each do |e|
+    RPodcast::Episode.parse(@content).each do |e|
       # XXX: Definitely need to figure out something better for this.
       episode = self.podcast.episodes.find_by_summary(e) || self.podcast.episodes.find_by_title(e) || self.podcast.episodes.new
       source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new
@@ -105,7 +105,7 @@ class Feed < ActiveRecord::Base
   end
 
   def update_podcast!
-    parsed_feed = RPodcast::Feed.new(self.content)
+    parsed_feed = RPodcast::Feed.new(@content)
 
     self.podcast ||= Podcast.new
     self.podcast.update_attributes(
@@ -129,6 +129,8 @@ class Feed < ActiveRecord::Base
   end
 
   def remove_empty_podcast
+    p self.podcast
+    p self.failed?
     self.podcast.destroy if self.failed? && !self.podcast.nil?
   end
 end

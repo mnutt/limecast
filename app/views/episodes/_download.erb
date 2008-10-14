@@ -5,7 +5,7 @@
     <% link_to source.url, :class => 'icon' do -%>
       <span>Download</span> 
       <% if source.size -%>
-        (<%= FileSize.new(source.size).to_s -%>)
+        (<%= source.format.capitalize -%>, <%= FileSize.new(source.size).to_s -%>)
       <% end -%>
     <% end -%>
   </div>

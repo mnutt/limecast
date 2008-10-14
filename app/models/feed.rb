@@ -108,6 +108,7 @@ class Feed < ActiveRecord::Base
     parsed_feed = RPodcast::Feed.new(@content)
 
     self.podcast ||= Podcast.new
+    self.download_logo(parsed_feed.image)
     self.podcast.update_attributes(
       :title       => parsed_feed.title,
       :description => parsed_feed.summary,
@@ -116,8 +117,6 @@ class Feed < ActiveRecord::Base
       :owner_name  => parsed_feed.owner_name,
       :site        => parsed_feed.link
     )
-
-    self.download_logo(parsed_feed.image)
   rescue Exception
     raise NoEnclosureException
   end
@@ -129,8 +128,6 @@ class Feed < ActiveRecord::Base
   end
 
   def remove_empty_podcast
-    p self.podcast
-    p self.failed?
     self.podcast.destroy if self.failed? && !self.podcast.nil?
   end
 end

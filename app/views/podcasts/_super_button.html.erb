@@ -6,7 +6,6 @@
   <% feeds.select {|f| !f.itunes_link.nil? }.each do |feed| -%>
   <input type="hidden" id="itunes_<%= feed.id %>" value="<%= feed.itunes_link %>" />
   <% end -%>
-  <input type="hidden" id="itunes_8" value="235342353" />
 
   <% feeds.each do |feed| -%>
   <input type="hidden" id="url_<%= feed.id %>" value="<%= feed.url %>" />

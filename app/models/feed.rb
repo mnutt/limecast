@@ -85,7 +85,7 @@ class Feed < ActiveRecord::Base
   def update_episodes!
     RPodcast::Episode.parse(@content).each do |e|
       # XXX: Definitely need to figure out something better for this.
-      episode = self.podcast.episodes.find_by_summary(e) || self.podcast.episodes.find_by_title(e) || self.podcast.episodes.new
+      episode = self.podcast.episodes.find_by_summary(e.summary) || self.podcast.episodes.find_by_title(e.title) || self.podcast.episodes.new
       source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new
 
       episode.update_attributes(

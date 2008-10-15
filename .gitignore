@@ -15,3 +15,4 @@ vendor/sphinx
 tmp/*
 tmp/restart.txt
 *.swp
+backups/*

@@ -2,9 +2,7 @@ jQuery.fn.extend({
   superButton: function(){
     var me = jQuery(this);
 
-    function magnet_url(url){
-      return "magnet:?xs=" + url
-    }
+    function magnet_url(url){ return "magnet:?xs=" + url; }
 
     jQuery(this).find('.submit').click(function(){
       var delivery = me.find('select.delivery').val();

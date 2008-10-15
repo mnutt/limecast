@@ -58,10 +58,10 @@ class Feed < ActiveRecord::Base
 
   def parse
     @feed = RPodcast::Feed.new(@content)
-
     update_podcast!
     update_episodes!
-    self.update_attributes(:state => 'parsed')
+
+    self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64), :state => 'parsed')
   end
 
   def download_logo(link)
@@ -115,11 +115,9 @@ class Feed < ActiveRecord::Base
       :language    => @feed.language,
       :owner_email => @feed.owner_email,
       :owner_name  => @feed.owner_name,
-      :site        => @feed.link,
-      :bitrate     => @feed.bitrate
+      :site        => @feed.link
     )
   rescue Exception
-		p $!
     raise NoEnclosureException
   end
 

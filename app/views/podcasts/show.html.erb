@@ -26,6 +26,8 @@
 
   <h2><%=h @podcast.custom_title %></h2>
 
+  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
+
   <div class="urls">
     <ul>
       <li class="site">

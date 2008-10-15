@@ -1,6 +1,6 @@
-<div class="super_button">
-  <select class="format">
-    <%= options_for_select(sources.map {|s| ["#{s.format.capitalize} (#{s.feed.bitrate} Kbps, #{s.size.to_file_size})", s.url] }) -%>
+<div class="super_button download">
+  <select class="url">
+    <%= options_for_select(sources.map {|s| ["#{s.file_name} (#{s.feed.bitrate} Kbps, #{s.size.to_file_size})", s.url] }) -%>
   </select>
   
   <select class="delivery">
@@ -10,3 +10,4 @@
   
   <input type="button" class="submit" value="Download" />
 </div>
+

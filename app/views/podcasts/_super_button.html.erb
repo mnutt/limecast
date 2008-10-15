@@ -1,0 +1,23 @@
+<div class="super_button subscribe">
+  <select class="id">
+    <%= options_for_select(feeds.map {|f| ["(#{f.sources.first.format}, #{f.bitrate} Kbps)", f.id] }) -%>
+  </select>
+
+  <% feeds.select {|f| !f.itunes_link.nil? }.each do |feed| -%>
+  <input type="hidden" id="itunes_<%= feed.id %>" value="<%= feed.itunes_link %>" />
+  <% end -%>
+  <input type="hidden" id="itunes_8" value="235342353" />
+
+  <% feeds.each do |feed| -%>
+  <input type="hidden" id="url_<%= feed.id %>" value="<%= feed.url %>" />
+  <% end -%>
+  
+  <select class="delivery">
+    <option value="rss">RSS</option>
+    <option value="miro">Miro</option>
+    <option value="itunes" class="itunes">iTunes</option>
+  </select>
+  
+  <input type="button" class="submit" value="Subscribe" />
+</div>
+

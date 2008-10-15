@@ -14,4 +14,8 @@
 class Source < ActiveRecord::Base
   belongs_to :feed
   belongs_to :episode
+
+  def file_name
+    File.basename(self.url)
+  end
 end

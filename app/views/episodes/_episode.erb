@@ -10,7 +10,7 @@
   </div>
 
   <div class="full">
-    <p class="description"><%=strip_tags episode.summary -%></p>
+    <p class="description"><%=sanitize_summary episode.summary -%></p>
     
     <%# TODO: if an mp3 doesn't have .mp3 extension? -%>
     <!--

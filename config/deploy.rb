@@ -27,15 +27,50 @@ depend :remote, :gem, 'mysql',           '=2.7'
 
 desc "Backup database"
 task :backup, :roles => :db, :only => { :primary => true } do
+  filename = "/tmp/#{application}.dump.#{Time.now.to_f}.sql.bz2"
+
   # the on_rollback handler is only executed if this task is executed within
   # a transaction (see below), AND it or a subsequent task fails.
-  on_rollback { delete "/tmp/dump.sql" }
+  on_rollback { delete filename }
 
   set :production_database_password do
     Capistrano::CLI.password_prompt 'Production database password: '
   end
-  run "mysqldump -u limecast -p limecast > /tmp/dump.sql" do |ch, stream, out|
+
+  run "mysqldump -u limecast -p limecast |bzip2 -c > #{filename}" do |ch, stream, out|
     ch.send_data "#{production_database_password}\n" if out =~ /^Enter password:/
+  end
+  `rsync #{user}@#{domain}:#{filename} #{File.dirname(__FILE__)}/../backups/`
+end
+
+desc "Restore database"
+task :restore, :roles => :db, :only => { :primary => true } do
+  set :database do
+    run "cd #{shared_path}; cat database.yml" do |channel, stream, data|
+      puts stream.inspect
+    end
+  end
+  exit(0)
+
+  set :go_no_go do
+    Capistrano::CLI.ui.ask("Are you SURE you want to drop the #{stage} database? If you want to, type \"drop #{stage} database\"")
+  end
+
+  raise "DO NOT DROP PRODUCTION DATABASE!" if stage == "production"
+  exit(0) unless go_no_go == "drop #{stage} database"
+  
+  backup_path = ARGV.last.split("DB=")[1] rescue(raise ArgumentError)
+  backup_file = backup_path.split('/').last
+  put File.open(backup_path).read, "/tmp/#{backup_file}"
+
+  set :database_password do
+    Capistrano::CLI.password_prompt "#{stage.to_s.capitalize} database password: "
+  end
+
+  run "cd #{latest_release}; RAILS_ENV=production rake db:drop"
+  run "cd #{latest_release}; RAILS_ENV=production rake db:create"
+  run "bzcat /tmp/#{backup_file} | mysql -u limecast -p limecast" do |ch, stream, out|
+    ch.send_data "#{database_password}\n" if out =~ /^Enter password:/
   end
 end
 
@@ -279,6 +314,7 @@ after 'deploy:update_code', 'limecast:update'
 # after 'deploy:cold', 'limecast:deploy:populate'
 # after 'deploy:cold', 'limecast:sphinx:reset'
 
+after 'deploy', 'deploy:migrate'
 after 'deploy', 'limecast:sphinx:stop'
 after 'deploy', 'limecast:sphinx:configure'
 after 'deploy', 'limecast:sphinx:reindex'

@@ -33,16 +33,9 @@
       <li class="site">
         <%= link_to h(@podcast.clean_site), h(@podcast.site) %>
       </li>
-      <% @podcast.feeds.each do |feed| -%>
-        <li class="rss">
-          <%= link_to "<span>RSS</span>", feed.url, :class => 'icon' %>
-        </li>
-        <% unless feed.itunes_link.blank? -%>
-          <li class="itunes">
-            <%= link_to "<span>iTunes</span>", feed.itunes_link, :class => 'icon' %>
-          </li>
-        <% end -%>
-      <% end -%>
+      <li class="rss">
+        <%= link_to "<span>RSS</span>", @podcast.feeds.first.url, :class => 'icon' %>
+      </li>
     </ul>
     <div class="clear"></div>
   </div>

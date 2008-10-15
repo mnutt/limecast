@@ -1,24 +1,20 @@
 # == Schema Information
-# Schema version: 20080922184801
+# Schema version: 20081010205531
 #
 # Table name: episodes
 #
 #  id                     :integer(4)    not null, primary key
 #  podcast_id             :integer(4)    
 #  summary                :text          
-#  enclosure_url          :string(255)   
 #  published_at           :datetime      
 #  created_at             :datetime      
 #  updated_at             :datetime      
 #  thumbnail_file_size    :integer(4)    
 #  thumbnail_file_name    :string(255)   
 #  thumbnail_content_type :string(255)   
-#  guid                   :string(255)   
-#  enclosure_type         :string(255)   
 #  duration               :integer(4)    
 #  title                  :string(255)   
 #  clean_url              :string(255)   
-#  enclosure_size         :integer(4)    
 #
 
 class Episode < ActiveRecord::Base
@@ -29,6 +25,7 @@ class Episode < ActiveRecord::Base
                                  :small  => ["170x170#", :png] }
   has_many :comments, :dependent => :destroy
   has_many :commenters, :through => :comments
+  has_one :source
 
   validates_presence_of :podcast_id, :published_at
 
@@ -64,10 +61,6 @@ class Episode < ActiveRecord::Base
 
   def writable_by?(user)
     self.podcast.writable_by?(user)
-  end
-
-  def enclosure_magnet_url
-    "magnet:?xs=#{enclosure_url}"
   end
 
   def been_reviewed_by?(user)

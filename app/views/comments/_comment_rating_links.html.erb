@@ -1,5 +1,8 @@
 <% comment = comment_rating_links -%>
-<% unless comment.commenter == current_user %>
+<% if comment.commenter == current_user %>
+  Insightful (<%= comment.insightful -%>)
+  Not so much (<%= comment.not_insightful -%>)
+<% else -%>
   <%= link_to "Insightful (#{comment.insightful})", rate_review_url(:podcast => comment.episode.podcast.to_param, :id => comment, :rating => 'insightful') -%>
-  <%= link_to "Not So Much (#{comment.not_insightful})", rate_review_url(:podcast => comment.episode.podcast.to_param, :id => comment, :rating => 'not_insightful') -%>
+  <%= link_to "Not so much (#{comment.not_insightful})", rate_review_url(:podcast => comment.episode.podcast.to_param, :id => comment, :rating => 'not_insightful') -%>
 <% end %>

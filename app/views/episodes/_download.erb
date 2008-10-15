@@ -1,14 +1,14 @@
 <% episode = download -%>
 
 <div class="download">
-  <% link_to episode.enclosure_url, :class => 'icon' do -%>
+  <% link_to episode.source.url, :class => 'icon' do -%>
     <span>Download</span> 
-    <% if episode.enclosure_size -%>
-      (<%= FileSize.new(episode.enclosure_size).to_s -%>)
+    <% if episode.source.size -%>
+      (<%= FileSize.new(episode.source.size).to_s -%>)
     <% end -%>
   <% end -%>
 </div>
 
 <div class="limewire">
-  <%= link_to "<span>Magnet</span>", episode.enclosure_magnet_url, :title => "Open the download with the LimeWire client so that it can use P2P to speed up the transfer" -%>
+  <%= link_to "<span>Magnet</span>", episode.source.magnet_url, :title => "Open the download with the LimeWire client so that it can use P2P to speed up the transfer" -%>
 </div>

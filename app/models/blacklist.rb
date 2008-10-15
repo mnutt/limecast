@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080922184801
+# Schema version: 20081010205531
 #
 # Table name: blacklists
 #

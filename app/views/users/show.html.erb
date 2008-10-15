@@ -1,5 +1,6 @@
 <% @title = h(@user.login) -%>
-<% javascript_include "inline_edit_form" -%>
+<% javascript_include "comment_edit", "comment_delete", "inline_edit_form" -%>
+
 
 <div class="user">
   <% if @user == current_user -%>
@@ -39,14 +40,8 @@
   
   <% if @user.comments.count > 0 -%>
     <h3>Reviewed</h3>
-    <ul class="comments">
-      <% @user.comments.each do |comment| -%>
-	<li id="<%= dom_id(comment) -%>" class="comment <%= cycle('odd','even', :name => 'row_class') -%>">
-          <%= link_to_thing(comment.episode.podcast) -%>
-          <h4><%= comment.title -%></h4>
-          <%= comment.body -%>
-	</li>
-      <% end -%>
+    <ul class="reviews">
+      <%= render :partial => 'comments/comment', :collection => @user.comments, :locals => {:with_podcast => true} -%>
     </ul>
     <% reset_cycle('row_class') %>
   <% end -%>

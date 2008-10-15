@@ -6,10 +6,9 @@ Podcast.find(:all).each do |podcast|
   begin
     puts "Getting episodes for #{podcast.title}"
     podcast.feed.fetch
-    podcast.feed.parse
-    podcast.feed.save!
-    podcast.save!
-  rescue StandardError => e
+    podcast.feed.update_podcast!
+    podcast.feed.update_episodes!
+  rescue Exception => e
     puts "There was a problem: #{e.message}"
   end
 end

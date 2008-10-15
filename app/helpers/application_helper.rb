@@ -24,4 +24,25 @@ module ApplicationHelper
     time_ago = Time.now - date
     time_to_words(time_ago, abbr) + " ago"
   end
+
+  def unescape_entities(html)
+    return nil if html.nil?
+    unescaped_html = html
+    unescaped_html.gsub!(/&#x26;/, "&amp;")
+    unescaped_html.gsub!(/&#38;/, "&amp;")
+    substitute_numerical_entities = Proc.new do |s|
+      m = $1
+      m = "0#{m}" if m[0] == ?x
+      [Integer(m)].pack('U*')
+    end
+    unescaped_html.gsub!(/&#0*((?:\d+)|(?:x[a-f0-9]+));/, &substitute_numerical_entities)
+    unescaped_html = CGI.unescapeHTML(unescaped_html)
+    unescaped_html.gsub!(/&apos;/, "'")
+    unescaped_html.gsub!(/&quot;/, "\"")
+    return unescaped_html
+  end
+
+  def sanitize_summary(html)
+    sanitize unescape_entities(html), :tags => %w(a b i), :attributes => %w(href title)
+  end
 end

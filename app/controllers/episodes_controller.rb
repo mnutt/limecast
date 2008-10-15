@@ -1,7 +1,7 @@
 class EpisodesController < ApplicationController
   def index
     @podcast = Podcast.find_by_clean_url(params[:podcast])
-    @episodes = @podcast.episodes.find(:all, :order => "published_at DESC")
+    @episodes = @podcast.episodes.find(:all, :include => [:podcast], :order => "published_at DESC")
   end
 
   def show

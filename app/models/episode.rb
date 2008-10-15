@@ -25,7 +25,7 @@ class Episode < ActiveRecord::Base
                                  :small  => ["170x170#", :png] }
   has_many :comments, :dependent => :destroy
   has_many :commenters, :through => :comments
-  has_many :sources
+  has_many :sources, :dependent => :destroy
 
   validates_presence_of :podcast_id, :published_at
 

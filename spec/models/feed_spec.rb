@@ -35,6 +35,28 @@ describe Feed, "being parsed" do
   end
 end
 
+describe Feed, "updating episodes" do
+  before do
+    @feed = Factory.create(:feed)
+    @podcast = Factory.create(:podcast, :feed => @feed)
+    
+    @feed.extend(StopDownloadLogo)
+  end
+
+  it 'should create some episodes' do
+    @podcast.episodes.count.should == 0
+    @feed.update_episodes!
+    @podcast.episodes.count.should == 3
+  end
+
+  it 'should not duplicate episodes that already exist' do
+    @feed.update_episodes!
+    @podcast.episodes.count.should == 3
+    @feed.update_episodes!
+    @podcast.episodes.count.should == 3
+  end
+end
+
 describe Feed, "downloading the logo for its podcast" do
   before do
     @podcast = Factory.create(:podcast)

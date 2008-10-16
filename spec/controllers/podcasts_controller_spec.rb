@@ -134,8 +134,8 @@ describe PodcastsController do
     end
 
     it 'should create a feed' do
-      assigns(:podcast).reload.feed.should be_kind_of(Feed)
-      assigns(:podcast).reload.feed.url.should == "http://mypodcast/feed.xml"
+      assigns(:podcast).reload.feeds.first.should be_kind_of(Feed)
+      assigns(:podcast).reload.feeds.first.url.should == "http://mypodcast/feed.xml"
     end
   end
 

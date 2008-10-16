@@ -1,9 +1,15 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+module StopParse
+  def parse(*args); end
+end
 describe EpisodesController do
   before(:each) do
     @episode = Factory.create(:episode)
     @podcast = @episode.podcast
+    @feed = @podcast.feeds.first
+    @feed.extend(StopParse)
+    @source = Factory.create(:source, :episode => @episode, :feed => @feed)
   end
 
   describe "handling GET /:podcast/episodes" do

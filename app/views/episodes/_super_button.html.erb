@@ -1,6 +1,6 @@
 <div class="super_button download">
   <select class="url">
-    <%= options_for_select(sources.map {|s| ["#{s.file_name} (#{s.feed.bitrate} Kbps, #{s.size.to_file_size})", s.url] }) -%>
+    <%= options_for_select(sources.map {|s| [super_button_delivery(s), s.url] }) -%>
   </select>
   
   <select class="delivery">

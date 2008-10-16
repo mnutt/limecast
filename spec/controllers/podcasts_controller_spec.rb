@@ -1,5 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+module StopRemoveEmptyPodcast
+  def remove_empty_podcast(*args); end
+end
 describe PodcastsController do
   describe "handling GET /" do
     before(:each) do
@@ -29,6 +32,9 @@ describe PodcastsController do
   describe "handling GET /:podcast" do
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
+      @podcast.feeds.first.extend(StopRemoveEmptyPodcast)
+      @podcast.feeds.first.async_create
+      @podcast.reload
     end
   
     def do_get
@@ -132,7 +138,7 @@ describe PodcastsController do
     describe "for a podcast that has not yet been parsed" do
       before(:each) do
         @podcast = Factory.create(:podcast)
-        post :status, :feed => @podcast.feed.url
+        post :status, :feed => @podcast.feeds.first.url
       end
       
       it 'should render the loading template' do
@@ -145,7 +151,7 @@ describe PodcastsController do
         @podcast = Factory.create(:parsed_podcast)
         controller.should_receive(:podcast_created_just_now_by_user?).and_return(true)
 
-        post :status, :feed => @podcast.feed.url
+        post :status, :feed => @podcast.feeds.first.url
       end
       
       it 'should render the added template' do
@@ -157,7 +163,7 @@ describe PodcastsController do
       describe "because it was not a web address" do
         before(:each) do
           @podcast = Factory.create(:failed_podcast)
-          post :status, :feed => @podcast.feed.url
+          post :status, :feed => @podcast.feeds.first.url
         end 
         
         it 'should render the error template' do
@@ -288,7 +294,7 @@ describe PodcastsController do
         @podcast.should_receive(:writable_by?).and_return(true)
         login(@user)
 
-        post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title", :itunes_link => "http://ituneslink/"}
+        post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title"}
       end
       
       it "should find the podcast requested" do
@@ -316,7 +322,7 @@ describe PodcastsController do
       
       it "should redirect to the podcasts list" do
         lambda {
-          post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title", :itunes_link => "http://ituneslink/"}
+          post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title"}
         }.should raise_error(Forbidden)
       end
     end

@@ -1,6 +1,6 @@
 <div class="super_button subscribe">
   <select class="id">
-    <%= options_for_select(feeds.map {|f| ["(#{f.sources.first.format}, #{f.bitrate} Kbps)", f.id] }) -%>
+    <%= options_for_select(feeds.parsed.map {|f| [super_button_delivery(f), f.id] }) -%>
   </select>
 
   <% feeds.select {|f| !f.itunes_link.nil? }.each do |feed| -%>

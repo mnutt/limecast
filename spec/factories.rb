@@ -4,6 +4,7 @@
 Factory.define :feed do |f|
   f.url     { "#{Factory.next :site}/feed.xml" }
   f.content { File.open("#{RAILS_ROOT}/spec/data/example.xml").read }
+  f.bitrate 64
 end
 
 Factory.define :podcast do |p|
@@ -36,7 +37,7 @@ Factory.define :episode do |e|
   e.title       'Episode One'
   e.clean_url   '2008-Aug-1'
   e.duration    60
-  e.source      { Factory.create :source }
+  e.sources     { [Factory.create :source] }
 
   e.published_at Time.parse("Aug 1, 2008")
 end
@@ -44,6 +45,7 @@ end
 Factory.define :source do |s|
   s.url  "http://example.com/source.mpg"
   s.guid { (Time.now.to_i * rand).to_s }
+  s.size 1234567890
 end
 
 Factory.sequence :login do |n|

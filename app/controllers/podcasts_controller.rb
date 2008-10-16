@@ -7,8 +7,9 @@ class PodcastsController < ApplicationController
   end
 
   def show
-    raise ActiveRecord::RecordNotFound if params[:podcast].nil?
-    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+		raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
+
     @episodes = @podcast.episodes.find(:all, :order => "published_at DESC", :limit => 3)
 
     @comments = with(@podcast.episodes.newest.first) {|ep| ep.nil? ? [] : ep.comments }
@@ -67,7 +68,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
-    @podcast.attributes = params[:podcast_attr].keep_keys([:custom_title, :itunes_link])
+    @podcast.attributes = params[:podcast_attr].keep_keys([:custom_title])
 
     if @podcast.save
       flash[:notice] = 'Podcast was successfully updated.'

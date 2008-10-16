@@ -45,4 +45,23 @@ module ApplicationHelper
   def sanitize_summary(html)
     sanitize unescape_entities(html), :tags => %w(a b i), :attributes => %w(href title)
   end
+
+  def super_button_delivery(item)
+    str = ""
+    if item.class == Feed
+      str << "("
+      if item.sources > 0 && !item.sources.first.format.nil?
+        str << "#{item.sources.first.format}, "
+      end
+      str << "#{item.bitrate} Kbps)"
+    else item.class == Source
+      str << item.file_name << " ("
+      if !item.feed.nil? && !(item.feed.bitrate > 0)
+        str << "#{item.feed.bitrate} Kbps, "
+      end
+      str << "#{item.size.to_file_size})"
+    end
+
+    str
+  end
 end

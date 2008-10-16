@@ -5,8 +5,11 @@ class EpisodesController < ApplicationController
   end
 
   def show
-    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
-    @episode = @podcast.episodes.find_by_clean_url(params[:episode]) or raise ActiveRecord::RecordNotFound
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
+
+    @episode = @podcast.episodes.find_by_clean_url(params[:episode])
+    raise ActiveRecord::RecordNotFound if @episode.nil? || params[:episode].nil?
 
     @comment = Comment.new(:episode => @episode)
   end

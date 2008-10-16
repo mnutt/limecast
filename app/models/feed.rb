@@ -25,6 +25,7 @@ class Feed < ActiveRecord::Base
   belongs_to :podcast
 
   before_create :sanitize
+  before_create :remove_empty_podcast
 
   validates_presence_of   :url
   validates_uniqueness_of :url
@@ -39,8 +40,8 @@ class Feed < ActiveRecord::Base
   def async_create
     fetch
     parse
-  # rescue Exception
-  #   self.update_attributes(:state => 'failed', :error => $!.class.to_s)
+  rescue Exception
+    self.update_attributes(:state => 'failed', :error => $!.class.to_s)
   end
 
   def fetch
@@ -101,7 +102,7 @@ class Feed < ActiveRecord::Base
         :size       => e.enclosure.size,
         :url        => e.enclosure.url,
         :episode_id => episode.id,
-				:feed_id    => self.id
+        :feed_id    => self.id
       )
     end
   end
@@ -125,5 +126,9 @@ class Feed < ActiveRecord::Base
 
   def sanitize
     self.url.gsub!(%r{^feed://}, "http://")
+  end
+
+  def remove_empty_podcast
+    self.podcast.destroy if self.failed? && !self.podcast.nil?
   end
 end

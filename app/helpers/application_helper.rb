@@ -43,7 +43,14 @@ module ApplicationHelper
   end
 
   def sanitize_summary(html)
-    sanitize unescape_entities(html), :tags => %w(a b i), :attributes => %w(href title)
+    sanitize unescape_entities(html), :tags => %w(a b i ul li), :attributes => %w(href title)
+  end
+
+  def sanitize_condensed_summary(html)
+    html = unescape_entities(html)
+    html.gsub!(/<p[^>]*>/, "")
+    html.gsub!(/\<\/p\>/, " &#182; ")
+    sanitize html, :tags => %w(a b i), :attributes => %w(href title)
   end
 
   def super_button_delivery(item)

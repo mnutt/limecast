@@ -25,7 +25,7 @@ class Feed < ActiveRecord::Base
   belongs_to :podcast
 
   before_create :sanitize
-  before_create :remove_empty_podcast
+  before_save :remove_empty_podcast
 
   validates_presence_of   :url
   validates_uniqueness_of :url
@@ -58,7 +58,12 @@ class Feed < ActiveRecord::Base
   end
 
   def parse
-    @feed = RPodcast::Feed.new(@content)
+		begin
+      @feed = RPodcast::Feed.new(@content)
+    rescue RPodcast::NoEnclosureError
+			raise NoEnclosureException
+    end
+
     update_podcast!
     update_episodes!
 

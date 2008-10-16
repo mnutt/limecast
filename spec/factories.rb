@@ -9,7 +9,7 @@ end
 Factory.define :podcast do |p|
   p.title 'Podcast'
   p.site  { Factory.next :site }
-  p.feed  { Factory.create(:feed, :content => nil) }
+  p.feeds { [Factory.create(:feed, :content => nil)] }
 
   p.clean_url { Factory.next :title }
 end
@@ -17,7 +17,7 @@ end
 Factory.define :parsed_podcast, :class => Podcast do |p|
   p.title 'Podcast'
   p.site  { Factory.next :site }
-  p.feed  { Factory.create(:feed, :url => "http://parsedpodcast/feed.xml", :content => nil, :state => 'parsed') }
+  p.feeds { [Factory.create(:feed, :url => "http://parsedpodcast/feed.xml", :content => nil, :state => 'parsed')] }
 
   p.clean_url { Factory.next :title }
 end
@@ -25,7 +25,7 @@ end
 Factory.define :failed_podcast, :class => Podcast do |p|
   p.title 'Podcast'
   p.site  { Factory.next :site }
-  p.feed  { Factory.create(:feed, :state => 'failed') }
+  p.feeds { [Factory.create(:feed, :state => 'failed')] }
 
   p.clean_url { Factory.next :title }
 end

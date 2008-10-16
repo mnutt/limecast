@@ -129,4 +129,5 @@ jQuery(document).ready(function(){
   });
 
   jQuery('div.super_button').superButton();
+  jQuery('div.super_button.subscribe').updateDeliveryForSubscribe();
 });

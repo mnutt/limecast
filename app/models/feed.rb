@@ -30,7 +30,7 @@ class Feed < ActiveRecord::Base
   validates_presence_of   :url
   validates_uniqueness_of :url
 
-  named_scope :parsed,  :conditions => {:state => 'parsed'}
+  named_scope :parsed, :conditions => {:state => 'parsed'}
   def pending?; self.state == 'pending' || self.state.nil? end
   def parsed?;  self.state == 'parsed' end
   def failed?;  self.state == 'failed' end

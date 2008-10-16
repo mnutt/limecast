@@ -47,21 +47,30 @@ module ApplicationHelper
   end
 
   def super_button_delivery(item)
-    str = ""
-    if item.class == Feed
-      str << "("
-      if item.sources > 0 && !item.sources.first.format.nil?
-        str << "#{item.sources.first.format}, "
+    label = item.file_name if item.class == Source
+
+    in_parens = if item.class == Feed
+      format = if item.sources.count > 0 && !item.sources.first.format.nil?
+        item.sources.first.format.to_s
       end
-      str << "#{item.bitrate} Kbps)"
+      bitrate = if item.bitrate > 0
+        "#{item.bitrate} Kbps"
+      end
+
+      [format, bitrate].compact
     else item.class == Source
-      str << item.file_name << " ("
-      if !item.feed.nil? && !(item.feed.bitrate > 0)
-        str << "#{item.feed.bitrate} Kbps, "
+      bitrate = if !item.feed.nil? && item.feed.bitrate > 0
+        "#{item.feed.bitrate} Kbps"
       end
-      str << "#{item.size.to_file_size})"
+      file_size = item.size.to_file_size.to_s
+
+      [bitrate, file_size].compact
     end
 
-    str
+    in_parens = unless in_parens.empty?
+      "(#{in_parens.join(', ')})"
+    end
+
+    [label, in_parens].join(" ")
   end
 end

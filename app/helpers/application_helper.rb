@@ -52,4 +52,32 @@ module ApplicationHelper
     html.gsub!(/\<\/p\>/, " &#182; ")
     sanitize html, :tags => %w(a b i), :attributes => %w(href title)
   end
+
+  def super_button_delivery(item)
+    label = item.file_name if item.class == Source
+
+    in_parens = if item.class == Feed
+      format = if item.sources.count > 0 && !item.sources.first.format.nil?
+        item.sources.first.format.to_s
+      end
+      bitrate = if item.bitrate > 0
+        "#{item.bitrate} Kbps"
+      end
+
+      [format, bitrate].compact
+    else item.class == Source
+      bitrate = if !item.feed.nil? && item.feed.bitrate > 0
+        "#{item.feed.bitrate} Kbps"
+      end
+      file_size = item.size.to_file_size.to_s
+
+      [bitrate, file_size].compact
+    end
+
+    in_parens = unless in_parens.empty?
+      "(#{in_parens.join(', ')})"
+    end
+
+    [label, in_parens].join(" ")
+  end
 end

@@ -10,7 +10,7 @@ end
 describe Feed, "being parsed" do
   before do
     @feed = Factory.create(:feed)
-    @podcast = Factory.create(:podcast, :feed => @feed)
+    @podcast = Factory.create(:podcast, :feeds => [@feed])
     # Stubbing does NOT want to work here. This is an
     # ugly solution, but it works just fine.
     @feed.extend(StopDownloadLogo)
@@ -38,21 +38,21 @@ end
 describe Feed, "updating episodes" do
   before do
     @feed = Factory.create(:feed)
-    @podcast = Factory.create(:podcast, :feed => @feed)
+    @podcast = Factory.create(:podcast, :feeds => [@feed])
     
     @feed.extend(StopDownloadLogo)
   end
 
   it 'should create some episodes' do
     @podcast.episodes.count.should == 0
-    @feed.update_episodes!
+    @feed.parse
     @podcast.episodes.count.should == 3
   end
 
   it 'should not duplicate episodes that already exist' do
-    @feed.update_episodes!
+    @feed.parse
     @podcast.episodes.count.should == 3
-    @feed.update_episodes!
+    @feed.parse
     @podcast.episodes.count.should == 3
   end
 end
@@ -60,7 +60,7 @@ end
 describe Feed, "downloading the logo for its podcast" do
   before do
     @podcast = Factory.create(:podcast)
-    @feed = @podcast.feed
+    @feed = @podcast.feeds.first
   end
 
   it 'should not set the logo_filename for a bad link' do
@@ -72,7 +72,7 @@ end
 describe Feed, "being created" do
   before do
     @podcast = Factory.create(:podcast)
-    @feed = @podcast.feed
+    @feed = @podcast.feeds.first
   end
 
 
@@ -117,7 +117,8 @@ describe Feed, "being created" do
   describe "when the submitting user is the podcast owner" do
     it 'should associate the podcast with the user as owner' do
       user = Factory.create(:user, :email => "john.doe@example.com")
-      @podcast.feed = @feed = Factory.create(:feed)
+      @feed = Factory.create(:feed)
+      @podcast.feeds << @feed
 
       @feed.extend(StopFetch)
       @feed.extend(StopDownloadLogo)

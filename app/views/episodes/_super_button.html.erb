@@ -1,0 +1,13 @@
+<div class="super_button download">
+  <select class="url">
+    <%= options_for_select(sources.map {|s| [super_button_delivery(s), s.url] }) -%>
+  </select>
+  
+  <select class="delivery">
+    <option value="direct">Direct</option>
+    <option value="magnet">Magnet</option>
+  </select>
+  
+  <input type="button" class="submit" value="Download" />
+</div>
+

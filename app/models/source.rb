@@ -12,9 +12,10 @@
 #
 
 class Source < ActiveRecord::Base
+  belongs_to :feed
   belongs_to :episode
 
-  def magnet_url
-    "magnet:?xs=#{self.url}"
+  def file_name
+    File.basename(self.url)
   end
 end

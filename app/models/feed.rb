@@ -21,17 +21,16 @@ class Feed < ActiveRecord::Base
   class InvalidAddressException < Exception; def message; "That's not a web address." end end
   class NoEnclosureException    < Exception; def message; "That's a text RSS feed, not an audio or video podcast." end end
 
+  has_many :sources
   belongs_to :podcast
 
   before_create :sanitize
   before_save :remove_empty_podcast
 
-  validates_presence_of :url
+  validates_presence_of   :url
   validates_uniqueness_of :url
 
-  acts_as_taggable
-
-  named_scope :parsed,  :conditions => {:state => 'parsed'}
+  named_scope :parsed, :conditions => {:state => 'parsed'}
   def pending?; self.state == 'pending' || self.state.nil? end
   def parsed?;  self.state == 'parsed' end
   def failed?;  self.state == 'failed' end
@@ -59,9 +58,16 @@ class Feed < ActiveRecord::Base
   end
 
   def parse
+		begin
+      @feed = RPodcast::Feed.new(@content)
+    rescue RPodcast::NoEnclosureError
+			raise NoEnclosureException
+    end
+
     update_podcast!
     update_episodes!
-    self.update_attributes(:state => 'parsed')
+
+    self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64), :state => 'parsed')
   end
 
   def download_logo(link)
@@ -83,7 +89,7 @@ class Feed < ActiveRecord::Base
   end
 
   def update_episodes!
-    RPodcast::Episode.parse(@content).each do |e|
+    @feed.episodes.each do |e|
       # XXX: Definitely need to figure out something better for this.
       episode = self.podcast.episodes.find_by_summary(e.summary) || self.podcast.episodes.find_by_title(e.title) || self.podcast.episodes.new
       source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new
@@ -96,26 +102,26 @@ class Feed < ActiveRecord::Base
       )
       source.update_attributes(
         :guid       => e.guid,
+        :format     => e.enclosure.format.to_s,
         :type       => e.enclosure.type,
         :size       => e.enclosure.size,
         :url        => e.enclosure.url,
-        :episode_id => episode.id
+        :episode_id => episode.id,
+        :feed_id    => self.id
       )
     end
   end
 
   def update_podcast!
-    parsed_feed = RPodcast::Feed.new(@content)
-
-    self.podcast ||= Podcast.new
-    self.download_logo(parsed_feed.image)
+    self.podcast = Podcast.find_by_site(@feed.link) || self.podcast
+    self.download_logo(@feed.image)
     self.podcast.update_attributes(
-      :title       => parsed_feed.title,
-      :description => parsed_feed.summary,
-      :language    => parsed_feed.language,
-      :owner_email => parsed_feed.owner_email,
-      :owner_name  => parsed_feed.owner_name,
-      :site        => parsed_feed.link
+      :title       => @feed.title,
+      :description => @feed.summary,
+      :language    => @feed.language,
+      :owner_email => @feed.owner_email,
+      :owner_name  => @feed.owner_name,
+      :site        => @feed.link
     )
   rescue Exception
     raise NoEnclosureException

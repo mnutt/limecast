@@ -51,8 +51,9 @@ class PodcastsController < ApplicationController
   end
 
   def create
-    @podcast = Podcast.create(:user => current_user)
-    @podcast.feed = Feed.new(params[:feed].keep_keys([:url]))
+    @podcast = Podcast.new(:user => current_user)
+    @podcast.feed = Feed.create(params[:feed].keep_keys([:url]))
+    @podcast.save
 
     if current_user.nil?
       session.data[:podcasts] ||= []

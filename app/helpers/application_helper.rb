@@ -48,8 +48,12 @@ module ApplicationHelper
 
   def sanitize_condensed_summary(html)
     html = unescape_entities(html)
-    html.gsub!(/<p[^>]*>/, "")
-    html.gsub!(/\<\/p\>/, " &#182; ")
+
+    # Replace paragraph tags with paragraph symbols
+    html.gsub!(/<[Pp][^>]*>(.*?)\<\/[Pp]\>/, '\1 &#182; ')
+    # Replace CDATA junk
+    html.sub!(/\<\!\[CDATA\[(.*?)\]\]\>/, '\1')
+
     sanitize html, :tags => %w(a b i), :attributes => %w(href title)
   end
 

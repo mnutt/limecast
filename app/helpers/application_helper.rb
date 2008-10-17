@@ -61,13 +61,13 @@ module ApplicationHelper
         item.sources.first.format.to_s
       end
       bitrate = if item.bitrate > 0
-        "#{item.bitrate} Kbps"
+        item.bitrate.to_bitrate.to_s
       end
 
       [format, bitrate].compact
     else item.class == Source
       bitrate = if !item.feed.nil? && item.feed.bitrate > 0
-        "#{item.feed.bitrate} Kbps"
+        item.feed.bitrate.to_bitrate.to_s
       end
       file_size = item.size.to_file_size.to_s
 

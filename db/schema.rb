@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081015182423) do
+ActiveRecord::Schema.define(:version => 20081017163109) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20081015182423) do
     t.datetime "updated_at"
     t.string   "state",       :default => "pending"
     t.integer  "bitrate"
+    t.integer  "finder_id"
   end
 
   create_table "podcasts", :force => true do |t|
@@ -74,7 +75,6 @@ ActiveRecord::Schema.define(:version => 20081015182423) do
     t.string   "logo_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
     t.text     "description"
     t.string   "language"
     t.integer  "category_id"

@@ -43,8 +43,8 @@ class Feed < ActiveRecord::Base
   def async_create
     fetch
     parse
-  #rescue Exception
-  #  self.update_attributes(:state => 'failed', :error => $!.class.to_s)
+  rescue Exception
+    self.update_attributes(:state => 'failed', :error => $!.class.to_s)
   end
 
   def fetch
@@ -130,6 +130,10 @@ class Feed < ActiveRecord::Base
     )
   rescue Exception
     raise NoEnclosureException
+  end
+
+  def writable_by?(user)
+    !!(user && user.active? && (self.finder_id == user.id || user.admin?))
   end
 
   protected

@@ -25,7 +25,6 @@
 require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
-  belongs_to :user
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
   has_many :feeds
@@ -50,12 +49,10 @@ class Podcast < ActiveRecord::Base
   before_save  :cache_custom_title
   before_save  :sanitize_title
   before_save  :sanitize_url
-  after_create :distribute_point, :if => '!user.nil?'
 
   # Search
   define_index do
     indexes :title, :site, :description
-    indexes user.login, :as => :user
     indexes owner.login, :as => :owner
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary
@@ -92,7 +89,7 @@ class Podcast < ActiveRecord::Base
 
   def writable_by?(user)
     # TODO: refactor
-    !!(user and user.active? and ((self.user_id == user.id && !self.owner_id) || self.owner_id == user.id || user.admin?))
+    !!(user and user.active? and ((self.feeds.first.user_id == user.id && !self.owner_id) || self.owner_id == user.id || user.admin?))
   end
 
   protected
@@ -128,11 +125,6 @@ class Podcast < ActiveRecord::Base
     # Condense spaces and turn them into dashes
     self.clean_url.gsub!(/[\s]+/, '-')
     self.clean_url
-  end
-
-  def distribute_point
-    self.user.score += 1
-    self.user.save
   end
 
   def cache_custom_title

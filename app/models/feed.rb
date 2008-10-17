@@ -20,12 +20,15 @@ class Feed < ActiveRecord::Base
   class BannedFeedException     < Exception; def message; "This feed site is not allowed." end end
   class InvalidAddressException < Exception; def message; "That's not a web address." end end
   class NoEnclosureException    < Exception; def message; "That's a text RSS feed, not an audio or video podcast." end end
+  class DuplicateFeedExeption   < Exception; def message; "This feed has already been added to the system." end end
 
   has_many :sources
   belongs_to :podcast
+  belongs_to :finder, :class_name => 'User'
 
   before_create :sanitize
   before_save :remove_empty_podcast
+  after_create :distribute_point, :if => '!finder.nil?'
 
   validates_presence_of   :url
   validates_uniqueness_of :url
@@ -92,7 +95,10 @@ class Feed < ActiveRecord::Base
     @feed.episodes.each do |e|
       # XXX: Definitely need to figure out something better for this.
       episode = self.podcast.episodes.find_by_summary(e.summary) || self.podcast.episodes.find_by_title(e.title) || self.podcast.episodes.new
-      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new
+      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => self)
+
+      # The feed is a duplicate if the source found matches a source from another feed.
+      raise DuplicateFeedExeption if source.feed != self
 
       episode.update_attributes(
         :summary      => e.summary,
@@ -106,14 +112,13 @@ class Feed < ActiveRecord::Base
         :type       => e.enclosure.type,
         :size       => e.enclosure.size,
         :url        => e.enclosure.url,
-        :episode_id => episode.id,
-        :feed_id    => self.id
+        :episode_id => episode.id
       )
     end
   end
 
   def update_podcast!
-    self.podcast = Podcast.find_by_site(@feed.link) || self.podcast
+    self.podcast = Podcast.find_by_site(@feed.link) || Podcast.new
     self.download_logo(@feed.image)
     self.podcast.update_attributes(
       :title       => @feed.title,
@@ -135,5 +140,10 @@ class Feed < ActiveRecord::Base
 
   def remove_empty_podcast
     self.podcast.destroy if self.failed? && !self.podcast.nil?
+  end
+
+  def distribute_point
+    self.finder.score += 1
+    self.finder.save
   end
 end

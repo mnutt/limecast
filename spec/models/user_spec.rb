@@ -17,10 +17,10 @@ describe User do
     end
   end
 
-  describe 'adding a Podcast' do
+  describe 'adding a Feed' do
     it 'should increase score' do
       lambda do
-        Factory.create(:podcast, :user => @user)
+        Factory.create(:feed, :finder => @user)
       end.should change { @user.score }.by(1)
     end
   end

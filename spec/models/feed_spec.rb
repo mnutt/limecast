@@ -9,8 +9,8 @@ end
 
 describe Feed, "being parsed" do
   before do
-    @feed = Factory.create(:feed)
-    @podcast = Factory.create(:podcast, :feeds => [@feed])
+    @podcast = Factory.create(:podcast)
+    @feed = Factory.create(:feed, :podcast => @podcast)
     # Stubbing does NOT want to work here. This is an
     # ugly solution, but it works just fine.
     @feed.extend(StopDownloadLogo)
@@ -37,8 +37,8 @@ end
 
 describe Feed, "updating episodes" do
   before do
-    @feed = Factory.create(:feed)
-    @podcast = Factory.create(:podcast, :feeds => [@feed])
+    @podcast = Factory.create(:podcast)
+    @feed = Factory.create(:feed, :podcast => @podcast)
     
     @feed.extend(StopDownloadLogo)
   end
@@ -117,16 +117,15 @@ describe Feed, "being created" do
   describe "when the submitting user is the podcast owner" do
     it 'should associate the podcast with the user as owner' do
       user = Factory.create(:user, :email => "john.doe@example.com")
-      @feed = Factory.create(:feed)
-      @podcast.feeds << @feed
+      @feed = Factory.create(:feed, :finder => user)
 
       @feed.extend(StopFetch)
       @feed.extend(StopDownloadLogo)
 
       @feed.async_create
 
-      @podcast.reload.owner.should == user
-      @podcast.reload.user.should be_nil
+      @feed.reload.finder.should be_nil
+      @feed.podcast.reload.owner.should == user
     end
   end
 

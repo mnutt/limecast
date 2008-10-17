@@ -45,10 +45,11 @@ class Podcast < ActiveRecord::Base
 
   acts_as_taggable
 
-  before_save  :attempt_to_find_owner
-  before_save  :cache_custom_title
-  before_save  :sanitize_title
-  before_save  :sanitize_url
+  before_save :attempt_to_find_owner
+  before_save :cache_custom_title
+  before_save :sanitize_title
+  before_save :sanitize_url
+  after_save  :remove_feed_finder_if_is_the_same_as_owner
 
   # Search
   define_index do
@@ -89,7 +90,7 @@ class Podcast < ActiveRecord::Base
 
   def writable_by?(user)
     # TODO: refactor
-    !!(user and user.active? and ((self.feeds.first.user_id == user.id && !self.owner_id) || self.owner_id == user.id || user.admin?))
+    !!(user and user.active? and ((self.feeds.first.finder_id == user.id && !self.owner_id) || self.owner_id == user.id || user.admin?))
   end
 
   def finders
@@ -136,7 +137,18 @@ class Podcast < ActiveRecord::Base
   end
 
   def attempt_to_find_owner
-    self.owner ||= User.find_by_email(self.owner_email)
+    self.owner = User.find_by_email(self.owner_email)
+
+    true
+  end
+
+  def remove_feed_finder_if_is_the_same_as_owner
+    # The owner no longer needs to be the 'finder' of a podcast if they were before
+    unless self.owner.nil?
+      feeds = self.feeds.find_by_finder_id(self.owner.id)
+      feeds.update_attributes(:finder_id => nil) unless feeds.nil?
+    end
+
     true
   end
 end

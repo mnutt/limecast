@@ -103,17 +103,17 @@ describe PodcastsController do
       post :create, :feed => {:url => "http://mypodcast/feed.xml"}
     end
 
-    it 'should save the podcast' do
-      assigns(:podcast).should be_kind_of(Podcast)
-      assigns(:podcast).should_not be_new_record
+    it 'should save a feed' do
+      assigns(:feed).should be_kind_of(Feed)
+      assigns(:feed).should_not be_new_record
     end
 
-    it 'should add the podcast to the session' do
-      session.data[:podcasts].should include(assigns(:podcast).id)
+    it 'should add the feed to the session' do
+      session.data[:feeds].should include(assigns(:feed).id)
     end
 
-    it 'should not associate the podcast with a user' do
-      assigns(:podcast).user.should be_nil
+    it 'should not associate the feed with a user' do
+      assigns(:feed).finder.should be_nil
     end
   end
 
@@ -125,17 +125,17 @@ describe PodcastsController do
     end
 
     it 'should save the podcast' do
-      assigns(:podcast).should be_kind_of(Podcast)
-      assigns(:podcast).should_not be_new_record
+      assigns(:feed).should be_kind_of(Feed)
+      assigns(:feed).should_not be_new_record
     end
 
     it 'should associate the podcast with the user' do
-      assigns(:podcast).user.should == @user
+      assigns(:feed).finder.should == @user
     end
 
     it 'should create a feed' do
-      assigns(:podcast).reload.feeds.first.should be_kind_of(Feed)
-      assigns(:podcast).reload.feeds.first.url.should == "http://mypodcast/feed.xml"
+      assigns(:feed).should be_kind_of(Feed)
+      assigns(:feed).url.should == "http://mypodcast/feed.xml"
     end
   end
 
@@ -154,7 +154,7 @@ describe PodcastsController do
     describe "for a podcast that has been parsed" do
       before(:each) do
         @podcast = Factory.create(:parsed_podcast)
-        controller.should_receive(:podcast_created_just_now_by_user?).and_return(true)
+        controller.should_receive(:feed_created_just_now_by_user?).and_return(true)
 
         post :status, :feed => @podcast.feeds.first.url
       end
@@ -336,7 +336,7 @@ describe PodcastsController do
       
       before(:each) do
         @user = Factory.create(:user)
-        @podcast = Factory.create(:podcast, :user_id => @user.id, :owner_email => "test@example.com")
+        @podcast = Factory.create(:podcast, :feeds => [Factory.create(:feed, :finder => @user)], :owner_email => "test@example.com")
         login(@user)
         
         post :update, :podcast => @podcast.clean_url, :podcast_attr => {:owner_email => "malicious@example.com"}

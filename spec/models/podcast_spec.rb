@@ -141,7 +141,9 @@ describe Podcast, "permissions" do
   describe "the finder" do
     before do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:parsed_podcast, :user_id => @user.id)
+      @podcast = Factory.create(:parsed_podcast, :feeds => [])
+      @feed = Factory.create(:feed, :finder_id => @user.id, :podcast => @podcast)
+      @podcast.reload
     end
 
     it 'should have write access' do
@@ -164,7 +166,6 @@ describe Podcast, "permissions" do
     before do
       @user = Factory.create(:user)
       @podcast = Factory.create(:podcast, :owner_id => @user.id)
-      @podcast.owner_id = @user.id
       @podcast.save
     end
 

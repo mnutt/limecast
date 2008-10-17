@@ -61,10 +61,10 @@ class Feed < ActiveRecord::Base
   end
 
   def parse
-		begin
+    begin
       @feed = RPodcast::Feed.new(@content)
     rescue RPodcast::NoEnclosureError
-			raise NoEnclosureException
+      raise NoEnclosureException
     end
 
     update_podcast!

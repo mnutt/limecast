@@ -92,6 +92,10 @@ class Podcast < ActiveRecord::Base
     !!(user and user.active? and ((self.feeds.first.user_id == user.id && !self.owner_id) || self.owner_id == user.id || user.admin?))
   end
 
+  def finders
+    self.feeds.map(&:finder).compact
+  end
+
   protected
 
   def sanitize_title

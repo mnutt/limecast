@@ -142,6 +142,10 @@ class Feed < ActiveRecord::Base
     @feed
   end
 
+  def just_created?
+    self.created_at > 2.minutes.ago
+  end
+
   protected
 
   def sanitize

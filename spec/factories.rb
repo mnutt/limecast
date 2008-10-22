@@ -11,7 +11,6 @@ Factory.define :podcast do |p|
   p.title 'Podcast'
   p.site  { Factory.next :site }
   p.feeds { [Factory.create(:feed, :content => nil)] }
-
   p.clean_url { Factory.next :title }
 end
 
@@ -37,7 +36,7 @@ Factory.define :episode do |e|
   e.title       'Episode One'
   e.clean_url   '2008-Aug-1'
   e.duration    60
-  e.sources     { [Factory.create :source] }
+  e.sources     { [Factory.create(:source)] }
 
   e.published_at Time.parse("Aug 1, 2008")
 end

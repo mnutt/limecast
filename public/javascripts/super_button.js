@@ -40,14 +40,15 @@ jQuery.fn.extend({
     jQuery(this).map(function(){
       var me = jQuery(this);
 
-      me.find('.submit').click(function(){
+      me.find('select').change(function(){
+				 console.log("changing select");
         var delivery = me.find('select.delivery').val();
         var item = me.find('select.item').val();
 
         if(me.hasClass('download')) {
-          window.location = download_url(me, delivery, item);
+          me.find('a.super_button_button')[0].href = download_url(me, delivery, item);
         } else {
-          window.location = subscribe_url(me, delivery, item);
+          me.find('form')[0].action = subscribe_url(me, delivery, item);
         }
       });
     });

@@ -61,17 +61,17 @@ module ApplicationHelper
     label = item.file_name if item.class == Source
 
     in_parens = if item.class == Feed
-      format = if item.sources.count > 0 && !item.sources.first.format.nil?
+      format = if item.sources && item.sources.count > 0 && !item.sources.first.format.nil?
         item.sources.first.format.to_s
       end
-      bitrate = if item.bitrate > 0
-        "#{item.bitrate} Kbps"
+      bitrate = if item.bitrate and item.bitrate > 0
+        item.bitrate.to_bitrate.to_s
       end
 
       [format, bitrate].compact
     else item.class == Source
-      bitrate = if !item.feed.nil? && item.feed.bitrate > 0
-        "#{item.feed.bitrate} Kbps"
+      bitrate = if item.feed && item.feed.bitrate && item.feed.bitrate > 0
+        item.feed.bitrate.to_bitrate.to_s
       end
       file_size = item.size.to_file_size.to_s
 

@@ -94,6 +94,7 @@ div.podcast div#edit_actions ul li.delete a {
   background-image: url("../images/icons/delete.png");
 }
 div.podcast div.urls,
+div.podcast div.super_button,
 div.podcast div.authors {
   margin: 0 0 14px 0;
   clear: left;

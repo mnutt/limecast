@@ -6,7 +6,7 @@
 
   <%= render :partial => 'podcasts/small_cover' -%>
 
-  <% if @podcast.writable_by?(current_user) -%>
+  <% if current_user && @podcast.writable_by?(current_user) -%>
     <div id="edit_actions">
       <span class="label">This is mine!</span>
       <ul>
@@ -26,8 +26,6 @@
 
   <h2><%=h @podcast.custom_title %></h2>
 
-  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
-
   <div class="urls">
     <ul>
       <li class="site">
@@ -39,6 +37,8 @@
     </ul>
     <div class="clear"></div>
   </div>
+
+  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
 
   <div class="authors">
     <ul>

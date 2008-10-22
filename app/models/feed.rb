@@ -120,7 +120,7 @@ class Feed < ActiveRecord::Base
   def update_podcast!
     self.podcast = Podcast.find_by_site(@feed.link) || Podcast.new
     self.download_logo(@feed.image)
-    self.podcast.update_attributes(
+    self.podcast.update_attributes!(
       :title       => @feed.title,
       :description => @feed.summary,
       :language    => @feed.language,
@@ -128,12 +128,18 @@ class Feed < ActiveRecord::Base
       :owner_name  => @feed.owner_name,
       :site        => @feed.link
     )
-  rescue Exception
-    raise NoEnclosureException
+    p = self.podcast
+    p.save!
+  #rescue Exception
+  #  raise NoEnclosureException
   end
 
   def writable_by?(user)
     !!(user && user.active? && (self.finder_id == user.id || user.admin?))
+  end
+
+  def rfeed
+    @feed
   end
 
   protected

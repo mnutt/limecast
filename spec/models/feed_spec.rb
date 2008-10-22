@@ -9,8 +9,7 @@ end
 
 describe Feed, "being parsed" do
   before do
-    @podcast = Factory.create(:podcast)
-    @feed = Factory.create(:feed, :podcast => @podcast)
+    @feed = Factory.create(:feed)
     # Stubbing does NOT want to work here. This is an
     # ugly solution, but it works just fine.
     @feed.extend(StopDownloadLogo)
@@ -19,41 +18,39 @@ describe Feed, "being parsed" do
   end
 
   it 'should set the title of the podcast' do
-    @podcast.reload.title.should == "All About Everything"
+    @feed.podcast.reload.title.should == "All About Everything"
   end
 
   it 'should set the site link of the podcast' do
-    @podcast.reload.site.should == "http://www.example.com/podcasts/everything/index.html"
+    @feed.podcast.reload.site.should == "http://www.example.com/podcasts/everything/index.html"
   end
 
   it 'should set the description of the podcast' do
-    @podcast.reload.description.should =~ /^All About Everything is a show about everything/
+    @feed.podcast.reload.description.should =~ /^All About Everything is a show about everything/
   end
 
   it 'should set the language of the podcast' do
-    @podcast.reload.language.should == "en-us"
+    @feed.podcast.reload.language.should == "en-us"
   end
 end
 
 describe Feed, "updating episodes" do
   before do
-    @podcast = Factory.create(:podcast)
-    @feed = Factory.create(:feed, :podcast => @podcast)
+    @feed = Factory.create(:feed)
     
     @feed.extend(StopDownloadLogo)
   end
 
   it 'should create some episodes' do
-    @podcast.episodes.count.should == 0
     @feed.parse
-    @podcast.episodes.count.should == 3
+    @feed.podcast.episodes(true).count.should == 3
   end
 
   it 'should not duplicate episodes that already exist' do
     @feed.parse
-    @podcast.episodes.count.should == 3
+    @feed.podcast.episodes.count.should == 3
     @feed.parse
-    @podcast.episodes.count.should == 3
+    @feed.podcast.episodes.count.should == 3
   end
 end
 
@@ -117,14 +114,15 @@ describe Feed, "being created" do
   describe "when the submitting user is the podcast owner" do
     it 'should associate the podcast with the user as owner' do
       user = Factory.create(:user, :email => "john.doe@example.com")
-      @feed = Factory.create(:feed, :finder => user)
+      @podcast = Factory.create(:parsed_podcast)
+      @feed = Factory.create(:feed, :finder => user, :podcast => @podcast)
 
       @feed.extend(StopFetch)
       @feed.extend(StopDownloadLogo)
 
       @feed.async_create
 
-      @feed.reload.finder.should be_nil
+      @feed.reload.finder.should == user
       @feed.podcast.reload.owner.should == user
     end
   end

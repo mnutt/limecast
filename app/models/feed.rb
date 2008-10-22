@@ -130,8 +130,8 @@ class Feed < ActiveRecord::Base
     )
     p = self.podcast
     p.save!
-  #rescue Exception
-  #  raise NoEnclosureException
+  rescue RPodcast::NoEnclosureError
+    raise NoEnclosureException
   end
 
   def writable_by?(user)

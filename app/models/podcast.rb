@@ -25,7 +25,6 @@
 require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
-  belongs_to :user
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
   has_many :feeds
@@ -46,16 +45,14 @@ class Podcast < ActiveRecord::Base
 
   acts_as_taggable
 
-  before_save  :attempt_to_find_owner
-  before_save  :cache_custom_title
-  before_save  :sanitize_title
-  before_save  :sanitize_url
-  after_create :distribute_point, :if => '!user.nil?'
+  before_save :attempt_to_find_owner
+  before_save :cache_custom_title
+  before_save :sanitize_title
+  before_save :sanitize_url
 
   # Search
   define_index do
     indexes :title, :site, :description
-    indexes user.login, :as => :user
     indexes owner.login, :as => :owner
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary
@@ -91,8 +88,22 @@ class Podcast < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    # TODO: refactor
-    !!(user and user.active? and ((self.user_id == user.id && !self.owner_id) || self.owner_id == user.id || user.admin?))
+    return false unless user and user.active?
+    return true if user.admin?
+    user_is_owner?(user) or (owner.nil? && user_is_finder?(user))
+  end
+
+  def user_is_owner?(user)
+    return false if owner.nil? or user.nil?
+    owner.id == user.id
+  end
+
+  def user_is_finder?(user)
+    self.feeds && self.feeds.map{|f| f.finder_id}.include?(user.id)
+  end
+
+  def finders
+    self.feeds.map(&:finder).compact
   end
 
   protected
@@ -130,17 +141,13 @@ class Podcast < ActiveRecord::Base
     self.clean_url
   end
 
-  def distribute_point
-    self.user.score += 1
-    self.user.save
-  end
-
   def cache_custom_title
     self.custom_title = custom_title.blank? ? title : custom_title
   end
 
   def attempt_to_find_owner
-    self.owner ||= User.find_by_email(self.owner_email)
+    self.owner = User.find_by_email(self.owner_email)
+
     true
   end
 end

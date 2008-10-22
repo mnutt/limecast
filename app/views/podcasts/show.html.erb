@@ -42,9 +42,9 @@
 
   <div class="authors">
     <ul>
-    <% if @podcast.user -%>
+    <% unless @podcast.finders.empty? -%>
       <li class="user found_by">
-        Found by <%= link_to_profile @podcast.user -%>
+        Found by <%= @podcast.finders.map {|f| link_to_profile f }.to_sentence -%>
       </li>
     <% end -%>
     <% if @podcast.owner -%>

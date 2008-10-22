@@ -141,7 +141,9 @@ describe Podcast, "permissions" do
   describe "the finder" do
     before do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:parsed_podcast, :user_id => @user.id)
+      @podcast = Factory.create(:parsed_podcast, :feeds => [])
+      @feed = Factory.create(:feed, :finder_id => @user.id, :podcast => @podcast)
+      @podcast.reload
     end
 
     it 'should have write access' do
@@ -155,7 +157,7 @@ describe Podcast, "permissions" do
 
     it 'should not have write access if there is an owner set' do
       @owner = Factory.create(:user)
-      @podcast.owner = @owner
+      @podcast.update_attribute(:owner_email, @owner.email)
       @podcast.writable_by?(@user).should == false
     end
   end
@@ -163,14 +165,12 @@ describe Podcast, "permissions" do
   describe "the owner" do
     before do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:podcast, :owner_id => @user.id)
-      @podcast.owner_id = @user.id
-      @podcast.save
+      @podcast = Factory.create(:podcast, :owner_email => @user.email)
     end
 
     it 'should have write access' do
       @podcast.reload
-
+      @podcast.user_is_owner?(@user).should == true
       @podcast.writable_by?(@user).should == true
     end
 

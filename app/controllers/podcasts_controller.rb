@@ -34,7 +34,7 @@ class PodcastsController < ApplicationController
     
     if @feed.nil?
       render :partial => 'status_error'
-    elsif @feed.parsed? && podcast_created_just_now_by_user?(@podcast)
+    elsif @feed.parsed? && feed_created_just_now_by_user?(@feed)
       render :partial => 'status_added'
     elsif @feed.parsed?
       render :partial => 'status_conflict'
@@ -52,12 +52,11 @@ class PodcastsController < ApplicationController
   end
 
   def create
-    @podcast = Podcast.create(:user => current_user)
-    @podcast.feeds << Feed.create(params[:feed].keep_keys([:url]))
+    @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
 
     if current_user.nil?
-      session.data[:podcasts] ||= []
-      session.data[:podcasts] << @podcast.id
+      session.data[:feeds] ||= []
+      session.data[:feeds] << @feed.id
     end
 
     render :nothing => true
@@ -89,15 +88,15 @@ class PodcastsController < ApplicationController
 
   protected
   
-    def podcast_in_session?(podcast)
-      (session.data[:podcasts] and session.data[:podcasts].include?(podcast.id))
+    def feed_in_session?(feed)
+      (session.data[:feeds] and session.data[:feeds].include?(feed.id))
     end
     
-    def podcast_created_by_user?(podcast)
-      podcast_in_session?(podcast) or podcast.writable_by?(current_user)
+    def feed_created_by_user?(feed)
+      feed_in_session?(feed) or feed.writable_by?(current_user)
     end
 
-    def podcast_created_just_now_by_user?(podcast)
-      podcast_created_by_user?(podcast) && podcast.just_created?
+    def feed_created_just_now_by_user?(feed)
+      feed_created_by_user?(feed) && feed.just_created?
     end
 end

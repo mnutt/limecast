@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20081027172537) do
     t.string  "name"
     t.boolean "badge"
     t.boolean "blacklisted"
+    t.boolean "category"
     t.integer "map_to_id"
   end
 

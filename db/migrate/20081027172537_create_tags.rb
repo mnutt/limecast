@@ -7,6 +7,7 @@ class CreateTags < ActiveRecord::Migration
       t.string  'name'
       t.boolean 'badge'
       t.boolean 'blacklisted'
+      t.boolean 'category'
 
       t.integer 'map_to_id'
     end

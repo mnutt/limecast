@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081017163109) do
+ActiveRecord::Schema.define(:version => 20081023005551) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20081017163109) do
     t.string   "state",       :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
+    t.string   "format"
   end
 
   create_table "podcasts", :force => true do |t|

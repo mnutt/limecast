@@ -43,7 +43,6 @@ class Podcast < ActiveRecord::Base
   named_scope :parsed, lambda {
     { :conditions => {:id => Feed.parsed.map(&:podcast_id).uniq } }
   }
-
 	named_scope :tagged_with, lambda {|tag|
 		{ :conditions => {:id => (Tag.find_by_name(tag).taggings.podcasts.map(&:taggable_id).uniq rescue [])}}
 	}
@@ -109,6 +108,17 @@ class Podcast < ActiveRecord::Base
 
   def finders
     self.feeds.map(&:finder).compact
+  end
+
+  def tag_string=(v)
+    v.split.each do |tag_name|
+      t = Tag.find_by_name(tag_name) || Tag.create(:name => tag_name)
+      self.tags << t
+    end
+  end
+
+  def tag_string
+    self.tags.map(&:name).join(" ")
   end
 
   protected

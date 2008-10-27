@@ -16,13 +16,6 @@ describe Podcast do
     @podcast.logo.should_not be_nil
   end
 
-  it 'should be taggable' do
-		pending 'changing tags'
-    @podcast.tag_list = "hi"
-    @podcast.save
-    @podcast.tags.size.should == 1
-  end
-
   it 'should have a param with the name in it' do
     @podcast.send(:sanitize_url)
     @podcast.clean_url.should == "Podcast"
@@ -124,6 +117,41 @@ describe Podcast, "generating the clean url" do
   it 'should convert interior spaces to dashes' do
     @podcast.title = ' my $title '
     @podcast.send(:sanitize_url).should == 'my-title'
+  end
+end
+
+describe Podcast, "being saved with tag_string" do
+  before do
+    @podcast = Factory.create(:podcast)
+  end
+
+  it 'should create tags' do
+    lambda {
+      @podcast.update_attributes(:tag_string => "tag1 tag2 tag3")
+    }.should change(Tag, :count).by(3)
+  end
+end
+
+describe Podcast, "with associated tags" do
+  before do
+    @podcast1 = Factory.create(:podcast, :tag_string => "tag1 commontag")
+    @podcast2 = Factory.create(:podcast, :tag_string => "tag2 commontag")
+  end
+
+  it 'should be able to find all podcasts with a common tag' do
+    podcasts = Podcast.tagged_with("commontag")
+    podcasts.should include(@podcast1)
+    podcasts.should include(@podcast2)
+  end
+
+  it 'should be able to find a podcast with a unique tag' do
+    podcasts = Podcast.tagged_with("tag1")
+    podcasts.should     include(@podcast1)
+    podcasts.should_not include(@podcast2)
+
+    podcasts = Podcast.tagged_with("tag2")
+    podcasts.should_not include(@podcast1)
+    podcasts.should     include(@podcast2)
   end
 end
 

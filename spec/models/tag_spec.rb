@@ -48,5 +48,15 @@ describe Tag, "being created" do
       Factory.create(:tag, :name => "")
     }.should raise_error(ActiveRecord::RecordInvalid)
   end
+
+  it 'should not allow duplicate names' do
+    lambda {
+      Factory.create(:tag, :name => "a")
+    }.should change(Tag, :count).by(1)
+
+    lambda {
+      Factory.create(:tag, :name => "a")
+    }.should raise_error(ActiveRecord::RecordInvalid)
+  end
 end
 

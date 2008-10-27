@@ -45,7 +45,6 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password
 
-  acts_as_tagger
   acts_as_state_machine :initial => :pending
   state :passive
   state :pending, :enter => :make_activation_code

@@ -30,6 +30,9 @@ class Podcast < ActiveRecord::Base
   has_many :feeds
   has_many :episodes, :dependent => :destroy
 
+  has_many :taggings, :as => :taggable, :dependent => :destroy, :include => :tag
+  has_many :tags, :through => :taggings, :order => 'name ASC'
+
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],
@@ -41,9 +44,11 @@ class Podcast < ActiveRecord::Base
     { :conditions => {:id => Feed.parsed.map(&:podcast_id).uniq } }
   }
 
-  attr_accessor :has_episodes
+	named_scope :tagged_with, lambda {|tag|
+		{ :conditions => {:id => (Tag.find_by_name(tag).taggings.podcasts.map(&:taggable_id).uniq rescue [])}}
+	}
 
-  acts_as_taggable
+  attr_accessor :has_episodes
 
   before_save :attempt_to_find_owner
   before_save :cache_custom_title

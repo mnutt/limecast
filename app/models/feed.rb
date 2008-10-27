@@ -42,7 +42,7 @@ class Feed < ActiveRecord::Base
 
   def async_create
     fetch
-    parse
+    update_from_feed
   rescue Exception
     self.update_attributes(:state => 'failed', :error => $!.class.to_s)
   end
@@ -66,7 +66,11 @@ class Feed < ActiveRecord::Base
     rescue RPodcast::NoEnclosureError
       raise NoEnclosureException
     end
+  end
 
+  def update_from_feed
+    parse
+    
     update_podcast!
     update_episodes!
 
@@ -136,6 +140,28 @@ class Feed < ActiveRecord::Base
 
   def writable_by?(user)
     !!(user && user.active? && (self.finder_id == user.id || user.admin?))
+  end
+
+  def primary?
+    self.podcast.feeds.first == self
+  end
+
+  def similar_to_podcast?(podcast)
+    parse
+    return false unless @feed.link == @podcast.site
+    true
+  end
+
+  def apparent_format
+    if self.sources && self.sources.count > 0 && !self.sources.first.format.nil?
+      self.sources.first.format.to_s
+    end
+  end
+
+  def formatted_bitrate
+    if self.bitrate and self.bitrate > 0
+      self.bitrate.to_bitrate.to_s
+    end
   end
 
   def rfeed

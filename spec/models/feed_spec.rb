@@ -14,7 +14,7 @@ describe Feed, "being parsed" do
     # ugly solution, but it works just fine.
     @feed.extend(StopDownloadLogo)
 
-    @feed.parse
+    @feed.update_from_feed
   end
 
   it 'should set the title of the podcast' do
@@ -42,14 +42,14 @@ describe Feed, "updating episodes" do
   end
 
   it 'should create some episodes' do
-    @feed.parse
+    @feed.update_from_feed
     @feed.podcast.episodes(true).count.should == 3
   end
 
   it 'should not duplicate episodes that already exist' do
-    @feed.parse
+    @feed.update_from_feed
     @feed.podcast.episodes.count.should == 3
-    @feed.parse
+    @feed.update_from_feed
     @feed.podcast.episodes.count.should == 3
   end
 end
@@ -144,3 +144,31 @@ describe Feed, "being created" do
   end
 end
 
+describe Feed, "comparing to a podcast" do
+  describe "based on site url" do
+    before do
+      @feed = Factory.create(:feed, :podcast => @podcast)
+      @feed.update_from_feed
+      @podcast = @feed.podcast
+    end
+
+    it 'should match a similar podcast' do
+      @feed.similar_to_podcast?(@podcast).should == true
+    end
+    it 'should not match a different podcast' do
+      @podcast.site = "http://bad-site"
+      @feed.similar_to_podcast?(@podcast).should == false
+    end
+  end
+  describe "based on the episodes" do
+    before do
+      @feed = Factory.create(:feed, :podcast => @podcast)
+      @feed.update_from_feed
+      @podcast = @feed.podcast
+    end
+
+    it 'should match a similar podcast' do
+      
+    end
+  end
+end

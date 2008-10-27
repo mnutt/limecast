@@ -58,21 +58,12 @@ module ApplicationHelper
   end
 
   def super_button_delivery(item)
-    label = item.file_name if item.class == Source
+    label = item.class == Source ? item.file_name : item.format
 
     in_parens = if item.class == Feed
-      format = if item.sources && item.sources.count > 0 && !item.sources.first.format.nil?
-        item.sources.first.format.to_s
-      end
-      bitrate = if item.bitrate and item.bitrate > 0
-        item.bitrate.to_bitrate.to_s
-      end
-
-      [format, bitrate].compact
+      [item.apparent_format, item.formatted_bitrate].compact
     else item.class == Source
-      bitrate = if item.feed && item.feed.bitrate && item.feed.bitrate > 0
-        item.feed.bitrate.to_bitrate.to_s
-      end
+      bitrate = item.feed.formatted_bitrate if item.feed 
       file_size = item.size.to_file_size.to_s
 
       [bitrate, file_size].compact

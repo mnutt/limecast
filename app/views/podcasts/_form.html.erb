@@ -11,4 +11,35 @@
       <%= submit_tag "Save", :class => "button" -%>
     </div>
   <% end -%>
+
+  <div id="podcast_formats">
+    <% @podcast.feeds.each do |feed| -%>
+      <% form_for feed, :url => "/feed" do |f| -%>
+        <div class="feed_url"><%= feed.url -%></div>
+	<div class="feed_options">
+	  <%= f.label :itunes_link, "iTunes" -%>
+	  <%= f.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
+	  <%= f.label :format -%>
+	  <%= f.text_field :format, :size => 15 -%>
+	  <%= link_to "Change", "#" -%>
+	</div>
+	<div class="feed_meta">
+	  (<%= feed.apparent_format -%>, <%= feed.formatted_bitrate -%>)
+	  <% if feed.primary? -%>
+	    <span>Primary</span>
+	  <% else -%>
+	    <span><%= link_to "Make Primary", "#" -%></span>
+	    <span><%= link_to "Delete", "#" -%></span>
+	  <% end -%>
+	</div>
+	<br/>
+      <% end -%>
+    <% end -%>
+
+    <% form_for :feed, :url => "/new_feed" do |f| -%>
+      <%= f.text_field :url -%>
+      <span><%= link_to "Add", "#" -%></span>
+    <% end -%>
+  </div>
+	
 </div>

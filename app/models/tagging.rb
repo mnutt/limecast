@@ -2,9 +2,9 @@ class Tagging < ActiveRecord::Base
   belongs_to :taggable, :polymorphic => true
   belongs_to :tag
 
-  named_scope :podcasts, :conditions => {:taggable_type => 'podcast'}
-
   before_save :map_to_different_tag
+
+  named_scope :podcasts, :conditions => {:taggable_type => 'podcast'}
 
   protected
 

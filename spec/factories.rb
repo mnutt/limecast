@@ -1,6 +1,10 @@
 # Trying out factory girl. Check out the documentation here.
 # http://github.com/thoughtbot/factory_girl/tree/master
 
+Factory.define :tag do |t|
+	t.name { Factory.next :tag }
+end
+
 Factory.define :feed do |f|
   f.url     { "#{Factory.next :site}/feed.xml" }
   f.content { File.open("#{RAILS_ROOT}/spec/data/example.xml").read }
@@ -45,6 +49,10 @@ Factory.define :source do |s|
   s.url  "http://example.com/source.mpg"
   s.guid { (Time.now.to_i * rand).to_s }
   s.size 1234567890
+end
+
+Factory.sequence :tag do |n|
+	"tag#{n}"
 end
 
 Factory.sequence :login do |n|

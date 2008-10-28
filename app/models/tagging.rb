@@ -4,6 +4,8 @@ class Tagging < ActiveRecord::Base
 
   before_save :map_to_different_tag
 
+  validates_uniqueness_of :tag_id, :scope => :taggable_id
+
   named_scope :podcasts, :conditions => {:taggable_type => 'podcast'}
 
   def validate

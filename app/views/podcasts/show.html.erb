@@ -40,6 +40,10 @@
 
   <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
 
+  <div class="badges">
+    <%= @podcast.tags.map(&:name).to_sentence -%>
+  </div>
+
   <div class="authors">
     <ul>
     <% unless @podcast.finders.empty? -%>

@@ -72,6 +72,7 @@ class Feed < ActiveRecord::Base
     parse
     
     update_podcast!
+    update_badges!
     update_episodes!
 
     self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64), :state => 'parsed')
@@ -134,6 +135,15 @@ class Feed < ActiveRecord::Base
     )
   rescue RPodcast::NoEnclosureError
     raise NoEnclosureException
+  end
+
+  def update_badges!
+    self.podcast.tag_string = "hd" if @feed.hd?
+    self.podcast.tag_string = "creativecommons" if @feed.creative_commons?
+    self.podcast.tag_string = "video" if @feed.video?
+    self.podcast.tag_string = "audio" if @feed.audio?
+    self.podcast.tag_string = "explicit" if @feed.explicit?
+    self.podcast.tag_string = "torrent" if @feed.torrent?
   end
 
   def writable_by?(user)

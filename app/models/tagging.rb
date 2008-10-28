@@ -8,6 +8,14 @@ class Tagging < ActiveRecord::Base
 
   protected
 
+  def validate
+    if self.tag && self.tag.category?
+      if self.taggable && self.taggable.tags.select {|t| t.category? }.size >= 2
+        errors.add(:taggable, 'already has 2 category tags')
+      end
+    end
+  end
+
   def map_to_different_tag
     return if self.tag.nil?
 

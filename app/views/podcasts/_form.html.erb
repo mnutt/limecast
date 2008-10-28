@@ -14,14 +14,14 @@
 
   <div id="podcast_formats">
     <% @podcast.feeds.each do |feed| -%>
-      <% form_for feed, :url => "/feed" do |f| -%>
+      <% form_for feed, :class => 'edit_feed' do |f| -%>
         <div class="feed_url"><%= feed.url -%></div>
 	<div class="feed_options">
 	  <%= f.label :itunes_link, "iTunes" -%>
 	  <%= f.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
 	  <%= f.label :format -%>
 	  <%= f.text_field :format, :size => 15 -%>
-	  <%= link_to "Change", "#" -%>
+	  <%= link_to "Change", "#", :class => "submit" -%>
 	</div>
 	<div class="feed_meta">
 	  (<%= feed.apparent_format -%>, <%= feed.formatted_bitrate -%>)

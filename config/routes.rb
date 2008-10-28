@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :categories
   map.resources :comments
   map.resources :podcasts
+  map.resources :feeds
   map.resources :tags
 
   map.admin '/admin', :controller => 'admin', :action => 'index'

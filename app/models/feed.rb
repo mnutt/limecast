@@ -22,7 +22,7 @@ class Feed < ActiveRecord::Base
   class NoEnclosureException    < Exception; def message; "That's a text RSS feed, not an audio or video podcast." end end
   class DuplicateFeedExeption   < Exception; def message; "This feed has already been added to the system." end end
 
-  has_many :sources
+  has_many :sources, :dependent => :destroy
   belongs_to :podcast
   belongs_to :finder, :class_name => 'User'
 

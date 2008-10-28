@@ -6,8 +6,6 @@ class Tagging < ActiveRecord::Base
 
   named_scope :podcasts, :conditions => {:taggable_type => 'podcast'}
 
-  protected
-
   def validate
     if self.tag && self.tag.category?
       if self.taggable && self.taggable.tags.select {|t| t.category? }.size >= 2

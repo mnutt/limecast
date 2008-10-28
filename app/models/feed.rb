@@ -132,8 +132,6 @@ class Feed < ActiveRecord::Base
       :owner_name  => @feed.owner_name,
       :site        => @feed.link
     )
-    p = self.podcast
-    p.save!
   rescue RPodcast::NoEnclosureError
     raise NoEnclosureException
   end

@@ -5,14 +5,17 @@ jQuery(document).ready(function() {
   });
 
   jQuery('form.edit_feed a.submit').click(function(){
-    var edit_form = jQuery(this).parent();
+    var edit_form = jQuery(this).parent().parent();
     console.log(edit_form);
     jQuery.ajax({
       type: 'post',
       url: edit_form.attr('action'),
       data: edit_form.serialize(),
-      dataType: 'json',
       success: function(resp){
+	edit_form.find(".status").text("Feed updated.");
+      },
+      error: function(resp){
+	edit_form.find(".status").text("Error updating feed.");
       }
     });
     return false;

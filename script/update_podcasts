@@ -2,12 +2,11 @@
 root_path = File.join(File.dirname(__FILE__), '..')
 require "#{root_path}/config/environment.rb"
 
-Podcast.find(:all).each do |podcast|
+Feed.find(:all, :conditions => {:state => 'parsed'}).each do |feed|
   begin
-    puts "Getting episodes for #{podcast.title}"
-    podcast.feed.fetch
-    podcast.feed.update_podcast!
-    podcast.feed.update_episodes!
+    puts "Getting episodes for #{feed.podcast.title}"
+    feed.fetch
+    feed.update_from_feed
   rescue Exception => e
     puts "There was a problem: #{e.message}"
   end

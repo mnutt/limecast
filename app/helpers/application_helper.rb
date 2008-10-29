@@ -39,6 +39,10 @@ module ApplicationHelper
     unescaped_html = CGI.unescapeHTML(unescaped_html)
     unescaped_html.gsub!(/&apos;/, "'")
     unescaped_html.gsub!(/&quot;/, "\"")
+
+    # Replace CDATA junk
+    unescaped_html.gsub!(/\<\!\[CDATA\[/, '')
+    unescaped_html.gsub!(/\]\]\>/, '')
     return unescaped_html
   end
 
@@ -51,8 +55,6 @@ module ApplicationHelper
 
     # Replace paragraph tags with paragraph symbols
     html.gsub!(/<[Pp][^>]*>(.*?)\<\/[Pp]\>/, '\1 &#182; ')
-    # Replace CDATA junk
-    html.sub!(/\<\!\[CDATA\[(.*?)\]\]\>/, '\1')
 
     sanitize html, :tags => %w(a b i), :attributes => %w(href title)
   end

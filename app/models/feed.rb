@@ -21,6 +21,7 @@ class Feed < ActiveRecord::Base
   class InvalidAddressException < Exception; def message; "That's not a web address." end end
   class NoEnclosureException    < Exception; def message; "That's a text RSS feed, not an audio or video podcast." end end
   class DuplicateFeedExeption   < Exception; def message; "This feed has already been added to the system." end end
+  class FeedDoesNotMatchPodcast < Exception; def message; "This feed does not match the podcast that it is associated with." end end
 
   has_many :sources, :dependent => :destroy
   belongs_to :podcast
@@ -123,7 +124,9 @@ class Feed < ActiveRecord::Base
   end
 
   def update_podcast!
-    self.podcast = Podcast.find_by_site(@feed.link) || Podcast.new
+    self.podcast ||= Podcast.find_by_site(@feed.link) || Podcast.new
+    raise FeedDoesNotMatchPodcast unless self.similar_to_podcast?(self.podcast)
+
     self.download_logo(@feed.image)
     self.podcast.update_attributes!(
       :title       => @feed.title,
@@ -155,13 +158,14 @@ class Feed < ActiveRecord::Base
   end
 
   def similar_to_podcast?(podcast)
-    parse
-    return false unless @feed.link == @podcast.site
+    parse # rescue return false
+    return true if podcast.new_record?
+    return false unless URI::parse(@feed.link).host == URI::parse(podcast.site).host
     true
   end
 
   def apparent_format
-    if self.sources && self.sources.count > 0 && !self.sources.first.format.nil?
+    if !!self.sources.blank? && self.sources.first.format
       self.sources.first.format.to_s
     end
   end

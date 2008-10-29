@@ -1,17 +1,31 @@
 class FeedsController < ApplicationController
   def create
-    @podcast = Podcast.find params[:feed].delete(:podcast_id)
     @feed = Feed.new(params[:feed])
     @feed.finder = current_user
     
-    if @feed.similar_to_podcast?(@podcast)
-      if @feed.save
-        render :status => 200
-      else
-        render :status => 500
-      end
+    if @feed.save
+      render :nothing => true, :status => 200
     else
-      render :status => 500, :partial => "feed_does_not_match_podcast"
+      render :nothing => true, :status => 500
+    end
+  end
+
+  def status
+    @feed    = Feed.find_by_url(params[:feed])
+    @podcast = @feed.podcast unless @feed.nil?
+    
+    if @feed.nil?
+      render :partial => 'status_error'
+    elsif @feed.parsed? && feed_created_just_now_by_user?(@feed)
+      render :partial => 'status_added'
+    elsif @feed.parsed?
+      render :partial => 'status_conflict'
+    elsif @feed.failed?
+      render :partial => 'status_failed'
+    elsif @feed.pending?
+      render :partial => 'status_loading'
+    else
+      render :partial => 'status_error'
     end
   end
 

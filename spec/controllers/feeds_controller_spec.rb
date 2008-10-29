@@ -2,9 +2,79 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe FeedsController do
   describe "POST 'create'" do
-    it "should create the feed"
+    before(:each) do
+      @user = Factory.create(:user)
+      @podcast = Factory.create(:podcast)
+      login(@user)
+      post :create, :feed => {:podcast_id => @podcast.id, :url => "http://mysite.com/feed.xml" }
+    end
+
+    it "should create the feed" do
+      assigns(:feed).should be_kind_of(Feed)
+      assigns(:feed).should_not be_new_record
+    end
+
     it "should add the feed to the podcast" do
-      pending
+      assigns(:feed).podcast.should == @podcast
+    end
+
+    it "should associate the feed with the user" do
+      assigns(:feed).finder.should == @user
+    end
+  end
+
+
+  describe "POST /status" do
+    describe "for a podcast that has not yet been parsed" do
+      before(:each) do
+        @podcast = Factory.create(:podcast)
+        post :status, :feed => @podcast.feeds.first.url
+      end
+      
+      it 'should render the loading template' do
+        response.should render_template('feeds/_status_loading')
+      end
+    end
+
+    describe "for a podcast that has been parsed" do
+      before(:each) do
+        @podcast = Factory.create(:parsed_podcast)
+        controller.should_receive(:feed_created_just_now_by_user?).and_return(true)
+
+        post :status, :feed => @podcast.feeds.first.url
+      end
+      
+      it 'should render the added template' do
+        response.should render_template('feeds/_status_added')
+      end
+    end
+
+    describe "for a podcast that has failed" do
+      describe "because it was not a web address" do
+        before(:each) do
+          @podcast = Factory.create(:failed_podcast)
+          post :status, :feed => @podcast.feeds.first.url
+        end 
+        
+        it 'should render the error template' do
+          response.should render_template('feeds/_status_failed')
+        end
+      end
+
+      describe "because it was not found" do
+      end
+
+      describe "because it had a weird server error" do
+      end
+
+      describe "because it is on the blacklist" do
+      end
+
+      describe "because it is not an RSS feed" do
+      end
+
+      describe "because it is a text feed" do
+      end
     end
   end
 

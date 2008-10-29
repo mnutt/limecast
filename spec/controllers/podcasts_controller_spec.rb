@@ -138,60 +138,6 @@ describe PodcastsController do
       assigns(:feed).url.should == "http://mypodcast/feed.xml"
     end
   end
-
-  describe "POST /status" do
-    describe "for a podcast that has not yet been parsed" do
-      before(:each) do
-        @podcast = Factory.create(:podcast)
-        post :status, :feed => @podcast.feeds.first.url
-      end
-      
-      it 'should render the loading template' do
-        response.should render_template('podcasts/_status_loading')
-      end
-    end
-
-    describe "for a podcast that has been parsed" do
-      before(:each) do
-        @podcast = Factory.create(:parsed_podcast)
-        controller.should_receive(:feed_created_just_now_by_user?).and_return(true)
-
-        post :status, :feed => @podcast.feeds.first.url
-      end
-      
-      it 'should render the added template' do
-        response.should render_template('podcasts/_status_added')
-      end
-    end
-
-    describe "for a podcast that has failed" do
-      describe "because it was not a web address" do
-        before(:each) do
-          @podcast = Factory.create(:failed_podcast)
-          post :status, :feed => @podcast.feeds.first.url
-        end 
-        
-        it 'should render the error template' do
-          response.should render_template('podcasts/_status_failed')
-        end
-      end
-
-      describe "because it was not found" do
-      end
-
-      describe "because it had a weird server error" do
-      end
-
-      describe "because it is on the blacklist" do
-      end
-
-      describe "because it is not an RSS feed" do
-      end
-
-      describe "because it is a text feed" do
-      end
-    end
-  end
 # 
 #   describe "handling GET /podcasts/1/edit" do
 # 

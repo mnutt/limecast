@@ -21,7 +21,7 @@ end
 Factory.define :parsed_podcast, :class => Podcast do |p|
   p.title 'Podcast'
   p.site  { Factory.next :site }
-  p.feeds { [Factory.create(:feed, :url => "http://parsedpodcast/feed.xml", :content => nil, :state => 'parsed')] }
+  p.feeds {|a| [Factory.create(:feed, :url => "#{a.site}/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read, :state => 'parsed')] }
 
   p.clean_url { Factory.next :title }
 end

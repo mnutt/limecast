@@ -27,17 +27,20 @@ depend :remote, :gem, 'mysql',           '=2.7'
 
 desc "Backup database"
 task :backup, :roles => :db, :only => { :primary => true } do
-  filename = "/tmp/#{application}.dump.#{Time.now.to_f}.sql.bz2"
+  filename = "/tmp/#{application}.dump.#{stage}.#{Time.now.to_f}.sql.bz2"
 
   # the on_rollback handler is only executed if this task is executed within
   # a transaction (see below), AND it or a subsequent task fails.
   on_rollback { delete filename }
 
-  set :production_database_password do
-    Capistrano::CLI.password_prompt 'Production database password: '
+  set :database do
+    run "cd #{shared_path}; cat database.yml" do |channel, stream, data|
+      @data = data
+    end
+    YAML::load(@data)
   end
 
-  run "mysqldump -u limecast -p limecast |bzip2 -c > #{filename}" do |ch, stream, out|
+  run "mysqldump -u limecast -p#{database['production']['password']} limecast |bzip2 -c > #{filename}" do |ch, stream, out|
     ch.send_data "#{production_database_password}\n" if out =~ /^Enter password:/
   end
   `rsync #{user}@#{domain}:#{filename} #{File.dirname(__FILE__)}/../backups/`

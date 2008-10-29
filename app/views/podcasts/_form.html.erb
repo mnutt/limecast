@@ -24,7 +24,7 @@
 	  <%= link_to "Change", "#", :class => "submit" -%>
 	</div>
 	<div class="feed_meta">
-	  (<%= feed.apparent_format -%>, <%= feed.formatted_bitrate -%>)
+	  (<%= [feed.apparent_format, feed.formatted_bitrate].compact.join(", ") -%>)
 	  <% if feed.primary? -%>
 	    <span>Primary</span>
 	  <% else -%>

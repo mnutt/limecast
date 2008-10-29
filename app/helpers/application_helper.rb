@@ -70,7 +70,7 @@ module ApplicationHelper
     end
 
     in_parens = unless in_parens.empty?
-      "(#{in_parens.join(', ')})"
+      "(#{in_parens.compact.join(', ')})"
     end
 
     [label, in_parens].join(" ")

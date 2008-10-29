@@ -6,11 +6,7 @@
   <% end -%>
 
   <span class="comment_rating">
-    <% if comment.positive -%>
-      <%= image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating') -%>
-    <% else -%>
-      <%= image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating') -%>
-    <% end -%>
+    <%= comment_rating(comment) -%>
   </span>
   
   <span class="comment_title">
@@ -32,5 +28,4 @@
   <% end -%>
   
   <%= render :partial => 'comments/comment_rating_links', :object => comment -%>
-
 </li>

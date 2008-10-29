@@ -16,6 +16,7 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
+    @podcast = @comment.episode.podcast
 
     redirect_to(:back) rescue redirect_to('/') unless @comment.editable?
   end

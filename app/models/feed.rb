@@ -165,15 +165,11 @@ class Feed < ActiveRecord::Base
   end
 
   def apparent_format
-    if !!self.sources.blank? && self.sources.first.format
-      self.sources.first.format.to_s
-    end
+    self.sources.first.attributes['format'].to_s unless self.sources.blank?
   end
 
   def formatted_bitrate
-    if self.bitrate and self.bitrate > 0
-      self.bitrate.to_bitrate.to_s
-    end
+    self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
   end
 
   def rfeed

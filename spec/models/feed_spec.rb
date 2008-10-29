@@ -114,16 +114,18 @@ describe Feed, "being created" do
   describe "when the submitting user is the podcast owner" do
     it 'should associate the podcast with the user as owner' do
       user = Factory.create(:user, :email => "john.doe@example.com")
-      @podcast = Factory.create(:parsed_podcast)
-      @feed = Factory.create(:feed, :finder => user, :podcast => @podcast)
+      @podcast = Factory.create(:parsed_podcast, :site => "http://www.example.com/")
+      @feed = @podcast.feeds.first
+      @feed.finder = user
 
       @feed.extend(StopFetch)
       @feed.extend(StopDownloadLogo)
-
+      
       @feed.async_create
 
       @feed.reload.finder.should == user
-      @feed.podcast.reload.owner.should == user
+      @feed.podcast.should be_kind_of(Podcast)
+      @feed.podcast.owner.should == user
     end
   end
 
@@ -156,7 +158,7 @@ describe Feed, "comparing to a podcast" do
       @feed.similar_to_podcast?(@podcast).should == true
     end
     it 'should not match a different podcast' do
-      @podcast.site = "http://bad-site"
+      @podcast.site = "http://bad-site/blah/foo"
       @feed.similar_to_podcast?(@podcast).should == false
     end
   end

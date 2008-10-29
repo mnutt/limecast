@@ -28,25 +28,6 @@ class PodcastsController < ApplicationController
   def new
   end
 
-  def status
-    @feed    = Feed.find_by_url(params[:feed])
-    @podcast = @feed.podcast unless @feed.nil?
-    
-    if @feed.nil?
-      render :partial => 'status_error'
-    elsif @feed.parsed? && feed_created_just_now_by_user?(@feed)
-      render :partial => 'status_added'
-    elsif @feed.parsed?
-      render :partial => 'status_conflict'
-    elsif @feed.failed?
-      render :partial => 'status_failed'
-    elsif @feed.pending?
-      render :partial => 'status_loading'
-    else
-      render :partial => 'status_error'
-    end
-  end
-
   def cover
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
   end

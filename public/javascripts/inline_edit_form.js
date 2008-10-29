@@ -6,7 +6,6 @@ jQuery(document).ready(function() {
 
   jQuery('form.edit_feed a.submit').click(function(){
     var edit_form = jQuery(this).parent().parent();
-    console.log(edit_form);
     jQuery.ajax({
       type: 'post',
       url: edit_form.attr('action'),

@@ -37,11 +37,15 @@
       <% end -%>
     <% end -%>
 
-    <% form_for :feed, :url => feeds_url do |f| -%>
-      <div>
-	<label for="feed_url" class="default" style="display:none;">http://example.com/rss.xml</label>
-	<input type='text'   class="text"   id="feed_url" name="feed[url]" />
-	<input type='submit' class="button" value="Add" />
+    <div id="added_podcast_list"></div>
+
+    <% form_for :feed, :url => feeds_url, :html => { :id => 'new_podcast' } do |f| -%>
+      <div class="feed huge">
+        <div>
+	  <label for="feed_url" class="default" style="display:none;">http://example.com/rss.xml</label>
+	  <input type='text'   class="text"   id="feed_url" name="feed[url]" />
+	  <input type='submit' class="button" value="Add" />
+        </div>
       </div>
     <% end -%>
 

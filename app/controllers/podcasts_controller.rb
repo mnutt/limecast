@@ -1,6 +1,5 @@
 class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token, :only => :status
 
   def index
     @podcasts = Podcast.parsed.find(:all, :order => "title ASC")
@@ -66,18 +65,4 @@ class PodcastsController < ApplicationController
 
     redirect_to(podcasts_url)
   end
-
-  protected
-  
-    def feed_in_session?(feed)
-      (session.data[:feeds] and session.data[:feeds].include?(feed.id))
-    end
-    
-    def feed_created_by_user?(feed)
-      feed_in_session?(feed) or feed.writable_by?(current_user)
-    end
-
-    def feed_created_just_now_by_user?(feed)
-      feed_created_by_user?(feed) && feed.just_created?
-    end
 end

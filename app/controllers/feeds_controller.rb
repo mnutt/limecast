@@ -1,12 +1,22 @@
 class FeedsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => :status
+
   def create
     @feed = Feed.new(params[:feed])
     @feed.finder = current_user
     
-    if @feed.save
-      render :nothing => true, :status => 200
-    else
-      render :nothing => true, :status => 500
+    respond_to do |format|
+      format.js do 
+        if @feed.save
+          render :nothing => true, :status => 200
+        else
+          render :nothing => true, :status => 500
+        end
+      end
+      format.html do
+        @feed.save
+        redirect_to podcast_url(@feed.podcast)
+      end
     end
   end
 
@@ -64,4 +74,17 @@ class FeedsController < ApplicationController
     end
   end
 
+  protected
+  
+    def feed_in_session?(feed)
+      (session.data[:feeds] and session.data[:feeds].include?(feed.id))
+    end
+    
+    def feed_created_by_user?(feed)
+      feed_in_session?(feed) or feed.writable_by?(current_user)
+    end
+
+    def feed_created_just_now_by_user?(feed)
+      feed_created_by_user?(feed) && feed.just_created?
+    end
 end

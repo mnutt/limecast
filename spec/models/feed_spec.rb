@@ -72,7 +72,6 @@ describe Feed, "being created" do
     @feed = @podcast.feeds.first
   end
 
-
   describe 'with normal RSS feed' do
     it 'should save the error that the feed is not for a podcast' do
       @feed.extend(StopFetch)
@@ -137,6 +136,18 @@ describe Feed, "being created" do
     end
   end
 
+  describe "when it is associated with a podcast that it does not belong to" do
+    it "should save the error that the feed is mismatched" do
+      @feed = Factory.create(:feed, :podcast_id => @podcast.id, :url => "http://badmatch.com/")
+      
+      @feed.extend(StopFetch)
+      @feed.extend(StopDownloadLogo)
+      @feed.async_create
+      
+      @feed.error.should == "Feed::FeedDoesNotMatchPodcast"
+    end
+  end
+
   describe "but failing to be parsed" do
     it "should delete the Podcast" do
       @feed.update_attributes(:state => 'failed')
@@ -147,30 +158,24 @@ describe Feed, "being created" do
 end
 
 describe Feed, "comparing to a podcast" do
+  before do
+    @podcast = Factory.create(:parsed_podcast)
+    @feed = @podcast.feeds.first
+  end
+
   describe "based on site url" do
     before do
-      @feed = Factory.create(:feed, :podcast => @podcast)
-      @feed.update_from_feed
-      @podcast = @feed.podcast
+      @feed.extend(StopFetch)
+      @feed.extend(StopDownloadLogo)
     end
 
     it 'should match a similar podcast' do
+      @podcast.site = "http://www.example.com"
       @feed.similar_to_podcast?(@podcast).should == true
     end
     it 'should not match a different podcast' do
       @podcast.site = "http://bad-site/blah/foo"
       @feed.similar_to_podcast?(@podcast).should == false
-    end
-  end
-  describe "based on the episodes" do
-    before do
-      @feed = Factory.create(:feed, :podcast => @podcast)
-      @feed.update_from_feed
-      @podcast = @feed.podcast
-    end
-
-    it 'should match a similar podcast' do
-      
     end
   end
 end

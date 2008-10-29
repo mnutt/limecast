@@ -113,7 +113,7 @@ class Podcast < ActiveRecord::Base
   def tag_string=(v)
     v.split.each do |tag_name|
       t = Tag.find_by_name(tag_name) || Tag.create(:name => tag_name)
-      self.tags << t
+      self.tags << t unless self.tags.include?(t)
     end
   end
 

@@ -56,9 +56,9 @@
             <% end -%>
             </li>
             <li class="search">
-              <% form_for :search, :url => search_url do |form| -%>
+              <% form_for :search, :url => search_url, :html => {:method => :get } do |form| -%>
                 <label for="q" class="default search">Search...</label>
-                <%= text_field_tag "q", params[:query], :size => 15, :class => "text search" %>
+                <%= text_field_tag "q", params[:q], :size => 15, :class => "text search" %>
                 <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
               <% end -%>
             </li>

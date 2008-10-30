@@ -5,6 +5,7 @@ jQuery.fn.extend({
 
     var phrases = [];
     var separator = "[\\s.,()\\[\\]]+";
+    var separator = "[\\s.,()\\[\\]]+";
 
     // Finds the phrases in the text
     for(var i = 0, n = terms.length; i < n; ++i) {
@@ -30,7 +31,21 @@ jQuery.fn.extend({
     var matched   = text.match(largestPhrase).join("");
     var unmatched = text.split(largestPhrase);
     var before    = unmatched[0];
-    var after     = unmatched.slice(1, unmatched.length);
+    var after     = unmatched.slice(1, unmatched.length).join("");
+
+    var n = 1;
+
+    var contextBefore = new RegExp("\\w+(\\W+\\w+){" + (n-1) + "}\\W+$");
+    var contextAfter  = new RegExp("^\\W+(\\w+\\W+){" + (n-1) + "}\\w+");
+
+    var m = before.match(contextBefore);
+    if(m) {
+      before = '...' + m[0];
+    }
+    m = after.match(contextAfter);
+    if(m) {
+      after = m[0] + '...';
+    }
 
     var formattedString = [
       before,

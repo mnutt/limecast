@@ -36,6 +36,12 @@ class Episode < ActiveRecord::Base
   named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at DESC"} }
   named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at ASC"} }
 
+  define_index do
+    indexes :title, :summary
+
+    has :created_at
+  end
+
   def generate_url
     base_title = self.published_at.to_date.to_s(:url)
     

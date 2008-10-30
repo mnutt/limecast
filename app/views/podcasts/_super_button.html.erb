@@ -3,7 +3,7 @@
     <%= options_for_select(feeds.parsed.map {|f| [super_button_delivery(f), f.id] }) -%>
   </select>
 
-  <% feeds.select {|f| !f.itunes_link.nil? }.each do |feed| -%>
+  <% feeds.select {|f| !f.itunes_link.blank? }.each do |feed| -%>
   <input type="hidden" id="itunes_<%= feed.id %>" value="<%= feed.itunes_link %>" />
   <% end -%>
 

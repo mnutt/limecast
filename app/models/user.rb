@@ -80,6 +80,12 @@ class User < ActiveRecord::Base
 
   named_scope :older_than, lambda {|date| {:conditions => ["users.created_at < (?)", date]} }
 
+  define_index do
+    indexes :login, :email
+
+    has :created_at
+  end
+
   # Authenticates a user by their login name or email and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
 		u = if login =~ /@/

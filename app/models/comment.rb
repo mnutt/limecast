@@ -29,6 +29,12 @@ class Comment < ActiveRecord::Base
   named_scope :that_are_positive, :conditions => {:positive => true}
   named_scope :that_are_negative, :conditions => {:positive => false}
 
+  define_index do
+    indexes :title, :body
+
+    has :created_at
+  end
+
   def editable?
     self.episode.open_for_comments?
   end

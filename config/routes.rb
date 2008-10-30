@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resource  :session
 
-  map.search    '/search/:query', :controller => 'podcasts', :action => 'search'
+  map.search    '/search', :controller => 'search',   :action => 'index'
 
   map.signup    '/signup',        :controller => 'users',    :action => 'new'
   map.login     '/login',         :controller => 'sessions', :action => 'new'
@@ -32,7 +32,6 @@ ActionController::Routing::Routes.draw do |map|
   map.add_podcast '/add',         :controller => 'podcasts', :action => 'new'
   map.status      '/status',      :controller => 'feeds',    :action => 'status'
   map.all         '/all',         :controller => 'podcasts', :action => 'index'
-  map.search      '/search',      :controller => 'podcasts', :action => 'search'
   map.all_users   '/users',       :controller => 'users',    :action => 'index'
   map.user        '/user/:user',  :controller => 'users',    :action => 'show', :conditions => {:method => :get}
   map.user        '/user/:user',  :controller => 'users',    :action => 'update', :conditions => {:method => :post}

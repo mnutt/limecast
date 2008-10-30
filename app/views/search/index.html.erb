@@ -1,0 +1,22 @@
+<p>You searched for '<%=h params[:query] -%>'</p>
+
+<h3>Podcasts</h3>
+<ul>
+  <%= render :partial => 'podcast', :collection => @podcasts  -%>
+</ul>
+
+<h3>Episodes</h3>
+<ul>
+  <%= render :partial => 'episode', :collection => @episodes  -%>
+</ul>
+
+<h3>Reviews</h3>
+<ul>
+  <%= render :partial => 'comment', :collection => @comments  -%>
+</ul>
+
+<h3>Users</h3>
+<ul>
+  <%= render :partial => 'user', :collection => @users  -%>
+</ul>
+

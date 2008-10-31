@@ -100,6 +100,11 @@ namespace :limecast do
     run "cd #{latest_release}; RAILS_ENV=production rake paperclip:refresh CLASS=Podcast"
   end
 
+  desc "Manually update all podcast episodes"
+  task :update_podcasts, :roles => :app do
+    run "cd #{latest_release}; RAILS_ENV=production script/update_podcasts"
+  end
+
   # Tasks to run after setup
   namespace :setup do
     desc 'Setup initial shared resources'

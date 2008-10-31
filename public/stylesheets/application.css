@@ -14,6 +14,9 @@ div.quick_signin form div.response_container {
 /**
 * Users
 **/
+div.user li.podcast {
+  float: none;
+}
 div.user div#edit_actions {
   margin: 0 0 14px 0;
 }

@@ -131,3 +131,17 @@ jQuery(document).ready(function(){
   jQuery('div.super_button').superButton();
   jQuery('div.super_button.subscribe').updateDeliveryForSubscribe();
 });
+
+// Hook up all of the search term highlighting
+jQuery(document).ready(function(){
+  var searchLabel = jQuery('label[for=q]').text();
+  var searchBox   = jQuery('input#q').val();
+  if(jQuery(document).searchTermContext && searchLabel != searchBox) {
+    jQuery('#primary li p').map(function(){
+      jQuery(this).searchTermContext({
+        query: searchBox,
+        format: function(s) { return '<b>' + s + '</b>'; }
+      });
+    });
+  }
+});

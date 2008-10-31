@@ -1,7 +1,11 @@
+// jQuery("<p>this <span>is a</span> bunch of text</p>").searchTermContext({query: 'this a bunch', wordsOfContext: 3, format: function(s){ return "<b>" + s + "</b>"; }}).text()
+
 jQuery.fn.extend({
   searchTermContext: function(opts) {
     var text = jQuery(this).text();
     var terms = opts['query'].split(' ');
+    var wordsOfContext = opts['wordsOfContext'] || 15;
+    var format = opts['format'] || function(s) { return '<em>' + s + '</em>'; };
 
     var phrases = [];
     var separator = "[\\s.,()\\[\\]]+";
@@ -26,34 +30,37 @@ jQuery.fn.extend({
     });
     var largestPhrase = sortedPhrases[0];
 
-    // Gets the text that matched the largest phrase, as well as the text
-    // before and after the largest phrase.
-    var matched   = text.match(largestPhrase).join("");
-    var unmatched = text.split(largestPhrase);
-    var before    = unmatched[0];
-    var after     = unmatched.slice(1, unmatched.length).join("");
-
-    var n = 1;
-
-    var contextBefore = new RegExp("\\w+(\\W+\\w+){" + (n-1) + "}\\W+$");
-    var contextAfter  = new RegExp("^\\W+(\\w+\\W+){" + (n-1) + "}\\w+");
-
-    var m = before.match(contextBefore);
-    if(m) {
-      before = '...' + m[0];
+    function lastNWords(s, n) {
+      var contextBefore = new RegExp("\\w+(\\W+\\w+){" + (n-1) + "}\\W+$");
+      var m = s.match(contextBefore);
+      if(m) { s = '...' + m[0]; }
+      return s;
     }
-    m = after.match(contextAfter);
-    if(m) {
-      after = m[0] + '...';
+    function firstNWords(s, n) {
+      var contextAfter = new RegExp("^\\W+(\\w+\\W+){" + (n-1) + "}\\w+");
+      var m = s.match(contextAfter);
+      if(m) { s = m[0] + '...'; }
+      return s;
     }
 
-    var formattedString = [
-      before,
-      opts['format'](matched),
-      after
-    ].join("");
+    if(largestPhrase) {
+      // Gets the text that matched the largest phrase, as well as the text
+      // before and after the largest phrase.
+      var matched   = text.match(largestPhrase).join("");
+      var unmatched = text.split(largestPhrase);
+      var before    = unmatched[0];
+      var after     = unmatched.slice(1, unmatched.length).join("");
 
-    jQuery(this).text(formattedString);
+      var formattedString = [
+        lastNWords(before, wordsOfContext),
+        format(matched),
+        firstNWords(after, wordsOfContext)
+      ].join("");
+  
+      jQuery(this).html(formattedString);
+    } else {
+      jQuery(this).html(firstNWords(text, wordsOfContext * 2));
+    }
 
     return jQuery(this);
   }

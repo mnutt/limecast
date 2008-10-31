@@ -79,24 +79,6 @@ class Feed < ActiveRecord::Base
     self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64), :state => 'parsed')
   end
 
-  def download_logo(link)
-    file = PaperClipFile.new
-    file.original_filename = File.basename(link)
-
-    open(link) do |f|
-      return unless f.content_type =~ /^image/
-
-      file.content_type = f.content_type
-      file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
-        tmp.write(f.read)
-        tmp.rewind
-        tmp
-      end
-    end
-
-    self.podcast.attachment_for(:logo).assign(file)
-  end
-
   def update_episodes!
     @feed.episodes.each do |e|
       # XXX: Definitely need to figure out something better for this.
@@ -127,7 +109,7 @@ class Feed < ActiveRecord::Base
     self.podcast ||= Podcast.find_by_site(@feed.link) || Podcast.new
     raise FeedDoesNotMatchPodcast unless self.similar_to_podcast?(self.podcast)
 
-    self.download_logo(@feed.image)
+    self.podcast.download_logo(@feed.image)
     self.podcast.update_attributes!(
       :title       => @feed.title,
       :description => @feed.summary,

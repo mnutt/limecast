@@ -38,7 +38,7 @@ describe Feed, "updating episodes" do
   before do
     @feed = Factory.create(:feed)
     
-    @feed.extend(StopDownloadLogo)
+    @feed.podcast.extend(StopDownloadLogo)
   end
 
   it 'should create some episodes' do
@@ -61,7 +61,7 @@ describe Feed, "downloading the logo for its podcast" do
   end
 
   it 'should not set the logo_filename for a bad link' do
-    @feed.download_logo('http://google.com')
+    @podcast.download_logo('http://google.com')
     @podcast.logo_file_name.should be_nil
   end
 end
@@ -118,7 +118,7 @@ describe Feed, "being created" do
       @feed.finder = user
 
       @feed.extend(StopFetch)
-      @feed.extend(StopDownloadLogo)
+      @feed.podcast.extend(StopDownloadLogo)
       
       @feed.async_create
 
@@ -141,7 +141,7 @@ describe Feed, "being created" do
       @feed = Factory.create(:feed, :podcast_id => @podcast.id, :url => "http://badmatch.com/")
       
       @feed.extend(StopFetch)
-      @feed.extend(StopDownloadLogo)
+      @feed.podcast.extend(StopDownloadLogo)
       @feed.async_create
       
       @feed.error.should == "Feed::FeedDoesNotMatchPodcast"
@@ -166,7 +166,7 @@ describe Feed, "comparing to a podcast" do
   describe "based on site url" do
     before do
       @feed.extend(StopFetch)
-      @feed.extend(StopDownloadLogo)
+      @feed.podcast.extend(StopDownloadLogo)
     end
 
     it 'should match a similar podcast' do

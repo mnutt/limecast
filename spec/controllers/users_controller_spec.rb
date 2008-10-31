@@ -212,3 +212,14 @@ describe UsersController, "handling POST /user/:user" do
     end
   end
 end
+
+describe UsersController, "handling GET /user" do
+  before(:each) do
+    @user = Factory.create(:user)
+    get :index
+  end
+
+  it 'should have a list of users' do
+    assigns(:users).should == [@user]
+  end
+end

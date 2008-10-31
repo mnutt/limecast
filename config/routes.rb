@@ -32,7 +32,7 @@ ActionController::Routing::Routes.draw do |map|
   map.add_podcast '/add',         :controller => 'podcasts', :action => 'new'
   map.status      '/status',      :controller => 'feeds',    :action => 'status'
   map.all         '/all',         :controller => 'podcasts', :action => 'index'
-  map.all_users   '/users',       :controller => 'users',    :action => 'index'
+  map.all_users   '/user',        :controller => 'users',    :action => 'index'
   map.user        '/user/:user',  :controller => 'users',    :action => 'show', :conditions => {:method => :get}
   map.user        '/user/:user',  :controller => 'users',    :action => 'update', :conditions => {:method => :post}
   map.tag         '/tag/:tag',    :controller => 'tags',     :action => 'show'

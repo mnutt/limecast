@@ -2,7 +2,7 @@
 <% javascript_include "comment_new" -%>
 
 <% form_for @comment, :url => comments_url do |f| -%>
-  <%= render :partial => "comments/comment_form", :locals => {:options => options, :f => f} %>
+  <%= render :partial => "comments/comment_form", :locals => {:options => options, :f => f, :podcast => @comment.episode.podcast} %>
 <% end -%>
 
 <%= render :partial => "users/quick_signin" -%>

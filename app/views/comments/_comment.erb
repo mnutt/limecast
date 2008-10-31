@@ -32,7 +32,7 @@
   </div>
   <div class="edit_review" style="display:none;">
     <% form_for comment, comments_url, :method => :post do |f| -%>
-      <%= render :partial => 'comments/comment_form', :locals => {:f => f} -%>
+      <%= render :partial => 'comments/comment_form', :locals => {:f => f, :podcast => comment.episode.podcast} -%>
     <% end -%>
   </div>
 </li>

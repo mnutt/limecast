@@ -33,7 +33,7 @@ describe PodcastsController do
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
       @podcast.feeds.first.extend(StopRemoveEmptyPodcast)
-      @podcast.feeds.first.async_create
+      @podcast.feeds.first.refresh
       @podcast.reload
     end
   

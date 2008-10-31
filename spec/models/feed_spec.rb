@@ -14,6 +14,7 @@ describe Feed, "being parsed" do
     # ugly solution, but it works just fine.
     @feed.extend(StopDownloadLogo)
 
+    @feed.parse
     @feed.update_from_feed
   end
 
@@ -39,15 +40,15 @@ describe Feed, "updating episodes" do
     @feed = Factory.create(:feed)
     
     @feed.podcast.extend(StopDownloadLogo)
+    @feed.parse
+    @feed.update_from_feed
   end
 
   it 'should create some episodes' do
-    @feed.update_from_feed
     @feed.podcast.episodes(true).count.should == 3
   end
 
   it 'should not duplicate episodes that already exist' do
-    @feed.update_from_feed
     @feed.podcast.episodes.count.should == 3
     @feed.update_from_feed
     @feed.podcast.episodes.count.should == 3
@@ -76,7 +77,7 @@ describe Feed, "being created" do
     it 'should save the error that the feed is not for a podcast' do
       @feed.extend(StopFetch)
       @feed.content = File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
-      @feed.async_create
+      @feed.refresh
 
       @feed.error.should == "Feed::NoEnclosureException"
     end
@@ -85,7 +86,7 @@ describe Feed, "being created" do
   describe 'with a non-URL string' do
     it 'should save the error that the feed is not a URL' do
       @feed.url = "localhost"
-      @feed.async_create
+      @feed.refresh
 
       @feed.error.should == "Feed::InvalidAddressException"
     end
@@ -94,7 +95,7 @@ describe Feed, "being created" do
   describe "when a weird server error occurs" do
     it 'should save the error that an unknown exception occurred' do
       @feed.url = 'http://localhost:7'
-      @feed.async_create
+      @feed.refresh
 
       @feed.error.should == "Errno::ECONNREFUSED"
     end
@@ -104,7 +105,7 @@ describe Feed, "being created" do
     it 'should save the error that the site is on the blacklist' do
       Blacklist.create!(:domain => "restrictedsite")
       @feed.url = "http://restrictedsite/bad/feed.xml"
-      @feed.async_create
+      @feed.refresh
 
       @feed.error.should == "Feed::BannedFeedException"
     end
@@ -120,7 +121,7 @@ describe Feed, "being created" do
       @feed.extend(StopFetch)
       @feed.podcast.extend(StopDownloadLogo)
       
-      @feed.async_create
+      @feed.refresh
 
       @feed.reload.finder.should == user
       @feed.podcast.should be_kind_of(Podcast)
@@ -142,7 +143,7 @@ describe Feed, "being created" do
       
       @feed.extend(StopFetch)
       @feed.podcast.extend(StopDownloadLogo)
-      @feed.async_create
+      @feed.refresh
       
       @feed.error.should == "Feed::FeedDoesNotMatchPodcast"
     end

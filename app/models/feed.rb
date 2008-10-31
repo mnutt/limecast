@@ -41,8 +41,9 @@ class Feed < ActiveRecord::Base
 
   attr_accessor :content
 
-  def async_create
+  def refresh
     fetch
+    parse
     update_from_feed
   rescue Exception
     self.update_attributes(:state => 'failed', :error => $!.class.to_s)
@@ -70,8 +71,6 @@ class Feed < ActiveRecord::Base
   end
 
   def update_from_feed
-    parse
-    
     update_podcast!
     update_badges!
     update_episodes!

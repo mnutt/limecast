@@ -42,8 +42,7 @@ class Comment < ActiveRecord::Base
   protected
 
   def distribute_point
-    self.commenter.score += 1
-    self.commenter.save
+    with(self.commenter) {|u| u.score += 1; u.save }
   end
 
 end

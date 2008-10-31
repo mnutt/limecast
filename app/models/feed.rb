@@ -191,7 +191,6 @@ class Feed < ActiveRecord::Base
   end
 
   def distribute_point
-    self.finder.score += 1
-    self.finder.save
+		with(self.finder) {|u| u.score += 1; u.save }
   end
 end

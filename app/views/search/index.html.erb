@@ -2,23 +2,31 @@
 
 <p>You searched for '<%=h params[:q] -%>'</p>
 
+<% unless @podcasts.blank? -%>
 <h3>Podcasts</h3>
 <ul>
   <%= render :partial => 'podcast', :collection => @podcasts  -%>
 </ul>
+<% end -%>
 
+<% unless @episodes.blank? -%>
 <h3>Episodes</h3>
 <ul>
   <%= render :partial => 'episode', :collection => @episodes  -%>
 </ul>
+<% end -%>
 
+<% unless @comments.blank? -%>
 <h3>Reviews</h3>
 <ul>
   <%= render :partial => 'comment', :collection => @comments  -%>
 </ul>
+<% end -%>
 
+<% unless @users.blank? -%>
 <h3>Users</h3>
 <ul>
   <%= render :partial => 'user', :collection => @users  -%>
 </ul>
+<% end -%>
 

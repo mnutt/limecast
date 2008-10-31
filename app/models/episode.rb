@@ -45,14 +45,12 @@ class Episode < ActiveRecord::Base
   def generate_url
     base_title = self.published_at.to_date.to_s(:url)
     
-    i = 1
-    begin
+    iterate(1) do |i|
       self.clean_url = base_title.dup
       self.clean_url << "-#{i}" unless i == 1
 
-      count = Episode.with_same_title_as(self).without(self).count
-      i += 1
-    end while count > 0
+      Episode.with_same_title_as(self).without(self).count > 0
+    end
 
     self.clean_url
   end

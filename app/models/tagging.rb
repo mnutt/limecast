@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20081027172537
+#
+# Table name: taggings
+#
+#  id            :integer(4)    not null, primary key
+#  tag_id        :integer(4)    
+#  taggable_id   :integer(4)    
+#  taggable_type :string(255)   
+#
+
 class Tagging < ActiveRecord::Base
   belongs_to :taggable, :polymorphic => true
   belongs_to :tag

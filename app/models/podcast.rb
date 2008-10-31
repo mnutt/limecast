@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081010205531
+# Schema version: 20081027172537
 #
 # Table name: podcasts
 #
@@ -11,7 +11,6 @@
 #  logo_file_size    :string(255)   
 #  created_at        :datetime      
 #  updated_at        :datetime      
-#  user_id           :integer(4)    
 #  description       :text          
 #  language          :string(255)   
 #  category_id       :integer(4)    

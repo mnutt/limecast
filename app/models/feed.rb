@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081010205531
+# Schema version: 20081027172537
 #
 # Table name: feeds
 #
@@ -10,7 +10,10 @@
 #  podcast_id  :integer(4)    
 #  created_at  :datetime      
 #  updated_at  :datetime      
-#  state       :string(255)   
+#  state       :string(255)   default("pending")
+#  bitrate     :integer(4)    
+#  finder_id   :integer(4)    
+#  format      :string(255)   
 #
 
 require 'open-uri'

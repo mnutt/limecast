@@ -1,4 +1,7 @@
 <li>
-  <%= comment.title -%>
-  <p><%= comment.body -%></p>
+  <%= link_to_thing comment.episode.podcast -%>
+  <span class='searched'><%= comment.title -%></span>
+  <span class='searched'><%= comment.body -%></span>
+  <%= link_to_profile comment.commenter -%>
+  <%= link_to comment.episode.date_title, episode_url(comment.episode.podcast, comment.episode) -%>
 </li>

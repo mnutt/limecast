@@ -137,7 +137,7 @@ jQuery(document).ready(function(){
   var searchLabel = jQuery('label[for=q]').text();
   var searchBox   = jQuery('input#q').val();
   if(jQuery(document).searchTermContext && searchLabel != searchBox) {
-    jQuery('#primary li p').map(function(){
+    jQuery('#primary li .searched').map(function(){
       jQuery(this).searchTermContext({
         query: searchBox,
         format: function(s) { return '<b>' + s + '</b>'; }

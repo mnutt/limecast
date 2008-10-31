@@ -3,7 +3,7 @@
 <li id="<%=h dom_id(comment) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
   <div class="show_review">
     <% if with_podcast -%>
-      <%= link_to_thing(comment.episode.podcast) -%>
+      <%= link_to_podcast(comment.episode.podcast) -%>
     <% end -%>
 
     <span class="comment_rating">

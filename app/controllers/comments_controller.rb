@@ -56,8 +56,6 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        flash[:notice] = 'Comment was successfully updated.'
-
         format.html { redirect_to :back }
       else
         format.html { render :action => "edit" }

@@ -12,5 +12,6 @@
   <% if can_add_comments?(podcast.episodes.newest.first) %>
     <%= render :partial => 'comments/add_comment', :object => podcast -%>
   <% end %>
+
   <% reset_cycle('row_class') %>
 </div>

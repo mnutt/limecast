@@ -1,4 +1,4 @@
-/**
+
 * Quick Sign In/Up
 **/
 div.quick_signin.top_bar {
@@ -203,7 +203,7 @@ ul.reviews li.review cite {
   color: #ABABAB;
   margin: 0 5px 0 0;
 }
-ul.reviews li.review span.comment_rating img {
+ul.reviews li.review span.rating img {
   margin-bottom: -2px;
 }
 ul.reviews li.review cite a {

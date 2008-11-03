@@ -7,6 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="description" content="Coming 2009 March"/>
 
+<% (@feeds || []).each do |feed| %>
+  <%= rss_link(feed) -%>
+<% end %>
+
 <%= stylesheet_link_tag 'base', 'application' -%>
 
 <%= javascript_include_tag 'jquery' -%>

@@ -19,21 +19,13 @@
         <p><%=sanitize_summary @episode.summary %></p>
       </div>
     
-      <%= render :partial => 'episodes/download', :object => @episode -%>
+      <%= render :partial => 'episodes/super_button', :locals => {:sources => @episode.sources} -%>
       
       <div class="clear"></div>
     </div>
     
-    <h2>Reviews</h2>
-    <div class="reviews">
-      <ul class="reviews">
-	<%= render :partial => 'comments/comments', :object => @episode -%>
-      </ul>
-
-      <% if can_add_comments?(@episode) %>
-        <%= render :partial => 'comments/add_comment', :object => @episode -%>
-      <% end %>
-    </div>
   </div>
+
+  <%= render :partial => 'comments/comments', :object => @episode.comments, :locals => { :podcast => @episode.podcast } -%>
   
 </div>

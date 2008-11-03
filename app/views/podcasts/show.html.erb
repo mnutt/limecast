@@ -112,22 +112,7 @@
       <% reset_cycle('row_class') %>
     </div>
     
-    <div class="reviews">
-      <h3>Reviews</h3>
-
-        <ul class="reviews">
-          <%= render :partial => 'comments/comments', :object => @podcast.episodes.newest.first, :locals => {:short => true} -%>
-        </ul>
-
-        <% unless @comments.empty? -%>
- 	        <%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
-        <% end -%>
-
-      <% if can_add_comments?(@podcast.episodes.newest.first) %>
-        <%= render :partial => 'comments/add_comment', :object => @podcast -%>
-      <% end %>
-      <% reset_cycle('row_class') %>
-    </div>
+    <%= render :partial => 'comments/comments', :object => @podcast.comments, :locals => { :podcast => @podcast } -%>
   <% end %>
   
 </div>

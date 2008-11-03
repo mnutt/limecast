@@ -3,20 +3,28 @@ class CommentsController < ApplicationController
 
   def index
     @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @feeds   = @podcast.feeds
+
     @comments = filter(@podcast.comments, params[:filter])
   end
 
   def show
     @comment = Comment.find(params[:id])
+
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @feeds   = @podcast.feeds
   end
 
   def new
     @comment = Comment.new
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @feeds   = @podcast.feeds
   end
 
   def edit
     @comment = Comment.find(params[:id])
-    @podcast = @comment.episode.podcast
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @feeds   = @podcast.feeds
 
     redirect_to(:back) rescue redirect_to('/') unless @comment.editable?
   end

@@ -1,0 +1,9 @@
+<% @title = "All Users" -%>
+<% @full_width = true   -%>
+
+<h2>Users</h2>
+<div class="multicolumn">
+  <ul class="users">
+    <%= render :partial => 'users/user', :collection => @users -%>
+  </ul>
+</div>

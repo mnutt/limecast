@@ -9,6 +9,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast])
 		raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
 
+    @feeds    = @podcast.feeds.all
     @episodes = @podcast.episodes.find(:all, :order => "published_at DESC", :limit => 3)
 
     @comments = with(@podcast.episodes.newest.first) {|ep| ep.nil? ? [] : ep.comments }
@@ -29,17 +30,7 @@ class PodcastsController < ApplicationController
 
   def cover
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
-  end
-
-  def create
-    @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
-
-    if current_user.nil?
-      session.data[:feeds] ||= []
-      session.data[:feeds] << @feed.id
-    end
-
-    render :nothing => true
+    @feeds    = @podcast.feeds.all
   end
 
   def update

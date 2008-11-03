@@ -98,6 +98,47 @@ describe PodcastsController do
     end
   end
 
+  describe "handling POST /podcasts when not logged in" do
+    before(:each) do
+      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
+    end
+
+    it 'should save a feed' do
+      assigns(:feed).should be_kind_of(Feed)
+      assigns(:feed).should_not be_new_record
+    end
+
+    it 'should add the feed to the session' do
+      session.data[:feeds].should include(assigns(:feed).id)
+    end
+
+    it 'should not associate the feed with a user' do
+      assigns(:feed).finder.should be_nil
+    end
+  end
+
+  describe "handling POST /podcasts when logged in" do
+    before(:each) do
+      @user = Factory.create(:user)
+      login(@user)
+      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
+    end
+
+    it 'should save the podcast' do
+      assigns(:feed).should be_kind_of(Feed)
+      assigns(:feed).should_not be_new_record
+    end
+
+    it 'should associate the podcast with the user' do
+      assigns(:feed).finder.should == @user
+    end
+
+    it 'should create a feed' do
+      assigns(:feed).should be_kind_of(Feed)
+      assigns(:feed).url.should == "http://mypodcast/feed.xml"
+    end
+  end
+
   describe "handling DELETE /podcasts/1" do
     describe "when user is the podcast owner" do
 

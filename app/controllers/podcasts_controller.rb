@@ -30,6 +30,21 @@ class PodcastsController < ApplicationController
     @feeds    = @podcast.feeds.all
   end
 
+  def new
+  end
+
+  def create
+    @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
+
+    if current_user.nil?
+      session.data[:feeds] ||= []
+      session.data[:feeds] << @feed.id
+    end
+
+    render :nothing => true
+  end
+  
+
   def update
     raise ActiveRecord::RecordNotFound if params[:podcast].nil?
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound

@@ -25,9 +25,6 @@ class PodcastsController < ApplicationController
     end
   end
 
-  def new
-  end
-
   def cover
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
     @feeds    = @podcast.feeds.all

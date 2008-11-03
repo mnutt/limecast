@@ -1,5 +1,5 @@
 <% options ||= {} -%>
 
 <% form_for @comment, comments_url, :method => :post do |f| -%>
-  <%= render :partial => 'comment_form', :locals => {:f => f} -%>
+  <%= render :partial => 'form', :locals => {:f => f, :podcast => @comment.episode.podcast} -%>
 <% end -%>

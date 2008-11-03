@@ -6,6 +6,7 @@ jQuery(document).ready(function(){
     show_div.find('a.edit').click(function(){
       show_div.hide();
       edit_form.show();
+
       return false;
     });
 

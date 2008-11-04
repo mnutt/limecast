@@ -52,9 +52,19 @@ class Feed < ActiveRecord::Base
     self.update_attributes(:state => 'failed', :error => $!.class.to_s)
   end
 
+  def url
+    url = self.read_attribute(:url)
+
+    # Add http:// if the url does not have :// in it.
+    url = 'http://' + url unless url =~ %r{://}
+
+    url
+  end
+
   def fetch
     raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
     raise BannedFeedException if Blacklist.find_by_domain($2)
+
 
     Timeout::timeout(5) do
       OpenURI::open_uri(self.url) do |f|

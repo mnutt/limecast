@@ -83,12 +83,10 @@ describe Feed, "being created" do
     end
   end
 
-  describe 'with a non-URL string' do
-    it 'should save the error that the feed is not a URL' do
-      @feed.url = "localhost"
-      @feed.refresh
-
-      @feed.error.should == "Feed::InvalidAddressException"
+  describe 'with valid url' do
+    it 'should allow urls without http://' do
+      @feed.url = 'google.com'
+      @feed.url.should == 'http://google.com'
     end
   end
 

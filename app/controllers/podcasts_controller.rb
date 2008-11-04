@@ -7,7 +7,7 @@ class PodcastsController < ApplicationController
 
   def show
     @podcast = Podcast.find_by_clean_url(params[:podcast])
-		raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
+    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
 
     @feeds    = @podcast.feeds.all
     @episodes = @podcast.episodes.find(:all, :order => "published_at DESC", :limit => 3)

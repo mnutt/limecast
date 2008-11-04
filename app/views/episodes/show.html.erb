@@ -14,14 +14,13 @@
     
     <p class="title"><%=h @episode.title %> (<%= time_to_words(@episode.duration) -%>)</p>
     
-    <div class="metadata">
+    <div class="metadata clearfix">
       <div class="summary">
         <p><%=sanitize_summary @episode.summary %></p>
       </div>
     
       <%= render :partial => 'episodes/super_button', :locals => {:sources => @episode.sources} -%>
-      
-      <div class="clear"></div>
+
     </div>
     
   </div>

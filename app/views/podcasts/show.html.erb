@@ -41,7 +41,7 @@
   <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
 
   <div class="badges">
-    <%= @podcast.tags.map(&:name).to_sentence -%>
+    <%= @podcast.tags.map(&:name).join(' ') -%>
   </div>
 
   <div class="authors">

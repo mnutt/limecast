@@ -14,6 +14,15 @@ body {
 .clear {
   clear: left;
 }
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    }
+
+.clearfix {display: inline-block;}  /* for IE/Mac */
 
 /** Reset **/
 h1, h2, h3, h4, h5 {

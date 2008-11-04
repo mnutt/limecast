@@ -1,6 +1,12 @@
 <div class="reviews">
   <h3>Reviews</h3>
 
+  <p>
+    <%= link_to "Positive (#{podcast.comments.that_are_positive.count})", "" %>
+    <%= link_to "Negative (#{podcast.comments.that_are_negative.count})", "" %>
+    <%= link_to "All (#{podcast.comments.count})", "" %>
+  </p>
+
   <ul class="reviews">
     <%= render :partial => 'comments/comment', :collection => comments -%>
   </ul>

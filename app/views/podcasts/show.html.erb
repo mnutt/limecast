@@ -38,10 +38,6 @@
     <div class="clear"></div>
   </div>
 
-  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
-
-  <%= render :partial => 'badges' %>
-
   <div class="authors">
     <ul>
     <% unless @podcast.finders.empty? -%>
@@ -58,11 +54,15 @@
     <div class="clear"></div>
   </div>
   
+  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
+
+  <%= render :partial => 'badges' %>
+
   <div class="stats">
 
     <% if @podcast.episodes.size > 0 -%>
       <p class="new_episode">
-        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.newest.first) -%>,
+        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.newest.first) -%>
         <%= relative_time(@podcast.episodes.newest.first.published_at, false) -%>
       </p>
     <% end -%>

@@ -41,11 +41,20 @@ describe Duration do
     end
   end
 
-  it 'should show hours and minutes from 1 hour and 0 minutes to just before 24 hours' do
-    duration_loop(:from => (1.hour + 0.minutes), :to => (24.hours - 1.seconds), :inc => 50.minutes) do |t|
+  it 'should show hours and minutes from 1 hour and 0 minutes to just before 10 hours' do
+    duration_loop(:from => (1.hour + 0.minutes), :to => (10.hours - 1.seconds), :inc => 50.minutes) do |t|
       t.to_s.should_not match(/day/)
       t.to_s.should     match(/hr/)
       t.to_s.should     match(/min$/)
+      t.to_s.should_not match(/sec/)
+    end
+  end
+
+  it 'should show hours only from 10 hours and 0 minutes to just before 24 hours' do
+    duration_loop(:from => (10.hours + 0.minutes), :to => (24.hours - 1.seconds), :inc => 50.minutes) do |t|
+      t.to_s.should_not match(/day/)
+      t.to_s.should     match(/hr/)
+      t.to_s.should_not match(/min$/)
       t.to_s.should_not match(/sec/)
     end
   end

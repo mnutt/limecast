@@ -21,8 +21,10 @@ class Duration
       {:minutes => to_minutes(@dur), :seconds => (@dur - to_minutes(@dur).minutes)}
     when (10.minutes..(60.minutes - 1.second))
       {:minutes => to_minutes(@dur)}
-    when (1.hour..(24.hours - 1.second))
+    when (1.hour..(10.hours - 1.second))
       {:hours => to_hours(@dur), :minutes => to_minutes(@dur - to_hours(@dur).hours)}
+    when (10.hours..(24.hours - 1.second))
+      {:hours => to_hours(@dur)}
     when (1.day..(7.days - 1.second))
       {:days => to_days(@dur), :hours => to_hours(@dur - to_days(@dur).days)}
     else

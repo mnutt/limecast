@@ -1,0 +1,3 @@
+<div class="badges">
+  <%= @podcast.tags.map { |tag| link_to(tag.name, tag_url(:tag => tag.name)) }.join(' ') -%>
+</div>

@@ -1,8 +1,9 @@
 <% @title = "#{h(@podcast.custom_title)} Reviews" -%>
 <% @show_ads = true -%>
+<% javascript_include "comment_edit", "comment_delete" -%>
 
 <h2>All comments for <%=h @podcast.custom_title -%></h2>
 
 <ul class="reviews">
-  <%= render :partial => 'comment', :collection => @comments -%>
+  <%= render :partial => 'comments/comment', :collection => @comments -%>
 </ul>

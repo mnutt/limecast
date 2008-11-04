@@ -1,6 +1,5 @@
-<ul class="reviews">
-  <div id="comments_list">
-    <%= render :partial => 'comment', :object => @comment -%>
-  </div>
-</ul>
+<% javascript_include "comment_edit", "comment_delete" -%>
 
+<ul class="reviews">
+  <%= render :partial => 'comment', :object => @comment -%>
+</ul>

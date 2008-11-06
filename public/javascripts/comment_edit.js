@@ -33,7 +33,9 @@ jQuery(document).ready(function(){
       });
 
       var form_comment_title = jQuery(this).find('#comment_title').val();
-      var form_comment_body  = jQuery(this).find('#comment_body').val();
+      var form_comment_body  = jQuery(this).find('#comment_body').val().trim();
+      form_comment_body = form_comment_body.replace(/\r\n?/g, "\n");
+      form_comment_body = form_comment_body.replace(/\n+/g, "¶");
 
       show_div.find('h4').text(form_comment_title);
       show_div.find('.body').text(form_comment_body);

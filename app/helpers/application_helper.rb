@@ -79,7 +79,7 @@ module ApplicationHelper
   end
 
   def format_with_paragraph_entity(text)
-    text.gsub(/\r\n?/, "\n").gsub!(/\n+/, "&#182;")
+    text.strip.gsub(/\r\n?/, "\n").gsub(/\n+/, "&#182;")
   end
 
 end

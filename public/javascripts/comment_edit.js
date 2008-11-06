@@ -10,6 +10,18 @@ jQuery(document).ready(function(){
       return false;
     });
 
+    if(this.tagName == 'LI'){
+      edit_form.find('input.cancel').click(function(){
+        show_div.show(); edit_form.hide();
+        return false;
+      });
+    } else {
+      edit_form.find('input.cancel').click(function(){
+        window.location = edit_form.attr('action');
+        return false;
+      })
+    };
+
     edit_form.submit(function(){
       show_div.show();
       edit_form.hide();
@@ -28,6 +40,6 @@ jQuery(document).ready(function(){
 
       return false;
     });
-  });
+  });  
 });
 

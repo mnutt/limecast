@@ -5,11 +5,11 @@
 
 <% if options[:show_rating] -%>
 <div class="align">
-  Podcast Rating:
   <%= f.radio_button :positive, true, :checked => "checked" -%>
-  <label for="comment_positive_true"><%= image_tag("icons/thumbs_up.png") -%></label>
+  <label for="comment_positive_true"><%= image_tag("icons/thumbs_up.png") -%> Positive</label>
+  &nbsp;&nbsp;
   <%= f.radio_button :positive, false -%>
-  <label for="comment_positive_false"><%= image_tag("icons/thumbs_down.png") -%></label>
+  <label for="comment_positive_false"><%= image_tag("icons/thumbs_down.png") -%> Negative</label>
 </div>
 <% end -%>
 

@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){
-  jQuery('li.review').map(function(){
+  jQuery('li.review, div.review').map(function(){
     var show_div  = jQuery(this).find('div.show');
     var edit_form = jQuery(this).find('form.edit');
 

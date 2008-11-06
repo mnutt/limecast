@@ -1,7 +1,7 @@
 <% @title = "#{h(@comment.commenter.login)} reviews #{h(@podcast.custom_title)}" -%>
+<% @show_ads = true -%>
 <% javascript_include "comment_edit", "comment_delete" -%>
 <% with_podcast ||= false -%>
-<% @show_ads = true -%>
 
 <div class="podcast">
 
@@ -12,9 +12,7 @@
     <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
 
     <h2 class="title"><%=h @comment.title %></h2>
-
     <p class="rating"><%= comment_rating(@comment) -%></p>
-
     <div class="body">
       <%=simple_format h(@comment.body) %>
     </div>

@@ -7,9 +7,11 @@
 
 <div class="podcast">
 
-  <%= render :partial => 'podcasts/small_cover' -%>
-
   <div id="<%=h dom_id(@comment) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
+  
+    <%= render :partial => 'podcasts/small_cover' -%>
+
+    <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
 
     <% form_for @comment, comments_url, :method => :post do |f| -%>
       <%= render :partial => 'form', :locals => {:f => f, :podcast => @comment.episode.podcast} -%>

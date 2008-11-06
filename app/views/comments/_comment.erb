@@ -6,7 +6,7 @@
 
     <span class="rating"><%= comment_rating(comment) -%></span>
     <span class="title"><%= link_to h(comment.title), review_url(:podcast => comment.episode.podcast, :id => comment.id), :title => 'permalink' -%></span>
-    <span class="body"><%=h comment.body -%></span>
+    <span class="body"><%= format_with_paragraph_entity comment.body -%></span>
     <cite><%= link_to_profile comment.commenter -%></cite>
     <span class="episode"><%= link_to comment.episode.date_title, episode_url(comment.episode.podcast, comment.episode) -%></span>
 

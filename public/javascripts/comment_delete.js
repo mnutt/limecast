@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){
-  jQuery('li.review').map(function(){
+  jQuery('li.review, div.review').map(function(){
     var review_li = jQuery(this);
 
     review_li.find('a.delete')

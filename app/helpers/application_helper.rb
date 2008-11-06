@@ -77,4 +77,10 @@ module ApplicationHelper
 
     [label, in_parens].join(" ")
   end
+
+  def format_with_paragraph_entity(text)
+    text.gsub!(/\r\n?/, "\n")
+    text.gsub!(/\n+/, "&#182;")
+  end
+
 end

@@ -12,6 +12,31 @@ div.quick_signin form div.response_container {
 }
 
 /**
+* Cover
+**/
+
+div.podcast div.cover,
+div.review div.cover {
+  top: 30px;
+  left: 30px;
+  padding: 1px 0 0 1px;
+  position: absolute;
+  z-index: 1;
+}
+div.podcast div.cover div.border,
+div.review div.cover div.border {
+  border: 1px solid #232323;
+  width: 170px;
+  height: 170px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  display: block;
+  z-index: 1;
+}
+
+
+/**
 * Users
 **/
 div.user li.podcast {
@@ -57,23 +82,6 @@ div.multicolumn ul.podcasts li.podcast {
 **/
 div.podcast {
   *height: 0.01%;
-}
-div.podcast div.cover {
-  top: 30px;
-  left: 30px;
-  padding: 1px 0 0 1px;
-  position: absolute;
-  z-index: 1;
-}
-div.podcast div.cover div.border {
-  border: 1px solid #232323;
-  width: 170px;
-  height: 170px;
-  top: 0px;
-  left: 0px;
-  position: absolute;
-  display: block;
-  z-index: 1;
 }
 div.podcast div#edit_actions {
   margin: 0 0 14px 0;

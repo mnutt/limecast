@@ -11,30 +11,6 @@ div.quick_signin form div.response_container {
   width: 200px;
 }
 
-/**
-* Cover
-**/
-
-div.podcast div.cover,
-div.review div.cover {
-  top: 30px;
-  left: 30px;
-  padding: 1px 0 0 1px;
-  position: absolute;
-  z-index: 1;
-}
-div.podcast div.cover div.border,
-div.review div.cover div.border {
-  border: 1px solid #232323;
-  width: 170px;
-  height: 170px;
-  top: 0px;
-  left: 0px;
-  position: absolute;
-  display: block;
-  z-index: 1;
-}
-
 
 /**
 * Users
@@ -67,6 +43,24 @@ div.user div#edit_actions ul li.logout a {
 /**
 * Podcasts
 **/
+
+div.podcast div.cover {
+  top: 30px;
+  left: 30px;
+  padding: 1px 0 0 1px;
+  position: absolute;
+  z-index: 1;
+}
+div.podcast div.cover div.border {
+  border: 1px solid #232323;
+  width: 170px;
+  height: 170px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  display: block;
+  z-index: 1;
+}
 ul.podcasts li.podcast {
   padding: 0 0 14px 0;
   *height: 0.01%;
@@ -217,30 +211,40 @@ ul.reviews li.review span.rating img {
 ul.reviews li.review cite a {
   background-image: url("../images/icons/user.png");
 }
+div.podcast div.reviews form,
 div.podcast div.reviews form {
   margin: 0;
 }
-div.podcast div.reviews form div.field label {
+div.podcast div.reviews form div.field label,
+div.podcast div.review form div.field label {
   display: none;
 }
-div.podcast div.reviews form div.field div {
+div.podcast div.reviews form div.field div,
+div.podcast div.review form div.field div {
   margin: 0;
 }
-div.podcast div.reviews form div.align {
+div.podcast div.reviews form div.align,
+div.podcast div.review form div.align {
   padding: 0 0 14px 0;
 }
 div.podcast div.reviews form div.align input,
-div.podcast div.reviews form div.align label {
+div.podcast div.reviews form div.align label,
+div.podcast div.review form div.align input,
+div.podcast div.review form div.align label {
   margin-bottom: -2px;
 }
-div.podcast div.reviews form div.align label img {
+div.podcast div.reviews form div.align label img,
+div.podcast div.review form div.align label img {
   height: 14px;
 }
-div.podcast div.reviews form div.controls {
+div.podcast div.reviews form div.controls,
+div.podcast div.review form div.controls {
   padding: 0;
 }
 div.podcast div.reviews form div.field input.text,
-div.podcast div.reviews form div.field textarea.text {
+div.podcast div.review form div.field input.text,
+div.podcast div.reviews form div.field textarea.text,
+div.podcast div.review form div.field textarea.text {
   width: 99%;
 }
 

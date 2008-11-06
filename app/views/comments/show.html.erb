@@ -3,26 +3,29 @@
 <% with_podcast ||= false -%>
 <% @show_ads = true -%>
 
+<div class="podcast">
 
-<div id="<%=h dom_id(@comment) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
+  <div id="<%=h dom_id(@comment) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
 
-  <%= render :partial => 'podcasts/small_cover' -%>
+    <%= render :partial => 'podcasts/small_cover' -%>
 
-  <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
+    <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
 
-  <h2 class="title"><%=h @comment.title %></h2>
+    <h2 class="title"><%=h @comment.title %></h2>
 
-  <p class="rating"><%= comment_rating(@comment) -%></p>
+    <p class="rating"><%= comment_rating(@comment) -%></p>
 
-  <div class="body">
-    <%=simple_format h(@comment.body) %>
+    <div class="body">
+      <%=simple_format h(@comment.body) %>
+    </div>
+
+    <p>
+      <cite><%= link_to_profile current_user %></cite>
+      <span class="episode"><%= link_to @comment.episode.date_title, episode_url(@comment.episode.podcast, @comment.episode) -%></span>
+      <%= render(:partial => 'comments/modify_links', :object => @comment) -%>
+      <%= render(:partial => 'comments/rating_links', :object => @comment) -%>
+    </p>
+
   </div>
-
-  <p>
-    <cite><%= link_to_profile current_user %></cite>
-    <span class="episode"><%= link_to @comment.episode.date_title, episode_url(@comment.episode.podcast, @comment.episode) -%></span>
-    <%= render(:partial => 'comments/modify_links', :object => @comment) -%>
-    <%= render(:partial => 'comments/rating_links', :object => @comment) -%>
-  </p>
 
 </div>

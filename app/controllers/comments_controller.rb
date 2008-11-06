@@ -85,10 +85,11 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @comment = @podcast.comments.find(params[:id])
     @comment.destroy
 
-    session.data[:comments].delete(params[:id])
+    session.data[:comments].delete(params[:id]) if session.data[:comments]
 
     respond_to do |format|
       format.js   { render :nothing => true }

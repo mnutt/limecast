@@ -89,5 +89,8 @@ end
 Factory.define :comment, :class => Comment do |c|
   c.association :commenter, :factory => :user
   c.association :episode, :factory => :episode
+  
+  c.title    'My first podcast review'
+  c.body     'This podcast was very verbose! Loreim ipsum ftw.'
 end
 

@@ -22,7 +22,6 @@ div.user div#edit_actions {
   margin: 0 0 14px 0;
 }
 div.user div#edit_actions span.label {
-  font-weight: bold;
   float: left;
 }
 div.user div#edit_actions ul {
@@ -81,7 +80,6 @@ div.podcast div#edit_actions {
   margin: 0 0 14px 0;
 }
 div.podcast div#edit_actions span.label {
-  font-weight: bold;
   float: left;
 }
 div.podcast div#edit_actions ul {

@@ -19,7 +19,7 @@
     </div>  
   <% end -%>
 
-  <h1 class="icon user user_<%= @user.rank %>"><%=h @user.login -%></h1>
+  <h1 class="icon user user_<%= @user.rank %>"><%=h @user.login -%> (<%= @user.score %>)</h1>
   
   <% if @user.owned_podcasts.count > 0 -%>
     <h3>Makes</h3>
@@ -30,7 +30,7 @@
   <% end -%>
   
   <% if @user.podcasts.size > 0 -%>
-    <h3>Found</h3>
+    <h3>Found (<%= @user.podcasts.size %>)</h3>
     <ul class="podcasts">
       <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
     </ul>
@@ -38,7 +38,7 @@
   <% end -%>
   
   <% if @user.comments.count > 0 -%>
-    <h3>Reviewed</h3>
+    <h3>Reviewed (<%= @user.comments.count %>)</h3>
     <ul class="reviews">
       <%= render :partial => 'comments/comment', :collection => @user.comments, :locals => {:with_podcast => true} -%>
     </ul>

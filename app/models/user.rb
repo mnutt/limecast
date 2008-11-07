@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_many :owned_podcasts, :class_name => 'Podcast', :foreign_key => 'owner_id', :dependent => :destroy
   has_many :comments
   has_many :favorites
+  has_many :favorite_episodes, :through => :favorites, :source => :episode
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password

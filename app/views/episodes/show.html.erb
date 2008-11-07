@@ -25,6 +25,6 @@
     
   </div>
 
-  <%= render :partial => 'comments/comments', :object => @episode.comments, :locals => { :podcast => @episode.podcast } -%>
+  <%= render :partial => 'comments/comments', :object => @episode.comments, :locals => { :episode => @episode, :podcast => @episode.podcast } -%>
   
 </div>

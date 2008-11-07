@@ -118,6 +118,16 @@ class User < ActiveRecord::Base
     crypted_password == encrypt(password)
   end
 
+  def rank
+    if admin?
+      "admin"
+    elsif podcaster?
+      "podcaster"
+    else
+      "regular"
+    end
+  end
+
   def remember_token?
     remember_token_expires_at && Time.now.utc < remember_token_expires_at
   end

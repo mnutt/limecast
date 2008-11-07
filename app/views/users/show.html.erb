@@ -11,7 +11,7 @@
           <%= link_to "<span>Edit</span>", edit_user_url(current_user), :class => 'icon' -%>
         </li>
         <li class="logout">
-       	  <%= link_to "<span>Sign out</span>", session_url, :method => 'delete', :class => 'icon' -%>
+          <%= link_to "<span>Sign out</span>", session_url, :method => 'delete', :class => 'icon' -%>
         </li>
       </ul>
       
@@ -19,7 +19,7 @@
     </div>  
   <% end -%>
 
-  <h1><%=h @user.login -%></h1>
+  <h1 class="icon user user_<%= @user.rank %>"><%=h @user.login -%></h1>
   
   <% if @user.owned_podcasts.count > 0 -%>
     <h3>Makes</h3>

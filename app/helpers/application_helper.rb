@@ -12,11 +12,9 @@ module ApplicationHelper
   def link_to_profile(user)
     link_text = h(user.login)
     link_text += " (#{user.score})" unless user.podcaster?
-    user_class = " user_regular"
-    user_class = " user_podcaster" if user.podcaster?
-    user_class = " user_admin" if !user.admin?
 
-    link_to "<span class='searched'>#{link_text}</span>", user_url(user), :class => "icon user #{user_class}"
+    link_to "<span class='searched'>#{link_text}</span>", user_url(user), 
+    :class => "icon user user_#{user.rank}", :title => "#{user.rank.capitalize} User"
   end
 
   def link_to_podcast(podcast)

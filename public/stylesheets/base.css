@@ -143,25 +143,25 @@ a.inline_icon span {
   text-decoration: underline;
   cursor: pointer !important;
 }
+h1.icon {
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding: 2px 0 2px 42px;
+}
 
 /**
 * User Icons
 **/
-a.user_visitor {
-  background-image: url("../images/icons/marseilles-astronomical/user_visitor.png");
-}
+a.user_visitor { background-image: url("../images/icons/marseilles-astronomical/user_visitor.png"); }
+a.user_regular { background-image: url("../images/icons/marseilles-astronomical/user_regular.png"); }
+a.user_podcaster { background-image: url("../images/icons/marseilles-astronomical/user_podcaster.png"); }
+a.user_admin { background-image: url("../images/icons/marseilles-astronomical/user_admin.png"); }
 
-a.user_regular {
-  background-image: url("../images/icons/marseilles-astronomical/user_regular.png");
-}
+h1.user_visitor { background-image: url("../images/icons/marseilles-astronomical/user_visitor_big.png"); }
+h1.user_regular { background-image: url("../images/icons/marseilles-astronomical/user_regular_big.png"); }
+h1.user_podcaster { background-image: url("../images/icons/marseilles-astronomical/user_podcaster_big.png"); }
+h1.user_admin { background-image: url("../images/icons/marseilles-astronomical/user_admin_big.png"); }
 
-a.user_podcaster {
-  background-image: url("../images/icons/marseilles-astronomical/user_podcaster.png");
-}
-
-a.user_admin {
-  background-image: url("../images/icons/marseilles-astronomical/user_admin.png");
-}
 
 /**
 * Header

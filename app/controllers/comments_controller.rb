@@ -53,10 +53,11 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        format.html { redirect_to :back }
+        format.html { redirect_to review_url(:podcast => @podcast, :id => @comment.id) }
       else
         format.html { render :action => "edit" }
       end

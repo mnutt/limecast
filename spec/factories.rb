@@ -94,3 +94,8 @@ Factory.define :comment, :class => Comment do |c|
   c.body     'This podcast was very verbose! Loreim ipsum ftw.'
 end
 
+Factory.define :favorite, :class => Favorite do |c|
+  c.association :user, :factory => :user
+  c.association :episode, :factory => :episode
+end
+

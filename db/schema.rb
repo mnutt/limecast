@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081027172537) do
+ActiveRecord::Schema.define(:version => 20081107213315) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(:version => 20081027172537) do
     t.string   "title"
     t.string   "clean_url"
   end
+
+  create_table "favorites", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "episode_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
+  add_index "favorites", ["episode_id"], :name => "index_favorites_on_episode_id"
 
   create_table "feeds", :force => true do |t|
     t.string   "url"

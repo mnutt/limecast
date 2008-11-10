@@ -16,4 +16,11 @@ namespace :limecast do
       f.write(encryption_key)
     end
   end
+  
+  desc "update all user scores"
+  task :update_user_scores do
+    User.all.each do |user|
+      user.calculate_score!
+    end
+  end
 end

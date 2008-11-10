@@ -50,9 +50,9 @@ class Podcast < ActiveRecord::Base
   attr_accessor :has_episodes
 
   before_save :attempt_to_find_owner
-  before_save :cache_custom_title
   before_save :sanitize_title
   before_save :sanitize_url
+  before_save :cache_custom_title
 
   # Search
   define_index do
@@ -144,7 +144,11 @@ class Podcast < ActiveRecord::Base
     return if self.title.nil?
 
     # Remove anything in parentheses
-    self.title.gsub!(/[\s+]\(.*\)/, "")
+    self.title.gsub!(/\(.*\)/, "")
+    # Remove leading dashes
+    self.title.sub!(/^[\s]*-/, "")
+    # Remove leading and trailing space
+    self.title.strip!
 
     conflict = Podcast.find_by_title(self.title)
     self.title = "#{self.title} 2" if conflict and conflict != self

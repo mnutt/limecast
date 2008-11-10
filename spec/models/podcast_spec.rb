@@ -111,6 +111,27 @@ describe Podcast, "cleaning up the site url" do
   end
 end
 
+describe Podcast, "cleaning up the title" do
+  before do
+    @podcast = Factory.create(:podcast)
+  end
+
+  it 'should remove things in parentheses' do
+    @podcast.title = "Podcast (junk)"
+    @podcast.send(:sanitize_title).should == "Podcast"
+  end
+
+  it 'should remove extra space' do
+    @podcast.title = " Podcast "
+    @podcast.send(:sanitize_title).should == "Podcast"
+  end
+
+  it 'should remove leading dashes' do
+    @podcast.title = " - Podcast"
+    @podcast.send(:sanitize_title).should == "Podcast"
+  end
+end
+
 describe Podcast, "generating the clean url" do
   before do
     @podcast = Factory.create(:parsed_podcast)

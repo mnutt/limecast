@@ -58,7 +58,7 @@
         <div id="account_bar">
           <ul>
             <li class="add_podcast">
-            <% if @new_podcast -%>
+            <% if current_page?('/add') -%>
               <span>Add podcast</span>
             <% else -%>
               <%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon add' %>

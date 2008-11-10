@@ -65,7 +65,6 @@ class Feed < ActiveRecord::Base
     raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
     raise BannedFeedException if Blacklist.find_by_domain($2)
 
-
     Timeout::timeout(5) do
       OpenURI::open_uri(self.url) do |f|
         @content = f.read

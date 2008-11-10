@@ -2,7 +2,7 @@ class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
 
   def index
-    @podcasts = Podcast.parsed.find(:all, :order => "title ASC")
+    @podcasts = Podcast.parsed.sorted
   end
 
   def show
@@ -27,7 +27,7 @@ class PodcastsController < ApplicationController
 
   def cover
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
-    @feeds    = @podcast.feeds.all
+    @feeds   = @podcast.feeds.all
   end
 
   def new

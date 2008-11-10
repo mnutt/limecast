@@ -14,6 +14,7 @@ describe Feed, "being parsed" do
     # ugly solution, but it works just fine.
     @feed.extend(StopDownloadLogo)
 
+    @feed.parse
     @feed.update_from_feed
   end
 
@@ -38,16 +39,16 @@ describe Feed, "updating episodes" do
   before do
     @feed = Factory.create(:feed)
     
-    @feed.extend(StopDownloadLogo)
+    @feed.podcast.extend(StopDownloadLogo)
+    @feed.parse
+    @feed.update_from_feed
   end
 
   it 'should create some episodes' do
-    @feed.update_from_feed
     @feed.podcast.episodes(true).count.should == 3
   end
 
   it 'should not duplicate episodes that already exist' do
-    @feed.update_from_feed
     @feed.podcast.episodes.count.should == 3
     @feed.update_from_feed
     @feed.podcast.episodes.count.should == 3
@@ -61,7 +62,7 @@ describe Feed, "downloading the logo for its podcast" do
   end
 
   it 'should not set the logo_filename for a bad link' do
-    @feed.download_logo('http://google.com')
+    @podcast.download_logo('http://google.com')
     @podcast.logo_file_name.should be_nil
   end
 end
@@ -76,25 +77,23 @@ describe Feed, "being created" do
     it 'should save the error that the feed is not for a podcast' do
       @feed.extend(StopFetch)
       @feed.content = File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
-      @feed.async_create
+      @feed.refresh
 
       @feed.error.should == "Feed::NoEnclosureException"
     end
   end
 
-  describe 'with a non-URL string' do
-    it 'should save the error that the feed is not a URL' do
-      @feed.url = "localhost"
-      @feed.async_create
-
-      @feed.error.should == "Feed::InvalidAddressException"
+  describe 'with valid url' do
+    it 'should allow urls without http://' do
+      @feed.url = 'google.com'
+      @feed.url.should == 'http://google.com'
     end
   end
 
   describe "when a weird server error occurs" do
     it 'should save the error that an unknown exception occurred' do
       @feed.url = 'http://localhost:7'
-      @feed.async_create
+      @feed.refresh
 
       @feed.error.should == "Errno::ECONNREFUSED"
     end
@@ -104,7 +103,7 @@ describe Feed, "being created" do
     it 'should save the error that the site is on the blacklist' do
       Blacklist.create!(:domain => "restrictedsite")
       @feed.url = "http://restrictedsite/bad/feed.xml"
-      @feed.async_create
+      @feed.refresh
 
       @feed.error.should == "Feed::BannedFeedException"
     end
@@ -118,9 +117,9 @@ describe Feed, "being created" do
       @feed.finder = user
 
       @feed.extend(StopFetch)
-      @feed.extend(StopDownloadLogo)
+      @feed.podcast.extend(StopDownloadLogo)
       
-      @feed.async_create
+      @feed.refresh
 
       @feed.reload.finder.should == user
       @feed.podcast.should be_kind_of(Podcast)
@@ -141,8 +140,8 @@ describe Feed, "being created" do
       @feed = Factory.create(:feed, :podcast_id => @podcast.id, :url => "http://badmatch.com/")
       
       @feed.extend(StopFetch)
-      @feed.extend(StopDownloadLogo)
-      @feed.async_create
+      @feed.podcast.extend(StopDownloadLogo)
+      @feed.refresh
       
       @feed.error.should == "Feed::FeedDoesNotMatchPodcast"
     end
@@ -166,7 +165,7 @@ describe Feed, "comparing to a podcast" do
   describe "based on site url" do
     before do
       @feed.extend(StopFetch)
-      @feed.extend(StopDownloadLogo)
+      @feed.podcast.extend(StopDownloadLogo)
     end
 
     it 'should match a similar podcast' do

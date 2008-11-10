@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081010205531
+# Schema version: 20081027172537
 #
 # Table name: episodes
 #
@@ -25,6 +25,7 @@ class Episode < ActiveRecord::Base
                                  :small  => ["170x170#", :png] }
   has_many :comments, :dependent => :destroy
   has_many :commenters, :through => :comments
+  has_many :favorites
   has_many :sources, :dependent => :destroy
 
   validates_presence_of :podcast_id, :published_at
@@ -45,14 +46,12 @@ class Episode < ActiveRecord::Base
   def generate_url
     base_title = self.published_at.to_date.to_s(:url)
     
-    i = 1
-    begin
+    iterate(1) do |i|
       self.clean_url = base_title.dup
       self.clean_url << "-#{i}" unless i == 1
 
-      count = Episode.with_same_title_as(self).without(self).count
-      i += 1
-    end while count > 0
+      Episode.with_same_title_as(self).without(self).count > 0
+    end
 
     self.clean_url
   end

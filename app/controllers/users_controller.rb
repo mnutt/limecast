@@ -33,7 +33,6 @@ class UsersController < ApplicationController
       respond_to do |format|
         format.html do
           redirect_back_or_default('/')
-          flash[:notice] = "Thanks for signing up!"
         end
         format.js
       end
@@ -49,7 +48,6 @@ class UsersController < ApplicationController
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.active?
       current_user.activate!
-      flash[:notice] = "Signup complete!"
     end
     redirect_back_or_default('/')
   end
@@ -86,10 +84,7 @@ class UsersController < ApplicationController
         @user.save
 
         self.current_user = @user
-        flash[:notice] = 'Password updated successfully.'
         redirect_to user_url(@user)
-      else
-        flash[:notice] = 'The passwords do not match.'
       end
     end
   end
@@ -99,17 +94,13 @@ class UsersController < ApplicationController
 
     if @user
       if @user.reset_password_sent_at and @user.reset_password_sent_at > 10.minutes.ago then
-        flash[:notice] = 'A reset password message was sent less than 10 minutes ago.  Please check your Inbox.'
       else
         @user.generate_reset_password_code
         @user.save
         UserMailer.deliver_reset_password(@user, request.host_with_port)
-
-        flash[:notice] = [ "Password reset email sent", "Please check your Inbox for a message from LimeWire and click the provided link to reset your password." ]
       end
       redirect_to new_session_path
     else
-      flash[:notice] = 'Sorry, could not find a user with that email.'
       redirect_to forgot_password_path
     end
   end
@@ -124,10 +115,6 @@ class UsersController < ApplicationController
 
     if @user.update_attributes!(params[:user_attr].keep_keys([:email]))
       reconfirm_email(@user)
-
-      flash[:notice] = "Your account settings were successfully saved.  You will have to re-confirm your email if you changed it."
-    else
-      flash[:notice] = "There was a problem saving your settings."
     end
 
     redirect_to user_url(:user => @user)

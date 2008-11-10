@@ -14,26 +14,17 @@
     
     <p class="title"><%=h @episode.title %> (<%= time_to_words(@episode.duration) -%>)</p>
     
-    <div class="metadata">
+    <div class="metadata clearfix">
       <div class="summary">
         <p><%=sanitize_summary @episode.summary %></p>
       </div>
     
-      <%= render :partial => 'episodes/download', :object => @episode -%>
-      
-      <div class="clear"></div>
+      <%= render :partial => 'episodes/super_button', :locals => {:sources => @episode.sources} -%>
+
     </div>
     
-    <h2>Reviews</h2>
-    <div class="reviews">
-      <ul class="reviews">
-	<%= render :partial => 'comments/comments', :object => @episode -%>
-      </ul>
-
-      <% if can_add_comments?(@episode) %>
-        <%= render :partial => 'comments/add_comment', :object => @episode -%>
-      <% end %>
-    </div>
   </div>
+
+  <%= render :partial => 'comments/comments', :object => @episode.comments, :locals => { :episode => @episode, :podcast => @episode.podcast } -%>
   
 </div>

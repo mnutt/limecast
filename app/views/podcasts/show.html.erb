@@ -7,7 +7,7 @@
   <%= render :partial => 'podcasts/small_cover' -%>
 
   <% if current_user && @podcast.writable_by?(current_user) -%>
-    <div id="edit_actions">
+    <div id="edit_actions" class="clearfix">
       <span class="label">This is mine!</span>
       <ul>
         <li class="edit">
@@ -17,8 +17,6 @@
           <%= link_to "<span>Delete</span>", "/podcasts/#{@podcast.id}", :method => 'delete', :class => 'icon', :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!" -%>
         </li>
       </ul>
-      <div class="clear"></div>
-
       <%= render :partial => "form" -%>
     </div>
 
@@ -26,45 +24,35 @@
 
   <h2><%=h @podcast.custom_title %></h2>
 
-  <div class="urls">
+  <div class="urls clearfix">
     <ul>
-      <li class="site">
-        <%= link_to h(@podcast.clean_site), h(@podcast.site) %>
-      </li>
-      <li class="rss">
-        <%= link_to "<span>RSS</span>", @podcast.feeds.first.url, :class => 'icon' %>
-      </li>
+      <li class="site"><%= link_to h(@podcast.clean_site), h(@podcast.site) %></li>
+      <li class="rss"><%= link_to "<span>RSS</span>", @podcast.feeds.first.url, :class => 'icon' %></li>
     </ul>
-    <div class="clear"></div>
   </div>
 
-  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
+  <br /> <!-- why isn't .authors clearing without this? //-->
 
-  <div class="badges">
-    <%= @podcast.tags.map(&:name).to_sentence -%>
-  </div>
-
-  <div class="authors">
+  <div class="authors clearfix">
     <ul>
     <% unless @podcast.finders.empty? -%>
-      <li class="user found_by">
-        Found by <%= @podcast.finders.uniq.map {|f| link_to_profile f }.to_sentence -%>
-      </li>
+      <li class="user found_by">Found by <%= @podcast.finders.uniq.map {|f| link_to_profile f }.to_sentence -%></li>
     <% end -%>
     <% if @podcast.owner -%>
-      <li class="user made_by">
-        Made by <%= link_to_profile @podcast.owner -%>
-      </li>
+      <li class="user made_by">Made by <%= link_to_profile @podcast.owner -%></li>
     <% end -%>
     </ul>
-    <div class="clear"></div>
   </div>
   
+  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
+
+  <%= render :partial => 'badges' %>
+
   <div class="stats">
 
     <% if @podcast.episodes.size > 0 -%>
       <p class="new_episode">
-        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.newest.first) -%>,
+        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.newest.first) -%>
         <%= relative_time(@podcast.episodes.newest.first.published_at, false) -%>
       </p>
     <% end -%>
@@ -93,18 +81,9 @@
     <p><%=h @podcast.description -%></p>
   </div>
   
-  <% if @podcast.tags.length > 0 then %>
-  <div class="tags">
-    Tags:
-      <% @podcast.tags.each do |tag| -%>
-        <%= link_to "<span>#{h(tag.name)}</span>", tag_url(tag) -%>
-      <% end -%>
-  </div>
-  <% end -%>
-  
   <% unless @podcast.episodes.empty? %>
     <div class="episodes">
-      <h3>Recent Episodes</h3>
+      <h3>Episodes</h3>
       <ul class="episodes">
         <%= render :partial => 'episodes/episode', :collection => @episodes -%>
       </ul>
@@ -112,41 +91,7 @@
       <% reset_cycle('row_class') %>
     </div>
     
-    <div class="reviews">
-      <h3>Reviews</h3>
-
-      <%# Weird indenting because of extra space in the links. -%>
-      <div>
-	<% if @podcast.comments.that_are_positive -%>
-	  <% link_to positive_reviews_url(@podcast) do -%><%= image_tag("icons/thumbs_up.png") -%>
-	    Positive
-	    (<%= @podcast.comments.that_are_positive.count -%>)<% end -%>
-	<% end -%>
-
-	<% if @podcast.comments.that_are_negative -%>
-	  <% link_to negative_reviews_url(@podcast) do -%><%= image_tag("icons/thumbs_down.png") -%>
-	    Negative
-	    (<%= @podcast.comments.that_are_negative.count -%><% end -%>
-	<% end -%>
-
-	<% if @podcast.comments-%>
-	  <% link_to reviews_url(@podcast) do -%>All
-	    (<%= @podcast.comments.count -%>)<% end -%>
-	<% end -%>
-
-        <ul class="reviews">
-          <%= render :partial => 'comments/comments', :object => @podcast.episodes.newest.first, :locals => {:short => true} -%>
-        </ul>
-
-        <% unless @comments.empty? -%>
- 	        <%= link_to "All #{@comments.size} reviews", reviews_url(:podcast => @podcast), :class => 'all_reviews' -%>
-        <% end -%>
-
-      <% if can_add_comments?(@podcast.episodes.newest.first) %>
-        <%= render :partial => 'comments/add_comment', :object => @podcast -%>
-      <% end %>
-      <% reset_cycle('row_class') %>
-    </div>
+    <%= render :partial => 'comments/comments', :object => @podcast.comments, :locals => { :podcast => @podcast } -%>
   <% end %>
   
 </div>

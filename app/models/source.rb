@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081010205531
+# Schema version: 20081027172537
 #
 # Table name: sources
 #
@@ -9,6 +9,8 @@
 #  guid       :string(255)   
 #  size       :integer(4)    
 #  episode_id :integer(4)    
+#  format     :string(255)   
+#  feed_id    :integer(4)    
 #
 
 class Source < ActiveRecord::Base

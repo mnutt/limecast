@@ -4,20 +4,28 @@ class CommentsController < ApplicationController
   def index
     @filter = params[:filter] || "all"
     @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @feeds   = @podcast.feeds
+
     @comments = filter(@podcast.comments, params[:filter])
   end
 
   def show
     @comment = Comment.find(params[:id])
+
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @feeds   = @podcast.feeds
   end
 
   def new
     @comment = Comment.new
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @feeds   = @podcast.feeds
   end
 
   def edit
     @comment = Comment.find(params[:id])
-    @podcast = @comment.episode.podcast
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @feeds   = @podcast.feeds
 
     redirect_to(:back) rescue redirect_to('/') unless @comment.editable?
   end
@@ -46,12 +54,11 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        flash[:notice] = 'Comment was successfully updated.'
-
-        format.html { redirect_to :back }
+        format.html { redirect_to review_url(:podcast => @podcast, :id => @comment.id) }
       else
         format.html { render :action => "edit" }
       end
@@ -80,10 +87,11 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @comment = @podcast.comments.find(params[:id])
     @comment.destroy
 
-    session.data[:comments].delete(params[:id])
+    session.data[:comments].delete(params[:id]) if session.data[:comments]
 
     respond_to do |format|
       format.js   { render :nothing => true }

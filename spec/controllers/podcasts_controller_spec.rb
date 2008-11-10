@@ -33,7 +33,7 @@ describe PodcastsController do
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
       @podcast.feeds.first.extend(StopRemoveEmptyPodcast)
-      @podcast.feeds.first.async_create
+      @podcast.feeds.first.refresh
       @podcast.reload
     end
   
@@ -138,54 +138,7 @@ describe PodcastsController do
       assigns(:feed).url.should == "http://mypodcast/feed.xml"
     end
   end
-# 
-#   describe "handling GET /podcasts/1/edit" do
-# 
-#     before(:each) do
-#       @podcast = mock_model(Podcast)
-#       Podcast.stub!(:find).and_return(@podcast)
-#     end
-#   
-#     def do_get
-#       get :edit, :id => "1"
-#     end
-# 
-#     it "should be successful" do
-#       do_get
-#       response.should be_success
-#     end
-#   
-#     it "should render edit template" do
-#       do_get
-#       response.should render_template('edit')
-#     end
-#   
-#     it "should find the podcast requested" do
-#       Podcast.should_receive(:find).and_return(@podcast)
-#       do_get
-#     end
-#   
-#     it "should assign the found Podcast for the view" do
-#       do_get
-#       assigns[:podcast].should equal(@podcast)
-#     end
-#   end
-#     
-#     describe "with failed save" do
-# 
-#       def do_post
-#         @podcast.should_receive(:save).and_return(false)
-#         post :create, :podcast => {}
-#       end
-#   
-#       it "should re-render 'new'" do
-#         do_post
-#         response.should render_template('new')
-#       end
-#       
-#     end
-#   end
-# 
+
   describe "handling DELETE /podcasts/1" do
     describe "when user is the podcast owner" do
 

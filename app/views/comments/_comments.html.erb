@@ -1,0 +1,24 @@
+<div class="reviews">
+  <h3>Reviews</h3>
+
+  <p>
+    <% if @episode && current_user -%>
+    <%= link_to_remote "#{current_user.favorite_episodes.include?(@episode) ? 'Unfavorite' : 'Favorite'}",
+        :url => favorite_episode_url(:podcast => @podcast.clean_url, :episode => @episode.clean_url),
+        :html => { :id => "#{dom_id(@episode)}_favorite" }-%>
+    <% end -%>
+    <%= link_to "Positive (#{podcast.comments.that_are_positive.count})", positive_reviews_url(:podcast => podcast) %>
+    <%= link_to "Negative (#{podcast.comments.that_are_negative.count})", negative_reviews_url(:podcast => podcast) %>
+    <%= link_to "All (#{podcast.comments.count})", reviews_url(:podcast => podcast) %>
+  </p>
+
+  <ul class="reviews">
+    <%= render :partial => 'comments/comment', :collection => comments -%>
+  </ul>
+
+  <% if can_add_comments?(podcast.episodes.newest.first) %>
+    <%= render :partial => 'comments/add_comment', :object => podcast -%>
+  <% end %>
+
+  <% reset_cycle('row_class') %>
+</div>

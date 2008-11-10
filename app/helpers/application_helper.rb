@@ -13,11 +13,12 @@ module ApplicationHelper
     link_text = h(user.login)
     link_text += " (#{user.score})" unless user.podcaster?
 
-    link_to "<span class='searched'>#{link_text}</span>", user_url(user), :class => 'icon user'
+    link_to "<span class='searched'>#{link_text}</span>", user_url(user), 
+    :class => "icon user user_#{user.rank}", :title => "#{user.rank.capitalize} User"
   end
 
-  def link_to_thing(thing)
-    link_to "#{image_tag(thing.logo.url(:icon))} <span class='searched'>#{h(thing.custom_title)}</span>", polymorphic_url(thing), :class => 'inline_icon'
+  def link_to_podcast(podcast)
+    link_to "#{image_tag(podcast.logo.url(:icon))} <span class='searched'>#{h(podcast.custom_title)}</span>", podcast_url(podcast), :class => 'inline_icon'
   end
 
   def relative_time(date, abbr=true)
@@ -77,4 +78,9 @@ module ApplicationHelper
 
     [label, in_parens].join(" ")
   end
+
+  def format_with_paragraph_entity(text)
+    text.strip.gsub(/\r\n?/, "\n").gsub(/\n+/, "&#182;")
+  end
+
 end

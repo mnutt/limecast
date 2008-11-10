@@ -1,5 +1,22 @@
+<% @title = "#{h(@comment.commenter.login)} reviews #{h(@podcast.custom_title)}" -%>
+<% @show_ads = true -%>
+<% javascript_include "comment_edit", "comment_delete" -%>
+<% with_podcast ||= false -%>
+
 <% options ||= {} -%>
 
-<% form_for @comment, comments_url, :method => :post do |f| -%>
-  <%= render :partial => 'comment_form', :locals => {:f => f} -%>
-<% end -%>
+<div class="podcast">
+
+  <div id="<%=h dom_id(@comment) -%>" class="review">
+  
+    <%= render :partial => 'podcasts/small_cover' -%>
+
+    <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
+
+    <% form_for @comment, :url => review_url(:podcast => @podcast, :id => @comment.id), :method => :post, :html => {:class => 'edit'} do |f| -%>
+      <%= render :partial => 'form', :locals => {:f => f, :podcast => @comment.episode.podcast} -%>
+    <% end -%>
+
+  </div>
+
+</div>

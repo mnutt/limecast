@@ -9,7 +9,7 @@
     <% end -%>
   </div>
 
-  <div class="full">
+  <div class="full clearfix">
     <p class="description"><%=sanitize_condensed_summary episode.summary -%></p>
     
     <%# TODO: if an mp3 doesn't have .mp3 extension? -%>
@@ -26,8 +26,6 @@
     -->
 
     <%= render :partial => 'episodes/super_button', :locals => {:sources => episode.sources} -%>
-
-    <div class="clear"></div>
 
   </div>
 </li>

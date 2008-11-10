@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081010205531
+# Schema version: 20081027172537
 #
 # Table name: podcasts
 #
@@ -11,7 +11,6 @@
 #  logo_file_size    :string(255)   
 #  created_at        :datetime      
 #  updated_at        :datetime      
-#  user_id           :integer(4)    
 #  description       :text          
 #  language          :string(255)   
 #  category_id       :integer(4)    
@@ -64,6 +63,23 @@ class Podcast < ActiveRecord::Base
     has :created_at
   end
 
+  def download_logo(link)
+    file = PaperClipFile.new
+    file.original_filename = File.basename(link)
+
+    open(link) do |f|
+      return unless f.content_type =~ /^image/
+
+      file.content_type = f.content_type
+      file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
+        tmp.write(f.read)
+        tmp.rewind
+        tmp
+      end
+    end
+
+    self.attachment_for(:logo).assign(file)
+  end
 
   def average_time_between_episodes
     return 0 if self.episodes.count < 2

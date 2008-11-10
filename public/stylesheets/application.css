@@ -1,4 +1,4 @@
-/**
+/*
 * Quick Sign In/Up
 **/
 div.quick_signin.top_bar {
@@ -11,6 +11,7 @@ div.quick_signin form div.response_container {
   width: 200px;
 }
 
+
 /**
 * Users
 **/
@@ -21,7 +22,6 @@ div.user div#edit_actions {
   margin: 0 0 14px 0;
 }
 div.user div#edit_actions span.label {
-  font-weight: bold;
   float: left;
 }
 div.user div#edit_actions ul {
@@ -35,29 +35,14 @@ div.user div#edit_actions ul li {
 div.user div#edit_actions ul li.edit a {
   background-image: url("../images/icons/edit.png");
 }
-div.user div#edit_actions ul li.logout a {
+/*div.user div#edit_actions ul li.logout a {
   background-image: url("../images/icons/user.png") !important;
 }
-
+*/
 /**
 * Podcasts
 **/
-ul.podcasts li.podcast {
-  padding: 0 0 14px 0;
-  *height: 0.01%;
-}
 
-div.multicolumn ul.podcasts li.podcast {
-  float: left;
-  width: 32.5%;
-}
-
-/**
-* Podcast
-**/
-div.podcast {
-  *height: 0.01%;
-}
 div.podcast div.cover {
   top: 30px;
   left: 30px;
@@ -75,11 +60,26 @@ div.podcast div.cover div.border {
   display: block;
   z-index: 1;
 }
+ul.podcasts li.podcast {
+  padding: 0 0 14px 0;
+  *height: 0.01%;
+}
+
+div.multicolumn ul.podcasts li.podcast {
+  float: left;
+  width: 32.5%;
+}
+
+/**
+* Podcast
+**/
+div.podcast {
+  *height: 0.01%;
+}
 div.podcast div#edit_actions {
   margin: 0 0 14px 0;
 }
 div.podcast div#edit_actions span.label {
-  font-weight: bold;
   float: left;
 }
 div.podcast div#edit_actions ul {
@@ -116,9 +116,10 @@ div.podcast div.authors ul li {
   margin: 0 10px 0 0;
   float: left;
 }
-div.podcast div.authors ul li.user a {
+/*div.podcast div.authors ul li.user a {
   background-image: url("../images/icons/user.png") !important;
 }
+*/
 div.podcast div.stats {
   margin: 0 0 14px 0;
 }
@@ -203,36 +204,47 @@ ul.reviews li.review cite {
   color: #ABABAB;
   margin: 0 5px 0 0;
 }
-ul.reviews li.review span.comment_rating img {
+ul.reviews li.review span.rating img {
   margin-bottom: -2px;
 }
-ul.reviews li.review cite a {
+/*ul.reviews li.review cite a {
   background-image: url("../images/icons/user.png");
 }
+*/
+div.podcast div.reviews form,
 div.podcast div.reviews form {
   margin: 0;
 }
-div.podcast div.reviews form div.field label {
+div.podcast div.reviews form div.field label,
+div.podcast div.review form div.field label {
   display: none;
 }
-div.podcast div.reviews form div.field div {
+div.podcast div.reviews form div.field div,
+div.podcast div.review form div.field div {
   margin: 0;
 }
-div.podcast div.reviews form div.align {
+div.podcast div.reviews form div.align,
+div.podcast div.review form div.align {
   padding: 0 0 14px 0;
 }
 div.podcast div.reviews form div.align input,
-div.podcast div.reviews form div.align label {
+div.podcast div.reviews form div.align label,
+div.podcast div.review form div.align input,
+div.podcast div.review form div.align label {
   margin-bottom: -2px;
 }
-div.podcast div.reviews form div.align label img {
+div.podcast div.reviews form div.align label img,
+div.podcast div.review form div.align label img {
   height: 14px;
 }
-div.podcast div.reviews form div.controls {
+div.podcast div.reviews form div.controls,
+div.podcast div.review form div.controls {
   padding: 0;
 }
 div.podcast div.reviews form div.field input.text,
-div.podcast div.reviews form div.field textarea.text {
+div.podcast div.review form div.field input.text,
+div.podcast div.reviews form div.field textarea.text,
+div.podcast div.review form div.field textarea.text {
   width: 99%;
 }
 

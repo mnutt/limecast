@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081010205531
+# Schema version: 20081027172537
 #
 # Table name: comments
 #
@@ -42,8 +42,7 @@ class Comment < ActiveRecord::Base
   protected
 
   def distribute_point
-    self.commenter.score += 1
-    self.commenter.save
+    with(self.commenter) {|u| u.score += 1; u.save }
   end
 
 end

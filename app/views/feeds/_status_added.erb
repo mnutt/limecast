@@ -1,5 +1,5 @@
 <div class="status_message finished">
-  Yum! I've added <%= link_to_thing(@podcast) -%>
+  Yum! I've added <%= link_to_podcast(@podcast) -%>
   
   <% if @podcast.respond_to?(:owner) and @podcast.owner -%>
     <% if current_user and @podcast.owner == current_user -%>

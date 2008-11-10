@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081010205531
+# Schema version: 20081027172537
 #
 # Table name: feeds
 #
@@ -10,7 +10,10 @@
 #  podcast_id  :integer(4)    
 #  created_at  :datetime      
 #  updated_at  :datetime      
-#  state       :string(255)   
+#  state       :string(255)   default("pending")
+#  bitrate     :integer(4)    
+#  finder_id   :integer(4)    
+#  format      :string(255)   
 #
 
 require 'open-uri'
@@ -41,16 +44,27 @@ class Feed < ActiveRecord::Base
 
   attr_accessor :content
 
-  def async_create
+  def refresh
     fetch
+    parse
     update_from_feed
   rescue Exception
     self.update_attributes(:state => 'failed', :error => $!.class.to_s)
   end
 
+  def url
+    url = self.read_attribute(:url)
+
+    # Add http:// if the url does not have :// in it.
+    url = 'http://' + url unless url =~ %r{://}
+
+    url
+  end
+
   def fetch
     raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
     raise BannedFeedException if Blacklist.find_by_domain($2)
+
 
     Timeout::timeout(5) do
       OpenURI::open_uri(self.url) do |f|
@@ -70,31 +84,11 @@ class Feed < ActiveRecord::Base
   end
 
   def update_from_feed
-    parse
-    
     update_podcast!
     update_badges!
     update_episodes!
 
     self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64), :state => 'parsed')
-  end
-
-  def download_logo(link)
-    file = PaperClipFile.new
-    file.original_filename = File.basename(link)
-
-    open(link) do |f|
-      return unless f.content_type =~ /^image/
-
-      file.content_type = f.content_type
-      file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
-        tmp.write(f.read)
-        tmp.rewind
-        tmp
-      end
-    end
-
-    self.podcast.attachment_for(:logo).assign(file)
   end
 
   def update_episodes!
@@ -127,7 +121,7 @@ class Feed < ActiveRecord::Base
     self.podcast ||= Podcast.find_by_site(@feed.link) || Podcast.new
     raise FeedDoesNotMatchPodcast unless self.similar_to_podcast?(self.podcast)
 
-    self.download_logo(@feed.image)
+    self.podcast.download_logo(@feed.image)
     self.podcast.update_attributes!(
       :title       => @feed.title,
       :description => @feed.summary,
@@ -191,7 +185,6 @@ class Feed < ActiveRecord::Base
   end
 
   def distribute_point
-    self.finder.score += 1
-    self.finder.save
+		with(self.finder) {|u| u.score += 1; u.save }
   end
 end

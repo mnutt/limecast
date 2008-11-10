@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081010205531
+# Schema version: 20081027172537
 #
 # Table name: users
 #
@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   has_many :feeds, :foreign_key => 'finder_id'
   has_many :owned_podcasts, :class_name => 'Podcast', :foreign_key => 'owner_id', :dependent => :destroy
   has_many :comments
+  has_many :favorites
+  has_many :favorite_episodes, :through => :favorites, :source => :episode
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
@@ -116,6 +118,16 @@ class User < ActiveRecord::Base
 
   def authenticated?(password)
     crypted_password == encrypt(password)
+  end
+
+  def rank
+    if admin?
+      "admin"
+    elsif podcaster?
+      "podcaster"
+    else
+      "regular"
+    end
   end
 
   def remember_token?

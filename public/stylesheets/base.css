@@ -14,6 +14,15 @@ body {
 .clear {
   clear: left;
 }
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    }
+
+.clearfix {display: inline-block;}  /* for IE/Mac */
 
 /** Reset **/
 h1, h2, h3, h4, h5 {
@@ -134,6 +143,25 @@ a.inline_icon span {
   text-decoration: underline;
   cursor: pointer !important;
 }
+h1.icon {
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding: 2px 0 2px 42px;
+}
+
+/**
+* User Icons
+**/
+a.user_visitor { background-image: url("../images/icons/marseilles-astronomical/user_visitor.png"); }
+a.user_regular { background-image: url("../images/icons/marseilles-astronomical/user_regular.png"); }
+a.user_podcaster { background-image: url("../images/icons/marseilles-astronomical/user_podcaster.png"); }
+a.user_admin { background-image: url("../images/icons/marseilles-astronomical/user_admin.png"); }
+
+h1.user_visitor { background-image: url("../images/icons/marseilles-astronomical/user_visitor_big.png"); }
+h1.user_regular { background-image: url("../images/icons/marseilles-astronomical/user_regular_big.png"); }
+h1.user_podcaster { background-image: url("../images/icons/marseilles-astronomical/user_podcaster_big.png"); }
+h1.user_admin { background-image: url("../images/icons/marseilles-astronomical/user_admin_big.png"); }
+
 
 /**
 * Header
@@ -211,11 +239,11 @@ div#header div#account_bar ul li.search input.image_button {
   right: 0;
   position: absolute;
 }
-div#header div#account_bar ul li.user a,
+/*div#header div#account_bar ul li.user a,
 div#header div#account_bar ul li.signup a  {
   background-image: url("../images/icons/user.png");
 }
-
+*/
 /**
 * Body
 **/
@@ -248,7 +276,8 @@ div#body div#sidebar {
   width: 160px;
   float: right;
 }
-div#body p {
+div#body p,
+div#body ul {
   margin: 0 0 15px 0;
 }
 div#body span.notice {

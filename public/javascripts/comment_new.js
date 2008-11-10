@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
       dataType: "json",
       success: function(resp){
         if(resp.logged_in) {
-          jQuery('#comments_list').append(resp.html);
+          jQuery('ul.reviews').append(resp.html);
           jQuery('a.delete').show(); // Show all delete links.
         } else {
           jQuery('.quick_signin.inline').show();

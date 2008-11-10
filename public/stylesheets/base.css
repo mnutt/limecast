@@ -37,10 +37,10 @@ ul, li, dl, dt, dd {
   margin: 0;
   padding: 0;
 }
-ul.list {
+div#body ul.list {
   margin: 0 0 14px 2em;
 }
-ul.list li {
+div#body ul.list li {
   list-style: disc;
 }
 p {

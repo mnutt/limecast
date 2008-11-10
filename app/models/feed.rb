@@ -32,7 +32,8 @@ class Feed < ActiveRecord::Base
 
   before_create :sanitize
   before_save :remove_empty_podcast
-  after_create :distribute_point, :if => '!finder.nil?'
+  after_create  { |c| f.finder.update_score! if f.finder }
+  after_destroy { |c| f.finder.update_score! if f.finder }
 
   validates_presence_of   :url
   validates_uniqueness_of :url
@@ -181,9 +182,5 @@ class Feed < ActiveRecord::Base
 
   def remove_empty_podcast
     self.podcast.destroy if self.failed? && !self.podcast.nil?
-  end
-
-  def distribute_point
-		with(self.finder) {|u| u.score += 1; u.save }
   end
 end

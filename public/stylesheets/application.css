@@ -195,7 +195,7 @@ div.podcast div.reviews ul.reviews {
   margin: 0;
 }
 ul.reviews li.review {
-  padding: 0 0 14px 0;
+  margin: 0 0 14px 0;
   position: relative;
   *height: 0.01%;
 }

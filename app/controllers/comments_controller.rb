@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   before_filter :login_required, :only => [:new, :update]
 
   def index
+    @filter = params[:filter] || "all"
     @podcast = Podcast.find_by_clean_url(params[:podcast])
     @feeds   = @podcast.feeds
 

@@ -18,7 +18,11 @@ module ApplicationHelper
   end
 
   def link_to_podcast(podcast)
-    link_to "#{image_tag(podcast.logo.url(:icon))} <span class='searched'>#{h(podcast.custom_title)}</span>", podcast_url(podcast), :class => 'inline_icon'
+    link_to "#{image_tag(podcast.logo.url(:icon))} <span class=\"searched\">#{h(podcast.custom_title)}</span>", podcast_url(podcast), :class => 'inline_icon'
+  end
+
+  def link_to_episode(episode)
+    link_to "#{image_tag(episode.podcast.logo.url(:icon))} <span class=\"searched\">#{h(episode.podcast.custom_title)} &mdash; #{h(episode.date_title)}</span>", episode_url(episode.podcast, episode), :class => 'inline_icon'
   end
 
   def relative_time(date, abbr=true)

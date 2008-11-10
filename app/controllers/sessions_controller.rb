@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
 
   def create
     authenticate
+    current_user.calculate_score! if logged_in?
 
     respond_to do |format|
       format.html do

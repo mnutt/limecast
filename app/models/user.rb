@@ -119,6 +119,10 @@ class User < ActiveRecord::Base
   def authenticated?(password)
     crypted_password == encrypt(password)
   end
+  
+  def calculate_score!
+    update_attribute :score, (feeds.count + comments.count)
+  end
 
   def rank
     if admin?

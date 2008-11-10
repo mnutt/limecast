@@ -54,6 +54,17 @@ describe Podcast, "getting the average time between episodes" do
   end
 end
 
+describe Podcast, 'sorting' do
+  before do
+    @podcasts = ["S Podcast", "O Podcast", "The Podcast", "A Podcast", "Z Podcast"].map {|name| Factory.create(:podcast, :title => name) }
+  end
+
+  it 'should not sort on the word "The"' do
+    titles = Podcast.sorted.map &:title
+    titles.should == ["A Podcast", "O Podcast", "The Podcast", "S Podcast", "Z Podcast"]
+  end
+end
+
 describe Podcast, "cleaning up the site url" do
   before do
     @podcast = Factory.create(:podcast)

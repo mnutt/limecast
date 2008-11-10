@@ -50,7 +50,7 @@ div.podcast div.cover {
   position: absolute;
   z-index: 1;
 }
-div.podcast div.cover div.border {
+div.podcast div.cover span.border {
   border: 1px solid #232323;
   width: 170px;
   height: 170px;
@@ -60,6 +60,7 @@ div.podcast div.cover div.border {
   display: block;
   z-index: 1;
 }
+
 ul.podcasts li.podcast {
   padding: 0 0 14px 0;
   *height: 0.01%;

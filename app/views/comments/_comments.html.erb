@@ -5,7 +5,9 @@
     <% if @episode && current_user -%>
     <%= link_to_remote "#{current_user.favorite_episodes.include?(@episode) ? 'Unfavorite' : 'Favorite'}",
         :url => favorite_episode_url(:podcast => @podcast.clean_url, :episode => @episode.clean_url),
-        :html => { :id => "#{dom_id(@episode)}_favorite" }-%>
+        :html => { :id => "#{dom_id(episode)}_favorite", 
+                   :title => "#{current_user.favorite_episodes.include?(@episode) ? 'This is a favorite.' : 'Favorite this!'}",
+                   :class => "#{current_user.favorite_episodes.include?(episode) ? 'favorite' : 'not_favorite'}" }-%>
     <% end -%>
     <%= link_to "Positive (#{podcast.comments.that_are_positive.count})", positive_reviews_url(:podcast => podcast) %>
     <%= link_to "Negative (#{podcast.comments.that_are_negative.count})", negative_reviews_url(:podcast => podcast) %>

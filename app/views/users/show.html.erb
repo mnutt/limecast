@@ -28,6 +28,14 @@
     </ul>
     <% reset_cycle('row_class') %>
   <% end -%>
+
+  <% if @user.favorite_episodes.size > 0 -%>
+    <h3>Favorites (<%= @user.favorite_episodes.size %>)</h3>
+    <ul class="podcasts">
+      <%= render :partial => 'episodes/episode_short', :collection => @user.favorite_episodes -%>
+    </ul>
+    <% reset_cycle('row_class') %>
+  <% end -%>
   
   <% if @user.podcasts.size > 0 -%>
     <h3>Found (<%= @user.podcasts.size %>)</h3>

@@ -33,6 +33,7 @@
 
   <br /> <!-- why isn't .authors clearing without this? //-->
 
+  <% unless @podcast.finders.empty? && !@podcast.owner -%>
   <div class="authors clearfix">
     <ul>
     <% unless @podcast.finders.empty? -%>
@@ -43,6 +44,7 @@
     <% end -%>
     </ul>
   </div>
+  <% end -%>
   
   <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
 

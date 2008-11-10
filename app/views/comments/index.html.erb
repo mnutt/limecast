@@ -1,8 +1,12 @@
 <% @title = "#{h(@podcast.custom_title)} Reviews" -%>
 <% @show_ads = true -%>
 
-<h2>All comments for <%=h @podcast.custom_title -%></h2>
+<h2><%=h @filter.capitalize -%> reviews for <%=h @podcast.custom_title -%></h2>
 
-<ul class="reviews">
-  <%= render :partial => 'comment', :collection => @comments -%>
-</ul>
+<% if @comments.blank? -%>
+  <p>There are no <%=h @filter -%> reviews.</p>
+<% else -%>
+  <ul class="reviews">
+    <%= render :partial => 'comment', :collection => @comments -%>
+  </ul>
+<% end -%>

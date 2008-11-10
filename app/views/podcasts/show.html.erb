@@ -115,6 +115,25 @@
     <div class="reviews">
       <h3>Reviews</h3>
 
+      <%# Weird indenting because of extra space in the links. -%>
+      <div>
+	<% if @podcast.comments.that_are_positive -%>
+	  <% link_to positive_reviews_url(@podcast) do -%><%= image_tag("icons/thumbs_up.png") -%>
+	    Positive
+	    (<%= @podcast.comments.that_are_positive.count -%>)<% end -%>
+	<% end -%>
+
+	<% if @podcast.comments.that_are_negative -%>
+	  <% link_to negative_reviews_url(@podcast) do -%><%= image_tag("icons/thumbs_down.png") -%>
+	    Negative
+	    (<%= @podcast.comments.that_are_negative.count -%><% end -%>
+	<% end -%>
+
+	<% if @podcast.comments-%>
+	  <% link_to reviews_url(@podcast) do -%>All
+	    (<%= @podcast.comments.count -%>)<% end -%>
+	<% end -%>
+
         <ul class="reviews">
           <%= render :partial => 'comments/comments', :object => @podcast.episodes.newest.first, :locals => {:short => true} -%>
         </ul>

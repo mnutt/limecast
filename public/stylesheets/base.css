@@ -147,6 +147,15 @@ h1.icon {
   background-position: left center;
   padding: 2px 0 2px 42px;
 }
+a.favorite,
+a.not_favorite {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  text-indent: -5000px;
+}
+a.favorite { background: url('../images/icons/favorite.png') no-repeat; }
+a.not_favorite { background: url('../images/icons/not_favorite.png') no-repeat; }
 
 /**
 * User Icons

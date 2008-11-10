@@ -120,7 +120,7 @@ class Feed < ActiveRecord::Base
     self.podcast ||= Podcast.find_by_site(@feed.link) || Podcast.new
     raise FeedDoesNotMatchPodcast unless self.similar_to_podcast?(self.podcast)
 
-    self.podcast.download_logo(@feed.image)
+    self.podcast.download_logo(@feed.image) unless @feed.image.nil?
     self.podcast.update_attributes!(
       :title       => @feed.title,
       :description => @feed.summary,

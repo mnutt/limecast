@@ -2,12 +2,16 @@
 <% @show_ads = true -%>
 <% javascript_include "comment_edit", "comment_delete" -%>
 
-<h2><%=h @filter.capitalize -%> reviews for <%=h @podcast.custom_title -%></h2>
+<div class="podcast">
+  <%= render :partial => 'podcasts/small_cover' -%>
 
-<% if @comments.blank? -%>
-  <p>There are no <%=h @filter -%> reviews.</p>
-<% else -%>
-  <ul class="reviews">
-    <%= render :partial => 'comments/comment', :collection => @comments -%>
-  </ul>
-<% end -%>
+  <h2><%=h @filter.capitalize -%> reviews for <%=h @podcast.custom_title -%></h2>
+
+  <% if @comments.blank? -%>
+    <p>There are no <%=h @filter -%> reviews.</p>
+  <% else -%>
+    <ul class="reviews">
+      <%= render :partial => 'comments/comment', :collection => @comments -%>
+    </ul>
+  <% end -%>
+</div>

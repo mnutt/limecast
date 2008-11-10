@@ -22,7 +22,7 @@
 
   <% end -%>
 
-  <h2><%=h @podcast.custom_title %></h2>
+  <h1><%=h @podcast.custom_title %></h1>
 
   <div class="urls clearfix">
     <ul>
@@ -33,6 +33,7 @@
 
   <br /> <!-- why isn't .authors clearing without this? //-->
 
+  <% unless @podcast.finders.empty? && !@podcast.owner -%>
   <div class="authors clearfix">
     <ul>
     <% unless @podcast.finders.empty? -%>
@@ -43,6 +44,7 @@
     <% end -%>
     </ul>
   </div>
+  <% end -%>
   
   <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
 
@@ -77,13 +79,13 @@
   </div>
   
   <div class="description">
-    <h3>Description</h3>
+    <h2>Description</h2>
     <p><%=h @podcast.description -%></p>
   </div>
   
   <% unless @podcast.episodes.empty? %>
     <div class="episodes">
-      <h3>Episodes</h3>
+      <h2>Episodes</h2>
       <ul class="episodes">
         <%= render :partial => 'episodes/episode', :collection => @episodes -%>
       </ul>

@@ -22,15 +22,23 @@
   <h1 class="icon user user_<%= @user.rank %>"><%=h @user.login -%> (<%= @user.score %>)</h1>
   
   <% if @user.owned_podcasts.count > 0 -%>
-    <h3>Makes</h3>
+    <h2>Makes</h2>
     <ul class="podcasts">
       <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
     </ul>
     <% reset_cycle('row_class') %>
   <% end -%>
+
+  <% if @user.favorite_episodes.size > 0 -%>
+    <h3>Favorites (<%= @user.favorite_episodes.size %>)</h3>
+    <ul class="podcasts">
+      <%= render :partial => 'episodes/episode_short', :collection => @user.favorite_episodes -%>
+    </ul>
+    <% reset_cycle('row_class') %>
+  <% end -%>
   
   <% if @user.podcasts.size > 0 -%>
-    <h3>Found (<%= @user.podcasts.size %>)</h3>
+    <h2>Found (<%= @user.podcasts.size %>)</h2>
     <ul class="podcasts">
       <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
     </ul>
@@ -38,7 +46,7 @@
   <% end -%>
     
   <% if @user.comments.count > 0 -%>
-    <h3>Reviewed (<%= @user.comments.count %>)</h3>
+    <h2>Reviewed (<%= @user.comments.count %>)</h2>
     <ul class="reviews">
       <%= render :partial => 'comments/comment', :collection => @user.comments, :locals => {:with_podcast => true} -%>
     </ul>

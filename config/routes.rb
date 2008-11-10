@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.activate  '/activate/:activation_code', :controller => 'users', :action => 'activate'
   map.reset_password '/reset_password/:code', :controller => 'users', :action => 'reset_password', :code => nil
   map.send_password  '/send_password',        :controller => 'users', :action => 'send_password',  :code => nil
-  map.forgot_password '/forgot_password',     :controller => 'users', :action => 'forgot_password'
+  map.forgot_password '/forgot',              :controller => 'users', :action => 'forgot_password'
 
   map.root                        :controller => 'home',     :action => 'home'
   map.add_podcast '/add',         :controller => 'podcasts', :action => 'new'

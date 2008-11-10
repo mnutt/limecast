@@ -42,9 +42,9 @@ class Podcast < ActiveRecord::Base
   named_scope :parsed, lambda {
     { :conditions => {:id => Feed.parsed.map(&:podcast_id).uniq } }
   }
-	named_scope :tagged_with, lambda {|tag|
-		{ :conditions => {:id => (Tag.find_by_name(tag).taggings.podcasts.map(&:taggable_id).uniq rescue [])}}
-	}
+  named_scope :tagged_with, lambda {|tag|
+    { :conditions => {:id => (Tag.find_by_name(tag).taggings.podcasts.map(&:taggable_id).uniq rescue [])}}
+  }
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
 
   attr_accessor :has_episodes

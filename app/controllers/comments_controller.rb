@@ -68,20 +68,8 @@ class CommentsController < ApplicationController
   end
 
   def rate
-    session[:comments_rated] ||= []
-
-    unless session[:comments_rated].include?(params[:id])
-      @comment = Comment.find(params[:id])
-
-      case params[:rating]
-      when /not/
-        @comment.update_attributes(:not_insightful => @comment.not_insightful + 1)
-      when /insightful/
-        @comment.update_attributes(:insightful => @comment.insightful + 1)
-      end
-
-      session[:comments_rated] << params[:id]
-    end
+    @comment = Comment.find(params[:id])
+    @comment.comment_ratings << CommentRating.new(:user => current_user, :insightful => !!(params[:rating] =~ /not/))
 
     redirect_to(:back)
   end

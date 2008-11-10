@@ -19,6 +19,8 @@ class Comment < ActiveRecord::Base
   belongs_to :episode
   belongs_to :commenter, :class_name => 'User', :foreign_key => 'user_id'
 
+  has_many :comment_ratings
+
   after_create :distribute_point, :if => '!commenter.nil?'
 
   validates_presence_of :user_id
@@ -37,6 +39,14 @@ class Comment < ActiveRecord::Base
 
   def editable?
     self.episode.open_for_comments?
+  end
+
+  def insightful
+    self.comment_ratings.insightful.count
+  end
+
+  def not_insightful
+    self.comment_ratings.not_insightful.count
   end
 
   protected

@@ -37,10 +37,10 @@ ul, li, dl, dt, dd {
   margin: 0;
   padding: 0;
 }
-ul.list {
+div#body ul.list {
   margin: 0 0 14px 2em;
 }
-ul.list li {
+div#body ul.list li {
   list-style: disc;
 }
 p {
@@ -88,11 +88,10 @@ h1, h2, h3, h4, h5 {
   font-weight: normal;
   margin: 0 0 14px 0;
 }
-h1 { font-size: 2.6em; }
-h2 { font-size: 2.2em; }
-h3 { font-size: 1.6em; }
-h4 { font-size: 1.2em; }
-h5 { font-size: 0.8em; }
+h1 { font-size: 2.2em; }
+h1.heading { font-size: 1.6em; } /* effectively h2 */
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.1em; }
 div#document {
   font-size: 1.1em;
   min-height: 100%;

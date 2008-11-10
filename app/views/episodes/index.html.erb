@@ -3,13 +3,10 @@
 
 <div class="podcast">
 
-  <div class="cover">
-    <div class="border"></div>
-    <%= image_tag(@podcast.logo.url(:small), :class => 'reflect rheight30 ropacity15') -%>
-  </div>
+  <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
   <% if @podcast -%>
-    <h2>Episodes for <%=h @podcast.custom_title -%></h2>
+    <h1 class="heading">Episodes for <%=h @podcast.custom_title -%></h2>
   <% else -%>
     <h2>All episodes</h2>
   <% end -%>

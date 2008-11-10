@@ -4,7 +4,7 @@
 
 <div class="podcast">
 
-  <%= render :partial => 'podcasts/small_cover' -%>
+  <%= render :partial => 'podcasts/small_cover', :locals => { :url => cover_url(@podcast) } -%>
 
   <% if current_user && @podcast.writable_by?(current_user) -%>
     <div id="edit_actions" class="clearfix">
@@ -22,7 +22,7 @@
 
   <% end -%>
 
-  <h2><%=h @podcast.custom_title %></h2>
+  <h1><%=h @podcast.custom_title %></h1>
 
   <div class="urls clearfix">
     <ul>
@@ -79,13 +79,13 @@
   </div>
   
   <div class="description">
-    <h3>Description</h3>
+    <h2>Description</h2>
     <p><%=h @podcast.description -%></p>
   </div>
   
   <% unless @podcast.episodes.empty? %>
     <div class="episodes">
-      <h3>Episodes</h3>
+      <h2>Episodes</h2>
       <ul class="episodes">
         <%= render :partial => 'episodes/episode', :collection => @episodes -%>
       </ul>

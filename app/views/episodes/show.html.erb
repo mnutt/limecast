@@ -3,7 +3,7 @@
 <% javascript_include "comment_edit", "comment_delete" -%>
 
 <div class="podcast">
-  <%= render :partial => 'podcasts/small_cover' -%>
+  <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
   <div class="episode">
     <p><%= link_to(h(@episode.podcast.custom_title), @episode.podcast) %></p>

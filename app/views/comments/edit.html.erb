@@ -9,7 +9,7 @@
 
   <div id="<%=h dom_id(@comment) -%>" class="review">
   
-    <%= render :partial => 'podcasts/small_cover' -%>
+    <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
     <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
 

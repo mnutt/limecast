@@ -1,4 +1,4 @@
-<li id="<%= dom_id(episode) -%>" class="episode expandable <%= cycle('odd','even', :name => 'row_class') -%><% if episode_counter == 0 -%> expanded<% end -%>">
+<li id="<%= dom_id(episode) -%>" class="clearfix episode expandable <%= cycle('odd','even', :name => 'row_class') -%><% if episode_counter == 0 -%> expanded<% end -%>">
   <span class="expand">Expand</span>
 
   <div class="summary">
@@ -9,7 +9,7 @@
     <% end -%>
   </div>
 
-  <div class="full clearfix">
+  <div class="full">
     <p class="description"><%=sanitize_condensed_summary episode.summary -%></p>
     
     <%# TODO: if an mp3 doesn't have .mp3 extension? -%>

@@ -35,7 +35,7 @@ class Podcast < ActiveRecord::Base
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],
-                                 :large  => ["600x600>", :png],
+                                 :large  => ["300x300>", :png],
                                  :icon   => ["16x16#", :png] }
 
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }

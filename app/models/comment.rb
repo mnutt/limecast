@@ -21,7 +21,6 @@ class Comment < ActiveRecord::Base
 
   has_many :comment_ratings
 
-  after_create :distribute_point,
   after_create  { |c| c.commenter.update_score! if c.commenter }
   after_destroy { |c| c.commenter.update_score! if c.commenter }
 

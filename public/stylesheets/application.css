@@ -134,7 +134,7 @@ div.podcast div.episodes {
   *height: 0.01%;
 }
 ul.episodes li.episode {
-  padding: 0 0 14px 26px;
+  padding: 0 0 0 26px;
   position: relative;
   *height: 0.01%;
 }
@@ -285,8 +285,8 @@ ul.comments li.comment h4 {
 */
 ol#terms li {
   list-style: decimal;
-  margin: 0 0 15px;
+  margin: 0 0 14px;
 }
 ol#terms li ol {
-  margin: 0 0 15px 0;
+  margin: 0 0 14px 0;
 }

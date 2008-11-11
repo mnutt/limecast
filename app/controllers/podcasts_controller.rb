@@ -59,7 +59,7 @@ class PodcastsController < ApplicationController
       render :action => "edit"
     end
   end
-  
+
   def favorite
     logger.info "GOT HERE"
     raise ActiveRecord::RecordNotFound if params[:podcast].nil?
@@ -69,7 +69,7 @@ class PodcastsController < ApplicationController
     @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)
     logger.info "GOT HERE"
     @favorite.new_record? ? @favorite.save : @favorite.destroy
-    
+
     logger.info "GOT HERE"
     respond_to do |format|
       format.js

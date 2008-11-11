@@ -10,19 +10,24 @@ module ApplicationHelper
   end
 
   def link_to_profile(user)
-    link_text = h(user.login)
+    link_text = image_tag("icons/marseilles-astronomical/user_#{user.rank}.png", :class => "inline_icon")
+    link_text += h(user.login)
     link_text += " (#{user.score})" unless user.podcaster?
 
     link_to "<span class='searched'>#{link_text}</span>", user_url(user), 
-    :class => "icon user user_#{user.rank}", :title => "#{user.rank.capitalize} User"
+    :title => "#{user.rank.capitalize} User"
   end
 
   def link_to_podcast(podcast)
-    link_to "#{image_tag(podcast.logo.url(:icon))} <span class=\"searched\">#{h(podcast.custom_title)}</span>", podcast_url(podcast), :class => 'inline_icon'
+    link_to "#{image_tag(podcast.logo.url(:icon), :class => 'inline_icon')} <span class=\"searched\">#{h(podcast.custom_title)}</span>", podcast_url(podcast), :class => 'inline_icon'
   end
 
   def link_to_episode(episode)
-    link_to "#{image_tag(episode.podcast.logo.url(:icon))} <span class=\"searched\">#{h(episode.podcast.custom_title)} &mdash; #{h(episode.date_title)}</span>", episode_url(episode.podcast, episode), :class => 'inline_icon'
+    link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')} <span class=\"searched\">#{h(episode.podcast.custom_title)} &mdash; #{h(episode.date_title)}</span>", episode_url(episode.podcast, episode), :class => 'inline_icon'
+  end
+
+  def link_to_with_icon(title, icon, url, options={})
+    link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title, url, options) 
   end
 
   def relative_time(date, abbr=true)

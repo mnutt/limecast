@@ -36,24 +36,24 @@ class Podcast < ActiveRecord::Base
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],
-                                 :large  => ["600x600>", :png],
+                                 :large  => ["300x300>", :png],
                                  :icon   => ["16x16#", :png] }
 
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
   named_scope :parsed, lambda {
     { :conditions => {:id => Feed.parsed.map(&:podcast_id).uniq } }
   }
-	named_scope :tagged_with, lambda {|tag|
-		{ :conditions => {:id => (Tag.find_by_name(tag).taggings.podcasts.map(&:taggable_id).uniq rescue [])}}
-	}
+  named_scope :tagged_with, lambda {|tag|
+    { :conditions => {:id => (Tag.find_by_name(tag).taggings.podcasts.map(&:taggable_id).uniq rescue [])}}
+  }
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
 
   attr_accessor :has_episodes
 
   before_save :attempt_to_find_owner
-  before_save :cache_custom_title
   before_save :sanitize_title
   before_save :sanitize_url
+  before_save :cache_custom_title
 
   # Search
   define_index do
@@ -145,7 +145,11 @@ class Podcast < ActiveRecord::Base
     return if self.title.nil?
 
     # Remove anything in parentheses
-    self.title.gsub!(/[\s+]\(.*\)/, "")
+    self.title.gsub!(/\(.*\)/, "")
+    # Remove leading dashes
+    self.title.sub!(/^[\s]*-/, "")
+    # Remove leading and trailing space
+    self.title.strip!
 
     conflict = Podcast.find_by_title(self.title)
     self.title = "#{self.title} 2" if conflict and conflict != self

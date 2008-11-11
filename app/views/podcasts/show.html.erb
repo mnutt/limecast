@@ -30,7 +30,9 @@
   <div class="urls clearfix">
     <ul>
       <li class="site"><%= link_to h(@podcast.clean_site), h(@podcast.site) %></li>
-      <li class="rss"><%= link_to "<span>RSS</span>", @podcast.feeds.first.url, :class => 'icon' %></li>
+      <li class="rss">
+	<%= link_to_with_icon "RSS", :rss, @podcast.feeds.first.url %>
+      </li>
       <% unless @podcast.feeds.first.itunes_link.blank? -%>
 				<li class="itunes"><%= link_to "<span>iTunes</span>", "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.feeds.first.itunes_link}", :class => 'icon' %></li>
       <% end -%>

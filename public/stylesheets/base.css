@@ -131,16 +131,10 @@ a.user {
 * html a.icon span {
   margin: 0 0 0 18px;
 }
-a.inline_icon {
-  text-decoration: none;
-}
-a.inline_icon img {
+a img.inline_icon {
+  margin: -4px 0 0 0;
   position: relative;
-  top: 4px;
-}
-a.inline_icon span {
-  text-decoration: underline;
-  cursor: pointer !important;
+  top: 3px;
 }
 h1.icon {
   background-repeat: no-repeat;
@@ -194,12 +188,13 @@ div#header div#title h1 {
   display: block;
 }
 div#header div#title h1 a {
-   background: url("../images/layout/header_title.png") no-repeat left top;
-   text-indent: -5000px;
-   width: 82px;
+   background: url("../images/layout/lime.png") no-repeat left top;
+   line-height: 22px;
    height: 20px;
+   color: #FFF;
+   font-size: 14px;
+   padding: 0 10px 0 25px;
    display: block;
-   overflow: hidden;
 }
 div#header div#title h1 a:hover {
   background-position: left -20px;
@@ -224,9 +219,6 @@ div#header div#account_bar ul li {
   margin: 0 0 0 10px;
   padding: 10px 0 0 0;
   float: left;
-}
-div#header div#account_bar ul li.add_podcast a {
-  background-image: url("../images/icons/add.png");
 }
 div#header div#account_bar ul li.search {
   width: 160px;
@@ -259,7 +251,7 @@ div#header div#account_bar ul li.signup a  {
 div#body_wrapper {
   width: 100%;
   height: auto;
-  min-height: 660px;
+/*  min-height: 660px; */
   *width: 99.8%;
 }
 * html div#body_wrapper {
@@ -268,8 +260,7 @@ div#body_wrapper {
 
 div#body div#full_width {
   margin: 0 auto;
-  max-width: 970px;
-  padding: 30px;
+  padding: 30px 90px;
   pasition: relative;
   *height: 0.01%;
 }
@@ -348,11 +339,12 @@ div#body a.action_button:hover span {
 **/
 div#footer_wrapper {
   background: #181818 url("../images/layout/footer_border.png") repeat-x left top;
-  height: 34px;
-  margin: -34px 0 0 0;
+  height: 50px;
+  margin: -50px 0 0 0;
   position: relative;
 }
 div#footer {
+  font-size: 1.1em;
   padding: 10px 8px;
 }
 div#footer ul {

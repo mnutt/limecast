@@ -26,9 +26,9 @@ class FeedsController < ApplicationController
     
     if @feed.nil?
       render :partial => 'status_error'
-    elsif @feed.parsed? && feed_created_just_now_by_user?(@feed)
+    elsif @podcast && @feed.parsed? && feed_created_just_now_by_user?(@feed)
       render :partial => 'status_added'
-    elsif @feed.parsed?
+    elsif @podcast && @feed.parsed?
       render :partial => 'status_conflict'
     elsif @feed.failed?
       render :partial => 'status_failed'

@@ -22,7 +22,10 @@
 
   <% end -%>
 
-  <h1><%=h @podcast.custom_title %></h1>
+  <h1>
+    <%=h @podcast.custom_title %>
+    <%= render :partial => 'favorite_link', :locals => {:podcast => @podcast} %>
+  </h1>
 
   <div class="urls clearfix">
     <ul>

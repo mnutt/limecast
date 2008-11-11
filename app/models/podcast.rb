@@ -26,6 +26,7 @@ require 'paperclip_file'
 class Podcast < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
+  has_many :favorites
   has_many :feeds
   has_many :episodes, :dependent => :destroy
 

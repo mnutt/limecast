@@ -268,8 +268,7 @@ div#body_wrapper {
 
 div#body div#full_width {
   margin: 0 auto;
-  max-width: 970px;
-  padding: 30px;
+  padding: 30px 90px;
   pasition: relative;
   *height: 0.01%;
 }

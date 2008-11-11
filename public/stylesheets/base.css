@@ -250,7 +250,7 @@ div#header div#account_bar ul li.signup a  {
 div#body_wrapper {
   width: 100%;
   height: auto;
-  min-height: 660px;
+/*  min-height: 660px; */
   *width: 99.8%;
 }
 * html div#body_wrapper {

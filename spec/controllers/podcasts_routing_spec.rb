@@ -65,5 +65,8 @@ describe PodcastsController do
     it "should generate params { :controller => 'podcasts', action => 'cover', id => '1' } from GET /podcasts/1" do
       params_from(:get, "/mypodcast/cover").should == {:controller => "podcasts", :action => "cover", :podcast => "mypodcast"}
     end
+    it "should generate params { :podcast => 'Podcast', :controller => 'episodes', :action => 'favorite', :episode => '2008-Aug-28' } from POST /Podcast/2008-Aug-28/favorite" do
+      params_from(:post, "/Podcast/favorite").should == {:podcast => 'Podcast', :controller => "podcasts", :action => "favorite"}
+    end
   end
 end

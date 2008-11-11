@@ -59,6 +59,22 @@ class PodcastsController < ApplicationController
       render :action => "edit"
     end
   end
+  
+  def favorite
+    logger.info "GOT HERE"
+    raise ActiveRecord::RecordNotFound if params[:podcast].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
+
+    logger.info "GOT HERE"
+    @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)
+    logger.info "GOT HERE"
+    @favorite.new_record? ? @favorite.save : @favorite.destroy
+    
+    logger.info "GOT HERE"
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def destroy
     @podcast = Podcast.find(params[:id])

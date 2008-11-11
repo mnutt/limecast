@@ -59,32 +59,6 @@ describe EpisodesController do
     end
   end
 
-  describe "handling POST /:podcast/:episode/favorite" do
-    before do
-      @user = Factory.create(:user)
-      login @user
-    end
-
-    def do_post(podcast, episode)
-      xhr :post, :favorite, :podcast => podcast.clean_url, :episode => episode.clean_url
-    end
-
-    it "should be successful" do
-      do_post(@podcast, @episode).should be_success
-    end
-
-    it "should increment the favorite count by 1" do
-      lambda { do_post(@podcast, @episode) }.should change { @episode.favorites.count }.by(1)
-    end
-
-    it "should act as a toggle for an episodes favorites" do
-      lambda { do_post(@podcast, @episode) }.should change { @episode.favorites.count }.by(1)
-      lambda { do_post(@podcast, @episode) }.should change { @episode.favorites.count }.by(-1)
-      lambda { do_post(@podcast, @episode) }.should change { @episode.favorites.count }.by(1)
-      lambda { do_post(@podcast, @episode) }.should change { @episode.favorites.count }.by(-1)
-    end
-  end
-
 #   describe "handling DELETE /:podcast/:episodes" do
 #     def do_get(podcast, episode)
 #       get :destroy, :podcast => podcast, :episode => episode

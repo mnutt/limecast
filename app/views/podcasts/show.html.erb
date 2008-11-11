@@ -1,6 +1,6 @@
 <% @title = h(@podcast.custom_title) -%>
 <% @show_ads = true -%>
-<% javascript_include "comment_edit", "comment_delete", "inline_edit_form", "podcasts_new" -%>
+<% javascript_include "comment_edit", "comment_delete", "inline_edit_form", "podcasts_new", "podcast_edit" -%>
 
 <div class="podcast">
 
@@ -24,17 +24,16 @@
 
   <h1>
     <%=h @podcast.custom_title %>
-    <%= render :partial => 'favorite_link', :locals => {:podcast => @podcast} %>
   </h1>
 
   <div class="urls clearfix">
     <ul>
       <li class="site"><%= link_to h(@podcast.clean_site), h(@podcast.site) %></li>
       <li class="rss">
-	<%= link_to_with_icon "RSS", :rss, @podcast.feeds.first.url %>
+        <%= link_to_with_icon "RSS", :rss, @podcast.feeds.first.url %>
       </li>
       <% unless @podcast.feeds.first.itunes_link.blank? -%>
-				<li class="itunes"><%= link_to "<span>iTunes</span>", "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.feeds.first.itunes_link}", :class => 'icon' %></li>
+      <li class="itunes"><%= link_to "<span>iTunes</span>", "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.feeds.first.itunes_link}", :class => 'icon' %></li>
       <% end -%>
     </ul>
   </div>
@@ -86,6 +85,16 @@
     <% end -%>
   </div>
   
+  <p class="links">
+    <% if current_user.favorite_podcasts.include?(@podcast) -%>
+      <span><%= image_tag('icons/favorite.png', :class => 'inline_icon') %>My Favorite</span>
+    <% else -%>
+      <%= link_to_remote "#{image_tag('icons/favorite.png', :class => 'inline_icon')}Favorite",
+            :url => favorite_podcast_url(:podcast => @podcast.clean_url),
+            :method => :post, :html => { :class => "favorite_link" } -%>
+    <% end -%>
+  </p>
+
   <div class="description">
     <h2>Description</h2>
     <p><%=h @podcast.description -%></p>

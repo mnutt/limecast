@@ -1,4 +1,5 @@
-<li id="<%=h dom_id(podcast) -%>" class="podcast  <%= cycle('odd','even', :name => 'row_class') -%>">
+<li id="<%=h dom_id(podcast) -%>" class="podcast <%= cycle('odd','even', :name => 'row_class') -%>">
   <%= link_to_podcast(podcast) -%>
-  <%= render(:partial => 'podcasts/favorite_link', :locals => {:podcast => podcast}) if local_assigns.include?(:favorite_link) %>
+
+  <%= link_to "#{image_tag((current_user.favorite_podcasts.include?(podcast) ? 'icons/favorite.png' : 'icons/not_favorite.png'), :class => 'inline_icon')}#{current_user.favorite_podcasts.include?(podcast) ? 'Unfavorite' : 'Favorite'}", favorite_podcast_url(podcast.clean_url), :class => "favorite_toggle_link" if local_assigns.include?(:favorite_link) %>
 </li>

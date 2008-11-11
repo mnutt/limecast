@@ -2,8 +2,8 @@
   <h2>Reviews</h2>
 
   <p>
-    <%= link_to "Positive (#{podcast.comments.that_are_positive.count})", positive_reviews_url(:podcast => podcast) %>
-    <%= link_to "Negative (#{podcast.comments.that_are_negative.count})", negative_reviews_url(:podcast => podcast) %>
+    <%= link_to_with_icon "(#{podcast.comments.that_are_positive.count})Positive", :thumbs_up, positive_reviews_url(:podcast => podcast) %>
+    <%= link_to_with_icon "(#{podcast.comments.that_are_negative.count})Negative", :thumbs_up, negative_reviews_url(:podcast => podcast) %>
     <%= link_to "All (#{podcast.comments.count})", reviews_url(:podcast => podcast) %>
   </p>
 

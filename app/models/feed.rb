@@ -32,8 +32,8 @@ class Feed < ActiveRecord::Base
 
   before_create :sanitize
   before_save :remove_empty_podcast
-  after_create  { |c| f.finder.update_score! if f.finder }
-  after_destroy { |c| f.finder.update_score! if f.finder }
+  after_create  { |f| f.finder.update_score! if f.finder }
+  after_destroy { |f| f.finder.update_score! if f.finder }
 
   validates_presence_of   :url
   validates_uniqueness_of :url

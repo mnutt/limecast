@@ -1,6 +1,6 @@
 <% if current_user.favorite_podcasts.include?(@podcast) -%>
-  jQuery("#<%= dom_id(@podcast) %>_favorite").removeClass('not_favorite').addClass('favorite').attr('title', 'This is a favorite.').html('Unfavorite');
+  $("#<%= dom_id(@podcast) %>_favorite").removeClass('not_favorite').addClass('favorite').attr('title', 'This is a favorite.').html('Unfavorite');
 <% else -%>
-  jQuery("#<%= dom_id(@podcast) %>_favorite").removeClass('favorite').addClass('not_favorite').attr('title', 'Favorite this!').html('Favorite');
+  $("#<%= dom_id(@podcast) %>_favorite").removeClass('favorite').addClass('not_favorite').attr('title', 'Favorite this!').html('Favorite');
 <% end -%>
 

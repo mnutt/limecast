@@ -1,7 +1,7 @@
-jQuery(document).ready(function(){
-  jQuery('li.review, div.review').map(function(){
-    var show_div  = jQuery(this).find('div.show');
-    var edit_form = jQuery(this).find('form.edit');
+$(document).ready(function(){
+  $('li.review, div.review').map(function(){
+    var show_div  = $(this).find('div.show');
+    var edit_form = $(this).find('form.edit');
 
     show_div.find('a.edit').click(function(){
       show_div.hide();
@@ -26,14 +26,14 @@ jQuery(document).ready(function(){
       show_div.show();
       edit_form.hide();
 
-      jQuery.ajax({
+      $.ajax({
         type: 'post',
-        url:  jQuery(this).attr('action'),
-        data: jQuery(this).serialize()
+        url:  $(this).attr('action'),
+        data: $(this).serialize()
       });
 
-      var form_comment_title = jQuery(this).find('#comment_title').val();
-      var form_comment_body  = jQuery(this).find('#comment_body').val().trim();
+      var form_comment_title = $(this).find('#comment_title').val();
+      var form_comment_body  = $(this).find('#comment_body').val().trim();
       form_comment_body = form_comment_body.replace(/\r\n?/g, "\n");
       form_comment_body = form_comment_body.replace(/\n+/g, "¶");
 

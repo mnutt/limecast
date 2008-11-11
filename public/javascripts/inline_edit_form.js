@@ -1,12 +1,12 @@
-jQuery(document).ready(function() {
-  jQuery('li.edit').click(function() {
-    jQuery('#edit_form').toggle();
+$(document).ready(function() {
+  $('li.edit').click(function() {
+    $('#edit_form').toggle();
     return false;
   });
 
-  jQuery('form.edit_feed a.submit').click(function(){
-    var edit_form = jQuery(this).parent().parent();
-    jQuery.ajax({
+  $('form.edit_feed a.submit').click(function(){
+    var edit_form = $(this).parent().parent();
+    $.ajax({
       type: 'post',
       url: edit_form.attr('action'),
       data: edit_form.serialize(),

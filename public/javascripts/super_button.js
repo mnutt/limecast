@@ -1,6 +1,6 @@
-jQuery.fn.extend({
+$.fn.extend({
   updateDeliveryForSubscribe: function(){
-    var me = jQuery(this);
+    var me = $(this);
 
     function hideOrShowITunes(id) {
       if(me.find('#itunes_' + id).length) {
@@ -13,7 +13,7 @@ jQuery.fn.extend({
     hideOrShowITunes(me.find('select.id').val());
 
     me.find('select.id').change(function(){
-      var id = jQuery(this).val();
+      var id = $(this).val();
       hideOrShowITunes(id);
     });
   },
@@ -37,8 +37,8 @@ jQuery.fn.extend({
       return base_url;
     };
 
-    jQuery(this).map(function(){
-      var me = jQuery(this);
+    $(this).map(function(){
+      var me = $(this);
 
       me.find('select').change(function(){
 				 console.log("changing select");
@@ -53,7 +53,7 @@ jQuery.fn.extend({
       });
     });
 
-    return jQuery(this);
+    return $(this);
   }
 });
 

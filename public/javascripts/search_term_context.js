@@ -1,8 +1,8 @@
-// jQuery("<p>this <span>is a</span> bunch of text</p>").searchTermContext({query: 'this a bunch', wordsOfContext: 3, format: function(s){ return "<b>" + s + "</b>"; }}).text()
+// $("<p>this <span>is a</span> bunch of text</p>").searchTermContext({query: 'this a bunch', wordsOfContext: 3, format: function(s){ return "<b>" + s + "</b>"; }}).text()
 
-jQuery.fn.extend({
+$.fn.extend({
   searchTermContext: function(opts) {
-    var text = jQuery(this).text();
+    var text = $(this).text();
     var terms = opts['query'].split(' ');
     var wordsOfContext = opts['wordsOfContext'] || 15;
     var format = opts['format'] || function(s) { return '<em>' + s + '</em>'; };
@@ -57,12 +57,12 @@ jQuery.fn.extend({
         firstNWords(after, wordsOfContext)
       ].join("");
   
-      jQuery(this).html(formattedString);
+      $(this).html(formattedString);
     } else {
-      jQuery(this).html(firstNWords(text, wordsOfContext * 2));
+      $(this).html(firstNWords(text, wordsOfContext * 2));
     }
 
-    return jQuery(this);
+    return $(this);
   }
 });
 

@@ -107,12 +107,7 @@ div.podcast div.urls ul li {
   margin: 0 10px 0 0;
   float: left;
 }
-div.podcast div.urls ul li.rss a {
-  background-image: url("../images/icons/rss.png");
-}
-div.podcast div.urls ul li.itunes a {
-  background-image: url("../images/icons/itunes.png");
-}
+
 div.podcast div.authors ul li {
   margin: 0 10px 0 0;
   float: left;

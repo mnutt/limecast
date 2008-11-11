@@ -61,7 +61,7 @@
             <% if current_page?('/add') -%>
               <span>Add podcast</span>
             <% else -%>
-              <%= link_to "<span>Add podcast</span>", add_podcast_path, :class => 'icon add' %>
+              <%= link_to_with_icon "Add podcast", :add, add_podcast_path %>
             <% end -%>
             </li>
             <li class="search">
@@ -77,7 +77,7 @@
             </li>
             <% else -%>
             <li class="signup">
-              <%= link_to "<span>Sign up or sign in</span>", new_session_url, :class => 'icon user sign_up' -%>
+              <%= link_to_with_icon "Sign up or sign in", :user, new_session_url -%>
             </li>
             <% end -%>
           </ul>

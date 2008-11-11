@@ -131,16 +131,10 @@ a.user {
 * html a.icon span {
   margin: 0 0 0 18px;
 }
-a.inline_icon {
-  text-decoration: none;
-}
-a.inline_icon img {
+a img.inline_icon {
+  margin: -4px 0 0 0;
   position: relative;
-  top: 4px;
-}
-a.inline_icon span {
-  text-decoration: underline;
-  cursor: pointer !important;
+  top: 3px;
 }
 h1.icon {
   background-repeat: no-repeat;
@@ -224,9 +218,6 @@ div#header div#account_bar ul li {
   margin: 0 0 0 10px;
   padding: 10px 0 0 0;
   float: left;
-}
-div#header div#account_bar ul li.add_podcast a {
-  background-image: url("../images/icons/add.png");
 }
 div#header div#account_bar ul li.search {
   width: 160px;

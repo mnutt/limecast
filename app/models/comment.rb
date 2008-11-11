@@ -21,8 +21,8 @@ class Comment < ActiveRecord::Base
 
   has_many :comment_ratings
 
-  after_create  { |c| c.commenter.update_score! if c.commenter }
-  after_destroy { |c| c.commenter.update_score! if c.commenter }
+  after_create  { |c| c.commenter.calculate_score! if c.commenter }
+  after_destroy { |c| c.commenter.calculate_score! if c.commenter }
 
   validates_presence_of :user_id
 

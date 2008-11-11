@@ -1,28 +1,28 @@
-jQuery(document).ready(function(){
-  jQuery('form#new_podcast').submit(function(){
+$(document).ready(function(){
+  $('form#new_podcast').submit(function(){
 
     var poll_for_status = function(response) {
-      var feed_url = jQuery('#feed_url').attr('value');
-      var form_clone = jQuery('#added_podcast').clone();
+      var feed_url = $('#feed_url').attr('value');
+      var form_clone = $('#added_podcast').clone();
       form_clone.attr('id', null);
       form_clone.find('.text').attr('value', feed_url);
       form_clone.show();
 
-      jQuery('#feed_url').val("");
-      jQuery('#added_podcast_list').append(form_clone);
+      $('#feed_url').val("");
+      $('#added_podcast_list').append(form_clone);
 
 
-      if(jQuery('#inline_signin'))
-        jQuery('#inline_signin').show();
+      if($('#inline_signin'))
+        $('#inline_signin').show();
 
-      jQuery.periodic(function(controller){
+      $.periodic(function(controller){
         var callback = function(response) {
           form_clone.find('.status').html(response);
           if(/finished/g.test(response))
             controller.stop();
         };
 
-        jQuery.ajax({
+        $.ajax({
           url:      '/status',
           type:     'post',
           data:     {feed: feed_url},
@@ -35,8 +35,8 @@ jQuery(document).ready(function(){
       }, {frequency: 1});
     };
 
-    jQuery.ajax({
-      data:     jQuery(this).serialize(),
+    $.ajax({
+      data:     $(this).serialize(),
       dataType: 'script',
       type:     'post',
       url:      '/podcasts',

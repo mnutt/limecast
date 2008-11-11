@@ -4,9 +4,9 @@ class FeedsController < ApplicationController
   def create
     @feed = Feed.new(params[:feed])
     @feed.finder = current_user
-    
+
     respond_to do |format|
-      format.js do 
+      format.js do
         if @feed.save
           render :nothing => true, :status => 200
         else
@@ -23,7 +23,7 @@ class FeedsController < ApplicationController
   def status
     @feed    = Feed.find_by_url(params[:feed])
     @podcast = @feed.podcast unless @feed.nil?
-    
+
     if @feed.nil?
       render :partial => 'status_error'
     elsif @podcast && @feed.parsed? && feed_created_just_now_by_user?(@feed)
@@ -60,7 +60,7 @@ class FeedsController < ApplicationController
     authorize_write @feed
 
     respond_to do |format|
-      format.js do 
+      format.js do
         if @feed.destroy
           render :nothing => true, :status => 200
         else
@@ -69,17 +69,17 @@ class FeedsController < ApplicationController
       end
       format.html do
         @feed.destroy
-        redirect_to podcast_url(@podcast) 
-      end  
+        redirect_to podcast_url(@podcast)
+      end
     end
   end
 
   protected
-  
+
     def feed_in_session?(feed)
       (session.data[:feeds] and session.data[:feeds].include?(feed.id))
     end
-    
+
     def feed_created_by_user?(feed)
       feed_in_session?(feed) or feed.writable_by?(current_user)
     end

@@ -4,9 +4,9 @@
 # Table name: taggings
 #
 #  id            :integer(4)    not null, primary key
-#  tag_id        :integer(4)    
-#  taggable_id   :integer(4)    
-#  taggable_type :string(255)   
+#  tag_id        :integer(4)
+#  taggable_id   :integer(4)
+#  taggable_type :string(255)
 #
 
 class Tagging < ActiveRecord::Base

@@ -1,6 +1,6 @@
-jQuery(document).ready(function(){
-  jQuery('li.review, div.review').map(function(){
-    var review_li = jQuery(this);
+$(document).ready(function(){
+  $('li.review, div.review').map(function(){
+    var review_li = $(this);
 
     review_li.find('a.delete')
       .show()

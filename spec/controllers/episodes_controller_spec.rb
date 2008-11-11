@@ -16,7 +16,7 @@ describe EpisodesController do
     def do_get(podcast)
       get :index, :podcast => podcast
     end
-  
+
     it "should be successful" do
       do_get(@podcast.clean_url)
       response.should be_success
@@ -26,12 +26,12 @@ describe EpisodesController do
       do_get(@podcast.clean_url)
       response.should render_template('index')
     end
-  
+
     it "should find all episodes" do
       Episode.should_receive(:find).and_return([@episode])
       do_get(@podcast.clean_url)
     end
-  
+
     it "should assign the found episodes for the view" do
       do_get(@podcast.clean_url)
       assigns[:episodes].should == [@episode]
@@ -47,12 +47,12 @@ describe EpisodesController do
       do_get(@podcast.clean_url, @episode.clean_url)
       response.should be_success
     end
-  
+
     it "should render show template" do
       do_get(@podcast.clean_url, @episode.clean_url)
       response.should render_template('show')
     end
-  
+
     it "should assign the found episode for the view" do
       do_get(@podcast.clean_url, @episode.clean_url)
       assigns[:episode].id.should equal(@episode.id)
@@ -63,17 +63,17 @@ describe EpisodesController do
 #     def do_get(podcast, episode)
 #       get :destroy, :podcast => podcast, :episode => episode
 #     end
-# 
+#
 #     it "should find the episode requested" do
 #       Episode.should_receive(:find).and_return(@episode)
 #       do_get(@podcast.clean_url, @episode.clean_url)
 #     end
-#   
+#
 #     it "should call destroy on the found episode" do
 #       @episode.should_receive(:destroy)
 #       do_get(@podcast.clean_url, @episode.clean_url)
 #     end
-#   
+#
 #     it "should redirect to the episodes list" do
 #       do_get(@podcast.clean_url, @episode.clean_url)
 #       response.should redirect_to(episodes_url)

@@ -1,5 +1,5 @@
 class PodcastsScenario < Scenario::Base
-  
+
   def load
     create_record(:podcast, :default,
                   :title => "Default Podcast",

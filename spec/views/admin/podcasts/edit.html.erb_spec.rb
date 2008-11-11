@@ -1,5 +1,5 @@
 # require File.dirname(__FILE__) + '/../../../spec_helper'
-# 
+#
 # describe "/admin_podcasts/edit.html.erb" do
 #   before do
 #     @podcast = mock_model(Podcast)
@@ -17,10 +17,10 @@
 #     @podcast.stub!(:language).and_return("MyString")
 #     assigns[:podcast] = @podcast
 #   end
-# 
+#
 #   it "should render edit form" do
 #     render "/admin/podcasts/edit.html.erb"
-# 
+#
 #     response.should have_tag("form[action=#{admin_podcast_path(@podcast)}][method=post]") do
 #       with_tag('input#podcast_title[name=?]', "podcast[title]")
 #       with_tag('input#podcast_site[name=?]', "podcast[site]")

@@ -22,9 +22,9 @@ class ApplicationController < ActionController::Base
     ad_file = "#{RAILS_ROOT}/private/ads.txt"
     @ads ||= File.read(ad_file) if File.exist?(ad_file)
   end
-  
+
   protected
-    
+
     def local_request?
       false
     end
@@ -65,16 +65,16 @@ class ApplicationController < ActionController::Base
     def render_405
       render_exception(405, "Method Not Allowed")
     end
-    
+
     def render_exception(status, title = "Server Error")
       @title = title
-      
+
       respond_to do |format|
         format.html { render :template => "errors/#{status}", :status => status }
         format.xml  { render :xml => {:status => interpret_status(status)}.to_xml }
       end
     end
-    
+
     def send_exception(e)
       # HACK: Fix our rescue action to work with Exception Notifier plugin
       deliverer = self.class.exception_data

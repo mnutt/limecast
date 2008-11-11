@@ -43,7 +43,7 @@ class PodcastsController < ApplicationController
 
     render :nothing => true
   end
-  
+
 
   def update
     raise ActiveRecord::RecordNotFound if params[:podcast].nil?
@@ -59,7 +59,7 @@ class PodcastsController < ApplicationController
       render :action => "edit"
     end
   end
-  
+
   def favorite
     raise ActiveRecord::RecordNotFound if params[:podcast].nil?
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound

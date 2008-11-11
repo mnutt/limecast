@@ -21,7 +21,7 @@ describe UsersController do
       response.should be_success
     end.should_not change(User, :count)
   end
-  
+
   it 'requires password on signup' do
     lambda do
       create_user(:password => nil)
@@ -29,7 +29,7 @@ describe UsersController do
       response.should be_success
     end.should_not change(User, :count)
   end
-  
+
   it 'requires email on signup' do
     lambda do
       create_user(:email => nil)
@@ -37,7 +37,7 @@ describe UsersController do
       response.should be_success
     end.should_not change(User, :count)
   end
-  
+
   def create_user(options = {})
     post :create, :user => { :login => 'quire', :email => 'quire@example.com',
       :password => 'quire' }.merge(options)
@@ -92,7 +92,7 @@ describe UsersController, "handling POST /users" do
       @user = Factory.create(:user, :login => 'quire', :password => 'quire', :email => 'quire@example.com')
       post :create, :user => {:login => 'quire', :password => 'quire'}, :format => 'js'
     end
-    
+
     it 'should succeed' do
       decode(response)["success"].should be_true
     end
@@ -105,12 +105,12 @@ describe UsersController, "handling POST /users" do
   describe "when the email is known, but the password is wrong" do
     before do
       @user = Factory.create(:user, :login => 'quire', :email => 'quire@example.com')
-      
-      post :create, :user => {:login => 'quire', 
-                              :email => 'quire@example.com', 
+
+      post :create, :user => {:login => 'quire',
+                              :email => 'quire@example.com',
                               :password => 'bad'}, :format => 'js'
     end
-    
+
     it 'should not succeed' do
       decode(response)["success"].should be_false
     end
@@ -160,14 +160,14 @@ describe UsersController, "handling POST /user/:user" do
     before(:each) do
       @user = Factory.create(:user)
       login(@user)
-      
+
       post :update, :user => @user.login, :user_attr => {:email => "newemail@example.com"}
     end
-    
+
     it "should find the user requested" do
       assigns(:user).id.should == @user.id
     end
-    
+
     it "should update the user" do
       assigns(:user).reload.email.should == "newemail@example.com"
     end
@@ -176,21 +176,21 @@ describe UsersController, "handling POST /user/:user" do
       assigns(:user).state.should == "pending"
       assigns(:user).activation_code.should_not be_nil
     end
-    
+
     it "should redirect to the user page" do
       response.should redirect_to(user_url(:user => @user))
     end
   end
-  
+
   describe "when user is not authorized" do
-    
+
     before(:each) do
       @user = Factory.create(:user)
       User.should_receive(:find_by_login).and_return(@user)
       @user.should_receive(:==).and_return(false)
       login(@user)
     end
-    
+
     it "should be forbidden" do
       lambda {
         post :update, :user => @user.login, :user_attr => {:email => "newemail@example.com"}
@@ -199,14 +199,14 @@ describe UsersController, "handling POST /user/:user" do
   end
 
   describe "when user enters malicious params" do
-    
+
     before(:each) do
       @user = Factory.create(:user)
       login(@user)
 
       post :update, :user => @user.login, :user_attr => {:score => "584"}
     end
-    
+
     it "should redirect to the podcasts list" do
       assigns(:user).score.should == 0
     end

@@ -17,7 +17,7 @@ describe SessionsController do
     session[:user_id].should_not be_nil
     response.should be_redirect
   end
-  
+
   it 'fails login and does not redirect' do
     post :create, :user => { :login => @user.login, :password => "xxxx" }, :format => 'js'
     session[:user_id].should be_nil
@@ -43,7 +43,7 @@ describe SessionsController do
     post :create, :user => { :login => @user.login, :password => @user.password }
     response.cookies["auth_token"].should_not be_nil
   end
-  
+
   it 'deletes token on logout' do
     post :create, :user => { :login => @user.login, :password => @user.password }
     get :destroy
@@ -56,7 +56,7 @@ describe SessionsController do
     get :new
     controller.send(:logged_in?).should be_true
   end
-  
+
   it 'fails expired cookie login' do
     @user.remember_me
     @user.update_attribute :remember_token_expires_at, 5.minutes.ago
@@ -64,7 +64,7 @@ describe SessionsController do
     get :new
     controller.send(:logged_in?).should_not be_true
   end
-  
+
   it 'fails cookie login' do
     @user.remember_me
     request.cookies["auth_token"] = auth_token('invalid_auth_token')
@@ -75,7 +75,7 @@ describe SessionsController do
   def auth_token(token)
     CGI::Cookie.new('name' => 'auth_token', 'value' => token)
   end
-    
+
   def cookie_for(user)
     auth_token user.remember_token
   end

@@ -1,5 +1,5 @@
 # require File.dirname(__FILE__) + '/../../../spec_helper'
-# 
+#
 # describe "/admin/podcasts/show.html.erb" do
 #   before(:each) do
 #     @podcast = mock_model(Podcast)
@@ -15,10 +15,10 @@
 #     @podcast.stub!(:user_id).and_return("MyString")
 #     @podcast.stub!(:description).and_return("MyText")
 #     @podcast.stub!(:language).and_return("MyString")
-# 
+#
 #     assigns[:podcast] = @podcast
 #   end
-# 
+#
 #   it "should render attributes in <p>" do
 #     render "/admin/podcasts/show.html.erb"
 #     response.should have_text(/MyString/)
@@ -29,4 +29,4 @@
 #     response.should have_text(/MyString/)
 #   end
 # end
-# 
+#

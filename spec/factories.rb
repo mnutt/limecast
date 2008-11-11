@@ -2,7 +2,7 @@
 # http://github.com/thoughtbot/factory_girl/tree/master
 
 Factory.define :tag do |t|
-	t.name { Factory.next :tag }
+  t.name { Factory.next :tag }
 end
 
 Factory.define :feed do |f|
@@ -52,7 +52,7 @@ Factory.define :source do |s|
 end
 
 Factory.sequence :tag do |n|
-	"tag#{n}"
+  "tag#{n}"
 end
 
 Factory.sequence :login do |n|
@@ -89,7 +89,7 @@ end
 Factory.define :comment, :class => Comment do |c|
   c.association :commenter, :factory => :user
   c.association :episode, :factory => :episode
-  
+
   c.title    'My first podcast review'
   c.body     'This podcast was very verbose! Loreim ipsum ftw.'
 end

@@ -1,8 +1,8 @@
-jQuery.fn.extend({
+$.fn.extend({
   quickSignIn: function(opts) {
     if(opts.ajax == null) { opts.ajax = true; }
 
-    var me = jQuery(this);
+    var me = $(this);
 
     me.find('input.signup_button').click(function(){
       // We only want to submit the form if the sign in button is no longer there.
@@ -34,14 +34,14 @@ jQuery.fn.extend({
 
     if(opts.ajax) {
       me.find('form').bind('submit', function(){
-        jQuery.ajax({
+        $.ajax({
           type:    'post',
-          url:     jQuery(this).attr('action'),
-          data:    jQuery(this).serialize(),
+          url:     $(this).attr('action'),
+          data:    $(this).serialize(),
           dataType: "json",
           success: function(resp){
             if(resp.success) {
-              jQuery('#account_bar .signup').html(resp.html);
+              $('#account_bar .signup').html(resp.html);
             } else {
               me.find('.response_container').html(resp.html);
             }
@@ -56,7 +56,7 @@ jQuery.fn.extend({
       });
     }
 
-    return jQuery(this);
+    return $(this);
   }
 });
 

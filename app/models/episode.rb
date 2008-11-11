@@ -4,17 +4,17 @@
 # Table name: episodes
 #
 #  id                     :integer(4)    not null, primary key
-#  podcast_id             :integer(4)    
-#  summary                :text          
-#  published_at           :datetime      
-#  created_at             :datetime      
-#  updated_at             :datetime      
-#  thumbnail_file_size    :integer(4)    
-#  thumbnail_file_name    :string(255)   
-#  thumbnail_content_type :string(255)   
-#  duration               :integer(4)    
-#  title                  :string(255)   
-#  clean_url              :string(255)   
+#  podcast_id             :integer(4)
+#  summary                :text
+#  published_at           :datetime
+#  created_at             :datetime
+#  updated_at             :datetime
+#  thumbnail_file_size    :integer(4)
+#  thumbnail_file_name    :string(255)
+#  thumbnail_content_type :string(255)
+#  duration               :integer(4)
+#  title                  :string(255)
+#  clean_url              :string(255)
 #
 
 class Episode < ActiveRecord::Base
@@ -44,7 +44,7 @@ class Episode < ActiveRecord::Base
 
   def generate_url
     base_title = self.published_at.to_date.to_s(:url)
-    
+
     iterate(1) do |i|
       self.clean_url = base_title.dup
       self.clean_url << "-#{i}" unless i == 1

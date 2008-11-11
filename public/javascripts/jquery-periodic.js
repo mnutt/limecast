@@ -1,7 +1,7 @@
 /* 
  * jquery-periodic.js 
  * 
- * Adds a "periodic" function to jQuery which takes a callback and options for the frequency (in seconds) and a 
+ * Adds a "periodic" function to $ which takes a callback and options for the frequency (in seconds) and a 
  * boolean for allowing parallel execution of the callback function (shielded from exceptions by a try..finally block. 
  * The first parameter passed to the callback is a controller object. 
  * 
@@ -16,9 +16,9 @@
  * false from the callback function. 
  * 
  */ 
-jQuery.periodic = function (callback, options) {
+$.periodic = function (callback, options) {
   callback = callback || (function() { return false; }); 
-  options = jQuery.extend({}, { frequency: 10, allowParallelExecution: false }, options); 
+  options = $.extend({}, { frequency: 10, allowParallelExecution: false }, options); 
 
   var currentlyExecuting = false; 
   var timer; 

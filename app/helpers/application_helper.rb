@@ -14,7 +14,7 @@ module ApplicationHelper
     link_text += h(user.login)
     link_text += " (#{user.score})" unless user.podcaster?
 
-    link_to "<span class='searched'>#{link_text}</span>", user_url(user), 
+    link_to "<span class='searched'>#{link_text}</span>", user_url(user),
     :title => "#{user.rank.capitalize} User"
   end
 
@@ -27,7 +27,7 @@ module ApplicationHelper
   end
 
   def link_to_with_icon(title, icon, url, options={})
-    link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title, url, options) 
+    link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title, url, options)
   end
 
   def relative_time(date, abbr=true)
@@ -75,7 +75,7 @@ module ApplicationHelper
     in_parens = if item.class == Feed
       [item.apparent_format, item.formatted_bitrate].compact
     else item.class == Source
-      bitrate = item.feed.formatted_bitrate if item.feed 
+      bitrate = item.feed.formatted_bitrate if item.feed
       file_size = item.size.to_file_size.to_s
 
       [bitrate, file_size].compact

@@ -1,10 +1,10 @@
-if(typeof jQuery=='undefined') throw("application.js requires the jQuery JavaScript framework.");
+if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
 
 /**************************************************************
 * Hover/Focus Behaviors
 **************************************************************/
-jQuery(document).ready(function() {
-  var elements = jQuery('input, textarea, button');
+$(document).ready(function() {
+  var elements = $('input, textarea, button');
   var options = {
     prefix: '_',
     classNames: {
@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
     }
   }
   elements.each(function() {
-    var me = jQuery(this);
+    var me = $(this);
     var type = me.attr('type');
     if (type != 'hidden') {
       if (type == 'image') {
@@ -47,8 +47,8 @@ jQuery(document).ready(function() {
 /**************************************************************
 * Sign In
 **************************************************************/
-jQuery(document).ready(function(){
-  var signin_container = jQuery('.quick_signin.top_bar');
+$(document).ready(function(){
+  var signin_container = $('.quick_signin.top_bar');
 
   function reset_container() {
     signin_container.hide();
@@ -62,7 +62,7 @@ jQuery(document).ready(function(){
   signin_container.quickSignIn({
     success: function(resp){
       reset_container();
-      jQuery('#account_bar .signup').unbind('click');
+      $('#account_bar .signup').unbind('click');
     },
     error: function(resp) {
       me = signin_container;
@@ -81,7 +81,7 @@ jQuery(document).ready(function(){
   signin_container.find('input').keydown(function(e){
     if(e.keyCode == 27) { reset_container(); }
   });
-  jQuery('#account_bar .signup').click(function(){
+  $('#account_bar .signup').click(function(){
     if(signin_container.css('display') == 'none') {
       signin_container.show();
       signin_container.find('input.login').focus();
@@ -100,9 +100,9 @@ jQuery(document).ready(function(){
 /**************************************************************
 * Toggle
 **************************************************************/
-jQuery(document).ready(function(){
-  jQuery('li.expandable').map(function(){
-    var expandable_li = jQuery(this);
+$(document).ready(function(){
+  $('li.expandable').map(function(){
+    var expandable_li = $(this);
 
     expandable_li.find('span.expand').click(function(){
       if(expandable_li.hasClass('expanded')) {
@@ -118,27 +118,27 @@ jQuery(document).ready(function(){
 
 
 // Makes clicking labels check their associated checkbox/radio button
-jQuery(document).ready(function(){
-  jQuery('label').map(function(){
-    var field = jQuery('#' + jQuery(this).attr('for'));
+$(document).ready(function(){
+  $('label').map(function(){
+    var field = $('#' + $(this).attr('for'));
     if(field.is('input[type=radio]') || field.is('input[type=checkbox]')) {
-      jQuery(this).click(function() {
+      $(this).click(function() {
         field.attr('checked', true);
       });
     }
   });
 
-  jQuery('div.super_button').superButton();
-  jQuery('div.super_button.subscribe').updateDeliveryForSubscribe();
+  $('div.super_button').superButton();
+  $('div.super_button.subscribe').updateDeliveryForSubscribe();
 });
 
 // Hook up all of the search term highlighting
-jQuery(document).ready(function(){
-  var searchLabel = jQuery('label[for=q]').text();
-  var searchBox   = jQuery('input#q').val();
-  if(jQuery(document).searchTermContext && searchLabel != searchBox) {
-    jQuery('#primary li .searched').map(function(){
-      jQuery(this).searchTermContext({
+$(document).ready(function(){
+  var searchLabel = $('label[for=q]').text();
+  var searchBox   = $('input#q').val();
+  if($(document).searchTermContext && searchLabel != searchBox) {
+    $('#primary li .searched').map(function(){
+      $(this).searchTermContext({
         query: searchBox,
         format: function(s) { return '<b>' + s + '</b>'; }
       });

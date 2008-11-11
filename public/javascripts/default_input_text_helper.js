@@ -1,8 +1,8 @@
 // Sets up default text in input boxes
-jQuery(document).ready(function(){
-  jQuery('label.default').map(function(){
-    var default_label = jQuery(this);
-    var input = jQuery('#' + default_label.attr('for'));
+$(document).ready(function(){
+  $('label.default').map(function(){
+    var default_label = $(this);
+    var input = $('#' + default_label.attr('for'));
   
     var set_to_blank = function(){
       if(input.val() == default_label.text())

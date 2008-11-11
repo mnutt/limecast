@@ -4,13 +4,13 @@
 # Table name: comments
 #
 #  id             :integer(4)    not null, primary key
-#  user_id        :integer(4)    
-#  body           :text          
-#  created_at     :datetime      
-#  updated_at     :datetime      
-#  title          :string(255)   
-#  positive       :boolean(1)    
-#  episode_id     :integer(4)    
+#  user_id        :integer(4)
+#  body           :text
+#  created_at     :datetime
+#  updated_at     :datetime
+#  title          :string(255)
+#  positive       :boolean(1)
+#  episode_id     :integer(4)
 #  insightful     :integer(4)    default(0)
 #  not_insightful :integer(4)    default(0)
 #
@@ -21,9 +21,8 @@ class Comment < ActiveRecord::Base
 
   has_many :comment_ratings
 
-  after_create :distribute_point, 
-  after_create  { |c| c.commenter.update_score! if c.commenter }
-  after_destroy { |c| c.commenter.update_score! if c.commenter }
+  after_create  { |c| c.commenter.calculate_score! if c.commenter }
+  after_destroy { |c| c.commenter.calculate_score! if c.commenter }
 
   validates_presence_of :user_id
 

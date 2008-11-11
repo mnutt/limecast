@@ -1,0 +1,6 @@
+<% if current_user.favorite_podcasts.include?(@podcast) -%>
+  $("#<%= dom_id(@podcast) %>_favorite").removeClass('not_favorite').addClass('favorite').attr('title', 'This is a favorite.').html('Unfavorite');
+<% else -%>
+  $("#<%= dom_id(@podcast) %>_favorite").removeClass('favorite').addClass('not_favorite').attr('title', 'Favorite this!').html('Favorite');
+<% end -%>
+

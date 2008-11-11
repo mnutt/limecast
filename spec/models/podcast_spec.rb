@@ -42,7 +42,7 @@ describe Podcast, "getting the average time between episodes" do
   end
 
   it 'should be one day for three episodes spaced one day apart' do
-	pending "fix weird CI problem"
+  pending "fix weird CI problem"
     @second =  Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 3.days.ago)
     @third =   Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 2.day.ago)
     @podcast.episodes.count.should == 3
@@ -69,7 +69,7 @@ describe Podcast, "cleaning up the site url" do
   before do
     @podcast = Factory.create(:podcast)
   end
-  
+
   it 'should remove a leading http://' do
     @podcast.site = "http://test.host"
     @podcast.clean_site.should == "test.host"
@@ -194,7 +194,7 @@ describe Podcast, "permissions" do
       @user = Factory.create(:admin_user)
       @podcast = Factory.create(:parsed_podcast)
     end
-    
+
     it 'should have write access' do
       @podcast.writable_by?(@user).should == true
     end
@@ -247,7 +247,7 @@ describe Podcast, "permissions" do
       @user = Factory.create(:user)
       @podcast = Factory.create(:parsed_podcast)
     end
-    
+
     it 'should not have write access' do
       @podcast.writable_by?(@user).should == false
     end

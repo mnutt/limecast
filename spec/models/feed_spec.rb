@@ -38,7 +38,7 @@ end
 describe Feed, "updating episodes" do
   before do
     @feed = Factory.create(:feed)
-    
+
     @feed.podcast.extend(StopDownloadLogo)
     @feed.parse
     @feed.update_from_feed
@@ -118,7 +118,7 @@ describe Feed, "being created" do
 
       @feed.extend(StopFetch)
       @feed.podcast.extend(StopDownloadLogo)
-      
+
       @feed.refresh
 
       @feed.reload.finder.should == user
@@ -138,11 +138,11 @@ describe Feed, "being created" do
   describe "when it is associated with a podcast that it does not belong to" do
     it "should save the error that the feed is mismatched" do
       @feed = Factory.create(:feed, :podcast_id => @podcast.id, :url => "http://badmatch.com/")
-      
+
       @feed.extend(StopFetch)
       @feed.podcast.extend(StopDownloadLogo)
       @feed.refresh
-      
+
       @feed.error.should == "Feed::FeedDoesNotMatchPodcast"
     end
   end

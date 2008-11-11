@@ -4,21 +4,21 @@
 # Table name: users
 #
 #  id                        :integer(4)    not null, primary key
-#  login                     :string(255)   
-#  email                     :string(255)   
-#  crypted_password          :string(40)    
-#  salt                      :string(40)    
-#  created_at                :datetime      
-#  updated_at                :datetime      
-#  remember_token            :string(255)   
-#  remember_token_expires_at :datetime      
-#  activation_code           :string(40)    
-#  activated_at              :datetime      
+#  login                     :string(255)
+#  email                     :string(255)
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  remember_token            :string(255)
+#  remember_token_expires_at :datetime
+#  activation_code           :string(40)
+#  activated_at              :datetime
 #  state                     :string(255)   default("passive")
-#  deleted_at                :datetime      
-#  admin                     :boolean(1)    
-#  reset_password_code       :string(255)   
-#  reset_password_sent_at    :datetime      
+#  deleted_at                :datetime
+#  admin                     :boolean(1)
+#  reset_password_code       :string(255)
+#  reset_password_sent_at    :datetime
 #  score                     :integer(4)    default(0)
 #
 
@@ -90,11 +90,11 @@ class User < ActiveRecord::Base
 
   # Authenticates a user by their login name or email and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
-		u = if login =~ /@/
+    u = if login =~ /@/
       self.find_by_email(login)
-		else
-			self.find_by_login(login)
-		end
+    else
+      self.find_by_login(login)
+    end
     u && u.authenticated?(password) ? u : nil
   end
 
@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
   def authenticated?(password)
     crypted_password == encrypt(password)
   end
-  
+
   def calculate_score!
     update_attribute :score, (feeds.count + comments.count)
   end

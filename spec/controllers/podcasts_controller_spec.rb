@@ -8,11 +8,11 @@ describe PodcastsController do
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
     end
-  
+
     def do_get
       get :index
     end
-  
+
     it "should be successful" do
       do_get
       response.should be_success
@@ -22,7 +22,7 @@ describe PodcastsController do
       do_get
       response.should render_template('index')
     end
-  
+
     it "should assign the found podcasts for the view" do
       do_get
       assigns[:podcasts].should == [@podcast]
@@ -36,7 +36,7 @@ describe PodcastsController do
       @podcast.feeds.first.refresh
       @podcast.reload
     end
-  
+
     def do_get
       get :show, :podcast => @podcast.clean_url
     end
@@ -45,12 +45,12 @@ describe PodcastsController do
       do_get
       response.should be_success
     end
-  
+
     it "should render show template" do
       do_get
       response.should render_template('show')
     end
-  
+
     it "should assign the found podcast for the view" do
       do_get
       assigns[:podcast].id.should equal(@podcast.id)
@@ -77,7 +77,7 @@ describe PodcastsController do
     before(:each) do
       @podcast = Podcast.new
     end
-  
+
     def do_get
       get :new
     end
@@ -91,7 +91,7 @@ describe PodcastsController do
       do_get
       response.should render_template('new')
     end
-  
+
     it "should not save the new podcast" do
       @podcast.should_not_receive(:save)
       do_get
@@ -149,21 +149,21 @@ describe PodcastsController do
         @podcast.should_receive(:writable_by?).and_return(true)
         login(@user)
       end
-      
+
       def do_delete
         delete :destroy, :id => "1"
       end
-      
+
       it "should find the podcast requested" do
         Podcast.should_receive(:find).with("1").and_return(@podcast)
         do_delete
       end
-      
+
       it "should call destroy on the found podcast" do
         @podcast.should_receive(:destroy)
         do_delete
       end
-      
+
       it "should redirect to the podcasts list" do
         do_delete
         response.should redirect_to(podcasts_url)
@@ -179,7 +179,7 @@ describe PodcastsController do
         @podcast.should_receive(:writable_by?).and_return(false)
         login(@user)
       end
-      
+
       it "should redirect to the podcasts list" do
         lambda {
           delete :destroy, :id => "1"
@@ -200,15 +200,15 @@ describe PodcastsController do
 
         post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title"}
       end
-      
+
       it "should find the podcast requested" do
         assigns(:podcast).id.should == @podcast.id
       end
-      
+
       it "should update the found podcast" do
         assigns(:podcast).reload.custom_title.should == "Custom Title"
       end
-      
+
       it "should redirect to the podcasts list" do
         response.should redirect_to(podcast_url(:podcast => @podcast))
       end
@@ -223,7 +223,7 @@ describe PodcastsController do
         @podcast.should_receive(:writable_by?).and_return(false)
         login(@user)
       end
-      
+
       it "should redirect to the podcasts list" do
         lambda {
           post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title"}
@@ -232,15 +232,15 @@ describe PodcastsController do
     end
 
     describe "when user enters malicious params" do
-      
+
       before(:each) do
         @user = Factory.create(:user)
         @podcast = Factory.create(:podcast, :feeds => [Factory.create(:feed, :finder => @user)], :owner_email => "test@example.com")
         login(@user)
-        
+
         post :update, :podcast => @podcast.clean_url, :podcast_attr => {:owner_email => "malicious@example.com"}
       end
-      
+
       it "should not change the params" do
         assigns(:podcast).owner_email.should == "test@example.com"
       end

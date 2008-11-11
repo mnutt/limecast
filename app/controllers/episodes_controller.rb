@@ -27,7 +27,7 @@ class EpisodesController < ApplicationController
 
     @favorite = Favorite.find_or_initialize_by_episode_id_and_user_id(@episode.id, current_user.id)
     @favorite.new_record? ? @favorite.save : @favorite.destroy
-    
+
     respond_to do |format|
       format.js
     end

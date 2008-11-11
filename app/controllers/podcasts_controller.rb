@@ -43,7 +43,7 @@ class PodcastsController < ApplicationController
 
     render :nothing => true
   end
-  
+
 
   def update
     raise ActiveRecord::RecordNotFound if params[:podcast].nil?

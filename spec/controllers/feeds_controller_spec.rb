@@ -30,7 +30,7 @@ describe FeedsController do
         @podcast = Factory.create(:podcast)
         post :status, :feed => @podcast.feeds.first.url
       end
-      
+
       it 'should render the loading template' do
         response.should render_template('feeds/_status_loading')
       end
@@ -43,7 +43,7 @@ describe FeedsController do
 
         post :status, :feed => @podcast.feeds.first.url
       end
-      
+
       it 'should render the added template' do
         response.should render_template('feeds/_status_added')
       end
@@ -54,8 +54,8 @@ describe FeedsController do
         before(:each) do
           @podcast = Factory.create(:failed_podcast)
           post :status, :feed => @podcast.feeds.first.url
-        end 
-        
+        end
+
         it 'should render the error template' do
           response.should render_template('feeds/_status_failed')
         end
@@ -83,15 +83,15 @@ describe FeedsController do
       before do
         @user = Factory.create(:user)
         @feed = Factory.create(:feed, :finder => @user, :format => "ipod")
-        
+
         login(@user)
         put 'update', :id => @feed.id, :feed => {:format => "quicktime hd"}
       end
-      
+
       it "should update the feed" do
         @feed.reload.format.should == "quicktime hd"
       end
-      
+
       it "should return a 200 response" do
         response.should be_success
       end
@@ -113,13 +113,13 @@ describe FeedsController do
       before do
         @user = Factory.create(:user)
         @feed = Factory.create(:feed, :finder => @user)
-        
+
         Feed.count.should == 1
-        
+
         login(@user)
         delete 'destroy', :id => @feed.id
       end
-      
+
       it "should remove the feed" do
         Feed.count.should == 0
       end

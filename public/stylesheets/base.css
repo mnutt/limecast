@@ -193,12 +193,13 @@ div#header div#title h1 {
   display: block;
 }
 div#header div#title h1 a {
-   background: url("../images/layout/header_title.png") no-repeat left top;
-   text-indent: -5000px;
-   width: 82px;
+   background: url("../images/layout/lime.png") no-repeat left top;
+   line-height: 22px;
    height: 20px;
+   color: #FFF;
+   font-size: 14px;
+   padding: 0 10px 0 25px;
    display: block;
-   overflow: hidden;
 }
 div#header div#title h1 a:hover {
   background-position: left -20px;

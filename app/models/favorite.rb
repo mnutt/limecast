@@ -1,9 +1,5 @@
 class Favorite < ActiveRecord::Base
   belongs_to :user
-  belongs_to :episode
+  belongs_to :podcast
   
-  
-  def podcast
-    episode.podcast
-  end
 end

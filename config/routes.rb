@@ -50,8 +50,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :reviews, :controller => 'comments', :path_prefix => '/:podcast'
 
   map.podcast_episodes '/:podcast/episodes',         :controller => 'episodes', :action => 'index'
+  map.favorite_podcast '/:podcast/favorite',         :controller => 'podcasts', :action => 'favorite'
   map.episode          '/:podcast/:episode',         :controller => 'episodes', :action => 'show'
-  map.favorite_episode '/:podcast/:episode/favorite',:controller => 'episodes', :action => 'favorite'
 
   map.podcast          '/:podcast',                  :controller => 'podcasts', :action => 'show',   :conditions => {:method => :get}
   map.podcast          '/:podcast',                  :controller => 'podcasts', :action => 'update', :conditions => {:method => :post}

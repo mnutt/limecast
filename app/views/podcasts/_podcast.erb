@@ -1,3 +1,4 @@
 <li id="<%=h dom_id(podcast) -%>" class="podcast  <%= cycle('odd','even', :name => 'row_class') -%>">
   <%= link_to_podcast(podcast) -%>
+  <%= render(:partial => 'podcasts/favorite_link', :locals => {:podcast => podcast}) if local_assigns.include?(:favorite_link) %>
 </li>

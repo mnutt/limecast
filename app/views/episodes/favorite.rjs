@@ -1,6 +1,0 @@
-page.replace("#{dom_id(@episode)}_favorite", 
-      link_to_remote("#{current_user.favorite_episodes.include?(@episode) ? 'Unfavorite' : 'Favorite'}",
-        :url => favorite_episode_url(:podcast => @podcast.clean_url, :episode => @episode.clean_url),
-        :html => { :id => "#{dom_id(@episode)}_favorite", 
-                   :title => "#{current_user.favorite_episodes.include?(@episode) ? 'This is a favorite.' : 'Favorite this!'}",
-                   :class => "#{current_user.favorite_episodes.include?(@episode) ? 'favorite' : 'not_favorite'}"}))

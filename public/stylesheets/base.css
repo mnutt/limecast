@@ -149,6 +149,7 @@ h1.icon {
 }
 a.favorite,
 a.not_favorite {
+  outline: none;
   display: inline-block;
   width: 16px;
   height: 16px;

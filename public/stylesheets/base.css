@@ -338,11 +338,12 @@ div#body a.action_button:hover span {
 **/
 div#footer_wrapper {
   background: #181818 url("../images/layout/footer_border.png") repeat-x left top;
-  height: 34px;
-  margin: -34px 0 0 0;
+  height: 50px;
+  margin: -50px 0 0 0;
   position: relative;
 }
 div#footer {
+  font-size: 1.1em;
   padding: 10px 8px;
 }
 div#footer ul {

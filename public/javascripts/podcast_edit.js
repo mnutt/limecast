@@ -1,4 +1,15 @@
 jQuery(document).ready(function(){
+  $('.edit_podcast_form').map(function(){
+    var show_div  = $(this);
+    var edit_form = $(this).find('form.edit');
+
+    edit_form.find('input.cancel').click(function(){
+      show_div.show(); edit_form.hide();
+      return false;
+    });
+
+
+
   // this is on user#show
   jQuery('a.favorite_toggle_link').click(function(link){
     favorite_link = jQuery(this);

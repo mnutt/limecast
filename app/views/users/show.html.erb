@@ -33,7 +33,7 @@
   <% end -%>
 
   <% if @user.favorite_podcasts.size > 0 -%>
-    <h3>Favorites (<%= @user.favorite_podcasts.size %>)</h3>
+    <h2>Favorites (<%= @user.favorite_podcasts.size %>)</h2>
     <ul class="podcasts">
       <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:favorite_link => true} -%>
     </ul>

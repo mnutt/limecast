@@ -1,8 +1,11 @@
 <% @title = h(@user.login) -%>
+<% @show_ads = true if @user.comments.count > 0 -%>
 <% javascript_include "comment_edit", "comment_delete", "podcast_edit", "inline_edit_form" -%>
 
-
 <div class="user">
+
+  <%= render :partial => 'users/small_picture', :locals => { :user => @user } -%>
+
   <% if @user == current_user -%>
     <div id="edit_actions" class="clearfix">
       <span class="label">This is me!</span>
@@ -19,7 +22,7 @@
     </div>  
   <% end -%>
 
-  <h1 class="icon user user_<%= @user.rank %>"><%=h @user.login -%> (<%= @user.score %>)</h1>
+  <h1><%=h @user.login -%> (<%= @user.score %>)</h1>
   
   <% if @user.owned_podcasts.count > 0 -%>
     <h2>Makes</h2>
@@ -30,9 +33,9 @@
   <% end -%>
 
   <% if @user.favorite_podcasts.size > 0 -%>
-    <h3>Favorites (<%= @user.favorite_podcasts.size %>)</h3>
+    <h2>Favorites (<%= @user.favorite_podcasts.size %>)</h2>
     <ul class="podcasts">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:favorite_link => true} -%>
+      <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
     </ul>
     <% reset_cycle('row_class') %>
   <% end -%>

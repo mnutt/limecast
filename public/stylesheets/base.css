@@ -271,8 +271,7 @@ div#body div#sidebar {
   width: 160px;
   float: right;
 }
-div#body p,
-div#body ul {
+div#body p {
   margin: 0 0 14px 0;
 }
 div#body span.notice {

@@ -18,14 +18,14 @@ task :stats => "spec:statsetup"
 desc "Run all specs in spec directory (excluding plugin specs)"
 Spec::Rake::SpecTask.new(:spec => spec_prereq) do |t|
   t.spec_opts = ['--options', "\"#{RAILS_ROOT}/spec/spec.opts\""]
-  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.spec_files = FileList['spec/**/*_spec.rb'] - FileList['spec/ui/*']
 end
 
 namespace :spec do
   desc "Run all specs in spec directory with RCov (excluding plugin specs)"
   Spec::Rake::SpecTask.new(:rcov) do |t|
     t.spec_opts = ['--options', "\"#{RAILS_ROOT}/spec/spec.opts\""]
-    t.spec_files = FileList['spec/**/*_spec.rb']
+    t.spec_files = FileList['spec/**/*_spec.rb'] - FileList['spec/ui/*']
     t.rcov = true
     t.rcov_opts = lambda do
       IO.readlines("#{RAILS_ROOT}/spec/rcov.opts").map {|l| l.chomp.split " "}.flatten
@@ -44,7 +44,7 @@ namespace :spec do
     t.spec_files = FileList['vendor/plugins/**/spec/**/*_spec.rb'].exclude('vendor/plugins/rspec/*')
   end
 
-  [:models, :controllers, :views, :helpers, :lib].each do |sub|
+  [:models, :controllers, :views, :helpers, :lib, :ui].each do |sub|
     desc "Run the specs under spec/#{sub}"
     Spec::Rake::SpecTask.new(sub => spec_prereq) do |t|
       t.spec_opts = ['--options', "\"#{RAILS_ROOT}/spec/spec.opts\""]

@@ -6,13 +6,11 @@
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
   <div class="episode">
-    <p><%= link_to(h(@episode.podcast.custom_title), @episode.podcast) %></p>
+    <p>Episode of <%= link_to(h(@episode.podcast.custom_title), @episode.podcast) %></p>
     
-    <h1 class="heading">
-      <%=h @episode.date_title %>
-    </h1>
-    
-    <p class="title"><%=h @episode.title %> (<%= time_to_words(@episode.duration) -%>)</p>
+    <h1><%= @episode.date_title %></h1>
+
+    <p><%=escape_once(@episode.title)%><%= " (#{time_to_words @episode.duration, true})" unless @episode.duration == 0 %></p>
     
     <div class="metadata clearfix">
       <div class="summary">

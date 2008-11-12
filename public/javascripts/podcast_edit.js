@@ -1,4 +1,5 @@
 jQuery(document).ready(function(){
+  // for the podcast edit form
   $('.edit_podcast_form').map(function(){
     var show_div  = $(this);
     var edit_form = $(this).find('form.edit');

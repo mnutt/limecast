@@ -181,6 +181,6 @@ class Feed < ActiveRecord::Base
   end
 
   def remove_empty_podcast
-    self.podcast.destroy if self.failed? && !self.podcast.nil?
+    self.podcast.delete if self.failed? && !self.podcast.nil?
   end
 end

@@ -14,7 +14,7 @@ module ApplicationHelper
     link_text += h(user.login)
     link_text += " (#{user.score})" unless user.podcaster?
 
-    link_to "<span class='searched'>#{link_text}</span>", user_url(user),
+    link_to "<span class=\"searched\">#{link_text}</span>", user_url(user),
     :title => "#{user.rank.capitalize} User"
   end
 

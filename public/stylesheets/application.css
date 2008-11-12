@@ -15,6 +15,29 @@ div.quick_signin form div.response_container {
 /**
 * Users
 **/
+div.user div.picture {
+  top: 30px;
+  left: 30px;
+  padding: 1px 0 0 1px;
+  position: absolute;
+  z-index: 1;
+}
+div.user div.picture span.border {
+  border: 1px solid #232323;
+  width: 170px;
+  height: 170px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  display: block;
+  z-index: 1;
+}
+div.user div.picture img {
+  width: 170px;
+  height: 170px;
+}
+
+
 div.user li.podcast {
   float: none;
 }

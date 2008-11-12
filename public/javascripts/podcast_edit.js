@@ -1,4 +1,5 @@
 jQuery(document).ready(function(){
+  // for the podcast edit form
   $('.edit_podcast_form').map(function(){
     var show_div  = $(this);
     var edit_form = $(this).find('form.edit');
@@ -7,7 +8,7 @@ jQuery(document).ready(function(){
       show_div.show(); edit_form.hide();
       return false;
     });
-
+  });
 
 
   // this is on user#show

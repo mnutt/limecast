@@ -10,7 +10,7 @@
     
     <h1><%= @episode.date_title %></h1>
 
-    <p><%= "#{h(@episode.podcast.custom_title)}: #{h @episode.published_at.strftime("%m/%d/%Y")} (#{time_to_words @episode.duration})" %></p>
+    <p><%=h @episode.title %> (<%= time_to_words @episode.duration, true %>)</p>
     
     <div class="metadata clearfix">
       <div class="summary">

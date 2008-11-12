@@ -41,7 +41,7 @@ $.fn.extend({
           dataType: "json",
           success: function(resp){
             if(resp.success) {
-              $('#account_bar .signup').html(resp.html);
+              window.location.reload();
             } else {
               me.find('.response_container').html(resp.html);
             }

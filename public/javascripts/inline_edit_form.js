@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('li.edit').click(function() {
+  $('li.edit, input.cancel').click(function() {
     $('#edit_form').toggle();
     return false;
   });
@@ -11,10 +11,10 @@ $(document).ready(function() {
       url: edit_form.attr('action'),
       data: edit_form.serialize(),
       success: function(resp){
-	edit_form.find(".status").text("Feed updated.");
+        edit_form.find(".status").text("Feed updated.");
       },
       error: function(resp){
-	edit_form.find(".status").text("Error updating feed.");
+        edit_form.find(".status").text("Error updating feed.");
       }
     });
     return false;

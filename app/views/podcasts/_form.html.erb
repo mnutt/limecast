@@ -1,5 +1,5 @@
-<div id="edit_form" style="display:none">
-  <% form_for :podcast_attr, @podcast do |f| -%>
+<div id="edit_form" style="display:none" class="clearfix">
+  <% form_for :podcast_attr, @podcast, :html => {:class => 'edit'} do |f| -%>
     <div class="field">
       <%= f.label :custom_title, "Title" -%>
       <div>
@@ -9,6 +9,7 @@
     
     <div class="controls">
       <%= submit_tag "Save", :class => "button" -%>
+      <%= submit_tag "Cancel", :class => 'button cancel' -%>
     </div>
   <% end -%>
 
@@ -16,24 +17,24 @@
     <% @podcast.feeds.each do |feed| -%>
       <% form_for feed, :class => 'edit_feed' do |f| -%>
         <div class="feed_url"><%= feed.url -%></div>
-	<div class="feed_options">
-	  <%= f.label :itunes_link, "iTunes" -%>
-	  <%= f.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
-	  <%= f.label :format -%>
-	  <%= f.text_field :format, :size => 15 -%>
-	  <%= link_to "Change", "#", :class => "submit" -%>
-	</div>
-	<div class="status"></div>
-	<div class="feed_meta">
-	  (<%= [feed.apparent_format, feed.formatted_bitrate].compact.join(", ") -%>)
-	  <% if feed.primary? -%>
-	    <span>Primary</span>
-	  <% else -%>
-	    <span><%= link_to "Make Primary", "#" -%></span>
-	    <span><%= link_to "Delete", "#" -%></span>
-	  <% end -%>
-	</div>
-	<br/>
+  <div class="feed_options">
+    <%= f.label :itunes_link, "iTunes" -%>
+    <%= f.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
+    <%= f.label :format -%>
+    <%= f.text_field :format, :size => 15 -%>
+    <%= link_to "Change", "#", :class => "submit" -%>
+  </div>
+  <div class="status"></div>
+  <div class="feed_meta">
+    (<%= [feed.apparent_format, feed.formatted_bitrate].compact.join(", ") -%>)
+    <% if feed.primary? -%>
+      <span>Primary</span>
+    <% else -%>
+      <span><%= link_to "Make Primary", "#" -%></span>
+      <span><%= link_to "Delete", "#" -%></span>
+    <% end -%>
+  </div>
+  <br/>
       <% end -%>
     <% end -%>
 
@@ -42,25 +43,25 @@
     <% form_for :feed, :url => feeds_url, :html => { :id => 'new_podcast' } do |f| -%>
       <div class="feed huge">
         <div>
-	  <label for="feed_url" class="default" style="display:none;">http://example.com/rss.xml</label>
-	  <input type='text'   class="text"   id="feed_url" name="feed[url]" />
-	  <input type='submit' class="button" value="Add" />
+    <label for="feed_url" class="default" style="display:none;">http://example.com/rss.xml</label>
+    <input type='text'   class="text"   id="feed_url" name="feed[url]" />
+    <input type='submit' class="button" value="Add" />
         </div>
       </div>
     <% end -%>
 
     <div id="added_podcast" style="display: none;">
       <form>
-	<div class="field huge">
-	  <label>Feed</label>
-	  <div>
+  <div class="field huge">
+    <label>Feed</label>
+    <div>
             <input type='text'   class="text"   disabled="disabled" style="background: #222" />
             <input type='submit' class="button" disabled="disabled" style="background: #666" value="Add" />
-	  </div>
-	</div>
+    </div>
+  </div>
       </form>
       <div class="status">
-	<%= render :partial => 'feeds/status_loading' -%>
+  <%= render :partial => 'feeds/status_loading' -%>
       </div>
     </div>
     

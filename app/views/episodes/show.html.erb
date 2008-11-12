@@ -10,7 +10,7 @@
     
     <h1><%= @episode.date_title %></h1>
 
-    <p><%=h @episode.title %><%= " (#{time_to_words @episode.duration, true})" unless @episode.duration == 0 %></p>
+    <p><%=escape_once(@episode.title)%><%= " (#{time_to_words @episode.duration, true})" unless @episode.duration == 0 %></p>
     
     <div class="metadata clearfix">
       <div class="summary">

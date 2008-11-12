@@ -35,7 +35,7 @@
   <% if @user.favorite_podcasts.size > 0 -%>
     <h2>Favorites (<%= @user.favorite_podcasts.size %>)</h2>
     <ul class="podcasts">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:favorite_link => true} -%>
+      <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
     </ul>
     <% reset_cycle('row_class') %>
   <% end -%>

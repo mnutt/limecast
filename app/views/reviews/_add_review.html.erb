@@ -1,0 +1,8 @@
+<% options ||= {} -%>
+<% javascript_include "review_new" -%>
+
+<% form_for @review, :url => reviews_url do |f| -%>
+  <%= render :partial => "reviews/form", :locals => {:options => options, :f => f, :podcast => @review.episode.podcast} %>
+<% end -%>
+
+<%= render :partial => "users/quick_signin" -%>

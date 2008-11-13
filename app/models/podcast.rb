@@ -93,8 +93,8 @@ class Podcast < ActiveRecord::Base
     self.site.to_url
   end
 
-  def comments
-    Comment.for_podcast(self)
+  def reviews
+    Review.for_podcast(self)
   end
 
   def just_created?

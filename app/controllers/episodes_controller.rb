@@ -15,7 +15,7 @@ class EpisodesController < ApplicationController
     raise ActiveRecord::RecordNotFound if @episode.nil? || params[:episode].nil?
 
     @feeds   = @podcast.feeds
-    @comment = Comment.new(:episode => @episode)
+    @review = Review.new(:episode => @episode)
   end
 
   def destroy

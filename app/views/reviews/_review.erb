@@ -1,0 +1,20 @@
+<% with_podcast ||= false -%>
+
+<li id="<%=h dom_id(review) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
+  <div class="show">
+    <%= link_to_podcast(review.episode.podcast) if with_podcast -%>
+
+    <span class="rating"><%= review_rating(review) -%></span>
+    <span class="title"><%= link_to h(review.title), review_url(:podcast => review.episode.podcast, :id => review.id), :title => 'permalink' -%></span>
+    <span class="body"><%= format_with_paragraph_entity review.body -%></span>
+    <cite><%= link_to_profile review.reviewer -%></cite>
+    <span class="episode"><%= link_to review.episode.date_title, episode_url(review.episode.podcast, review.episode) -%></span>
+
+    <%= render(:partial => 'reviews/modify_links', :object => review) -%>
+    <%= render(:partial => 'reviews/rating_links', :object => review) -%>
+  </div>
+
+  <% form_for review, reviews_url, :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>
+    <%= render :partial => 'reviews/form', :locals => {:f => f, :podcast => review.episode.podcast} -%>
+  <% end -%>
+</li>

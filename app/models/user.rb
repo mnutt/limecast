@@ -26,7 +26,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   has_many :feeds, :foreign_key => 'finder_id'
   has_many :owned_podcasts, :class_name => 'Podcast', :foreign_key => 'owner_id', :dependent => :destroy
-  has_many :comments
+  has_many :reviews
   has_many :favorites
   has_many :favorite_podcasts, :through => :favorites, :source => :podcast
 
@@ -121,7 +121,7 @@ class User < ActiveRecord::Base
   end
 
   def calculate_score!
-    update_attribute :score, (feeds.count + comments.count)
+    update_attribute :score, (feeds.count + reviews.count)
   end
 
   def rank

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081113182146) do
+ActiveRecord::Schema.define(:version => 20081113205238) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -21,18 +21,6 @@ ActiveRecord::Schema.define(:version => 20081113182146) do
     t.boolean "insightful"
     t.integer "comment_id"
     t.integer "user_id"
-  end
-
-  create_table "comments", :force => true do |t|
-    t.integer  "user_id"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "title"
-    t.boolean  "positive"
-    t.integer  "episode_id"
-    t.integer  "insightful",     :default => 0
-    t.integer  "not_insightful", :default => 0
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -101,6 +89,18 @@ ActiveRecord::Schema.define(:version => 20081113182146) do
     t.string   "owner_email"
     t.string   "owner_name"
     t.string   "custom_title"
+  end
+
+  create_table "reviews", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.boolean  "positive"
+    t.integer  "episode_id"
+    t.integer  "insightful",     :default => 0
+    t.integer  "not_insightful", :default => 0
   end
 
   create_table "sources", :force => true do |t|

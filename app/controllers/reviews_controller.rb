@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class ReviewsController < ApplicationController
   before_filter :login_required, :only => [:new, :update]
 
   def index
@@ -6,59 +6,59 @@ class CommentsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast])
     @feeds   = @podcast.feeds
 
-    @comments = filter(@podcast.comments, params[:filter])
+    @reviews = filter(@podcast.reviews, params[:filter])
   end
 
   def show
-    @comment = Comment.find(params[:id])
+    @review = Review.find(params[:id])
 
     @podcast = Podcast.find_by_clean_url(params[:podcast])
     @feeds   = @podcast.feeds
   end
 
   def new
-    @comment = Comment.new
+    @review = Review.new
     @podcast = Podcast.find_by_clean_url(params[:podcast])
     @feeds   = @podcast.feeds
   end
 
   def edit
-    @comment = Comment.find(params[:id])
+    @review = Review.find(params[:id])
     @podcast = Podcast.find_by_clean_url(params[:podcast])
     @feeds   = @podcast.feeds
 
-    redirect_to(:back) rescue redirect_to('/') unless @comment.editable?
+    redirect_to(:back) rescue redirect_to('/') unless @review.editable?
   end
 
   def create
-    comment_params = params[:comment].keep_keys([:title, :body, :positive, :episode_id])
+    review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
     @podcast = Podcast.find_by_clean_url(params[:podcast])
-    @comment = Comment.new(comment_params)
+    @review = Review.new(review_params)
 
     respond_to do |format|
       if current_user
-        @comment.commenter = current_user
+        @review.reviewer = current_user
 
-        if @comment.save
+        if @review.save
           format.html { redirect_to :back }
           format.js
         else
           format.html { render :action => "new" }
         end
       else
-        session[:comment] = comment_params
+        session[:review] = review_params
         format.js
       end
     end
   end
 
   def update
-    @comment = Comment.find(params[:id])
+    @review = Review.find(params[:id])
     @podcast = Podcast.find_by_clean_url(params[:podcast])
 
     respond_to do |format|
-      if @comment.update_attributes(params[:comment])
-        format.html { redirect_to review_url(:podcast => @podcast, :id => @comment.id) }
+      if @review.update_attributes(params[:review])
+        format.html { redirect_to review_url(:podcast => @podcast, :id => @review.id) }
       else
         format.html { render :action => "edit" }
       end
@@ -68,32 +68,32 @@ class CommentsController < ApplicationController
   end
 
   def rate
-    @comment = Comment.find(params[:id])
-    @comment.comment_ratings << CommentRating.new(:user => current_user, :insightful => !!(params[:rating] =~ /not/))
+    @review = Review.find(params[:id])
+    @review.comment_ratings << CommentRating.new(:user => current_user, :insightful => !!(params[:rating] =~ /not/))
 
     redirect_to(:back)
   end
 
   def destroy
     @podcast = Podcast.find_by_clean_url(params[:podcast])
-    @comment = @podcast.comments.find(params[:id])
-    @comment.destroy
+    @review = @podcast.reviews.find(params[:id])
+    @review.destroy
 
-    session.data[:comments].delete(params[:id]) if session.data[:comments]
+    session.data[:reviews].delete(params[:id]) if session.data[:reviews]
 
     respond_to do |format|
       format.js   { render :nothing => true }
-      format.html { redirect_to episode_url(@comment.episode.podcast, @comment.episode) }
+      format.html { redirect_to episode_url(@review.episode.podcast, @review.episode) }
     end
   end
 
   protected
 
-  def filter(comments, f)
+  def filter(reviews, f)
     case f
-    when "positive": comments.that_are_positive
-    when "negative": comments.that_are_negative
-    else comments
+    when "positive": reviews.that_are_positive
+    when "negative": reviews.that_are_negative
+    else reviews
     end
   end
 

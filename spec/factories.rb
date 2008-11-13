@@ -86,8 +86,8 @@ Factory.define :admin_user, :class => User do |u|
   u.admin true
 end
 
-Factory.define :comment, :class => Comment do |c|
-  c.association :commenter, :factory => :user
+Factory.define :review, :class => Review do |c|
+  c.association :reviewer, :factory => :user
   c.association :episode, :factory => :episode
 
   c.title    'My first podcast review'

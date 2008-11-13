@@ -1,11 +1,11 @@
-class CommentRating < ActiveRecord::Base
-  belongs_to :review, :class_name => 'Review', :foreign_key => 'comment_id'
+class ReviewRating < ActiveRecord::Base
+  belongs_to :review
   belongs_to :user
 
   named_scope :insightful,     :conditions => {:insightful => true}
   named_scope :not_insightful, :conditions => {:insightful => false}
 
-  validates_uniqueness_of :comment_id, :scope => :user_id
+  validates_uniqueness_of :review_id, :scope => :user_id
 
   def validate_on_create
     if self.review.reviewer == user

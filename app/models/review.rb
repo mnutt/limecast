@@ -19,7 +19,7 @@ class Review < ActiveRecord::Base
   belongs_to :episode
   belongs_to :reviewer, :class_name => 'User', :foreign_key => 'user_id'
 
-  has_many :comment_ratings, :foreign_key => 'comment_id'
+  has_many :review_ratings
 
   after_create  { |c| c.reviewer.calculate_score! if c.reviewer }
   after_destroy { |c| c.reviewer.calculate_score! if c.reviewer }
@@ -43,11 +43,11 @@ class Review < ActiveRecord::Base
   end
 
   def insightful
-    self.comment_ratings.insightful.count
+    self.review_ratings.insightful.count
   end
 
   def not_insightful
-    self.comment_ratings.not_insightful.count
+    self.review_ratings.not_insightful.count
   end
 
 end

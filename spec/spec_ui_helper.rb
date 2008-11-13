@@ -35,7 +35,7 @@ end
 
 module BrowserExtensions
   attr_writer :url
- 
+
   def go(url)
     self.goto([@url, url].join)
   end

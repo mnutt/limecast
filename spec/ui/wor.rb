@@ -9,9 +9,11 @@ describe "Adding Podcast" do
     browser.go("/add")
     browser.text_field(:name, "feed[url]").set("http://feeds.feedburner.com/WinelibraryTV")
     browser.button(:value, "Add").click
-    # assert_select "div.status_message", /Getting RSS/
-    try_for(60) do
-      assert_select "div.status_message", /Yum/
+    try_for(2) do
+      html.should have_tag("div.status_message", /Getting RSS/)
+    end
+    try_for(10) do
+      html.should have_tag("div.status_message", /Yum/)
     end
   end
   

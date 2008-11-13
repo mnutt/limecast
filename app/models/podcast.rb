@@ -27,7 +27,8 @@ class Podcast < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
   has_many :favorites, :dependent => :destroy
-  has_many :feeds, :dependent => :destroy
+  has_many :feeds, :dependent => :destroy, :include => :first_source,
+                   :order => 'sources.format ASC, bitrate ASC', :group => "feeds.id"
   has_many :episodes, :dependent => :destroy
 
   has_many :taggings, :as => :taggable, :dependent => :destroy, :include => :tag

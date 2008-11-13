@@ -22,4 +22,6 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 # Don't load podcast observer
-config.active_record.observers = :user_observer
+unless ENV['LOAD_FEED_OBSERVER']
+  config.active_record.observers = :user_observer
+end

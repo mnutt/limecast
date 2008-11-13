@@ -14,7 +14,7 @@
     <%= render(:partial => 'reviews/rating_links', :object => review) -%>
   </div>
 
-  <% form_for review, reviews_url, :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>
+  <% form_for review, :url => reviews_url(:podcast => review.episode.podcast), :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>
     <%= render :partial => 'reviews/form', :locals => {:f => f, :podcast => review.episode.podcast} -%>
   <% end -%>
 </li>

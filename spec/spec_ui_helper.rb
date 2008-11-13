@@ -5,21 +5,20 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 def setup_browser
   @browser = Watir::Safari.new
-  def @browser.url=(url)
-    @url = url
-  end
-  def @browser.go(url)
-    self.goto([@url, url].join)
-  end
+  @browser.extend(BrowserExtensions)
   @browser.url = "http://localhost:3003"
 end
 
 def teardown_browser
-  @browser.kill! rescue nil
+  browser.close rescue nil
 end
 
 def browser
   @browser
+end
+
+def html
+  @browser.html
 end
 
 def try_for(seconds, &block)
@@ -33,4 +32,11 @@ def try_for(seconds, &block)
   end
   block.call
 end
-      
+
+module BrowserExtensions
+  attr_writer :url
+ 
+  def go(url)
+    self.goto([@url, url].join)
+  end
+end

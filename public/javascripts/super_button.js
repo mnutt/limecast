@@ -37,25 +37,22 @@ $.fn.extend({
       return base_url;
     };
 
-    
-    $(this).map(function(){
-      me = $(this);
-      
+    $(this).each(function(i, form){
       update_url = function() {
+        form = $(this).parent('form.super_button');
         console.log("changing select");
-        var delivery = me.find('select.delivery').val();
-        var item = me.find('select.item').val();
+        var delivery = form.find('select.delivery').val();
+        var item = form.find('select.item').val();
 
-        if(me.hasClass('download')) {
-          me.find('a.super_button_button')[0].href = download_url(me, delivery, item);
+        if(form.hasClass('download')) {
+          form.find('a.super_button_button')[0].href = download_url(form, delivery, item);
         } else {
-          me.find('a.super_button_subscribe').attr('href', subscribe_url(me, delivery, item));
+          form.find('a.super_button_subscribe').attr('href', subscribe_url(form, delivery, item));
         }
-      }
+      };
 
-      me.find('select').change(update_url);
-
-      me.find('select').each(update_url);
+      $(form).find('select').change(update_url);
+      $(form).find('select').each(update_url);
     });
 
     return $(this);

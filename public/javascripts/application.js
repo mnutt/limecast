@@ -128,8 +128,8 @@ $(document).ready(function(){
     }
   });
 
-  $('div.super_button, form.super_button').superButton();
-  $('div.super_button.subscribe').updateDeliveryForSubscribe();
+  $('form.super_button').superButton();
+  $('form.super_button.subscribe').updateDeliveryForSubscribe();
 });
 
 // Hook up all of the search term highlighting

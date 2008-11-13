@@ -128,7 +128,7 @@ $(document).ready(function(){
     }
   });
 
-  $('div.super_button').superButton();
+  $('div.super_button, form.super_button').superButton();
   $('div.super_button.subscribe').updateDeliveryForSubscribe();
 });
 

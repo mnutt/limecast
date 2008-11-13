@@ -8,7 +8,7 @@
   <div class="episode">
     <p>Episode of <%= link_to(h(@episode.podcast.custom_title), @episode.podcast) %></p>
     
-    <h1><%= @episode.date_title %></h1>
+    <h1 class="heading"><%= @episode.date_title %></h1>
 
     <p><%=escape_once(@episode.title)%><%= " (#{time_to_words @episode.duration, true})" unless @episode.duration == 0 %></p>
     

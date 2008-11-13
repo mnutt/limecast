@@ -37,23 +37,27 @@ $.fn.extend({
       return base_url;
     };
 
+    
     $(this).map(function(){
-      var me = $(this);
-
-      me.find('select').change(function(){
-				 console.log("changing select");
+      me = $(this);
+      
+      update_url = function() {
+        console.log("changing select");
         var delivery = me.find('select.delivery').val();
         var item = me.find('select.item').val();
 
         if(me.hasClass('download')) {
           me.find('a.super_button_button')[0].href = download_url(me, delivery, item);
         } else {
-          me.find('form')[0].action = subscribe_url(me, delivery, item);
+          me.find('a.super_button_subscribe').attr('href', subscribe_url(me, delivery, item));
         }
-      });
+      }
+
+      me.find('select').change(update_url);
+
+      me.find('select').each(update_url);
     });
 
     return $(this);
   }
 });
-

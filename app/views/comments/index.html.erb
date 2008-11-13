@@ -3,7 +3,7 @@
 <% javascript_include "comment_edit", "comment_delete" -%>
 
 <div class="podcast">
-  <%= render :partial => 'podcasts/small_cover' -%>
+  <%= render :partial => 'podcasts/small_cover', :locals => { :url => cover_url(@podcast) } -%>
 
   <h2><%=h @filter.capitalize -%> reviews for <%=h @podcast.custom_title -%></h2>
 

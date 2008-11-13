@@ -16,6 +16,16 @@ test:
   host:     localhost
   # socket: /var/run/mysqld/mysqld.sock
 
+
+uitest:
+  adapter: mysql
+  database: limecast_uitest
+  username: root
+  password:
+  encoding: utf8
+  host:     localhost
+  # socket: /var/run/mysqld/mysqld.sock
+
 production:
   adapter: mysql
   database: limecast_production

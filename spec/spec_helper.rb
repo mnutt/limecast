@@ -9,7 +9,6 @@ require 'spec/rails'
 require 'scenarios'
 require 'factory_girl'
 require 'thinking_sphinx'
-require "selenium"
 
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true

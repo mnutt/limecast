@@ -5,7 +5,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 include AuthenticatedTestHelper
 
 describe UsersController do
-  fixtures :users
 
   it 'allows signup' do
     lambda do

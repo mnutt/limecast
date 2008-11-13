@@ -1,8 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CommentsController do
-  fixtures :users
-
   before(:each) do
     @user = Factory.create(:user)
     @podcast = Factory.create(:podcast)

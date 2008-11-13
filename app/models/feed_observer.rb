@@ -1,5 +1,5 @@
 class FeedObserver < ActiveRecord::Observer
   def after_create(feed)
-    feed.send(:refresh)
+    feed.send_later(:refresh)
   end
 end

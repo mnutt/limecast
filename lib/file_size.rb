@@ -17,7 +17,9 @@ class FileSize
     case @size
     when 0
       {:kilobytes => 0}
-    when (1.byte..(1.megabyte - 1.byte))
+    when (1.byte..(1.kilobyte - 1.byte))
+      {:kilobytes => 1}
+    when (1.kilobyte..(1.megabyte - 1.byte))
       {:kilobytes => to_kilobytes(@size)}
     when (1.megabyte..(32.megabytes - 1.byte))
       {:megabytes => to_megabytes(@size.to_f)}

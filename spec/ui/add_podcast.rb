@@ -20,7 +20,7 @@ describe "Adding Podcast" do
       html.should have_tag("div.status_message", /Yum/)
     end
   end
-  
+
   after(:all) do
     teardown_browser
   end

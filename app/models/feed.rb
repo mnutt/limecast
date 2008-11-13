@@ -27,6 +27,7 @@ class Feed < ActiveRecord::Base
   class FeedDoesNotMatchPodcast < Exception; def message; "This feed does not match the podcast that it is associated with." end end
 
   has_many :sources, :dependent => :destroy
+  has_many :first_source, :class_name => 'Source', :limit => 1
   belongs_to :podcast
   belongs_to :finder, :class_name => 'User'
 

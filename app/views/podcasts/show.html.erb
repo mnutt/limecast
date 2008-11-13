@@ -53,7 +53,9 @@
   </div>
   <% end -%>
   
-  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds} -%>
+  <% RAILS_DEFAULT_LOGGER.info "BLA BLA" -%>
+  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds } -%>
+  <% RAILS_DEFAULT_LOGGER.info "BLA BLA 2" -%>
 
   <%= render :partial => 'badges' %>
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+#ENV['RAILS_ENV']='test'
 require File.dirname(__FILE__) + '/../config/environment'
 
 File.open("#{RAILS_ROOT}/tmp/pids/dj.pid", "w") { |f| f.write(Process.pid) }
@@ -9,6 +10,9 @@ trap('TERM') { puts 'Exiting...'; $exit = true }
 trap('INT')  { puts 'Exiting...'; $exit = true }
 
 puts "*** Starting job worker #{Delayed::Job.worker_name}" 
+puts ENV['RAILS_ENV']
+puts RAILS_ENV
+p ActiveRecord::Base.connection
 
 begin
   

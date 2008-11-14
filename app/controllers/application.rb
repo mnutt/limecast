@@ -68,6 +68,7 @@ class ApplicationController < ActionController::Base
 
     def render_exception(status, title = "Server Error")
       @title = title
+      @error = status
 
       respond_to do |format|
         format.html { render :template => "errors/#{status}", :status => status }

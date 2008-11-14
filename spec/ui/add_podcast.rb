@@ -12,7 +12,7 @@ describe "Adding podcast while logged out" do
   it 'should immediately show the loading status' do
     html.should have_tag("div.status_message", /Getting RSS/)
   end
-  
+
   it 'should eventually show success' do
     try_for(10) do
       html.should have_tag("div.status_message", /Yum/)

@@ -27,7 +27,7 @@ class Podcast < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
   has_many :favorites, :dependent => :destroy
-  has_many :feeds, :dependent => :destroy, :include => :first_source, 
+  has_many :feeds, :dependent => :destroy, :include => :first_source,
                    :order => 'sources.format ASC, bitrate ASC', :group => "feeds.id"
   has_many :episodes, :dependent => :destroy
 
@@ -94,8 +94,8 @@ class Podcast < ActiveRecord::Base
     self.site.to_url
   end
 
-  def comments
-    Comment.for_podcast(self)
+  def reviews
+    Review.for_podcast(self)
   end
 
   def just_created?

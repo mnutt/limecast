@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
 
     if logged_in?
       claim_podcasts
-      claim_comment
+      claim_review
       set_cookies
     end
   end
@@ -52,16 +52,16 @@ class SessionsController < ApplicationController
     cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
   end
 
-  def claim_comment
-    return if session[:comment].nil?
+  def claim_review
+    return if session[:review].nil?
 
-    if Comment.count(:conditions => {:episode_id => session[:comment][:episode_id], :user_id => current_user.id}) == 0
-      c = Comment.new(session[:comment])
-      c.commenter = current_user
+    if Review.count(:conditions => {:episode_id => session[:review][:episode_id], :user_id => current_user.id}) == 0
+      c = Review.new(session[:review])
+      c.reviewer = current_user
       c.save
     end
 
-    session.data.delete(:comment)
+    session.data.delete(:review)
   end
 
   def claim_podcasts

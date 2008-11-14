@@ -6,12 +6,12 @@ describe Episode do
     @user    = Factory.create(:user)
   end
 
-  it 'should not have been_reviewed_by? a user if the episode has no comments' do
+  it 'should not have been_reviewed_by? a user if the episode has no reviews' do
     @episode.been_reviewed_by?(@user).should be_false
   end
 
   it 'should have been_reviewed_by? a user if they commented on an episode' do
-    Factory.create(:comment, :episode => @episode, :commenter => @user)
+    Factory.create(:review, :episode => @episode, :reviewer => @user)
     @episode.been_reviewed_by?(@user).should be_true
   end
 

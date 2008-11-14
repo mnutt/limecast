@@ -62,6 +62,13 @@ div.user div#edit_actions ul li.edit a {
   background-image: url("../images/icons/user.png") !important;
 }
 */
+
+/*
+* Super Button
+**/
+form.super_button {
+}
+
 /**
 * Podcasts
 **/
@@ -121,7 +128,6 @@ div.podcast div#edit_actions ul li.delete a {
   background-image: url("../images/icons/delete.png");
 }
 div.podcast div.urls,
-div.podcast div.super_button,
 div.podcast div.authors {
   margin: 0 0 14px 0;
   clear: left;
@@ -288,16 +294,16 @@ div#edit_form {
 /**
  * Comments
 */
-ul.comments li.comment {
+ul.reviews li.comment {
   padding: 10px 0;
   position: relative;
   *height: 0.01%;
 }
-ul.comments li.comment a.inline_icon {
+ul.reviews li.comment a.inline_icon {
   margin: 0 5px -3px 0;
   float: left;
 }
-ul.comments li.comment h4 {
+ul.reviews li.comment h4 {
   font-weight: bold;
   margin: 2px 5px -2px 0;
   float: left;

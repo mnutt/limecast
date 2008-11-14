@@ -1,6 +1,6 @@
 <% @title = "#{h(@podcast.custom_title)} #{h(@episode.title)}" -%>
 <% @show_ads = true -%>
-<% javascript_include "comment_edit", "comment_delete" -%>
+<% javascript_include "review_edit", "review_delete" -%>
 
 <div class="podcast">
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
@@ -23,6 +23,6 @@
     
   </div>
 
-  <%= render :partial => 'comments/comments', :object => @episode.comments, :locals => { :episode => @episode, :podcast => @episode.podcast } -%>
+  <%= render :partial => 'reviews/reviews', :object => @episode.reviews, :locals => { :episode => @episode, :podcast => @episode.podcast } -%>
   
 </div>

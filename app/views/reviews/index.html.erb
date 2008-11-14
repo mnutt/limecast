@@ -1,17 +1,17 @@
 <% @title = "#{h(@podcast.custom_title)} Reviews" -%>
 <% @show_ads = true -%>
-<% javascript_include "comment_edit", "comment_delete" -%>
+<% javascript_include "review_edit", "review_delete" -%>
 
 <div class="podcast">
-  <%= render :partial => 'podcasts/small_cover' -%>
+  <%= render :partial => 'podcasts/small_cover', :locals => {:url => podcast_url(@podcast)} -%>
 
   <h2><%=h @filter.capitalize -%> reviews for <%=h @podcast.custom_title -%></h2>
 
-  <% if @comments.blank? -%>
+  <% if @reviews.blank? -%>
     <p>There are no <%=h @filter -%> reviews.</p>
   <% else -%>
     <ul class="reviews">
-      <%= render :partial => 'comments/comment', :collection => @comments -%>
+      <%= render :partial => 'reviews/review', :collection => @reviews -%>
     </ul>
   <% end -%>
 </div>

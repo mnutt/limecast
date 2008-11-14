@@ -3,8 +3,8 @@ $(document).ready(function(){
     success: function(){ window.location.reload(); }
   });
 
-  $('form#new_comment').submit(function(){
-    var new_comment_form = $(this);
+  $('form#new_review').submit(function(){
+    var new_review_form = $(this);
     $.ajax({
       type:    'post',
       url:     $(this).attr('action'),
@@ -18,7 +18,7 @@ $(document).ready(function(){
           $('.quick_signin.inline').show();
         }
 
-        new_comment_form.hide();
+        new_review_form.hide();
       }
     });
 

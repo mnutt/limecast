@@ -1,6 +1,6 @@
 <% @title = h(@podcast.custom_title) -%>
 <% @show_ads = true -%>
-<% javascript_include "comment_edit", "comment_delete", "inline_edit_form", "podcasts_new", "podcast_edit" -%>
+<% javascript_include "review_edit", "review_delete", "inline_edit_form", "podcasts_new", "podcast_edit" -%>
 
 <div class="podcast">
 
@@ -114,7 +114,7 @@
       <% reset_cycle('row_class') %>
     </div>
     
-    <%= render :partial => 'comments/comments', :object => @podcast.comments, :locals => { :podcast => @podcast } -%>
+    <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => { :podcast => @podcast } -%>
   <% end %>
   
 </div>

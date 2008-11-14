@@ -1,0 +1,19 @@
+<div class="reviews">
+  <h2>Reviews</h2>
+
+  <p>
+    <%= link_to_with_icon "(#{podcast.reviews.that_are_positive.count})Positive", :thumbs_up, positive_reviews_url(:podcast => podcast) %>
+    <%= link_to_with_icon "(#{podcast.reviews.that_are_negative.count})Negative", :thumbs_up, negative_reviews_url(:podcast => podcast) %>
+    <%= link_to "All (#{podcast.reviews.count})", reviews_url(:podcast => podcast) %>
+  </p>
+
+  <ul class="reviews">
+    <%= render :partial => 'reviews/review', :collection => reviews -%>
+  </ul>
+
+  <% if can_add_reviews?(podcast.episodes.newest.first) %>
+    <%= render :partial => 'reviews/add_review', :object => podcast -%>
+  <% end %>
+
+  <% reset_cycle('row_class') %>
+</div>

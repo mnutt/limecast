@@ -221,9 +221,9 @@ div#header div#account_bar ul li.search {
   position: relative;
 }
 div#header div#account_bar ul li.search input.text {
-  width: 122px;
+  width: 96px;
   height: 15px;
-  padding: 4px 5px;
+  padding: 4px 31px 4px 5px;
   top: 5px;
   left: 0;
   position: absolute;
@@ -232,7 +232,7 @@ div#header div#account_bar ul li.search input.text {
 }
 div#header div#account_bar ul li.search input.image_button {
   top: 5px;
-  right: 0;
+  right: 26px;
   position: absolute;
 }
 /*div#header div#account_bar ul li.user a,
@@ -265,6 +265,10 @@ div#body div#primary {
   padding: 30px 30px 30px 230px;
   position: relative;
   *height: 0.01%;
+}
+body.error_page div#body div#primary {
+  margin: 0 90px 0 0;
+  padding: 30px 30px 30px 90px;
 }
 div#body div#sidebar {
   padding: 30px 30px;

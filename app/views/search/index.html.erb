@@ -16,10 +16,10 @@
 </ul>
 <% end -%>
 
-<% unless @comments.blank? -%>
+<% unless @reviews.blank? -%>
 <h3>Reviews</h3>
 <ul>
-  <%= render :partial => 'comment', :collection => @comments  -%>
+  <%= render :partial => 'review', :collection => @reviews  -%>
 </ul>
 <% end -%>
 

@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_filter :login_required, :only => [:new, :update]
+  before_filter :login_required, :only => [:new, :update, :rate]
 
   def index
     @filter = params[:filter] || "all"

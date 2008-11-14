@@ -32,14 +32,6 @@
     <% reset_cycle('row_class') %>
   <% end -%>
 
-  <% if @user.favorite_podcasts.size > 0 -%>
-    <h2>Favorites (<%= @user.favorite_podcasts.size %>)</h2>
-    <ul class="podcasts">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
-    </ul>
-    <% reset_cycle('row_class') %>
-  <% end -%>
-  
   <% if @user.podcasts.size > 0 -%>
     <h2>Found (<%= @user.podcasts.size %>)</h2>
     <ul class="podcasts">
@@ -48,6 +40,14 @@
     <% reset_cycle('row_class') %>
   <% end -%>
     
+  <% if @user.favorite_podcasts.size > 0 -%>
+    <h2>Favorites</h2>
+    <ul class="podcasts">
+      <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
+    </ul>
+    <% reset_cycle('row_class') %>
+  <% end -%>
+  
   <% if @user.reviews.count > 0 -%>
     <h2>Reviewed (<%= @user.reviews.count %>)</h2>
     <ul class="reviews">

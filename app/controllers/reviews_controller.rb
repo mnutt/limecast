@@ -69,7 +69,7 @@ class ReviewsController < ApplicationController
 
   def rate
     @review = Review.find(params[:id])
-    @review.review_ratings << ReviewRating.new(:user => current_user, :insightful => !!(params[:rating] =~ /not/))
+    @review.review_ratings << ReviewRating.new(:user => current_user, :insightful => !(params[:rating] =~ /not/))
 
     redirect_to(:back)
   end

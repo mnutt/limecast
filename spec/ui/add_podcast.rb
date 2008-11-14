@@ -8,7 +8,7 @@ describe "Adding podcast while logged out" do
     browser.text_field(:name, "feed[url]").set("http://feeds.feedburner.com/WinelibraryTV")
     browser.button(:value, "Add").click
   end
-  
+
   it 'should immediately show the loading status' do
     html.should have_tag("div.status_message", /Getting RSS/)
   end
@@ -38,7 +38,7 @@ describe "Adding podcast while logged in" do
     #browser.text_field(:name, "feed[url]").set("http://feeds.feedburner.com/WinelibraryTV")
     #browser.button(:value, "Add").click
   end
-  
+
   it 'should not show the inline signin' do
   end
 end

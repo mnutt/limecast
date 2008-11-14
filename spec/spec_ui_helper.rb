@@ -55,6 +55,12 @@ module BrowserExtensions
   def go(url)
     self.goto([@url, url].join)
   end
+
+  def text_area(how, what)
+    f = self.text_field(how, what)
+    def f.tag; "TEXTAREA"; end
+    f
+  end
 end
 
 module Watir

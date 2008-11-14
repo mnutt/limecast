@@ -22,8 +22,6 @@ end
 
 describe "Adding podcast while logged in" do
   before(:each) do
-    sleep(1)
-    Feed.destroy_all
     @user = Factory.create(:user)
     browser.go("/add")
     browser.element("LI", :class, "signup").click
@@ -33,7 +31,6 @@ describe "Adding podcast while logged in" do
     sleep(3)
     browser.button(:value, "Sign in").click
     browser.button(:value, "Sign in").click
-    raise User.authenticate(@user.login, "password").inspect
     sleep(3)
     #browser.text_field(:name, "feed[url]").set("http://feeds.feedburner.com/WinelibraryTV")
     #browser.button(:value, "Add").click

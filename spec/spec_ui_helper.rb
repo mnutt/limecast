@@ -5,6 +5,16 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 Spec::Runner.configure do |config|
   config.before(:all) { setup_browser }
+  config.before(:each) { reset_db }
+  config.use_transactional_fixtures = false
+end
+
+def reset_db
+  r = ActiveRecord::Base.connection.execute('show tables')
+  while table = r.fetch_row
+    next if table.first == 'schema_migrations'
+    ActiveRecord::Base.connection.execute("delete from #{table.first}")
+  end
 end
 
 def setup_browser

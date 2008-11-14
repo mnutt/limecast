@@ -266,7 +266,7 @@ div#body div#primary {
   position: relative;
   *height: 0.01%;
 }
-div#body div#primary {
+body.error_page div#body div#primary {
   margin: 0 90px 0 0;
   padding: 30px 30px 30px 90px;
 }

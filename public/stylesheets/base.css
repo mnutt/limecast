@@ -175,34 +175,33 @@ div#header div#title {
   padding: 7px 0;
 }
 div#header div#title h1 {
-  width: 82px;
-  height: 20px;
-  margin: 0;
-  padding: 1px 0 0 0;
+  height: 22px;
   position: relative;
-  display: block;
-}
-div#header div#title h1 a {
-   background: url("../images/layout/lime.png") no-repeat left top;
-   line-height: 22px;
-   height: 20px;
-   color: #FFF;
-   font-size: 14px;
-   padding: 0 10px 0 25px;
-   display: block;
-}
-div#header div#title h1 a:hover {
-  background-position: left -20px;
+  line-height: 1.9em;
+  padding: 0 10px 0 2px;
+  margin: 0;
+  font-size: 14px;
 }
 div#header div#title h1 sup {
-  background: url("../images/layout/header_label.png") no-repeat left top;
-  text-indent: -5000px;
-  width: 35px;
-  height: 13px;
+  font: Lucida Sans, Trebuchet MS;
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #181818;
+  padding: 0 3px;
+  height: 1.6em;
+  line-height: 1.6em;
   top: -2px;
-  left: 87px;
-  position: absolute;
+  position: relative;
   overflow: hidden;
+  background-color: #6E6E6D;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+div#header div.add_podcast {
+  top: 10px;
+  left: 11em;
+  position: absolute;
 }
 div#header div#account_bar {
   top: 0;

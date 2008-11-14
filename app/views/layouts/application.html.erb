@@ -49,19 +49,23 @@
       <div id="header">
         <div id="title">
           <h1>
-            <a href="/all">LimeCast</a>
+            <% if current_page?(all_url) -%>
+              <span><%= image_tag("icons/lime_sm.png", :class => "inline_icon") + "LimeCast" %></span>
+            <% else -%>
+              <%= link_to_with_icon("LimeCast", :lime_sm, all_url) %>
+            <% end -%>
             <sup>Alpha</sup>
           </h1>
         </div>
+        <div class="add_podcast">
+        <% if current_page?('/add') -%>
+          <span><img src="/images/icons/add.png" class="inline_icon" />Add podcast</span>
+        <% else -%>
+          <%= link_to_with_icon "Add podcast", :add, add_podcast_path %>
+        <% end -%>
+        </div>
         <div id="account_bar">
           <ul>
-            <li class="add_podcast">
-            <% if current_page?('/add') -%>
-              <span>Add podcast</span>
-            <% else -%>
-              <%= link_to_with_icon "Add podcast", :add, add_podcast_path %>
-            <% end -%>
-            </li>
             <li class="search">
               <% form_for :search, :url => search_url, :html => {:method => :get } do |form| -%>
                 <label for="q" class="default search">Search...</label>

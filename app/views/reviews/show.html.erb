@@ -1,0 +1,29 @@
+<% @title = "#{h(@review.reviewer.login)} reviews #{h(@podcast.custom_title)}" -%>
+<% @show_ads = true -%>
+<% javascript_include "review_edit", "review_delete" -%>
+<% with_podcast ||= false -%>
+
+<div class="podcast">
+
+  <div id="<%=h dom_id(@review) -%>" class="review">
+
+    <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
+
+    <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
+
+    <h2 class="title"><%=h @review.title %></h2>
+    <p class="rating"><%= review_rating(@review) -%></p>
+    <div class="body">
+      <%=simple_format h(@review.body) %>
+    </div>
+
+    <p>
+      <cite><%= link_to_profile @review.reviewer %></cite>
+      <span class="episode"><%= link_to @review.episode.date_title, episode_url(@review.episode.podcast, @review.episode) -%></span>
+      <%= render(:partial => 'reviews/modify_links', :object => @review) -%>
+      <%= render(:partial => 'reviews/rating_links', :object => @review) -%>
+    </p>
+
+  </div>
+
+</div>

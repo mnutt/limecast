@@ -23,8 +23,8 @@ class Episode < ActiveRecord::Base
   has_attached_file :thumbnail, :whiny_thumbnails => true,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png] }
-  has_many :comments, :dependent => :destroy
-  has_many :commenters, :through => :comments
+  has_many :reviews, :dependent => :destroy
+  has_many :reviewers, :through => :reviews
   has_many :sources, :dependent => :destroy, :include => [:feed], :order => "sources.format ASC, feeds.bitrate ASC"
 
   validates_presence_of :podcast_id, :published_at
@@ -68,10 +68,10 @@ class Episode < ActiveRecord::Base
   end
 
   def been_reviewed_by?(user)
-    !!user && commenters.count(:conditions => {:id => user.id}) > 0
+    !!user && reviewers.count(:conditions => {:id => user.id}) > 0
   end
 
-  def open_for_comments?
+  def open_for_reviews?
     self.podcast.episodes.newest.first.id == self.id
   end
 end

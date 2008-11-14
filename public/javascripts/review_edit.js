@@ -32,13 +32,13 @@ $(document).ready(function(){
         data: $(this).serialize()
       });
 
-      var form_comment_title = $(this).find('#comment_title').val();
-      var form_comment_body  = $(this).find('#comment_body').val().trim();
-      form_comment_body = form_comment_body.replace(/\r\n?/g, "\n");
-      form_comment_body = form_comment_body.replace(/\n+/g, "¶");
+      var form_review_title = $(this).find('#review_title').val();
+      var form_review_body  = $(this).find('#review_body').val().trim();
+      form_review_body = form_review_body.replace(/\r\n?/g, "\n");
+      form_review_body = form_review_body.replace(/\n+/g, "¶");
 
-      show_div.find('h4').text(form_comment_title);
-      show_div.find('.body').text(form_comment_body);
+      show_div.find('h4').text(form_review_title);
+      show_div.find('.body').text(form_review_body);
 
       return false;
     });

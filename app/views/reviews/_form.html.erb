@@ -6,22 +6,22 @@
 <% if options[:show_rating] -%>
 <div class="align">
   <%= f.radio_button :positive, true, :checked => "checked" -%>
-  <label for="comment_positive_true"><%= image_tag("icons/thumbs_up.png") -%> Positive</label>
+  <label for="review_positive_true"><%= image_tag("icons/thumbs_up.png") -%> Positive</label>
   &nbsp;&nbsp;
   <%= f.radio_button :positive, false -%>
-  <label for="comment_positive_false"><%= image_tag("icons/thumbs_down.png") -%> Negative</label>
+  <label for="review_positive_false"><%= image_tag("icons/thumbs_down.png") -%> Negative</label>
 </div>
 <% end -%>
 
 <div class="field">
-  <label for="comment_title" class="default">Title...</label>
+  <label for="review_title" class="default">Title...</label>
   <div>
     <%= f.text_field :title, :class => 'text' -%>
   </div>
 </div>
 
 <div class="field">
-  <label for="comment_body" class="default">My review of <%= podcast.custom_title %>&hellip;</label>
+  <label for="review_body" class="default">My review of <%= podcast.custom_title %>&hellip;</label>
   <div>
     <%= f.text_area :body, :class => "text#{ ' full' if options[:width] == 'full' }", :rows => '10' -%>
   </div>

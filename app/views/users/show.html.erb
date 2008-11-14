@@ -1,5 +1,5 @@
 <% @title = h(@user.login) -%>
-<% @show_ads = true if @user.comments.count > 0 -%>
+<% @show_ads = true if @user.reviews.count > 0 -%>
 <% javascript_include "comment_edit", "comment_delete", "podcast_edit", "inline_edit_form" -%>
 
 <div class="user">
@@ -48,10 +48,10 @@
     <% reset_cycle('row_class') %>
   <% end -%>
     
-  <% if @user.comments.count > 0 -%>
-    <h2>Reviewed (<%= @user.comments.count %>)</h2>
+  <% if @user.reviews.count > 0 -%>
+    <h2>Reviewed (<%= @user.reviews.count %>)</h2>
     <ul class="reviews">
-      <%= render :partial => 'comments/comment', :collection => @user.comments, :locals => {:with_podcast => true} -%>
+      <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast => true} -%>
     </ul>
     <% reset_cycle('row_class') %>
   <% end -%>

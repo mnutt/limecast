@@ -12,8 +12,8 @@ class PodcastsController < ApplicationController
     @feeds    = @podcast.feeds.all
     @episodes = @podcast.episodes.find(:all, :order => "published_at DESC", :limit => 3)
 
-    @comments = with(@podcast.episodes.newest.first) {|ep| ep.nil? ? [] : ep.comments }
-    @comment  = Comment.new(:episode => @podcast.episodes.newest.first)
+    @reviews = with(@podcast.episodes.newest.first) {|ep| ep.nil? ? [] : ep.reviews }
+    @review  = Review.new(:episode => @podcast.episodes.newest.first)
   end
 
   def search

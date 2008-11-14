@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   # Resources
   map.resources :categories
-  map.resources :comments
+  map.resources :reviews
   map.resources :podcasts
   map.resources :feeds
   map.resources :tags
@@ -44,10 +44,10 @@ ActionController::Routing::Routes.draw do |map|
   map.guide       '/guide',       :controller => 'home',     :action => 'guide'
 
   map.cover            '/:podcast/cover',            :controller => 'podcasts', :action => 'cover'
-  map.rate_review      '/:podcast/reviews/:id/rate/:rating', :controller => 'comments', :action => 'rate'
-  map.positive_reviews '/:podcast/reviews/positive', :controller => 'comments', :filter => 'positive'
-  map.negative_reviews '/:podcast/reviews/negative', :controller => 'comments', :filter => 'negative'
-  map.resources :reviews, :controller => 'comments', :path_prefix => '/:podcast'
+  map.rate_review      '/:podcast/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
+  map.positive_reviews '/:podcast/reviews/positive', :controller => 'reviews', :filter => 'positive'
+  map.negative_reviews '/:podcast/reviews/negative', :controller => 'reviews', :filter => 'negative'
+  map.resources :reviews, :controller => 'reviews', :path_prefix => '/:podcast'
 
   map.podcast_episodes '/:podcast/episodes',         :controller => 'episodes', :action => 'index'
   map.favorite_podcast '/:podcast/favorite',         :controller => 'podcasts', :action => 'favorite'

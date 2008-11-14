@@ -1,0 +1,5 @@
+<% review = modify_links -%>
+<% if can_edit_review?(review) %>
+  <%= link_to 'Edit', edit_review_url(:podcast => review.episode.podcast.to_param, :id => review), :class => 'edit' -%>
+  <%= link_to 'Delete', review_url(:podcast => review.episode.podcast.to_param, :id => review),    :class => 'delete', 'style' => 'display: none;', :confirm => "Are you sure?" -%>
+<% end %>

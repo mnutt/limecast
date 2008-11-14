@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       self.current_user = @user
 
       claim_podcasts
-      claim_comment
+      claim_review
 
       respond_to do |format|
         format.html do
@@ -137,16 +137,16 @@ protected
     session.data.delete(:podcasts)
   end
 
-  def claim_comment
-    return if session[:comment].nil?
+  def claim_review
+    return if session[:review].nil?
 
-    if Comment.count(:conditions => {:episode_id => session[:comment][:episode_id], :user_id => current_user.id}) == 0
-      c = Comment.new(session[:comment])
-      c.commenter = current_user
+    if Review.count(:conditions => {:episode_id => session[:review][:episode_id], :user_id => current_user.id}) == 0
+      c = Review.new(session[:review])
+      c.reviewer = current_user
       c.save
     end
 
-    session.data.delete(:comment)
+    session.data.delete(:review)
   end
 
   def reconfirm_email(user)

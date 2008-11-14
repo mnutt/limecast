@@ -11,4 +11,9 @@
   <% else -%>
     and emailed <%=h @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. <span class="arrow_down">More please</span>
   <% end -%>
+  <% if current_user.nil? -%>
+    <script type="text/javascript">
+      $('#full_width .quick_signin').show();
+    </script>
+  <% end -%>
 </div>

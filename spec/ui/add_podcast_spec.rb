@@ -15,8 +15,22 @@ describe "Adding podcast while logged out" do
   end
 
   it 'should eventually show success' do
-    try_for(60.seconds) do
+    try_for(10.seconds) do
       html.should have_tag("div.status_message", /Yum/)
+    end
+  end
+end
+
+describe "Adding podcast that is not a web address" do
+  before(:each) do
+    browser.go("/add")
+    browser.text_field(:name, "feed[url]").set("asdf")
+    browser.button(:value, "Add").click
+  end
+
+  it 'should show that it is not a web address' do
+    try_for(10.seconds) do
+      html.should have_tag("div.status_message", /not a web address/)
     end
   end
 end

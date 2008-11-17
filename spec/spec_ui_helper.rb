@@ -65,7 +65,7 @@ module BrowserExtensions
   attr_accessor :url
 
   def go(url)
-    self.goto([@url, url].join)
+    self.goto(File.join(@url, url))
   end
 
   def text_area(how, what)

@@ -11,8 +11,11 @@ describe "Adding podcast while logged out" do
     html.should have_tag("div.status_message", /Getting RSS/)
   end
 
+  it 'should initially have the inline signin hidden' do
+  end
+
   it 'should eventually show success' do
-    try_for(60) do
+    try_for(60.seconds) do
       html.should have_tag("div.status_message", /Yum/)
     end
   end
@@ -27,5 +30,6 @@ describe "Adding podcast while logged in" do
   end
 
   it 'should not show the inline signin' do
+    html.should_not have_tag("#full_width .quick_siginin")
   end
 end

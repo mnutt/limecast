@@ -181,7 +181,8 @@ class User < ActiveRecord::Base
   end
 
   def podcasts
-    Podcast.find(self.feeds.parsed.map(&:podcast_id).uniq)
+    Podcast.all(:conditions => {:id => self.feeds.parsed.map(&:podcast_id).uniq})
+#    Podcast.find(self.feeds.parsed.map(&:podcast_id).uniq)
   end
 
   protected

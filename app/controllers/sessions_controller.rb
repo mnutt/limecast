@@ -43,6 +43,7 @@ class SessionsController < ApplicationController
     if logged_in?
       claim_podcasts
       claim_review
+      claim_favorites
       set_cookies
     end
   end

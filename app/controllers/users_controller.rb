@@ -29,6 +29,7 @@ class UsersController < ApplicationController
 
       claim_podcasts
       claim_review
+      claim_favorites
 
       respond_to do |format|
         format.html do

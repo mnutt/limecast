@@ -33,7 +33,6 @@ class Feed < ActiveRecord::Base
 
   before_create :sanitize
   before_save :remove_empty_podcast
-  after_create  { |f| f.finder.calculate_score! if f.finder }
   after_destroy { |f| f.finder.calculate_score! if f.finder }
 
   validates_presence_of   :url
@@ -50,6 +49,8 @@ class Feed < ActiveRecord::Base
     fetch
     parse
     update_from_feed
+    self.finder.calculate_score! if self.finder
+
   rescue Exception
     self.update_attributes(:state => 'failed', :error => $!.class.to_s)
   end

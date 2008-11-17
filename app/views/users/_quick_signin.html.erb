@@ -9,6 +9,7 @@
       <a href="#" class="close">Exit</a>
     <% end -%>
   </div>
+  <div class="message"></div>
   <div class="contents">
     <% form_for :user, :url => session_path do |f| -%>
       <div class="field">
@@ -31,7 +32,7 @@
       </div>
 
       <div class="response_container">
-        <%= link_to "I forgot my password", forgot_password_path -%>
+        <p><%= link_to "I forgot my password", forgot_password_path -%></p>
       </div>
 
       <div class="controls">

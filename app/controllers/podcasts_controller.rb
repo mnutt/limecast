@@ -74,9 +74,9 @@ class PodcastsController < ApplicationController
     respond_to do |format|
       if @favorite
         format.html { redirect_to :back }
-        format.js
+        format.js { render :json => {:logged_in => true} }
       else
-        format.js
+        format.js { render :json => {:logged_in => false, :message => "Sign up or sign in to save your favorite."} }
       end
     end
     

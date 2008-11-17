@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
     def local_request?
       false
     end
@@ -92,5 +91,17 @@ class ApplicationController < ActionController::Base
     def redirect_to_home(message)
       flash[:notice] = message
       redirect_to "/"
+    end
+
+    def claim_favorites
+      return if session[:favorite].nil?
+
+      if Favorite.count(:conditions => {:user_id => current_user.id, :podcast_id => session[:favorite]}) == 0
+        c = Favorite.new(:podcast_id => session[:favorite])
+        c.user = current_user
+        c.save
+      end
+
+      session.data.delete(:favorite)
     end
 end

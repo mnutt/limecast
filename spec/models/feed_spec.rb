@@ -178,3 +178,19 @@ describe Feed, "comparing to a podcast" do
     end
   end
 end
+
+describe Feed, "changing" do
+  before do
+    @user = Factory.create(:user)
+    @podcast = Factory.create(:parsed_podcast)
+    @feed = @podcast.feeds.first
+    @feed.update_attribute :finder, @user
+    @user.calculate_score!
+  end
+
+  describe "by destroying it" do
+    it 'should recalculate the finder\'s score' do
+      lambda { @feed.destroy }.should change { @user.score }.by(-1)
+    end
+  end
+end

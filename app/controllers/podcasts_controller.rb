@@ -64,10 +64,22 @@ class PodcastsController < ApplicationController
     raise ActiveRecord::RecordNotFound if params[:podcast].nil?
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
 
-    @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)
-    @favorite.new_record? ? @favorite.save : @favorite.destroy
+    if current_user
+      @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)
+      @favorite.new_record? ? @favorite.save : @favorite.destroy
+    else
+      session[:favorite] = @podcast.id
+    end
 
-    render :nothing => true
+    respond_to do |format|
+      if @favorite
+        format.html { redirect_to :back }
+        format.js
+      else
+        format.js
+      end
+    end
+    
   end
 
   def destroy

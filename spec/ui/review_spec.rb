@@ -16,8 +16,10 @@ describe "Adding review to a podcast" do
     browser.text_area(:name, "review[body]").set("I think diggnation is the coooooolest show...")
     browser.button(:value, "Save").click
 
+    should_not_be_signed_in?(@user)
+
     sign_in(@user, "after_adding_review")
 
-    html.should_not have_tag("div.after_adding_review div.response_container", /Email/)
+    should_be_signed_in?(@user)
   end
 end

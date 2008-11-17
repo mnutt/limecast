@@ -1,5 +1,5 @@
 <% review = rating_links -%>
-<% if review.reviewer == current_user %>
+<% if review.reviewer == current_user or review.rated_by?(current_user) %>
   Insightful (<%= review.insightful -%>)
   Not so much (<%= review.not_insightful -%>)
 <% else -%>

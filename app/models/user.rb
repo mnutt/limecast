@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
   end
 
   def calculate_score!
-    update_attribute :score, (podcasts.size + reviews.size)
+    update_attribute :score, (podcasts(true).size + reviews(true).size)
   end
 
   def rank

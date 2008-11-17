@@ -1,4 +1,5 @@
 ENV['LOAD_FEED_OBSERVER']='true'
+require 'rubygems'
 require 'safariwatir'
 require 'hpricot'
 require File.dirname(__FILE__) + '/spec_helper'

@@ -38,10 +38,10 @@ def html
   @browser.html
 end
 
-def sign_in(user=nil)
-  browser.go("/")
-  user ||= :user
+def sign_in(user = :user)
   @user = Factory.create(user)
+
+  browser.go("/")
   browser.element("LI", :class, "signup").click
   browser.text_field(:name, "user[login]").set(@user.login)
   browser.text_field(:name, "user[password]").set(@user.password)
@@ -62,7 +62,7 @@ def try_for(seconds, &block)
 end
 
 module BrowserExtensions
-  attr_writer :url
+  attr_accessor :url
 
   def go(url)
     self.goto([@url, url].join)

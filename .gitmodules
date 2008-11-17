@@ -25,6 +25,3 @@
 [submodule "vendor/gems/curb"]
 	path = vendor/gems/curb
 	url = git://github.com/taf2/curb.git
-[submodule "vendor/plugins/exception_notifier"]
-	path = vendor/plugins/exception_notifier
-	url = git://github.com/rails/exception_notification.git

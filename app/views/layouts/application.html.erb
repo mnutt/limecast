@@ -84,7 +84,7 @@
             <% end -%>
           </ul>
           <% unless current_user -%>
-            <%= render :partial => 'users/quick_signin', :locals => { :options => { :top_bar => true } }  -%>
+            <%= render :partial => 'users/quick_signin', :locals => { :options => { :top_bar => true, :suffix => "global" } }  -%>
           <% end -%>
         </div>
       </div>

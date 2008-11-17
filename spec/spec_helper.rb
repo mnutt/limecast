@@ -3,12 +3,15 @@
 ENV["RAILS_ENV"] ||= "test"
 $: << File.dirname(__FILE__)
 
+ENV['DO_NOT_LOAD_FEED_OBSERVER'] ||= 'true'
+
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
 require 'scenarios'
 require 'factory_girl'
 require 'thinking_sphinx'
+
 
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true

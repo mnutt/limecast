@@ -37,8 +37,14 @@ end
 
 describe "Adding podcast while logged in" do
   before(:each) do
-    sign_in
+    @user = Factory.create(:user)
+
+    browser.go("/")
+    sign_in(@user)
+
     browser.go("/add")
+    signed_in?(@user)
+
     browser.text_field(:name, "feed[url]").set("#{browser.url}/test_data/wine-library-tv.rss")
     browser.button(:value, "Add").click
   end

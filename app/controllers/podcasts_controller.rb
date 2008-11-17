@@ -79,7 +79,7 @@ class PodcastsController < ApplicationController
         format.js { render :json => {:logged_in => false, :message => "Sign up or sign in to save your favorite."} }
       end
     end
-    
+
   end
 
   def destroy

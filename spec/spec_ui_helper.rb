@@ -46,11 +46,11 @@ def sign_in(user = :user)
   browser.text_field(:name, "user[login]").set(@user.login)
   browser.text_field(:name, "user[password]").set(@user.password)
   browser.button(:value, "Sign in").click
-  html.should have_tag("li.user a", "#{@user.login} (0)")
+  html.should have_tag("li.user a", %r{#{@user.login}})
 end
 
 def try_for(seconds, &block)
-  seconds.times do
+  seconds.to_i.times do
     begin
       block.call
       return

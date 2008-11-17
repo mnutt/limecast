@@ -38,6 +38,10 @@ class Review < ActiveRecord::Base
     has :created_at
   end
 
+  def rated_by?(user)
+    self.review_ratings.exists?(:user_id => user.id)
+  end
+
   def editable?
     self.episode.open_for_reviews?
   end

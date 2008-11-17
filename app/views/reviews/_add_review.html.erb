@@ -5,4 +5,4 @@
   <%= render :partial => "reviews/form", :locals => {:options => options, :f => f, :podcast => @review.episode.podcast} %>
 <% end -%>
 
-<%= render :partial => "users/quick_signin" -%>
+<%= render :partial => "users/quick_signin", :locals => { :options => {:suffix => "after_adding_review"} } -%>

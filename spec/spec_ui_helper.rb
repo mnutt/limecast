@@ -44,8 +44,12 @@ def sign_in(user, suffix = 'global')
   browser.button(:id, "signin_#{suffix}").click
 end
 
-def signed_in?(user)
+def should_be_signed_in?(user)
   html.should have_tag("li.user a", %r{#{@user.login}})
+end
+
+def should_not_be_signed_in?(user)
+  html.should_not have_tag("li.user a", %r{#{@user.login}})
 end
 
 def try_for(seconds, &block)

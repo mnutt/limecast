@@ -43,7 +43,7 @@ describe "Adding podcast while logged in" do
     sign_in(@user)
 
     browser.go("/add")
-    signed_in?(@user)
+    should_be_signed_in?(@user)
 
     browser.text_field(:name, "feed[url]").set("#{browser.url}/test_data/wine-library-tv.rss")
     browser.button(:value, "Add").click

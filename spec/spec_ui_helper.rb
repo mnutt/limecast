@@ -39,18 +39,17 @@ def html
 end
 
 def sign_in(user, suffix = 'global')
-  browser.element("LI", :class, "signup").click
   browser.text_field(:id, "login_#{suffix}").set(user.login)
   browser.text_field(:id, "password_#{suffix}").set(user.password)
   browser.button(:id, "signin_#{suffix}").click
 end
 
 def signed_in?(user)
-  html.should have_tag("li.user a", "#{user.login} (#{user.score})")
+  html.should have_tag("li.user a", %r{#{@user.login}})
 end
 
 def try_for(seconds, &block)
-  seconds.times do
+  seconds.to_i.times do
     begin
       block.call
       return

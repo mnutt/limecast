@@ -5,6 +5,7 @@ require 'thinking_sphinx' # HACK: fix weird TS require issues
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
 
+  include ExceptionNotifiable
   include AuthenticatedSystem
 
   # See ActionController::RequestForgeryProtection for details

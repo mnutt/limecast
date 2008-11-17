@@ -16,9 +16,7 @@ describe "Adding review to a podcast" do
     browser.text_area(:name, "review[body]").set("I think diggnation is the coooooolest show...")
     browser.button(:value, "Save").click
 
-    browser.text_field(:id, "login_after_adding_review").set(@user.login)
-    browser.text_field(:id, "password_after_adding_review").set(@user.password)
-    browser.button(:id, "signin_after_adding_review").click
+    sign_in(@user, "after_adding_review")
 
     html.should_not have_tag("div.after_adding_review div.response_container", /Email/)
   end

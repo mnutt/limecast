@@ -37,6 +37,17 @@ def html
   @browser.html
 end
 
+def sign_in(user=nil)
+  browser.go("/")
+  user ||= :user
+  @user = Factory.create(user)
+  browser.element("LI", :class, "signup").click
+  browser.text_field(:name, "user[login]").set(@user.login)
+  browser.text_field(:name, "user[password]").set(@user.password)
+  browser.button(:value, "Sign in").click
+  html.should have_tag("li.user a", "#{@user.login} (0)")
+end
+
 def try_for(seconds, &block)
   seconds.times do
     begin

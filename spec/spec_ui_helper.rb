@@ -1,4 +1,4 @@
-ENV['LOAD_FEED_OBSERVER']='true'
+ENV['DO_NOT_LOAD_FEED_OBSERVER'] = 'false'
 require 'rubygems'
 require 'safariwatir'
 require 'hpricot'
@@ -38,15 +38,15 @@ def html
   @browser.html
 end
 
-def sign_in(user = :user)
-  @user = Factory.create(user)
-
-  browser.go("/")
+def sign_in(user, suffix = 'global')
   browser.element("LI", :class, "signup").click
-  browser.text_field(:name, "user[login]").set(@user.login)
-  browser.text_field(:name, "user[password]").set(@user.password)
-  browser.button(:value, "Sign in").click
-  html.should have_tag("li.user a", "#{@user.login} (0)")
+  browser.text_field(:id, "login_#{suffix}").set(user.login)
+  browser.text_field(:id, "password_#{suffix}").set(user.password)
+  browser.button(:id, "signin_#{suffix}").click
+end
+
+def signed_in?(user)
+  html.should have_tag("li.user a", "#{user.login} (#{user.score})")
 end
 
 def try_for(seconds, &block)

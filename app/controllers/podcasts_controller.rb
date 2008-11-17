@@ -79,7 +79,7 @@ class PodcastsController < ApplicationController
         format.js
       end
     end
-    
+
   end
 
   def destroy

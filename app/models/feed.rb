@@ -49,7 +49,7 @@ class Feed < ActiveRecord::Base
     fetch
     parse
     update_from_feed
-    self.finder.calculate_score! if self.finder
+    update_finder_score
 
   rescue Exception
     self.update_attributes(:state => 'failed', :error => $!.class.to_s)
@@ -91,6 +91,10 @@ class Feed < ActiveRecord::Base
     update_episodes!
 
     self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64), :state => 'parsed')
+  end
+
+  def update_finder_score
+    self.finder.calculate_score! if self.finder
   end
 
   def update_episodes!

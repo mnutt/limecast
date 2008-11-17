@@ -24,7 +24,8 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  has_many :feeds, :foreign_key => 'finder_id'
+  has_many :feeds, :foreign_key => 'finder_id', :conditions => {:state => 'parsed'}
+  has_many :podcasts, :through => :feeds, :uniq => true
   has_many :owned_podcasts, :class_name => 'Podcast', :foreign_key => 'owner_id', :dependent => :destroy
   has_many :reviews
   has_many :favorites
@@ -178,10 +179,6 @@ class User < ActiveRecord::Base
 
   def podcaster?
     self.owned_podcasts.count > 0
-  end
-
-  def podcasts
-    Podcast.find(self.feeds.parsed.map(&:podcast_id).uniq)
   end
 
   protected

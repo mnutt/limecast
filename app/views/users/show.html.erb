@@ -22,7 +22,7 @@
     </div>  
   <% end -%>
 
-  <h1><%=h @user.login -%> (<%= @user.score %>)</h1>
+  <h1><%=h @user.login -%><%= " (#{@user.score})" unless @user.podcaster? %></h1>
   
   <% if @user.owned_podcasts.count > 0 -%>
     <h2>Makes</h2>

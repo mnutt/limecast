@@ -12,7 +12,7 @@ describe "Adding podcast while logged out" do
   end
 
   it 'should eventually show success' do
-    try_for(60) do
+    try_for(60.seconds) do
       html.should have_tag("div.status_message", /Yum/)
     end
   end

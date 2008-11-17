@@ -6,7 +6,7 @@ describe "Adding review to a podcast" do
     @feed = Feed.create(:url => "#{browser.url}/test_data/diggnation-quicktime-hd.rss")
     @feed.refresh
     @podcast = @feed.podcast
-    browser.go('/' + @podcast.clean_url)
+    browser.go(@podcast.clean_url)
   end
 
   it 'should be prompt user with a login box if they post a review without being logged in' do

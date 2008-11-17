@@ -80,6 +80,11 @@ end
 
 module Watir
   module Container
+
+    def execute(javascript)
+      @scripter.send(:execute, javascript)
+    end
+
     class GenericElement < ContentElement
       attr_reader :tag
       def initialize(tag, scripter, how, what)

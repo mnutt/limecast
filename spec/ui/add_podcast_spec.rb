@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_ui_helper'
 describe "Adding podcast while logged out" do
   before(:each) do
     browser.go("/add")
-    browser.text_field(:name, "feed[url]").set("http://feeds.feedburner.com/WinelibraryTV")
+    browser.text_field(:name, "feed[url]").set("#{browser.url}/test_data/wine-library-tv.rss")
     browser.button(:value, "Add").click
   end
 
@@ -12,7 +12,7 @@ describe "Adding podcast while logged out" do
   end
 
   it 'should eventually show success' do
-    try_for(10) do
+    try_for(60) do
       html.should have_tag("div.status_message", /Yum/)
     end
   end
@@ -22,7 +22,7 @@ describe "Adding podcast while logged in" do
   before(:each) do
     sign_in
     browser.go("/add")
-    browser.text_field(:name, "feed[url]").set("http://feeds.feedburner.com/WinelibraryTV")
+    browser.text_field(:name, "feed[url]").set("#{browser.url}/test_data/wine-library-tv.rss")
     browser.button(:value, "Add").click
   end
 

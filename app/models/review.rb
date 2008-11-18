@@ -39,7 +39,7 @@ class Review < ActiveRecord::Base
   end
 
   def rated_by?(user)
-    self.review_ratings.exists?(:user_id => user.id)
+    user && self.review_ratings.exists?(:user_id => user.id)
   end
 
   def editable?

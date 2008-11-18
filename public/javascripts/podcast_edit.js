@@ -34,11 +34,11 @@ $(document).ready(function(){
       if(resp.logged_in) {
         favorite_link.replaceWith('<span><img src="/images/icons/favorite.png" class="inline_icon" />My Favorite</span>');
       } else {
-        $('.misc_links .quick_signin.inline .message').html("<p>"+resp.message+"</p>");
-        $('.misc_links .quick_signin.inline').show();
+        $('.quick_signin.after_favoriting .message').html("<p>"+resp.message+"</p>");
+        $('.quick_signin.after_favoriting').show();
       }
     }, "json");
-    
+
     return false;
   });
 

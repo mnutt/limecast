@@ -95,7 +95,7 @@
             :class => "favorite_link" -%>
     <% end -%>
     </p>
-    <%= render :partial => "users/quick_signin" -%>
+    <%= render :partial => "users/quick_signin", :locals => { :options => {:suffix => "after_favoriting"}} -%>
   </div>
 
   <div class="description">

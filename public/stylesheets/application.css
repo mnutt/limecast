@@ -236,40 +236,40 @@ ul.reviews li.review span.rating img {
   background-image: url("../images/icons/user.png");
 }
 */
-div.podcast div.reviews form,
-div.podcast div.reviews form {
+div.podcast div.reviews form#new_review,
+div.podcast div.reviews form#new_review {
   margin: 0;
 }
-div.podcast div.reviews form div.field label,
-div.podcast div.review form div.field label {
+div.podcast div.reviews form#new_review div.field label,
+div.podcast div.review form#new_review div.field label {
   display: none;
 }
-div.podcast div.reviews form div.field div,
-div.podcast div.review form div.field div {
+div.podcast div.reviews form#new_review div.field div,
+div.podcast div.review form#new_review div.field div {
   margin: 0;
 }
-div.podcast div.reviews form div.align,
-div.podcast div.review form div.align {
+div.podcast div.reviews form#new_review div.align,
+div.podcast div.review form#new_review div.align {
   padding: 0 0 14px 0;
 }
-div.podcast div.reviews form div.align input,
-div.podcast div.reviews form div.align label,
-div.podcast div.review form div.align input,
-div.podcast div.review form div.align label {
+div.podcast div.reviews form#new_review div.align input,
+div.podcast div.reviews form#new_review div.align label,
+div.podcast div.review form#new_review div.align input,
+div.podcast div.review form#new_review div.align label {
   margin-bottom: -2px;
 }
-div.podcast div.reviews form div.align label img,
-div.podcast div.review form div.align label img {
+div.podcast div.reviews form#new_review div.align label img,
+div.podcast div.review form#new_review div.align label img {
   height: 14px;
 }
-div.podcast div.reviews form div.controls,
-div.podcast div.review form div.controls {
+div.podcast div.reviews form#new_review div.controls,
+div.podcast div.review form#new_review div.controls {
   padding: 0;
 }
-div.podcast div.reviews form div.field input.text,
-div.podcast div.review form div.field input.text,
-div.podcast div.reviews form div.field textarea.text,
-div.podcast div.review form div.field textarea.text {
+div.podcast div.reviews form#new_review div.field input.text,
+div.podcast div.review form#new_review div.field input.text,
+div.podcast div.reviews form#new_review div.field textarea.text,
+div.podcast div.review form#new_review div.field textarea.text {
   width: 99%;
 }
 

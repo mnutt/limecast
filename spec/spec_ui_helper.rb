@@ -4,10 +4,19 @@ require 'safariwatir'
 require 'hpricot'
 require File.dirname(__FILE__) + '/spec_helper'
 
+require 'meow' rescue nil
+
 Spec::Runner.configure do |config|
   config.before(:all) { setup_browser }
-  config.before(:each) { reset_db }
+  config.before(:each) { reset_db; notify }
   config.use_transactional_fixtures = false
+end
+
+def notify
+  @meow ||= Meow.new("UI Specs")
+  @meow.notify(__full_description.gsub(" " + description, ""), description)
+rescue
+  nil
 end
 
 def reset_db

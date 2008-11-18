@@ -12,6 +12,7 @@ describe "Adding review to a podcast" do
   end
 
   it 'should be prompt user with a login box if they post a review without being logged in' do
+
     browser.execute('return $("#login_after_adding_review").visible();').should be_false
 
     add_review

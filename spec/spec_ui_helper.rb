@@ -68,13 +68,13 @@ module BrowserExtensions
   attr_accessor :url, :current
 
   def go(url)
-		self.current = File.join(@url, url)
+    self.current = File.join(@url, url)
     self.goto(self.current)
   end
 
-	def refresh
-		self.goto(self.current)
-	end
+  def refresh
+    self.goto(self.current)
+  end
 
   def text_area(how, what)
     f = self.text_field(how, what)

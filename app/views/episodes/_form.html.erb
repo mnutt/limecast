@@ -1,0 +1,19 @@
+<div id="edit_form" style="display:none" class="clearfix">
+  <% form_for :episode_attr, @episode, :html => {:class => 'edit'} do |f| -%>
+    <div class="field">
+      <%= f.label :title, "Title" -%>
+      <div>
+        <%= f.text_field :title, :class => "text" -%>
+      </div>
+    </div>
+    
+    <div class="controls">
+      <%= submit_tag "Save", :class => "button" -%>
+      <%= submit_tag "Cancel", :class => 'button cancel' -%>
+    </div>
+  <% end -%>
+
+  <div class="status">
+    <%= render :partial => 'feeds/status_loading' -%>
+  </div>
+</div>

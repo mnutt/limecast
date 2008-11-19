@@ -100,7 +100,7 @@
 
   <div class="description">
     <h2>Description</h2>
-    <p><%=h @podcast.description -%></p>
+    <p><%=unescape_entities h(@podcast.description) -%></p>
   </div>
   
   <% unless @podcast.episodes.empty? %>

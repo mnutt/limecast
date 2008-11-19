@@ -44,12 +44,21 @@ describe "Podcast page" do
     it 'should allow inline editing of reviews' do
       add_review
       browser.refresh
-      @review = Review.last
 
       browser.execute('return $("form.edit").visible();').should be_false
       browser.execute('$("a.edit").click();')
       browser.execute('return $("form.edit").visible();').should be_true
     end
+
+		it 'should allow deletion of a review' do
+      add_review
+      browser.refresh
+
+      browser.execute('$("a.delete").click();')
+      browser.refresh
+
+      browser.execute('return $("a.delete").length;').should == 0
+		end
   end
 
   def add_review

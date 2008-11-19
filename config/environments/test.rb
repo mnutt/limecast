@@ -14,7 +14,9 @@ config.action_controller.consider_all_requests_local = true
 config.action_controller.perform_caching             = false
 
 # Disable request forgery protection in test environment
-config.action_controller.allow_forgery_protection    = false
+if ENV['DO_NOT_LOAD_FEED_OBSERVER'] == 'true'
+  config.action_controller.allow_forgery_protection    = false
+end
 
 # Tell ActionMailer not to deliver emails to the real world.
 # The :test delivery method accumulates sent emails in the

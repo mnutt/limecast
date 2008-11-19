@@ -96,21 +96,12 @@ end
 
 module Watir
   module Container
-
     def execute(javascript)
       @scripter.send(:execute, javascript)
     end
 
-    class GenericElement < ContentElement
-      attr_reader :tag
-      def initialize(tag, scripter, how, what)
-        @tag = tag
-        super(scripter, how, what)
-      end
-    end
-
-    def element(tag, how, what)
-      GenericElement.new(tag, scripter, how, what)
+    def select(query)
+      SelectedElement.new(query, self)
     end
 
     class SelectedElement
@@ -136,10 +127,6 @@ module Watir
           super
         end
       end
-    end
-
-    def select(query)
-      SelectedElement.new(query, self)
     end
   end
 end

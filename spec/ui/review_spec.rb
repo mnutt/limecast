@@ -50,7 +50,7 @@ describe "Podcast page" do
       browser.execute('return $("form.edit").visible();').should be_true
     end
 
-		it 'should allow deletion of a review' do
+    it 'should allow deletion of a review' do
       add_review
       browser.refresh
 
@@ -58,7 +58,7 @@ describe "Podcast page" do
       browser.refresh
 
       browser.execute('return $("a.delete").length;').should == 0
-		end
+    end
   end
 
   def add_review

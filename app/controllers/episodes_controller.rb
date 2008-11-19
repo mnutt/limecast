@@ -19,9 +19,9 @@ class EpisodesController < ApplicationController
   end
 
   def destroy
+    @episode = Episode.find(params[:id])
     unauthorized unless @episode.writable_by?(current_user)
 
-    @episode = Episode.find(params[:id])
     @episode.destroy
   end
 end

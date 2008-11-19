@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :categories
   map.resources :reviews
   map.resources :podcasts
+  map.resources :episodes
   map.resources :feeds
   map.resources :tags
 

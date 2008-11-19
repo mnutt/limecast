@@ -11,19 +11,20 @@
 
   <div class="full">
     <p class="description"><%=sanitize_condensed_summary episode.summary -%></p>
-    
-    <%# TODO: if an mp3 doesn't have .mp3 extension? -%>
-    <!--
-    <%# if episode.source and episode.source.url =~ /mp3$/ -%>
-      <object type="application/x-shockwave-flash" data="/flash/player.swf" width="290" height="24" id="audioplayer_<%= episode.id -%>">
-        <param name="movie" value="/flash/player.swf" />
-        <param name="FlashVars" value="soundFile=<%#= episode.source.url -%>&playerID=<%#= episode.id -%>" />
-        <param name="quality" value="high" />
-        <param name="menu" value="false" />
-        <param name="wmode" value="transparent" />
-      </object>
-    <%# end -%>
-    -->
+
+    <% if episode.audio_source -%>
+      <div class="preview" style="margin: 0 0 14px 0">
+	<object type="application/x-shockwave-flash" data="/flash/player.swf" width="290" height="24" id="audioplayer_<%= episode.id -%>">
+          <param name="movie" value="/flash/player.swf" />
+          <param name="FlashVars" value="soundFile=<%= episode.audio_source.url -%>&playerID=<%= episode.id -%>" />
+          <param name="quality" value="high" />
+          <param name="menu" value="false" />
+          <param name="wmode" value="transparent" />
+	</object>
+	<p>Preview</p>
+      </div>
+    <% end -%>
+
 
     <%= render :partial => 'episodes/super_button', :locals => {:sources => episode.sources} -%>
 

@@ -59,6 +59,10 @@ class Episode < ActiveRecord::Base
     self.published_at.to_date
   end
 
+  def audio_source
+    self.sources.select{|s| s.format == "mp3"}.first
+  end
+
   def to_param
     clean_url
   end

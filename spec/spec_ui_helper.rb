@@ -4,10 +4,19 @@ require 'safariwatir'
 require 'hpricot'
 require File.dirname(__FILE__) + '/spec_helper'
 
+require 'meow' rescue nil
+
 Spec::Runner.configure do |config|
   config.before(:all) { setup_browser }
-  config.before(:each) { reset_db }
+  config.before(:each) { reset_db; notify }
   config.use_transactional_fixtures = false
+end
+
+def notify
+  @meow ||= Meow.new("UI Specs")
+  @meow.notify(__full_description.gsub(" " + description, ""), description)
+rescue
+  nil
 end
 
 def reset_db
@@ -65,10 +74,15 @@ def try_for(seconds, &block)
 end
 
 module BrowserExtensions
-  attr_accessor :url
+  attr_accessor :url, :current
 
   def go(url)
-    self.goto(File.join(@url, url))
+    self.current = File.join(@url, url)
+    self.goto(self.current)
+  end
+
+  def refresh
+    self.goto(self.current)
   end
 
   def text_area(how, what)
@@ -80,6 +94,11 @@ end
 
 module Watir
   module Container
+
+    def execute(javascript)
+      @scripter.send(:execute, javascript)
+    end
+
     class GenericElement < ContentElement
       attr_reader :tag
       def initialize(tag, scripter, how, what)

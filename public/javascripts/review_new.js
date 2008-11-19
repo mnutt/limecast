@@ -15,7 +15,7 @@ $(document).ready(function(){
           $('ul.reviews').append(resp.html);
           $('a.delete').show(); // Show all delete links.
         } else {
-          $('.quick_signin.inline').show();
+          $('.quick_signin.after_adding_review').show();
         }
 
         new_review_form.hide();

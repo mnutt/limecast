@@ -68,6 +68,7 @@ class Episode < ActiveRecord::Base
   end
 
   def been_reviewed_by?(user)
+    reviewers.reload
     !!user && reviewers.count(:conditions => {:id => user.id}) > 0
   end
 

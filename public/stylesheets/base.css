@@ -188,7 +188,7 @@ div#header div#title h1 sup {
   font-weight: bold;
   text-transform: uppercase;
   color: #181818;
-  padding: 0 3px;
+  padding: 1px 3px 0;
   height: 1.6em;
   line-height: 1.6em;
   top: -2px;

@@ -6,7 +6,7 @@
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
   <div class="episode">
-    <p>Episode of <%= link_to(h(@episode.podcast.custom_title), @episode.podcast) %></p>
+    <p><%= link_to(h(@episode.podcast.custom_title), @episode.podcast) %></p>
     
     <h1 class="heading"><%= escape_once(@episode.title) %></h1>
 

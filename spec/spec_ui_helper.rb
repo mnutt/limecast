@@ -112,5 +112,34 @@ module Watir
     def element(tag, how, what)
       GenericElement.new(tag, scripter, how, what)
     end
+
+    class SelectedElement
+      attr_reader :query, :browser
+      def initialize(query, browser)
+        @query = query
+        @browser = browser
+      end
+
+      def visible?
+        self.visible
+      end
+
+      def exists?
+        browser.execute("return $('#{query}').length > 0;")
+      end
+
+      def method_missing(meth, *args)
+        if browser.execute("return $('#{query}').#{meth}") != :missing_value
+          js_args = args.map{|a| "\"#{a.quote_safe}\"" }.join(', ')
+          browser.execute("return $('#{query}').#{meth}(#{js_args});")
+        else
+          super
+        end
+      end
+    end
+
+    def select(query)
+      SelectedElement.new(query, self)
+    end
   end
 end

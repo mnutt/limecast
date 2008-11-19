@@ -4,7 +4,9 @@ require 'safariwatir'
 require 'hpricot'
 require File.dirname(__FILE__) + '/spec_helper'
 
-require 'meow' rescue nil
+begin
+  require 'meow' 
+rescue LoadError; end
 
 Spec::Runner.configure do |config|
   config.before(:all) { setup_browser }

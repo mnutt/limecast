@@ -35,6 +35,6 @@
     
   </div>
 
-  <%= render :partial => 'reviews/reviews', :object => @episode.reviews, :locals => { :episode => @episode, :podcast => @episode.podcast } -%>
+  <%= render :partial => 'reviews/reviews', :object => @episode.reviews, :locals => { :hide_totals => true, :episode => @episode, :podcast => @episode.podcast } -%>
   
 </div>

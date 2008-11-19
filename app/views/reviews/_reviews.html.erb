@@ -1,11 +1,15 @@
+<% hide_totals = true unless defined?(hide_totals) %>
+
 <div class="reviews">
   <h2>Reviews</h2>
 
+  <% unless hide_totals -%>
   <p>
-    <%= link_to_with_icon "(#{podcast.reviews.that_are_positive.count})Positive", :thumbs_up, positive_reviews_url(:podcast => podcast) %>
-    <%= link_to_with_icon "(#{podcast.reviews.that_are_negative.count})Negative", :thumbs_down, negative_reviews_url(:podcast => podcast) %>
+    <%= link_to_with_icon "Positive (#{podcast.reviews.that_are_positive.count})", :thumbs_up, positive_reviews_url(:podcast => podcast) %>
+    <%= link_to_with_icon "Negative (#{podcast.reviews.that_are_negative.count})", :thumbs_down, negative_reviews_url(:podcast => podcast) %>
     <%= link_to "All (#{podcast.reviews.count})", reviews_url(:podcast => podcast) %>
   </p>
+  <% end -%>
 
   <ul class="reviews">
     <%= render :partial => 'reviews/review', :collection => reviews -%>

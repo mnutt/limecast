@@ -213,6 +213,9 @@ div.episode div.metadata {
 }
 
 /* Reviews */
+div.reviews h2 {
+  margin-bottom: 0;
+}
 div.podcast div.reviews {
   *height: 0.01%;
 }

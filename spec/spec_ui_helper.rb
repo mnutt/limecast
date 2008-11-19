@@ -116,12 +116,12 @@ module Watir
       end
 
       def exists?
-				self.length > 0
+        self.length > 0
       end
 
-			def length
+      def length
         browser.execute("return $('#{query}').length;")
-			end
+      end
 
       def method_missing(meth, *args)
         if browser.execute("return $('#{query}').#{meth}") != :missing_value

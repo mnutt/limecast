@@ -20,7 +20,9 @@ namespace :limecast do
   desc "update all user scores"
   task :update_user_scores do
     User.all.each do |user|
+      print "Updating score for user ##{user.id}... "
       user.calculate_score!
+      puts user.score
     end
   end
 end

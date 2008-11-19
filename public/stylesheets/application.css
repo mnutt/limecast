@@ -266,6 +266,9 @@ div.podcast div.reviews form#new_review div.controls,
 div.podcast div.review form#new_review div.controls {
   padding: 0;
 }
+div.podcast form#new_review div.controls .cancel {
+  display: none;
+}
 div.podcast div.reviews form#new_review div.field input.text,
 div.podcast div.review form#new_review div.field input.text,
 div.podcast div.reviews form#new_review div.field textarea.text,

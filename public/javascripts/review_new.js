@@ -14,11 +14,13 @@ $(document).ready(function(){
         if(resp.logged_in) {
           $('ul.reviews').append(resp.html);
           $('a.delete').show(); // Show all delete links.
+
+          new_review_form.hide();
         } else {
           $('.quick_signin.after_adding_review').show();
-        }
 
-        new_review_form.hide();
+          new_review_form.find('.controls').hide();
+        }
       }
     });
 

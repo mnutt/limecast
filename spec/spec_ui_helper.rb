@@ -5,7 +5,7 @@ require 'hpricot'
 require File.dirname(__FILE__) + '/spec_helper'
 
 begin
-  require 'meow' 
+  require 'meow'
 rescue LoadError; end
 
 Spec::Runner.configure do |config|

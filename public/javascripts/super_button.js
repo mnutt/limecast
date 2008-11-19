@@ -40,7 +40,6 @@ $.fn.extend({
     $(this).each(function(i, form){
       update_url = function() {
         form = $(this).parent('form.super_button');
-        console.log("changing select");
         var delivery = form.find('select.delivery').val();
         var item = form.find('select.item').val();
 

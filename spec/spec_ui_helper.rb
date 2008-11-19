@@ -96,21 +96,37 @@ end
 
 module Watir
   module Container
-
     def execute(javascript)
       @scripter.send(:execute, javascript)
     end
 
-    class GenericElement < ContentElement
-      attr_reader :tag
-      def initialize(tag, scripter, how, what)
-        @tag = tag
-        super(scripter, how, what)
-      end
+    def select(query)
+      SelectedElement.new(query, self)
     end
 
-    def element(tag, how, what)
-      GenericElement.new(tag, scripter, how, what)
+    class SelectedElement
+      attr_reader :query, :browser
+      def initialize(query, browser)
+        @query = query
+        @browser = browser
+      end
+
+      def visible?
+        self.visible
+      end
+
+      def exists?
+        browser.execute("return $('#{query}').length > 0;")
+      end
+
+      def method_missing(meth, *args)
+        if browser.execute("return $('#{query}').#{meth}") != :missing_value
+          js_args = args.map{|a| "\"#{a.quote_safe}\"" }.join(', ')
+          browser.execute("return $('#{query}').#{meth}(#{js_args});")
+        else
+          super
+        end
+      end
     end
   end
 end

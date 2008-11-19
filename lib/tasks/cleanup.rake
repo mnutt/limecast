@@ -1,3 +1,6 @@
+desc "Runs all cleanup tasks"
+task :cleanup => ["cleanup:trailing_whitespace", "cleanup:tabs"]
+
 namespace :cleanup do
   desc "Removes all trailing whitespace"
   task :trailing_whitespace do

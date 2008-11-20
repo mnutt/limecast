@@ -35,18 +35,9 @@ $(document).ready(function(){
 
   $('li.review').map(function(){
     var review = $(this);
-    var quick_signin = $('.quick_signin.after_rating');
 
     review.find('a.rate').map(function(){
-      var link = $(this);
-
-      link.click(function(){
-        if(!LOGGED_IN) {
-          var copy = quick_signin.clone(true);
-          copy.show()
-          review.find('.quick_signin_container').html(copy);
-        }
-      }).mustBeLoggedInBeforeSubmit({
+      $(this).mustBeLoggedInBeforeSubmit({
         quick_signin: review.find('.quick_signin'),
         success: function(resp) {
           window.location.reload();

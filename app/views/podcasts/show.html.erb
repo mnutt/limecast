@@ -11,10 +11,10 @@
       <span class="label">This is mine!</span>
       <ul>
         <li class="edit">
-          <%= link_to "<span>Edit</span>", edit_podcast_url(@podcast), :class => 'icon' -%>
+          <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast) %>
         </li>
         <li class="delete">
-          <%= link_to "<span>Delete</span>", "/podcasts/#{@podcast.id}", :method => 'delete', :class => 'icon', :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!" -%>
+          <%= link_to_with_icon "Delete", :delete, "/podcasts/#{@podcast.id}", :method => 'delete', :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!" %>
         </li>
       </ul>
       <%= render :partial => "form" -%>

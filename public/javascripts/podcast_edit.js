@@ -41,9 +41,11 @@ $(document).ready(function(){
       var link = $(this);
 
       link.click(function(){
-        var copy = quick_signin.clone(true);
-        copy.show()
-        review.find('.quick_signin_container').html(copy);
+        if(!LOGGED_IN) {
+          var copy = quick_signin.clone(true);
+          copy.show()
+          review.find('.quick_signin_container').html(copy);
+        }
       }).mustBeLoggedInBeforeSubmit({
         quick_signin: review.find('.quick_signin'),
         success: function(resp) {

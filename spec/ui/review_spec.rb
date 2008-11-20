@@ -45,19 +45,23 @@ describe "Podcast page" do
       add_review
       browser.refresh
 
-      browser.execute('return $("form.edit").visible();').should be_false
-      browser.execute('$("a.edit").click();')
-      browser.execute('return $("form.edit").visible();').should be_true
+      browser.select('form.edit').should_not be_visible
+      browser.select('a.edit').click
+      browser.select('form.edit').should be_visible
     end
 
     it 'should allow deletion of a review' do
       add_review
       browser.refresh
 
-      browser.execute('$("a.delete").click();')
-      browser.refresh
+      try_for(10.seconds) do
+        browser.select('a.delete').click
+        browser.refresh
 
-      browser.execute('return $("a.delete").length;').should == 0
+        !browser.select('a.delete').exists?
+      end
+
+      browser.select('a.delete').exists?.should be_false
     end
   end
 

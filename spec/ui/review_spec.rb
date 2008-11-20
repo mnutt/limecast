@@ -22,10 +22,29 @@ describe "Podcast page" do
       browser.execute('return $("#login_after_adding_review").visible();').should be_true
     end
 
-    it 'should provide log in using the inline login box' do
+    it 'should provide log in using the inline login box when adding review' do
       add_review
       sign_in(@user, "after_adding_review")
       should_be_signed_in?(@user)
+    end
+
+    it 'should provide log in using the inline login box when rating review' do
+      @review = Factory.create(:review, :episode => @podcast.episodes.newest.first)
+      browser.refresh
+
+      html.should have_tag("a.insightful", /Insightful \(0\)/)
+
+      form = "after_rating_#{@review.id}"
+
+      browser.select(".#{form} form").should_not be_visible
+      browser.select('a.rate.insightful').click
+      #browser.select(".#{form} form").should be_visible
+
+      should_not_be_signed_in?(@user)
+      sign_in(@user, form)
+      should_be_signed_in?(@user)
+
+      html.should =~ /Insightful \(1\)/
     end
   end
 

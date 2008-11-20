@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_filter :login_required, :only => [:new, :update, :rate]
+  before_filter :login_required, :only => [:new, :update]
 
   def index
     @filter = params[:filter] || "all"
@@ -69,9 +69,15 @@ class ReviewsController < ApplicationController
 
   def rate
     @review = Review.find(params[:id])
-    @review.review_ratings << ReviewRating.new(:user => current_user, :insightful => !(params[:rating] =~ /not/))
 
-    redirect_to(:back)
+    insightful = !(params[:rating] =~ /not/)
+    if current_user
+      ReviewRating.create(:review => @review, :user => current_user, :insightful => insightful)
+      respond_to {|format| format.js { render :json => {:logged_in => true } } }
+    else
+      session[:rating] = {:review_id => @review.id, :insightful => insightful}
+      respond_to {|format| format.js { render :json => {:logged_in => false, :message => "Sign up or sign in to rate this review."} } }
+    end
   end
 
   def destroy

@@ -26,25 +26,38 @@ $(document).ready(function(){
 
   });
 
-  // this is on podcast#show
-  $('a.favorite_link').click(function(link){
-    favorite_link = $(this);
-    favorite_url = favorite_link.attr('href');
-    $.post(favorite_url, {}, function(resp) {
-      if(resp.logged_in) {
-        favorite_link.replaceWith('<span><img src="/images/icons/favorite.png" class="inline_icon" />My Favorite</span>');
-      } else {
-        $('.quick_signin.after_favoriting .message').html("<p>"+resp.message+"</p>");
-        $('.quick_signin.after_favoriting').show();
-      }
-    }, "json");
+  $('a.favorite_link').mustBeLoggedInBeforeSubmit({
+    quick_signin: '.quick_signin.after_favoriting',
+    success: function(resp) {
+      $('a.favorite_link').replaceWith('<span><img src="/images/icons/favorite.png" class="inline_icon" />My Favorite</span>');
+    }
+  });
 
-    return false;
+  $('li.review').map(function(){
+    var review = $(this);
+    var quick_signin = $('.quick_signin.after_rating');
+
+    review.find('a.rate').map(function(){
+      var link = $(this);
+
+      link.click(function(){
+        var copy = quick_signin.clone(true);
+        copy.show()
+        review.find('.quick_signin_container').html(copy);
+      }).mustBeLoggedInBeforeSubmit({
+        quick_signin: review.find('.quick_signin'),
+        success: function(resp) {
+          window.location.reload();
+        }
+      });
+    });
   });
 
   $('.quick_signin.inline').quickSignIn({
     success: function(){ window.location.reload(); }
   });
+
+
 
 });
 

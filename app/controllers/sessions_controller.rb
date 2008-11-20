@@ -44,6 +44,7 @@ class SessionsController < ApplicationController
       claim_podcasts
       claim_review
       claim_favorites
+      claim_rating
       set_cookies
     end
   end

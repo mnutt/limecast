@@ -19,5 +19,7 @@
     <%= render :partial => 'reviews/add_review', :object => podcast -%>
   <% end %>
 
+  <%= render :partial => 'users/quick_signin', :locals => {:options => {:suffix => "after_rating"}} -%>
+
   <% reset_cycle('row_class') %>
 </div>

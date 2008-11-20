@@ -125,8 +125,8 @@ class User < ActiveRecord::Base
     update_attribute :score, (podcasts(true).size + reviews(true).size)
   end
 
-  def rank
-    if admin?
+  def rank(options={})
+    if options[:include_admin] && admin?
       "admin"
     elsif podcaster?
       "podcaster"

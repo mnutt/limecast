@@ -150,6 +150,7 @@ $(document).ready(function(){
 * Reflection
 **************************************************************/
 
-$(document).ready(function(){
+// No ready() function because: http://groups.google.com/group/jquery-en/browse_thread/thread/0f8380107f9acdc7/29edd211094770e5
+$(window).bind("load", function() { 
   $('img.reflect').reflect({height: 0.3, opacity: 0.3}); 
 });

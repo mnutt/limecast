@@ -43,7 +43,7 @@ class Review < ActiveRecord::Base
   end
 
   def editable?
-    self.episode.open_for_reviews?
+    self.episode.open_for_reviews? && self.review_ratings.count == 0
   end
 
   def insightful

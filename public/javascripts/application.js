@@ -67,12 +67,12 @@ $(document).ready(function(){
     error: function(resp) {
       me = signin_container;
       if(me.find('.response_container .inline_signup_button')) {
-  me.find('.response_container .inline_signup_button').click(function() {
-    me.find('input.signup_button').click();
-    me.find('input.email').val(me.find('input.login').val());
-    me.find('input.login').val("");
-    me.find('div.response_container').html("<p>Please choose your new user name</p>");
-  });
+        me.find('.response_container .inline_signup_button').click(function() {
+          me.find('input.signup_button').click();
+          me.find('input.email').val(me.find('input.login').val());
+          me.find('input.login').val("");
+          me.find('div.response_container').html("<p>Please choose your new user name</p>");
+      });
       }
     }
   });

@@ -13,9 +13,9 @@ module ReviewsHelper
 
   def review_rating(review)
     if review.positive
-      image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating')
+      image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating') + "Positve"
     else
-      image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating')
+      image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating') + "Negative"
     end
   end
 end

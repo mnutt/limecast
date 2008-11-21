@@ -13,13 +13,13 @@
   <div class="contents">
     <% form_for :user, :url => session_path do |f| -%>
       <div class="field">
-        <label for="login_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>User Name</label>
+        <label for="login_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>User</label>
         <div>
           <input type="text" id="login_<%= options[:suffix] -%>" class='text login' name="user[login]" />
         </div>
       </div>
       <div class="field">
-        <label for="password_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Password</label>
+        <label for="password_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Pass</label>
         <div>
           <input type="password" id="password_<%= options[:suffix] -%>" class='text password' name="user[password]" />
         </div>

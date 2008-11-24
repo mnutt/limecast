@@ -9,9 +9,9 @@
   <% if current_user && @podcast.writable_by?(current_user) -%>
     <div id="edit_actions" class="clearfix">
       <% if current_user.admin? -%>
-	<span class="label">I can do anything!</span>
+        <span class="label">I can do anything!</span>
       <% else -%>
-	<span class="label">This is mine!</span>
+        <span class="label">This is mine!</span>
       <% end -%>
       <ul>
         <li class="edit">

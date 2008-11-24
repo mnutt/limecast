@@ -7,12 +7,12 @@
     <span><%= link_to 'Delete', admin_tag_path(tag), :confirm => 'Are you sure?', :method => :delete %></span>
     <span><a href="#" onclick="$('merge_<%= tag.id -%>').show()">Merge</a>
       <span style="display:none;" id="merge_<%= tag.id -%>"> 
-	<% form_tag merge_admin_tag_url(tag), :class => 'display:inline;' do |f| -%>
-	  into
-	  <%= text_field_tag :name -%>
-	  <%= submit_tag "Merge" -%>
-	  <a href="#" onclick="$('merge_<%= tag.id -%>').hide()">X</a>
-	<% end -%>
+        <% form_tag merge_admin_tag_url(tag), :class => 'display:inline;' do |f| -%>
+          into
+          <%= text_field_tag :name -%>
+          <%= submit_tag "Merge" -%>
+          <a href="#" onclick="$('merge_<%= tag.id -%>').hide()">X</a>
+        <% end -%>
       </span>
     </span>
   </li>

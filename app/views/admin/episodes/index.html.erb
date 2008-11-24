@@ -15,18 +15,18 @@
   <% if @episodes -%>
     <% @episodes.each do |episode| %>
       <tr>
-	<td><%=h episode.summary %></td>
-	<td><%=h episode.published_at %></td>
-	<td><%=h episode.enclosure_url %></td>
-	<td><%=h episode.created_at %></td>
-	<td><%=h episode.updated_at %></td>
-	<td><%=h episode.guid %></td>
-	<td><%=h episode.enclosure_type %></td>
-	<td><%=h episode.duration %></td>
-	<td><%=h episode.title %></td>
-	<td><%= link_to 'Show', admin_episode_path(episode.id) %></td>
-	<td><%= link_to 'Edit', edit_admin_episode_path(episode.id) %></td>
-	<td><%= link_to 'Destroy', admin_episode_path(episode.id), :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><%=h episode.summary %></td>
+        <td><%=h episode.published_at %></td>
+        <td><%=h episode.enclosure_url %></td>
+        <td><%=h episode.created_at %></td>
+        <td><%=h episode.updated_at %></td>
+        <td><%=h episode.guid %></td>
+        <td><%=h episode.enclosure_type %></td>
+        <td><%=h episode.duration %></td>
+        <td><%=h episode.title %></td>
+        <td><%= link_to 'Show', admin_episode_path(episode.id) %></td>
+        <td><%= link_to 'Edit', edit_admin_episode_path(episode.id) %></td>
+        <td><%= link_to 'Destroy', admin_episode_path(episode.id), :confirm => 'Are you sure?', :method => :delete %></td>
       </tr>
     <% end %>
   <% end -%>

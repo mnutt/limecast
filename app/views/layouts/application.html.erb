@@ -97,35 +97,35 @@
 
     <div id="body_wrapper">
       <div id="body">
-	<% if @full_width %>
+        <% if @full_width %>
 
-	  <div id="full_width">
-	    <%= yield -%>
-	  </div>
+          <div id="full_width">
+            <%= yield -%>
+          </div>
 
-	<% else %>
+        <% else %>
 
           <div id="sidebar">
             <% if @show_ads -%>
               <%= @ads -%>
             <% end -%>
           </div>
-	  
+          
           <div id="primary">
             <% if flash[:notice] -%>
               <span id="notice">
-		<% if Array === flash[:notice] -%>
-		  <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
-		<% else -%>
-		  <%= flash[:notice] -%>
-		<% end -%>
+                <% if Array === flash[:notice] -%>
+                  <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+                <% else -%>
+                  <%= flash[:notice] -%>
+                <% end -%>
               </span>
             <% end -%>
-	    
+            
             <%= yield -%>
           </div>
 
-	<% end -%>
+        <% end -%>
       <div style="clear:both;">&nbsp;</div>
 
       </div>

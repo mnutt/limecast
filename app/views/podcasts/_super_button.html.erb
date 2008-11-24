@@ -2,10 +2,10 @@
   <span class="dropdown format">
     <ul name="format" class="styled" style="background-color: #555; padding: 3px;">
       <% feeds.parsed.each_with_index do |f, i| -%>
-	<li <% if i == 0 -%>class="select selected"<% else -%>class="select" style="display:none;"<% end -%>>
+        <li <% if i == 0 -%>class="select selected"<% else -%>class="select" style="display:none;"<% end -%>>
           <input type="hidden" name="<%= dom_id(f) -%>" value="<%=h f.id -%>">
-	  <%= link_to_with_icon super_button_delivery(f).gsub!(/[\s]+/, "&nbsp;"), f.apparent_format, '#' -%>
-	</li>
+          <%= link_to_with_icon super_button_delivery(f).gsub!(/[\s]+/, "&nbsp;"), f.apparent_format, '#' -%>
+        </li>
       <% end -%>
     </ul>
   </span>
@@ -13,7 +13,7 @@
   <span class="dropdown delivery">
     <ul name="delivery" class="styled" style="background-color: #555; padding: 3px;">
       <li name="delivery_rss" class="select selected">
-	<%= link_to_with_icon "RSS", :rss, "#" -%>
+        <%= link_to_with_icon "RSS", :rss, "#" -%>
       </li>
       <li name="delivery_miro" style="display: none;" class="select">
         <%= link_to_with_icon "Miro", :miro, "#" -%>

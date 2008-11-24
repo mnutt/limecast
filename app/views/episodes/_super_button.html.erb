@@ -2,10 +2,10 @@
   <div class="dropdown format">
     <ul name="format" class="styled" style="background-color: #555; padding: 3px;">
       <% sources.each_with_index do |s,i| -%>
-	<li <% if i == 0 -%>class="select selected"<% else -%> style="display:none;" class="select"<% end -%>>
-	  <%= link_to_with_icon super_button_delivery(s).gsub!(/[\s]+/, "&nbsp;"), s.format, "#" -%>
+        <li <% if i == 0 -%>class="select selected"<% else -%> style="display:none;" class="select"<% end -%>>
+          <%= link_to_with_icon super_button_delivery(s).gsub!(/[\s]+/, "&nbsp;"), s.format, "#" -%>
           <input type="hidden" name="<%= dom_id(s) -%>" value="<%= s.url -%>">
-	</li>
+        </li>
       <% end -%>
     </ul>
   </div>

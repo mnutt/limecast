@@ -72,13 +72,14 @@ module ApplicationHelper
   def super_button_delivery(item)
     label = item.class == Source ? item.file_name : item.format
 
-    in_parens = if item.class == Feed
-      [item.apparent_format, item.formatted_bitrate].compact
+    if item.class == Feed
+      in_parens = [item.apparent_format, item.formatted_bitrate].compact
     else item.class == Source
+      label = item.format if label.length > 12
       bitrate = item.feed.formatted_bitrate if item.feed
       file_size = item.size.to_file_size.to_s
 
-      [bitrate, file_size].compact
+      in_parens = [bitrate, file_size].compact
     end
 
     in_parens = unless in_parens.empty?
@@ -86,6 +87,11 @@ module ApplicationHelper
     end
 
     [label, in_parens].join(" ")
+  end
+
+  def smart_truncate(string, length)
+    return string if string.length <= length
+    string[0..(length/2)] + "..." + string[-(length/2)..-1]
   end
 
   def format_with_paragraph_entity(text)

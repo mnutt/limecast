@@ -12,7 +12,7 @@
     <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
 
     <h2 class="title"><%=h @review.title %></h2>
-    <p class="rating"><%= review_rating(@review) -%></p>
+    <p class="rating"><%= review_rating(@review, true) -%></p>
     <div class="body">
       <%=simple_format h(@review.body) %>
     </div>

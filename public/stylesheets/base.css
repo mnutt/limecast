@@ -369,7 +369,7 @@ form div.align {
 }
 form div.controls,
 form div.response_container {
-  padding: 0 0 0 90px;
+  padding: 14px 0 0 90px;
 }
 form input,
 form textarea {

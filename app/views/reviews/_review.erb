@@ -16,6 +16,8 @@
 
     <%= render(:partial => 'reviews/modify_links', :object => review) -%>
     <%= render(:partial => 'reviews/rating_links', :object => review) -%>
+
+    <%= render :partial => 'users/quick_signin', :locals => {:options => {:suffix => "after_rating_#{review.id}"}} -%>
   </div>
 
   <% form_for review, :url => reviews_url(:podcast => review.episode.podcast), :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>

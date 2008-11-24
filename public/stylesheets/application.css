@@ -55,13 +55,6 @@ div.user div#edit_actions ul li {
   margin: 0 0 0 5px;
   float: left;
 }
-div.user div#edit_actions ul li.edit a {
-  background-image: url("../images/icons/edit.png");
-}
-/*div.user div#edit_actions ul li.logout a {
-  background-image: url("../images/icons/user.png") !important;
-}
-*/
 
 /*
 * Super Button
@@ -120,12 +113,6 @@ div.podcast div#edit_actions ul {
 div.podcast div#edit_actions ul li {
   margin: 0 0 0 5px;
   float: left;
-}
-div.podcast div#edit_actions ul li.edit a {
-  background-image: url("../images/icons/edit.png");
-}
-div.podcast div#edit_actions ul li.delete a {
-  background-image: url("../images/icons/delete.png");
 }
 div.podcast div.urls,
 div.podcast div.authors {

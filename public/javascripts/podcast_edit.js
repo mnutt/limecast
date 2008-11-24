@@ -26,25 +26,15 @@ $(document).ready(function(){
 
   });
 
-  // this is on podcast#show
-  $('a.favorite_link').click(function(link){
-    favorite_link = $(this);
-    favorite_url = favorite_link.attr('href');
-    $.post(favorite_url, {}, function(resp) {
-      if(resp.logged_in) {
-        favorite_link.replaceWith('<span><img src="/images/icons/favorite.png" class="inline_icon" />My Favorite</span>');
-      } else {
-        $('.quick_signin.after_favoriting .message').html("<p>"+resp.message+"</p>");
-        $('.quick_signin.after_favoriting').show();
-      }
-    }, "json");
-
-    return false;
+  $('a.favorite_link').mustBeLoggedInBeforeSubmit({
+    quick_signin: '.quick_signin.after_favoriting',
+    success: function(resp) {
+      $('a.favorite_link').replaceWith('<span><img src="/images/icons/favorite.png" class="inline_icon" />My Favorite</span>');
+    }
   });
 
   $('.quick_signin.inline').quickSignIn({
     success: function(){ window.location.reload(); }
   });
-
 });
 

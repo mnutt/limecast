@@ -1,6 +1,7 @@
 <% options ||= {} -%>
 <% options[:top_bar] ||= false -%>
 <% options[:suffix] ||= rand(10000) -%>
+<% options[:label_in_input] = true if options[:label_in_input].nil? %>
 
 <div class="quick_signin <%= options[:suffix] %> <% if options[:top_bar] -%>palette top_bar<% else -%>inline<% end -%>"
                        style="display: none;">
@@ -9,35 +10,35 @@
       <a href="#" class="close">Exit</a>
     <% end -%>
   </div>
-  <div class="message"></div>
+  <div class="message"><%= options[:message] %></div>
   <div class="contents">
     <% form_for :user, :url => session_path do |f| -%>
       <div class="field">
-        <label for="login_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>User Name</label>
+        <label for="login_<%= options[:suffix] -%>"<%= ' class="default"' if options[:label_in_input] -%>>User</label>
         <div>
           <input type="text" id="login_<%= options[:suffix] -%>" class='text login' name="user[login]" />
         </div>
       </div>
       <div class="field">
-        <label for="password_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Password</label>
+        <label for="password_<%= options[:suffix] -%>"<%= ' class="default"' if options[:label_in_input] -%>>Pass</label>
         <div>
           <input type="password" id="password_<%= options[:suffix] -%>" class='text password' name="user[password]" />
         </div>
       </div>
       <div class="field sign_up" style="display: none;">
-        <label for="email_<%= options[:suffix] -%>"<%= ' class="default"' unless options[:top_bar] -%>>Email</label>
+        <label for="email_<%= options[:suffix] -%>"<%= ' class="default"' if options[:label_in_input] -%>>Email</label>
         <div>
           <input type="text" id="email_<%= options[:suffix] -%>" class='text email' name="user[email]" />
         </div>
       </div>
 
       <div class="response_container">
-        <p><%= link_to "I forgot my password", forgot_password_path -%></p>
+        <%= link_to "I forgot my password", forgot_password_path -%>
       </div>
 
       <div class="controls">
-        <%= submit_tag 'Sign in', :id => "signin_#{options[:suffix]}", :class => 'button signin_button' %>
         <%= submit_tag 'Sign up', :id => "signup_#{options[:suffix]}", :class => 'button signup_button' %>
+        <%= submit_tag 'Sign in', :id => "signin_#{options[:suffix]}", :class => 'button signin_button' %>
       </div>
     <% end -%>
   </div>

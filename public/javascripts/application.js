@@ -67,12 +67,12 @@ $(document).ready(function(){
     error: function(resp) {
       me = signin_container;
       if(me.find('.response_container .inline_signup_button')) {
-  me.find('.response_container .inline_signup_button').click(function() {
-    me.find('input.signup_button').click();
-    me.find('input.email').val(me.find('input.login').val());
-    me.find('input.login').val("");
-    me.find('div.response_container').html("<p>Please choose your new user name</p>");
-  });
+        me.find('.response_container .inline_signup_button').click(function() {
+          me.find('input.signup_button').click();
+          me.find('input.email').val(me.find('input.login').val());
+          me.find('input.login').val("");
+          me.find('div.response_container').html("<p>Please choose your new user name</p>");
+      });
       }
     }
   });
@@ -150,6 +150,7 @@ $(document).ready(function(){
 * Reflection
 **************************************************************/
 
-$(document).ready(function(){
+// No ready() function because: http://groups.google.com/group/jquery-en/browse_thread/thread/0f8380107f9acdc7/29edd211094770e5
+$(window).bind("load", function() { 
   $('img.reflect').reflect({height: 0.3, opacity: 0.3}); 
 });

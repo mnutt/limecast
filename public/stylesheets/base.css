@@ -362,14 +362,14 @@ form div.field label {
   float: left;
 }
 form div.field div {
-  margin: 0 0 10px 90px;
+  margin: 0 0 0 90px;
 }
 form div.align {
   padding: 10px 10px 10px 135px;
 }
 form div.controls,
 form div.response_container {
-  padding: 0 0 0 90px;
+  padding: 14px 0 0 90px;
 }
 form input,
 form textarea {
@@ -421,7 +421,7 @@ form div.huge div input.text {
  Palette
 **/
 div.palette {
-  background-color: #2F2F2F;
+  background-color: #2B2D2F;
   border: 1px solid #181818;
 }
 div.palette div.titlebar {

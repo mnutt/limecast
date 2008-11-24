@@ -30,11 +30,14 @@
   <% if protect_against_forgery? -%>
   AUTH_TOKEN = "<%= form_authenticity_token -%>";
   <% end -%>
+  LOGGED_IN  = <%= !!logged_in? %>;
 </script>
 
 <%= javascript_include_tag 'default_input_text_helper' %>
 <%= javascript_include_tag 'quick_sign_in' %>
+<%= javascript_include_tag 'review_ratings' %>
 <%= javascript_include_tag 'restful_delete' %>
+<%= javascript_include_tag 'super_button' %>
 <%= javascript_include_tag 'super_button' %>
 <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
 
@@ -86,7 +89,7 @@
             <% end -%>
           </ul>
           <% unless current_user -%>
-            <%= render :partial => 'users/quick_signin', :locals => { :options => { :top_bar => true, :suffix => "global" } }  -%>
+            <%= render :partial => 'users/quick_signin', :locals => { :options => { :label_in_input => false, :top_bar => true, :suffix => "global" } }  -%>
           <% end -%>
         </div>
       </div>

@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     respond_to do |format|
       format.html do
         if logged_in?
-          flash[:notice] = "Logged in successfully"
+          flash[:notice] = "Successful sign in"
           redirect_to :back
         else
           flash.now[:notice] = "There was a problem logging in"
@@ -22,6 +22,7 @@ class SessionsController < ApplicationController
         end
       end
       format.js do
+        @unknown_user = params[:user][:login] and !User.find_by_login(params[:user][:login])
         @unknown_email = params[:user][:login] =~ /@/ and !User.find_by_email(params[:user][:login])
       end
     end
@@ -31,7 +32,6 @@ class SessionsController < ApplicationController
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = "You have been logged out."
     redirect_back_or_default('/')
   end
 
@@ -44,6 +44,7 @@ class SessionsController < ApplicationController
       claim_podcasts
       claim_review
       claim_favorites
+      claim_rating
       set_cookies
     end
   end

@@ -11,11 +11,13 @@ module ReviewsHelper
     review.editable? && review.reviewer == current_user
   end
 
-  def review_rating(review)
+  def review_rating(review, with_label = false)
     if review.positive
-      image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating')
+      img = image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating')
+      with_label ? img + "Positive" : img
     else
-      image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating')
+      img = image_tag('icons/thumbs_down.png', :alt => 'Thumbs Down', :class => 'rating')
+      with_label ? img + "Negative" : img
     end
   end
 end

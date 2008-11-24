@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def link_to_profile(user)
-    link_text = image_tag("icons/marseilles-astronomical/user_#{user.rank}.png", :class => "inline_icon")
+    link_text = image_tag("icons/marseilles-astronomical/user_#{user.rank(:include_admin => logged_in?)}.png", :class => "inline_icon")
     link_text += h(user.login)
     link_text += " (#{user.score})" unless user.podcaster?
 

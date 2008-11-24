@@ -104,4 +104,13 @@ class ApplicationController < ActionController::Base
 
       session.data.delete(:favorite)
     end
+
+    def claim_rating
+      return if session[:rating].nil?
+
+      session[:rating][:user_id] = current_user.id
+      ReviewRating.create(session[:rating])
+
+      session.data.delete(:rating)
+    end
 end

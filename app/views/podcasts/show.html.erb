@@ -1,6 +1,6 @@
 <% @title = h(@podcast.custom_title) -%>
 <% @show_ads = true -%>
-<% javascript_include "review_edit", "review_delete", "inline_edit_form", "podcasts_new", "podcast_edit" -%>
+<% javascript_include "review_edit", "review_delete", "inline_edit_form", "podcasts_new", "podcast_edit", "review_ratings_new" -%>
 
 <div class="podcast">
 
@@ -15,10 +15,10 @@
       <% end -%>
       <ul>
         <li class="edit">
-          <%= link_to "<span>Edit</span>", edit_podcast_url(@podcast), :class => 'icon' -%>
+          <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast) %>
         </li>
         <li class="delete">
-          <%= link_to "<span>Delete</span>", "/podcasts/#{@podcast.id}", :method => 'delete', :class => 'icon', :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!" -%>
+          <%= link_to_with_icon "Delete", :delete, "/podcasts/#{@podcast.id}", :method => 'delete', :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!" %>
         </li>
       </ul>
       <%= render :partial => "form" -%>
@@ -104,7 +104,7 @@
 
   <div class="description">
     <h2>Description</h2>
-    <p><%=h @podcast.description -%></p>
+    <p><%=unescape_entities h(@podcast.description) -%></p>
   </div>
   
   <% unless @podcast.episodes.empty? %>

@@ -30,8 +30,11 @@ $.fn.extend({
             if(resp.success) {
               window.location.reload();
             } else {
-              if(resp.html.match(/User and password don't match/)) 
-                me.find('div.response_container').html(resp.html);
+              response_container = me.find('.response_container');
+              if(resp.html.match(/User and password don't match/) || resp.html.match(/This user is new to us./)) {
+                me.find('.response_container').html(resp.html);
+              }
+              
               me.find('.sign_up').show();
               me.find('.sign_up input').focus();
               me.find('input.signin_button').hide();

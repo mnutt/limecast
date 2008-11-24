@@ -27,9 +27,7 @@ class UsersController < ApplicationController
     if @user.errors.empty?
       self.current_user = @user
 
-      claim_podcasts
-      claim_review
-      claim_favorites
+      claim_all
 
       respond_to do |format|
         format.html do
@@ -124,30 +122,6 @@ class UsersController < ApplicationController
 protected
   def find_user
     @user = User.find(params[:id])
-  end
-
-  def claim_podcasts
-    return if session.data[:podcasts].nil?
-
-    Podcast.find_all_by_id(session.data[:podcasts]).each do |podcast|
-      podcast.user = @user if podcast.user.nil?
-      podcast.owner = @user if podcast.owner.nil? and podcast.owner_email == @user.email
-      podcast.save
-    end
-
-    session.data.delete(:podcasts)
-  end
-
-  def claim_review
-    return if session[:review].nil?
-
-    if Review.count(:conditions => {:episode_id => session[:review][:episode_id], :user_id => current_user.id}) == 0
-      c = Review.new(session[:review])
-      c.reviewer = current_user
-      c.save
-    end
-
-    session.data.delete(:review)
   end
 
   def reconfirm_email(user)

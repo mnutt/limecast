@@ -93,6 +93,15 @@ class ApplicationController < ActionController::Base
       redirect_to "/"
     end
 
+    def claim_all
+      if logged_in?
+        claim_podcasts
+        claim_review
+        claim_favorites
+        claim_rating
+      end
+    end
+
     def claim_favorites
       return if session[:favorite].nil?
 
@@ -112,5 +121,29 @@ class ApplicationController < ActionController::Base
       ReviewRating.create(session[:rating])
 
       session.data.delete(:rating)
+    end
+
+    def claim_review
+      return if session[:review].nil?
+
+      if Review.count(:conditions => {:episode_id => session[:review][:episode_id], :user_id => current_user.id}) == 0
+        c = Review.new(session[:review])
+        c.reviewer = current_user
+        c.save
+      end
+
+      session.data.delete(:review)
+    end
+
+    def claim_podcasts
+      return if session.data[:podcasts].nil?
+  
+      Podcast.find_all_by_id(session.data[:podcasts]).each do |podcast|
+        podcast.user = @user if podcast.user.nil?
+        podcast.owner = @user if podcast.owner.nil? and podcast.owner_email == @user.email
+        podcast.save
+      end
+  
+      session.data.delete(:podcasts)
     end
 end

@@ -1,11 +1,13 @@
 <% if logged_in? %>
-  { success: true, html: '<%= link_to_profile current_user %>' }
+  { success: true, html: 'Successful sign in' }
 <% elsif params[:user][:login].blank? -%>
   { success: false, html: '<p>Please type your username</p>' } 
 <% elsif params[:user][:password].blank? -%>
   { success: false, html: '<p>Please type your password</p>' } 
 <% elsif @unknown_email -%>
   { success: false, html: '<p>This email is new to us.  Are you trying to <a href="#" class="inline_signup_button">Sign Up</a>?' }
+<% elsif @unknown_user -%>
+  { success: false, html: '<p>This user is new to us. Are you trying to <a href="#" class="inline_signup_button">Sign Up</a>?' }
 <% else -%>
   { success: false, html: '<p>Email and password don\'t match. <%= link_to %{I forgot my password}, forgot_password_url -%></p>' } 
 <% end -%>

@@ -1,22 +1,39 @@
 <form method="get" action="<%= feeds.first.url if feeds.first -%>" class="super_button subscribe">
-  <select class="item">
-    <%= options_for_select(feeds.parsed.map {|f| [super_button_delivery(f), f.id] }) -%>
-  </select>
+  <span class="dropdown format">
+    <ul name="format" class="styled" style="background-color: #555; padding: 3px;">
+      <% feeds.parsed.each_with_index do |f, i| -%>
+	<li <% if i > 0 -%>style="display:none;"<% end -%> class="select" value="<%=h f.id -%>">
+	  <%= link_to_with_icon super_button_delivery(f).gsub!(/[\s]+/, "&nbsp;"), f.apparent_format, '#' -%>
+	</li>
+      <% end -%>
+    </ul>
+  </span>
+  
+  <span class="dropdown delivery">
+    <ul name="delivery" class="styled" style="background-color: #555; padding: 3px;">
+      <li name="delivery_rss" class="select">
+	<%= link_to_with_icon "RSS", :rss, "#" -%>
+      </li>
+      <li name="delivery_miro" style="display: none;" class="select">
+	<%= link_to_with_icon "Miro", :miro, "#" -%>
+      </li>
+      <li name="delivery_itunes" style="display: none;" class="select">
+	<%= link_to_with_icon "iTunes", :itunes, "#" -%>
+      </li>
+    </ul>
+  </span>
+  
+  <span class="submit button orange">
+    <%= link_to "<span class='cap'><span class='label'>Subscribe</span></span>", "#", :class => 'super_button_subscribe' %>
+  </span>
 
+  <%# for lookup purposes only -%>
   <% feeds.select {|f| !f.itunes_link.blank? }.each do |feed| -%>
   <input type="hidden" id="itunes_<%= feed.id %>" value="<%= feed.itunes_link %>" />
   <% end -%>
-
   <% feeds.each do |feed| -%>
   <input type="hidden" id="url_<%= feed.id %>" value="<%= feed.url %>" />
   <% end -%>
-  
-  <select class="delivery">
-    <option value="rss">RSS</option>
-    <option value="miro">Miro</option>
-    <option value="itunes" class="itunes">iTunes</option>
-  </select>
-  
-  <%= link_to "Subscribe", "#", :class => 'super_button_subscribe' %>
 </form>
+<div class="clear"></div>
 

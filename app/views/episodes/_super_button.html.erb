@@ -1,12 +1,22 @@
 <form method="get" action="<%= sources.first.url if sources.first -%>" class="super_button download">
-  <select class="item">
-    <%= options_for_select(sources.map {|s| [super_button_delivery(s), s.url] }) -%>
-  </select>
-  
-  <select class="delivery">
-    <option value="direct">Web</option>
-    <option value="magnet">Magnet</option>
-  </select>
+  <div class="dropdown format">
+    <ul name="format" class="styled" style="background-color: #555; padding: 3px;">
+      <% sources.each_with_index do |s,i| -%>
+	<li <% if i > 0 -%>style="display:none;"<% end -%> class="select" value="<%= s.url -%>">
+	  <%= link_to_with_icon super_button_delivery(s).gsub!(/[\s]+/, "&nbsp;"), s.format, "#" -%>
+	</li>
+      <% end -%>
+    </ul>
+  </div>
 
-  <a class="super_button_button" href="<%= sources.first.url -%>">Download</a>
+  <div class="dropdown delivery">
+    <ul name="delivery" class="styled" style="background-color: #555; padding: 3px;">
+      <li class="select"><%= link_to "Web", "#" -%></li>
+      <li style="display: none;" class="select"><%= link_to "Magnet", "#" -%></li>
+    </ul>
+  </div>
+
+  <div class="submit button green">
+    <%= link_to "<span class='cap'><span class='label'>Download</span></span>", sources.first.url, :class => 'super_button_download' %>
+  </div>
 </form>

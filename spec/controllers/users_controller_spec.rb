@@ -130,7 +130,7 @@ describe UsersController, "handling POST /users" do
     end
 
     it 'should report that the username has already been taken' do
-      response.body.should =~ /Sorry, this name is taken/
+      response.body.should =~ /Sorry, this user name is taken/
     end
   end
 

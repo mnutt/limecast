@@ -217,6 +217,9 @@ ul.reviews li.review {
   position: relative;
   *height: 0.01%;
 }
+cite {
+  font-style: normal;
+}
 ul.reviews li.review cite {
   font-style: normal;
   color: #ABABAB;

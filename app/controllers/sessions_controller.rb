@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
         end
       end
       format.js do
-        @unknown_user = params[:user][:login] and !User.find_by_login(params[:user][:login])
+        @unknown_user = params[:user][:login] && !User.find_by_login(params[:user][:login])
         @unknown_email = params[:user][:login] =~ /@/ and !User.find_by_email(params[:user][:login])
       end
     end

@@ -57,6 +57,7 @@
   </div>
   <% end -%>
   
+  <br /> <!-- why isn't .authors clearing without this? //-->
   <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds } -%>
 
   <%= render :partial => 'badges' %>

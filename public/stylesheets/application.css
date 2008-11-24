@@ -375,6 +375,13 @@ ol#terms li ol {
 }
 
 /* */
+.super_button ul li.single {
+  background: none !important;
+}
+.super_button ul li.single a {
+  text-decoration: none;
+  cursor: text;
+}
 .super_button ul li.selected {
   padding: 0 15px 0 0;
   background: url("/images/icons/select-arrow.gif") bottom right no-repeat;

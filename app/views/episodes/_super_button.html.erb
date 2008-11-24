@@ -2,9 +2,9 @@
   <div class="dropdown format">
     <ul name="format" class="styled" style="background-color: #555; padding: 3px;">
       <% sources.each_with_index do |s,i| -%>
-	<li <% if i > 0 -%>style="display:none;"<% end -%> class="select" value="<%= s.url -%>">
-	  <%= link_to_with_icon super_button_delivery(s).gsub!(/[\s]+/, "&nbsp;"), s.format, "#" -%>
-	</li>
+        <li <% if i > 0 -%>style="display:none;"<% end -%> class="select" value="<%= s.url -%>">
+          <%= link_to_with_icon super_button_delivery(s).gsub!(/[\s]+/, "&nbsp;"), s.format, "#" -%>
+        </li>
       <% end -%>
     </ul>
   </div>

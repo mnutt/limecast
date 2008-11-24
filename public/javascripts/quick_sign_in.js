@@ -43,7 +43,13 @@ $.fn.extend({
             if(resp.success) {
               window.location.reload();
             } else {
-              me.find('.response_container').html(resp.html);
+              response_container = me.find('.response_container');
+              if(resp.html == response_container.html()) {
+                me.find('.response_container').hide();
+                me.find('.response_container').html(resp.html);
+                me.find('.response_container').fadeIn();
+              } else me.find('.response_container').html(resp.html);
+               
             }
 
             // Call handlers

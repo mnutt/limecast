@@ -362,14 +362,14 @@ form div.field label {
   float: left;
 }
 form div.field div {
-  margin: 0 0 10px 90px;
+  margin: 0 0 0 90px;
 }
 form div.align {
   padding: 10px 10px 10px 135px;
 }
 form div.controls,
 form div.response_container {
-  padding: 0 0 0 90px;
+  padding: 14px 0 0 90px;
 }
 form input,
 form textarea {

@@ -2,8 +2,12 @@ class FeedsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :status
 
   def create
-    @feed = Feed.new(params[:feed])
-    @feed.finder = current_user
+    if @feed = Feed.find_by_url(params[:feed][:url])
+      @feed.send_later(:refresh)
+    else
+      @feed = Feed.new(params[:feed])
+      @feed.finder = current_user
+    end
 
     respond_to do |format|
       format.js do

@@ -27,7 +27,7 @@ depend :remote, :gem, 'mysql',           '=2.7'
 
 desc "Backup database"
 task :backup, :roles => :db, :only => { :primary => true } do
-  filename = "/tmp/#{application}.dump.#{stage}.#{Time.now.to_f}.sql.bz2"
+  filename = "/tmp/#{application}.dump.#{stage}.#{DateTime.now.to_s.gsub(/:/, "_")}.sql.bz2"
 
   # the on_rollback handler is only executed if this task is executed within
   # a transaction (see below), AND it or a subsequent task fails.

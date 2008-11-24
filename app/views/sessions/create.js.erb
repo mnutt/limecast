@@ -9,5 +9,5 @@
 <% elsif @unknown_user -%>
   { success: false, html: '<p>This user is new to us. Are you trying to <a href="#" class="inline_signup_button">Sign Up</a>?' }
 <% else -%>
-  { success: false, html: '<p>Email and password don\'t match. <%= link_to %{I forgot my password}, forgot_password_url -%></p>' } 
+  { success: false, html: '<p>User and password don\'t match. <%= link_to %{I forgot my password}, forgot_password_url -%></p>' } 
 <% end -%>

@@ -95,7 +95,7 @@ class Podcast < ActiveRecord::Base
   end
   
   def failed?
-    feeds.all? { |f| f.failed? }
+    feeds(true).all? { |f| f.failed? }
   end
 
   def reviews

@@ -3,6 +3,9 @@ class AdminController < ApplicationController
 
   def index
   end
+  
+  def icons
+  end
 
   protected
   def require_admin

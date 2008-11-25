@@ -223,7 +223,7 @@ cite {
 ul.reviews li.review cite {
   font-style: normal;
   color: #ABABAB;
-  margin: 0 5px 0 0;
+  margin: 0 0 0 0;
 }
 ul.reviews li.review span.rating img {
   margin-bottom: -2px;
@@ -280,6 +280,18 @@ form.edit div.field textarea.text,
 div.podcast div.reviews form#new_review div.field textarea.text,
 div.podcast div.review form#new_review div.field textarea.text {
   width: 99%;
+}
+
+.reviews h2 {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+.reviews p {
+	padding: 0;
+	margin: 0;
+}
+
+ul.reviews {
 }
 
 /**

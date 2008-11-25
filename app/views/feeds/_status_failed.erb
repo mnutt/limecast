@@ -12,7 +12,7 @@
   <% elsif %w(SocketError Timeout::Error Errno::ENETUNREACH OpenURI::HTTPError).include?(@feed.error) -%>
     Not found.
   <% else -%>
-    Weird server error. (<%= @feed.error -%>)
+    Weird server error. (<%= @feed.message -%>)
   <% end -%>
 
   <span class="arrow_down">Try again</span>

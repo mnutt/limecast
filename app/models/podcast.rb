@@ -93,6 +93,10 @@ class Podcast < ActiveRecord::Base
   def clean_site
     self.site.to_url
   end
+  
+  def failed?
+    feeds.all? { |f| f.failed? }
+  end
 
   def reviews
     Review.for_podcast(self)

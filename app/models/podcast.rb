@@ -93,7 +93,7 @@ class Podcast < ActiveRecord::Base
   def clean_site
     self.site.to_url
   end
-  
+
   def failed?
     feeds(true).all? { |f| f.failed? }
   end

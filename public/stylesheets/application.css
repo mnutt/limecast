@@ -223,7 +223,7 @@ cite {
 ul.reviews li.review cite {
   font-style: normal;
   color: #ABABAB;
-  margin: 0 5px 0 0;
+  margin: 0 0 0 0;
 }
 ul.reviews li.review span.rating img {
   margin-bottom: -2px;

@@ -29,12 +29,13 @@ $(document).ready(function(){
       $.ajax({
         type: 'post',
         url:  $(this).attr('action'),
-        data: $(this).serialize()
+        data: $(this).serialize(),
       });
 
       var form_review_title = $(this).find('#review_title').val();
-      var form_review_body  = $(this).find('#review_body').val().trim();
+      var form_review_body  = $(this).find('#review_body').val();
       form_review_body = form_review_body.replace(/\r\n?/g, "\n");
+      form_review_body = form_review_body.replace(/^[\n\t ]*/, '').replace(/[\n\t ]*$/, '')
       form_review_body = form_review_body.replace(/\n+/g, "¶");
 
       show_div.find('h4').text(form_review_title);

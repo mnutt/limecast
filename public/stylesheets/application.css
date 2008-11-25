@@ -337,6 +337,11 @@ ol#terms li ol {
   margin-right: 15px;
   /*background: #333;*/
 }
+.super_button .dropdown ul {
+  position: relative;
+  padding: 3px;
+  background-color: #555;
+}
 .super_button .button {
   /* background-image: url("/images/content/superbutton.png"); */
   background-repeat: no-repeat;

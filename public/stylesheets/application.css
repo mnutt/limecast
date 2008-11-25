@@ -282,6 +282,18 @@ div.podcast div.review form#new_review div.field textarea.text {
   width: 99%;
 }
 
+.reviews h2 {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+.reviews p {
+	padding: 0;
+	margin: 0;
+}
+
+ul.reviews {
+}
+
 /**
  * Adding Podcasts
 */

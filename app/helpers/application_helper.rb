@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def link_to_podcast(podcast)
-    link_to "#{image_tag(podcast.logo.url(:icon), :class => 'inline_icon')} <span class=\"searched\">#{h(podcast.custom_title)}</span>", podcast_url(podcast), :class => 'inline_icon'
+    link_to "#{image_tag(podcast.logo.url(:icon), :class => 'inline_icon')} <span class=\"searched\">#{h(podcast.custom_title)}</span>", podcast_url(podcast)
   end
 
   def link_to_episode(episode)

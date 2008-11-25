@@ -250,9 +250,8 @@ div.podcast div.review form#new_review div.field div {
 div.podcast div.reviews form#new_review div.align,
 form.edit div.align,
 div.podcast div.review form#new_review div.align {
-	margin-bottom: 0;
+	margin-bottom: 4px;
 	padding: 0;
-	padding-bottom: 4px;
 }
 div.podcast div.reviews form#new_review div.align input,
 form.edit div.align input,
@@ -271,6 +270,7 @@ div.podcast div.reviews form#new_review div.controls,
 form.edit div.controls,
 div.podcast div.review form#new_review div.controls {
   padding: 0;
+	margin-top: 10px;
 }
 div.podcast form#new_review div.controls .cancel {
   display: none;

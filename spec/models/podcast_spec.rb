@@ -253,3 +253,25 @@ describe Podcast, "permissions" do
     end
   end
 end
+
+describe Podcast, "with associated feeds" do
+  before do
+    @podcast = Factory.create(:parsed_podcast)
+    @podcast2 = Factory.create(:failed_podcast)
+    @feed = Factory.create(:feed, :state => "parsed")
+  end
+
+  it 'should not be failed? if has all parsed feeds' do
+    @podcast.should_not be_failed
+  end
+
+  it 'should be failed? if has all failed feeds' do
+    @podcast2.should be_failed
+  end
+
+  it 'should not be failed? if has parsed feeds and failed feeds' do
+    @podcast2.feeds << @feed
+    @podcast2.should_not be_failed
+  end
+
+end

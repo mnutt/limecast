@@ -32,7 +32,7 @@ class Feed < ActiveRecord::Base
   belongs_to :finder, :class_name => 'User'
 
   before_create :sanitize
-  before_save :remove_empty_podcast
+  after_save :remove_empty_podcast
   after_destroy { |f| f.finder.calculate_score! if f.finder }
 
   validates_presence_of   :url
@@ -187,6 +187,6 @@ class Feed < ActiveRecord::Base
   end
 
   def remove_empty_podcast
-    self.podcast.delete if self.failed? && !self.podcast.nil?
+    self.podcast.delete if self.failed? && !self.podcast.nil? && self.podcast.failed?
   end
 end

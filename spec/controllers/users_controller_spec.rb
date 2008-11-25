@@ -115,7 +115,7 @@ describe UsersController, "handling POST /users" do
     end
 
     it 'should report that the email matches, but password is wrong' do
-      decode(response)["html"].should =~ /This email is already signed up/
+      decode(response)["html"].should =~ /Sorry/
     end
   end
 

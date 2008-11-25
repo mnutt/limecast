@@ -153,6 +153,13 @@ describe Feed, "being created" do
       @feed.reload
       @feed.podcast.should be_nil
     end
+
+    it "should not delete the Podcast if it has parsed feeds" do
+      @podcast.feeds << Factory.create(:feed, :state => 'parsed')
+      @feed.update_attributes(:state => 'failed')
+      @feed.reload
+      @feed.podcast.should_not be_nil
+    end
   end
 end
 

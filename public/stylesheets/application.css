@@ -250,7 +250,9 @@ div.podcast div.review form#new_review div.field div {
 div.podcast div.reviews form#new_review div.align,
 form.edit div.align,
 div.podcast div.review form#new_review div.align {
-  padding: 0 0 14px 0;
+	margin-bottom: 0;
+	padding: 0;
+	padding-bottom: 4px;
 }
 div.podcast div.reviews form#new_review div.align input,
 form.edit div.align input,

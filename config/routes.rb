@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags
 
   map.admin '/admin', :controller => 'admin', :action => 'index'
+  map.admin '/admin/icons', :controller => 'admin', :action => 'icons'
   map.namespace :admin do |admin|
     admin.resources :podcasts
     admin.resources :episodes

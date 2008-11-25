@@ -1,6 +1,6 @@
 <form method="get" action="<%= feeds.first.url if feeds.first -%>" class="super_button subscribe">
   <span class="dropdown format">
-    <ul name="format" class="styled" style="background-color: #555; padding: 3px;">
+    <ul name="format" class="styled">
       <% feeds.parsed.each_with_index do |f, i| -%>
         <li <% if i == 0 -%>class="select selected"<% else -%>class="select" style="display:none;"<% end -%>>
           <input type="hidden" name="<%= dom_id(f) -%>" value="<%=h f.id -%>">

@@ -112,21 +112,8 @@ a, a:visited {
 a:hover {
   color: #E5E5E5;
 }
-a.icon {
-  background-repeat: no-repeat;
-  background-position: left center;
-  text-decoration: none;
-  padding: 2px 0 2px 18px;
-}
-a.icon span {
-  text-decoration: underline;
-  cursor: pointer !important;
-}
 a.user {
   background-image: url("../images/icons/user.png");
-}
-* html a.icon {
-  padding: 2px 0;
 }
 * html a.icon span {
   margin: 0 0 0 18px;
@@ -135,6 +122,10 @@ a img.inline_icon {
   margin: -4px 0 0 0;
   position: relative;
   top: 3px;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  display: inline-table;
 }
 span > img.inline_icon {
   margin: -4px 0 0 0;

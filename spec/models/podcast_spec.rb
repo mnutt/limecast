@@ -273,5 +273,23 @@ describe Podcast, "with associated feeds" do
     @podcast2.feeds << @feed
     @podcast2.should_not be_failed
   end
+end
 
+describe Podcast, "primary feed" do
+  before do
+    @podcast = Factory.create(:parsed_podcast)
+    @feed = @podcast.feeds.first
+    @feed2 = Factory.create(:feed, :state => "parsed")
+    @podcast.feeds << @feed2
+  end
+  
+  it 'should have the first feed be the primary feed' do
+    @podcast.primary_feed.should == @feed
+  end
+  
+  it 'should make the second feed be the primary feed' do
+    @podcast.update_attribute(:primary_feed_id, @feed2.id)
+    @podcast.primary_feed.should == @feed2
+    @feed2.should be_primary
+  end
 end

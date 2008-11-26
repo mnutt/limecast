@@ -39,6 +39,7 @@ class Feed < ActiveRecord::Base
   validates_uniqueness_of :url
 
   named_scope :parsed, :conditions => {:state => 'parsed'}
+  named_scope :ordered, lambda {|podcast| {:order => "(feeds.id != #{podcast.primary_feed_id}), sources.format ASC, feeds.bitrate ASC"} }
   def pending?; self.state == 'pending' || self.state.nil? end
   def parsed?;  self.state == 'parsed' end
   def failed?;  self.state == 'failed' end
@@ -154,7 +155,7 @@ class Feed < ActiveRecord::Base
   end
 
   def primary?
-    self.podcast.feeds.first == self
+    self.podcast.primary_feed == self
   end
 
   def similar_to_podcast?(podcast)

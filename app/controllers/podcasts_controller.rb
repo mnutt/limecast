@@ -46,17 +46,28 @@ class PodcastsController < ApplicationController
 
 
   def update
+    logger.info "got here"
     raise ActiveRecord::RecordNotFound if params[:podcast].nil?
+    logger.info "got here"
     @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
+    logger.info "got here"
     authorize_write @podcast
+    logger.info "got here"
 
-    @podcast.attributes = params[:podcast_attr].keep_keys([:custom_title])
+    @podcast.attributes = params[:podcast_attr].keep_keys([:custom_title, :primary_feed_id])
+    logger.info "got here"
 
-    if @podcast.save
-      flash[:notice] = 'Podcast was successfully updated.'
-      redirect_to(@podcast)
-    else
-      render :action => "edit"
+    respond_to do |format|
+      if @podcast.save
+        format.html do
+          flash[:notice] = 'Podcast was successfully updated.'
+          redirect_to(@podcast)
+        end
+        format.js { render :text => render_to_string(:partial => 'podcasts/form') }
+      else
+        format.html { render :action => "edit" }
+        format.js { head(:failure) }
+      end
     end
   end
 

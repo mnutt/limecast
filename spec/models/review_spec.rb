@@ -42,5 +42,17 @@ describe Review do
       @review.review_ratings << ReviewRating.new(:user => @review.reviewer)
     }.should_not change { @review.review_ratings.count }
   end
+
+  it 'should be writable by the reviewer' do
+    @review.should be_writable_by(@review.reviewer)
+  end
+
+  it 'should not be writable by a different user' do
+    @review.should_not be_writable_by(Factory.create(:user))
+  end
+
+  it 'should be writable by god users' do
+    @review.should be_writable_by(Factory.create(:admin_user))
+  end
 end
 

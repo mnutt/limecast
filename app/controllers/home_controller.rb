@@ -14,8 +14,8 @@ class HomeController < ApplicationController
       date = date.last_month.beginning_of_month
     end
   end
-  
-  
+
+
   def icons
   end
 end

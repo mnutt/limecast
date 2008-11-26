@@ -1,4 +1,5 @@
-<% hide_totals = true unless defined?(hide_totals) %>
+<% hide_totals = true unless defined?(hide_totals) -%>
+<% episode ||= podcast.episodes.newest.first -%>
 
 <div class="reviews">
   <h2>Reviews</h2>
@@ -15,7 +16,7 @@
     <%= render :partial => 'reviews/review', :collection => reviews -%>
   </ul>
 
-  <% if can_add_reviews?(podcast.episodes.newest.first) %>
+  <% if can_add_reviews?(episode) %>
     <%= render :partial => 'reviews/add_review', :object => podcast -%>
   <% end %>
 

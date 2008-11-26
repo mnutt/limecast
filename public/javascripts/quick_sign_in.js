@@ -6,7 +6,7 @@ $.fn.extend({
 
     me.find('input.signup_button').click(function(){
       // We only want to submit the form if the sign in button is no longer there.
-      var should_submit = me.find('input.signin_button').css('display') == 'none';
+      var should_submit = (me.find('input.signin_button').css('display') == 'none');
 
       if(!opts.ajax) {
         // Set password message and focus password field if it is left blank
@@ -39,6 +39,10 @@ $.fn.extend({
               me.find('.sign_up input').focus();
               me.find('input.signin_button').hide();
             }
+            
+            // Call handlers
+            if(resp.success && opts.success) { opts.success(resp); }
+            if(!resp.success && opts.error)  { opts.error(resp); }
           }
         });
       }

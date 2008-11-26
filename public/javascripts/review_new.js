@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  // XXX
   $('.quick_signin.inline').quickSignIn({
     success: function(){ window.location.reload(); }
   });

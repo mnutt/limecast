@@ -39,7 +39,7 @@ class Review < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    return false unless user and user.active?
+    return false unless user
     return true if user.admin?
 
     user == self.reviewer && self.editable?

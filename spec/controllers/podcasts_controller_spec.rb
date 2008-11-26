@@ -218,7 +218,7 @@ describe PodcastsController do
         do_post
         response.should redirect_to(podcast_url(:podcast => @podcast))
       end
-      
+
       it "should make a feed the primary feed" do
         do_post(:primary_feed_id => @feed.id)
         @podcast.reload.primary_feed.should == @feed

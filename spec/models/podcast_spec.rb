@@ -282,11 +282,11 @@ describe Podcast, "primary feed" do
     @feed2 = Factory.create(:feed, :state => "parsed")
     @podcast.feeds << @feed2
   end
-  
+
   it 'should have the first feed be the primary feed' do
     @podcast.primary_feed.should == @feed
   end
-  
+
   it 'should make the second feed be the primary feed' do
     @podcast.update_attribute(:primary_feed_id, @feed2.id)
     @podcast.primary_feed.should == @feed2

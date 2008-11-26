@@ -14,7 +14,7 @@
   <% end -%>
 
   <div id="podcast_formats">
-    <% @podcast.feeds.each do |feed| -%>
+    <% @podcast.feeds.sort_by(&:url).each do |feed| -%>
       <% form_for feed, :class => 'edit_feed' do |f| -%>
         <div class="feed_url"><%= feed.url -%></div>
   <div class="feed_options">

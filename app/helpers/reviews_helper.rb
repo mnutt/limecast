@@ -7,10 +7,6 @@ module ReviewsHelper
     end
   end
 
-  def can_edit_review?(review)
-    review.editable? && review.reviewer == current_user
-  end
-
   def review_rating(review, with_label = false)
     if review.positive
       img = image_tag('icons/thumbs_up.png', :alt => 'Thumbs Up', :class => 'rating')

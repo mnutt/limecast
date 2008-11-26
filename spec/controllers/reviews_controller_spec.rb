@@ -14,12 +14,8 @@ describe ReviewsController do
       put :update, :podcast => @podcast.clean_url, :id => review.id, :review => { :title => 'newish' }
     end
 
-    it "should redirect" do
-      do_post(@review)
-      response.should redirect_to(review_url(:podcast => @podcast, :id => @review.id))
-    end
-
     it "should update the review" do
+      request.env["HTTP_REFERER"] = "http://www.google.com"
       do_post(@review)
       @review.reload.title.should eql("newish")
     end

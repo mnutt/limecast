@@ -38,6 +38,13 @@ class Review < ActiveRecord::Base
     has :created_at
   end
 
+  def writable_by?(user)
+    return false unless user and user.active?
+    return true if user.admin?
+
+    user == self.reviewer && self.editable?
+  end
+
   def rated_by?(user)
     user && self.review_ratings.exists?(:user_id => user.id)
   end

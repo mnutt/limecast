@@ -17,24 +17,24 @@
     <% @podcast.feeds.sort_by(&:url).each do |feed| -%>
       <% form_for feed, :class => 'edit_feed' do |f| -%>
         <div class="feed_url"><%= feed.url -%></div>
-  <div class="feed_options">
-    <%= f.label :itunes_link, "iTunes" -%>
-    <%= f.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
-    <%= f.label :format -%>
-    <%= f.text_field :format, :size => 15 -%>
-    <%= link_to "Change", "#", :class => "submit" -%>
-  </div>
-  <div class="status"></div>
-  <div class="feed_meta">
-    (<%= [feed.apparent_format, feed.formatted_bitrate].compact.join(", ") -%>)
-    <% if feed.primary? -%>
-      <span>Primary</span>
-    <% else -%>
-      <span><%= link_to "Make Primary", "#" -%></span>
-      <span><%= link_to "Delete", "#" -%></span>
-    <% end -%>
-  </div>
-  <br/>
+        <div class="feed_options">
+          <%= f.label :itunes_link, "iTunes" -%>
+          <%= f.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
+          <%= f.label :format -%>
+          <%= f.text_field :format, :size => 15 -%>
+          <%= link_to "Change", "#", :class => "submit" -%>
+        </div>
+        <div class="status"></div>
+        <div class="feed_meta">
+          (<%= [feed.apparent_format, feed.formatted_bitrate].compact.join(", ") -%>)
+          <% if feed.primary? -%>
+            <span>Primary</span>
+          <% else -%>
+            <span><%= link_to "Make Primary", "#", :class => "make_primary", :rel => feed.id -%></span>
+            <span><%= link_to "Delete", "#" -%></span>
+          <% end -%>
+        </div>
+        <br/>
       <% end -%>
     <% end -%>
 

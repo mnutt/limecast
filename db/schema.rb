@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081113215829) do
+ActiveRecord::Schema.define(:version => 20081126170503) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20081113215829) do
     t.string   "owner_email"
     t.string   "owner_name"
     t.string   "custom_title"
+    t.integer  "primary_feed_id"
   end
 
   create_table "review_ratings", :force => true do |t|

@@ -26,9 +26,9 @@ require 'paperclip_file'
 class Podcast < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
+  belongs_to :primary_feed, :class_name => 'Feed'
   has_many :favorites, :dependent => :destroy
-  has_many :feeds, :dependent => :destroy, :include => :first_source,
-                   :order => 'sources.format ASC, bitrate ASC', :group => "feeds.id"
+  has_many :feeds, :dependent => :destroy, :include => :first_source, :group => "feeds.id"
   has_many :episodes, :dependent => :destroy
 
   has_many :taggings, :as => :taggable, :dependent => :destroy, :include => :tag
@@ -55,6 +55,7 @@ class Podcast < ActiveRecord::Base
   before_save :sanitize_title
   before_save :sanitize_url
   before_save :cache_custom_title
+  before_save :set_primary_feed
 
   # Search
   define_index do
@@ -191,5 +192,9 @@ class Podcast < ActiveRecord::Base
     self.owner = User.find_by_email(self.owner_email)
 
     true
+  end
+
+  def set_primary_feed
+    update_attribute(:primary_feed_id, feeds.first.id) if primary_feed_id.nil? && !feeds.first.nil?
   end
 end

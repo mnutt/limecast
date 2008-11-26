@@ -191,26 +191,37 @@ describe PodcastsController do
   describe "handling POST /:podcast" do
     describe "when user is the podcast owner" do
 
+      def do_post(options={:custom_title => "Custom Title"})
+        post :update, :podcast => @podcast.clean_url, :podcast_attr => options
+      end
+
       before(:each) do
         @user = Factory.create(:user)
         @podcast = Factory.create(:parsed_podcast)
+        @feed = Factory.create(:feed, :state => 'parsed')
         Podcast.stub!(:find_by_clean_url).and_return(@podcast)
         @podcast.should_receive(:writable_by?).and_return(true)
         login(@user)
-
-        post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title"}
       end
 
       it "should find the podcast requested" do
+        do_post
         assigns(:podcast).id.should == @podcast.id
       end
 
       it "should update the found podcast" do
+        do_post
         assigns(:podcast).reload.custom_title.should == "Custom Title"
       end
 
       it "should redirect to the podcasts list" do
+        do_post
         response.should redirect_to(podcast_url(:podcast => @podcast))
+      end
+      
+      it "should make a feed the primary feed" do
+        do_post(:primary_feed_id => @feed.id)
+        @podcast.reload.primary_feed.should == @feed
       end
     end
 

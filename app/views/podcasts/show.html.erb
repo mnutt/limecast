@@ -37,7 +37,7 @@
         <%= link_to_with_icon "RSS", :rss, @podcast.feeds.first.url %>
       </li>
       <% unless @podcast.feeds.first.itunes_link.blank? -%>
-      <li class="itunes"><%= link_to "<span>iTunes</span>", "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.feeds.first.itunes_link}", :class => 'icon' %></li>
+        <li class="itunes"><%= link_to_with_icon "iTunes", :itunes, "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.feeds.first.itunes_link}", :class => 'icon' %></li>
       <% end -%>
     </ul>
   </div>
@@ -57,7 +57,6 @@
   </div>
   <% end -%>
   
-  <br /> <!-- why isn't .authors clearing without this? //-->
   <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds } -%>
 
   <%= render :partial => 'badges' %>

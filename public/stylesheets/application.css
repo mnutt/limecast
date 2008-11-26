@@ -137,6 +137,9 @@ div.podcast div.authors ul li {
   background-image: url("../images/icons/user.png") !important;
 }
 */
+div.podcast div.badges {
+  margin: 0 0 14px 0;
+}
 div.podcast div.stats {
   margin: 0 0 14px 0;
 }
@@ -150,12 +153,13 @@ div.podcast div.tags {
 }
 
 /* Episodes */
-div.podcast div.episodes {
+div.podcast .episodes {
   margin: 0 0 14px 0;
   *height: 0.01%;
 }
 ul.episodes li.episode {
-  padding: 0 0 0 26px;
+  padding: 0 0 0 16px;
+  margin-left: -16px;
   position: relative;
   width: 100%;
   *height: 0.01%;
@@ -223,7 +227,7 @@ cite {
 ul.reviews li.review cite {
   font-style: normal;
   color: #ABABAB;
-  margin: 0 5px 0 0;
+  margin: 0;
 }
 ul.reviews li.review span.rating img {
   margin-bottom: -2px;
@@ -246,7 +250,7 @@ div.podcast div.review form#new_review div.field div {
 }
 div.podcast div.reviews form#new_review div.align,
 div.podcast div.review form#new_review div.align {
-  padding: 0 0 14px 0;
+  padding: 0;
 }
 div.podcast div.reviews form#new_review div.align input,
 div.podcast div.reviews form#new_review div.align label,
@@ -329,6 +333,7 @@ ol#terms li ol {
   display: table-row;
   height: 47px;
   padding-left: 20px;
+  margin: 0 0 14px 0;
   background: #515557 url("/images/content/superbutton.png") no-repeat 0 0;
 }
 .super_button .dropdown {
@@ -372,8 +377,6 @@ ol#terms li ol {
   display: block;
   padding: 17px 0 2px 0;
   line-height: 11px;
-  text-transform: uppercase;
-  font-weight: bold;
   letter-spacing: 1px;
   color: #FFF;
   border-bottom: 1px solid #eee;
@@ -388,7 +391,7 @@ ol#terms li ol {
   cursor: text;
 }
 .super_button ul li.selected {
-  padding: 0 15px 0 0;
-  background: url("/images/icons/select-arrow.gif") bottom right no-repeat;
+  padding: 0 10px 0 0;
+  background: url("/images/icons/select-arrow.png") no-repeat scroll right 8px;
   overflow: hidden;
 }

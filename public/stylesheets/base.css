@@ -160,39 +160,21 @@ div#header_wrapper {
   position: relative;
 }
 div#header {
-  padding: 0 8px;
+  padding: 10px 8px;
 }
 div#header div#title {
-  padding: 7px 0;
+  padding: 12px 0 0 0;
+  display: inline;
 }
+
 div#header div#title h1 {
-  height: 22px;
-  position: relative;
-  line-height: 1.9em;
-  padding: 0 10px 0 2px;
-  margin: 0;
-  font-size: 14px;
-}
-div#header div#title h1 sup {
-  font: Lucida Sans, Trebuchet MS;
-  font-size: 9px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #181818;
-  padding: 1px 3px 0;
-  height: 1.6em;
-  line-height: 1.6em;
-  top: -2px;
-  position: relative;
-  overflow: hidden;
-  background-color: #6E6E6D;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
+  display: inline;
+  padding: 0 0 0 2px;
+  margin: 12px 0 0;
+  font-size: 12px;
 }
 div#header div.add_podcast {
-  top: 12px;
-  left: 11em;
-  position: absolute;
+  display: inline;
 }
 div#header div#account_bar {
   top: 0;
@@ -206,12 +188,13 @@ div#header div#account_bar ul li {
   float: left;
 }
 div#header div#account_bar ul li.search {
-  width: 160px;
+  width: 210px;
   padding: 5px 0 0 0;
   position: relative;
+  margin-right: -20px;
 }
 div#header div#account_bar ul li.search input.text {
-  width: 96px;
+  width: 146px;
   height: 15px;
   padding: 4px 31px 4px 5px;
   top: 5px;
@@ -341,6 +324,10 @@ div#footer ul {
 div#footer ul li {
   margin: 0 5px 0 0;
   float: left;
+}
+
+div#footer a {
+  color: #AAA;
 }
 
 /**

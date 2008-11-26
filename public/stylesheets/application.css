@@ -360,7 +360,6 @@ ol#terms li ol {
   height: 47px;
   background-image: url("/images/content/superbutton.png");
   background-repeat: no-repeat;
-  text-decoration: none;
 }
 .super_button .button.orange a { background-position: right -47px; }
 .super_button .button.green a { background-position: right -94px; }
@@ -379,7 +378,6 @@ ol#terms li ol {
   line-height: 11px;
   letter-spacing: 1px;
   color: #FFF;
-  border-bottom: 1px solid #eee;
 }
 
 /* */

@@ -56,15 +56,9 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @podcast = Podcast.find_by_clean_url(params[:podcast])
 
-    respond_to do |format|
-      if @review.update_attributes(params[:review])
-        format.html { redirect_to review_url(:podcast => @podcast, :id => @review.id) }
-      else
-        format.html { render :action => "edit" }
-      end
+    @review.update_attributes(params[:review])
 
-      format.js { render :nothing => true }
-    end
+    redirect_to :back
   end
 
   def rate

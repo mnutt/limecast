@@ -1,7 +1,6 @@
 <% options ||= {} -%>
 <% options[:top_bar] ||= false -%>
 <% options[:suffix] ||= rand(10000) -%>
-<% options[:label_in_input] = true if options[:label_in_input].nil? %>
 
 <div class="quick_signin <%= options[:suffix] %> <% if options[:top_bar] -%>palette top_bar<% else -%>inline<% end -%>"
                        style="display: none;">
@@ -14,7 +13,7 @@
   <div class="contents">
     <% form_for :user, :url => session_path do |f| -%>
       <div class="field">
-        <label for="login_<%= options[:suffix] -%>"<%= ' class="default"' if options[:label_in_input] -%>>User</label>
+        <label for="login_<%= options[:suffix] -%>">User</label>
         <div>
           <input type="text" id="login_<%= options[:suffix] -%>" class='text login' name="user[login]" />
         </div>
@@ -26,7 +25,7 @@
         </div>
       </div>
       <div class="field sign_up" style="display: none;">
-        <label for="email_<%= options[:suffix] -%>"<%= ' class="default"' if options[:label_in_input] -%>>Email</label>
+        <label for="email_<%= options[:suffix] -%>">Email</label>
         <div>
           <input type="text" id="email_<%= options[:suffix] -%>" class='text email' name="user[email]" />
         </div>

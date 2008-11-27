@@ -35,6 +35,8 @@
     
   </div>
 
-  <%= render :partial => 'reviews/reviews', :object => @episode.reviews, :locals => { :hide_totals => true, :episode => @episode, :podcast => @episode.podcast } -%>
+  <% if !@episode.reviews.count.zero? || can_add_reviews?(@episode) -%>
+    <%= render :partial => 'reviews/reviews', :object => @episode.reviews, :locals => { :hide_totals => true, :episode => @episode, :podcast => @episode.podcast } -%>
+  <% end -%>
   
 </div>

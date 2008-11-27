@@ -8,7 +8,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags
 
   map.admin '/admin', :controller => 'admin', :action => 'index'
-  map.admin '/admin/icons', :controller => 'admin', :action => 'icons'
   map.namespace :admin do |admin|
     admin.resources :podcasts
     admin.resources :episodes
@@ -31,6 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password '/forgot',              :controller => 'users', :action => 'forgot_password'
 
   map.root                        :controller => 'home',     :action => 'home'
+  map.admin       '/icons',       :controller => 'home',     :action => 'icons'
   map.add_podcast '/add',         :controller => 'podcasts', :action => 'new'
   map.status      '/status',      :controller => 'feeds',    :action => 'status'
   map.all         '/all',         :controller => 'podcasts', :action => 'index'

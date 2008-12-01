@@ -66,16 +66,23 @@ $(document).ready(function(){
     },
     error: function(resp) {
       me = signin_container;
-      
+
       if(me.find('.response_container .inline_signup_button')) {
         me.find('.response_container .inline_signup_button').click(function(ev) {
-          me.find('input.signup_button').click(); // show the signup form
-          if(me.find('input.login').val().match(/[^ ]+@[^ ]+/)) {
-            me.find('input.email').val(me.find('input.login').val());
-            me.find('input.login').val("");
+          if (me.find('input.signin_button:visible')) {
+            // Show the signup form-- this is in quick_sign_in.js and could be DRY'd up somehow
+            me.find('.sign_up').show();
+            me.find('input.login').focus();
+            me.find('input.signin_button').hide();
+            me.find('form').attr('action', '/users'); // Set the forms action to /users to call UsersController#create
+          
+            if(me.find('input.login').val().match(/[^ ]+@[^ ]+/)) {
+              me.find('input.email').val(me.find('input.login').val());
+              me.find('input.login').val("");
+            }
+            me.find('div.response_container').html("<p>Please choose your new user name</p>");
+            //ev.preventDefault();
           }
-          me.find('div.response_container').html("<p>Please choose your new user name</p>");
-          //ev.preventDefault();
       });
       }
     }
@@ -143,7 +150,8 @@ $(document).ready(function(){
   if($(document).searchTermContext && searchLabel != searchBox) {
     $('#primary li .searched').map(function(){
       $(this).searchTermContext({
-        query: searchBox
+        query: searchBox,
+        format: function(s) { return '<b>' + s + '</b>'; }
       });
     });
   }

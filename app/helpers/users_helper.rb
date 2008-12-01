@@ -1,5 +1,5 @@
 module UsersHelper
-  def create_error(user)
+  def create_user_error(user)
     forgot_password = link_to("I forgot my password", forgot_password_url)
 
     if user.errors[:login]
@@ -16,3 +16,6 @@ module UsersHelper
     end
   end
 end
+
+
+

@@ -2,43 +2,6 @@ $.fn.extend({
   quickSignIn: function(opts) {
     var me = $(this);
 
-    me.find('input.signup_button').click(function(){
-      // We only want to submit the form if the sign in button is no longer there.
-      var should_submit = (me.find('input.signin_button').css('display') == 'none');
-
-      $.ajax({
-        type:    'post',
-        url:     me.find('form').attr('action'),
-        data:    me.find('form').serialize(),
-        dataType: "json",
-        success: function(resp){
-          if(resp.success) {
-            window.location.reload();
-          } else {
-            response_container = me.find('.response_container');
-            if(resp.html.match(/User and password don't match/) || 
-               resp.html.match(/This user is new to us/) || 
-               resp.html.match(/Please type your password/)) {
-              // Shows the signin error
-              me.find('.response_container').html(resp.html);
-            } else {
-              // Shows the signup form
-              me.find('.sign_up').show();
-              me.find('.sign_up input').focus();
-              me.find('input.signin_button').hide();
-              me.find('form').attr('action', '/users'); // Set the forms action to /users to call UsersController#create
-            }
-          }
-        
-          // Call handlers
-          if(resp.success && opts.success) { opts.success(resp); }
-          if(!resp.success && opts.error)  { opts.error(resp); }
-        }
-      });
-
-      return should_submit;
-    });
-
     me.find('form').bind('submit', function(){
       $.ajax({
         type:    'post',
@@ -50,11 +13,13 @@ $.fn.extend({
             window.location.reload();
           } else {
             response_container = me.find('.response_container');
+            
             if(resp.html == response_container.html()) {
               me.find('.response_container').hide();
               me.find('.response_container').html(resp.html);
               me.find('.response_container').fadeIn();
             } else me.find('.response_container').html(resp.html);
+            
           }
 
           // Call handlers

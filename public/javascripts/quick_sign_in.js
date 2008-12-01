@@ -1,5 +1,5 @@
 $.fn.extend({
-  quickSignInRemote: function(opts) {
+  quickSignIn: function(opts) {
     var me = $(this);
 
     me.find('input.signup_button').click(function(){
@@ -64,34 +64,6 @@ $.fn.extend({
       });
 
       return false;
-    });
-
-    return $(this);
-  },
-
-  quickSignIn: function(opts) {
-    var me = $(this);
-
-    me.find('input.signup_button').click(function(){
-      // We only want to submit the form if the sign in button is no longer there.
-      var should_submit = (me.find('input.signin_button').css('display') == 'none');
-
-      // Set password message and focus password field if it is left blank
-      if(me.find('input.password').val() == "") {
-        me.find('div.response_container').text("Please choose a password");
-        me.find('input.password').focus();
-      }
-      
-      // Set username message and focus username field if it is left blank
-      if(me.find('input.login').val() == "") {
-        me.find('div.response_container').text("Choose your new user name");
-        me.find('input.login').focus();
-      }
-
-      // Set the forms action to /users to call UsersController#create
-      me.find('form').attr('action', '/users');
-
-      return should_submit;
     });
 
     return $(this);

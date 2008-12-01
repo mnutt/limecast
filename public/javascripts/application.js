@@ -59,7 +59,7 @@ $(document).ready(function(){
     signin_container.find('div.response_container').html('<a href="/forgot_password">I forgot my password</a>');
   }
 
-  signin_container.quickSignInRemote({
+  signin_container.quickSignIn({
     success: function(resp){
       reset_container();
       $('#account_bar .signup').unbind('click');
@@ -143,8 +143,7 @@ $(document).ready(function(){
   if($(document).searchTermContext && searchLabel != searchBox) {
     $('#primary li .searched').map(function(){
       $(this).searchTermContext({
-        query: searchBox,
-        format: function(s) { return '<b>' + s + '</b>'; }
+        query: searchBox
       });
     });
   }

@@ -17,9 +17,11 @@ class Source < ActiveRecord::Base
   belongs_to :feed
   belongs_to :episode
 
-  named_scope :ordered, lambda {|podcast| {:include => [:feed], :order => "(feeds.id != #{podcast.primary_feed_id}), sources.format ASC, feeds.bitrate ASC"} }
-
   def file_name
     File.basename(self.url)
+  end
+  
+  def primary?
+    feed.primary?
   end
 end

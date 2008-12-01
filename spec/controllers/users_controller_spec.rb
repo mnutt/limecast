@@ -46,7 +46,7 @@ end
 describe UsersController, "handling POST /users" do
   describe "when the email is bad" do
     before do
-      post :create, :user => {:login => 'quire'}, :format => 'js'
+      post :create, :user => {:login => 'quire', :password => 'blah'}, :format => 'js'
     end
 
     it 'should not succeed' do
@@ -60,7 +60,7 @@ describe UsersController, "handling POST /users" do
 
   describe "when the password is bad" do
     before do
-      post :create, :user => {:email => "quire@example.com", :login => 'quire'}, :format => 'js'
+      post :create, :user => {:login => 'quire'}, :format => 'js'
     end
 
     it 'should not succeed' do

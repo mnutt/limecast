@@ -143,8 +143,7 @@ $(document).ready(function(){
   if($(document).searchTermContext && searchLabel != searchBox) {
     $('#primary li .searched').map(function(){
       $(this).searchTermContext({
-        query: searchBox,
-        format: function(s) { return '<b>' + s + '</b>'; }
+        query: searchBox
       });
     });
   }

@@ -1,7 +1,7 @@
 # == Schema Information
-# Schema version: 20081027172537
+# Schema version: 20081126170503
 #
-# Table name: comments
+# Table name: reviews
 #
 #  id             :integer(4)    not null, primary key
 #  user_id        :integer(4)

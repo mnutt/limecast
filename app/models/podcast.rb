@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081027172537
+# Schema version: 20081126170503
 #
 # Table name: podcasts
 #
@@ -19,6 +19,7 @@
 #  owner_email       :string(255)
 #  owner_name        :string(255)
 #  custom_title      :string(255)
+#  primary_feed_id   :integer(4)
 #
 
 require 'paperclip_file'

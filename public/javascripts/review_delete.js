@@ -4,10 +4,10 @@ $(document).ready(function(){
 
     review_li.find('a.delete')
       .show()
-      .restfulDelete()
-      .click(function(){
-        review_li.replaceWith('');
-        return false;
+      .restfulDelete({
+        confirmed: function() {
+          review_li.replaceWith('');
+        }
       });
   });
 });

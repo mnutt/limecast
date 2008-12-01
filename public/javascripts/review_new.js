@@ -13,8 +13,9 @@ $(document).ready(function(){
       dataType: "json",
       success: function(resp){
         if(resp.logged_in) {
-          $('ul.reviews').append(resp.html);
-          $('a.delete').show(); // Show all delete links.
+          var html = $(resp.html);
+          html.find('a.delete').restfulDelete().show(); // Show all delete links.
+          $('ul.reviews').append(html);
 
           new_review_form.hide();
         } else {

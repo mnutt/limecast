@@ -388,7 +388,10 @@ form div.huge div {
   position: relative;
 }
 form div.huge div input.text {
-  width: 85%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  width: 100%;
 }
 
 /**

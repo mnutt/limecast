@@ -303,6 +303,13 @@ ul.reviews {
 /**
  * Adding Podcasts
 */
+#new_podcast  {
+  white-space: nowrap;
+}
+#new_podcast .button {
+  width: 51px;
+  margin-left: -58px;
+}
 div.status_message {
   margin-bottom: 1em;
 }

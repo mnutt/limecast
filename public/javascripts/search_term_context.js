@@ -14,7 +14,7 @@ $.fn.extend({
     // Finds the phrases in the text
     for(var i = 0, n = terms.length; i < n; ++i) {
       for(var j = i+1; j < n+1; ++j) {
-        var phrase = new RegExp(terms.slice(i,j).join(separator));
+        var phrase = new RegExp(terms.slice(i,j).join(separator), 'i');
         if(text.match(phrase)) {
           phrases.push(phrase);
         }

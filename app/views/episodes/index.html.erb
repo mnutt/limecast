@@ -6,9 +6,9 @@
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
   <% if @podcast -%>
-    <h1 class="heading">Episodes for <%=h @podcast.custom_title -%></h2>
+    <h1 class="heading">Episodes for <%=h @podcast.custom_title -%></h1>
   <% else -%>
-    <h2>All episodes</h2>
+    <h1 class="heading">All episodes</h1>
   <% end -%>
   
   <ul class="episodes">

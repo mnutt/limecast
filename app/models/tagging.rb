@@ -15,7 +15,7 @@ class Tagging < ActiveRecord::Base
 
   before_save :map_to_different_tag
 
-  validates_uniqueness_of :tag_id, :scope => :taggable_id
+  validates_uniqueness_of :tag_id, :scope => :taggable_id, :message => "has already been used on this Podcast"
 
   named_scope :podcasts, :conditions => {:taggable_type => 'podcast'}
 

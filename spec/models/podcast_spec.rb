@@ -167,8 +167,11 @@ end
 
 describe Podcast, "with associated tags" do
   before do
-    @podcast1 = Factory.create(:podcast, :tag_string => "tag1 commontag")
-    @podcast2 = Factory.create(:podcast, :tag_string => "tag2 commontag")
+    @podcast1 = Factory.create(:podcast)
+    @podcast2 = Factory.create(:podcast)
+
+    @podcast1.tag_string = "tag1 commontag"
+    @podcast2.tag_string = "tag2 commontag"
   end
 
   it 'should be able to find all podcasts with a common tag' do

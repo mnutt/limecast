@@ -25,7 +25,7 @@ class Episode < ActiveRecord::Base
                                  :small  => ["170x170#", :png] }
   has_many :reviews, :dependent => :destroy
   has_many :reviewers, :through => :reviews
-  has_many :sources, :dependent => :destroy, :include => [:feed]
+  has_many :sources, :dependent => :destroy, :include => [:feed], :order => "sources.format ASC, feeds.bitrate ASC"
 
   validates_presence_of :podcast_id, :published_at
 

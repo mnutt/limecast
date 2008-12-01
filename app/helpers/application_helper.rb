@@ -69,6 +69,14 @@ module ApplicationHelper
     sanitize html, :tags => %w(a b i), :attributes => %w(href title)
   end
 
+  # Put the primary feed/source at top (if one exists)
+  # TODO isn't there an easier way in Ruby to do this?
+  def sorted_by_primary(feeds_or_sources=[])
+    feeds_or_sources.sort_by { |f| f.primary? ? 0 : 1 }
+  rescue
+    feeds_or_sources
+  end
+
   def super_button_delivery(item)
     label = item.class == Source ? item.file_name : item.format
 

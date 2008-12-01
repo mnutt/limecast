@@ -39,7 +39,6 @@ class Feed < ActiveRecord::Base
   validates_uniqueness_of :url
 
   named_scope :parsed, :conditions => {:state => 'parsed'}
-  named_scope :ordered, lambda {|podcast| {:order => "(feeds.id != #{podcast.primary_feed_id}), sources.format ASC, feeds.bitrate ASC"} }
   def pending?; self.state == 'pending' || self.state.nil? end
   def parsed?;  self.state == 'parsed' end
   def failed?;  self.state == 'failed' end
@@ -53,6 +52,7 @@ class Feed < ActiveRecord::Base
     update_finder_score
 
   rescue Exception
+    PodcastMailer.deliver_failed_feed(self, $!)
     self.update_attributes(:state => 'failed', :error => $!.class.to_s)
   end
 
@@ -127,6 +127,7 @@ class Feed < ActiveRecord::Base
   def update_podcast!
     self.podcast ||= Podcast.find_by_site(@feed.link) || Podcast.new
     raise FeedDoesNotMatchPodcast unless self.similar_to_podcast?(self.podcast)
+    new_podcast = self.podcast.new_record?
 
     self.podcast.download_logo(@feed.image) unless @feed.image.nil?
     self.podcast.update_attributes!(
@@ -137,6 +138,7 @@ class Feed < ActiveRecord::Base
       :owner_name  => @feed.owner_name,
       :site        => @feed.link
     )
+    PodcastMailer.deliver_new_podcast(podcast) if new_podcast
   rescue RPodcast::NoEnclosureError
     raise NoEnclosureException
   end

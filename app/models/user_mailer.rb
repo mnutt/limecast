@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  FROM_HOST = "podcasts.limewire.com"
+  FROM_HOST = "limecast.com"
 
   def signup_notification(user)
     setup_email(user)

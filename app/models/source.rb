@@ -20,7 +20,7 @@ class Source < ActiveRecord::Base
   def file_name
     File.basename(self.url)
   end
-  
+
   def primary?
     feed.primary?
   end

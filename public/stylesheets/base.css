@@ -415,7 +415,7 @@ div.palette div.titlebar a.close {
   display: block;
   float: right;
 }
-div.palette div.contents {
+div.palette form.quick_signin {
   padding: 10px;
   clear: both;
 }

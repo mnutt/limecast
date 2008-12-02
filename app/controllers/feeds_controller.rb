@@ -28,16 +28,20 @@ class FeedsController < ApplicationController
     @feed    = Feed.find_by_url(params[:feed])
     @podcast = @feed.podcast unless @feed.nil?
 
+    # See http://wiki.limewire.org/index.php?title=LimeCast_Add#Messages
+    # Unexpected errors
     if @feed.nil?
       render :partial => 'status_error'
+    # Successes
     elsif @podcast && @feed.parsed? && feed_created_just_now_by_user?(@feed)
       render :partial => 'status_added'
-    elsif @podcast && @feed.parsed?
-      render :partial => 'status_conflict'
-    elsif @feed.failed?
+    # Expected errors
+    elsif @feed.failed? || @podcast && @feed.parsed?
       render :partial => 'status_failed'
+    # Progress
     elsif @feed.pending?
       render :partial => 'status_loading'
+    # Really unexpected errors
     else
       render :partial => 'status_error'
     end

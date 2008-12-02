@@ -12,6 +12,9 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'f5ddc48f3727a5fb383bccf339c7d49c'
 
+  # Don't show passwords in logs
+  filter_parameter_logging :password, :password_confirmation
+
   before_filter :read_tracker
   def read_tracker
     tracker_file = "#{RAILS_ROOT}/private/tracker.txt"

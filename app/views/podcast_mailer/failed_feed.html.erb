@@ -6,7 +6,7 @@ Some error information:
 
 <%= @exception.class.to_s %>: <%= @exception.to_s %>
 
-<%= @exception.backtrace %>
+<%= @exception.backtrace.join("\n") %>
 
 Sorry,
 LimeCast

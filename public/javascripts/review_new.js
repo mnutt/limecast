@@ -1,6 +1,5 @@
 $(document).ready(function(){
-  // XXX
-  $('.quick_signin.inline').quickSignIn({
+  $('.quick_signin.after_adding_review').quickSignIn({
     success: function(){ window.location.reload(); }
   });
 
@@ -13,9 +12,8 @@ $(document).ready(function(){
       dataType: "json",
       success: function(resp){
         if(resp.logged_in) {
-          var html = $(resp.html);
-          html.find('a.delete').restfulDelete().show(); // Show all delete links.
-          $('ul.reviews').append(html);
+          $('ul.reviews').append(resp.html);
+          $('a.delete').show(); // Show all delete links.
 
           new_review_form.hide();
         } else {

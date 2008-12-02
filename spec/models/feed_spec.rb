@@ -127,14 +127,6 @@ describe Feed, "being created" do
     end
   end
 
-  describe "with a non-existent URL" do
-    it 'should save the error that the URL is not contactable' do
-      pending "figure out how to make it timeout without waiting"
-      @feed.url = "http://192.168.219.47"
-      @feed.error.should == "The server was not contactable."
-    end
-  end
-
   describe "when it is associated with a podcast that it does not belong to" do
     it "should save the error that the feed is mismatched" do
       @feed = Factory.create(:feed, :podcast_id => @podcast.id, :url => "http://badmatch.com/")

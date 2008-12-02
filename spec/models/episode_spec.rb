@@ -72,6 +72,4 @@ describe Episode, "generating a URL" do
     @episode.save!
     @episode.generate_url.should == "2008-Aug-1"
   end
-
-  it 'should not conflict with other podcasts\' episodes'
 end

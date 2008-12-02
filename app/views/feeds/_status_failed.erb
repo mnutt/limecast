@@ -1,5 +1,7 @@
 <div class="status_message finished">
-  <% if @feed.error == "RPodcast::InvalidXMLError" -%>
+  <% if @podcast && @feed && @feed.parsed? -%>
+    I've already got <%= link_to_podcast(@podcast) -%>!
+  <% elsif @feed.error == "RPodcast::InvalidXMLError" -%>
     That's not an RSS feed.
   <% elsif @feed.error == "RPodcast::NoEnclosureError" || @feed.error == "Feed::NoEnclosureException" -%>
     That's a text RSS feed, not an audio or video podcast.
@@ -12,7 +14,7 @@
   <% elsif %w(SocketError Timeout::Error Errno::ENETUNREACH OpenURI::HTTPError).include?(@feed.error) -%>
     Not found.
   <% else -%>
-    Weird server error. (<%= @feed.error -%>)
+    There was some sort of error adding the podcast.  It's probably a bug, and we're on it.  
   <% end -%>
 
   <span class="arrow_down">Try again</span>

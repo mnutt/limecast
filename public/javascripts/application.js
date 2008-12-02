@@ -3,45 +3,17 @@ if(typeof $=='undefined') throw("application.js requires the $ JavaScript framew
 /**************************************************************
 * Hover/Focus Behaviors
 **************************************************************/
-$(document).ready(function() {
-  var elements = $('input, textarea, button');
-  var options = {
-    prefix: '_',
-    classNames: {
-      hover: 'hover',
-      focus: 'focus'
-    }
-  }
-  elements.each(function() {
+$.fn.extend({
+  hoverAndFocusBehavior: function() {
     var me = $(this);
-    var type = me.attr('type');
-    if (type != 'hidden') {
-      if (type == 'image') {
-        var filename = me.attr('src');
-        var dot = filename.lastIndexOf('.');
-        var filename_hover = filename.substr(0, dot) + options.prefix + options.classNames.hover + filename.substr(dot);
-        var filename_focus = filename.substr(0, dot) + options.prefix + options.classNames.focus + filename.substr(dot);
-      }
-      me.mouseover(function(e) {
-        if (type == 'image') me.attr({src: filename_hover});
-        me.addClass(options.classNames.hover);
-      })
-      .mouseout(function(e) {
-        if (type == 'image') me.attr({src: filename});
-        me.removeClass(options.classNames.hover);
-      })
-      .focus(function(e) {
-        if (type == 'image') me.attr({src: filename_focus});
-        me.removeClass(options.classNames.hover)
-          .addClass(options.classNames.focus);
-      })
-      .blur(function(e) {
-        if (type == 'image') me.attr({src: filename});
-        me.removeClass(options.classNames.hover)
-          .removeClass(options.classNames.focus);
-      });
-    }
-  });
+    me.mouseover(function() { me.addClass('hover');    });
+	  me.mouseout(function()  { me.removeClass('hover'); });
+		me.focus(function() { me.addClass('focus').removeClass('hover');    });
+		me.blur(function()  { me.removeClass('focus').removeClass('hover'); });
+  }
+});
+$(document).ready(function() {
+  $('input:not([type=hidden]), textarea, button').hoverAndFocusBehavior();
 });
 
 /**************************************************************

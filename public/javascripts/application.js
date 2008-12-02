@@ -20,51 +20,44 @@ $(document).ready(function() {
 * Sign In
 **************************************************************/
 $(document).ready(function(){
-  var signin_container = $('.quick_signin.top_bar');
+  var me = $('.quick_signin.top_bar');
 
   function reset_container() {
-    signin_container.hide();
-    signin_container.find('.sign_up').hide();
-    signin_container.find('form').attr('action', '/session');
-    signin_container.find('input.signin_button').show();
-    signin_container.find('form')[0].reset();
-    signin_container.find('div.response_container').html('<a href="/forgot_password">I forgot my password</a>');
+    me.hide();
+    me.find('.sign_up').hide();
+    me.find('form').attr('action', '/session');
+    me.find('input.signin_button').show();
+    me.find('form')[0].reset();
+    me.find('div.response_container').html('<a href="/forgot_password">I forgot my password</a>');
   }
 
-  signin_container.quickSignIn({
-    success: function(resp){
-      reset_container();
-      $('#account_bar .signup').unbind('click');
-    },
-    error: function(resp) {
-      me = signin_container;
+  // Keypress to handle pressing escape to close box.
+  me.find('input').keydown(function(e){
+    if(e.keyCode == 27) { reset_container(); }
+  });
 
-      if(me.find('.response_container .inline_signup_button')) {
-        me.find('.response_container .inline_signup_button').click(function(ev) {
-          if (me.find('input.signin_button:visible')) {
-            me.showQuickSignUpForm();
-          }
+	// Handles clicking the X button to close the quick sign in box
+  me.find('a.close').click(reset_container);
+
+  me.quickSignIn({
+    error: function(resp) {
+      me.find('.response_container .inline_signup_button').click(function() {
+        if (me.find('input.signin_button:visible').length) {
+          me.showQuickSignUpForm();
+        }
       });
-      }
     }
   });
 
-  // Keypress to handle pressing escape to close box.
-  signin_container.find('input').keydown(function(e){
-    if(e.keyCode == 27) { reset_container(); }
-  });
   $('#account_bar .signup').click(function(){
-    if(signin_container.css('display') == 'none') {
-      signin_container.show();
-      signin_container.find('input.login').focus();
+    if(me.css('display') == 'none') {
+      me.show();
+      me.find('input.login').focus();
     } else {
       reset_container();
     }
 
     return false;
-  });
-  signin_container.find('a.close').click(function(){
-    reset_container();
   });
 });
 

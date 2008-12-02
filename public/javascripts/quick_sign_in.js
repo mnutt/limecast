@@ -20,11 +20,8 @@ $.fn.extend({
               me.find('.response_container').fadeIn();
             } else me.find('.response_container').html(resp.html);
             
+            if(!opts.error) { opts.error(resp); }
           }
-
-          // Call handlers
-          if(resp.success && opts.success) { opts.success(resp); }
-          if(!resp.success && opts.error)  { opts.error(resp); }
         }
       });
 

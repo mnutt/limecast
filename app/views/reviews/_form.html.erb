@@ -6,10 +6,10 @@
 <% if options[:show_rating] -%>
 <div class="align">
   <%= f.radio_button :positive, true, :checked => "checked" -%>
-<label for="review_positive_true"><%= image_tag("icons/thumbs_up.png") -%>Positive</label>
+  <label for="review_positive_true"><%= image_tag("icons/thumbs_up.png") -%>Positive</label>
   &nbsp;&nbsp;
   <%= f.radio_button :positive, false -%>
-<label for="review_positive_false"><%= image_tag("icons/thumbs_down.png") -%>Negative</label>
+  <label for="review_positive_false"><%= image_tag("icons/thumbs_down.png") -%>Negative</label>
 </div>
 <% end -%>
 

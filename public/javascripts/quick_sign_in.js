@@ -31,7 +31,28 @@ $.fn.extend({
       return false;
     });
 
+    me.find('form .signup_button').bind('click', function(event){
+      console.log(event.detail);
+      if (me.find('form input.signin_button:visible') && event.detail > 0 ) { // event.detail = # of mouse clicks
+        me.showQuickSignUpForm();
+        return false;
+      }
+    });
+
     return $(this);
+  },
+  showQuickSignUpForm: function() {
+    me = $(this);
+    me.find('.sign_up').show();
+    me.find('input.login').focus();
+    me.find('input.signin_button').hide();
+    me.find('form').attr('action', '/users'); // Set the forms action to /users to call UsersController#create
+
+    if(me.find('input.login').val().match(/[^ ]+@[^ ]+/)) {
+      me.find('input.email').val(me.find('input.login').val());
+      me.find('input.login').val("");
+    }
+    me.find('div.response_container').html("<p>Please choose your new user name.</p>");
   }
 });
 

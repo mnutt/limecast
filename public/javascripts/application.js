@@ -42,18 +42,7 @@ $(document).ready(function(){
       if(me.find('.response_container .inline_signup_button')) {
         me.find('.response_container .inline_signup_button').click(function(ev) {
           if (me.find('input.signin_button:visible')) {
-            // Show the signup form-- this is in quick_sign_in.js and could be DRY'd up somehow
-            me.find('.sign_up').show();
-            me.find('input.login').focus();
-            me.find('input.signin_button').hide();
-            me.find('form').attr('action', '/users'); // Set the forms action to /users to call UsersController#create
-          
-            if(me.find('input.login').val().match(/[^ ]+@[^ ]+/)) {
-              me.find('input.email').val(me.find('input.login').val());
-              me.find('input.login').val("");
-            }
-            me.find('div.response_container').html("<p>Please choose your new user name</p>");
-            //ev.preventDefault();
+            me.showQuickSignUpForm();
           }
       });
       }

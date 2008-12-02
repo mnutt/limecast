@@ -309,6 +309,7 @@ ul.reviews {
 form .huge .button {
   width: 51px;
   margin-left: -58px;
+  position:relative;
 }
 div.status_message {
   margin-bottom: 1em;

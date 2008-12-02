@@ -306,7 +306,7 @@ ul.reviews {
 #new_podcast  {
   white-space: nowrap;
 }
-#new_podcast .button {
+form .huge .button {
   width: 51px;
   margin-left: -58px;
 }

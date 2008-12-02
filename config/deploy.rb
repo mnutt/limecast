@@ -10,8 +10,8 @@ set :use_sudo,      false
 
 set :scm, :git
 set :git_enable_submodules, 1
-set :repository, "git@github.com:mnutt/limecast.git"
-set :deploy_via, :copy
+set :repository, "git://github.com/mnutt/limecast.git"
+set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 set :deploy_strategy, :export
 

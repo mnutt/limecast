@@ -103,9 +103,7 @@
         <% else %>
 
           <div id="sidebar">
-            <% if @show_ads -%>
-              <%= @ads -%>
-            <% end -%>
+            <%= @ads if @show_ads -%>
           </div>
           
           <div id="primary">

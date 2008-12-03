@@ -7,9 +7,9 @@ $.fn.extend({
   hoverAndFocusBehavior: function() {
     var me = $(this);
     me.mouseover(function() { me.addClass('hover');    });
-	  me.mouseout(function()  { me.removeClass('hover'); });
-		me.focus(function() { me.addClass('focus').removeClass('hover');    });
-		me.blur(function()  { me.removeClass('focus').removeClass('hover'); });
+    me.mouseout(function()  { me.removeClass('hover'); });
+    me.focus(function() { me.addClass('focus').removeClass('hover');    });
+    me.blur(function()  { me.removeClass('focus').removeClass('hover'); });
   }
 });
 $(document).ready(function() {
@@ -21,9 +21,8 @@ $(document).ready(function() {
 **************************************************************/
 $(document).ready(function(){
   // Attach the global signup in the top-bar
-  $('#account_bar .signup a').click(function(){
-    $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {callbacks:{}});
-    return false;
+  $('#account_bar .signup a').click(function(){ 
+    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {});
   });
 });
 

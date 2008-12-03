@@ -395,30 +395,33 @@ form div.huge div input.text {
 }
 
 /**
- Palette
+* Quick Signin
 **/
-div.palette {
-  background-color: #2B2D2F;
-  border: 1px solid #181818;
-}
-div.palette div.titlebar {
-/*  text-align: right;*/
-  background-color: orange;
-}
-div.palette div.titlebar a.close {
-  background: url("../images/icons/close.png") no-repeat center;
-  text-indent: -5000px;
-  width: 16px;
-  height: 16px;
-  margin: 5px 5px 0 0;
-  overflow: hidden;
-  display: block;
-  float: right;
-}
-div.palette form.quick_signin {
+form#quick_signin {
   padding: 10px;
   clear: both;
 }
+
+form#quick_signin .titlebar {
+  position: relative;
+  top: -10px;
+  right: -10px;
+}
+
+form#quick_signin a.close {
+  display: none;
+}
+
+form#quick_signin .message {
+  text-indent: 90px;
+  padding: 1em 0;
+}
+
+form#quick_signin input.text,
+form#quick_signin div.response_container {
+  width: 200px;
+}
+
 
 /**
  Notices

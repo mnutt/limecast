@@ -2,12 +2,15 @@
 <% options[:top_bar] ||= false -%>
 
 <% form_for :user, :url => session_path,
-            :html => {:id => "quick_signin", :class => "suffix #{options[:top_bar] ? 'palette top_bar' : 'inline'}",
+            :html => {:id => "quick_signin", :class => "#{options[:top_bar] ? 'top_bar' : 'inline'}",
             :style => "display: none;"} do |f| -%>
+
   <div class="titlebar">
     <a href="#" class="close">Exit</a> <!-- only show this on the top bar //-->
   </div>
+
   <div class="message"></div>
+
   <div class="field">
     <%= label :quicksignin, :login %>
     <div>
@@ -32,7 +35,7 @@
   </div>
 
   <div class="controls">
-    <%= submit_tag "Sign Up", :id => "signup_suffix", :class => "button signup_button" %>
-    <%= submit_tag "Sign In", :id => "signin_suffix", :class => "button signin_button" %>
+    <%= submit_tag "Sign Up", :id => "signup", :class => "button signup_button" %>
+    <%= submit_tag "Sign In", :id => "signin", :class => "button signin_button" %>
   </div>
 <% end -%>

@@ -17,7 +17,7 @@ $(document).ready(function(){
 
           new_review_form.hide();
         } else {
-          $('.quick_signin.after_adding_review').show();
+          $('.quick_signin.after_adding_review').quickSignIn({message:'Sign up or sign in to save your review:'});
 
           new_review_form.find('.controls').hide();
         }

@@ -1,5 +1,5 @@
 $.quickSignIn = {
-  isHidden: function() { return ($("#quick_signin").css('display') == 'none'); },
+  isHidden: function()  { return ($("#quick_signin").css('display') == 'none'); },
   isVisible: function() { return ($("#quick_signin").css('display') != 'none'); },
 
   setup: function() {
@@ -9,7 +9,7 @@ $.quickSignIn = {
     me.submit(function(){
       $.post(me.attr('action'), me.serialize(), // $.post(url, data, callback, type);
         function(resp){
-          alert(resp);
+          console.log(resp);
           if(resp.success) { window.location.reload(); }
           else {
             response_container = me.find('.response_container');
@@ -18,6 +18,9 @@ $.quickSignIn = {
               response_container.html(resp.html);
               response_container.fadeIn();
             } else response_container.html(resp.html);
+          
+            // Attach event to 'Are you trying to Sign Up?' link
+            if(me.find('.inline_signup_button').length) me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
           
             // if(!opts.error) { opts.error(resp); } // TODO implement
           }
@@ -67,6 +70,7 @@ $.quickSignIn = {
       me.show();
     }
     
+    return false;
   },
   
   showSignUp: function() {

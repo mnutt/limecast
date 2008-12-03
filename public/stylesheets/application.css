@@ -1,18 +1,18 @@
 /*
 * Quick Sign In/Up
 **/
-div.quick_signin.top_bar {
+form.quick_signin.top_bar {
   position: absolute;
   top: 35px;
   right: 0;
 }
-div.quick_signin .message {
+form.quick_signin .message {
   text-indent: 90px;
   padding: 1em 0;
 }
 
-div.quick_signin form input.text,
-div.quick_signin form div.response_container {
+form.quick_signin form input.text,
+form.quick_signin form div.response_container {
   width: 200px;
 }
 

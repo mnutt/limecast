@@ -1,7 +1,7 @@
 <% if @user.new_record? -%>
   { success: false,
-    html: '<p><%= create_user_error(@user) -%></p>' }
+    html: "<p><%= escape_javascript create_user_error(@user) -%></p>" }
 <% else -%>
   { success: true,
-    html: '<%= link_to_profile current_user -%>' }
+    html: "<%= escape_javascript link_to_profile(current_user) -%>" }
 <% end -%>

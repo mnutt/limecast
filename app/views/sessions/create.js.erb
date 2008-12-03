@@ -1,6 +1,6 @@
 <% unless logged_in? %>
   { success: false,
-    html: '<p><%= create_session_error(params) -%></p>' }
+    html: "<p><%= escape_javascript create_session_error(params) -%></p>" }
 <% else -%>
-  { success: true, html: 'Successful sign in' }
+  { success: true, html: "Successful sign in" }
 <% end -%>

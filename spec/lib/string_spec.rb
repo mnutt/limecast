@@ -22,6 +22,10 @@ describe String do
     it 'should leave the subdomain of "mail.google.com"' do
       "http://mail.google.com/".to_url.should == "mail.google.com"
     end
+
+    it 'should downcase the domain, but not rest of the url' do
+      "http://mail.GooGle.com/UPPER".to_url.should == "mail.google.com/UPPER"
+    end
   end
 
 end

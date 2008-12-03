@@ -1,0 +1,55 @@
+require File.dirname(__FILE__) + '/../spec_ui_helper'
+
+describe "Adding podcast while logged out" do
+  it 'should eventually show success' do
+    browser.go("/add")
+    browser.text_field(:name, "feed[url]").set("#{browser.url}/test_data/wine-library-tv.rss")
+    browser.button(:value, "Add").click
+
+    html.should have_tag("div.status_message", /Getting RSS/)
+
+    try_for(10.seconds) do
+      html.should have_tag("div.status_message", /Yum/)
+    end
+
+    browser.text_field(:id, "quicksignin_login").set("JustinCamerer")
+    browser.text_field(:id, "quicksignin_password").set("supersecret")
+    browser.execute("$.quickSignIn.showSignUp()")
+    browser.text_field(:id, "quicksignin_email").set("jcamerer@limewire.com")
+    browser.button(:id, "signup").click
+
+    browser.go("/all")
+
+    browser.link(:text, "Wine Library TV").click
+
+    # Watch Podcast for 5 seconds
+    #browser.link(:text, "Download").click
+    #sleep(5)
+
+    ## Go back
+    #browser.execute("history.go(-1)");
+    #sleep(1)
+
+    # Writes a review
+    browser.text_field(:id, "review_title").set("Very Informative")
+    browser.text_area(:id, "review_body").set("I can dig it.")
+    browser.button(:value, "Save").click
+    sleep(2)
+
+    # Logs out
+    browser.go("/logout")
+
+    browser.go("/all")
+    browser.link(:text, "Wine Library TV").click
+
+    # Someone else comes to the site and thinks Justin's comment is insightful
+    browser.link(:text, "Insightful (0)").click
+    browser.text_field(:id, "quicksignin_login").set("JustinsMom")
+    browser.text_field(:id, "quicksignin_password").set("supersecret")
+    browser.execute("$.quickSignIn.showSignUp()")
+    browser.text_field(:id, "quicksignin_email").set("mommacamerer@limewire.com")
+    browser.button(:id, "signup").click
+
+    # Marks this podcast as her favorite
+  end
+end

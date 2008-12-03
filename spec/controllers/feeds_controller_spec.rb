@@ -32,7 +32,7 @@ describe FeedsController do
       end
 
       it 'should render the loading template' do
-        response.should render_template('feeds/_status_loading')
+        response.should render_template('feeds/_status_loading.erb')
       end
     end
 
@@ -45,7 +45,7 @@ describe FeedsController do
       end
 
       it 'should render the added template' do
-        response.should render_template('feeds/_status_added')
+        response.should render_template('feeds/_status_added.erb')
       end
     end
 
@@ -57,7 +57,7 @@ describe FeedsController do
         end
 
         it 'should render the error template' do
-          response.should render_template('feeds/_status_failed')
+          response.should render_template('feeds/_status_failed.erb')
         end
       end
 

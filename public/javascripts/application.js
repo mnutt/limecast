@@ -20,31 +20,12 @@ $(document).ready(function() {
 * Sign In
 **************************************************************/
 $(document).ready(function(){
+
   // Attach the global quick signup in the top-bar
   $('#account_bar .signup a').click(function(){ 
     return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {});
   });
 
-  // Attach the favorite quick signup
-  if($(document).find('.quick_signin_container.after_favoriting').length) {
-    $('a.favorite_link').unbind('click').click(function(){
-      return $.quickSignIn.attach($('.quick_signin_container.after_favoriting'), 
-              {message:'Sign up or sign in to save your favorite.'});
-    });
-  }
-  
-  
-  // $('a.favorite_link').mustBeLoggedInBeforeSubmit({
-  //   quick_signin: '.quick_signin.after_favoriting',
-  //   success: function(resp) {
-  //     $('a.favorite_link').replaceWith('<span><img src="/images/icons/favorite.png" class="inline_icon" />My Favorite</span>');
-  //   }
-  // });
-  // 
-  // $('.quick_signin.inline').quickSignIn({
-  //   success: function(){ window.location.reload(); }
-  // });
-  
 });
 
 

@@ -1,31 +1,24 @@
 attachPodcastEditEvents = function(){
-  // for the podcast edit form
-  $('#edit_actions').map(function(){
-    var show_div  = $(this);
-    var edit_form = $(this).find('#edit_form');
-
-    edit_form.find('input.cancel').click(function(){
-      show_div.show(); edit_form.hide();
-      return false;
-    });
-  });
-
-  // this is on user#show
-  $('a.favorite_toggle_link').click(function(link){
+  $('a.favorite_link').click(function() {
     favorite_link = $(this);
     favorite_url = favorite_link.attr('href');
-
-    $.post(favorite_url, function() {
-      if(favorite_link.attr('title')=='This is a favorite.') {
-        favorite_link.attr('title', 'Favorite this!').html('<img src="/images/icons/favorite.png" class="inline_icon" alt="" />Unfavorite');
+ 
+    $.post(favorite_url, {}, function(resp) {
+      if(resp.logged_in) {
+        if(favorite_link.attr('title')=='This is a favorite.') {
+          favorite_link.attr('title', 'Favorite this!').html('<img src="/images/icons/favorite.png" class="inline_icon" alt="" />Unfavorite');
+        } else {
+          favorite_link.attr('title', 'This is a favorite.').html('<img src="/images/icons/not_favorite.png" class="inline_icon" alt="" />Favorite');
+        }
       } else {
-        favorite_link.attr('title', 'This is a favorite.').html('<img src="/images/icons/not_favorite.png" class="inline_icon" alt="" />Favorite');
+        return $.quickSignIn.attach($('.quick_signin_container.after_favoriting'), 
+          {message:'Sign up or sign in to save your favorite.'});
       }
-    });
+    }, 'json');
+    
     return false;
-
   });
-
+  
   $('a.make_primary').click(function(link){
     $.ajax({
        type: 'post',

@@ -24,6 +24,12 @@
   float: right;
 }
 
+.quick_signin_container.after_favoriting form#quick_signin .message {
+  position: relative;
+  top: -10px;
+}
+
+
 
 /**
 * Users

@@ -12,8 +12,9 @@ $(document).ready(function(){
       $('#added_podcast_list').append(form_clone);
 
 
-      if($('#inline_signin'))
-        $('#inline_signin').show();
+      // FIX
+      // if($('#inline_signin'))
+      //   $('#inline_signin').show();
 
       $.periodic(function(controller){
         var callback = function(response) {

@@ -399,7 +399,6 @@ form div.huge div input.text {
 **/
 form#quick_signin {
   padding: 10px;
-  clear: both;
 }
 
 form#quick_signin .titlebar {

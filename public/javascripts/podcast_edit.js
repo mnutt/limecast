@@ -26,17 +26,6 @@ attachPodcastEditEvents = function(){
 
   });
 
-  $('a.favorite_link').mustBeLoggedInBeforeSubmit({
-    quick_signin: '.quick_signin.after_favoriting',
-    success: function(resp) {
-      $('a.favorite_link').replaceWith('<span><img src="/images/icons/favorite.png" class="inline_icon" />My Favorite</span>');
-    }
-  });
-
-  $('.quick_signin.inline').quickSignIn({
-    success: function(){ window.location.reload(); }
-  });
-
   $('a.make_primary').click(function(link){
     $.ajax({
        type: 'post',

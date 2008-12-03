@@ -1,7 +1,8 @@
 $(document).ready(function(){
-  $('.quick_signin.after_adding_review').quickSignIn({
-    success: function(){ window.location.reload(); }
-  });
+  // FIX
+  // $('.quick_signin.after_adding_review').quickSignIn({
+  //   success: function(){ window.location.reload(); }
+  // });
 
   $('form#new_review').submit(function(){
     var new_review_form = $(this);

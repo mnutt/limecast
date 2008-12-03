@@ -12,8 +12,9 @@ $(document).ready(function(){
     });
   });
 
-  $('.quick_signin.inline').quickSignIn({
-    success: function(){ window.location.reload(); }
-  });
+  // FIX
+  // $('.quick_signin.inline').quickSignIn({
+  //   success: function(){ window.location.reload(); }
+  // });
 });
 

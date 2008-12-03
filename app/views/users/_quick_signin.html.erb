@@ -2,7 +2,7 @@
 <% options[:top_bar] ||= false -%>
 
 <% form_for :user, :url => session_path,
-            :html => {:id => "quick_signin", :class => "#{options[:top_bar] ? 'top_bar' : 'inline'}",
+            :html => {:id => "quick_signin",
             :style => "display: none;"} do |f| -%>
 
   <div class="titlebar">

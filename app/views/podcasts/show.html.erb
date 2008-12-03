@@ -99,7 +99,8 @@
             :class => "favorite_link" -%>
     <% end -%>
     </p>
-    <%= render :partial => "users/quick_signin", :locals => { :options => {:suffix => "after_favoriting"}} -%>
+    <% unless current_user -%><div class="quick_signin_container after_favoriting"></div><% end -%>
+
   </div>
 
   <div class="description">

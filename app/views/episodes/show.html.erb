@@ -1,11 +1,13 @@
 <% @title = "#{h(@episode.title)}" -%>
 <% @show_ads = true -%>
-<% javascript_include "review_edit", "review_delete", "review_ratings_new", "episode_delete" -%>
+<% javascript_include "review_edit", "review_delete", "episode_delete" -%>
 
 <div class="podcast">
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
   <div class="episode">
+    <p id="podcast_link"><%= link_to(h(@episode.podcast.custom_title), @episode.podcast) %></p>
+    
     <% if current_user && @episode.writable_by?(current_user) -%>
       <div id="edit_actions" class="clearfix">
         <span class="label"><%= current_user.admin? ? "I can do anything!" : "This is mine!" %></span>
@@ -18,8 +20,6 @@
 
     <% end -%>
 
-    <p id="podcast_link"><%= link_to(h(@episode.podcast.custom_title), @episode.podcast) %></p>
-    
     <h1 class="heading"><%= escape_once(@episode.title) %></h1>
 
     <p><%= @episode.date_title %><%= " (#{time_to_words @episode.duration, true})" unless @episode.duration == 0 %></p>

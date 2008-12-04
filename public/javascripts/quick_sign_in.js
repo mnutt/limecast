@@ -54,7 +54,7 @@ $.quickSignIn = {
     me.attr('action', '/session');
     me.find('input.signin_button').show();
     me[0].reset(); // the actual DOM function for resetting a form
-    me.find('div.response_container').html('<a href="/forgot_password">I forgot my password</a>');
+    me.find('div.response_container').html('<a href="/forgot">I forgot my password</a>');
   },
   
   attach: function(element, options) {

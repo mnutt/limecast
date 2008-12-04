@@ -7,11 +7,7 @@ $.quickSignIn = {
 
     // Makes the form use AJAX
     me.submit(function(event){
-      return false;
-      //callback = (event.originalEvent.explicitOriginalTarget.id == 'signup') ? $.quickSignIn.signupSubmitCallback : $.quickSignIn.signinSubmitCallback;
-      $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
-
-      return false;
+      return false; // this will all be handled through specific Form Element events
     });
 
     // Show the full signup form on clicking the 'Sign Up' button

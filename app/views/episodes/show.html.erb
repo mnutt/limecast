@@ -1,6 +1,6 @@
 <% @title = "#{h(@episode.title)}" -%>
 <% @show_ads = true -%>
-<% javascript_include "review_edit", "review_delete", "episode_delete" -%>
+<% javascript_include "review_edit", "review_delete", "review_ratings_new", "episode_delete" -%>
 
 <div class="podcast">
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>

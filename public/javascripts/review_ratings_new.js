@@ -14,7 +14,7 @@ $(document).ready(function(){
             window.location.reload();
           } else {
             // if not logged in, show quick signin
-            $.quickSignIn.attach(link.next('li.review_'+id+' .quick_signin_container.after_rating'), 
+            $.quickSignIn.attach($('li#review_'+id+' .quick_signin_container.after_rating'), 
               {message:'Sign up or sign in to rate this review.'});
           }
         }

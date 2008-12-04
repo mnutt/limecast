@@ -317,7 +317,7 @@ ul.reviews {
 /**
  * Adding Podcasts
 */
-#new_podcast  {
+form .huge  {
   white-space: nowrap;
 }
 form .huge .button {

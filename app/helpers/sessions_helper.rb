@@ -4,7 +4,7 @@ module SessionsHelper
     signup          = link_to('Sign Up', '#', :class => 'inline_signup_button')
 
     if params[:user][:login].blank?
-      return "Please type your username"
+      return "Please type your username."
     elsif @unknown_email
       return "This email is new to us. Are you trying to #{signup}?"
     elsif @unknown_user

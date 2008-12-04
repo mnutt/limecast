@@ -22,7 +22,7 @@ describe SessionsController do
     post :create, :user => { :login => @user.login, :password => "xxxx" }, :format => 'js'
     session[:user_id].should be_nil
     response.should be_success
-    response.body.should =~ /User and password don\'t match./
+    response.body.should =~ /User and password don\\'t match./
   end
 
   it 'fails login and notices when new email has been given' do

@@ -6,20 +6,23 @@ $.quickSignIn = {
     var me = $("#quick_signin");
 
     // Makes the form use AJAX
-    me.submit(function(){
-       $.post(me.attr('action'), me.serialize(), $.quickSignIn.submitCallback, 'json');
+    me.submit(function(event){
+      return false;
+      //callback = (event.originalEvent.explicitOriginalTarget.id == 'signup') ? $.quickSignIn.signupSubmitCallback : $.quickSignIn.signinSubmitCallback;
+      $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
 
       return false;
     });
 
     // Show the full signup form on clicking the 'Sign Up' button
     me.find('.signup_button').click(function(event){
-      if (me.find('input.signin_button:visible').length > 0 && event.detail > 0 ) { // event.detail = # of mouse clicks
-         $.quickSignIn.showSignUp();
-        return false;
-      }
+      $.post(me.attr('action'), me.serialize(), $.quickSignIn.signupSubmitCallback, 'json'); // if (me.find('input.signin_button:visible').length > 0 && event.detail > 0 ) {}  // event.detail = # of mouse clicks
     });
 
+    me.find('.signin_button').click(function(event){
+      $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
+    });
+    
     // Handles clicking the X button to close the quick sign in box
     me.find('a.close').click(this.reset);
 
@@ -29,8 +32,7 @@ $.quickSignIn = {
     return me;
   },
   
-  submitCallback: function(resp){
-    // console.log(resp);
+  signinSubmitCallback: function(resp){
     if(resp.success) { window.location.reload(); }
     else {
       resp_container = me.find('.response_container');
@@ -42,8 +44,18 @@ $.quickSignIn = {
       if(me.find('.inline_signup_button').length) me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
     
       // implement callbacks here if we ever need to.
-      
+     
+      return false;
     }
+  },
+
+  signupSubmitCallback: function(resp){
+    if(resp.success) { window.location.reload(); }
+    else {
+      $.quickSignIn.showSignUp();
+    }
+
+    return false;
   },
 
   reset: function() {
@@ -54,7 +66,7 @@ $.quickSignIn = {
     me.attr('action', '/session');
     me.find('input.signin_button').show();
     me[0].reset(); // the actual DOM function for resetting a form
-    me.find('div.response_container').html('<a href="/forgot_password">I forgot my password</a>');
+    me.find('div.response_container').html('<a href="/forgot">I forgot my password</a>');
   },
   
   attach: function(element, options) {
@@ -87,7 +99,7 @@ $.quickSignIn = {
       me.find('input.email').val(me.find('input.login').val());
       me.find('input.login').val("");
     }
-    me.find('div.response_container').html("<p>Choose your new user name</p>");
+    me.find('div.response_container').html("<p>Choose your new user name.</p>");
     return false;
   }
 }

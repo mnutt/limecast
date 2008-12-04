@@ -13,7 +13,8 @@
   <% end -%>
   <% if current_user.nil? -%>
     <script type="text/javascript">
-      $('#full_width .quick_signin').show();
+      $.quickSignIn.attach($('.quick_signin_container.after_adding_podcast'), 
+        {message:'Take credit for finding these.'});
     </script>
   <% end -%>
 </div>

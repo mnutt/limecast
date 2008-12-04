@@ -1,20 +1,34 @@
-/*
+/**
 * Quick Sign In/Up
 **/
-div.quick_signin.top_bar {
+.quick_signin_container.from_top_bar {
   position: absolute;
   top: 35px;
   right: 0;
-}
-div.quick_signin .message {
-  text-indent: 90px;
-  padding: 1em 0;
+  background-color: #2B2D2F;
+  border: 1px solid #181818;
 }
 
-div.quick_signin form input.text,
-div.quick_signin form div.response_container {
-  width: 200px;
+.quick_signin_container.from_top_bar .titlebar {
+  background-color: orange;
 }
+
+.quick_signin_container.from_top_bar form#quick_signin a.close {
+  background: url("../images/icons/close.png") no-repeat center;
+  display: block;
+  text-indent: -5000px;
+  width: 16px;
+  height: 16px;
+  margin: 5px 5px 0 0;
+  overflow: hidden;
+  float: right;
+}
+
+.quick_signin_container.after_favoriting form#quick_signin .message {
+  position: relative;
+  top: -10px;
+}
+
 
 
 /**

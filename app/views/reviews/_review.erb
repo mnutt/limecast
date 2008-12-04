@@ -18,10 +18,10 @@
     <%= render(:partial => 'reviews/modify_links', :object => review) -%>
     <%= render(:partial => 'reviews/rating_links', :object => review) -%>
 
-    <%= render :partial => 'users/quick_signin', :locals => {:options => {:suffix => "after_rating_#{review.id}"}} -%>
+    <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
   </div>
 
   <% form_for review, :url => review_url(:podcast => review.episode.podcast, :id => review.id), :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>
-    <%= render :partial => 'reviews/form', :locals => {:f => f, :podcast => review.episode.podcast} -%>
+		<%= render :partial => 'reviews/form', :locals => {:f => f, :podcast => review.episode.podcast, :options => { :suffix => "_#{review.id}" }} -%>
   <% end -%>
 </li>

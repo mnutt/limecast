@@ -1,8 +1,9 @@
 <% options ||= {} -%>
 <% javascript_include "review_new" -%>
 
-<% form_for @review, :url => reviews_url do |f| -%>
+<% form_for @review, :url => reviews_url,
+            :html => { :id => "new_review" } do |f| -%>
   <%= render :partial => "reviews/form", :locals => {:options => options, :f => f, :podcast => @review.episode.podcast} %>
 <% end -%>
 
-<%= render :partial => "users/quick_signin", :locals => { :options => {:message => 'Sign up or sign in to save your review:', :suffix => "after_adding_review"} } -%>
+<div class="quick_signin_container after_adding_review"></div>

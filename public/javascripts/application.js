@@ -7,9 +7,9 @@ $.fn.extend({
   hoverAndFocusBehavior: function() {
     var me = $(this);
     me.mouseover(function() { me.addClass('hover');    });
-	  me.mouseout(function()  { me.removeClass('hover'); });
-		me.focus(function() { me.addClass('focus').removeClass('hover');    });
-		me.blur(function()  { me.removeClass('focus').removeClass('hover'); });
+    me.mouseout(function()  { me.removeClass('hover'); });
+    me.focus(function() { me.addClass('focus').removeClass('hover');    });
+    me.blur(function()  { me.removeClass('focus').removeClass('hover'); });
   }
 });
 $(document).ready(function() {
@@ -20,45 +20,12 @@ $(document).ready(function() {
 * Sign In
 **************************************************************/
 $(document).ready(function(){
-  var me = $('.quick_signin.top_bar');
 
-  function reset_container() {
-    me.hide();
-    me.find('.sign_up').hide();
-    me.find('form').attr('action', '/session');
-    me.find('input.signin_button').show();
-    me.find('form')[0].reset();
-    me.find('div.response_container').html('<a href="/forgot_password">I forgot my password</a>');
-  }
-
-  // Keypress to handle pressing escape to close box.
-  me.find('input').keydown(function(e){
-    if(e.keyCode == 27) { reset_container(); }
+  // Attach the global quick signup in the top-bar
+  $('#account_bar .signup a').click(function(){ 
+    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {});
   });
 
-	// Handles clicking the X button to close the quick sign in box
-  me.find('a.close').click(reset_container);
-
-  me.quickSignIn({
-    error: function(resp) {
-      me.find('.response_container .inline_signup_button').click(function() {
-        if (me.find('input.signin_button:visible').length) {
-          me.showQuickSignUpForm();
-        }
-      });
-    }
-  });
-
-  $('#account_bar .signup').click(function(){
-    if(me.css('display') == 'none') {
-      me.show();
-      me.find('input.login').focus();
-    } else {
-      reset_container();
-    }
-
-    return false;
-  });
 });
 
 

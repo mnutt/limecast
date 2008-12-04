@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
 
     def claim_all
       if logged_in?
-        claim_podcasts
+        claim_feeds
         claim_review
         claim_favorites
         claim_rating
@@ -138,15 +138,14 @@ class ApplicationController < ActionController::Base
       session.data.delete(:review)
     end
 
-    def claim_podcasts
-      return if session.data[:podcasts].nil?
+    def claim_feeds
+      return if session.data[:feeds].nil?
 
-      Podcast.find_all_by_id(session.data[:podcasts]).each do |podcast|
-        podcast.user = @user if podcast.user.nil?
-        podcast.owner = @user if podcast.owner.nil? and podcast.owner_email == @user.email
-        podcast.save
+      Feed.find_all_by_id(session.data[:feeds]).each do |feed|
+        feed.update_attribute(:finder_id, @user.id) if feed.finder.nil?
+        feed.podcast.update_attribute(:owner_id, @user.id) if feed.podcast && feed.podcast.owner.nil? and feed.podcast.owner_email == @user.email
       end
 
-      session.data.delete(:podcasts)
+      session.data.delete(:feeds)
     end
 end

@@ -24,11 +24,11 @@ $.fn.extend({
     $(this).find('ul').each(function(ul) {
       /* Remove link visuals if there is only one element in the list */
       if($(this).find('li').length == 1) {
-	$(this).find('li').addClass('single');
-	$(this).find('li.single').click(function() { return false; });
+        $(this).find('li').addClass('single');
+        $(this).find('li.single').click(function() { return false; });
       } else {
-	/* First element gets the drop-down arrow */
-	$(this).find('li:first-child').addClass('selected');
+        /* First element gets the drop-down arrow */
+        $(this).find('li:first-child').addClass('selected');
       }
     });
 
@@ -36,10 +36,10 @@ $.fn.extend({
       me = $(this);
       field = me.parent();
       if(!me.hasClass('selected')) {
-	field.find('li').removeClass('selected');
-	me.prependTo(field);
-	me.addClass('selected');
-	updateUrl(me);
+        field.find('li').removeClass('selected');
+        me.prependTo(field);
+        me.addClass('selected');
+        updateUrl(me);
       }
 
       if(field.hasClass('expanded')) {
@@ -58,7 +58,7 @@ $.fn.extend({
       var format = form.find('.format .selected input').attr('value');
 
       if(form.hasClass('download')) {
-	form.find('.button.submit a')[0].href = downloadUrl(form, delivery, format);
+        form.find('.button.submit a')[0].href = downloadUrl(form, delivery, format);
       } else {
         form.find('.button.submit a').attr('href', subscribeUrl(form, delivery, format));
       }

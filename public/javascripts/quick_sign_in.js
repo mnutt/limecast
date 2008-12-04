@@ -1,55 +1,98 @@
-$.fn.extend({
-  quickSignIn: function(opts) {
-    var me = $(this);
+$.quickSignIn = {
+  isHidden: function()  { return ($("#quick_signin").css('display') == 'none'); },
+  isVisible: function() { return ($("#quick_signin").css('display') != 'none'); },
 
-    me.find('form').bind('submit', function(){
-      $.ajax({
-        type:    'post',
-        url:     $(this).attr('action'),
-        data:    $(this).serialize(),
-        dataType: "json",
-        success: function(resp){
-          if(resp.success) {
-            window.location.reload();
-          } else {
-            response_container = me.find('.response_container');
-            
-            if(resp.html == response_container.html()) {
-              me.find('.response_container').hide();
-              me.find('.response_container').html(resp.html);
-              me.find('.response_container').fadeIn();
-            } else me.find('.response_container').html(resp.html);
-            
-            if(!opts.error) { opts.error(resp); }
-          }
-        }
-      });
+  setup: function() {
+    var me = $("#quick_signin");
+
+    // Makes the form use AJAX
+    me.submit(function(){
+       $.post(me.attr('action'), me.serialize(), $.quickSignIn.submitCallback, 'json');
 
       return false;
     });
 
-    me.find('form .signup_button').bind('click', function(event){
-      console.log(event.detail);
-      if (me.find('form input.signin_button:visible') && event.detail > 0 ) { // event.detail = # of mouse clicks
-        me.showQuickSignUpForm();
+    // Show the full signup form on clicking the 'Sign Up' button
+    me.find('.signup_button').click(function(event){
+      if (me.find('input.signin_button:visible').length > 0 && event.detail > 0 ) { // event.detail = # of mouse clicks
+         $.quickSignIn.showSignUp();
         return false;
       }
     });
 
-    return $(this);
+    // Handles clicking the X button to close the quick sign in box
+    me.find('a.close').click(this.reset);
+
+    // Keypress to handle pressing escape to close box.
+    me.find('input').keydown(function(e){ if(e.keyCode == 27) $.quickSignIn.reset(); }); 
+
+    return me;
   },
-  showQuickSignUpForm: function() {
-    me = $(this);
+  
+  submitCallback: function(resp){
+    // console.log(resp);
+    if(resp.success) { window.location.reload(); }
+    else {
+      resp_container = me.find('.response_container');
+
+      if(resp.html == resp_container.html()) resp_container.hide().fadeIn();
+      else resp_container.html(resp.html);
+    
+      // Attach event to 'Are you trying to Sign Up?' link
+      if(me.find('.inline_signup_button').length) me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
+    
+      // implement callbacks here if we ever need to.
+      
+    }
+  },
+
+  reset: function() {
+    me = $("#quick_signin");
+    me.hide();
+    me.find('.message').html('');
+    me.find('.sign_up').hide();
+    me.attr('action', '/session');
+    me.find('input.signin_button').show();
+    me[0].reset(); // the actual DOM function for resetting a form
+    me.find('div.response_container').html('<a href="/forgot_password">I forgot my password</a>');
+  },
+  
+  attach: function(element, options) {
+    var me = $("#quick_signin");
+    var element = $(element);
+
+    if(me.parent()[0] == element[0]) { // if it's already attached
+      me.toggle();
+      if($.quickSignIn.isHidden()) $.quickSignIn.reset();
+      else me.find('input.login')[0].focus();
+    } else {
+      $.quickSignIn.reset();
+      element.append(me);
+      me.show().find(".message").html(options.message);
+      me.find('input.login')[0].focus();
+    }
+    
+    return false;
+  },
+  
+  showSignUp: function() {
+    me = $("#quick_signin");
+
     me.find('.sign_up').show();
     me.find('input.login').focus();
     me.find('input.signin_button').hide();
-    me.find('form').attr('action', '/users'); // Set the forms action to /users to call UsersController#create
+    me.attr('action', '/users'); // Set the forms action to /users to call UsersController#create
 
     if(me.find('input.login').val().match(/[^ ]+@[^ ]+/)) {
       me.find('input.email').val(me.find('input.login').val());
       me.find('input.login').val("");
     }
     me.find('div.response_container').html("<p>Please choose your new user name.</p>");
+    return false;
   }
-});
+}
 
+// Initialize the quick sign in
+$(document).ready(function(){
+  $.quickSignIn.setup();
+});

@@ -85,9 +85,7 @@
             </li>
             <% end -%>
           </ul>
-          <% unless current_user -%>
-            <%= render :partial => 'users/quick_signin', :locals => { :options => { :top_bar => true, :suffix => "global" } }  -%>
-          <% end -%>
+          <% unless current_user -%><div class="quick_signin_container from_top_bar"></div><% end -%>
         </div>
       </div>
     </div>
@@ -150,6 +148,8 @@
 </div>
 
 <%= @tracker -%>
+
+<%= render :partial => 'users/quick_signin', :locals => { }  -%>
 
 </body>
 </html>

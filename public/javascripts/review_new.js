@@ -1,7 +1,4 @@
 $(document).ready(function(){
-  $('.quick_signin.after_adding_review').quickSignIn({
-    success: function(){ window.location.reload(); }
-  });
 
   $('form#new_review').submit(function(){
     var new_review_form = $(this);
@@ -17,7 +14,9 @@ $(document).ready(function(){
 
           new_review_form.hide();
         } else {
-          $('.quick_signin.after_adding_review').show();
+          // if not logged in, show quick signin
+          $.quickSignIn.attach($('.quick_signin_container.after_adding_review'), 
+            {message:'Sign up or sign in to save your review:'});
 
           new_review_form.find('.controls').hide();
         }

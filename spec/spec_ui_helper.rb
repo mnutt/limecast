@@ -11,6 +11,7 @@ rescue LoadError; end
 Spec::Runner.configure do |config|
   config.before(:all) { setup_browser }
   config.before(:each) { reset_db; notify }
+  config.after(:all) { @browser.close }
   config.use_transactional_fixtures = false
 end
 

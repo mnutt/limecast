@@ -12,11 +12,18 @@ $.quickSignIn = {
 
     // Show the full signup form on clicking the 'Sign Up' button
     me.find('.signup_button').click(function(event){
-      $.post(me.attr('action'), me.serialize(), $.quickSignIn.signupSubmitCallback, 'json'); // if (me.find('input.signin_button:visible').length > 0 && event.detail > 0 ) {}  // event.detail = # of mouse clicks
+      if(me.find('input.login').val().match(/^\s*$/)) { // if blank, don't bother w/AJAX call
+        $.quickSignIn.showSignUp();
+      } else {
+        $.post(me.attr('action'), me.serialize(), $.quickSignIn.signupSubmitCallback, 'json'); // if (me.find('input.signin_button:visible').length > 0 && event.detail > 0 ) {}  // event.detail = # of mouse clicks
+      }
+
+      return false;
     });
 
     me.find('.signin_button').click(function(event){
       $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
+      return false;
     });
     
     // Handles clicking the X button to close the quick sign in box
@@ -32,23 +39,26 @@ $.quickSignIn = {
     if(resp.success) { window.location.reload(); }
     else {
       resp_container = me.find('.response_container');
-
       if(resp.html == resp_container.html()) resp_container.hide().fadeIn();
       else resp_container.html(resp.html);
-    
+
       // Attach event to 'Are you trying to Sign Up?' link
-      if(me.find('.inline_signup_button').length) me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
-    
-      // implement callbacks here if we ever need to.
-     
-      return false;
+      me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
     }
+    return false;
   },
 
   signupSubmitCallback: function(resp){
     if(resp.success) { window.location.reload(); }
     else {
       $.quickSignIn.showSignUp();
+
+      resp_container = me.find('.response_container');
+      if(resp.html == resp_container.html()) resp_container.hide().fadeIn();
+      else resp_container.html(resp.html);
+
+      // Attach event to 'Are you trying to Sign Up?' link
+      me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
     }
 
     return false;
@@ -83,19 +93,26 @@ $.quickSignIn = {
     return false;
   },
   
-  showSignUp: function() {
+  showSignUp: function(event) {
     me = $("#quick_signin");
 
-    me.find('.sign_up').show();
-    me.find('input.login').focus();
-    me.find('input.signin_button').hide();
-    me.attr('action', '/users'); // Set the forms action to /users to call UsersController#create
+    // Show default message if they click the inline signup link
+    if(event && event.target.className=='inline_signup_button') me.find('div.response_container').html("<p>Choose your new user name.</p>");
 
-    if(me.find('input.login').val().match(/[^ ]+@[^ ]+/)) {
-      me.find('input.email').val(me.find('input.login').val());
-      me.find('input.login').val("");
+    // Show signup form if hidden
+    if(!me.find('.sign_up:visible').length) {
+      me.find('.sign_up').show();
+      me.find('input.signin_button').hide();
+      me.attr('action', '/users'); // Set the forms action to /users to call UsersController#create
+
+      if(me.find('input.login').val().match(/[^ ]+@[^ ]+/)) {
+        me.find('input.email').val(me.find('input.login').val());
+        me.find('input.login').val("");
+      }
     }
-    me.find('div.response_container').html("<p>Choose your new user name.</p>");
+
+    me.find('input.login').focus();
+
     return false;
   }
 }

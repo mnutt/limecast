@@ -1,9 +1,10 @@
 <% @title = "Tags" -%>
+<% @full_width = true -%>
 
 <h1>Tags</h1>
 
-<ul>
+<ul class="podcasts">
 <% @tags.each do |tag| -%>
-  <li><%= link_to tag.name, tags_url(:tag => tag.to_param) -%></li>
+  <li><%= link_to tag.name, tag_url(:tag => tag.name) -%></li>
 <% end -%>
 </ul>

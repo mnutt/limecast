@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
   has_many :feeds, :foreign_key => 'finder_id', :conditions => {:state => 'parsed'}
   has_many :podcasts, :through => :feeds, :uniq => true
   has_many :owned_podcasts, :class_name => 'Podcast', :foreign_key => 'owner_id', :dependent => :destroy
-  has_many :reviews
-  has_many :favorites
+  has_many :reviews, :dependent => :destroy
+  has_many :favorites, :dependent => :destroy
   has_many :favorite_podcasts, :through => :favorites, :source => :podcast
 
   # Virtual attribute for the unencrypted password

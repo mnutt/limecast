@@ -87,7 +87,7 @@ $.quickSignIn = {
       me.find('input.email').val(me.find('input.login').val());
       me.find('input.login').val("");
     }
-    me.find('div.response_container').html("<p>Please choose your new user name.</p>");
+    me.find('div.response_container').html("<p>Choose your new user name</p>");
     return false;
   }
 }

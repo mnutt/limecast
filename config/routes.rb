@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   map.all_users   '/user',        :controller => 'users',    :action => 'index'
   map.user        '/user/:user',  :controller => 'users',    :action => 'show', :conditions => {:method => :get}
   map.user        '/user/:user',  :controller => 'users',    :action => 'update', :conditions => {:method => :post}
+  map.tags        '/tag',         :controller => 'tags',     :action => 'index'
   map.tag         '/tag/:tag',    :controller => 'tags',     :action => 'show'
 
   map.use         '/use',         :controller => 'home',     :action => 'use'

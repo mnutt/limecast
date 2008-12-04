@@ -1,10 +1,8 @@
 <% @title = h(@tag.name) -%>
+<% @full_width = true -%>
 
 <h1><%= h @tag.name -%></h1>
 
-<div id="podcasts">
-<% @tag.taggings.each do |tagging| -%>
-  <% podcast = tagging.taggable -%>
-  <%= render :partial => 'podcasts/podcast', :object => podcast -%>
-<% end -%>
-</div>
+<ul class="podcasts">
+  <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
+</ul>

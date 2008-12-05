@@ -23,13 +23,13 @@ describe "Adding podcast while logged out" do
 
     browser.link(:text, "Wine Library TV").click
 
-    # # Watch Podcast for 5 seconds
-    # browser.link(:text, "Download").click
-    # sleep(5)
+    # Watch Podcast for 5 seconds
+    browser.link(:text, "Download").click
+    sleep(5)
 
-    # ## Go back
-    # browser.execute("history.go(-1)");
-    # sleep(1)
+    ## Go back
+    browser.execute("history.go(-1)");
+    sleep(1)
 
     # Writes a review
     browser.text_field(:id, "review_title_new").set("Very Informative")
@@ -38,7 +38,16 @@ describe "Adding podcast while logged out" do
     sleep(2)
 
     # Logs out
-    browser.go("/logout")
+    #browser.go("/logout")
+    
+    browser.link(:text, "JustinCamerer (2)").click
+
+    sleep(1)
+
+    browser.link(:text, "Signout").click
+
+    # New user shows up to the site
+    sleep(5)
 
     browser.go("/all")
     browser.link(:text, "Wine Library TV").click
@@ -60,6 +69,7 @@ describe "Adding podcast while logged out" do
 
     # Marks this podcast as her favorite
     browser.execute("$('.favorite_link:first').click()")
+    browser.refresh
 
     sleep(120)
   end

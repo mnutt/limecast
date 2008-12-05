@@ -1,4 +1,4 @@
-<% @title = "#{h(@episode.title)}" -%>
+<% @title = "#{unescape_entities(h(@episode.title))}" -%>
 <% @show_ads = true -%>
 <% javascript_include "review_edit", "review_delete", "episode_delete" -%>
 
@@ -20,7 +20,7 @@
 
     <% end -%>
 
-    <h1 class="heading"><%= escape_once(@episode.title) %></h1>
+    <h1 class="heading"><%= unescape_entities(escape_once(@episode.title)) %></h1>
 
     <p><%= @episode.date_title %><%= " (#{time_to_words @episode.duration, true})" unless @episode.duration == 0 %></p>
     

@@ -1,5 +1,5 @@
 <li>
   <%= link_to_podcast episode.podcast -%>
-  <%= link_to episode.title, episode_url(episode.podcast, episode), :class => "searched" -%>
-  <span class="searched"><%= episode.summary -%></span>
+  <%= link_to unescape_entities(episode.title), episode_url(episode.podcast, episode), :class => "searched" -%>
+  <span class="searched"><%= unescape_entities episode.summary -%></span>
 </li>

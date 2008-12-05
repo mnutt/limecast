@@ -1,4 +1,4 @@
-<form method="get" action="<%= feeds.first.url if feeds.first -%>" class="super_button subscribe">
+<form method="get" action="<%= primary_feed.url if primary_feed -%>" class="super_button subscribe">
   <span class="dropdown format">
     <ul name="format" class="styled">
       <% sorted_by_primary(feeds).each_with_index do |f, i| -%>

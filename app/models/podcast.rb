@@ -29,7 +29,7 @@ class Podcast < ActiveRecord::Base
   belongs_to :category
   belongs_to :primary_feed, :class_name => 'Feed'
   has_many :favorites, :dependent => :destroy
-  has_many :feeds, :dependent => :destroy, :include => :first_source, 
+  has_many :feeds, :dependent => :destroy, :include => :first_source,
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_many :episodes, :dependent => :destroy
 
@@ -99,7 +99,7 @@ class Podcast < ActiveRecord::Base
   def failed?
     feeds(true).all? { |f| f.failed? }
   end
-  
+
   def primary_feed_with_default
     update_attribute(:primary_feed_id, feeds.first.id) if primary_feed_id.nil?
     primary_feed_without_default

@@ -39,7 +39,7 @@ describe "Adding podcast while logged out" do
 
     # Logs out
     #browser.go("/logout")
-    
+
     browser.link(:text, "JustinCamerer (2)").click
 
     sleep(1)

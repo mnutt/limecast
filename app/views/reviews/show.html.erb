@@ -1,4 +1,4 @@
-<% @title = "#{h(@review.reviewer.login)} reviews #{h(@podcast.custom_title)}" -%>
+<% @title = "#{h(@review.reviewer.login)} reviews #{unescape_entities(h(@podcast.custom_title))}" -%>
 <% @show_ads = true -%>
 <% javascript_include "review_edit", "review_delete" -%>
 <% with_podcast ||= false -%>
@@ -11,10 +11,10 @@
 
     <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
 
-    <h2 class="title"><%=h @review.title %></h2>
+    <h2 class="title"><%=h unescape_entities(@review.title) %></h2>
     <p class="rating"><%= review_rating(@review, true) -%></p>
     <div class="body">
-      <%=simple_format h(@review.body) %>
+      <%=simple_format unescape_entities h(@review.body) %>
     </div>
 
     <p>

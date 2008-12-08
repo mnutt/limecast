@@ -1,4 +1,5 @@
 class FeedsController < ApplicationController
+  before_filter :replace_feed_protocol, :only => [:create, :status, :update]
   skip_before_filter :verify_authenticity_token, :only => :status
 
   def create
@@ -95,5 +96,11 @@ class FeedsController < ApplicationController
 
     def feed_created_just_now_by_user?(feed)
       feed_created_by_user?(feed) && feed.just_created?
+    end
+
+    # WebKit sneaks in feed:// sometimes, so we can take care of it here.
+    def replace_feed_protocol
+      params[:feed][:url] if params[:feed][:url]
+      params[:feed].gsub!(/^feed\:\/\//i, 'http://') if params[:feed].is_a?(String)
     end
 end

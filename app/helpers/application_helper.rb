@@ -50,6 +50,10 @@ module ApplicationHelper
     unescaped_html.gsub!(/&apos;/, "'")
     unescaped_html.gsub!(/&quot;/, "\"")
 
+    # Replace curled quotes and double-quotes
+    unescaped_html.gsub!(/(“|”|&#8220;|&#8221;)/,'"')
+    unescaped_html.gsub!(/(‘|’|&#8216;|&#8217;)/,"'")
+
     # Replace CDATA junk
     unescaped_html.gsub!(/\<\!\[CDATA\[/, '')
     unescaped_html.gsub!(/\]\]\>/, '')

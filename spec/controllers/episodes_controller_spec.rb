@@ -5,7 +5,7 @@ module StopParse
 end
 describe EpisodesController do
   before(:each) do
-    @episode = Factory.create(:episode)
+    @episode = Factory.create(:episode, :published_at => Time.now)
     @podcast = @episode.podcast
     @feed = @podcast.feeds.first
     @feed.extend(StopParse)
@@ -79,4 +79,26 @@ describe EpisodesController do
 #       response.should redirect_to(episodes_url)
 #     end
 #   end
+
+  describe "handling GET /:podcast/:episode" do
+    def do_get(podcast, episode)
+      get :show, :podcast => podcast, :episode => episode
+    end
+
+    it "should be successful" do
+      do_get(@podcast.clean_url, @episode.clean_url)
+      response.should be_success
+    end
+
+    it "should render show template" do
+      do_get(@podcast.clean_url, @episode.clean_url)
+      response.should render_template('show')
+    end
+
+    it "should assign episode" do
+      do_get(@podcast.clean_url, @episode.clean_url)
+      assigns[:episode].should == @episode
+    end
+
+  end
 end

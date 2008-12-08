@@ -10,6 +10,7 @@
     <div class="controls">
       <%= submit_tag "Save", :class => "button" -%>
       <%= submit_tag "Cancel", :class => 'button cancel' -%>
+      <%= link_to_with_icon "Delete", :delete, "/podcasts/#{@podcast.id}", :method => 'delete', :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!" %>
     </div>
   <% end -%>
 

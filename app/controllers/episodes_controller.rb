@@ -16,6 +16,9 @@ class EpisodesController < ApplicationController
 
     @feeds   = @podcast.feeds
     @review = Review.new(:episode => @episode)
+
+    @next_episode = @podcast.episodes.find(:first, :conditions => ["published_at > ?", @episode.published_at], :order => "published_at ASC")
+    @previous_episode = @podcast.episodes.find(:first, :conditions => ["episodes.published_at < ?", @episode.published_at], :order => "published_at DESC")
   end
 
   def destroy

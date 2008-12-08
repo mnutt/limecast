@@ -1,0 +1,6 @@
+/**
+ * Superbutton  (IE *still* doesn't support display:table in IE7)
+*/   
+.super_button .dropdown {
+  float: left;
+}

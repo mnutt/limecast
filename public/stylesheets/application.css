@@ -396,6 +396,7 @@ ol#terms li ol {
 }
 .super_button .dropdown ul {
   position: relative;
+  z-index: 5;
   padding: 3px;
   background-color: #555;
 }

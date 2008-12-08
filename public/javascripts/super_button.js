@@ -46,8 +46,6 @@ $.fn.extend({
     };
 
     function hideOrShowITunes(me, id) {
-      console.log(me);
-      console.log(id);
       if(me.find('#itunes_' + id).length) {
         me.find('.itunes_wrapper').show();
       } else {
@@ -75,7 +73,10 @@ $.fn.extend({
     };
 
     $(this).find('li.select').click(selectElement);
-    hideOrShowITunes($(this), $(this).find('span.format ul li.selected input').val());
+
+    if($(this).hasClass('subscribe')) {
+      hideOrShowITunes($(this), $(this).find('span.format ul li.selected input').val());
+    }
 
     return $(this);
   }

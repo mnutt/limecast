@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(:version => 20081208224044) do
     t.integer "episode_id"
     t.string  "format"
     t.integer "feed_id"
-    t.string  "hash",       :limit => 24
+    t.string  "sha1hash",   :limit => 24
   end
 
   create_table "taggings", :force => true do |t|

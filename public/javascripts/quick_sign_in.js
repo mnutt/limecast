@@ -36,28 +36,34 @@ $.quickSignIn = {
   },
   
   signinSubmitCallback: function(resp){
-    if(resp.success) { window.location.reload(); }
-    else {
-      resp_container = me.find('.response_container');
-      if(resp.html == resp_container.html()) resp_container.hide().fadeIn();
-      else resp_container.html(resp.html);
+    me = $("#quick_signin");
 
-      // Attach event to 'Are you trying to Sign Up?' link
+    if(resp.success && me.attr('reloadPage') == 'false') { // success, no reload
+      $.quickSignIn.updateResponse(resp.html);
+    } else if(resp.success && me.attr('reloadPage') != 'false') { // success reload
+      window.location.reload(); 
+    } else { // no success
+      $.quickSignIn.updateResponse(resp.html);
+
+      // attach event to 'Are you trying to Sign Up?' link
       me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
     }
     return false;
   },
 
   signupSubmitCallback: function(resp){
-    if(resp.success) { window.location.reload(); }
-    else {
+    me = $("#quick_signin");
+
+    if(resp.success && me.attr('reloadPage') == 'false') { // success, no reload
+      $.quickSignIn.updateResponse(resp.html);
+    } else if(resp.success && me.attr('reloadPage') != 'false') { // success reload
+      window.location.reload(); 
+    } else { // no success
       $.quickSignIn.showSignUp();
 
-      resp_container = me.find('.response_container');
-      if(resp.html == resp_container.html()) resp_container.hide().fadeIn();
-      else resp_container.html(resp.html);
+      $.quickSignIn.updateResponse(resp.html);
 
-      // Attach event to 'Are you trying to Sign Up?' link
+      // attach event to 'Are you trying to Sign Up?' link
       me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
     }
 
@@ -75,9 +81,14 @@ $.quickSignIn = {
     me.find('div.response_container').html('<a href="/forgot">I forgot my password</a>');
   },
   
+  // options is a JSON object that can include these key/values:
+  //   * message: the message for the titlebar of the Quick Signin form
+  //   * reloadPage: boolean to tell the page to reload or not on success
+  //
   attach: function(element, options) {
     var me = $("#quick_signin");
     var element = $(element);
+    me.attr('reloadPage', options.reloadPage);
 
     if(me.parent()[0] == element[0]) { // if it's already attached
       me.toggle();
@@ -114,6 +125,14 @@ $.quickSignIn = {
     me.find('input.login').focus();
 
     return false;
+  },
+  
+  // Updates the response section; if the response is the same as the current
+  // response, it does a highlight effect on the current response.
+  updateResponse: function(html) {
+    resp_container = me.find('.response_container');
+    if(html == resp_container.html()) resp_container.hide().fadeIn();
+    else resp_container.html(html);
   }
 }
 

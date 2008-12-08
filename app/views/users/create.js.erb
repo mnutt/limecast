@@ -3,5 +3,5 @@
     html: "<p><%= escape_javascript create_user_error(@user) -%></p>" }
 <% else -%>
   { success: true,
-    html: "<%= escape_javascript link_to_profile(current_user) -%>" }
+    html: "Successful signup, <%= escape_javascript link_to_profile(current_user) -%>." }
 <% end -%>

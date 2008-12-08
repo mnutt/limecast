@@ -2,5 +2,6 @@
   { success: false,
     html: "<p><%= escape_javascript create_session_error(params) -%></p>" }
 <% else -%>
-  { success: true, html: "Successful sign in" }
+  { success: true, 
+    html: "Successful signin, <%= escape_javascript link_to_profile(current_user) -%>." }
 <% end -%>

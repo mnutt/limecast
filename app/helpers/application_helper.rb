@@ -68,7 +68,7 @@ module ApplicationHelper
     html = unescape_entities(html)
 
     # Replace paragraph tags with paragraph symbols
-    html.gsub!(/<[Pp][^>]*>(.*?)\<\/[Pp]\>/, '\1 &#182; ')
+    html.strip.gsub!(/<[Pp][^>]*>(.*?)\<\/[Pp]\>/, '\1 &#182; ')
 
     sanitize html, :tags => %w(a b i), :attributes => %w(href title)
   end

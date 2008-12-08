@@ -28,7 +28,7 @@ describe "Adding podcast while logged out" do
     sleep(5)
 
     ## Go back
-    browser.execute("history.go(-1)");
+    browser.execute("history.go(-1)")
     sleep(1)
 
     # Writes a review

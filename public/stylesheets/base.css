@@ -163,7 +163,6 @@ div#header {
   padding: 10px 8px;
 }
 div#header div#title {
-  padding: 12px 0 0 0;
   display: inline;
 }
 
@@ -180,7 +179,13 @@ div#header div#account_bar {
   top: 0;
   right: 10px;
   position: absolute;
+  padding: 0;
+  margin: 0;
   z-index: 1;
+}
+div#header div#account_bar ul {
+  margin: 0;
+  padding: 0;
 }
 div#header div#account_bar ul li {
   margin: 0 0 0 10px;
@@ -192,12 +197,6 @@ div#header div#account_bar ul li.search {
   padding: 5px 0 0 0;
   margin-right: -20px;
   position: relative;
-}
-* html div#header div#account_bar ul li.search,
-* html div#header div#account_bar ul li.user,
-* html div#header div#account_bar ul li.signup {
-  position: relative;
-  top: 10px;
 }
 
 div#header div#account_bar ul li.search input.text {

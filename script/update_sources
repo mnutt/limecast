@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+require 'config/environment'
+
+while true
+	# Sleep 30 minutes until a source is found
+  sleep 30.minutes until source = Source.find_by_hash(nil)
+
+	tmp_file = "/tmp/source#{source.id}"
+
+	# Download the file
+	`curl -L #{url} > #{tmp_file}`
+
+	# Hash the file
+	hash = `sha1 #{tmp_file}`.strip
+
+	# Get info about file
+	raw_info = `ffmpeg -i #{tmp_file}`
+	info = parse_ffmpeg_info(raw_info)
+
+	`rm #{tmp_file}`
+end
+
+def parse_ffmpeg_info(raw_info)
+	{
+		:duration => parse_duration(raw_info),
+		:bitrate  => parse_bitrate
+	}
+end
+
+def parse_duration(raw_info)
+	if raw_info =~ /Duration: ([^:]*):([^:]*):([^,]*)/
+		hours   = $1.to_i
+		minutes = $2.to_i
+	  seconds = $3.to_f
+
+		duration = hours * 60 * 60 + minutes * 60 + seconds
+	end
+rescue
+	nil
+end
+
+def parse_bitrate(raw_info)
+	$1 if raw_info =~ /bitrate: ([^ ]*)/
+rescue
+	nil
+end
+

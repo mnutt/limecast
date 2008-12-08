@@ -6,10 +6,10 @@ if(typeof $=='undefined') throw("application.js requires the $ JavaScript framew
 $.fn.extend({
   hoverAndFocusBehavior: function() {
     var me = $(this);
-    me.mouseover(function() { me.addClass('hover');    });
-    me.mouseout(function()  { me.removeClass('hover'); });
-    me.focus(function() { me.addClass('focus').removeClass('hover');    });
-    me.blur(function()  { me.removeClass('focus').removeClass('hover'); });
+    me.mouseover(function() { $(this).addClass('hover');    });
+    me.mouseout(function()  { $(this).removeClass('hover'); });
+    me.focus(function()     { $(this).addClass('focus').removeClass('hover');    });
+    me.blur(function()      { $(this).removeClass('focus').removeClass('hover'); });
   }
 });
 $(document).ready(function() {

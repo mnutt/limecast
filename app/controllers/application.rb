@@ -102,6 +102,8 @@ class ApplicationController < ActionController::Base
         claim_review
         claim_favorites
         claim_rating
+        
+        current_user.calculate_score!
       end
     end
 

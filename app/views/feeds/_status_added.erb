@@ -14,7 +14,7 @@
   <% if current_user.nil? -%>
     <script type="text/javascript">
       $.quickSignIn.attach($('.quick_signin_container.after_adding_podcast'), 
-        {message:'Take credit for finding these.'});
+        {message:'Take credit for finding these.', reloadPage: false});
     </script>
   <% end -%>
 </div>

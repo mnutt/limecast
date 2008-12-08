@@ -20,6 +20,10 @@
 
     <% end -%>
 
+    <p>
+      <%= link_to "< Previous", episode_url(:podcast => @podcast, :episode => @previous_episode) if @previous_episode %>
+      <%= link_to "Next >", episode_url(:podcast => @podcast, :episode => @next_episode) if @next_episode %> </p>
+
     <h1 class="heading"><%= unescape_entities(escape_once(@episode.title)) %></h1>
 
     <p><%= @episode.date_title %><%= " (#{time_to_words @episode.duration, true})" unless @episode.duration == 0 %></p>

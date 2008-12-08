@@ -1,23 +1,4 @@
 $.fn.extend({
-  updateDeliveryForSubscribe: function(){
-    var me = $(this);
-
-    function hideOrShowITunes(id) {
-      if(me.find('#itunes_' + id).length) {
-        me.find('option.itunes').show();
-      } else {
-        me.find('option.itunes').hide();
-      }
-    }
-
-    hideOrShowITunes(me.find('select.id').val());
-
-    me.find('select.id').change(function(){
-      var id = $(this).val();
-      hideOrShowITunes(id);
-    });
-  },
-
   superButton: function(){
     /* Hide all unselected drop-down elements if they're not already hidden */
     $(this).find('ul li:not(:first-child)').hide();
@@ -64,7 +45,18 @@ $.fn.extend({
       }
     };
 
+    function hideOrShowITunes(me, id) {
+      console.log(me);
+      console.log(id);
+      if(me.find('#itunes_' + id).length) {
+        me.find('.itunes_wrapper').show();
+      } else {
+        me.find('.itunes_wrapper').hide();
+      }
+    };
+
     function subscribeUrl(me, delivery, id) {
+      hideOrShowITunes(me, id);
       var url = me.find('#url_' + id).val();
       if(delivery == "Miro") {
         return "http://subscribe.getmiro.com/?url1=" + url;
@@ -83,6 +75,7 @@ $.fn.extend({
     };
 
     $(this).find('li.select').click(selectElement);
+    hideOrShowITunes($(this), $(this).find('span.format ul li.selected input').val());
 
     return $(this);
   }

@@ -12,14 +12,16 @@
   
   <span class="dropdown delivery">
     <ul name="delivery" class="styled" style="background-color: #555; padding: 3px;">
-      <li name="delivery_rss" class="select selected">
+      <li name="delivery_rss" class="delivery_rss select selected">
         <%= link_to_with_icon "RSS", :rss, "#" -%>
       </li>
-      <li name="delivery_miro" style="display: none;" class="select">
+      <li name="delivery_miro" style="display: none;" class="delivery_miro select">
         <%= link_to_with_icon "Miro", :miro, "#" -%>
       </li>
-      <li name="delivery_itunes" style="display: none;" class="select">
-        <%= link_to_with_icon "iTunes", :itunes, "#" -%>
+      <li name="delivery_itunes" style="display: none;" class="delivery_itunes select">
+	<span class="itunes_wrapper">
+          <%= link_to_with_icon "iTunes", :itunes, "#" -%>
+	</span>
       </li>
     </ul>
   </span>

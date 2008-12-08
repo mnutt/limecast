@@ -13,6 +13,8 @@ $(document).ready(function(){
           $('a.delete').show(); // Show all delete links.
 
           new_review_form.hide();
+
+          window.location.reload();
         } else {
           // if not logged in, show quick signin
           $.quickSignIn.attach($('.quick_signin_container.after_adding_review'), 

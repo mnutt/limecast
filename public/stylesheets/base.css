@@ -190,9 +190,16 @@ div#header div#account_bar ul li {
 div#header div#account_bar ul li.search {
   width: 210px;
   padding: 5px 0 0 0;
-  position: relative;
   margin-right: -20px;
+  position: relative;
 }
+* html div#header div#account_bar ul li.search,
+* html div#header div#account_bar ul li.user,
+* html div#header div#account_bar ul li.signup {
+  position: relative;
+  top: 10px;
+}
+
 div#header div#account_bar ul li.search input.text {
   width: 146px;
   height: 15px;

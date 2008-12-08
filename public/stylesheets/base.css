@@ -362,16 +362,24 @@ form textarea.text.focus {
 }
 form input.button {
   background-color: #AEAEAE;
-  border: 1px solid #212121;
+  border: 2px solid;
+  border-color: #212121 #333 #333 #212121;
+  /*-webkit-border-radius: 4px;*/
   color: #383838;
   padding: 4px;
   cursor: pointer;
 }
 form input.button.hover {
   background-color: #D7D7D7;
+  color: #555;
 }
 form input.button.focus {
   background-color: #8E8E8E;
+}
+form input.button.active {
+  background: #999 !important;
+  border-color: #000 #222 #222 #000;
+  color: #111;
 }
 form input.image_button {
   border: 1px solid #212121;

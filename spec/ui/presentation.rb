@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_ui_helper'
 
-describe "Adding podcast while logged out" do
-  it 'should eventually show success' do
+describe "Adding WineLibrary rss feed to LimeCast.com" do
+  it 'should bring up sign up/sign in box' do
     browser.go("")
     browser.go("/add")
     browser.text_field(:name, "feed[url]").set("#{browser.url}/test_data/wine-library-tv.rss")
@@ -9,7 +9,7 @@ describe "Adding podcast while logged out" do
 
     html.should have_tag("div.status_message", /Getting RSS/)
 
-    try_for(10.seconds) do
+    try_for(60.seconds) do
       html.should have_tag("div.status_message", /Yum/)
     end
 
@@ -19,13 +19,21 @@ describe "Adding podcast while logged out" do
     browser.text_field(:id, "quicksignin_email").set("jcamerer@limewire.com")
     browser.button(:id, "signup").click
 
+    notify("Navigating to the WineLibraryTV page", "should allow you to download the episode")
+    sleep(4)
+
     browser.go("/all")
+    sleep(1)
 
     browser.link(:text, "Wine Library TV").click
+    sleep(1)
 
     # Watch Podcast for 5 seconds
     browser.link(:text, "Download").click
     sleep(5)
+
+    notify("Commenting on the WineLibraryTV page", "should be allowed")
+    sleep(4)
 
     ## Go back
     browser.execute("history.go(-1)")
@@ -35,22 +43,23 @@ describe "Adding podcast while logged out" do
     browser.text_field(:id, "review_title_new").set("Very Informative")
     browser.text_area(:id, "review_body_new").set("I can dig it.")
     browser.button(:value, "Save").click
-    sleep(2)
+    sleep(3)
 
-    # Logs out
-    #browser.go("/logout")
+    notify("Going to the user profile page", "should allow log out")
+    sleep(4)
 
     browser.link(:text, "JustinCamerer (2)").click
-
     sleep(1)
 
     browser.link(:text, "Signout").click
 
     # New user shows up to the site
-    sleep(5)
+    notify("New user on site", "should be able to rate a comment")
+    sleep(8)
 
     browser.go("/all")
     browser.link(:text, "Wine Library TV").click
+    sleep(2)
 
     # Someone else comes to the site and thinks Justin's comment is insightful
     browser.execute("$('.insightful:first').click()")
@@ -59,18 +68,20 @@ describe "Adding podcast while logged out" do
     browser.execute("$.quickSignIn.showSignUp()")
     browser.text_field(:id, "quicksignin_email").set("mommacamerer@limewire.com")
     browser.button(:id, "signup").click
-    #browser.execute("$('#signup').click()")
 
-    sleep(2)
+    sleep(1)
 
-    browser.execute("window.location.reload()")
+    browser.go("/Wine-Library-TV")
 
-    sleep(2)
+    notify("Logged in user", "should be able to favorite a podcast")
+    sleep(4)
 
     # Marks this podcast as her favorite
     browser.execute("$('.favorite_link:first').click()")
+    sleep(1)
     browser.refresh
 
-    sleep(120)
+    notify("The End", "")
+    sleep(5)
   end
 end

@@ -10,14 +10,20 @@ rescue LoadError; end
 
 Spec::Runner.configure do |config|
   config.before(:all) { setup_browser }
-  config.before(:each) { reset_db; notify }
+  config.before(:each) { reset_db; growl_test }
   config.after(:all) { @browser.close }
   config.use_transactional_fixtures = false
 end
 
-def notify
+def growl_test
+  notify(__full_description.gsub(" " + description, ""), description)
+rescue
+  nil
+end
+
+def notify(body, title)
   @meow ||= Meow.new("UI Specs")
-  @meow.notify(__full_description.gsub(" " + description, ""), description)
+  @meow.notify(body, title)
 rescue
   nil
 end

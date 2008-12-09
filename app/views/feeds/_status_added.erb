@@ -11,10 +11,12 @@
   <% else -%>
     and emailed <%=h @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. <span class="arrow_down">More please</span>
   <% end -%>
+  <script type="text/javascript">
   <% if current_user.nil? -%>
-    <script type="text/javascript">
-      $.quickSignIn.attach($('.quick_signin_container.after_adding_podcast'), 
-        {message:'Take credit for finding these.', reloadPage: false});
-    </script>
+    $.quickSignIn.attach($('.quick_signin_container.after_adding_podcast'), 
+      {message:'Take credit for finding these.', reloadPage: false});
+  <% else -%>
+    $('#account_bar li.user, #account_bar li.signup').html('<%= escape_javascript link_to_profile(current_user) %>'); }
   <% end -%>
+  </script>
 </div>

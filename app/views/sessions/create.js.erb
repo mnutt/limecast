@@ -3,5 +3,6 @@
     html: "<p><%= escape_javascript create_session_error(params) -%></p>" }
 <% else -%>
   { success: true, 
-    html: "Successful signin, <%= escape_javascript link_to_profile(current_user) -%>." }
+    html: "Successful signin, <%= escape_javascript link_to_profile(current_user) -%>.",
+    profileLink: "<%= escape_javascript link_to_profile(current_user) %>" }
 <% end -%>

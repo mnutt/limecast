@@ -14,7 +14,7 @@
   <script type="text/javascript">
   <% if current_user.nil? -%>
     $.quickSignIn.attach($('.quick_signin_container.after_adding_podcast'), 
-      {message:'Take credit for finding these.', reloadPage: false});
+      {message:'Take credit for finding these.', reloadPage: false, noToggle: true});
   <% else -%>
     $('#account_bar li.user, #account_bar li.signup').html('<%= escape_javascript link_to_profile(current_user) %>'); }
   <% end -%>

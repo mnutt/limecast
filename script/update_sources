@@ -1,0 +1,82 @@
+#!/usr/bin/env ruby
+
+require 'config/environment'
+
+def parse_ffmpeg_info(raw_info)
+  {
+    :duration    => parse_duration(raw_info),
+    :bitrate     => parse_bitrate(raw_info),
+    :video_codec => parse_video_codec(raw_info),
+    :audio_codec => parse_audio_codec(raw_info),
+  }
+end
+
+def parse_duration(raw_info)
+  if raw_info =~ /Duration: ([^:]*):([^:]*):([^,]*)/
+    hours   = $1.to_i
+    minutes = $2.to_i
+    seconds = $3.to_f
+ 
+    duration = hours * 60 * 60 + minutes * 60 + seconds
+	end
+rescue
+  nil
+end
+
+def parse_bitrate(raw_info)
+  $1.to_i if raw_info =~ /bitrate: ([^ ]*)/
+rescue
+  nil
+end
+
+def parse_video_codec(raw_info)
+  $1 if raw_info =~ /Video: ([^,]*)/
+rescue
+  nil
+end
+
+def parse_audio_codec(raw_info)
+  $1 if raw_info =~ /Audio: ([^,]*)/
+rescue
+  nil
+end
+
+while true
+  begin
+    # Sleep 30 minutes until a source is found
+    sleep 30.minutes until source = Source.find_by_sha1hash(nil)
+
+    tmp_file = "/tmp/source#{source.id}"
+
+    # Download the file
+		puts "Downloading"
+    `curl -L #{source.url} > #{tmp_file}`
+
+    # Hash the file
+	  puts "Hashing"
+    sha1hash = `sha1 #{tmp_file}`.strip
+
+    # Get info about file
+		puts "FFmpeg'ing"
+    raw_info = `ffmpeg -i #{tmp_file}`
+    info = parse_ffmpeg_info(raw_info)
+
+    # Updates database with info taken from the video
+		puts "Updating"
+    source.episode.update_attributes(
+      :duration => info[:duration]
+    )
+    source.feed.update_attributes(
+			:format   => info[:video_codec] || info[:audio_codec],
+      :bitrate  => info[:bitrate]
+    )
+    source.update_attributes(
+      :format   => info[:video_codec] || info[:audio_codec],
+      :sha1hash => sha1hash
+    )
+  ensure
+		puts "Rm'ing"
+    `rm #{tmp_file}`
+  end
+end
+

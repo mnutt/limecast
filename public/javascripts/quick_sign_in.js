@@ -82,23 +82,28 @@ $.quickSignIn = {
     me[0].reset(); // the actual DOM function for resetting a form
     me.find('div.response_container').html('<a href="/forgot">I forgot my password</a>');
   },
-  
+
+  // Attaches the Quick Signin form to a container
+  //
   // options is a JSON object that can include these key/values:
   //   * message: the message for the titlebar of the Quick Signin form
-  //   * reloadPage: boolean to tell the page to reload or not on success
+  //   * reloadPage: boolean; if false, won't reload page on success
+  //   * noToggle: boolean; if true, the signin won't toggle (hide/show) when it's already attached
   //
-  attach: function(element, options) {
+  attach: function(container, options) {
     var me = $("#quick_signin");
-    var element = $(element);
+    var container = $(container);
     me.attr('reloadPage', options.reloadPage);
 
-    if(me.parent()[0] == element[0]) { // if it's already attached
-      me.toggle();
+    if(me.parent()[0] == container[0]) { // if it's already attached
+      if(options.noToggle) me.hide().fadeIn();
+      else me.toggle();
+      
       if($.quickSignIn.isHidden()) $.quickSignIn.reset();
       else me.find('input.login')[0].focus();
     } else {
       $.quickSignIn.reset();
-      element.append(me);
+      container.append(me);
       me.show().find(".message").html(options.message);
       me.find('input.login')[0].focus();
     }

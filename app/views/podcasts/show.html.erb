@@ -43,7 +43,7 @@
 
   <% unless @podcast.finders.empty? && !@podcast.owner -%>
   <div class="authors clearfix">
-    <ul>
+    <ul class="clearfix">
     <% unless @podcast.finders.empty? -%>
       <li class="user found_by">Found by <%= @podcast.finders.uniq.map {|f| link_to_profile f }.to_sentence -%></li>
     <% end -%>
@@ -53,6 +53,8 @@
     </ul>
   </div>
   <% end -%>
+  
+  <br />
   
   <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds, :primary_feed => @podcast.primary_feed} -%>
   <%= render :partial => 'badges' %>

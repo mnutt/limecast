@@ -9,12 +9,12 @@
       and a link for finding it. <span class="arrow_down">More please</span>
     <% end -%>
   <% else -%>
-    and emailed <%=h @podcast.owner_name -%>, the maker. You get +1 point and a link for finding it. <span class="arrow_down">More please</span>
+    and emailed <%= "#{h @podcast.owner_name.strip}, " unless @podcast.owner_name.nil? || @podcast.owner_name.empty? -%>the maker. You get +1 point and a link for finding it. <span class="arrow_down">More please</span>
   <% end -%>
   <script type="text/javascript">
   <% if current_user.nil? -%>
     $.quickSignIn.attach($('.quick_signin_container.after_adding_podcast'), 
-      {message:'Take credit for finding these.', reloadPage: false, noToggle: true});
+      {message:'Take credit for finding these:', reloadPage: false, noToggle: true});
   <% else -%>
     $('#account_bar li.user, #account_bar li.signup').html('<%= escape_javascript link_to_profile(current_user) %>'); }
   <% end -%>

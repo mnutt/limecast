@@ -60,7 +60,7 @@ $.fn.extend({
         return "http://subscribe.getmiro.com/?url1=" + url;
       } else if(delivery == "iTunes") {
         var iTunes_id = me.find('#itunes_' + id).val();
-        return "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=" + iTunes_id;
+        return "http://www.itunes.com/podcast?id=" + iTunes_id;
       }
       return url;
     };

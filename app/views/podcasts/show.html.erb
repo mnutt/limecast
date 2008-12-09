@@ -92,6 +92,7 @@
     <% else -%>
       <%= link_to "#{image_tag('icons/favorite.png', :class => 'inline_icon')}Favorite",
             favorite_podcast_url(:podcast => @podcast.clean_url),
+            :title => "Favorite this!",
             :class => "favorite_link" -%>
     <% end -%>
     </p>

@@ -49,20 +49,22 @@ while true
     tmp_file = "/tmp/source#{source.id}"
 
     # Download the file
-		puts "Downloading"
+    puts "Downloading"
     `curl -L #{source.url} > #{tmp_file}`
 
     # Hash the file
-	  puts "Hashing"
+    puts "Hashing"
     sha1hash = `sha1 #{tmp_file}`.strip
 
     # Get info about file
-		puts "FFmpeg'ing"
-    raw_info = `ffmpeg -i #{tmp_file}`
+    puts "FFmpeg'ing"
+    raw_info = `ffmpeg -i #{tmp_file} 2>&1`
     info = parse_ffmpeg_info(raw_info)
 
+    puts "Got: #{info.inspect}"
+
     # Updates database with info taken from the video
-		puts "Updating"
+    puts "Updating"
     source.episode.update_attributes(
       :duration => info[:duration]
     )
@@ -75,7 +77,7 @@ while true
       :sha1hash => sha1hash
     )
   ensure
-		puts "Rm'ing"
+    puts "Rm'ing\n"
     `rm #{tmp_file}`
   end
 end

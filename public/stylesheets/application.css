@@ -321,8 +321,11 @@ form .huge  {
   white-space: nowrap;
 }
 form .huge .button {
+  font-size: 0.75em;
+  padding: 6px;
   width: 51px;
   margin-left: -58px;
+  top: -2px;
   position:relative;
 }
 div.status_message {

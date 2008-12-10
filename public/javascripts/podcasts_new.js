@@ -10,6 +10,7 @@ $(document).ready(function(){
 
       $('#feed_url').val("");
       $('#added_podcast_list').append(form_clone);
+      $("#new_podcast").find('label.default').text(''); // only first input should have the example url
 
 
       // FIX

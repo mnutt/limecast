@@ -1,0 +1,223 @@
+/***************************************************************************************
+* Base.css
+***************************************************************************************/
+
+/**
+/* Reset
+**/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+  list-style: none;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+input, button {
+  width: auto;
+  overflow: visible;
+}
+
+
+/**
+/* Layout
+**/
+
+html {
+  height: 100%;
+}
+body {
+  background-color: #2B2D2F;
+  font: 62.5% Verdana, sans-serif;
+  height: 100%;
+  line-height: 1;
+}
+
+#document {
+  background: red;
+  min-height: 100%;
+}
+* html div#document {
+  height: 100%;
+}
+div#layout {
+  min-width: 800px;
+  padding: 0 0 34px 0;
+}
+
+
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix {display: inline-block;}  /* for IE/Mac */
+
+/**
+/** Basic Typography
+**/
+h1, h2, h3, h4, h5 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+h1 { font-size: 2.2em; }
+h1.heading { font-size: 1.6em; } /* effectively h2 */
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.1em; }
+
+a, a:visited {
+  text-decoration: underline;
+  color: #CBCBCB;
+}
+a:hover {
+  color: #E5E5E5;
+}
+a, a:visited {
+  text-decoration: none;
+}
+a:hover span {
+  cursor: pointer;
+}
+
+div#document {
+  font-size: 1.1em;
+}
+div#layout {
+  font-size: 1.1em;
+  color: #CBCBCB;
+}
+
+a img.inline_icon {
+  margin: -4px 0 0 0;
+  position: relative;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  display: inline-table;
+}
+span > img.inline_icon {
+  margin: -4px 0 0 0;
+  position: relative;
+  top: 3px;
+}
+
+
+
+/**
+* User Icons
+**/
+a.user_visitor { background-image: url("../images/icons/marseilles-astronomical/user_visitor.png"); }
+a.user_regular { background-image: url("../images/icons/marseilles-astronomical/user_regular.png"); }
+a.user_podcaster { background-image: url("../images/icons/marseilles-astronomical/user_podcaster.png"); }
+a.user_admin { background-image: url("../images/icons/marseilles-astronomical/user_admin.png"); }
+
+h1.user_visitor { background-image: url("../images/icons/marseilles-astronomical/user_visitor_big.png"); }
+h1.user_regular { background-image: url("../images/icons/marseilles-astronomical/user_regular_big.png"); }
+h1.user_podcaster { background-image: url("../images/icons/marseilles-astronomical/user_podcaster_big.png"); }
+h1.user_admin { background-image: url("../images/icons/marseilles-astronomical/user_admin_big.png"); }
+
+
+/**
+* Header
+**/
+
+
+div#header {
+  background: #181818 url("../images/layout/header_border.png") repeat-x left bottom;
+  position: relative;
+  padding: 10px 8px;
+}
+div#header div#title {
+  display: inline;
+}
+
+div#header div#title h1 {
+  display: inline;
+  padding: 0 0 0 2px;
+  margin: 12px 0 0;
+  font-size: 12px;
+}
+div#header div.add_podcast {
+  display: inline;
+}
+div#header div#account_bar {
+  top: 0;
+  right: 10px;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  z-index: 1;
+}
+div#header div#account_bar ul {
+  margin: 0;
+  padding: 0;
+}
+div#header div#account_bar ul li {
+  margin: 0 0 0 10px;
+  padding: 10px 0 0 0;
+  float: left;
+}
+div#header div#account_bar ul li.search {
+  width: 210px;
+  padding: 5px 0 0 0;
+  margin-right: -20px;
+  position: relative;
+}
+
+div#header div#account_bar ul li.search input.text {
+  width: 146px;
+  height: 15px;
+  padding: 4px 31px 4px 5px;
+  top: 5px;
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+  display: block;
+}
+div#header div#account_bar ul li.search input.image_button {
+  top: 5px;
+  right: 26px;
+  position: absolute;
+}
+
+/**
+* Body
+**/
+
+
+/**
+/* Buttons
+**/
+
+/**
+* Footer
+**/
+
+
+/**
+* Forms
+**/
+
+
+/**
+* Quick Signin
+**/
+
+
+/**
+ Notices
+**/

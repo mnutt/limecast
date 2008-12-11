@@ -17,6 +17,14 @@
 /**
 * Podcasts
 **/
+ul.podcasts li.podcast {
+  *height: 0.01%; /* ??? */
+}
+
+div.multicolumn ul.podcasts li.podcast {
+  float: left;
+  width: 32.5%;
+}
 
 
 /**

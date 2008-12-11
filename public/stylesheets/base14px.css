@@ -44,27 +44,34 @@ html {
   height: 100%;
 }
 body {
+  height: 100%;
   background-color: #2B2D2F;
   font: 62.5% Verdana, sans-serif;
-  height: 100%;
-  line-height: 1;
 }
 
 #document {
-  background: red;
   min-height: 100%;
+  min-width: 800px;
+  padding: 0 0 0 0;
+  line-height: 1;
 }
 * html div#document {
   height: 100%;
 }
-div#layout {
-  min-width: 800px;
-  padding: 0 0 34px 0;
+
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { display: inline-block; }  /* for IE/Mac */
+
+/**
+* THIS IS THE PLACE TO CHANGE LINE MARGIN!!! 
+**/
+p,
+ul.podcasts li,
+h1, h2, h3, h4, h5 {
+  margin: 0 0 14px 0;
 }
 
 
-.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-.clearfix {display: inline-block;}  /* for IE/Mac */
 
 /**
 /** Basic Typography
@@ -85,18 +92,12 @@ a, a:visited {
 a:hover {
   color: #E5E5E5;
 }
-a, a:visited {
-  text-decoration: none;
-}
 a:hover span {
   cursor: pointer;
 }
 
 div#document {
-  font-size: 1.1em;
-}
-div#layout {
-  font-size: 1.1em;
+  font-size: 1.2em;
   color: #CBCBCB;
 }
 
@@ -116,7 +117,6 @@ span > img.inline_icon {
 }
 
 
-
 /**
 * User Icons
 **/
@@ -132,10 +132,8 @@ h1.user_admin { background-image: url("../images/icons/marseilles-astronomical/u
 
 
 /**
-* Header
+* Header - "14px universality" doesn't apply here
 **/
-
-
 div#header {
   background: #181818 url("../images/layout/header_border.png") repeat-x left bottom;
   position: relative;
@@ -144,7 +142,6 @@ div#header {
 div#header div#title {
   display: inline;
 }
-
 div#header div#title h1 {
   display: inline;
   padding: 0 0 0 2px;
@@ -195,8 +192,43 @@ div#header div#account_bar ul li.search input.image_button {
 }
 
 /**
-* Body
+* Content
 **/
+div#content {
+  width: 100%;
+  height: auto;
+/*  min-height: 660px; */
+  *width: 99.8%;
+}
+* html div#content {
+  height: 660px;
+}
+
+div#content div#full_width {
+  margin: 0 auto;
+  padding: 30px 90px;
+  position: relative;
+  *height: 0.01%;
+}
+
+div#content div#primary {
+  margin: 0 220px 0 0;
+  padding: 30px 30px 30px 230px;
+  position: relative;
+  *height: 0.01%;
+}
+
+div#content div#sidebar {
+  padding: 30px 30px;
+  width: 160px;
+  float: right;
+}
+/*div#content p {
+  margin: 0 0 14px 0;
+}*/
+div#content span.notice {
+  color: #ABABAB;
+}
 
 
 /**
@@ -206,6 +238,24 @@ div#header div#account_bar ul li.search input.image_button {
 /**
 * Footer
 **/
+div#footer {
+  background: #181818 url("../images/layout/footer_border.png") repeat-x left top;
+  height: 30px;
+  position: relative;
+  font-size: 1.1em;
+  padding: 10px 8px;
+  margin: -50px 0 0 0;
+}
+div#footer ul {
+  clear: both;
+}
+div#footer ul li {
+  margin: 0 5px 0 0;
+  float: left;
+}
+div#footer a {
+  color: #AAA;
+}
 
 
 /**
@@ -216,6 +266,29 @@ div#header div#account_bar ul li.search input.image_button {
 /**
 * Quick Signin
 **/
+form#quick_signin {
+  padding: 10px;
+}
+
+form#quick_signin .titlebar {
+  position: relative;
+  top: -10px;
+  right: -10px;
+}
+
+form#quick_signin a.close {
+  display: none;
+}
+
+form#quick_signin .message {
+  text-indent: 90px;
+  padding: 1em 0;
+}
+
+form#quick_signin input.text,
+form#quick_signin div.response_container {
+  width: 200px;
+}
 
 
 /**

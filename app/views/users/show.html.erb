@@ -26,7 +26,7 @@
   
   <% if @user.owned_podcasts.count > 0 -%>
     <h2>Makes</h2>
-    <ul class="podcasts">
+    <ul class="podcasts clearfix">
       <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
     </ul>
     <% reset_cycle('row_class') %>
@@ -34,7 +34,7 @@
 
   <% if @user.podcasts.size > 0 -%>
     <h2>Found (<%= @user.podcasts.size %>)</h2>
-    <ul class="podcasts">
+    <ul class="podcasts clearfix">
       <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
     </ul>
     <% reset_cycle('row_class') %>
@@ -42,7 +42,7 @@
     
   <% if @user.favorite_podcasts.size > 0 -%>
     <h2>Favorites</h2>
-    <ul class="podcasts">
+    <ul class="podcasts clearfix">
       <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
     </ul>
     <% reset_cycle('row_class') %>
@@ -50,7 +50,7 @@
   
   <% if @user.reviews.count > 0 -%>
     <h2>Reviewed (<%= @user.reviews.count %>)</h2>
-    <ul class="reviews">
+    <ul class="reviews clearfix">
       <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast => true} -%>
     </ul>
     <% reset_cycle('row_class') %>

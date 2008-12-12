@@ -6,118 +6,81 @@
 
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => cover_url(@podcast) } -%>
 
-  <% if current_user && @podcast.writable_by?(current_user) -%>
-    <div id="edit_actions" class="clearfix">
-      <% if current_user.admin? && !@podcast.user_is_finder?(current_user) && !@podcast.user_is_owner?(current_user) -%>
-        <span class="label">I can do anything!</span>
-      <% else -%>
-        <span class="label">This is mine!</span>
-      <% end -%>
-      <ul>
-        <li class="edit">
-          <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast) %>
-        </li>
-      </ul>
-      <%= render :partial => "form" -%>
-    </div>
+  <%= render :partial => 'edit', :locals => {:podcast => @podcast} if current_user && @podcast.writable_by?(current_user) %>
 
-  <% end -%>
+  <h1><%=h @podcast.custom_title %></h1>
 
-  <h1>
-    <%=h @podcast.custom_title %>
-  </h1>
-
-  <div class="urls clearfix">
-    <ul>
-      <li class="site"><%= link_to h(@podcast.clean_site), h(@podcast.site) %></li>
-      <li class="rss">
-        <%= link_to_with_icon "RSS", :rss, @podcast.primary_feed.url %>
-      </li>
-      <% unless @podcast.primary_feed.itunes_link.blank? -%>
-        <%= link_to_with_icon "iTunes", :itunes, "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.primary_feed.itunes_link}" %>
-      <% end -%>
-    </ul>
-  </div>
+  <ul class="urls inline clearfix">
+    <li class="site"><%= link_to h(@podcast.clean_site), h(@podcast.site) %></li>
+    <li class="rss">
+      <%= link_to_with_icon "RSS", :rss, @podcast.primary_feed.url %>
+    </li>
+    <% unless @podcast.primary_feed.itunes_link.blank? -%>
+      <%= link_to_with_icon "iTunes", :itunes, "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.primary_feed.itunes_link}" %>
+    <% end -%>
+  </ul>
 
   <br /> <!-- why isn't .authors clearing without this? //-->
 
   <% unless @podcast.finders.empty? && !@podcast.owner -%>
-  <div class="authors clearfix">
-    <ul class="clearfix">
+  <ul class="authors inline clearfix">
     <% unless @podcast.finders.empty? -%>
       <li class="user found_by">Found by <%= @podcast.finders.uniq.map {|f| link_to_profile f }.to_sentence -%></li>
     <% end -%>
     <% if @podcast.owner -%>
       <li class="user made_by">Made by <%= link_to_profile @podcast.owner -%></li>
     <% end -%>
-    </ul>
-  </div>
+  </ul>
   <% end -%>
   
   <br />
   
   <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds, :primary_feed => @podcast.primary_feed} -%>
+
   <%= render :partial => 'badges' %>
 
-  <div class="stats">
+  <!-- Stats and Misc //-->
 
-    <% if @podcast.episodes.size > 0 -%>
-      <p class="new_episode">
-        New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.newest.first) -%>
-        <%= relative_time(@podcast.episodes.newest.first.published_at, false) -%>
-      </p>
-    <% end -%>
+  <p class="episode_info">
+    <% if @podcast.episodes.size > 0 -%>New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.newest.first) -%> <%= relative_time(@podcast.episodes.newest.first.published_at, false) -%><br /><% end -%>
 
-    <p class="totals">
-      <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
+    <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
+    <% if @podcast.episodes.size > 0 -%>since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.oldest.first) -%><% end -%>
+    <% if @podcast.episodes.size > 1 -%>every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><% end -%>
+  </p>
 
-      <% if @podcast.episodes.size > 0 -%>
-        since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.oldest.first) -%>
-      <% end -%>
-
-      <% if @podcast.episodes.size > 1 -%>
-        every <%= time_to_words(@podcast.average_time_between_episodes, false) -%>
-      <% end -%>
-    </p>
-
-    <% if @podcast.total_run_time > 60 -%>
-    <p class="run_time">
-      Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
-    </p>
-    <% end -%>
-  </div>
+  <% if @podcast.total_run_time > 60 -%>
+  <p class="run_time">Total run time <%= time_to_words(@podcast.total_run_time, false) -%></p>
+  <% end -%>
   
-  <div class="misc_links">
-    <p>
-    <% if current_user && current_user.favorite_podcasts.include?(@podcast) -%>
-      <span><%= image_tag('icons/favorite.png', :class => 'inline_icon') %>My Favorite</span>
-    <% else -%>
-      <%= link_to "#{image_tag('icons/favorite.png', :class => 'inline_icon')}Favorite",
-            favorite_podcast_url(:podcast => @podcast.clean_url),
-            :title => "Favorite this!",
-            :class => "favorite_link" -%>
-    <% end -%>
-    </p>
-    <% unless current_user -%><div class="quick_signin_container after_favoriting"></div><% end -%>
+  <p>
+  <% if current_user && current_user.favorite_podcasts.include?(@podcast) -%>
+    <span><%= image_tag('icons/favorite.png', :class => 'inline_icon') %>My Favorite</span>
+  <% else -%>
+    <%= link_to "#{image_tag('icons/favorite.png', :class => 'inline_icon')}Favorite",
+          favorite_podcast_url(:podcast => @podcast.clean_url),
+          :title => "Favorite this!",
+          :class => "favorite_link" -%>
+  <% end -%>
+  </p>
+  <% unless current_user -%><div class="quick_signin_container after_favoriting"></div><% end -%>
 
-  </div>
+  <!-- Description //-->
 
-  <div class="description">
-    <h2>Description</h2>
-    <p><%=unescape_entities h(@podcast.description) -%></p>
-  </div>
+  <h2>Description</h2>
+  <p class="description"><%=unescape_entities h(@podcast.description) -%></p>
   
-  <% unless @podcast.episodes.empty? %>
-    <div class="episodes">
-      <h2>Episodes</h2>
-      <ul class="episodes">
-        <%= render :partial => 'episodes/episode', :collection => @episodes -%>
-      </ul>
-      <% link_to(podcast_episodes_url(@podcast), :class => 'all_episodes') do -%><span>All <%= @podcast.episodes.count -%> episodes</span><% end -%>
-      <% reset_cycle('row_class') %>
-    </div>
-    
-    <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => { :podcast => @podcast } -%>
+  <!-- Episodes and Reviews //-->
+
+  <% unless @podcast.episodes.empty? -%>
+  <h2>Episodes</h2>
+  <ul class="episodes">
+    <%= render :partial => 'episodes/episode', :collection => @episodes -%>
+  </ul>
+  <p><% link_to(podcast_episodes_url(@podcast), :class => 'all_episodes') do -%><span>All <%= @podcast.episodes.count -%> episodes</span><% end -%></p>
+  <% reset_cycle('row_class') %>
+
+  <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => { :podcast => @podcast } -%>
   <% end %>
   
 </div>

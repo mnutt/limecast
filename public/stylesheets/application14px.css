@@ -1,17 +1,70 @@
 /**
 * Quick Sign In/Up
 **/
-
+.quick_signin_container.from_top_bar {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background-color: #2B2D2F;
+  border: 1px solid #181818;
+}
+.quick_signin_container.from_top_bar .titlebar {
+  background-color: orange;
+}
+.quick_signin_container.from_top_bar form#quick_signin a.close {
+  background: url("../images/icons/close.png") no-repeat center;
+  display: block;
+  text-indent: -5000px;
+  width: 16px;
+  height: 16px;
+  margin: 5px 5px 0 0;
+  overflow: hidden;
+  float: right;
+}
+.quick_signin_container.after_favoriting form#quick_signin .message {
+  position: relative;
+  top: -10px;
+}
 
 
 /**
 * Users
 **/
-
-
-/*
-* Super Button
-**/
+div.user div.picture {
+  top: 30px;
+  left: 30px;
+  padding: 1px 0 0 1px;
+  position: absolute;
+  z-index: 1;
+}
+div.user div.picture span.border {
+  border: 1px solid #232323;
+  width: 170px;
+  height: 170px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  display: block;
+  z-index: 1;
+}
+div.user div.picture img {
+  width: 170px;
+  height: 170px;
+}
+div.user li.podcast {
+  float: none;
+}
+div.user div#edit_actions span.label {
+  float: left;
+}
+div.user div#edit_actions ul {
+  margin: 0 0 5px 0;
+  float: left;
+}
+div.user div#edit_actions ul li {
+  margin: 0 0 0 5px;
+  float: left;
+}
 
 
 /**
@@ -30,40 +83,340 @@ div.multicolumn ul.podcasts li.podcast {
 /**
 * Podcast
 **/
+div.podcast div.cover {
+  top: 30px;
+  left: 30px;
+  padding: 1px 0 0 1px;
+  position: absolute;
+  z-index: 1;
+}
+div.podcast div.cover span.border {
+  border: 1px solid #232323;
+  width: 170px;
+  height: 170px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  display: block;
+  z-index: 1;
+}
+div.podcast .episode_info { clear: left; } /* HACK this shouldn't be the solution; remove float from SuperButton instead */ 
+div.podcast div#edit_actions span.label {
+  float: left;
+}
+div.podcast div#edit_actions ul {
+  margin: 0 0 5px 0;
+  float: left;
+}
+div.podcast div#edit_actions ul li {
+  margin: 0 0 0 5px;
+  float: left;
+}
+
 
 /**
 /* Episodes
 **/
+div.podcast .episodes {
+  *height: 0.01%;
+}
+ul.episodes li.episode {
+  padding: 0 0 0 16px;
+  margin-left: -16px;
+  position: relative;
+  width: 100%;
+  *height: 0.01%;
+}
+ul.episodes li.episode div.full {
+  display: none;
+}
+ul.episodes li.episode span.expand {
+  background-image: url("../images/icons/expand.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -5000px;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: block;
+  z-index: 1;
+  cursor: pointer;
+}
+ul.episodes li.expanded div.full {
+  display: block;
+}
+ul.episodes li.expanded span.expand {
+  background-image: url("../images/icons/collapse.png");
+}
+.episode div.download,
+.episode div.limewire {
+  margin: 0 10px 0 0;
+  float: left;
+}
+.episode div.download a.icon {
+  background-image: url("../images/icons/download.png");
+}
+.episode div.limewire a.icon {
+  background-image: url("../images/icons/limewire.png");
+}
+div.episode h1.publish_date {
+  font-size: 2.2em;
+}
 
 
 /**
 /* Reviews
 **/
+div.podcast ul.reviews {
+  margin: 0;
+}
+ul.reviews li.review {
+  position: relative;
+  *height: 0.01%;
+}
+cite {
+  font-style: normal;
+}
+ul.reviews li.review cite {
+  font-style: normal;
+  color: #ABABAB;
+  margin: 0 0 0 0;
+}
+ul.reviews li.review span.rating img {
+  margin-bottom: -2px;
+}
+/*ul.reviews li.review cite a {
+  background-image: url("../images/icons/user.png");
+}*/
+form.edit,
+div.podcast form#new_review {
+  margin: 0;
+}
+div.podcast form#new_review div.field label,
+form.edit div.field label,
+div.podcast div.review form#new_review div.field label {
+  display: none;
+}
+div.podcast form#new_review div.field div,
+form.edit div.field div,
+div.podcast div.review form#new_review div.field div {
+  margin: 0;
+}
+div.podcast form#new_review div.align,
+form.edit div.align,
+div.podcast div.review form#new_review div.align {
+	margin-bottom: 4px;
+	padding: 0;
+}
+div.podcast form#new_review div.align input,
+form.edit div.align input,
+form.edit div.align label,
+div.podcast form#new_review div.align label,
+div.podcast div.review form#new_review div.align input,
+div.podcast div.review form#new_review div.align label {
+  margin-bottom: -2px;
+}
+div.podcast form#new_review div.align label img,
+form.edit div.align label img,
+div.podcast div.review form#new_review div.align label img {
+  height: 14px;
+}
+div.podcast form#new_review div.controls,
+form.edit div.controls,
+div.podcast div.review form#new_review div.controls {
+  padding: 0;
+  margin-top: 10px;
+}
+div.podcast form#new_review div.controls .cancel {
+  display: none;
+}
+div.podcast form#new_review div.field input.text,
+div.podcast div.review form#new_review div.field input.text,
+form.edit div.field input.text,
+form.edit div.field textarea.text,
+div.podcast form#new_review div.field textarea.text,
+div.podcast div.review form#new_review div.field textarea.text {
+  width: 99%;
+}
+.reviews h2 {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.reviews p {
+  padding: 0;
+  margin: 0;
+}
 
 
 /**
  * Adding Podcasts
-*/
-
-
-/**
- * Showing Podcasts
-*/
-
-
-/**
- * Comments
-*/
-
+**/
+form .huge  {
+  white-space: nowrap;
+}
+form .huge .button {
+  font-size: 0.75em;
+  padding: 6px;
+  width: 51px;
+  margin-left: -58px;
+  top: -2px;
+  position:relative;
+}
+div.status_message {
+  margin-bottom: 1em;
+}
+span.arrow_down {
+  background: url("../images/icons/arrow_down.png") no-repeat right center;
+  padding: 0 18px 0 0;
+}
 
 
 /**
  * Static Pages 
-*/
-
+**/
+ol#terms,
+ol#terms ol {
+  margin-left: 42px;
+}
+ol#terms li {
+  list-style: decimal;
+}
+ol#terms strong {
+  font-weight: bold;
+}
+.searched em {
+  font-style: normal;
+  background-color: #515557;
+}
+#privacy ul li {
+  list-style: disc;
+  margin-bottom: 0px;
+}
+#privacy ul {
+  margin: 0 0 14px 28px;
+}
 
 /**
  * Superbutton 
-*/   
+**/   
+.super_button {
+  float: left;
+  white-space: nowrap;
+  display: table-row;
+  height: 47px;
+  padding-left: 20px;
+  background: #515557 url("/images/content/superbutton.png") no-repeat 0 0;
+}
+.super_button .dropdown {
+  display: table-cell;
+  margin-top: 12px;
+  margin-right: 15px;
+  /*background: #333;*/
+}
+.super_button .dropdown ul {
+  position: relative;
+  z-index: 5;
+  padding: 3px;
+  background-color: #555;
+}
+.super_button {
+  float: left;
+  white-space: nowrap;
+  display: table-row;
+  height: 47px;
+  padding-left: 20px;
+  background: #515557 url("/images/content/superbutton.png") no-repeat 0 0;
+}
+.super_button .dropdown {
+  display: table-cell;
+  margin-top: 12px;
+  margin-right: 15px;
+  /*background: #333;*/
+}
+.super_button .dropdown ul {
+  position: relative;
+  z-index: 5;
+  padding: 3px;
+  background-color: #555;
+}
+#content .super_button .dropdown ul li {
+  margin-bottom: 0px;
+}
+.super_button .button {
+  /* background-image: url("/images/content/superbutton.png"); */
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  display: table-cell;
+  height: 47px;
+  overflow: hidden;
+}
+.super_button .button a {
+  display: block;
+  height: 47px;
+  background-image: url("/images/content/superbutton.png");
+  background-repeat: no-repeat;
+}
+.super_button .button.orange a { background-position: right -47px; }
+.super_button .button.green a { background-position: right -94px; }
+.super_button .button a .cap {
+  display: block;
+  height: 47px;
+  padding: 0 0 0 20px;
+  margin: 0 20px 0 0;
+  background-image: url("/images/content/superbutton.png");
+}
+.super_button .button.orange a .cap { background-position: left -47px; }
+.super_button .button.green a .cap { background-position: left -94px; }
+.super_button .button a .label {
+  display: block;
+  padding: 17px 0 2px 0;
+  line-height: 11px;
+  color: #FFF;
+}
+.super_button .button {
+  /* background-image: url("/images/content/superbutton.png"); */
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  display: table-cell;
+  height: 47px;
+  overflow: hidden;
+}
+.super_button .button a {
+  display: block;
+  height: 47px;
+  background-image: url("/images/content/superbutton.png");
+  background-repeat: no-repeat;
+}
+.super_button .button.orange a { background-position: right -47px; }
+.super_button .button.green a { background-position: right -94px; }
+.super_button .button a .cap {
+  display: block;
+  height: 47px;
+  padding: 0 0 0 20px;
+  margin: 0 20px 0 0;
+  background-image: url("/images/content/superbutton.png");
+}
+.super_button .button.orange a .cap { background-position: left -47px; }
+.super_button .button.green a .cap { background-position: left -94px; }
+.super_button .button a .label {
+  display: block;
+  padding: 17px 0 2px 0;
+  line-height: 11px;
+  color: #FFF;
+}
+.super_button ul li.single {
+  background: none !important;
+}
+.super_button ul li.single a {
+  text-decoration: none;
+  cursor: text;
+}
+.super_button ul li.selected {
+  padding: 0 10px 0 0;
+  background: url("/images/icons/select-arrow.png") no-repeat scroll right 8px;
+  overflow: hidden;
+}
 
 

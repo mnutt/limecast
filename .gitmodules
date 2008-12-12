@@ -8,7 +8,7 @@
 	path = vendor/plugins/thinking-sphinx
 	url = git://github.com/freelancing-god/thinking-sphinx.git
 [submodule "vendor/gems/factory_girl"]
-	path = vendor/gems/factory_girl
+	path = vendor/gems/factory_girl-1.1.4
 	url = git://github.com/thoughtbot/factory_girl.git
 [submodule "vendor/plugins/acts_as_state_machine"]
 	path = vendor/plugins/acts_as_state_machine
@@ -20,7 +20,7 @@
 	path = vendor/plugins/delayed_job
 	url = git://github.com/tobi/delayed_job.git
 [submodule "vendor/gems/gchart"]
-	path = vendor/gems/gchart
+	path = vendor/gems/gchart-0.5.0
 	url = git://github.com/abhay/gchart.git
 [submodule "vendor/gems/curb"]
 	path = vendor/gems/curb
@@ -28,3 +28,6 @@
 [submodule "vendor/plugins/exception_notification"]
 	path = vendor/plugins/exception_notification
 	url = git://github.com/rails/exception_notification.git
+[submodule "vendor/plugins/rspec-rails-"]
+	path = vendor/plugins/rspec-rails-
+	url = git://github.com/dchelimsky/rspec-rails.git

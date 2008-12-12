@@ -1,0 +1,13 @@
+<div id="edit_actions" class="clearfix">
+  <% if current_user.admin? && !@podcast.user_is_finder?(current_user) && !@podcast.user_is_owner?(current_user) -%>
+    <span class="label">I can do anything!</span>
+  <% else -%>
+    <span class="label">This is mine!</span>
+  <% end -%>
+  <ul>
+    <li class="edit">
+      <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast) %>
+    </li>
+  </ul>
+  <%= render :partial => "form" -%>
+</div>

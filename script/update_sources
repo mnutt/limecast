@@ -63,6 +63,17 @@ while true
 
     puts "Got: #{info.inspect}"
 
+    # Get a screen shot
+    unless info[:video_codec].nil? || info[:duration].nil?
+      puts "Screenshoting"
+      time = info[:duration] / 3
+      h = time / 60 * 60
+      m = (time - h * 60 * 60) / 60
+      s = time - h * 60 * 60 - m * 60
+
+      `ffmpeg -y -i #{tmp_file} -vframes 1 -ss #{h}:#{m}:#{s} -an -vcodec png -f rawvideo #{tmp_file}_screenshot.png`
+    end
+
     # Updates database with info taken from the video
     puts "Updating"
     source.episode.update_attributes(

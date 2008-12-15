@@ -72,6 +72,9 @@ while true
       s = time - h * 60 * 60 - m * 60
 
       `ffmpeg -y -i #{tmp_file} -vframes 1 -ss #{h}:#{m}:#{s} -an -vcodec png -f rawvideo #{tmp_file}_screenshot.png`
+
+      source.attachment_for(:screenshot).assign(File.open("#{tmp_file}_screenshot.png"))
+      source.save!
     end
 
     # Updates database with info taken from the video

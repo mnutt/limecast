@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081208224044) do
+ActiveRecord::Schema.define(:version => 20081215171837) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -112,7 +112,10 @@ ActiveRecord::Schema.define(:version => 20081208224044) do
     t.integer "episode_id"
     t.string  "format"
     t.integer "feed_id"
-    t.string  "sha1hash",   :limit => 24
+    t.string  "sha1hash",                :limit => 24
+    t.string  "screenshot_file_name"
+    t.string  "stringshot_content_type"
+    t.string  "stringshot_file_size"
   end
 
   create_table "taggings", :force => true do |t|

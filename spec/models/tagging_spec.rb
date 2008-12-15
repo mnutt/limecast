@@ -40,7 +40,7 @@ describe Tagging, "being created" do
 
   it 'should not allow duplicate taggings' do
     tag = Factory.create(:tag)
-    adding_tagging = lambda { Tagging.create!(:taggable => @podcast, :tag => tag) }
+    adding_tagging = lambda { Tagging.create!(:podcast => @podcast, :tag => tag) }
 
     adding_tagging.should change(Tagging, :count).by(1)
     adding_tagging.should raise_error(ActiveRecord::RecordInvalid)

@@ -33,7 +33,10 @@ class Podcast < ActiveRecord::Base
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_many :episodes, :dependent => :destroy
 
-  has_many :taggings, :as => :taggable, :dependent => :destroy, :include => :tag
+  has_many :recommendations
+  has_many :recommended_podcasts, :through => :recommendations, :class_name => 'Podcast', :foreign_key => :related_podcast_id
+
+  has_many :taggings, :dependent => :destroy, :include => :tag
   has_many :tags, :through => :taggings, :order => 'name ASC'
 
   has_attached_file :logo,
@@ -47,7 +50,7 @@ class Podcast < ActiveRecord::Base
     { :conditions => {:id => Feed.parsed.map(&:podcast_id).uniq } }
   }
   named_scope :tagged_with, lambda {|tag|
-    { :conditions => {:id => (Tag.find_by_name(tag).taggings.podcasts.map(&:taggable_id).uniq rescue [])}}
+    { :conditions => {:id => (Tag.find_by_name(tag).podcasts.map(&:id).uniq rescue [])}}
   }
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
 

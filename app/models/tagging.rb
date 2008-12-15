@@ -10,19 +10,17 @@
 #
 
 class Tagging < ActiveRecord::Base
-  belongs_to :taggable, :polymorphic => true
+  belongs_to :podcast
   belongs_to :tag
 
   before_save :map_to_different_tag
 
-  validates_uniqueness_of :tag_id, :scope => :taggable_id, :message => "has already been used on this Podcast"
-
-  named_scope :podcasts, :conditions => {:taggable_type => 'podcast'}
+  validates_uniqueness_of :tag_id, :scope => :podcast_id, :message => "has already been used on this Podcast"
 
   def validate
     if self.tag && self.tag.category?
-      if self.taggable && self.taggable.tags.select {|t| t.category? }.size >= 2
-        errors.add(:taggable, 'already has 2 category tags')
+      if self.podcast && self.podcast.tags.select {|t| t.category? }.size >= 2
+        errors.add(:podcast, 'already has 2 category tags')
       end
     end
   end

@@ -5,6 +5,7 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find_by_name(params[:tag])
-    @podcasts = @tag.taggings.map{|tagging| tagging.taggable}.compact
+    # XXX: @tag.podcasts
+    @podcasts = @tag.podcasts
   end
 end

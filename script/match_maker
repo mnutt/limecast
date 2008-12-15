@@ -2,22 +2,33 @@
 
 require 'config/environment'
 
-COMMON_WORDS_REGEX = Regexp.new('\b' + %w{ a about after all and any an are as at been before
+# Inverted Document Index
+
+COMMON_WORDS_REGEX = /\b(#{%w{ a about after all and any an are as at been before
   be but by can could did down do first for from good great had has
   have her he him his if into in is its it I know like little made man
   may men me more Mr much must my not now no of one only on or other
   our out over said see she should some so such than that their them
   then there these they the this time to two upon up us very was were
-  we what when which who will with would your you }.join("|") + '\b', 'i')
+  we what when which who will with would your you }.join("|")})\b/i
 
 def related_by_sphinx(podcast)
-	return [] if podcast.description.nil?
+	return {} if podcast.description.nil?
 
   description = podcast.description.gsub(COMMON_WORDS_REGEX, "")
+	p description
 
-  results = Podcast.search(description)
-  podcasts = Hash.new { 0 }
-  results.each_with_weighting {}.each {|i| id = i[:attributes]["sphinx_internal_id"]; podcasts[id] = i[:weight] unless id == podcast.id }
+  results = Podcast.search(description, :match_mode => :any)
+  podcasts = {}
+  results.each_with_weighting {}.each do |i|
+		id = i[:attributes]["sphinx_internal_id"]
+		podcasts[id] = i[:weight]
+	end
+
+	podcasts.delete(podcast.id)
+
+	p podcast.id
+	p podcasts
 
   podcasts
 end
@@ -57,3 +68,4 @@ Podcast.all.each do |podcast|
   end
 end
 
+p COMMON_WORDS_REGEX

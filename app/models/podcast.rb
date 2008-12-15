@@ -33,8 +33,8 @@ class Podcast < ActiveRecord::Base
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_many :episodes, :dependent => :destroy
 
-  has_many :recommendations
-  has_many :recommended_podcasts, :through => :recommendations, :class_name => 'Podcast', :foreign_key => :related_podcast_id
+  has_many :recommendations, :order => 'weight DESC'
+  has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast
 
   has_many :taggings, :dependent => :destroy, :include => :tag
   has_many :tags, :through => :taggings, :order => 'name ASC'

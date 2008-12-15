@@ -60,7 +60,7 @@ class Podcast < ActiveRecord::Base
 
   # Search
   define_index do
-    indexes :title, :site, :description
+    indexes :title, :site, :description, :owner_name, :owner_email
     indexes owner.login, :as => :owner
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary

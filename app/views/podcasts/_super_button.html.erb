@@ -27,7 +27,7 @@
   </span>
   
   <span class="submit button orange">
-    <%= link_to "<span class='cap'><span class='label'>Subscribe</span></span>", "#", :class => 'super_button_subscribe' %>
+    <%= link_to "<span class='cap'><span class='label'>Subscribe</span></span>", (feeds.first.url rescue "#"), :class => 'super_button_subscribe' %>
   </span>
 
   <%# for lookup purposes only -%>

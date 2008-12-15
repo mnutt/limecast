@@ -3,28 +3,28 @@
 <p>You searched for '<%=h params[:q] -%>'</p>
 
 <% unless @podcasts.blank? -%>
-<h3>Podcasts</h3>
+<h2>Podcasts</h2>
 <ul>
   <%= render :partial => 'podcast', :collection => @podcasts  -%>
 </ul>
 <% end -%>
 
 <% unless @episodes.blank? -%>
-<h3>Episodes</h3>
+<h2>Episodes</h2>
 <ul>
   <%= render :partial => 'episode', :collection => @episodes  -%>
 </ul>
 <% end -%>
 
 <% unless @reviews.blank? -%>
-<h3>Reviews</h3>
+<h2>Reviews</h2>
 <ul>
   <%= render :partial => 'review', :collection => @reviews  -%>
 </ul>
 <% end -%>
 
 <% unless @users.blank? -%>
-<h3>Users</h3>
+<h2>Users</h2>
 <ul>
   <%= render :partial => 'user', :collection => @users  -%>
 </ul>

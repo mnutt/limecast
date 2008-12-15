@@ -19,23 +19,6 @@ class Source < ActiveRecord::Base
 
   has_attached_file :screenshot
 
-  def download_logo(link)
-    file = PaperClipFile.new
-    file.original_filename = File.basename(link)
-
-    open(link) do |f|
-      return unless f.content_type =~ /^image/
-
-      file.content_type = f.content_type
-      file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
-        tmp.write(f.read)
-        tmp.rewind
-        tmp
-      end
-    end
-
-    self.attachment_for(:screenshot).assign(file)
-  end
   def file_name
     File.basename(self.url)
   end

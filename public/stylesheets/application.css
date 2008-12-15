@@ -237,6 +237,14 @@ span.arrow_down {
 
 
 /**
+ * Search
+**/
+span.search_term {
+  background: #666;
+}
+
+
+/**
  * Static Pages 
 **/
 ol#terms,

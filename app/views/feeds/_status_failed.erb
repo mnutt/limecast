@@ -1,4 +1,4 @@
-<div class="status_message finished">
+<p class="status_message finished">
   <% if @podcast && @feed && @feed.parsed? -%>
     I've already got <%= link_to_podcast(@podcast) -%>!
   <% elsif @feed.error == "RPodcast::InvalidXMLError" -%>
@@ -18,4 +18,4 @@
   <% end -%>
 
   <span class="arrow_down">Try again</span>
-</div>
+</p>

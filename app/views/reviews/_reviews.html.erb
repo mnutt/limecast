@@ -1,24 +1,19 @@
 <% hide_totals = true unless defined?(hide_totals) -%>
 <% episode ||= podcast.episodes.newest.first -%>
 
-<div class="reviews">
-  <h2>Reviews</h2>
+<h2>Reviews</h2>
+<% unless hide_totals -%><p>
+  <%= link_to_with_icon "Positive (#{podcast.reviews.that_are_positive.count})", :thumbs_up, positive_reviews_url(:podcast => podcast) unless podcast.reviews.that_are_positive.count.zero? %>
+  <%= link_to_with_icon "Negative (#{podcast.reviews.that_are_negative.count})", :thumbs_down, negative_reviews_url(:podcast => podcast) unless podcast.reviews.that_are_negative.count.zero? %>
+  <%= link_to "All (#{podcast.reviews.count})", reviews_url(:podcast => podcast) unless podcast.reviews.count.zero? %>
+</p><% end -%>
 
-  <p>
-  <% unless hide_totals -%>
-    <%= link_to_with_icon "Positive (#{podcast.reviews.that_are_positive.count})", :thumbs_up, positive_reviews_url(:podcast => podcast) unless podcast.reviews.that_are_positive.count.zero? %>
-    <%= link_to_with_icon "Negative (#{podcast.reviews.that_are_negative.count})", :thumbs_down, negative_reviews_url(:podcast => podcast) unless podcast.reviews.that_are_negative.count.zero? %>
-    <%= link_to "All (#{podcast.reviews.count})", reviews_url(:podcast => podcast) unless podcast.reviews.count.zero? %>
-  <% end -%>
-  </p>
+<ul class="reviews">
+  <%= render :partial => 'reviews/review', :collection => reviews -%>
+</ul>
 
-  <ul class="reviews">
-    <%= render :partial => 'reviews/review', :collection => reviews -%>
-  </ul>
+<% if can_add_reviews?(episode) %>
+  <%= render :partial => 'reviews/add_review', :object => podcast -%>
+<% end %>
 
-  <% if can_add_reviews?(episode) %>
-    <%= render :partial => 'reviews/add_review', :object => podcast -%>
-  <% end %>
-
-  <% reset_cycle('row_class') %>
-</div>
+<% reset_cycle('row_class') %>

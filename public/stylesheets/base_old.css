@@ -1,101 +1,110 @@
 /***************************************************************************************
 * Base.css
 ***************************************************************************************/
-
-/**
-/* Reset
-**/
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-weight: inherit;
-  font-style: inherit;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline;
-  list-style: none;
-}
-
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-input, button {
-  width: auto;
-  overflow: visible;
-}
-
-
-/**
-/* Layout
-**/
-
 html {
   height: 100%;
 }
 body {
-  height: 100%;
   background-color: #2B2D2F;
   font: 62.5% Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.clear {
+  clear: left;
+}
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    }
+
+.clearfix {display: inline-block;}  /* for IE/Mac */
+
+/** Reset **/
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  padding: 0;
+}
+h3 { /* 14px HACK!! */
+  padding-top: 2px;
+}
+ul, li, dl, dt, dd {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+div#body ul.list {
+  margin: 0 0 14px 2em;
+}
+div#body ul.list li {
+  list-style: disc;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+fieldset, img {
+  border: 0 none;
+}
+a, a:visited {
+  text-decoration: none;
+}
+a:hover {
+  outline: none !important;
+}
+a:hover span {
+  cursor: pointer;
+}
+pre, code {
+  margin: 0;
+  padding: 0;
+}
+form, fieldset, input, textarea, label {
+  margin: 0;
+  padding: 0;
+}
+textarea {
+  overflow: auto;
+}
+input, button {
+  width: auto;
+  overflow: visible;
+}
+table, thead, tbody, tr, th, td {
+  font-size: 1em;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0;
+  padding: 0;
 }
 
-#document {
+/** Basic Typography **/
+h1, h2, h3, h4, h5 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  margin: 0 0 14px 0;
+}
+h1 { font-size: 2.2em; }
+h1.heading { font-size: 1.6em; } /* effectively h2 */
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.1em; }
+div#document {
+  font-size: 1.1em;
   min-height: 100%;
-  min-width: 800px;
-  padding: 0 0 0 0;
-  line-height: 1.3em; /* DO WE NEED THIS? */
 }
 * html div#document {
   height: 100%;
 }
-
-#content { padding-bottom: 50px; }
-
-#content ul.inline li {
-  float: left;
-  margin-right: 0.5em;
+div#layout {
+  font-size: 1.1em;
+  color: #CBCBCB;
+  min-width: 800px;
+  padding: 0 0 34px 0;
 }
-
-.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-.clearfix { display: inline-block; }  /* for IE/Mac */
-
-
-/** The Golden Line Separation Margin **/
-#content p,
-#content ul li,
-#content .super_button,
-#content h1, #content h2, #content h3, #content h4, #content h5 {
-  margin-bottom: 14px;
-}
-
-/** Cancel any Golden Line Separation Margin Here **/
-#content li .super_button {
-  margin-bottom: 0px;
-}
-
-
-/**
-/** Basic Typography
-**/
-h1, h2, h3, h4, h5 {
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: normal;
-}
-h1 { font-size: 2.25em; }
-h1.heading { font-size: 1.6em; } /* effectively h2 */
-h2 { font-size: 1.6em; }
-h3 { font-size: 1.1em; }
-
 a, a:visited {
   text-decoration: underline;
   color: #CBCBCB;
@@ -103,8 +112,11 @@ a, a:visited {
 a:hover {
   color: #E5E5E5;
 }
-a:hover span {
-  cursor: pointer;
+a.user {
+  background-image: url("../images/icons/user.png");
+}
+* html a.icon span {
+  margin: 0 0 0 18px;
 }
 a img.inline_icon {
   margin: -4px 0 0 0;
@@ -120,14 +132,11 @@ span > img.inline_icon {
   position: relative;
   top: 3px;
 }
-cite {
-  font-style: normal;
+h1.icon {
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding: 2px 0 2px 42px;
 }
-div#document {
-  font-size: 1.2em;
-  color: #CBCBCB;
-}
-
 
 /**
 * User Icons
@@ -144,16 +153,19 @@ h1.user_admin { background-image: url("../images/icons/marseilles-astronomical/u
 
 
 /**
-* Header - "Golden Line Separation" doesn't apply here
+* Header
 **/
-div#header {
+div#header_wrapper {
   background: #181818 url("../images/layout/header_border.png") repeat-x left bottom;
   position: relative;
-  padding: 11px 8px;
+}
+div#header {
+  padding: 10px 8px;
 }
 div#header div#title {
   display: inline;
 }
+
 div#header div#title h1 {
   display: inline;
   padding: 0 0 0 2px;
@@ -186,6 +198,7 @@ div#header div#account_bar ul li.search {
   margin-right: -20px;
   position: relative;
 }
+
 div#header div#account_bar ul li.search input.text {
   width: 146px;
   height: 15px;
@@ -201,44 +214,50 @@ div#header div#account_bar ul li.search input.image_button {
   right: 26px;
   position: absolute;
 }
-
+/*div#header div#account_bar ul li.user a,
+div#header div#account_bar ul li.signup a  {
+  background-image: url("../images/icons/user.png");
+}
+*/
 /**
-* Content
+* Body
 **/
-div#content {
+div#body_wrapper {
   width: 100%;
   height: auto;
 /*  min-height: 660px; */
   *width: 99.8%;
 }
-* html div#content {
+* html div#body_wrapper {
   height: 660px;
 }
-div#content div#full_width {
+
+div#body div#full_width {
   margin: 0 auto;
   padding: 30px 90px;
-  position: relative;
+  pasition: relative;
   *height: 0.01%;
 }
-div#content div#primary {
+
+div#body div#primary {
   margin: 0 220px 0 0;
   padding: 30px 30px 30px 230px;
   position: relative;
   *height: 0.01%;
 }
-div#content div#sidebar {
+div#body div#sidebar {
   padding: 30px 30px;
   width: 160px;
   float: right;
 }
-div#content span.notice {
+div#body p {
+  margin: 0 0 14px 0;
+}
+div#body span.notice {
   color: #ABABAB;
 }
 
-
-/**
-/* Buttons
-**/
+/** Buttons **/
 div#body a.button {
   background: url("../images/content/button_bg_left.png") no-repeat left top;
   color: #383838 !important;
@@ -291,13 +310,15 @@ div#body a.action_button:hover span {
 /**
 * Footer
 **/
-div#footer {
+div#footer_wrapper {
   background: #181818 url("../images/layout/footer_border.png") repeat-x left top;
-  height: 30px;
+  height: 50px;
+  margin: -50px 0 0 0;
   position: relative;
+}
+div#footer {
   font-size: 1.1em;
   padding: 10px 8px;
-  margin: -50px 0 0 0;
 }
 div#footer ul {
   clear: both;
@@ -306,10 +327,10 @@ div#footer ul li {
   margin: 0 5px 0 0;
   float: left;
 }
+
 div#footer a {
   color: #AAA;
 }
-
 
 /**
 * Forms
@@ -387,7 +408,6 @@ form div.huge div input.text {
   width: 100%;
 }
 
-
 /**
 * Quick Signin
 **/
@@ -417,22 +437,15 @@ form#quick_signin div.response_container {
 
 
 /**
-* Edit Actions (the edit links at the top of '/show' pages)
-**/
-div#edit_actions span.label {
-  margin-right: 5px;
-  float: left;
-}
-div#edit_actions ul {
-  float: left;
-}
-
-
-/**
  Notices
 **/
 div#primary span#notice {
   background-color: #555;
+  margin: 0 0 15px 0;
   padding: 10px;
   display: block;
+}
+
+div#primary span#notice p {
+  margin: 0;
 }

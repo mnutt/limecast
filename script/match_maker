@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+
+require 'config/environment'
+
+COMMON_WORDS_REGEX = Regexp.new('\b' + %w{ a about after all and any an are as at been before
+  be but by can could did down do first for from good great had has
+  have her he him his if into in is its it I know like little made man
+  may men me more Mr much must my not now no of one only on or other
+  our out over said see she should some so such than that their them
+  then there these they the this time to two upon up us very was were
+  we what when which who will with would your you }.join("|") + '\b', 'i')
+
+def related_by_sphinx(podcast)
+	return [] if podcast.description.nil?
+
+  description = podcast.description.gsub(COMMON_WORDS_REGEX, "")
+
+  results = Podcast.search(description)
+  podcasts = Hash.new { 0 }
+  results.each_with_weighting {}.each {|i| id = i[:attributes]["sphinx_internal_id"]; podcasts[id] = i[:weight] unless id == podcast.id }
+
+  podcasts
+end
+
+def related_by_tags(podcast)
+  with_same_tags = podcast.tags.map {|t| t.podcasts - [podcast] }.flatten
+
+  # Count how many times each podcast is in the array
+  podcasts = Hash.new { 0 }
+  with_same_tags.each do |p|
+    podcasts[p.id] += 1
+  end
+
+  podcasts
+end
+
+def related_by_favorites(podcast)
+  with_same_favorites = Favorite.find_all_by_podcast_id(podcast.id).map(&:user).map {|u| u.favorite_podcasts - [podcast] }.flatten
+
+  podcasts = Hash.new { 0 }
+  with_same_favorites.each do |p|
+    podcasts[p.id] += 1
+  end
+
+  podcasts
+end
+
+Podcast.all.each do |podcast|
+  podcasts = Hash.new { 0 }
+
+  related_by_sphinx(podcast).each    {|k,v| podcasts[k] += v}
+  #related_by_tags(podcast).each      {|k,v| podcasts[k] += v}
+  #related_by_favorites(podcast).each {|k,v| podcasts[k] += v}
+
+  podcasts.each do |k,v|
+    Recommendation.create(:podcast_id => podcast.id, :related_podcast_id => k, :weight => v)
+  end
+end
+

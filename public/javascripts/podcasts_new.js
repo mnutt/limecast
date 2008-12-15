@@ -5,11 +5,13 @@ $(document).ready(function(){
       var feed_url = $('#feed_url').attr('value');
       var form_clone = $('#added_podcast').clone();
       form_clone.attr('id', null);
+      form_clone.find('input[value=Add]').attr('disabled', 'disabled').unbind('click');
       form_clone.find('.text').attr('value', feed_url);
       form_clone.show();
 
       $('#feed_url').val("");
       $('#added_podcast_list').append(form_clone);
+      $("#new_podcast").find('label.default').text(''); // only first input should have the example url
 
 
       // FIX

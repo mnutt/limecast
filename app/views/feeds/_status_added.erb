@@ -1,4 +1,4 @@
-<div class="status_message finished">
+<p class="status_message finished">
   Yum! I've added <%= link_to_podcast(@podcast) -%>
   
   <% if @podcast.respond_to?(:owner) and @podcast.owner -%>
@@ -19,4 +19,4 @@
     $('#account_bar li.user, #account_bar li.signup').html('<%= escape_javascript link_to_profile(current_user) %>'); }
   <% end -%>
   </script>
-</div>
+</p>

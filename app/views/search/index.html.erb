@@ -4,28 +4,28 @@
 
 <% unless @podcasts.blank? -%>
 <h2>Podcasts</h2>
-<ul>
+<ul class="search_results">
   <%= render :partial => 'podcast', :collection => @podcasts  -%>
 </ul>
 <% end -%>
 
 <% unless @episodes.blank? -%>
 <h2>Episodes</h2>
-<ul>
+<ul class="search_results">
   <%= render :partial => 'episode', :collection => @episodes  -%>
 </ul>
 <% end -%>
 
 <% unless @reviews.blank? -%>
 <h2>Reviews</h2>
-<ul>
+<ul class="search_results">
   <%= render :partial => 'review', :collection => @reviews  -%>
 </ul>
 <% end -%>
 
 <% unless @users.blank? -%>
 <h2>Users</h2>
-<ul>
+<ul class="search_results">
   <%= render :partial => 'user', :collection => @users  -%>
 </ul>
 <% end -%>

@@ -9,7 +9,7 @@
   <% if @user == current_user -%>
     <div id="edit_actions" class="clearfix">
       <span class="label">This is me!</span>
-      <ul>
+      <ul class="inline clearfix">
         <li class="edit">
           <%= link_to_with_icon "Edit", :edit, edit_user_url(current_user) %>
         </li>

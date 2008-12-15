@@ -70,9 +70,7 @@ body {
 .clearfix { display: inline-block; }  /* for IE/Mac */
 
 
-/**
-* The Golden Line Separation Margin
-**/
+/** The Golden Line Separation Margin **/
 #content p,
 #content ul li,
 #content .super_button,
@@ -80,9 +78,7 @@ body {
   margin-bottom: 14px;
 }
 
-/**
-* Cancel any Line Separation Margin Here
-**/
+/** Cancel any Golden Line Separation Margin Here **/
 #content li .super_button {
   margin-bottom: 0px;
 }
@@ -148,7 +144,7 @@ h1.user_admin { background-image: url("../images/icons/marseilles-astronomical/u
 
 
 /**
-* Header - "14px universality" doesn't apply here
+* Header - "Golden Line Separation" doesn't apply here
 **/
 div#header {
   background: #181818 url("../images/layout/header_border.png") repeat-x left bottom;
@@ -421,15 +417,22 @@ form#quick_signin div.response_container {
 
 
 /**
+* Edit Actions (the edit links at the top of '/show' pages)
+**/
+div#edit_actions span.label {
+  margin-right: 5px;
+  float: left;
+}
+div#edit_actions ul {
+  float: left;
+}
+
+
+/**
  Notices
 **/
 div#primary span#notice {
   background-color: #555;
-  /*margin: 0 0 15px 0;*/
   padding: 10px;
   display: block;
-}
-
-div#primary span#notice p {
-  margin: 0;
 }

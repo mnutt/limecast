@@ -1,3 +1,4 @@
+
 /**
 * Quick Sign In/Up
 **/
@@ -54,17 +55,6 @@ div.user div.picture img {
 div.user li.podcast {
   float: none;
 }
-div.user div#edit_actions span.label {
-  float: left;
-}
-div.user div#edit_actions ul {
-  margin: 0 0 5px 0;
-  float: left;
-}
-div.user div#edit_actions ul li {
-  margin: 0 0 0 5px;
-  float: left;
-}
 
 
 /**
@@ -101,18 +91,6 @@ div.podcast div.cover span.border {
   z-index: 1;
 }
 div.podcast .episode_info { clear: left; } /* HACK this shouldn't be the solution; remove float from SuperButton instead */ 
-div.podcast div#edit_actions span.label {
-  float: left;
-}
-div.podcast div#edit_actions ul {
-  margin: 0 0 5px 0;
-  float: left;
-}
-div.podcast div#edit_actions ul li {
-  margin: 0 0 0 5px;
-  float: left;
-}
-
 
 /**
 /* Episodes
@@ -169,20 +147,14 @@ div.episode h1.publish_date {
 /**
 /* Reviews
 **/
-div.podcast ul.reviews {
-  margin: 0;
-}
 ul.reviews li.review {
   position: relative;
   *height: 0.01%;
 }
-cite {
-  font-style: normal;
-}
 ul.reviews li.review cite {
   font-style: normal;
   color: #ABABAB;
-  margin: 0 0 0 0;
+  margin: 0;
 }
 ul.reviews li.review span.rating img {
   margin-bottom: -2px;
@@ -190,10 +162,6 @@ ul.reviews li.review span.rating img {
 /*ul.reviews li.review cite a {
   background-image: url("../images/icons/user.png");
 }*/
-form.edit,
-div.podcast form#new_review {
-  margin: 0;
-}
 div.podcast form#new_review div.field label,
 form.edit div.field label,
 div.podcast div.review form#new_review div.field label {
@@ -242,11 +210,9 @@ div.podcast div.review form#new_review div.field textarea.text {
 }
 .reviews h2 {
   padding-bottom: 0;
-  margin-bottom: 0;
 }
 .reviews p {
   padding: 0;
-  margin: 0;
 }
 
 
@@ -263,9 +229,6 @@ form .huge .button {
   margin-left: -58px;
   top: -2px;
   position:relative;
-}
-div.status_message {
-  margin-bottom: 1em;
 }
 span.arrow_down {
   background: url("../images/icons/arrow_down.png") no-repeat right center;

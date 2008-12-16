@@ -1,0 +1,33 @@
+<h1><%= @podcast.title %></h1>
+<p><%= @podcast.description %></p>
+<p>
+  tags:
+  <% @podcast.tags.each do |t| %>
+    <u><%= t.name %></u>
+  <% end %>
+</p>
+<p>
+  favoriters:
+  <% @podcast.favorites.each do |f| %>
+    <u><%= f.user.login %></u>
+  <% end %>
+</p>
+
+<% @podcast.recommended_podcasts.each do |p| %>
+  <div style="border:1px solid #000; margin: 10px 100px; padding: 10px;">
+  <h2><%= p.title %></h2>
+  <p><%= p.description %></p>
+  <p>
+    tags:
+    <% p.tags.each do |t| %>
+      <u><%= t.name %></u>
+    <% end %>
+  </p>
+  <p>
+    favoriters:
+    <% p.favorites.each do |f| %>
+      <u><%= f.user.login %></u>
+    <% end %>
+  </p>
+</div>
+<% end %>

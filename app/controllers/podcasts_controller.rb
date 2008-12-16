@@ -5,6 +5,10 @@ class PodcastsController < ApplicationController
     @podcasts = Podcast.parsed.sorted
   end
 
+  def recs
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+  end
+
   def show
     @podcast = Podcast.find_by_clean_url(params[:podcast])
     raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?

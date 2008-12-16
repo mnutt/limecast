@@ -47,6 +47,7 @@ ActionController::Routing::Routes.draw do |map|
   map.guide       '/guide',       :controller => 'home',     :action => 'guide'
 
   map.cover            '/:podcast/cover',            :controller => 'podcasts', :action => 'cover'
+  map.recs             '/:podcast/recs',            :controller => 'podcasts', :action => 'recs'
   map.rate_review      '/:podcast/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
   map.positive_reviews '/:podcast/reviews/positive', :controller => 'reviews', :filter => 'positive'
   map.negative_reviews '/:podcast/reviews/negative', :controller => 'reviews', :filter => 'negative'

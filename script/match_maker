@@ -56,6 +56,41 @@ def related_by_favorites(podcast)
   podcasts
 end
 
+def build_inverted_index
+	index = {}
+  Podcast.all.each do |p|
+    if p.description
+       words = p.description.gsub(/[^a-z0-9\s]/i, "").split
+       words.each do |w|
+				 index[w] ||= []
+				 index[w] << p.id
+			 end
+	 	end
+  end
+
+	index
+end
+
+def sort_inverted_index(index)
+	index.to_a.sort_by {|a| a.last.size }
+end
+
+def compact_index(index)
+	index.each {|k,v| v.uniq! }
+end
+
+def remove_uncommon_words(index)
+	index.delete_if {|k,v| v.size == 1 }
+end
+
+def remove_extremely_common_words(index)
+	index.delete_if {|k,v| v.size > 6 }
+end
+
+puts sort_inverted_index(remove_uncommon_words(remove_extremely_common_words(compact_index(build_inverted_index))))
+
+__END__
+
 Podcast.all.each do |podcast|
   podcasts = Hash.new { 0 }
 

@@ -110,14 +110,13 @@ Recommendation.destroy_all
 Podcast.all.each do |podcast|
   podcasts = Hash.new { 0 }
 
-  related_by_sphinx(podcast).each                {|k,v| podcasts[k] += v * 1}
-  related_by_tags(podcast).each                  {|k,v| podcasts[k] += v * 5}
+  #related_by_sphinx(podcast).each                {|k,v| podcasts[k] += v * 1}
+  related_by_tags(podcast).each                  {|k,v| podcasts[k] += v * 1}
   related_by_favorites(podcast).each             {|k,v| podcasts[k] += v * 10}
-	related_by_inverted_index(podcast, index).each {|k,v| podcasts[k] += v * 2}
+	#related_by_inverted_index(podcast, index).each {|k,v| podcasts[k] += v * 2}
 
   podcasts.each do |k,v|
     Recommendation.create(:podcast_id => podcast.id, :related_podcast_id => k, :weight => v)
   end
 end
 
-p COMMON_WORDS_REGEX

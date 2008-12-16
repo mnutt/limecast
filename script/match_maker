@@ -69,23 +69,10 @@ def build_inverted_index
 	 	end
   end
 
-	index
-end
-
-def sort_inverted_index(index)
-	index.to_a.sort_by {|a| a.last.size }
-end
-
-def compact_index(index)
-	index.each {|k,v| v.uniq! }
-end
-
-def remove_uncommon_words(index)
-	index.delete_if {|k,v| v.size < 2 }
-end
-
-def remove_extremely_common_words(index)
-	index.delete_if {|k,v| v.size > 6 }
+	index.
+		each      {|k,v| v.uniq! }.     # Removes the duplicates of each word in a podcast
+	  delete_if {|k,v| v.uniq.size == 1 }. # Removes words that only appear in 1 podcast
+	  delete_if {|k,v| v.uniq.size > 6 }   # Removes words that appear more than 6 podcasts
 end
 
 def related_by_inverted_index(podcast, index)
@@ -103,17 +90,16 @@ def related_by_inverted_index(podcast, index)
 	podcasts
 end
 
-index = remove_uncommon_words(remove_extremely_common_words(compact_index(build_inverted_index)))
-sorted_index = sort_inverted_index(index)
+@index = build_inverted_index
 
 Recommendation.destroy_all
 Podcast.all.each do |podcast|
   podcasts = Hash.new { 0 }
 
-  #related_by_sphinx(podcast).each                {|k,v| podcasts[k] += v * 1}
-  related_by_tags(podcast).each                  {|k,v| podcasts[k] += v * 5}
-  related_by_favorites(podcast).each             {|k,v| podcasts[k] += v * 10}
-	related_by_inverted_index(podcast, index).each {|k,v| podcasts[k] += v * 3}
+  #related_by_sphinx(podcast).each                 {|k,v| podcasts[k] += v * 1}
+  related_by_tags(podcast).each                   {|k,v| podcasts[k] += v * 5}
+  related_by_favorites(podcast).each              {|k,v| podcasts[k] += v * 10}
+	related_by_inverted_index(podcast, @index).each {|k,v| podcasts[k] += v * 3}
 
   podcasts.each do |k,v|
     Recommendation.create(:podcast_id => podcast.id, :related_podcast_id => k, :weight => v)

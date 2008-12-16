@@ -15,7 +15,7 @@
 
 <% @podcast.recommended_podcasts.each do |p| %>
   <div style="border:1px solid #000; margin: 10px 100px; padding: 10px;">
-  <h2><%= p.title %></h2>
+  <h2><%= link_to p.title, recs_url(p) %></h2>
   <p><%= p.description %></p>
   <p>
     tags:

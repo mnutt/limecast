@@ -56,6 +56,7 @@ def related_by_favorites(podcast)
   podcasts
 end
 
+# Inverted index crap
 def build_inverted_index
 	index = {}
   Podcast.all.each do |p|
@@ -80,23 +81,39 @@ def compact_index(index)
 end
 
 def remove_uncommon_words(index)
-	index.delete_if {|k,v| v.size == 1 }
+	index.delete_if {|k,v| v.size < 2 }
 end
 
 def remove_extremely_common_words(index)
 	index.delete_if {|k,v| v.size > 6 }
 end
 
-puts sort_inverted_index(remove_uncommon_words(remove_extremely_common_words(compact_index(build_inverted_index))))
+def related_by_inverted_index(podcast, index)
+	return {} if podcast.description.nil?
 
-__END__
+  words = podcast.description.gsub(/[^a-z0-9\s]/i, "").split
 
+	recommended = words.map {|w| index[w] if index.has_key?(w) }.compact.flatten
+
+  podcasts = Hash.new { 0 }
+	recommended.each do |id|
+		podcasts[id] += 1
+	end
+
+	podcasts
+end
+
+index = remove_uncommon_words(remove_extremely_common_words(compact_index(build_inverted_index)))
+sorted_index = sort_inverted_index(index)
+
+Recommendation.destroy_all
 Podcast.all.each do |podcast|
   podcasts = Hash.new { 0 }
 
-  related_by_sphinx(podcast).each    {|k,v| podcasts[k] += v}
-  #related_by_tags(podcast).each      {|k,v| podcasts[k] += v}
-  #related_by_favorites(podcast).each {|k,v| podcasts[k] += v}
+  related_by_sphinx(podcast).each                {|k,v| podcasts[k] += v * 1}
+  related_by_tags(podcast).each                  {|k,v| podcasts[k] += v * 5}
+  related_by_favorites(podcast).each             {|k,v| podcasts[k] += v * 10}
+	related_by_inverted_index(podcast, index).each {|k,v| podcasts[k] += v * 2}
 
   podcasts.each do |k,v|
     Recommendation.create(:podcast_id => podcast.id, :related_podcast_id => k, :weight => v)

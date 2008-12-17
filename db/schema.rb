@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081215215048) do
+ActiveRecord::Schema.define(:version => 20081217185331) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -124,6 +124,9 @@ ActiveRecord::Schema.define(:version => 20081215215048) do
     t.string  "screenshot_file_name"
     t.string  "stringshot_content_type"
     t.string  "stringshot_file_size"
+    t.string  "preview_file_name"
+    t.string  "preview_content_type"
+    t.string  "preview_file_size"
   end
 
   create_table "taggings", :force => true do |t|

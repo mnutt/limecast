@@ -18,6 +18,7 @@ class Source < ActiveRecord::Base
   belongs_to :episode
 
   has_attached_file :screenshot
+  has_attached_file :preview
 
   def file_name
     File.basename(self.url)

@@ -63,8 +63,8 @@ while true
 
     puts "Got: #{info.inspect}"
 
-    # Get a screen shot
     unless info[:video_codec].nil? || info[:duration].nil?
+      # Get a screen shot
       puts "Screenshoting"
       time = info[:duration] / 3
       h = time / 60 * 60
@@ -75,7 +75,27 @@ while true
 
       source.attachment_for(:screenshot).assign(File.open("#{tmp_file}_screenshot.png"))
       source.save!
+
+      # Create flv
+      puts "FLV'ing"
+      length            = "00:05:00"
+      video_bitrate     = 512
+      video_frame_rate  = 30
+      audio_bitrate     = 128
+      audio_sample_rate = 44100
+      aspect_ratio      = '4:3'
+      size              = '320x240'
+
+      command = "ffmpeg -i #{tmp_file} -f flv -ac 1 " +
+        "-ar #{audio_sample_rate} -ab #{audio_bit_rate} " +
+        "-r  #{video_frame_rate}  -b  #{video_bit_rate} " +
+        "-aspect #{aspect_ratio}  -s  #{size} " +
+        "-t #{duration} #{tmp_file}.flv"
+
+      `#{command}`
     end
+
+    # 
 
     # Updates database with info taken from the video
     puts "Updating"

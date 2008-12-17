@@ -1,32 +1,48 @@
 <% javascript_include 'search_term_context' -%>
 
-<p>You searched for '<%=h params[:q] -%>'</p>
-
-<% unless @podcasts.blank? -%>
-<h2>Podcasts</h2>
-<ul class="search_results">
-  <%= render :partial => 'podcast', :collection => @podcasts  -%>
-</ul>
-<% end -%>
-
-<% unless @episodes.blank? -%>
-<h2>Episodes</h2>
-<ul class="search_results">
-  <%= render :partial => 'episode', :collection => @episodes  -%>
-</ul>
-<% end -%>
-
-<% unless @reviews.blank? -%>
-<h2>Reviews</h2>
-<ul class="search_results">
-  <%= render :partial => 'review', :collection => @reviews  -%>
-</ul>
-<% end -%>
+<p>
+  '<%= @q -%>' appears in <%= pluralize @podcast_groups.size, 'podcast title' %>, 
+                          <%= pluralize @podcast_groups.count(Episode) , "episodes" %>,
+                          <%= pluralize @podcast_groups.count(Feed) , "feed address" %>,
+                          <%= pluralize @podcast_groups.count(Podcast), "descriptions" %>, and
+                          <%= pluralize @podcast_groups.count(Review), "reviews" %>.
+</p>
 
 <% unless @users.blank? -%>
 <h2>Users</h2>
 <ul class="search_results">
   <%= render :partial => 'user', :collection => @users  -%>
+</ul>
+<% end -%>
+
+<% unless @tags.blank? -%>
+<h2>Users</h2>
+<ul class="search_results">
+  <%= render :partial => 'user', :collection => @users  -%>
+</ul>
+<% end -%>
+
+
+<% unless @podcast_groups.blank? -%>
+<h2>Podcasts Grouping</h2>
+<ul class="podcast_results">
+  <% @podcast_groups.each_pair do |id, objs| -%>
+  <% podcast = @podcasts.find { |p| p.id == id } -%>
+  <li>
+    <p>
+      <%= link_to_podcast podcast -%>
+      <span class="searched"><%= podcast.description -%></span>
+    </p>
+      
+    <ul>
+      <% objs.each do |o| -%>
+        <%= render :partial => o.class.to_s.downcase, :object => o %>
+      <% end -%>
+    </ul>
+  
+    <p>More results from <%= link_to "#{podcast.title}&hellip;", podcast_url(podcast) %></p>
+  </li>
+  <% end -%>
 </ul>
 <% end -%>
 

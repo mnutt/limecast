@@ -239,6 +239,9 @@ span.arrow_down {
 /**
  * Search
 **/
+ul.podcast_results ul {
+  margin-left: 20px;
+}
 span.search_term {
   background: #666;
 }

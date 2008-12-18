@@ -45,6 +45,12 @@ class Feed < ActiveRecord::Base
 
   attr_accessor :content
 
+  define_index do
+    indexes :url
+
+    has :created_at
+  end
+
   def refresh
     fetch
     parse

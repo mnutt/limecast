@@ -1,11 +1,11 @@
 <% javascript_include 'search_term_context' -%>
 
 <p>
-  '<%= @q -%>' appears in <u><%= pluralize @podcast_groups.size, 'podcast title' %></u>, 
-                          <u><%= pluralize @podcast_groups.count(Episode) , "episodes" %></u>,
-                          <u><%= pluralize @podcast_groups.count(Feed) , "feed address" %></u>,
-                          <u><%= pluralize @podcast_groups.count(Podcast), "descriptions" %></u>, and
-                          <u><%= pluralize @podcast_groups.count(Review), "reviews" %></u>.
+  '<%= @q -%>' appears in <%= link_to pluralize(@podcast_groups.size, 'podcast title'), "" %>, 
+                          <%= link_to pluralize(@podcast_groups.count(Episode) , "episodes"), "" %>,
+                          <%= link_to pluralize(@podcast_groups.count(Feed) , "feed address"), "" %>,
+                          <%= link_to pluralize(@podcast_groups.count(Podcast), "descriptions"), "" %>, and
+                          <%= link_to pluralize(@podcast_groups.count(Review), "reviews"), "" %>.
 </p>
 
 <%= "Tag #{@tags.map { |t| link_to t.name, tag_url(:tag => t) }.to_sentence}" unless @tags.blank? %>

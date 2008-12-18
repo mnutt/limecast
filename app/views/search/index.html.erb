@@ -1,11 +1,11 @@
 <% javascript_include 'search_term_context' -%>
 
 <p>
-  '<%= @q -%>' appears in <%= pluralize @podcast_groups.size, 'podcast title' %>, 
-                          <%= pluralize @podcast_groups.count(Episode) , "episodes" %>,
-                          <%= pluralize @podcast_groups.count(Feed) , "feed address" %>,
-                          <%= pluralize @podcast_groups.count(Podcast), "descriptions" %>, and
-                          <%= pluralize @podcast_groups.count(Review), "reviews" %>.
+  '<%= @q -%>' appears in <u><%= pluralize @podcast_groups.size, 'podcast title' %></u>, 
+                          <u><%= pluralize @podcast_groups.count(Episode) , "episodes" %></u>,
+                          <u><%= pluralize @podcast_groups.count(Feed) , "feed address" %></u>,
+                          <u><%= pluralize @podcast_groups.count(Podcast), "descriptions" %></u>, and
+                          <u><%= pluralize @podcast_groups.count(Review), "reviews" %></u>.
 </p>
 
 <% unless @users.blank? -%>

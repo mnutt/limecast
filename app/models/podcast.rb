@@ -71,7 +71,7 @@ class Podcast < ActiveRecord::Base
     indexes episodes.summary, :as => :episode_summary
     indexes tags.name, :as => :tag_name # includes badges
     indexes feeds.url, :as => :feed_url
-    
+
     has :created_at
   end
 

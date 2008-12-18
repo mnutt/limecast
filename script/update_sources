@@ -106,8 +106,6 @@ while true
       source.save!
     end
 
-    # 
-
     # Updates database with info taken from the video
     puts "Updating"
     source.episode.update_attributes(

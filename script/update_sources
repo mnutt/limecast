@@ -44,7 +44,7 @@ end
 while true
   begin
     # Sleep 30 minutes until a source is found
-    sleep 30.minutes until source = Source.find_by_sha1hash(nil)
+    sleep 30.minutes.to_i until source = Source.find_by_sha1hash(nil)
 
     tmp_file = "/tmp/source#{source.id}"
 
@@ -87,12 +87,14 @@ while true
       size              = '320x240'
 
       command = "ffmpeg -i #{tmp_file} -f flv -ac 1 " +
-        "-ar #{audio_sample_rate} -ab #{audio_bit_rate} " +
-        "-r  #{video_frame_rate}  -b  #{video_bit_rate} " +
+        "-ar #{audio_sample_rate} -ab #{audio_bitrate}k " +
+        "-r  #{video_frame_rate}  -b  #{video_bitrate}k " +
         "-aspect #{aspect_ratio}  -s  #{size} " +
-        "-t #{duration} #{tmp_file}.flv"
+        "-t #{length} #{tmp_file}.flv"
 
       `#{command}`
+      source.attachment_for(:preview).assign(File.open("#{tmp_file}.flv"))
+      source.save!
     end
 
     # 

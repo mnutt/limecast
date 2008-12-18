@@ -13,7 +13,6 @@
 <%= "User #{@users.map { |u| link_to_profile u }.to_sentence}" unless @users.blank? %>
 
 <% unless @podcast_groups.blank? -%>
-<h2>Podcasts Grouping</h2>
 <ul class="podcast_results">
   <% @podcast_groups.each_pair do |id, objs| -%>
   <% podcast = @podcasts.find { |p| p.id == id } -%>

@@ -21,4 +21,16 @@ class Tag < ActiveRecord::Base
   validates_uniqueness_of :name
 
   named_scope :badges, :conditions => {:badge => true}
+
+  # Search
+  define_index do
+    indexes :name, :badge
+  end
+
+  # Instance Methods
+  def to_param
+    name
+  end
+
+
 end

@@ -1,11 +1,13 @@
 class SearchController < ApplicationController
   def index
     @q = params[:q]
-    @users    = User.search(@q)
-    @feeds    = Feed.search(@q)
-    @episodes = Episode.search(@q)
-    @reviews  = Review.search(@q, :include => [:episode])
-    @podcasts = Podcast.search(@q)
+    @users    = User.search(@q).compact
+    @tags     = Tag.search(@q).compact
+    @feeds    = Feed.search(@q).compact
+    @episodes = Episode.search(@q).compact
+    @reviews  = Review.search(@q)
+    puts "The reviews are #{@reviews.size}"
+    @podcasts = Podcast.search(@q).compact
     
     @podcast_groups = {}
     def @podcast_groups.add(obj, podcast_id); (self[podcast_id] ||= []) << obj; end

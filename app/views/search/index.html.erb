@@ -8,20 +8,9 @@
                           <u><%= pluralize @podcast_groups.count(Review), "reviews" %></u>.
 </p>
 
-<% unless @users.blank? -%>
-<h2>Users</h2>
-<ul class="search_results">
-  <%= render :partial => 'user', :collection => @users  -%>
-</ul>
-<% end -%>
+<%= "Tag #{@tags.map { |t| link_to t.name, tag_url(:tag => t) }.to_sentence}" unless @tags.blank? %>
 
-<% unless @tags.blank? -%>
-<h2>Users</h2>
-<ul class="search_results">
-  <%= render :partial => 'user', :collection => @users  -%>
-</ul>
-<% end -%>
-
+<%= "User #{@users.map { |u| link_to_profile u }.to_sentence}" unless @users.blank? %>
 
 <% unless @podcast_groups.blank? -%>
 <h2>Podcasts Grouping</h2>
@@ -35,12 +24,14 @@
     </p>
       
     <ul>
-      <% objs.each do |o| -%>
+      <% objs[0..2].each do |o| -%>
         <%= render :partial => o.class.to_s.downcase, :object => o %>
       <% end -%>
     </ul>
   
+    <% if objs.size > 3 -%>
     <p>More results from <%= link_to "#{podcast.title}&hellip;", podcast_url(podcast) %></p>
+    <% end -%>
   </li>
   <% end -%>
 </ul>

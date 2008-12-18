@@ -19,4 +19,6 @@ class Tag < ActiveRecord::Base
   validates_format_of     :name, :with => /^[a-z0-9]+$/
   validates_length_of     :name, :in => 1..32
   validates_uniqueness_of :name
+
+  named_scope :badges, :conditions => {:badge => true}
 end

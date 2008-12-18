@@ -32,12 +32,14 @@ class Podcast < ActiveRecord::Base
   has_many :feeds, :dependent => :destroy, :include => :first_source,
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_many :episodes, :dependent => :destroy
+  has_many :reviews, :through => :episodes
 
   has_many :recommendations, :order => 'weight DESC'
   has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast
 
   has_many :taggings, :dependent => :destroy, :include => :tag
   has_many :tags, :through => :taggings, :order => 'name ASC'
+  has_many :badges, :source => :tag, :through => :taggings, :conditions => {:badge => true}, :order => 'name ASC'
 
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
@@ -67,7 +69,9 @@ class Podcast < ActiveRecord::Base
     indexes owner.login, :as => :owner
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary
-
+    indexes tags.name, :as => :tag_name # includes badges
+    indexes feeds.url, :as => :feed_url
+    
     has :created_at
   end
 
@@ -108,10 +112,6 @@ class Podcast < ActiveRecord::Base
     primary_feed_without_default
   end
   alias_method_chain :primary_feed, :default
-
-  def reviews
-    Review.for_podcast(self)
-  end
 
   def just_created?
     self.created_at > 2.minutes.ago

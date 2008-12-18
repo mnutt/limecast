@@ -11,6 +11,8 @@
 
   <div class="full">
     <p class="description"><%=sanitize_condensed_summary episode.summary -%></p>
+
+                <%= render :partial => 'episodes/video_player', :object => episode if episode.sources.first.preview.exists? -%>
     <%= render :partial => 'episodes/audio_player', :object => episode if episode.audio_source -%>
     <%= render :partial => 'episodes/super_button', :locals => {:sources => episode.sources} -%>
   </div>

@@ -17,3 +17,4 @@ tmp/restart.txt
 *.swp
 backups/*
 public/screenshots
+public/previews

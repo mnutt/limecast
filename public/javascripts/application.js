@@ -86,3 +86,25 @@ $(document).ready(function(){
 $(window).bind("load", function() {
   $('img.reflect').reflect({height: 0.3, opacity: 0.3});
 });
+
+/**************************************************************
+* Video Preview
+**************************************************************/
+$(document).ready(function() {
+  $(".preview a").click(function() {
+    var flashvars = {
+      videoURL: $(this).attr('rel'),
+      playOnOpen: true
+    };
+
+    $(this).parent('div').empty().flash({
+      src:       "/flash/LimePlayer.swf",
+      width:     425,
+      height:    355,
+      flashvars: flashvars
+    });
+
+    return false;
+  });
+});
+

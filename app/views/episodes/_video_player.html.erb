@@ -1,0 +1,4 @@
+<% episode = video_player -%>
+<div class="preview">
+  <%= link_to image_tag(episode.sources.first.screenshot.to_s, :height => 355), "#", :rel => episode.sources.first.preview %>
+</div>

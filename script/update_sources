@@ -9,6 +9,7 @@ def parse_ffmpeg_info(raw_info)
     :video_codec => parse_video_codec(raw_info),
     :audio_codec => parse_audio_codec(raw_info),
     :resolution  => [*parse_resolution(raw_info)],
+    :file_format => parse_file_format(raw_info),
   }
 end
 
@@ -22,6 +23,10 @@ def parse_duration(raw_info)
 	end
 rescue
   nil
+end
+
+def parse_file_format(raw_info)
+  $1 if raw_info =~ /Input \#0, ([^,]*)/
 end
 
 def parse_resolution(raw_info)
@@ -112,11 +117,11 @@ while true
       :duration => info[:duration]
     )
     source.feed.update_attributes(
-			:format   => info[:video_codec] || info[:audio_codec],
+			:format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
       :bitrate  => info[:bitrate]
     )
     source.update_attributes(
-      :format   => info[:video_codec] || info[:audio_codec],
+      :format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
       :sha1hash => sha1hash
     )
   ensure

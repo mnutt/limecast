@@ -8,6 +8,8 @@ def parse_ffmpeg_info(raw_info)
     :bitrate     => parse_bitrate(raw_info),
     :video_codec => parse_video_codec(raw_info),
     :audio_codec => parse_audio_codec(raw_info),
+    :resolution  => [*parse_resolution(raw_info)],
+    :file_format => parse_file_format(raw_info),
   }
 end
 
@@ -21,6 +23,14 @@ def parse_duration(raw_info)
 	end
 rescue
   nil
+end
+
+def parse_file_format(raw_info)
+  $1 if raw_info =~ /Input \#0, ([^,]*)/
+end
+
+def parse_resolution(raw_info)
+  [$1, $2].map(&:to_i) if raw_info =~ /([\d]{3,4})x([\d]{3,4})/
 end
 
 def parse_bitrate(raw_info)
@@ -83,21 +93,23 @@ while true
       video_frame_rate  = 30
       audio_bitrate     = 128
       audio_sample_rate = 44100
-      aspect_ratio      = '4:3'
-      size              = '320x240'
 
-      command = "ffmpeg -i #{tmp_file} -f flv -ac 1 " +
-        "-ar #{audio_sample_rate} -ab #{audio_bitrate}k " +
-        "-r  #{video_frame_rate}  -b  #{video_bitrate}k " +
-        "-aspect #{aspect_ratio}  -s  #{size} " +
-        "-t #{length} #{tmp_file}.flv"
+      # Use fancy mathematics to keep videos from being stretched into 320x240
+      width  = 320
+      height = width.to_f/info[:resolution][0] * info[:resolution][1]
+      size   = [width, height].join("x")
 
-      `#{command}`
+      options = { :i  => tmp_file,          :f  => :flv,
+                  :ac => 1,                 :b  => video_bitrate,
+                  :r  => video_frame_rate,  :ab => audio_bitrate,
+                  :ar => audio_sample_rate, :t  => length,
+                  :s  => size
+                }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
+
+      `ffmpeg #{options} #{tmp_file}.flv`
       source.attachment_for(:preview).assign(File.open("#{tmp_file}.flv"))
       source.save!
     end
-
-    # 
 
     # Updates database with info taken from the video
     puts "Updating"
@@ -105,11 +117,11 @@ while true
       :duration => info[:duration]
     )
     source.feed.update_attributes(
-			:format   => info[:video_codec] || info[:audio_codec],
+			:format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
       :bitrate  => info[:bitrate]
     )
     source.update_attributes(
-      :format   => info[:video_codec] || info[:audio_codec],
+      :format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
       :sha1hash => sha1hash
     )
   ensure

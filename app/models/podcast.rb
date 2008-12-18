@@ -67,9 +67,11 @@ class Podcast < ActiveRecord::Base
   define_index do
     indexes :title, :site, :description, :owner_name, :owner_email
     indexes owner.login, :as => :owner
-    # indexes episodes.title, :as => :episode_title
-    # indexes episodes.summary, :as => :episode_summary
-    
+    indexes episodes.title, :as => :episode_title
+    indexes episodes.summary, :as => :episode_summary
+    indexes tags.name, :as => :tag_name # includes badges
+    indexes feeds.url, :as => :feed_url
+
     has :created_at
   end
 

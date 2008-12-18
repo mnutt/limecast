@@ -6,7 +6,7 @@ class SearchController < ApplicationController
     @episodes = Episode.search(@q)
     @reviews  = Review.search(@q, :include => [:episode])
     @podcasts = Podcast.search(@q)
-    
+
     @podcast_groups = {}
     def @podcast_groups.add(obj, podcast_id); (self[podcast_id] ||= []) << obj; end
     def @podcast_groups.count(klass); self.inject(0) { |count, p| count + p[1].select { |o| o.is_a?(klass) }.size }; end

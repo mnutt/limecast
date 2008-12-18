@@ -19,7 +19,7 @@
   <li>
     <p>
       <%= link_to_podcast podcast -%>
-      <span class="searched"><%= podcast.description -%></span>
+      <% if objs.include?(podcast) -%><span class="searched"><%= podcast.description -%></span><% end -%>
     </p>
       
     <ul>

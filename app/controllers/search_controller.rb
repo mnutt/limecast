@@ -6,7 +6,6 @@ class SearchController < ApplicationController
     @feeds    = Feed.search(@q).compact
     @episodes = Episode.search(@q).compact
     @reviews  = Review.search(@q, :include => [:episode])
-    puts "The reviews are #{@reviews.size}"
     @podcasts = Podcast.search(@q).compact
 
     @podcast_groups = {}

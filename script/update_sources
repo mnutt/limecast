@@ -90,8 +90,8 @@ while true
       puts "FLV'ing"
       length            = "00:05:00"
       video_bitrate     = 512
-      video_frame_rate  = 30
-      audio_bitrate     = 128
+      video_frame_rate  = 20
+      audio_bitrate     = 96
       audio_sample_rate = 44100
 
       # Use fancy mathematics to keep videos from being stretched into 320x240
@@ -100,8 +100,8 @@ while true
       size   = [width, height].join("x")
 
       options = { :i  => tmp_file,          :f  => :flv,
-                  :ac => 1,                 :b  => video_bitrate,
-                  :r  => video_frame_rate,  :ab => audio_bitrate,
+                  :ac => 1,                 :b  => "#{video_bitrate}k",
+                  :r  => video_frame_rate,  :ab => "#{audio_bitrate}k",
                   :ar => audio_sample_rate, :t  => length,
                   :s  => size
                 }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")

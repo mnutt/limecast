@@ -2,7 +2,6 @@
 
 <p>
   '<%= @q -%>' appears in <%= link_to pluralize(@podcast_groups.size, 'podcast title'), "" %>, 
-                          <%= link_to pluralize(@podcast_groups.count(Episode) , "episodes"), "" %>,
                           <%= link_to pluralize(@podcast_groups.count(Feed) , "feed address"), "" %>,
                           <%= link_to pluralize(@podcast_groups.count(Podcast), "descriptions"), "" %>, and
                           <%= link_to pluralize(@podcast_groups.count(Review), "reviews"), "" %>.
@@ -23,13 +22,13 @@
     </p>
       
     <ul>
-      <% objs[0..2].each do |o| -%>
+      <% (@podcast ? objs : objs[0..2]).each do |o| -%>
         <%= render :partial => o.class.to_s.downcase, :object => o %>
       <% end -%>
     </ul>
   
-    <% if objs.size > 3 -%>
-    <p>More results from <%= link_to "#{podcast.title}&hellip;", podcast_url(podcast) %></p>
+    <% if !@podcast && objs.size > 3 -%>
+    <p>More results from <%= link_to "#{podcast.title}&hellip;", search_url(:q => @q, :podcast => podcast) %></p>
     <% end -%>
   </li>
   <% end -%>

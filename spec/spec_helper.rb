@@ -54,6 +54,15 @@ def http_auth(name='foo', password='bar')
   @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64.encode64("#{name}:#{password}")}"
 end
 
+# Starts sphinx, runs block, stops sphinx (this takes a while to execute!)
+def with_sphinx &blk
+  system "rake ts:config RAILS_ENV=test > /dev/null"
+  system "rake ts:index RAILS_ENV=test > /dev/null"
+  system "rake ts:start RAILS_ENV=test > /dev/null"
+  yield
+  system "rake ts:stop RAILS_ENV=test > /dev/null"
+end
+
 # Returns a controller that has been initialized enough to make #url_for and
 # #render_to_string calls against it.
 def initialized_controller(controller_name = "sites", action = "parked", params = {})

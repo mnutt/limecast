@@ -48,7 +48,7 @@ class Feed < ActiveRecord::Base
   define_index do
     indexes :url
 
-    has :created_at
+    has :created_at, :podcast_id
   end
 
   def refresh

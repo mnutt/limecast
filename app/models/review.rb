@@ -34,6 +34,8 @@ class Review < ActiveRecord::Base
 
   define_index do
     indexes :title, :body
+#    indexes episode.podcast, :as => :podcast
+    indexes episode.podcast(:id), :as => :podcast_id
 
     has :created_at
   end
@@ -60,5 +62,4 @@ class Review < ActiveRecord::Base
   def not_insightful
     self.review_ratings.not_insightful.count
   end
-
 end

@@ -39,7 +39,7 @@ class Episode < ActiveRecord::Base
   define_index do
     indexes :title, :summary
 
-    has :created_at
+    has :created_at, :podcast_id
   end
 
   def generate_url

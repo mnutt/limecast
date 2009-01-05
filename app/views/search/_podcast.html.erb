@@ -1,4 +1,4 @@
 <li>
   <%= link_to_podcast podcast -%>
-  <span class="searched"><%= podcast.description -%></span>
+  <span class="searched"><%=  unescape_entities(escape_once(podcast.description)) -%></span>
 </li>

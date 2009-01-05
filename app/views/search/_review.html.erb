@@ -1,7 +1,7 @@
 <li>
   <%= link_to_podcast review.episode.podcast -%>
-  <span class='searched'><%= review.title -%></span>
-  <span class='searched'><%= review.body -%></span>
+  <span class='searched'><%=  unescape_entities(escape_once(review.title)) -%></span>
+  <span class='searched'><%=  unescape_entities(escape_once(review.body)) -%></span>
   <%= link_to_profile review.reviewer -%>
   <%= link_to review.episode.date_title, episode_url(review.episode.podcast, review.episode) -%>
 </li>

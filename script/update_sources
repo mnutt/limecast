@@ -60,7 +60,7 @@ while true
 
     # Download the file
     puts "Downloading"
-    `curl -L #{source.url} > #{tmp_file}`
+    `curl -L '#{source.url.gsub("'", "")}' > #{tmp_file}`
 
     # Hash the file
     puts "Hashing"
@@ -107,8 +107,10 @@ while true
                 }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
 
       `ffmpeg #{options} #{tmp_file}.flv`
-      source.attachment_for(:preview).assign(File.open("#{tmp_file}.flv"))
-      source.save!
+      if File.exists?("#{tmp_file}.flv")
+        source.attachment_for(:preview).assign(File.open("#{tmp_file}.flv"))
+        source.save!
+      end
     end
 
     # Updates database with info taken from the video

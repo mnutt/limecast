@@ -17,8 +17,8 @@
     <% if podcast = @podcasts.find { |p| p.id == id } -%>
     <li>
       <p>
-        <%= link_to_podcast podcast -%>
-        <% if objs.include?(podcast) -%><span class="searched"><%= podcast.description -%></span><% end -%>
+        <%= link_to_podcast podcast -%> <%=  %>
+        <span class="searched"><%= podcast.description -%></span>
       </p>
       
       <ul>

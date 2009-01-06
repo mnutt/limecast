@@ -1,18 +1,18 @@
 class SearchController < ApplicationController
   def index
-    @q = params[:q]
+    q = (@q = params[:q]).dup
+    
+    # match Podcast, ex: "podcast:Diggnation"
+    q.gsub!(/(\b)*podcast\:(\S*)/i, "")
+    @podcast = Podcast.find_by_clean_url($2) unless $2.blank?
+    raise ActiveRecord::RecordNotFound if @podcast && @podcast.nil?
 
-    if params[:podcast]
-      @podcast = Podcast.find_by_clean_url(params[:podcast])
-      raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
-    end
-
-    @users    = User.search(@q).compact
-    @tags     = Tag.search(@q).compact
-    @feeds    = (@podcast ? @podcast.feeds : Feed).search(@q)
-    @episodes = (@podcast ? @podcast.episodes : Episode).search(@q)
-    @reviews  = (@podcast ? Review.for_podcast(@podcast) : Review).search(@q)
-    @podcasts = @podcast ? [@podcast] : Podcast.search(@q)
+    @users    = User.search(q).compact
+    @tags     = Tag.search(q).compact
+    @feeds    = (@podcast ? @podcast.feeds : Feed).search(q)
+    @episodes = (@podcast ? @podcast.episodes : Episode).search(q)
+    @reviews  = (@podcast ? Review.for_podcast(@podcast) : Review).search(q)
+    @podcasts = @podcast ? [@podcast] : Podcast.search(q)
 
     @podcast_groups = Hash.new { |h, k| h[k] = [] } # hash where the keys are the unique podcast ids, 
                                                     # and the values are arrays of their search results

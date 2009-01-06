@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :session
 
   map.search    '/search', :controller => 'search', :action => 'index'
-  map.search    '/search/:podcast', :controller => 'search', :action => 'index', :podcast => nil
+  # map.search    '/search/:podcast', :controller => 'search', :action => 'index', :podcast => nil
 
   map.signup    '/signup',        :controller => 'users',    :action => 'new'
   map.login     '/login',         :controller => 'sessions', :action => 'new'

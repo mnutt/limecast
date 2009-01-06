@@ -72,6 +72,7 @@ $(document).ready(function(){
     $('#primary li .searched').map(function(){
       $(this).searchTermContext({
         query: searchBox,
+        wordsOfContext: 10,
         format: function(s) { return '<span class="search_term">' + s + '</span>'; }
       });
     });

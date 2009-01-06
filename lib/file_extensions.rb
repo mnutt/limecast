@@ -162,7 +162,7 @@ module FileExtensions
           :qtch=>"QuickTime Cache",
           :m2ts=>"Blu-ray BDAV Video",
           :dce=>"DriveCam Video",
-          
+
           # Audio Formats
           :vc3=>"VSampler Soundbank",
           :ins=>"Sample Cell II Instrument Definition",

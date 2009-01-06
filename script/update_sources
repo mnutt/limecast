@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'config/environment'
+require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
 
 def parse_ffmpeg_info(raw_info)
   {

@@ -14,7 +14,7 @@ class SearchController < ApplicationController
     @reviews  = (@podcast ? Review.for_podcast(@podcast) : Review).search(@q)
     @podcasts = @podcast ? [@podcast] : Podcast.search(@q)
 
-    @podcast_groups = Hash.new { |h, k| h[k] = [] } # hash where the keys are the unique podcast ids, 
+    @podcast_groups = Hash.new { |h, k| h[k] = [] } # hash where the keys are the unique podcast ids,
                                                     # and the values are arrays of their search results
     def @podcast_groups.add(obj, podcast_id); self[podcast_id] << obj; end
     def @podcast_groups.count(klass); self.inject(0) { |count, p| count + p[1].map { |o| o.is_a?(klass) }.size }; end

@@ -177,6 +177,14 @@ class Feed < ActiveRecord::Base
     self.sources.first.attributes['format'].to_s unless self.sources.blank?
   end
 
+  # takes the name of the Feed url (ie "http://me.com/feeds/quicktime-small" -> "Quicktime Small")
+  def apparent_format_long
+    url.split("/").last.titleize
+
+    # Uncomment this to get the official format from the Source extension
+    # ::FileExtensions::All[apparent_format.intern]
+  end
+
   def formatted_bitrate
     self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
   end

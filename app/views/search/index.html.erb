@@ -14,23 +14,24 @@
 <% unless @podcast_groups.blank? -%>
 <ul class="podcast_results">
   <% @podcast_groups.each_pair do |id, objs| -%>
-  <% podcast = @podcasts.find { |p| p.id == id } -%>
-  <li>
-    <p>
-      <%= link_to_podcast podcast -%>
-      <% if objs.include?(podcast) -%><span class="searched"><%= podcast.description -%></span><% end -%>
-    </p>
+    <% if podcast = @podcasts.find { |p| p.id == id } -%>
+    <li>
+      <p>
+        <%= link_to_podcast podcast -%>
+        <% if objs.include?(podcast) -%><span class="searched"><%= podcast.description -%></span><% end -%>
+      </p>
       
-    <ul>
-      <% (@podcast ? objs : objs[0..2]).each do |o| -%>
-        <%= render :partial => o.class.to_s.downcase, :object => o %>
-      <% end -%>
-    </ul>
+      <ul>
+        <% (@podcast ? objs : objs[0..2]).each do |o| -%>
+          <%= render :partial => o.class.to_s.downcase, :object => o %>
+        <% end -%>
+      </ul>
   
-    <% if !@podcast && objs.size > 3 -%>
-    <p>More results from <%= link_to "#{podcast.title}&hellip;", search_url(:q => @q, :podcast => podcast) %></p>
+      <% if !@podcast && objs.size > 3 -%>
+      <p>More results from <%= link_to "#{podcast.title}&hellip;", search_url(:q => @q, :podcast => podcast) %></p>
+      <% end -%>
+    </li>
     <% end -%>
-  </li>
   <% end -%>
 </ul>
 <% end -%>

@@ -19,12 +19,13 @@ class SearchController < ApplicationController
     def @podcast_groups.add(obj, podcast_id); self[podcast_id] << obj; end
     def @podcast_groups.count(klass); self.inject(0) { |count, p| count + p[1].map { |o| o.is_a?(klass) }.size }; end
 
-    @feeds.compact.each    { |f| @podcast_groups.add(f, f.podcast_id) }
-    @episodes.compact.each { |e| @podcast_groups.add(e, e.podcast_id) }
-    @reviews.compact.each  { |r| @podcast_groups.add(r, r.episode.podcast_id) }
+    # Group all the podcast-related search results by podcast-id
+    @feeds.compact.each    { |f| @podcast_groups.add(f, f.podcast.id) }
+    @episodes.compact.each { |e| @podcast_groups.add(e, e.podcast.id) }
+    @reviews.compact.each  { |r| @podcast_groups.add(r, r.episode.podcast.id) }
     @podcasts.compact.each { |p| @podcast_groups.add(p, p.id) }
 
     # rewrites @podcasts to have all the podcasts we need
-    @podcasts = Podcast.all(:conditions => {:id => @podcast_groups.keys}) #.sorted
+    @podcasts = Podcast.all(:conditions => {:id => @podcast_groups.keys}).compact #.sorted
   end
 end

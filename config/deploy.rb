@@ -210,19 +210,6 @@ CRON
 
   # Sphinx tasks
   namespace :sphinx do
-    desc 'Resets the Sphinx server -- restarts, re-configures and re-indexes'
-    task :reset, :roles => :app do
-      # sphinx.conf gets set with a path to the latest release -- /releases/.../.
-      # The perl bit modifies it to /current/, to avoid problems.
-      run <<-CMD
-        cd #{latest_release} &&
-        RAILS_ENV=production rake sphincter:reset &&
-        cd #{shared_path}/sphinx/production &&
-        perl -i -pe 's|/releases/[0-9]+?/|/current/|g' sphinx.conf
-      CMD
-      start
-    end
-
     desc 'Restarts the Sphinx server'
     task :restart, :roles => :app do
       run "cd #{latest_release}; RAILS_ENV=production rake ts:restart"
@@ -320,7 +307,6 @@ after 'deploy:setup', 'limecast:setup'
 after 'deploy:update_code', 'limecast:update'
 
 # after 'deploy:cold', 'limecast:deploy:populate'
-# after 'deploy:cold', 'limecast:sphinx:reset'
 
 after 'deploy', 'deploy:migrate'
 after 'deploy', 'limecast:sphinx:stop'

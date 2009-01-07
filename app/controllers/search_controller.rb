@@ -1,7 +1,7 @@
 class SearchController < ApplicationController
   def index
     q = (@q = params[:q]).dup
-    
+
     # match Podcast, ex: "podcast:Diggnation"
     q.gsub!(/(\b)*podcast\:(\S*)(\b)*/i, "")
     @podcast = Podcast.find_by_clean_url($2) unless $2.blank?

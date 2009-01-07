@@ -154,15 +154,14 @@ namespace :limecast do
         mkdir #{shared_path}/vendor &&
         mkdir #{shared_path}/logos &&
         mkdir #{shared_path}/screenshots &&
+        mkdir #{shared_path}/previews &&
         mkdir #{shared_path}/private
       CMD
     end
 
     desc 'Configure the crontab'
     task :crontab, :roles => :app do
-      cron = <<-CRON
-5,35 * * * * cd #{current_path} && RAILS_ENV=production rake ts:in
-CRON
+      cron = "5,35 * * * * cd #{current_path} && RAILS_ENV=production rake ts:in"
       run "rm -rf #{shared_path}/crontab"
       put cron, "#{shared_path}/crontab"
       run "crontab #{shared_path}/crontab"
@@ -184,11 +183,13 @@ CRON
         rm -rf #{latest_release}/config/database.yml;
         rm -rf #{latest_release}/public/logos;
         rm -rf #{latest_release}/public/screenshots;
+        rm -rf #{latest_release}/public/previews;
         rm -rf #{latest_release}/private;
         ln -s #{shared_path}/sphinx    #{latest_release}/sphinx &&
         ln -s #{shared_path}/database.yml   #{latest_release}/config/database.yml &&
         ln -s #{shared_path}/logos #{latest_release}/public/logos &&
         ln -s #{shared_path}/screenshots #{latest_release}/public/screenshots &&
+        ln -s #{shared_path}/previews #{latest_release}/public/previews &&
         ln -s #{shared_path}/private #{latest_release}/private
       CMD
     end
@@ -207,37 +208,9 @@ CRON
 
   # Sphinx tasks
   namespace :sphinx do
-    desc 'Resets the Sphinx server -- restarts, re-configures and re-indexes'
-    task :reset, :roles => :app do
-      # sphinx.conf gets set with a path to the latest release -- /releases/.../.
-      # The perl bit modifies it to /current/, to avoid problems.
-      run <<-CMD
-        cd #{latest_release} &&
-        RAILS_ENV=production rake sphincter:reset &&
-        cd #{shared_path}/sphinx/production &&
-        perl -i -pe 's|/releases/[0-9]+?/|/current/|g' sphinx.conf
-      CMD
-      start
-    end
-
-    desc 'Restarts the Sphinx server'
-    task :restart, :roles => :app do
-      run "cd #{latest_release}; RAILS_ENV=production rake ts:restart"
-    end
-
-    desc 'Starts the Sphinx server'
-    task :start, :roles => :app do
-      run "cd #{latest_release}; RAILS_ENV=production rake ts:start"
-    end
-
     desc 'Stops the Sphinx server'
     task :stop, :roles => :app do
       run "cd #{latest_release}; RAILS_ENV=production rake ts:stop"
-    end
-
-    desc 'Reindexes the Sphinx server'
-    task :reindex, :roles => :app do
-      run "cd #{latest_release}; RAILS_ENV=production rake ts:index"
     end
 
     desc 'Configures the Sphinx server'
@@ -247,19 +220,28 @@ CRON
   end
 
   namespace :jobs do
-    desc 'Restarts the delayed_job worker'
-    task :restart do
-      run "cd #{latest_release}; RAILS_ENV=production rake jobs:restart"
-    end
-
-    desc 'Starts the delayed_job worker'
-    task :start do
-      run "cd #{latest_release}; RAILS_ENV=production rake jobs:start"
-    end
-
-    desc 'Starts the delayed_job worker'
+    desc 'Stops the delayed_job worker'
     task :stop do
       run "cd #{latest_release}; RAILS_ENV=production rake jobs:stop"
+    end
+  end
+
+  namespace :update_sources do
+    desc 'Stops the update_sources worker'
+    task :stop do
+      run "cd #{latest_release}; RAILS_ENV=production script/update_sources_control stop"
+    end
+  end
+
+  namespace :god do
+    desc 'Stops god'
+    task :stop do
+      sudo "god quit"
+    end
+
+    desc 'Starts god (which should start all other processes)'
+    task :start do
+      sudo "god -c #{latest_release}/config/god.rb"
     end
   end
 end
@@ -317,12 +299,13 @@ after 'deploy:setup', 'limecast:setup'
 after 'deploy:update_code', 'limecast:update'
 
 # after 'deploy:cold', 'limecast:deploy:populate'
-# after 'deploy:cold', 'limecast:sphinx:reset'
 
 after 'deploy', 'deploy:migrate'
+after 'deploy', 'limecast:god:stop'
 after 'deploy', 'limecast:sphinx:stop'
 after 'deploy', 'limecast:sphinx:configure'
 after 'deploy', 'limecast:sphinx:reindex'
-after 'deploy', 'limecast:sphinx:reindex'
-after 'deploy', 'limecast:sphinx:start'
-after 'deploy', 'limecast:jobs:restart'
+after 'deploy', 'limecast:jobs:stop'
+after 'deploy', 'limecast:update_sources:stop'
+after 'deploy', 'limecast:god:start'
+

@@ -128,7 +128,7 @@ while true
     )
   ensure
     puts "Rm'ing\n"
-    `rm #{tmp_file}`
+    `rm #{tmp_file}*`
   end
 end
 

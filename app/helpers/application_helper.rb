@@ -65,7 +65,7 @@ module ApplicationHelper
   end
 
   def sanitize_condensed_summary(html)
-    html = unescape_entities(html)
+    html = unescape_entities(html.to_s)
 
     # Replace paragraph tags with paragraph symbols
     html.strip.gsub!(/<[Pp][^>]*>(.*?)\<\/[Pp]\>/, '\1 &#182; ')

@@ -13,12 +13,16 @@ def default_conditions(w)
   end
 end
 
+def cd_and(cmd)
+  "cd #{RAILS_ROOT} && #{cmd}"
+end
+
 God.watch do |w|
   default_conditions(w)
 
   w.name     = "update_sources"
-  w.start    = "cd #{RAILS_ROOT} && script/update_sources start"
-  w.stop     = "cd #{RAILS_ROOT} && script/update_sources stop"
+  w.start    = cd_and("script/update_sources start")
+  w.stop     = cd_and("script/update_sources stop")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/update_sources.pid")
   
   w.behavior(:clean_pid_file)
@@ -30,8 +34,8 @@ God.watch do |w|
   default_conditions(w)
 
   w.name     = "delayed_job"
-  w.start    = "cd #{RAILS_ROOT} && rake jobs:start"
-  w.stop     = "cd #{RAILS_ROOT} && rake jobs:stop"
+  w.start    = cd_and("rake jobs:start")
+  w.stop     = cd_and("rake jobs:stop")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/dj.pid")
   
   w.behavior(:clean_pid_file)
@@ -41,8 +45,8 @@ God.watch do |w|
   default_conditions(w)
 
   w.name     = "sphinx"
-  w.start    = "cd #{RAILS_ROOT} && rake ts:index; cd #{RAILS_ROOT} && rake ts:start"
-  w.stop     = "cd #{RAILS_ROOT} && rake ts:stop"
+  w.start    = cd_and("rake ts:start")
+  w.stop     = cd_and("rake ts:stop")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/searchd.pid")
 
   w.behavior(:clean_pid_file)

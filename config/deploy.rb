@@ -154,6 +154,7 @@ namespace :limecast do
         mkdir #{shared_path}/vendor &&
         mkdir #{shared_path}/logos &&
         mkdir #{shared_path}/screenshots &&
+        mkdir #{shared_path}/previews &&
         mkdir #{shared_path}/private
       CMD
     end
@@ -184,11 +185,13 @@ CRON
         rm -rf #{latest_release}/config/database.yml;
         rm -rf #{latest_release}/public/logos;
         rm -rf #{latest_release}/public/screenshots;
+        rm -rf #{latest_release}/public/previews;
         rm -rf #{latest_release}/private;
         ln -s #{shared_path}/sphinx    #{latest_release}/sphinx &&
         ln -s #{shared_path}/database.yml   #{latest_release}/config/database.yml &&
         ln -s #{shared_path}/logos #{latest_release}/public/logos &&
         ln -s #{shared_path}/screenshots #{latest_release}/public/screenshots &&
+        ln -s #{shared_path}/previews #{latest_release}/public/previews &&
         ln -s #{shared_path}/private #{latest_release}/private
       CMD
     end

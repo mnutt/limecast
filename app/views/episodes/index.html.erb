@@ -1,3 +1,5 @@
+<% javascript_include 'search_term_context' -%>
+
 <% @title = "#{h(@podcast.custom_title)} Episodes" -%>
 <% @show_ads = true -%>
 
@@ -6,7 +8,7 @@
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
   <% if @podcast -%>
-    <h1 class="heading">Episodes for <%=h @podcast.custom_title -%></h1>
+    <h1 class="heading">Episodes for <%=h @podcast.custom_title -%><%= " that match '#@q'" if @q %></h1>
   <% else -%>
     <h1 class="heading">All episodes</h1>
   <% end -%>

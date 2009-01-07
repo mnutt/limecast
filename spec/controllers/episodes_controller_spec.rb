@@ -37,6 +37,41 @@ describe EpisodesController do
       assigns[:episodes].should == [@episode]
     end
   end
+  
+  describe "handling GET /:podcast/episodes/search" do
+    before(:each) do
+      @episode2 = Factory.create(:episode, :published_at => 2.days.ago, :summary => "blah blah")
+      @source = Factory.create(:source, :episode => @episode2, :feed => @feed)
+    end
+
+    def do_get(podcast, query='')
+      get :search, :podcast => podcast, :q => query
+    end
+
+    it "should be successful" do
+      do_get(@podcast.clean_url)
+      response.should be_success
+    end
+
+    it "should render index template" do
+      do_get(@podcast.clean_url)
+      response.should render_template('index')
+    end
+
+    it "should find all episodes" do
+      Episode.stub!(:search).and_return([@episodes, @episode2])
+      Episode.should_receive(:search).and_return([@episode, @episode2])
+      do_get(@podcast.clean_url)
+    end
+
+    it "should find all episodes with 'blah'" do
+#      Episode.stub!(:search).with("blah").and_return([@episode2])
+      Episode.should_receive(:search).and_return([@episode2])
+      do_get(@podcast.clean_url, 'blah')
+      assigns[:episodes].should == [@episode2]
+    end
+
+  end
 
   describe "handling GET /:podcast/:episode" do
     def do_get(podcast, episode)

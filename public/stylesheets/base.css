@@ -70,10 +70,13 @@ body {
 .clearfix { display: inline-block; }  /* for IE/Mac */
 
 
+/***************************************/
 /** The Golden Line Separation Margin **/
+/***************************************/
 #content p,
 #content ul li,
 #content .super_button,
+#content .search,
 #content h1, #content h2, #content h3, #content h4, #content h5 {
   margin-bottom: 14px;
 }
@@ -181,25 +184,14 @@ div#header div#account_bar ul li {
   float: left;
 }
 div#header div#account_bar ul li.search {
-  width: 210px;
   padding: 5px 0 0 0;
   margin-right: -20px;
-  position: relative;
 }
 div#header div#account_bar ul li.search input.text {
-  width: 146px;
-  height: 15px;
-  padding: 4px 31px 4px 5px;
   top: 5px;
-  left: 0;
-  position: absolute;
-  overflow: hidden;
-  display: block;
 }
 div#header div#account_bar ul li.search input.image_button {
   top: 5px;
-  right: 26px;
-  position: absolute;
 }
 
 /**
@@ -287,6 +279,30 @@ div#body a.action_button:hover span {
 }
 * html div#body a.button span { height: auto; }
 * html div#body a.action_button span { height: auto; }
+
+/**
+* Search Form
+**/
+.search {
+  width: 210px;
+  position: relative;
+  height: 25px;
+}
+.search input.text {
+  width: 146px;
+  height: 15px;
+  padding: 4px 31px 4px 5px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+  display: block;
+}
+.search input.image_button {
+  top: 0;
+  right: 26px;
+  position: absolute;
+}
 
 /**
 * Footer

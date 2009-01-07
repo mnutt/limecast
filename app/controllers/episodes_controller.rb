@@ -7,6 +7,14 @@ class EpisodesController < ApplicationController
     @feeds    = @podcast.feeds
   end
 
+  def search
+    @q        = params[:q]
+    @podcast  = Podcast.find_by_clean_url(params[:podcast])
+    @episodes = @podcast.episodes.search(@q, :include => [:podcast]).compact.sort_by(&:published_at)
+    @feeds    = @podcast.feeds
+    render :action => 'index'
+  end
+
   def show
     @podcast = Podcast.find_by_clean_url(params[:podcast])
     raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?

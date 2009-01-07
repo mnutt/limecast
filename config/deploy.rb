@@ -301,11 +301,11 @@ after 'deploy:update_code', 'limecast:update'
 # after 'deploy:cold', 'limecast:deploy:populate'
 
 after 'deploy', 'deploy:migrate'
+after 'deploy', 'limecast:god:stop'
 after 'deploy', 'limecast:sphinx:stop'
 after 'deploy', 'limecast:sphinx:configure'
 after 'deploy', 'limecast:sphinx:reindex'
 after 'deploy', 'limecast:jobs:stop'
 after 'deploy', 'limecast:update_sources:stop'
-
 after 'deploy', 'limecast:god:start'
 

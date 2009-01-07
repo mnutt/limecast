@@ -19,45 +19,55 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :session
 
   map.search    '/search', :controller => 'search', :action => 'index'
-  # map.search    '/search/:podcast', :controller => 'search', :action => 'index', :podcast => nil
 
-  map.signup    '/signup',        :controller => 'users',    :action => 'new'
   map.login     '/login',         :controller => 'sessions', :action => 'new'
   map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'
 
-  map.activate  '/activate/:activation_code', :controller => 'users', :action => 'activate'
-  map.reset_password '/reset_password/:code', :controller => 'users', :action => 'reset_password', :code => nil
-  map.send_password  '/send_password',        :controller => 'users', :action => 'send_password',  :code => nil
-  map.forgot_password '/forgot',              :controller => 'users', :action => 'forgot_password'
+  map.with_options :controller => 'users' do |u|
+    u.signup  '/signup',        :controller => 'users',    :action => 'new'
+    u.activate  '/activate/:activation_code', :action => 'activate'
+    u.reset_password '/reset_password/:code', :action => 'reset_password', :code => nil
+    u.send_password  '/send_password',        :action => 'send_password',  :code => nil
+    u.forgot_password '/forgot',              :action => 'forgot_password'
+  end
 
-  map.root                        :controller => 'home',     :action => 'home'
-  map.admin       '/icons',       :controller => 'home',     :action => 'icons'
-  map.add_podcast '/add',         :controller => 'podcasts', :action => 'new'
   map.status      '/status',      :controller => 'feeds',    :action => 'status'
-  map.all         '/all',         :controller => 'podcasts', :action => 'index'
   map.all_users   '/user',        :controller => 'users',    :action => 'index'
   map.user        '/user/:user',  :controller => 'users',    :action => 'show', :conditions => {:method => :get}
   map.user        '/user/:user',  :controller => 'users',    :action => 'update', :conditions => {:method => :post}
   map.tags        '/tag',         :controller => 'tags',     :action => 'index'
   map.tag         '/tag/:tag',    :controller => 'tags',     :action => 'show'
 
-  map.use         '/use',         :controller => 'home',     :action => 'use'
-  map.privacy     '/privacy',     :controller => 'home',     :action => 'privacy'
-  map.stats       '/stats',       :controller => 'home',     :action => 'stats'
-  map.team        '/team',        :controller => 'home',     :action => 'team'
-  map.guide       '/guide',       :controller => 'home',     :action => 'guide'
+  map.with_options :controller => 'home' do |h|
+    h.root                        :action => 'home'
+    h.admin       '/icons',       :action => 'icons'
+    h.use         '/use',         :action => 'use'
+    h.privacy     '/privacy',     :action => 'privacy'
+    h.stats       '/stats',       :action => 'stats'
+    h.team        '/team',        :action => 'team'
+    h.guide       '/guide',       :action => 'guide'
+  end
 
-  map.cover            '/:podcast/cover',            :controller => 'podcasts', :action => 'cover'
-  map.recs             '/:podcast/recs',            :controller => 'podcasts', :action => 'recs'
-  map.rate_review      '/:podcast/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
-  map.positive_reviews '/:podcast/reviews/positive', :controller => 'reviews', :filter => 'positive'
-  map.negative_reviews '/:podcast/reviews/negative', :controller => 'reviews', :filter => 'negative'
-  map.resources :reviews, :controller => 'reviews', :path_prefix => '/:podcast'
+  map.with_options :controller => 'podcasts' do |p|
+    p.add_podcast '/add',                    :action => 'new'
+    p.all         '/all',                    :action => 'index'
+    p.cover            '/:podcast/cover',    :action => 'cover'
+    p.recs             '/:podcast/recs',     :action => 'recs'
+    p.favorite_podcast '/:podcast/favorite', :action => 'favorite'
+    p.podcast          '/:podcast',          :action => 'show',   :conditions => {:method => :get}
+    p.podcast          '/:podcast',          :action => 'update', :conditions => {:method => :post}
+  end
 
-  map.podcast_episodes '/:podcast/episodes',         :controller => 'episodes', :action => 'index'
-  map.favorite_podcast '/:podcast/favorite',         :controller => 'podcasts', :action => 'favorite'
-  map.episode          '/:podcast/:episode',         :controller => 'episodes', :action => 'show'
+  map.with_options :controller => 'reviews' do |r|
+    r.resources :reviews, :path_prefix => '/:podcast'
+    r.rate_review      '/:podcast/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
+    r.positive_reviews '/:podcast/reviews/positive', :controller => 'reviews', :filter => 'positive'
+    r.negative_reviews '/:podcast/reviews/negative', :controller => 'reviews', :filter => 'negative'
+  end
 
-  map.podcast          '/:podcast',                  :controller => 'podcasts', :action => 'show',   :conditions => {:method => :get}
-  map.podcast          '/:podcast',                  :controller => 'podcasts', :action => 'update', :conditions => {:method => :post}
+  map.with_options :controller => 'episodes' do |e|
+    e.podcast_episodes '/:podcast/episodes',         :action => 'index'
+    e.episode          '/:podcast/:episode',         :action => 'show'
+    e.search_podcast_episodes '/:podcast/episodes/search', :action => 'search'
+  end
 end

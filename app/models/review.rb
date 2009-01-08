@@ -34,9 +34,8 @@ class Review < ActiveRecord::Base
 
   define_index do
     indexes :title, :body
-#    indexes episode.podcast, :as => :podcast
-    indexes episode.podcast(:id), :as => :podcast_id
 
+    has episode.podcast(:id), :as => :podcast_id
     has :created_at
   end
 

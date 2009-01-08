@@ -8,6 +8,40 @@ describe ReviewsController do
     @review = Factory.create(:review, :reviewer => @user, :episode => @episode)
     login(@user)
   end
+  
+  describe "handling GET /:podcast/reviews/search" do
+    before(:each) do
+      @user2 = Factory.create(:user)
+      @review2 = Factory.create(:review, :reviewer => @user2, :episode => @episode, :body => "blah blah")
+    end
+
+    def do_get(podcast, query='')
+      get :search, :podcast => podcast, :q => query
+    end
+
+    it "should be successful" do
+      do_get(@podcast.clean_url)
+      response.should be_success
+    end
+
+    it "should render index template" do
+      do_get(@podcast.clean_url)
+      response.should render_template('index')
+    end
+
+    it "should find all reviews" do
+      Review.stub!(:search).and_return([@review, @review2])
+      Review.should_receive(:search).and_return([@review, @review2])
+      do_get(@podcast.clean_url)
+    end
+
+    it "should find all reviews with 'blah'" do
+      Review.should_receive(:search).and_return([@review2])
+      do_get(@podcast.clean_url, 'blah')
+      assigns[:reviews].should == [@review2]
+    end
+
+  end
 
   describe "handling POST /:podcast/reviews/1" do
     def do_post(review)

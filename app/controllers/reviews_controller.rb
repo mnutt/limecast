@@ -9,6 +9,15 @@ class ReviewsController < ApplicationController
     @reviews = filter(@podcast.reviews, params[:filter])
   end
 
+  def search
+    @q = params[:q]
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @feeds   = @podcast.feeds
+
+    @reviews = Review.search(@q, :with => {:podcast_id => @podcast.id}).compact
+    render :action => 'index'
+  end
+
   def show
     @review = Review.find(params[:id])
 

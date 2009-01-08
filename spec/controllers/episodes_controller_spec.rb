@@ -65,7 +65,6 @@ describe EpisodesController do
     end
 
     it "should find all episodes with 'blah'" do
-#      Episode.stub!(:search).with("blah").and_return([@episode2])
       Episode.should_receive(:search).and_return([@episode2])
       do_get(@podcast.clean_url, 'blah')
       assigns[:episodes].should == [@episode2]

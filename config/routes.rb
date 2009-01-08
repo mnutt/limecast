@@ -56,6 +56,7 @@ ActionController::Routing::Routes.draw do |map|
     p.favorite_podcast '/:podcast/favorite', :action => 'favorite'
     p.podcast          '/:podcast',          :action => 'show',   :conditions => {:method => :get}
     p.podcast          '/:podcast',          :action => 'update', :conditions => {:method => :post}
+    p.info             '/:podcast/info',     :action => 'info'
   end
 
   map.with_options :controller => 'reviews' do |r|
@@ -69,5 +70,6 @@ ActionController::Routing::Routes.draw do |map|
     e.podcast_episodes '/:podcast/episodes',         :action => 'index'
     e.episode          '/:podcast/:episode',         :action => 'show'
     e.search_podcast_episodes '/:podcast/episodes/search', :action => 'search'
+    e.info             '/:podcast/:episode/info',    :action => 'info'
   end
 end

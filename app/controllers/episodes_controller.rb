@@ -29,6 +29,13 @@ class EpisodesController < ApplicationController
     @previous_episode = @podcast.episodes.find(:first, :conditions => ["episodes.published_at < ?", @episode.published_at], :order => "published_at DESC")
   end
 
+  def info
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @episode = @podcast.episodes.find_by_clean_url(params[:episode])
+
+    render :layout => "info"
+  end
+
   def destroy
     @episode = Episode.find(params[:id])
     unauthorized unless @episode.writable_by?(current_user)

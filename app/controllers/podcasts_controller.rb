@@ -20,6 +20,11 @@ class PodcastsController < ApplicationController
     @review  = Review.new(:episode => @podcast.episodes.newest.first)
   end
 
+  def info
+    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    render :layout => "info"
+  end
+
   def search
     if params[:q]
       redirect_to :controller => 'podcasts', :action => 'search', :query => params[:q]

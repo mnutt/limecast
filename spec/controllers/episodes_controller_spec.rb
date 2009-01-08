@@ -37,7 +37,7 @@ describe EpisodesController do
       assigns[:episodes].should == [@episode]
     end
   end
-  
+
   describe "handling GET /:podcast/episodes/search" do
     before(:each) do
       @episode2 = Factory.create(:episode, :published_at => 2.days.ago, :summary => "blah blah")

@@ -210,7 +210,7 @@ namespace :limecast do
   namespace :sphinx do
     desc 'Stops the Sphinx server'
     task :stop, :roles => :app do
-      run "cd #{latest_release}; RAILS_ENV=production rake ts:stop"
+      run "function t { cd #{latest_release}; RAILS_ENV=production rake ts:stop; return 0; }; t"
     end
 
     desc 'Configures the Sphinx server'
@@ -222,21 +222,21 @@ namespace :limecast do
   namespace :jobs do
     desc 'Stops the delayed_job worker'
     task :stop do
-      run "cd #{latest_release}; RAILS_ENV=production rake jobs:stop"
+      run "function t { cd #{latest_release}; RAILS_ENV=production rake jobs:stop; return 0; }; t"
     end
   end
 
   namespace :update_sources do
     desc 'Stops the update_sources worker'
     task :stop do
-      run "cd #{latest_release}; RAILS_ENV=production script/update_sources_control stop"
+      run "function t { cd #{latest_release}; RAILS_ENV=production script/update_sources_control stop; return 0; }; t"
     end
   end
 
   namespace :god do
     desc 'Stops god'
     task :stop do
-      sudo "god quit"
+      run "function t { sudo -p 'sudo password: ' god quit; return 0; }; t"
     end
 
     desc 'Starts god (which should start all other processes)'
@@ -304,7 +304,6 @@ after 'deploy', 'deploy:migrate'
 after 'deploy', 'limecast:god:stop'
 after 'deploy', 'limecast:sphinx:stop'
 after 'deploy', 'limecast:sphinx:configure'
-after 'deploy', 'limecast:sphinx:reindex'
 after 'deploy', 'limecast:jobs:stop'
 after 'deploy', 'limecast:update_sources:stop'
 after 'deploy', 'limecast:god:start'

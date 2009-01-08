@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :podcasts
   map.resources :episodes
   map.resources :feeds
-  map.resources :tags
+  map.resources :tags, :as => 'tag', :member => {:search => :get}, :controller => 'tags'
 
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.namespace :admin do |admin|
@@ -35,8 +35,6 @@ ActionController::Routing::Routes.draw do |map|
   map.all_users   '/user',        :controller => 'users',    :action => 'index'
   map.user        '/user/:user',  :controller => 'users',    :action => 'show', :conditions => {:method => :get}
   map.user        '/user/:user',  :controller => 'users',    :action => 'update', :conditions => {:method => :post}
-  map.tags        '/tag',         :controller => 'tags',     :action => 'index'
-  map.tag         '/tag/:tag',    :controller => 'tags',     :action => 'show'
 
   map.with_options :controller => 'home' do |h|
     h.root                        :action => 'home'

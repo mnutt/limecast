@@ -5,8 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :podcasts
   map.resources :episodes
   map.resources :feeds
-  map.resources :tags, :as => 'tag', :member => {:search => :get}, :controller => 'tags'
-
+  
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.namespace :admin do |admin|
     admin.resources :podcasts
@@ -23,6 +22,13 @@ ActionController::Routing::Routes.draw do |map|
   map.login     '/login',         :controller => 'sessions', :action => 'new'
   map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'
 
+  map.with_options :controller => 'tags' do |t|
+    t.tags        '/tags',            :action => 'index'
+    t.tags        '/tag',             :action => 'index'
+    t.tag         '/tag/:tag',        :action => 'show'
+    t.search_tag  '/tag/:tag/search', :action => 'search'
+  end
+  
   map.with_options :controller => 'users' do |u|
     u.signup  '/signup',        :controller => 'users',    :action => 'new'
     u.activate  '/activate/:activation_code', :action => 'activate'

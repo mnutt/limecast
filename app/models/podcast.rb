@@ -69,9 +69,10 @@ class Podcast < ActiveRecord::Base
     indexes owner.login, :as => :owner
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary
-    indexes tags.name, :as => :tag_name # includes badges
     indexes feeds.url, :as => :feed_url
+    indexes tags.name, :as => :tag_name # includes badges
 
+    has taggings.tag_id, :as => :tagged_ids
     has :created_at
   end
 

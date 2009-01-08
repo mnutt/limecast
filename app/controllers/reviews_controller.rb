@@ -14,7 +14,7 @@ class ReviewsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast])
     @feeds   = @podcast.feeds
 
-    @reviews = Review.search(@q, :with => {:podcast_id => @podcast.id}).compact
+    @reviews = Review.search(@q, :with => {:podcast_id => @podcast.id}).compact.uniq
     render :action => 'index'
   end
 

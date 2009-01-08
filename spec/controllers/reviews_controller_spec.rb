@@ -8,7 +8,7 @@ describe ReviewsController do
     @review = Factory.create(:review, :reviewer => @user, :episode => @episode)
     login(@user)
   end
-  
+
   describe "handling GET /:podcast/reviews/search" do
     before(:each) do
       @user2 = Factory.create(:user)

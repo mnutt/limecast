@@ -217,6 +217,11 @@ namespace :limecast do
     task :configure, :roles => :app do
       run "cd #{latest_release}; RAILS_ENV=production rake ts:config"
     end
+
+    desc 'Indexes the db'
+    task :index, :roles => :app do
+      run "cd #{latest_release}; RAILS_ENV=production rake ts:index"
+    end
   end
 
   namespace :jobs do
@@ -304,6 +309,7 @@ after 'deploy', 'deploy:migrate'
 after 'deploy', 'limecast:god:stop'
 after 'deploy', 'limecast:sphinx:stop'
 after 'deploy', 'limecast:sphinx:configure'
+after 'deploy', 'limecast:sphinx:index'
 after 'deploy', 'limecast:jobs:stop'
 after 'deploy', 'limecast:update_sources:stop'
 after 'deploy', 'limecast:god:start'

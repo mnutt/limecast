@@ -30,7 +30,7 @@ class SearchController < ApplicationController
       @podcasts.each { |p| @podcast_groups.add(p, p.id) } if @podcasts
 
       # rewrites @podcasts to have all the podcasts we need
-      # FIXME Added pagination, but now we're skipping all the results from the other podcasts we 
+      # FIXME Added pagination, but now we're skipping all the results from the other podcasts we
       #       searched; might get out of hand later with more podcasts.
       @podcasts = Podcast.paginate(:conditions => {:id => @podcast_groups.keys}, :page => (params[:page]||1), :per_page => 3).compact #.sorted
     end

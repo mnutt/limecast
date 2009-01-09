@@ -2,3 +2,5 @@ development:
   searchd_path: <%= "#{RAILS_ROOT}/vendor/sphinx/bin" %>
   searchd_file_path: <%= "#{RAILS_ROOT}/db/sphinx/development" %>
   pid_file: <%= "#{RAILS_ROOT}/tmp/pids/searchd.pid" %>
+production:
+  pid_file: <%= "#{RAILS_ROOT}/tmp/pids/searchd.pid" %>

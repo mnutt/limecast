@@ -10,7 +10,7 @@ describe TagsController do
     @podcast2.save!
     login(@user)
   end
-  
+
   describe "handling GET /tag/:tag/search" do
     def do_get(tag, query='')
       get :search, :tag => tag, :q => query

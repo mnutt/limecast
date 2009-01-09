@@ -80,9 +80,10 @@
   <p><% link_to(podcast_episodes_url(@podcast), :class => 'all_episodes') do -%><span>All <%= @podcast.episodes.count -%> episodes</span><% end -%></p>
   <% reset_cycle('row_class') %>
 
-  <% form_for :search, :url => search_podcast_episodes_url, :html => {:method => :get, :class => "search"} do |form| -%>
-    <label for="episode_search_q" class="default search">Search episodes&hellip;</label>
-    <%= text_field_tag "q", params[:q], :id => "episode_search_q", :size => 15, :class => "text search" %>
+  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search" } do |form| -%>
+    <%= hidden_field_tag :podcast, @podcast.clean_url %>
+    <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
+    <%= text_field_tag "q", params[:q], :id => "search_podcast_q", :size => 15, :class => "text search" %>
     <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
   <% end -%>
 

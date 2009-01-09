@@ -1,5 +1,6 @@
 class SearchController < ApplicationController
   def index
+    params[:q] += " podcast:#{params[:podcast]}" if params[:podcast]
     q = (@q = params[:q]).dup
 
     # match Podcast, ex: "podcast:Diggnation"

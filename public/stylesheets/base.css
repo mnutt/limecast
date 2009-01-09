@@ -303,6 +303,9 @@ div#body a.action_button:hover span {
   right: 26px;
   position: absolute;
 }
+.search label.default {
+  visibility: hidden;
+}
 
 /**
 * Footer

@@ -73,6 +73,14 @@ module ApplicationHelper
     sanitize html, :tags => %w(a b i), :attributes => %w(href title)
   end
 
+  # The 'search_term_context.js' script was stripping out results beyond the ones 
+  # that it found (ie "Abracadabra" -> "Abrcdbr"), so this uses Rails instead to do the job.
+  def search_excerpt(text, query)
+    escaped   = unescape_entities(strip_tags(text))
+    excerpted = excerpt(escaped, query.split.first, :radius => 50)
+    highlight(excerpted, query.split, :highlighter => '<span class="search_term">\1</span>')
+  end
+
   # Put the primary feed/source at top (if one exists)
   # TODO isn't there an easier way in Ruby to do this?
   def sorted_by_primary(feeds_or_sources=[])

@@ -1,5 +1,5 @@
 <li>
   <%= link_to "<span class=\"searched\">#{escape_once(review.title)}</span>", review_url(:podcast => review.episode.podcast, :id => review.id) -%>
-  <span class='searched'><%=  unescape_entities(escape_once(review.body)) -%></span>
+  <%= search_excerpt(review.body, @parsed_q) -%>
   <%= link_to_profile review.reviewer -%>
 </li>

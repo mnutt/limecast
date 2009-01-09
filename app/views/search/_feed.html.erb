@@ -1,4 +1,5 @@
 <li>
   Feed <%= feed.apparent_format_long %>
-  <span class="searched"><%= "(#{feed.apparent_format}#{', ' + feed.formatted_bitrate if feed.formatted_bitrate})" %> <%= feed.url %></span>
+  <%= "(#{feed.apparent_format}#{', ' + feed.formatted_bitrate if feed.formatted_bitrate})" %> 
+  <%= search_excerpt(feed.url, @parsed_q) %>
 </li>

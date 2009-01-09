@@ -3,14 +3,14 @@
 
   <div class="summary">
     <span class="date"><%= link_to episode.published_at.to_date, episode_url(:episode => episode.clean_url, :podcast => episode.podcast) -%></span>
-    <span class="title searched"><%= episode.title -%></span>
+    <span class="title"><%= @q ? search_excerpt(episode.title, @q) : episode.title -%></span>
     <% if episode.duration and episode.duration > 0 -%>
       <span class="duration">(<%= time_to_words(episode.duration) -%>)</span>
     <% end -%>
   </div>
 
   <div class="full">
-    <p class="description searched"><%=sanitize_condensed_summary episode.summary -%></p>
+    <p class="description searched"><%= @q ? search_excerpt(episode.summary, @q) : sanitize_condensed_summary(episode.summary) -%></p>
 
     <%= render :partial => 'episodes/video_player', :object => episode if episode.sources.first.preview.exists? -%>
     <%= render :partial => 'episodes/audio_player', :object => episode if episode.audio_source -%>

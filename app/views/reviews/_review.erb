@@ -4,10 +4,10 @@
   <div class="show">
     <%= link_to_podcast(review.episode.podcast) if with_podcast -%>
 
-    <span class="title"><%= link_to_with_icon ("<span class=\"searched\">#{h review.title}</span>"), 
+    <span class="title"><%= link_to_with_icon (@q ? search_excerpt(review.title) : h(review.title)), 
                                               (review.positive ? :thumbs_up : :thumbs_down), 
                                               review_url(:podcast => review.episode.podcast, :id => review.id), :title => 'permalink' -%></span>
-    <span class="body searched"><%= format_with_paragraph_entity unescape_entities(review.body) -%></span>
+    <span class="body"><%= @q ? search_excerpt(review.body, @q) : format_with_paragraph_entity(unescape_entities(review.body)) -%></span>
 
     <% if @user.nil? -%>
       <cite><%= link_to_profile review.reviewer -%></cite>

@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
   def index
-    q = (@q = params[:q]).dup
+    params[:q] += " podcast:#{params[:podcast]}" if params[:podcast]
+    q = (@q = params[:q].to_s).dup
 
     # match Podcast, ex: "podcast:Diggnation"
     q.gsub!(/(\b)*podcast\:(\S*)(\b)*/i, "")

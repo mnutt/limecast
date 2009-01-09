@@ -17,7 +17,7 @@ end
 God.watch do |w|
   default_conditions(w)
 
-  script = File.join(RAILS_ROOT, "script/update_sources")
+  script = File.join(RAILS_ROOT, "script/update_sources_control")
 
   w.name     = "update_sources"
   w.start    = "RAILS_ENV=#{RAILS_ENV} #{script} start"

@@ -241,7 +241,7 @@ namespace :limecast do
 
     desc 'Starts god (which should start all other processes)'
     task :start do
-      sudo "RAILS_ENV=production god -c #{latest_release}/config/god.rb"
+      sudo "god -c #{latest_release}/config/god.rb"
     end
   end
 end

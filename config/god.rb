@@ -1,5 +1,5 @@
 RAILS_ROOT = File.join(File.dirname(__FILE__), '..')
-RIALS_ENV  = ENV['RAILS_ENV'] || 'production'
+RAILS_ENV  = ENV['RAILS_ENV'] || 'production'
 
 # Dear God, Please watch over our long running scripts. Amen.
 

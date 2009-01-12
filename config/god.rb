@@ -14,6 +14,10 @@ def default_conditions(w)
   end
 end
 
+def cd_and(cmd)
+  "cd #{RAILS_ROOT} && #{cmd}"
+end
+
 God.watch do |w|
   default_conditions(w)
 
@@ -44,8 +48,8 @@ God.watch do |w|
   default_conditions(w)
 
   w.name     = "sphinx"
-  w.start    = "RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:start"
-  w.stop     = "RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:stop"
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:start > /tmp/thinking_sphinx_error.log 2>&1")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:stop  > /tmp/thinking_sphinx_error.log 2>&1")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/searchd.pid")
 
   w.behavior(:clean_pid_file)

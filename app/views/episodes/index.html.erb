@@ -11,6 +11,13 @@
     <h1 class="heading">All episodes</h1>
   <% end -%>
   
+  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search" } do |form| -%>
+    <%= hidden_field_tag :podcast, @podcast.clean_url %>
+    <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
+    <%= text_field_tag "q", params[:q], :id => "search_podcast_q", :size => 15, :class => "text search" %>
+    <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
+  <% end -%>
+  
   <ul class="episodes">
     <%= render :partial => "episodes/episode", :collection => @episodes -%>
   </ul>

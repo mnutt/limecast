@@ -64,7 +64,7 @@ while true
 
     # Hash the file
     puts "Hashing"
-    sha1hash = `sha1 #{tmp_file}`.strip
+    sha1hash = `sha1 #{tmp_file} | cut -f1 -d" "`.strip
 
     # Get info about file
     puts "FFmpeg'ing"

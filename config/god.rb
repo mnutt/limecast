@@ -24,8 +24,8 @@ God.watch do |w|
   script = File.join(RAILS_ROOT, "script/update_sources_control")
 
   w.name     = "update_sources"
-  w.start    = "RAILS_ENV=#{RAILS_ENV} #{script} start"
-  w.stop     = "RAILS_ENV=#{RAILS_ENV} #{script} stop"
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} #{script} start")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} #{script} stop")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/update_sources.pid")
   
   w.behavior(:clean_pid_file)
@@ -37,8 +37,8 @@ God.watch do |w|
   default_conditions(w)
 
   w.name     = "delayed_job"
-  w.start    = "RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:start"
-  w.stop     = "RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:stop"
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:start")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:stop")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/dj.pid")
   
   w.behavior(:clean_pid_file)

@@ -14,14 +14,18 @@ def default_conditions(w)
   end
 end
 
+def cd_and(cmd)
+  "cd #{RAILS_ROOT} && #{cmd}"
+end
+
 God.watch do |w|
   default_conditions(w)
 
   script = File.join(RAILS_ROOT, "script/update_sources_control")
 
   w.name     = "update_sources"
-  w.start    = "RAILS_ENV=#{RAILS_ENV} #{script} start"
-  w.stop     = "RAILS_ENV=#{RAILS_ENV} #{script} stop"
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} #{script} start")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} #{script} stop")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/update_sources.pid")
   
   w.behavior(:clean_pid_file)
@@ -33,8 +37,8 @@ God.watch do |w|
   default_conditions(w)
 
   w.name     = "delayed_job"
-  w.start    = "RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:start"
-  w.stop     = "RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:stop"
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:start")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:stop")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/dj.pid")
   
   w.behavior(:clean_pid_file)
@@ -44,8 +48,8 @@ God.watch do |w|
   default_conditions(w)
 
   w.name     = "sphinx"
-  w.start    = "RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:start"
-  w.stop     = "RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:stop"
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:start > /tmp/thinking_sphinx_error.log 2>&1")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:stop  > /tmp/thinking_sphinx_error.log 2>&1")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/searchd.pid")
 
   w.behavior(:clean_pid_file)

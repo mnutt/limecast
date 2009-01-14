@@ -6,17 +6,35 @@
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
   <% if @podcast -%>
-    <h1 class="heading">Episodes for <%=h @podcast.custom_title -%><%= " that match '#@q'" if @q %></h1>
+    <p class="heading podcast_link"><%= link_to h(@podcast.custom_title), @podcast -%><%= " episodes that match '#@q'" if @q %></p>
   <% else -%>
     <h1 class="heading">All episodes</h1>
   <% end -%>
-  
+
+  <!-- Search //-->
+
   <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search" } do |form| -%>
     <%= hidden_field_tag :podcast, @podcast.clean_url %>
     <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
     <%= text_field_tag "q", params[:q], :id => "search_podcast_q", :size => 15, :class => "text search" %>
     <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
   <% end -%>
+
+  <!-- Stats and Misc //-->
+
+  <p class="episode_info">
+    <% if @podcast.episodes.size > 0 -%>New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.newest.first) -%> <%= relative_time(@podcast.episodes.newest.first.published_at, false) -%><br /><% end -%>
+
+    <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
+    <% if @podcast.episodes.size > 0 -%>since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.oldest.first) -%><% end -%>
+    <% if @podcast.episodes.size > 1 -%>every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><% end -%>
+  </p>
+
+  <% if @podcast.total_run_time > 60 -%>
+  <p class="run_time">Total run time <%= time_to_words(@podcast.total_run_time, false) -%></p>
+  <% end -%>
+  
+  <!-- Episodes //-->
   
   <ul class="episodes">
     <%= render :partial => "episodes/episode", :collection => @episodes -%>

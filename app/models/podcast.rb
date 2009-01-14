@@ -49,10 +49,14 @@ class Podcast < ActiveRecord::Base
 
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
   named_scope :parsed, lambda {
-    { :conditions => {:id => Feed.parsed.map(&:podcast_id).uniq } }
+    { :conditions => { :id => Feed.parsed.map(&:podcast_id).uniq } }
   }
-  named_scope :tagged_with, lambda {|tag|
-    { :conditions => {:id => (Tag.find_by_name(tag).podcasts.map(&:id).uniq rescue [])}}
+  named_scope :tagged_with, lambda { |*tags|
+    # NOTE this does an OR search on the tags; needs to be refactored if all podcasts will include *all* tags
+    # TODO This named_scope could definitely be simplified and optimized with some straight SQL
+    tags.flatten!.map! { |t| Tag.find_by_name(t) }.compact!
+    podcast_ids = tags.map { |t| t.podcasts.map(&:id) }.flatten.uniq
+    { :conditions => { :id => podcast_ids } }
   }
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
 
@@ -70,7 +74,7 @@ class Podcast < ActiveRecord::Base
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary
     indexes feeds.url, :as => :feed_url
-    indexes tags.name, :as => :tag_name # includes badges
+    indexes tags.name, :as => :tag # includes badges
 
     has taggings.tag_id, :as => :tagged_ids
     has :created_at

@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :session
 
   map.search    '/search', :controller => 'search', :action => 'index'
+  map.search_google '/search/google', :controller => 'search', :action => 'google' # for SEO
 
   map.login     '/login',         :controller => 'sessions', :action => 'new'
   map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'

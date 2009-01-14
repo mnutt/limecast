@@ -16,7 +16,10 @@
     <li>
       <p>
         <%= link_to_podcast podcast -%> <%=  %>
-        <%= search_excerpt(podcast.description, @parsed_q) if objs.any? { |o| o.is_a?(Podcast) } -%>
+        <% if objs.any? { |o| o.is_a?(Podcast) } -%>
+          <%= search_excerpt(podcast.description, @parsed_q) -%>
+          <%= "Tags: #{highlight podcast.tag_string, @parsed_q.split, :highlighter => '<span class="search_term">\1</span>'}" unless podcast.tags.empty? -%>
+        <% end -%>
       </p>
       
       <ul>

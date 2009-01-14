@@ -54,7 +54,7 @@ class Podcast < ActiveRecord::Base
   named_scope :tagged_with, lambda { |*tags|
     # NOTE this does an OR search on the tags; needs to be refactored if all podcasts will include *all* tags
     # TODO This named_scope could definitely be simplified and optimized with some straight SQL
-    tags.flatten!.map! { |t| Tag.find_by_name(t) }.compact!
+    tags = [tags].flatten.map { |t| Tag.find_by_name(t) }.compact
     podcast_ids = tags.map { |t| t.podcasts.map(&:id) }.flatten.uniq
     { :conditions => { :id => podcast_ids } }
   }

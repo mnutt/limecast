@@ -1,4 +1,8 @@
 #!/usr/bin/env ruby
+#
+# * Log
+# * Convert to h264 videos instead of flvs
+# * Start converting newest videos first
 
 require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
 
@@ -51,84 +55,135 @@ rescue
   nil
 end
 
+def tmp_file(source)
+  "/tmp/source"
+end
+
+def screenshot_tmp_file(source)
+  "#{tmp_file(source)}_screenshot.png"
+end
+
+def encoded_tmp_file(source)
+  "#{tmp_file(source)}_encoded"
+end
+
+def remove_tmp_files
+  puts "Rm'ing\n"
+  `rm /tmp/source*`
+end
+
+def download_file(source)
+  puts "Downloading"
+
+  `curl -L '#{source.url.gsub("'", "")}' > #{tmp_file(source)}`
+end
+
+def hash_file(source)
+  puts "Hashing"
+
+  `sha1 #{tmp_file(source)} | cut -f1 -d" "`.strip
+end
+
+def get_video_info(source)
+  puts "FFmpeg'ing"
+
+  info = parse_ffmpeg_info(`ffmpeg -i #{tmp_file(source)} 2>&1`)
+
+  puts "Got: #{info.inspect}"
+
+  info
+end
+
+def screenshot_time(duration)
+  time = duration / 3
+  h = time / 60 * 60
+  m = (time - h * 60 * 60) / 60
+  s = time - h * 60 * 60 - m * 60
+
+  [h,m,s].join(":")
+end
+
+def take_screen_shot(source, info)
+  puts "Screenshoting"
+
+  t = screenshot_time(info[:duration])
+  `ffmpeg -y -i #{tmp_file(source)} -vframes 1 -ss #{t} -an -vcodec png -f rawvideo #{screenshot_tmp_file(source)}`
+
+  source.attachment_for(:screenshot).assign(File.open(screenshot_tmp_file(source)))
+  source.save!
+end
+
+def encode_video(source, info)
+  puts "FLV'ing"
+  length            = "00:05:00"
+  video_bitrate     = 512
+  video_frame_rate  = 20
+  audio_bitrate     = 96
+  audio_sample_rate = 44100
+
+  # Use fancy mathematics to keep videos from being stretched into 320x240
+  width  = 320
+  height = width.to_f/info[:resolution][0] * info[:resolution][1]
+  size   = [width, height].join("x")
+
+  options = {
+    :i  => tmp_file(source),  :f  => :flv,
+    :ac => 1,                 :b  => "#{video_bitrate}k",
+    :r  => video_frame_rate,  :ab => "#{audio_bitrate}k",
+    :ar => audio_sample_rate, :t  => length,
+    :s  => size
+  }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
+
+  `ffmpeg #{options} #{encoded_tmp_file(source)}`
+
+  if File.exists?(encoded_tmp_file(source))
+    source.attachment_for(:preview).assign(File.open(encoded_tmp_file(source)))
+    source.save!
+  end
+end
+
+def save_info(source, info)
+  puts "Updating"
+  source.episode.update_attributes(
+    :duration => info[:duration]
+  )
+  source.feed.update_attributes(
+		:format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
+    :bitrate  => info[:bitrate]
+  )
+  source.update_attributes(
+    :format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
+    :sha1hash => info[:sha1hash]
+  )
+end
+
 while true
   begin
     # Sleep 30 minutes until a source is found
     sleep 30.minutes.to_i until source = Source.find_by_sha1hash(nil)
 
-    tmp_file = "/tmp/source#{source.id}"
-
-    # Download the file
-    puts "Downloading"
-    `curl -L '#{source.url.gsub("'", "")}' > #{tmp_file}`
-
-    # Hash the file
-    puts "Hashing"
-    sha1hash = `sha1 #{tmp_file} | cut -f1 -d" "`.strip
+    download_file(source)
 
     # Get info about file
-    puts "FFmpeg'ing"
-    raw_info = `ffmpeg -i #{tmp_file} 2>&1`
-    info = parse_ffmpeg_info(raw_info)
+    info = get_video_info(source)
 
-    puts "Got: #{info.inspect}"
+    info[:sha1hash] = hash_file(source)
 
     unless info[:video_codec].nil? || info[:duration].nil?
       # Get a screen shot
-      puts "Screenshoting"
-      time = info[:duration] / 3
-      h = time / 60 * 60
-      m = (time - h * 60 * 60) / 60
-      s = time - h * 60 * 60 - m * 60
-
-      `ffmpeg -y -i #{tmp_file} -vframes 1 -ss #{h}:#{m}:#{s} -an -vcodec png -f rawvideo #{tmp_file}_screenshot.png`
-
-      source.attachment_for(:screenshot).assign(File.open("#{tmp_file}_screenshot.png"))
-      source.save!
+      take_screen_shot(source, info)
 
       # Create flv
-      puts "FLV'ing"
-      length            = "00:05:00"
-      video_bitrate     = 512
-      video_frame_rate  = 20
-      audio_bitrate     = 96
-      audio_sample_rate = 44100
-
-      # Use fancy mathematics to keep videos from being stretched into 320x240
-      width  = 320
-      height = width.to_f/info[:resolution][0] * info[:resolution][1]
-      size   = [width, height].join("x")
-
-      options = { :i  => tmp_file,          :f  => :flv,
-                  :ac => 1,                 :b  => "#{video_bitrate}k",
-                  :r  => video_frame_rate,  :ab => "#{audio_bitrate}k",
-                  :ar => audio_sample_rate, :t  => length,
-                  :s  => size
-                }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
-
-      `ffmpeg #{options} #{tmp_file}.flv`
-      if File.exists?("#{tmp_file}.flv")
-        source.attachment_for(:preview).assign(File.open("#{tmp_file}.flv"))
-        source.save!
-      end
+      encode_video(source, info)
     end
 
     # Updates database with info taken from the video
-    puts "Updating"
-    source.episode.update_attributes(
-      :duration => info[:duration]
-    )
-    source.feed.update_attributes(
-			:format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
-      :bitrate  => info[:bitrate]
-    )
-    source.update_attributes(
-      :format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
-      :sha1hash => sha1hash
-    )
+    save_info(source, info)
+  rescue
+    puts $!
+    puts $!.backtrace
   ensure
-    puts "Rm'ing\n"
-    `rm #{tmp_file}*`
+    remove_tmp_files
   end
 end
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081217185331) do
+ActiveRecord::Schema.define(:version => 20090114162711) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -67,6 +67,9 @@ ActiveRecord::Schema.define(:version => 20081217185331) do
     t.string   "format"
   end
 
+  add_index "feeds", ["podcast_id"], :name => "index_feeds_on_podcast_id"
+  add_index "feeds", ["finder_id"], :name => "index_feeds_on_finder_id"
+
   create_table "podcasts", :force => true do |t|
     t.string   "title"
     t.string   "site"
@@ -86,6 +89,9 @@ ActiveRecord::Schema.define(:version => 20081217185331) do
     t.integer  "primary_feed_id"
   end
 
+  add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
+  add_index "podcasts", ["owner_id"], :name => "index_podcasts_on_owner_id"
+
   create_table "recommendations", :force => true do |t|
     t.integer  "podcast_id"
     t.integer  "related_podcast_id"
@@ -94,11 +100,15 @@ ActiveRecord::Schema.define(:version => 20081217185331) do
     t.datetime "updated_at"
   end
 
+  add_index "recommendations", ["podcast_id", "related_podcast_id"], :name => "index_recommendations_on_podcast_id_and_related_podcast_id", :unique => true
+
   create_table "review_ratings", :force => true do |t|
     t.boolean "insightful"
     t.integer "review_id"
     t.integer "user_id"
   end
+
+  add_index "review_ratings", ["review_id"], :name => "index_review_ratings_on_review_id"
 
   create_table "reviews", :force => true do |t|
     t.integer  "user_id"
@@ -112,6 +122,9 @@ ActiveRecord::Schema.define(:version => 20081217185331) do
     t.integer  "not_insightful", :default => 0
   end
 
+  add_index "reviews", ["user_id"], :name => "index_reviews_on_user_id"
+  add_index "reviews", ["episode_id"], :name => "index_reviews_on_episode_id"
+
   create_table "sources", :force => true do |t|
     t.string  "url"
     t.string  "type"
@@ -122,12 +135,15 @@ ActiveRecord::Schema.define(:version => 20081217185331) do
     t.integer "feed_id"
     t.string  "sha1hash",                :limit => 24
     t.string  "screenshot_file_name"
-    t.string  "stringshot_content_type"
-    t.string  "stringshot_file_size"
+    t.string  "screenshot_content_type"
+    t.string  "screenshot_file_size"
     t.string  "preview_file_name"
     t.string  "preview_content_type"
     t.string  "preview_file_size"
   end
+
+  add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"
+  add_index "sources", ["feed_id"], :name => "index_sources_on_feed_id"
 
   create_table "taggings", :force => true do |t|
     t.integer "tag_id"
@@ -163,5 +179,8 @@ ActiveRecord::Schema.define(:version => 20081217185331) do
     t.datetime "reset_password_sent_at"
     t.integer  "score",                                   :default => 0
   end
+
+  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

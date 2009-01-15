@@ -13,19 +13,25 @@ describe SearchController do
 
     it "should be successful" do
       do_get
-
       response.should be_success
-      assigns[:podcast_groups].should be_a(Hash)
-      assigns[:podcasts].should == []
-      assigns[:feeds].should == []
-      assigns[:episodes].should == []
-      assigns[:reviews].should == []
+    end
+    
+    it "should assign expected variables" do
+      # assigns[:podcast_groups].should be_a(Hash)
+      # assigns[:podcasts].should == []
+      # assigns[:feeds].should == []
+      # assigns[:episodes].should == []
+      # assigns[:reviews].should == []
     end
 
     it "should render index template" do
       do_get
       response.should render_template('index')
     end
+  end
+
+  describe "handling GET /search?q=the+podcast:Diggnation" do
+    
   end
 
 end

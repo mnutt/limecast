@@ -27,7 +27,7 @@ module ApplicationHelper
   end
 
   def link_to_with_icon(title, icon, url, options={})
-    link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title, url, options)
+    link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title.to_s, url, options)
   end
 
   def relative_time(date, abbr=true)

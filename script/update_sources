@@ -106,19 +106,25 @@ end
 def take_screen_shot(source, info)
   puts "Screenshoting"
 
+  # Use fancy mathematics to keep videos from being stretched into 320x240
+  width  = 320
+  height = width.to_f/info[:resolution][0] * info[:resolution][1]
+  size   = [width, height].join("x")
+
   t = screenshot_time(info[:duration])
-  `ffmpeg -y -i #{tmp_file(source)} -vframes 1 -ss #{t} -an -vcodec png -f rawvideo #{screenshot_tmp_file(source)}`
+  `ffmpeg -y -i #{tmp_file(source)} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{screenshot_tmp_file(source)}`
 
   source.attachment_for(:screenshot).assign(File.open(screenshot_tmp_file(source)))
   source.save!
 end
 
+# ffmpeg -i diggnation--0184--clipshow2008--small.h264.mp4 -vcodec libx264 -acodec libfaac -b 256k -r 20 -ab 64k -ar 22050 -s 320x240 -t 30 a.h264.mp4
 def encode_video(source, info)
   puts "FLV'ing"
   length            = "00:05:00"
-  video_bitrate     = 512
+  video_bitrate     = 512.kilobytes
+  audio_bitrate     = 96.kilobytes
   video_frame_rate  = 20
-  audio_bitrate     = 96
   audio_sample_rate = 44100
 
   # Use fancy mathematics to keep videos from being stretched into 320x240
@@ -128,8 +134,8 @@ def encode_video(source, info)
 
   options = {
     :i  => tmp_file(source),  :f  => :flv,
-    :ac => 1,                 :b  => "#{video_bitrate}k",
-    :r  => video_frame_rate,  :ab => "#{audio_bitrate}k",
+    :ac => 1,                 :b  => video_bitrate,
+    :r  => video_frame_rate,  :ab => audio_bitrate,
     :ar => audio_sample_rate, :t  => length,
     :s  => size
   }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
@@ -179,7 +185,10 @@ while true
 
     # Updates database with info taken from the video
     save_info(source, info)
-  rescue
+  rescue Exception
+    puts $!
+    puts $!.backtrace
+  rescue StandardError
     puts $!
     puts $!.backtrace
   ensure

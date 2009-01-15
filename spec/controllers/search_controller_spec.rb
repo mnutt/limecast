@@ -15,7 +15,7 @@ describe SearchController do
       do_get
       response.should be_success
     end
-    
+
     it "should assign expected variables" do
       # assigns[:podcast_groups].should be_a(Hash)
       # assigns[:podcasts].should == []
@@ -31,7 +31,7 @@ describe SearchController do
   end
 
   describe "handling GET /search?q=the+podcast:Diggnation" do
-    
+
   end
 
 end

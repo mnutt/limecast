@@ -64,11 +64,11 @@ ActionController::Routing::Routes.draw do |map|
     p.info             '/:podcast/info',     :action => 'info'
   end
 
+  map.positive_reviews '/:podcast/reviews/positive', :controller => 'reviews', :filter => 'positive'
+  map.negative_reviews '/:podcast/reviews/negative', :controller => 'reviews', :filter => 'negative'
   map.with_options :controller => 'reviews' do |r|
-    r.resources :reviews, :path_prefix => '/:podcast', :collection => {:search => :get}
     r.rate_review      '/:podcast/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
-    r.positive_reviews '/:podcast/reviews/positive', :controller => 'reviews', :filter => 'positive'
-    r.negative_reviews '/:podcast/reviews/negative', :controller => 'reviews', :filter => 'negative'
+    r.resources :reviews, :path_prefix => '/:podcast', :collection => {:search => :get}
   end
 
   map.with_options :controller => 'episodes' do |e|

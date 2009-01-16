@@ -112,8 +112,10 @@ def take_screen_shot(source, info)
   t = screenshot_time(info[:duration])
   `ffmpeg -y -i #{tmp_file(source)} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{screenshot_tmp_file(source)}`
 
-  source.attachment_for(:screenshot).assign(File.open(screenshot_tmp_file(source)))
-  source.save!
+  if File.exists?(screenshot_tmp_file(source))
+    source.attachment_for(:screenshot).assign(File.open(screenshot_tmp_file(source)))
+    source.save!
+  end
 end
 
 # ffmpeg -i diggnation--0184--clipshow2008--small.h264.mp4 -vcodec libx264 -acodec libfaac -b 256k -r 20 -ab 64k -ar 22050 -s 320x240 -t 30 a.h264.mp4

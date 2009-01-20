@@ -32,12 +32,12 @@
     <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
     <% if @oldest_episode -%>since <%= link_to @oldest_episode.published_at.to_date, episode_url(@podcast, @oldest_episode) -%><% end -%>
     <% if @podcast.episodes.size > 1 -%>every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><% end -%>
+
+    <% if @podcast.total_run_time > 60 -%>
+      Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
+    <% end -%>
   </p>
 
-  <% if @podcast.total_run_time > 60 -%>
-  <p class="run_time">Total run time <%= time_to_words(@podcast.total_run_time, false) -%></p>
-  <% end -%>
-  
   <!-- Episodes //-->
   
   <ul class="episodes">

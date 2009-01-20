@@ -17,11 +17,11 @@ describe SearchController do
     end
     
     it "should assign expected variables" do
-      # assigns[:podcast_groups].should be_a(Hash)
-      # assigns[:podcasts].should == []
-      # assigns[:feeds].should == []
-      # assigns[:episodes].should == []
-      # assigns[:reviews].should == []
+      assigns[:podcast_groups].should be_a(Hash)
+      assigns[:podcasts].should == []
+      assigns[:feeds].should == []
+      assigns[:episodes].should == []
+      assigns[:reviews].should == []
     end
 
     it "should render index template" do

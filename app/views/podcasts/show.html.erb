@@ -1,13 +1,13 @@
-	  <div id="s_subscribe">
-	  
+          <div id="s_subscribe">
+          
       <h1><%=h @podcast.custom_title %></h1>
-  	  <h6 id="page_type">VIDEO PODCAST SERIES</h6>
-	  
+            <h6 id="page_type">VIDEO PODCAST SERIES</h6>
+          
       <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "sm_img") -%>
-	  
-	    <div id="bottom_border">
-  	    <div id="s_desc">
-  	      <h4>Series description</h4>
+          
+            <div id="bottom_border">
+              <div id="s_desc">
+                <h4>Series description</h4>
           <p>
             <%= link_to h(@podcast.clean_site), h(@podcast.site) %> - <%= unescape_entities h(@podcast.description) -%>
           </p>
@@ -17,7 +17,7 @@
               <li><%= link_to(tag.name, tag_url(:tag => tag.name)) -%>,</li>
             <% end -%>
           </ul>
-  	    </div>
+              </div>
     
         <div class="cbb" id="s_options">
           <h2>Subscribe</h2>
@@ -79,34 +79,34 @@
 
     
 
-  	<div id="s_episodes_reviews">
-  	  
-  	  <h2 id="current"><span>Episodes</span></h2>
-  	  <h2><a href="#">Series reviews (38)</a></h2>
-  	  
-  	  
-  	  <div class="cbb" id="s_episodes">
-  	    
+          <div id="s_episodes_reviews">
+            
+            <h2 id="current"><span>Episodes</span></h2>
+            <h2><a href="#">Series reviews (38)</a></h2>
+            
+            
+            <div class="cbb" id="s_episodes">
+              
         <div id="e_info">
           <p>
             <%= pluralize(@podcast.episodes.count, 'episode') -%>
             <span>since <%= @podcast.episodes.first.published_at.to_date -%> every <%= @podcast.average_time_between_episodes.to_i.to_duration -%></span>
           </p>
         </div>
-  	    <div id="e_view">
-  	      <p>View:<a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a><a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a></p>
-  	      <ul>
-  	        <li><a href="#" id="pp_current">5</a>,</li>
-  	        <li><a href="#">10</a>,</li>
-  	        <li><a href="#">20</a>,</li>
-  	        <li><a href="#">50</a></li>
-  	      </ul>
-  	      <p id="sort">Sort by: <a href="#" class="options">Most recent</a></p>
-  	    </div>
-  	    
-  	    <div id="dl_option_cont">
-  	      <p>Choose download format (2 Steps):</p>
-  	      <form action="http://limecast.com/search" method="get" id="dl_option">            
+              <div id="e_view">
+                <p>View:<a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a><a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a></p>
+                <ul>
+                  <li><a href="#" id="pp_current">5</a>,</li>
+                  <li><a href="#">10</a>,</li>
+                  <li><a href="#">20</a>,</li>
+                  <li><a href="#">50</a></li>
+                </ul>
+                <p id="sort">Sort by: <a href="#" class="options">Most recent</a></p>
+              </div>
+              
+              <div id="dl_option_cont">
+                <p>Choose download format (2 Steps):</p>
+                <form action="http://limecast.com/search" method="get" id="dl_option">            
             <strong>1.</strong>
             <input class="text search" id="w" name="q" size="15" type="radio" /><label for="w">Web</label>
             <input class="text search" id="m" name="q" size="15" type="radio" /><label for="m">Magnet</label>
@@ -114,17 +114,17 @@
             <a href="#" class="options">Flash (small)</a>
           </form>
           <ul>
-  	        <li><a href="#">help</a> | </li>
-  	        <li><a href="#">hide</a></li>
-  	      </ul>
-  	    </div>
+                  <li><a href="#">help</a> | </li>
+                  <li><a href="#">hide</a></li>
+                </ul>
+              </div>
 
 
 
         <% @episodes.each do |episode| -%>
-  	    <div class="episode">
+              <div class="episode">
           <%= link_to image_tag(episode.sources.first.screenshot.to_s, :height => 95, :width => 95), "#", :title => "#{episode.title} cover art" %>
-  	      <div>
+                <div>
             <h3><%= link_to episode.title, "#" -%></h3>
             <p>
               <span class="e_stat"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></span>
@@ -142,9 +142,9 @@
               <%= link_to nil, episode.audio_source.url, :class => "url" -%>
             </div>
           <% end -%>
-  	    </div>
+              </div>
         <% end -%>
 
-  	  </div><!-- /s_episodes -->
-  	  
+            </div><!-- /s_episodes -->
+            
     </div> <!-- /s_episodes_reviews -->

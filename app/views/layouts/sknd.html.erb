@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+<script type="text/javascript" src="/js/cb.js"></script>
+<%= javascript_include_tag 'jquery' -%>
+<%= javascript_include_tag 'jquery-periodic' -%>
+<%= javascript_include_tag 'jquery.reflect' -%>
+<%= javascript_include_tag 'jquery.flash' -%>
+<script type="text/javascript" src="/javascripts/sknd.application.js"></script>
+
+<link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/screen.css" />
+<!--[if IE]>
+  <link rel="stylesheet" type="text/css" href="stylesheets/ie.css" />
+<![endif]-->
+	
+<title>LimeCast</title>
+</head>
+
+<body>
+  
+  
+  <div id="wrapper">
+  	<div id="header">
+  	  <div id="utility_nav">
+  	    <ul>
+  	      <li><a href="#"><strong>Join now!</strong></a> | </li>
+  	      <li><a href="#">Our Blog</a> | </li>
+  	      <li><a href="#">Learn more</a> | </li>
+  	      <li><a href="#">Sign in</a></li>
+  	    </ul>
+  	  </div>
+  	  
+  	  
+  	  <div id="global_nav">
+  	    <a href="index.php"><img src="imgs/logo.jpg" alt="LimeCast Logo"  title="LimeCast" id="logo" /></a>	
+  	
+  		  <ul>
+  		    <li><a href="#">Home</a></li>
+  		    <li><a href="#">Browse</a></li>
+  		    <li><a href="#">Popular</a></li>
+  		  </ul>
+  		
+  		
+  		  <form action="http://limecast.com/search" method="get" id="search">            
+          <input class="text search" id="q" name="q" size="15" type="text" />
+          <input class="image_button" name="commit" src="/images/content/button_search.png" type="image" value="Search" />
+        </form>
+      
+        <a href="#">Add PodCast</a>
+        
+      </div> <!-- /global_nav -->
+  	</div> <!-- /header -->
+  	
+    <%= yield %>
+
+  </div> <!-- /wrapper -->
+  
+  
+</body>
+</html>

@@ -1,93 +1,150 @@
-<% @title = h(@podcast.custom_title) -%>
-<% @show_ads = true -%>
-<% javascript_include "review_edit", "review_delete", "inline_edit_form", "podcasts_new", "podcast_edit", "review_ratings_new" -%>
+          <div id="s_subscribe">
+          
+      <h1><%=h @podcast.custom_title %></h1>
+            <h6 id="page_type">VIDEO PODCAST SERIES</h6>
+          
+      <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "sm_img") -%>
+          
+            <div id="bottom_border">
+              <div id="s_desc">
+                <h4>Series description</h4>
+          <p>
+            <%= link_to h(@podcast.clean_site), h(@podcast.site) %> - <%= unescape_entities h(@podcast.description) -%>
+          </p>
+          <h6>Categories:</h6>
+          <ul>
+            <% @podcast.tags.each do |tag| -%>
+              <li><%= link_to(tag.name, tag_url(:tag => tag.name)) -%>,</li>
+            <% end -%>
+          </ul>
+              </div>
+    
+        <div class="cbb" id="s_options">
+          <h2>Subscribe</h2>
+          <h6>Through an application:</h6>
+          <ul>
+            <li><a href="#" id="itune" class="icon">iTunes</a></li>
+            <li><a href="#" id="miro" class="icon">miro</a></li>
+          </ul>
+          <h6 class="tm">With an RSS feed:</h6>
+          <ul id="v_options">
+            <li>
+              <a href="#" class="icon rss">Flash</a>
+              <span class="v_options">
+                <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
+              </span>
+            </li>
+          
+            <li>
+              <a href="#" class="icon rss">MP3</a>
+              <span class="v_options">
+                <a href="#" title="1024x760 | bitrate: 1.6meg">High</a>
+              </span>
+            </li>
+          
+            <li>
+              <a href="#" class="icon rss">Quicktime</a>
+              <span class="v_options">
+                <a href="#" title="1024x760 | bitrate: 1.6meg">HD</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
+              </span>
+            </li>
+          
+            <li>
+              <a href="#" class="icon rss">WMV</a>
+              <span class="v_options">
+                <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
+              </span>
+            </li>
+          
+            <li>
+              <a href="#" class="icon rss">XVID</a>
+              <span class="v_options">
+                <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
+              </span>
+            </li>
+          </ul>
+        </div>
+        
+        <div id="social">
+          <ul>
+            <li><a href="#">First found by <span>Kevin</span></a></li>
+            <li><a href="#"><span>Marked as favorite by </span>23 people</a></li>
+            <li><a href="#">Add to favorites</a></li>
+          </ul>
+        </div>
+        
+      </div><!-- /bottom_border -->
 
-<div class="podcast">
+    </div> <!-- /s_subscribe -->
 
-  <%= render :partial => 'podcasts/small_cover', :locals => { :url => cover_url(@podcast) } -%>
+    
 
-  <%= render :partial => 'edit', :locals => {:podcast => @podcast} if current_user && @podcast.writable_by?(current_user) %>
+          <div id="s_episodes_reviews">
+            
+            <h2 id="current"><span>Episodes</span></h2>
+            <h2><a href="#">Series reviews (38)</a></h2>
+            
+            
+            <div class="cbb" id="s_episodes">
+              
+        <div id="e_info">
+          <p>
+            <%= pluralize(@podcast.episodes.count, 'episode') -%>
+            <span>since <%= @podcast.episodes.first.published_at.to_date -%> every <%= @podcast.average_time_between_episodes.to_i.to_duration -%></span>
+          </p>
+        </div>
+              <div id="e_view">
+                <p>View:<a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a><a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a></p>
+                <ul>
+                  <li><a href="#" id="pp_current">5</a>,</li>
+                  <li><a href="#">10</a>,</li>
+                  <li><a href="#">20</a>,</li>
+                  <li><a href="#">50</a></li>
+                </ul>
+                <p id="sort">Sort by: <a href="#" class="options">Most recent</a></p>
+              </div>
+              
+              <div id="dl_option_cont">
+                <p>Choose download format (2 Steps):</p>
+                <form action="http://limecast.com/search" method="get" id="dl_option">            
+            <strong>1.</strong>
+            <input class="text search" id="w" name="q" size="15" type="radio" /><label for="w">Web</label>
+            <input class="text search" id="m" name="q" size="15" type="radio" /><label for="m">Magnet</label>
+            <strong>2.</strong>
+            <a href="#" class="options">Flash (small)</a>
+          </form>
+          <ul>
+                  <li><a href="#">help</a> | </li>
+                  <li><a href="#">hide</a></li>
+                </ul>
+              </div>
 
-  <h1><%=h @podcast.custom_title %></h1>
 
-  <ul class="urls inline clearfix">
-    <li class="site"><%= link_to h(@podcast.clean_site), h(@podcast.site) %></li>
-    <li class="rss">
-      <%= link_to_with_icon "RSS", :rss, @podcast.primary_feed.url %>
-    </li>
-    <% unless @podcast.primary_feed.itunes_link.blank? -%>
-      <%= link_to_with_icon "iTunes", :itunes, "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.primary_feed.itunes_link}" %>
-    <% end -%>
-  </ul>
 
-  <br /> <!-- why isn't .authors clearing without this? //-->
+        <% @episodes.each do |episode| -%>
+              <div class="episode">
+          <%= link_to image_tag(episode.sources.first.screenshot.to_s, :height => 95, :width => 95), "#", :title => "#{episode.title} cover art" %>
+                <div>
+            <h3><%= link_to episode.title, "#" -%></h3>
+            <p>
+              <span class="e_stat"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></span>
+              <%= episode.summary -%>
+            </p>
+            <p>
+              <%= link_to "View 5 min video preview", episode_url(:episode => episode, :podcast => @podcast) -%> |
+              <a href="#">Discuss this episode (<%= episode.reviews.count -%>)</a>
+            </p>
+          </div>
 
-  <% unless @podcast.finders.empty? && !@podcast.owner -%>
-  <ul class="authors inline clearfix">
-    <% unless @podcast.finders.empty? -%>
-      <li class="user found_by">Found by <%= @podcast.finders.uniq.map {|f| link_to_profile f }.to_sentence -%></li>
-    <% end -%>
-    <% if @podcast.owner -%>
-      <li class="user made_by">Made by <%= link_to_profile @podcast.owner -%></li>
-    <% end -%>
-  </ul>
-  <% end -%>
-  
-  <br />
-  
-  <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds, :primary_feed => @podcast.primary_feed} -%>
+          <% if episode.audio_source -%>
+            <div class="audio_player">
+              <span class="label">Audio only version:</span>
+              <%= link_to nil, episode.audio_source.url, :class => "url" -%>
+            </div>
+          <% end -%>
+              </div>
+        <% end -%>
 
-  <%= render :partial => 'badges' %>
-
-  <!-- Stats and Misc //-->
-
-  <p class="episode_info">
-    <% if @podcast.episodes.size > 0 -%>New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.newest.first) -%> <%= relative_time(@podcast.episodes.newest.first.published_at, false) -%><br /><% end -%>
-
-    <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
-    <% if @podcast.episodes.size > 0 -%>since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.oldest.first) -%><% end -%>
-    <% if @podcast.episodes.size > 1 -%>every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><% end -%>
-  </p>
-
-  <% if @podcast.total_run_time > 60 -%>
-  <p class="run_time">Total run time <%= time_to_words(@podcast.total_run_time, false) -%></p>
-  <% end -%>
-  
-  <p>
-  <% if current_user && current_user.favorite_podcasts.include?(@podcast) -%>
-    <span><%= image_tag('icons/favorite.png', :class => 'inline_icon') %>My Favorite</span>
-  <% else -%>
-    <%= link_to "#{image_tag('icons/favorite.png', :class => 'inline_icon')}Favorite",
-          favorite_podcast_url(:podcast => @podcast.clean_url),
-          :title => "Favorite this!",
-          :class => "favorite_link" -%>
-  <% end -%>
-  </p>
-  <% unless current_user -%><div class="quick_signin_container after_favoriting"></div><% end -%>
-
-  <!-- Description //-->
-
-  <h2>Description</h2>
-  <p class="description"><%=unescape_entities h(@podcast.description) -%></p>
-  
-  <!-- Episodes and Reviews //-->
-
-  <% unless @podcast.episodes.empty? -%>
-  <h2>Episodes</h2>
-  <ul class="episodes">
-    <%= render :partial => 'episodes/episode', :collection => @episodes -%>
-  </ul>
-  <p><% link_to(podcast_episodes_url(@podcast), :class => 'all_episodes') do -%><span>All <%= @podcast.episodes.count -%> episodes</span><% end -%></p>
-  <% reset_cycle('row_class') %>
-
-  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search" } do |form| -%>
-    <%= hidden_field_tag :podcast, @podcast.clean_url %>
-    <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
-    <%= text_field_tag "q", params[:q], :id => "search_podcast_q", :size => 15, :class => "text search" %>
-    <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
-  <% end -%>
-
-  <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => { :podcast => @podcast } -%>
-  <% end %>
-  
-</div>
+            </div><!-- /s_episodes -->
+            
+    </div> <!-- /s_episodes_reviews -->

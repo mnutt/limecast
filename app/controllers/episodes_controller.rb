@@ -29,6 +29,8 @@ class EpisodesController < ApplicationController
 
     @next_episode = @podcast.episodes.find(:first, :conditions => ["published_at > ?", @episode.published_at], :order => "published_at ASC")
     @previous_episode = @podcast.episodes.find(:first, :conditions => ["episodes.published_at < ?", @episode.published_at], :order => "published_at DESC")
+
+    render :layout => "sknd"
   end
 
   def info

@@ -196,7 +196,7 @@ span.v_options {
 	font-size: 1em;
 }
 
-#e_view ul li a#pp_current {
+#e_view ul li a.pp_current {
 	border: 1px solid #a9a9a9;
 	padding: 0px 4px;
 }
@@ -222,9 +222,14 @@ p#sort {
 	border: 1px solid #2d5cad;
 }
 
-.episode div {
+.episode > div {
 	float: left;
 	width: 480px;
+}
+
+.episode > div.no_screenshot {
+	float: left;
+	width: 595px;
 }
 
 .episode h3  {
@@ -245,11 +250,8 @@ span.e_stat {
 } 
 
 div.audio_player {
-	float: left;
-	width: 480px;
 	padding: 5px 0;
 	margin-top: 5px;
-	margin-left: 115px;
 	font-size: 1.2em;
 	border-top: 1px dotted #a9a9a9;
 	border-bottom: 1px dotted #a9a9a9;

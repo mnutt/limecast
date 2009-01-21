@@ -5,20 +5,8 @@
 
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
-  <% if @podcast -%>
-    <p class="heading podcast_link"><%= link_to h(@podcast.custom_title), @podcast -%><%= " episodes that match '#@q'" if @q %></p>
-  <% else -%>
-    <h1 class="heading">All episodes</h1>
-  <% end -%>
-
-  <!-- Search //-->
-
-  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search" } do |form| -%>
-    <%= hidden_field_tag :podcast, @podcast.clean_url %>
-    <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
-    <%= text_field_tag "q", params[:q], :id => "search_podcast_q", :size => 15, :class => "text search" %>
-    <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
-  <% end -%>
+  <p class="heading podcast_link"><%= link_to h(@podcast.custom_title), @podcast -%><%= " episodes that match '#@q'" if @q %></p>
+  <h1 class="heading">Episodes</h1>
 
   <!-- Stats and Misc //-->
 
@@ -34,9 +22,18 @@
     <% if @podcast.episodes.size > 1 -%>every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><% end -%>
 
     <% if @podcast.total_run_time > 60 -%>
-      Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
+      <br/>Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
     <% end -%>
   </p>
+
+  <!-- Search //-->
+
+  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search" } do |form| -%>
+    <%= hidden_field_tag :podcast, @podcast.clean_url %>
+    <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
+    <%= text_field_tag "q", params[:q], :id => "search_podcast_q", :size => 15, :class => "text search" %>
+    <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
+  <% end -%>
 
   <!-- Episodes //-->
   

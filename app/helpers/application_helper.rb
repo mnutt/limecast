@@ -26,6 +26,10 @@ module ApplicationHelper
     link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')} <span class=\"searched\">#{h(episode.podcast.custom_title)} &mdash; #{h(episode.date_title)}</span>", episode_url(episode.podcast, episode), :class => 'inline_icon'
   end
 
+  def link_to_episode_date(episode)
+    link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')}#{h(episode.date_title)}", episode_url(episode.podcast, episode), :class => 'inline_icon'
+  end
+
   def link_to_with_icon(title, icon, url, options={})
     link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title.to_s, url, options)
   end

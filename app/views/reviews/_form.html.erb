@@ -6,11 +6,11 @@
 
 <% if options[:show_rating] -%>
 <div class="align">
-  <%= f.radio_button :positive, true, :checked => "checked", :id => "review_positive_true#{options[:suffix]}" -%>
-  <label for="review_positive_true<%= options[:suffix] -%>"><%= image_tag("icons/thumbs_up.png") -%>Positive</label>
+  <%= f.radio_button :positive, true, :class => 'radio', :checked => "checked", :id => "review_positive_true#{options[:suffix]}" -%>
+  <label for="review_positive_true<%= options[:suffix] -%>">Positive</label>
   &nbsp;&nbsp;
-  <%= f.radio_button :positive, false, :id => "review_positive_false#{options[:suffix]}" -%>
-  <label for="review_positive_false<%= options[:suffix] -%>"><%= image_tag("icons/thumbs_down.png") -%>Negative</label>
+  <%= f.radio_button :positive, false, :class => 'radio', :id => "review_positive_false#{options[:suffix]}" -%>
+  <label for="review_positive_false<%= options[:suffix] -%>">Negative</label>
 </div>
 <% end -%>
 

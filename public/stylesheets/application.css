@@ -76,7 +76,7 @@ div.multicolumn ul.podcasts li.podcast {
 div.podcast div.cover {
   top: 30px;
   left: 30px;
-  padding: 1px 0 0 1px;
+  padding: 0 0 0 1px;
   position: absolute;
   z-index: 1;
 }
@@ -97,10 +97,12 @@ div.podcast .episode_info { clear: left; } /* HACK this shouldn't be the solutio
 **/
 div.podcast .episodes {
   *height: 0.01%;
+  margin-bottom: 8px;
 }
 ul.episodes li.episode {
   padding: 0 0 0 16px;
   margin-left: -16px;
+  margin-bottom: 2px !important;
   position: relative;
   width: 100%;
   *height: 0.01%;
@@ -124,6 +126,13 @@ ul.episodes li.episode span.expand {
 }
 ul.episodes li.expanded div.full {
   display: block;
+  margin-bottom: 12px;
+}
+ul.episodes li.expanded div.summary,
+ul.episodes li.expanded div.preview,
+ul.episodes li.expanded form.super_button {
+  display: block;
+  margin-bottom: 12px !important;
 }
 ul.episodes li.expanded span.expand {
   background-image: url("../images/icons/collapse.png");
@@ -149,12 +158,16 @@ div.episode h1.publish_date {
 **/
 ul.reviews li.review {
   position: relative;
+  margin-bottom: 12px;
   *height: 0.01%;
 }
 ul.reviews li.review cite {
   font-style: normal;
   color: #ABABAB;
   margin: 0;
+}
+ul.reviews li.review span.body {
+  display:block;
 }
 ul.reviews li.review span.rating img {
   margin-bottom: -2px;
@@ -175,7 +188,6 @@ div.podcast div.review form#new_review div.field div {
 div.podcast form#new_review div.align,
 form.edit div.align,
 div.podcast div.review form#new_review div.align {
-	margin-bottom: 4px;
 	padding: 0;
 }
 div.podcast form#new_review div.align input,

@@ -4,10 +4,8 @@
   <% else -%>
     <span class="label">This is mine!</span>
   <% end -%>
-  <ul>
-    <li class="edit">
-      <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast) %>
-    </li>
-  </ul>
+
+  <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast) %>
+
   <%= render :partial => "form" -%>
 </div>

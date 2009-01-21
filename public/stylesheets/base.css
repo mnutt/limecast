@@ -53,7 +53,7 @@ body {
   min-height: 100%;
   min-width: 800px;
   padding: 0 0 0 0;
-  line-height: 1.3em; /* DO WE NEED THIS? */
+  line-height: 1.5em; /* DO WE NEED THIS? */
 }
 * html div#document {
   height: 100%;
@@ -77,8 +77,11 @@ body {
 #content ul li,
 #content .super_button,
 #content .search,
+#content .badges,
+#content .urls,
+#content .authors,
 #content h1, #content h2, #content h3, #content h4, #content h5 {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 /** Cancel any Golden Line Separation Margin Here **/
@@ -94,8 +97,8 @@ h1, h2, h3, h4, h5 {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
 }
-h1 { font-size: 2.25em; }
-h1.heading { font-size: 1.6em; } /* effectively h2 */
+h1 { font-size: 2.25em; padding-bottom: 2px; }
+h1.heading { font-size: 1.6em; padding-bottom: 0; } /* effectively h2 */
 h2 { font-size: 1.6em; }
 h3 { font-size: 1.1em; }
 
@@ -110,7 +113,7 @@ a:hover span {
   cursor: pointer;
 }
 a img.inline_icon {
-  margin: -4px 0 0 0;
+  margin: -4px 2px 0 0;
   position: relative;
   top: 3px;
   width: 16px;
@@ -214,7 +217,7 @@ div#content div#full_width {
 }
 div#content div#primary {
   margin: 0 220px 0 0;
-  padding: 30px 30px 30px 230px;
+  padding: 30px 0 30px 230px;
   position: relative;
   *height: 0.01%;
 }
@@ -287,6 +290,7 @@ div#body a.action_button:hover span {
   width: 210px;
   position: relative;
   height: 25px;
+  margin: 0 0 13px 0 !important;
 }
 .search input.text {
   width: 146px;
@@ -299,12 +303,21 @@ div#body a.action_button:hover span {
   display: block;
 }
 .search input.image_button {
-  top: 0;
+  top: 0px;
   right: 26px;
   position: absolute;
 }
 .search label.default {
   visibility: hidden;
+}
+
+/* Inline search */
+#content .search {
+  width: 310px;
+  margin: -1px 0 13px 0;
+}
+#content .search input.text {
+  width: 246px;
 }
 
 /**
@@ -352,6 +365,9 @@ form div.response_container {
 form input,
 form textarea {
   font: 1.0em Verdana, sans-serif;
+}
+form input.radio {
+  margin: 0;
 }
 form input.text,
 form textarea.text {
@@ -438,6 +454,10 @@ form#quick_signin div.response_container {
 /**
 * Edit Actions (the edit links at the top of '/show' pages)
 **/
+div#edit_actions {
+  /* Account for the fact that H1s have a short line-height */
+  margin-bottom: 16px;
+}
 div#edit_actions span.label {
   margin-right: 5px;
   float: left;

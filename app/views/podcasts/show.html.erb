@@ -10,34 +10,28 @@
 
   <h1><%=h @podcast.custom_title %></h1>
 
-  <ul class="urls inline clearfix">
-    <li class="site"><%= link_to h(@podcast.clean_site), h(@podcast.site) %></li>
-    <li class="rss">
-      <%= link_to_with_icon "RSS", :rss, @podcast.primary_feed.url %>
-    </li>
+  <div class="urls inline clearfix">
+    <%= link_to h(@podcast.clean_site), h(@podcast.site) %>
+    <%= link_to_with_icon "RSS", :rss, @podcast.primary_feed.url %>
     <% unless @podcast.primary_feed.itunes_link.blank? -%>
       <%= link_to_with_icon "iTunes", :itunes, "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.primary_feed.itunes_link}" %>
     <% end -%>
-  </ul>
+  </div>
 
   <br /> <!-- why isn't .authors clearing without this? //-->
 
   <% unless @podcast.finders.empty? && !@podcast.owner -%>
-  <ul class="authors inline clearfix">
+  <div class="authors">
     <% unless @podcast.finders.empty? -%>
-      <li class="user found_by">Found by <%= @podcast.finders.uniq.map {|f| link_to_profile f }.to_sentence -%></li>
+      Found by <%= @podcast.finders.uniq.map {|f| link_to_profile f }.to_sentence -%>
     <% end -%>
     <% if @podcast.owner -%>
-      <li class="user made_by">Made by <%= link_to_profile @podcast.owner -%></li>
+      Made by <%= link_to_profile @podcast.owner -%>
     <% end -%>
-  </ul>
+  </div>
   <% end -%>
   
-  <br />
-  
   <%= render :partial => 'super_button', :locals => {:feeds => @podcast.feeds, :primary_feed => @podcast.primary_feed} -%>
-
-  <%= render :partial => 'badges' %>
 
   <!-- Stats and Misc //-->
 
@@ -46,12 +40,9 @@
 
     <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
     <% if @podcast.episodes.size > 0 -%>since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, episode_url(@podcast, @podcast.episodes.oldest.first) -%><% end -%>
-    <% if @podcast.episodes.size > 1 -%>every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><% end -%>
+    <% if @podcast.episodes.size > 1 -%>every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><% end -%><br/>
+    <% if @podcast.total_run_time > 60 -%>Total run time <%= time_to_words(@podcast.total_run_time, false) -%><% end -%>
   </p>
-
-  <% if @podcast.total_run_time > 60 -%>
-  <p class="run_time">Total run time <%= time_to_words(@podcast.total_run_time, false) -%></p>
-  <% end -%>
   
   <p>
   <% if current_user && current_user.favorite_podcasts.include?(@podcast) -%>
@@ -69,6 +60,8 @@
 
   <h2>Description</h2>
   <p class="description"><%=unescape_entities h(@podcast.description) -%></p>
+
+  <%= render :partial => 'badges' %>
   
   <!-- Episodes and Reviews //-->
 

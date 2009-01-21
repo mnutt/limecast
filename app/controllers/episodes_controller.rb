@@ -3,6 +3,7 @@ class EpisodesController < ApplicationController
 
   def index
     @podcast  = Podcast.find_by_clean_url(params[:podcast])
+    raise ActiveRecord::RecordNotFound if @podcast.nil?
     @episodes = @podcast.episodes.find(:all, :include => [:podcast], :order => "published_at DESC")
     @newest_episode = @episodes.first
     @oldest_episode = @episodes.last if @episodes.size > 1

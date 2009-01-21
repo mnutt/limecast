@@ -76,3 +76,10 @@
 }
 .i3 {display:inline-block;}
 .i3 {display:block;}
+
+/* Abstraction for a set of links that use regular text if 'current' */
+.linkable a { display: none; }
+.linkable span { display: inline; }
+.linkable.current a { display: inline; }
+.linkable.current span { display: none; }
+

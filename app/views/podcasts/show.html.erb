@@ -81,8 +81,14 @@
 
 <div id="s_episodes_reviews">
 
-  <h2 id="current"><span>Episodes</span></h2>
-  <h2><a href="#">Series reviews (38)</a></h2>
+  <h2 class="linkable current">
+    <span>Episodes</span>
+    <a href="#">Episodes</a>
+  </h2>
+  <h2 class="linkable">
+    <span>Series reviews (<%= @podcast.episodes.count %>)</span>
+    <a href="#">Series reviews (<%= @podcast.episodes.count %>)</a>
+  </h2>
 
   <div class="cbb" id="s_episodes">
     <div id="e_info">

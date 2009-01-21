@@ -1,16 +1,18 @@
-<div id="s_subscribe">
+<% @classes = %{episode show} -%>
+
+<div class="summary">
 
   <h1><%=h @podcast.custom_title %>/<%=h @episode.title -%></h1>
   <h6 id="page_type">VIDEO PODCAST EPISODE</h6>
 
 
-  <div class="video_preview">
+  <div class="preview">
     <%= image_tag(@episode.sources.first.screenshot.url, :alt => "#{@episode.title} cover art", :width => 340, :height => 252) -%>
     <%= link_to "&lt; Previous episode", "#", :class => "previous"-%>
     <%= link_to "Next episode &gt;", "#", :class => "next"-%>
   </div>
 
-  <div id="bottom_border">
+  <div class="description">
     <div>
       <h2><%=h @podcast.custom_title %></h2>
       <%= link_to "View series &gt;&gt;" -%>
@@ -30,7 +32,7 @@
 
 
 
-<div id="s_episodes_reviews">
+<div class="supplemental">
 
   <h2><a href="#">Episode reviews (38)</a></h2>
 

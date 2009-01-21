@@ -1,11 +1,15 @@
-<div id="s_subscribe">
+<% @classes = %{podcast show} -%>
+
+<div class="summary">
 
   <h1><%=h @podcast.custom_title %></h1>
   <h6 id="page_type">VIDEO PODCAST SERIES</h6>
 
-  <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "sm_img") -%>
+  <div class="preview">
+    <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
+  </div>
 
-  <div id="bottom_border">
+  <div class="description">
     <div id="s_desc">
       <h4>Series description</h4>
       <p>
@@ -79,7 +83,7 @@
 
 
 
-<div id="s_episodes_reviews">
+<div class="supplemental">
 
   <h2 id="current"><span>Episodes</span></h2>
   <h2><a href="#">Series reviews (38)</a></h2>

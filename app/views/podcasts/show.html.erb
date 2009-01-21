@@ -9,7 +9,7 @@
     <div id="s_desc">
       <h4>Series description</h4>
       <p>
-      <%= link_to h(@podcast.clean_site), h(@podcast.site) %> - <%= unescape_entities h(@podcast.description) -%>
+        <%= link_to h(@podcast.clean_site), h(@podcast.site) %> - <%= unescape_entities h(@podcast.description) -%>
       </p>
       <h6>Categories:</h6>
       <ul>
@@ -117,37 +117,7 @@
       </ul>
     </div>
 
-
-
-    <% @episodes.each do |episode| -%>
-      <div class="episode">
-
-        <% if episode.sources.first.screenshot? %>
-          <%= link_to(image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95), "#", :title => "#{episode.title} cover art") %>
-          <div>
-          <% else %>
-            <div class="no_screenshot">
-            <% end %>
-            <h3><%= link_to episode.title, "#" -%></h3>
-            <p>
-            <span class="e_stat"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></span>
-            <%= episode.summary -%>
-            </p>
-            <p>
-            <%= link_to "View 5 min video preview", episode_url(:episode => episode, :podcast => @podcast) -%> |
-            <a href="#">Discuss this episode (<%= episode.reviews.count -%>)</a>
-            </p>
-
-            <% if episode.audio_source -%>
-              <div class="audio_player">
-                <span class="label">Audio only version:</span>
-                <%= link_to nil, episode.audio_source.url, :class => "url" -%>
-              </div>
-            <% end -%>
-          </div>
-
-        </div>
-      <% end -%>
+    <%= render :partial => "episodes/episode", :collection => @episodes -%>
 
     </div><!-- /s_episodes -->
 

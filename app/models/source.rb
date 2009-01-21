@@ -17,7 +17,7 @@ class Source < ActiveRecord::Base
   belongs_to :feed
   belongs_to :episode
 
-  has_attached_file :screenshot
+  has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] }
   has_attached_file :preview
 
   def file_name

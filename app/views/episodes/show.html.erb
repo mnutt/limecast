@@ -14,11 +14,13 @@
 
   <div class="description">
     <div>
-      <h2><%=h @podcast.custom_title %></h2>
-      <%= link_to "View series &gt;&gt;" -%>
+      <h2>
+        <%=h @podcast.custom_title %>
+        <%= link_to "View series &gt;&gt;", podcast_url(:podcast => @podcast) -%>
+      </h2>
       <h3><%=h @episode.title -%></h3>
-      <h4>Series description</h4>
-      <p>
+
+      <p class="media">
         <strong>5 minute preview</strong> (Full download is <%= @episode.duration.to_duration -%>)
       </p>
       <p>

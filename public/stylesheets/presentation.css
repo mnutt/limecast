@@ -42,6 +42,24 @@
 	margin-top: -2.5em;
 }
 
+.show .summary h2 {
+	margin-bottom: 0;
+}
+
+.show .summary h2 a {
+	font-size: 0.65em;
+	font-weight: normal;
+}
+
+.episode.show .summary .media {
+	font-size: 1.2em;
+	font-style: italic;
+}
+
+.episode.show .summary p .date {
+	font-style: italic;
+	font-size: 0.85em;
+}
 
 .show #s_desc {
 	position: relative;

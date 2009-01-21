@@ -85,8 +85,14 @@
 
 <div class="supplemental">
 
-  <h2 id="current"><span>Episodes</span></h2>
-  <h2><a href="#">Series reviews (38)</a></h2>
+  <h2 class="linkable current">
+    <span>Episodes</span>
+    <a href="#">Episodes</a>
+  </h2>
+  <h2 class="linkable">
+    <span>Series reviews (<%= @podcast.episodes.count %>)</span>
+    <a href="#">Series reviews (<%= @podcast.episodes.count %>)</a>
+  </h2>
 
   <div class="cbb" id="s_episodes">
     <div id="e_info">
@@ -124,5 +130,34 @@
     <%= render :partial => "episodes/episode", :collection => @episodes -%>
 
     </div><!-- /s_episodes -->
+    
+    <div class="cbb" id="s_reviews" style="display: none">
+      <div id="e_info">
+        <p>
+          <%= pluralize(@podcast.episodes.count, 'episode') -%>
+          <span>since <%= @podcast.episodes.first.published_at.to_date -%> every <%= @podcast.average_time_between_episodes.to_i.to_duration -%></span>
+        </p>
+      </div>
+
+      <div id="e_view">
+        <p>View:
+          <span class="linkable current">
+            <a href="#">All (38)</a>
+            <span>All (38)</span>
+          </span>
+          <span class="linkable">
+            <a href="#">Positive (36)</a>
+            <span>Positive (36)</span>
+          </span>
+          <span class="linkable">
+            <a href="#">Negative (2)</a>
+            <span>Negative (2)</span>
+          </span>
+        </p>
+      </div>
+
+      <%#= render :partial => "reviews/review", :collection => @episodes -%>
+
+      </div><!-- /s_reviews -->
 
   </div> <!-- /s_episodes_reviews -->

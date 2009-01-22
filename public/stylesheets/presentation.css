@@ -307,10 +307,20 @@
 
 
 
+/* Reviews list */
+.show #r_info, .show #r_view {
+	padding-bottom: 2px;
+	border-bottom: 1px solid #a9a9a9;
+	margin: 0 5px;
+}
 
+.show #r_info p, .show #r_view p {
+	font-size: 1.2em;
+}
 
-
-
+.show #r_info p span, .show #r_view p {
+	color: #a9a9a9;
+}
 
 
 

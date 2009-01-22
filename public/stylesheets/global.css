@@ -78,8 +78,8 @@
 .i3 {display:block;}
 
 /* Abstraction for a set of links that use regular text if 'current' */
-.linkable a { display: none; }
-.linkable span { display: inline; }
-.linkable.current a { display: inline; }
-.linkable.current span { display: none; }
+.linkable a { display: inline; }
+.linkable span { display: none; }
+.linkable.current a { display: none; }
+.linkable.current span { display: inline; }
 

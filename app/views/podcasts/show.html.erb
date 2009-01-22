@@ -90,7 +90,7 @@
     <a href="#">Series reviews (<%= @podcast.episodes.count %>)</a>
   </h2>
 
-  <div class="cbb" id="s_episodes">
+  <div class="cbb" id="s_episodes" style="display: none">
     <div id="e_info">
       <p>
         <%= pluralize(@podcast.episodes.count, 'episode') -%>
@@ -127,7 +127,7 @@
 
     </div><!-- /s_episodes -->
     
-    <div class="cbb" id="s_reviews" style="display: none">
+    <div class="cbb" id="s_reviews" style="display: ;none">
       <div id="e_info">
         <p>
           <%= pluralize(@podcast.episodes.count, 'episode') -%>
@@ -135,24 +135,25 @@
         </p>
       </div>
 
-      <div id="e_view">
+      <div id="r_view">
         <p>View:
           <span class="linkable current">
-            <a href="#">All (38)</a>
+            <%= link_to "All (#{@podcast.reviews.count})", reviews_url(:podcast => @podcast) %>
             <span>All (38)</span>
           </span>
           <span class="linkable">
-            <a href="#">Positive (36)</a>
+            <%= link_to "Positive (#{@podcast.reviews.that_are_positive.count})", positive_reviews_url(:podcast => @podcast) %>
             <span>Positive (36)</span>
           </span>
           <span class="linkable">
-            <a href="#">Negative (2)</a>
+            <%= link_to "Negative (#{@podcast.reviews.that_are_negative.count})", negative_reviews_url(:podcast => @podcast) %>
             <span>Negative (2)</span>
           </span>
         </p>
       </div>
 
-      <%#= render :partial => "reviews/review", :collection => @episodes -%>
+      <%= render :partial => 'reviews/reviews', :objects => {:reviews => @reviews} %>
+      <%#= render :partial => 'reviews/review', :collection => @reviews -%>
 
       </div><!-- /s_reviews -->
 

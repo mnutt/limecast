@@ -45,39 +45,28 @@
         <li><a href="#">hide</a></li>
       </ul>
     </div>
-
     <%= render :partial => "episodes/episode", :collection => @episodes -%>
-
-    </div><!-- /s_episodes -->
+  </div><!-- /s_episodes -->
     
-    <div class="cbb" id="s_reviews" style="display: ;none">
-      <div id="e_info">
-        <p>
-          <%= pluralize(@podcast.episodes.count, 'episode') -%>
-          <span>since <%= @podcast.episodes.first.published_at.to_date -%> every <%= @podcast.average_time_between_episodes.to_i.to_duration -%></span>
-        </p>
-      </div>
-
-      <div id="r_view">
-        <p>View:
-          <span class="linkable current">
-            <%= link_to "All (#{@podcast.reviews.count})", reviews_url(:podcast => @podcast) %>
-            <span>All (38)</span>
-          </span>
-          <span class="linkable">
-            <%= link_to "Positive (#{@podcast.reviews.that_are_positive.count})", positive_reviews_url(:podcast => @podcast) %>
-            <span>Positive (36)</span>
-          </span>
-          <span class="linkable">
-            <%= link_to "Negative (#{@podcast.reviews.that_are_negative.count})", negative_reviews_url(:podcast => @podcast) %>
-            <span>Negative (2)</span>
-          </span>
-        </p>
-      </div>
-
-      <%= render :partial => 'reviews/reviews', :objects => {:reviews => @reviews} %>
-      <%#= render :partial => 'reviews/review', :collection => @reviews -%>
-
-      </div><!-- /s_reviews -->
+  <div class="cbb" id="s_reviews" style="display: ;none">
+    <div id="r_view">
+      <p>View:
+        <span class="linkable current">
+          <%= link_to "All (#{@podcast.reviews.count})", reviews_url(:podcast => @podcast) %>
+          <span>All (38)</span>
+        </span>
+        <span class="linkable">
+          <%= link_to "Positive (#{@podcast.reviews.that_are_positive.count})", positive_reviews_url(:podcast => @podcast) %>
+          <span>Positive (36)</span>
+        </span>
+        <span class="linkable">
+          <%= link_to "Negative (#{@podcast.reviews.that_are_negative.count})", negative_reviews_url(:podcast => @podcast) %>
+          <span>Negative (2)</span>
+        </span>
+      </p>
+    </div>
+    <%= render :partial => 'reviews/reviews', :objects => {:reviews => @reviews} %>
+    <%#= render :partial => 'reviews/review', :collection => @reviews -%>
+  </div><!-- /s_reviews -->
 
   </div> <!-- /s_episodes_reviews -->

@@ -337,8 +337,30 @@
 	color: #a9a9a9;
 }
 
+.show li.review .info {
+	width: 25%;
+	float: left;
+	margin: 10px 0;
+}
 
+.show li.review .info cite {
+	display: block;
+}
 
+.show li.review .summary {
+	width: 75%;
+	margin: 10px 0;
+	float: left;
+}
+
+.show li.review .summary .title {
+	display: block;
+	font-weight: bold;
+}
+
+.show li.review .summary .body {
+	font-size: 1.4em;
+}
 
 
 

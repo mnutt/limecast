@@ -16,3 +16,10 @@ $(document).ready(function() {
     return false;
   });
 });
+
+$(document).ready(function(){
+  $('.dropdown > a').click(function(){
+    $(this).parent().find("div").toggle();
+  });
+});
+

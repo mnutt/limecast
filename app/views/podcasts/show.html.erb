@@ -23,12 +23,23 @@
 
     <div id="e_view">
       <p>View:<a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a><a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a></p>
-      <ul>
+      <ul class="pages">
         <% [5, 10, 20, 50].each do |count| -%>
           <li><%= link_to count, {:limit => count}, :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : "" -%>,</li>
         <% end -%>
       </ul>
-      <p id="sort">Sort by: <a href="#" class="options">Most recent</a></p>
+      <p id="sort">
+        Sort by: 
+        <div class="dropdown">
+          <a href="#" class="options">Most recent</a>
+          <div>
+            <ul class="cbb">
+              <li class="selected"><a href="#">Most Recent</a></li>
+              <li><a href="#">First to last</a></li>
+            </ul>
+          </div>
+        </div>
+      </p>
     </div>
 
     <div id="dl_option_cont">

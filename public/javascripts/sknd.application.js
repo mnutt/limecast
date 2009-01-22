@@ -15,4 +15,9 @@ $(document).ready(function() {
 
     return false;
   });
+
+  // Podcasts#show / Reviews#list
+  $("body.podcast.show h2.linkable").click(function(){
+    $("#s_episodes").toggle();
+  });
 });

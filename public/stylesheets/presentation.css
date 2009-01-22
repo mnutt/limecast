@@ -1,3 +1,9 @@
+/*ul {display: inline;}
+ul li {display: inline;}
+
+*/
+
+
 .show #wrapper {border-left: 1px solid #000; border-right: 1px solid #000; background: #f9f9f9; position: relative;}
 .show #header {overflow: hidden; margin: 20px;}
 
@@ -15,6 +21,27 @@
 .show #global_nav ul {float: left; margin: 0px 0 0 0px;}
 .show #global_nav ul li {display: inline;}
 .show form#search {float: left; margin: 0px 0 0 20px;}
+
+
+div#sort {
+	float: right;
+}
+
+.dropdown {
+	display: inline;
+	position: relative;
+}
+.dropdown a {
+}
+.dropdown > div {
+	position: absolute;
+	width: 100px;
+	top: 1em;
+	right: 0;
+}
+.dropdown .selected {
+	font-size: 0.5em;
+}
 
 
 
@@ -217,18 +244,18 @@
 	margin: 6px 5px 0 5px;
 }
 
-.show #e_view ul {
+.show #e_view ul.pages {
 	border-left: 1px solid #a9a9a9;
 	padding-left: 5px;
 	display: inline;
 }
 
-.show #e_view ul li {
+.show #e_view ul.pages li {
 	display: inline;
 	font-size: 1em;
 }
 
-.show #e_view ul li a.pp_current {
+.show #e_view ul.pages li a.pp_current {
 	border: 1px solid #a9a9a9;
 	padding: 0px 4px;
 }
@@ -376,4 +403,3 @@
 .show li.review .summary .body {
 	font-size: 1.4em;
 }
-

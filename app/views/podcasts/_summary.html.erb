@@ -1,0 +1,78 @@
+<div class="summary">
+
+  <h1><%=h @podcast.custom_title %></h1>
+  <h6 id="page_type">VIDEO PODCAST SERIES</h6>
+
+  <div class="preview">
+    <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
+  </div>
+
+  <div class="description">
+    <div id="s_desc">
+      <h4>Series description</h4>
+      <p>
+        <%= link_to h(@podcast.clean_site), h(@podcast.site) %> - <%= unescape_entities h(@podcast.description) -%>
+      </p>
+      <h6>Categories:</h6>
+      <ul>
+        <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
+      </ul>
+    </div>
+
+    <div class="cbb" id="s_options">
+      <h2>Subscribe</h2>
+      <h6>Through an application:</h6>
+      <ul>
+        <li><a href="#" id="itune" class="icon">iTunes</a></li>
+        <li><a href="#" id="miro" class="icon">miro</a></li>
+      </ul>
+      <h6 class="tm">With an RSS feed:</h6>
+      <ul id="v_options">
+        <li>
+        <a href="#" class="icon rss">Flash</a>
+        <span class="v_options">
+          <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
+        </span>
+        </li>
+
+        <li>
+        <a href="#" class="icon rss">MP3</a>
+        <span class="v_options">
+          <a href="#" title="1024x760 | bitrate: 1.6meg">High</a>
+        </span>
+        </li>
+
+        <li>
+        <a href="#" class="icon rss">Quicktime</a>
+        <span class="v_options">
+          <a href="#" title="1024x760 | bitrate: 1.6meg">HD</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
+        </span>
+        </li>
+
+        <li>
+        <a href="#" class="icon rss">WMV</a>
+        <span class="v_options">
+          <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
+        </span>
+        </li>
+
+        <li>
+        <a href="#" class="icon rss">XVID</a>
+        <span class="v_options">
+          <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
+        </span>
+        </li>
+      </ul>
+    </div>
+
+    <div id="social">
+      <ul>
+        <li><a href="#">First found by <span>Kevin</span></a></li>
+        <li><a href="#"><span>Marked as favorite by </span>23 people</a></li>
+        <li><a href="#">Add to favorites</a></li>
+      </ul>
+    </div>
+
+  </div><!-- /bottom_border -->
+
+</div> <!-- /s_subscribe -->

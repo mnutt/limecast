@@ -13,7 +13,7 @@
     <a href="#">Series reviews (<%= @podcast.episodes.count %>)</a>
   </h2>
 
-  <div class="cbb" id="s_episodes" style="display: none">
+  <div class="cbb" id="s_episodes" style="display: ;none">
     <div id="e_info">
       <p>
         <%= pluralize(@podcast.episodes.count, 'episode') -%>
@@ -28,18 +28,10 @@
           <li><%= link_to count, {:limit => count}, :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : "" -%>,</li>
         <% end -%>
       </ul>
-      <p id="sort">
+      <div id="sort">
         Sort by: 
-        <div class="dropdown">
-          <a href="#" class="options">Most recent</a>
-          <div>
-            <ul class="cbb">
-              <li class="selected"><a href="#">Most Recent</a></li>
-              <li><a href="#">First to last</a></li>
-            </ul>
-          </div>
-        </div>
-      </p>
+				<%= render :partial => "layouts/dropdown", :locals => {:items => ["Most recent", "First to last"]} -%>
+      </div>
     </div>
 
     <div id="dl_option_cont">

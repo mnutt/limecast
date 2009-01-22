@@ -17,9 +17,33 @@ $(document).ready(function() {
   });
 });
 
+$.fn.extend({
+  dropdown: function(){
+    var me = $(this);
+
+    var update_text = function(){
+      me.find('> a').text(
+        me.find('ul li.selected a').text()
+      )
+    }
+
+    me.find('ul li a').click(function(){
+      me.find('ul li').removeClass('selected');
+      $(this).parent().addClass('selected');
+      update_text();
+    });
+
+    me.find('> a').click(function(){
+      $(this).parent().find("div").toggle();
+    });
+
+    update_text();
+
+    return me;
+  }
+});
+
 $(document).ready(function(){
-  $('.dropdown > a').click(function(){
-    $(this).parent().find("div").toggle();
-  });
+  $('.dropdown').dropdown();
 });
 

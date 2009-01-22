@@ -23,12 +23,24 @@ ul li {display: inline;}
 .show form#search {float: left; margin: 0px 0 0 20px;}
 
 
+div#sort {
+	float: right;
+}
 
-.dropdown > div {
+.dropdown {
+	display: inline;
 	position: relative;
+}
+.dropdown a {
+}
+.dropdown > div {
+	position: absolute;
 	width: 100px;
-	top: 0;
+	top: 1em;
 	right: 0;
+}
+.dropdown .selected {
+	font-size: 0.5em;
 }
 
 

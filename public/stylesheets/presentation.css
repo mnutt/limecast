@@ -360,6 +360,10 @@ div#sort {
 	text-align: right;
 }
 
+.show #r_view span {
+	margin-right: 5px;
+}
+
 .show #r_view .linkable {
 	color: #171717;
 }

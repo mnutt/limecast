@@ -17,12 +17,28 @@ $(document).ready(function() {
   });
 
   // Episodes/Reviews toggle links
-  $(".supplemental h2.linkable").click(function(){
+  $(".supplemental h2.linkable a").click(function(){
     $(".supplemental h2.linkable.current").removeClass('current');
     $(this).addClass('current');
 
     $("#s_episodes_wrap").toggle();
     $("#s_reviews_wrap").toggle();
+  });
+  
+  $(".supplemental #r_view .linkable a").click(function(){
+    $(".supplemental #r_view .linkable.current").removeClass('current');
+    $(this).parent('span.linkable').addClass('current');
+    
+    if ($(this).attr('rel') == 'all') $(".supplemental #r_view li.review").show();
+    else if ($(this).attr('rel') == 'positive') {
+      $(".supplemental #r_view li.negative").hide();
+      $(".supplemental #r_view li.positive").show();
+    } else if ($(this).attr('rel') == 'negative') {
+      $(".supplemental #r_view li.negative").show();
+      $(".supplemental #r_view li.positive").hide();
+    }
+    
+    return false;
   });
 });
 

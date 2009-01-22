@@ -5,6 +5,15 @@ module ApplicationHelper
     @javascript_includes << scripts
   end
 
+  def comma_separated_list_items(arr)
+    # :-( RIP: "<li>" + arr.zip([","] * (arr.length-1)).map(&:join).join("</li><li>") + "</li>"
+    #        : a.fill((0..-2)){|i| "#{a[i]}," }.map {|i| "<li>#{i}</li>" }.join
+
+    arr.map do |i|
+      "<li>#{i}#{',' unless i == arr.last}</li>"
+    end.join
+  end
+
   def time_to_words(time, abbr=true)
     time.to_i.to_duration.to_s(abbr)
   end

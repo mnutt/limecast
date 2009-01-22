@@ -329,6 +329,14 @@
 	margin: 0 5px;
 }
 
+.show #r_view {
+	text-align: right;
+}
+
+.show #r_view .linkable {
+	color: #171717;
+}
+
 .show #r_info p, .show #r_view p {
 	font-size: 1.2em;
 }
@@ -338,9 +346,10 @@
 }
 
 .show li.review .info {
-	width: 25%;
+	width: 23%;
 	float: left;
-	margin: 10px 0;
+	margin: 10px 1%;
+	font-size: 1.2em;
 }
 
 .show li.review .info cite {
@@ -358,14 +367,13 @@
 	font-weight: bold;
 }
 
+.show li.review .summary .title a {
+	font-size: 1.4em;
+	text-decoration: none;
+	color: #171717;
+}
+
 .show li.review .summary .body {
 	font-size: 1.4em;
 }
 
-
-
-
-
-
-/*#s_episodes { border: solid 1px green; }
-#s_reviews { border: solid 1px red; }*/

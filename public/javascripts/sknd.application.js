@@ -16,8 +16,12 @@ $(document).ready(function() {
     return false;
   });
 
-  // Podcasts#show / Reviews#list
-  $("body.podcast.show h2.linkable").click(function(){
-    $("#s_episodes").toggle();
+  // Episodes/Reviews toggle links
+  $(".supplemental h2.linkable").click(function(){
+    $(".supplemental h2.linkable.current").removeClass('current');
+    $(this).addClass('current');
+
+    $("#s_episodes_wrap").toggle();
+    $("#s_reviews_wrap").toggle();
   });
 });

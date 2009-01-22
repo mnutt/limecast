@@ -56,12 +56,12 @@
           <span>All (38)</span>
         </span>
         <span class="linkable">
-          <%= link_to "Positive (#{@podcast.reviews.that_are_positive.count})", positive_reviews_url(:podcast => @podcast) %>
-          <span>Positive (36)</span>
+          <%= link_to_with_icon "Positive (#{@podcast.reviews.that_are_positive.count})", :thumbs_up, positive_reviews_url(:podcast => @podcast) %>
+          <%= span_with_icon "Positive (#{@podcast.reviews.that_are_positive.count})", :thumbs_up %>
         </span>
         <span class="linkable">
-          <%= link_to "Negative (#{@podcast.reviews.that_are_negative.count})", negative_reviews_url(:podcast => @podcast) %>
-          <span>Negative (2)</span>
+          <%= link_to_with_icon "Negative (#{@podcast.reviews.that_are_negative.count})", :thumbs_down, negative_reviews_url(:podcast => @podcast) %>
+          <%= span_with_icon "Negative (#{@podcast.reviews.that_are_negative.count})", :thumbs_down %>
         </span>
       </p>
     </div>

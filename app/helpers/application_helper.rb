@@ -39,6 +39,10 @@ module ApplicationHelper
     link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title.to_s, url, options)
   end
 
+  def span_with_icon(title, icon, options={})
+    content_tag(:span, image_tag("icons/#{icon.to_s}.png", :class => "inline_icon"), options)
+  end
+  
   def relative_time(date, abbr=true)
     time_ago = Time.now - date
     time_to_words(time_ago, abbr) + " ago"

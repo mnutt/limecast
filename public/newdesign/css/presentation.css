@@ -1,0 +1,298 @@
+#wrapper {border-left: 1px solid #000; border-right: 1px solid #000; background: #f9f9f9; position: relative;}
+#header {overflow: hidden; margin: 20px;}
+
+#s_subscribe {overflow: hidden; margin: 20px;}
+
+#s_episodes_reviews {overflow: hidden; margin: 20px; width: 640px;}
+
+
+#utility_nav ul {font-size: .8em; position: absolute; top: 10px; right: 20px;}
+#utility_nav ul li {display: inline; margin-left: 2px;}
+
+#logo {float: left; margin-top: -13px;}
+#global_nav {margin: 13px 0 0 0;}
+#global_nav a {margin-left: 20px;}
+#global_nav ul {float: left; margin: 0px 0 0 0px;}
+#global_nav ul li {display: inline;}
+form#search {float: left; margin: 0px 0 0 20px;}
+
+
+.sm_img {width: 160px;}
+
+
+#s_subscribe h6#page_type {
+	float: right;
+	margin-top: -2.5em;
+}
+
+#s_subscribe img {
+	float: left;
+	margin-right: 20px;
+
+}
+
+#s_desc {
+	position: relative;
+	float: left;
+	width: 460px;
+	margin-right: 20px;
+}
+
+#s_desc h6 {
+	color: #a9a9a9;
+	font-size: 1.4em;
+	font-weight: normal;
+	margin: 0;
+	display: inline;
+}
+
+#s_desc ul, #s_desc ul li {
+	display: inline;
+}
+
+#bottom_border {
+	overflow: auto;
+	position: relative;
+	background: url('../imgs/b_border.png') bottom left repeat-x;
+	padding-bottom: 20px;
+} 
+
+
+
+#social ul {
+	position: absolute;
+	bottom: 23px;
+	left: 0;
+}
+
+#social ul li {
+	display: inline;
+}
+
+#social a {
+	font-size: 1em;
+	float: left;
+	display: block;
+	padding: 0px 10px 0px 0px;  
+	background: url("../imgs/social.png") no-repeat top right; 
+	text-decoration: none;
+}
+
+#social li {
+	float: left;  
+	padding-left: 10px;  
+
+	line-height: 22px;
+	margin-right: 10px;
+	background: url("../imgs/social.png") no-repeat top left;  
+}
+#social a:hover {
+	color: #fff;
+	background: url("../imgs/social.png") no-repeat bottom right;
+}
+
+
+
+#s_options {
+	float: left;
+	width: 280px;
+}
+
+#s_options h2 {
+	margin: 0;
+}
+
+#s_options h6 {
+	color: #a9a9a9;
+	font-weight: normal;
+	font-size: 1.3em;
+	margin: 0;
+}
+
+#s_options ul li {
+	display: inline;
+}
+
+#s_options ul#v_options li {
+	display: block;
+	padding-bottom: 2px;
+	border-bottom: 1px dotted #a9a9a9;
+}
+
+#s_options ul#v_options li:last-child {
+	border-bottom: none;
+}
+
+span.v_options {
+	float: right;
+	margin-top: -1.8em;
+}
+
+
+#s_episodes_reviews h2 a {
+	font-size: 1em;
+}
+
+#s_episodes_reviews h2 {
+	line-height: 42px;
+}
+
+#s_episodes_reviews h2.current {
+	margin-left: 20px;
+	margin-right: 8px;
+	padding: 10px 0 5px 10px;
+	background: url('../imgs/tab_left.png') top left no-repeat;
+}
+
+#s_episodes_reviews h2.current span {
+	padding: 10px 40px 25px 10px;
+	background: #fff url('../imgs/tab_right.png') top right no-repeat;
+}
+
+#s_episodes {
+	margin-top: -5px;	
+}
+
+#s_episodes p {
+	margin: 0 0px;
+}
+
+#e_info, #e_view {
+	padding-bottom: 2px;
+	border-bottom: 1px solid #a9a9a9;
+	margin: 0 5px;
+}
+
+#e_info p, #e_view p {
+	font-size: 1.2em;
+}
+
+#e_info p span, #e_view p {
+	color: #a9a9a9;
+}
+
+#e_view p {
+	display: inline;
+}
+
+#e_view p a {
+	font-size: 1em;
+}
+
+#e_view img {
+	padding: 0;
+	margin: 6px 5px 0 5px;
+}
+
+#e_view ul {
+	border-left: 1px solid #a9a9a9;
+	padding-left: 5px;
+	display: inline;
+}
+
+#e_view ul li {
+	display: inline;
+	font-size: 1em;
+}
+
+#e_view ul li a#pp_current {
+	border: 1px solid #a9a9a9;
+	padding: 0px 4px;
+}
+
+p#sort {
+	float: right;
+	margin-top: -1.6em;
+}
+
+
+.episode {
+	margin: 20px 5px;
+	overflow: auto;
+}
+
+.episode a img {
+	float: left;
+	border: 1px solid #171717;
+	margin-right: 20px;
+}
+
+.episode a:hover img {
+	border: 1px solid #2d5cad;
+}
+
+.episode div {
+	float: left;
+	width: 480px;
+}
+
+.episode h3  {
+	margin: 0;
+	font-size: 1.1em;
+}
+
+.episode div p a {
+	font-size: .9em;
+
+}
+
+span.e_stat {
+	font-size: .8em;
+	font-style: italic;
+	display: block;
+	line-height: 1.4em;
+} 
+
+p#audio_player {
+	float: left;
+	width: 480px;
+	padding: 5px 0;
+	margin-top: 5px;
+	margin-left: 115px;
+	font-size: 1.2em;
+	border-top: 1px dotted #a9a9a9;
+	border-bottom: 1px dotted #a9a9a9;
+}
+
+p#audio_player span {
+	width: 70px;
+	display: block;
+	line-height: 1em;
+	text-align: right;
+	margin-right: 10px;
+	float: left;
+}
+
+p#audio_player img {
+	float: left;
+}
+
+
+form#dl_option, #dl_option_cont p {
+	display: inline;
+	font-size: 1.2em;
+}
+
+
+form#dl_option a {
+	font-size: 1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

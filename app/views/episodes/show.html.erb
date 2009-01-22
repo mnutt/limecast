@@ -1,37 +1,8 @@
-<div id="s_subscribe">
+<% @classes = %{episode show} -%>
 
-  <h1><%=h @podcast.custom_title %>/<%=h @episode.title -%></h1>
-  <h6 id="page_type">VIDEO PODCAST EPISODE</h6>
+<%= render :partial => "summary" -%>
 
-
-  <div class="video_preview">
-    <%= image_tag(@episode.sources.first.screenshot.url, :alt => "#{@episode.title} cover art", :width => 340, :height => 252) -%>
-    <%= link_to "&lt; Previous episode", "#", :class => "previous"-%>
-    <%= link_to "Next episode &gt;", "#", :class => "next"-%>
-  </div>
-
-  <div id="bottom_border">
-    <div>
-      <h2><%=h @podcast.custom_title %></h2>
-      <%= link_to "View series &gt;&gt;" -%>
-      <h3><%=h @episode.title -%></h3>
-      <h4>Series description</h4>
-      <p>
-        <strong>5 minute preview</strong> (Full download is <%= @episode.duration.to_duration -%>)
-      </p>
-      <p>
-        <span class="date"><%= @episode.published_at.to_date %></span> - <%= unescape_entities h(@episode.summary) -%>
-      </p>
-    </div>
-
-  </div><!-- /bottom_border -->
-
-</div> <!-- /s_subscribe -->
-
-
-
-<div id="s_episodes_reviews">
-
+<div class="supplemental">
   <h2><a href="#">Episode reviews (38)</a></h2>
 
   <div class="cbb" id="s_episodes">

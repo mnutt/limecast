@@ -1,9 +1,9 @@
 .show #wrapper {border-left: 1px solid #000; border-right: 1px solid #000; background: #f9f9f9; position: relative;}
 .show #header {overflow: hidden; margin: 20px;}
 
-.show #s_subscribe {overflow: hidden; margin: 20px;}
+.show .summary {overflow: hidden; margin: 20px;}
 
-.show #s_episodes_reviews {overflow: hidden; margin: 20px; width: 640px;}
+.show .supplemental {overflow: hidden; margin: 20px; width: 640px;}
 
 
 .show #utility_nav ul {font-size: .8em; position: absolute; top: 10px; right: 20px;}
@@ -17,35 +17,48 @@
 .show form#search {float: left; margin: 0px 0 0 20px;}
 
 
-.show .sm_img {width: 160px;}
 
+.show .summary .preview {
+	float: left;
+	margin-right: 20px;
+}
+  .podcast.show .summary .preview { width: 160px; }
+  .episode.show .summary .preview { width: 340px; }
+  
+  .episode.show .summary .preview .previous {
+    display: block;
+    width: 50%;
+  	float: left;
+  }
+  .episode.show .summary .preview .next {
+    display: block;
+    width: 50%;
+  	float: right;
+    text-align: right;
+  }
 
-.show #s_subscribe h6#page_type {
+.show .summary h6#page_type {
 	float: right;
 	margin-top: -2.5em;
 }
 
-.show #s_subscribe img {
-	float: left;
-	margin-right: 20px;
-
+.show .summary h2 {
+	margin-bottom: 0;
 }
 
-/* XXX: Refactor */
-.show #s_subscribe .video_preview {
-	float: left;
+.show .summary h2 a {
+	font-size: 0.65em;
+	font-weight: normal;
 }
 
-.show #s_subscribe .video_preview img {
-	float: none;
-  display: block;
+.episode.show .summary .media {
+	font-size: 1.2em;
+	font-style: italic;
 }
 
-.show #s_subscribe .previous {
-	float: left;
-}
-.show #s_subscribe .next {
-	float: right;
+.episode.show .summary p .date {
+	font-style: italic;
+	font-size: 0.85em;
 }
 
 .show #s_desc {
@@ -67,13 +80,15 @@
 	display: inline;
 }
 
-.show #bottom_border {
+.show .description {
 	overflow: auto;
 	position: relative;
-	background: url('../imgs/b_border.png') bottom left repeat-x;
 	padding-bottom: 20px;
 } 
 
+.podcast.show .description {
+	background: url('../imgs/b_border.png') bottom left repeat-x;
+}
 
 
 .show #social ul {
@@ -146,23 +161,23 @@
 }
 
 
-.show #s_episodes_reviews h2 a {
+.show .supplemental h2 a {
 	font-size: 1em;
 }
 
-.show #s_episodes_reviews h2 {
+.show .supplemental h2 {
 	display: inline;
 	line-height: 42px;
 }
 
-.show #s_episodes_reviews h2.current {
+.show .supplemental h2#current {
 	margin-left: 20px;
 	margin-right: 8px;
 	padding: 10px 0 5px 10px;
 	background: url('../imgs/tab_left.png') top left no-repeat;
 }
 
-.show #s_episodes_reviews h2.current span {
+.show .supplemental h2#current span {
 	padding: 10px 40px 25px 10px;
 	background: #fff url('../imgs/tab_right.png') top right no-repeat;
 }

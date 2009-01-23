@@ -1,9 +1,16 @@
+<% first_label, first_data = *items[0] %>
+<% default_selected_item = first_data || first_label %>
+<% selected_item ||= default_selected_item %>
 <div class="dropdown">
   <a href="#"></a>
   <div>
     <ul class="cbb">
       <% items.each do |i| -%>
-      <li <%= 'class="selected"' if i == items.first -%>><%= link_to i, "#" -%></li>
+        <% label, data = *i-%>
+        <li <%= 'class="selected"' if (data || label) == selected_item -%>>
+          <%= link_to label, "#" -%>
+          <span><%= data -%></span>
+        </li>
       <% end -%>
     </ul>
   </div>

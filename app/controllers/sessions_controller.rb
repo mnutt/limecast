@@ -9,7 +9,10 @@ class SessionsController < ApplicationController
 
   def create
     authenticate
-    current_user.calculate_score! if logged_in?
+    if logged_in?
+      current_user.calculate_score!
+      current_user.update_attribute(:logged_in_at, Time.now)
+    end
 
     respond_to do |format|
       format.html do

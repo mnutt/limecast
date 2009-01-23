@@ -7,7 +7,7 @@ include AuthenticatedTestHelper
 describe SessionsController do
 
   before do
-    @user = Factory.create(:user)
+    @user = Factory.create(:user, :logged_in_at => 2.days.ago)
 
     request.env["HTTP_REFERER"] = "/"
   end
@@ -15,6 +15,7 @@ describe SessionsController do
   it 'logins and redirects' do
     post :create, :user => { :login => @user.login, :password => @user.password }
     session[:user_id].should_not be_nil
+    @user.reload.logged_in_at.to_i.should == Time.now.to_i
     response.should be_redirect
   end
 

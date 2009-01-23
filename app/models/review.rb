@@ -1,16 +1,16 @@
 # == Schema Information
-# Schema version: 20081126170503
+# Schema version: 20090123214455
 #
 # Table name: reviews
 #
 #  id             :integer(4)    not null, primary key
-#  user_id        :integer(4)
-#  body           :text
-#  created_at     :datetime
-#  updated_at     :datetime
-#  title          :string(255)
-#  positive       :boolean(1)
-#  episode_id     :integer(4)
+#  user_id        :integer(4)    
+#  body           :text          
+#  created_at     :datetime      
+#  updated_at     :datetime      
+#  title          :string(255)   
+#  positive       :boolean(1)    
+#  episode_id     :integer(4)    
 #  insightful     :integer(4)    default(0)
 #  not_insightful :integer(4)    default(0)
 #

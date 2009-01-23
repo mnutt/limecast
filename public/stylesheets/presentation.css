@@ -43,6 +43,10 @@ div#sort {
 	font-size: 0.5em;
 }
 
+.dropdown ul li span {
+	display: none;
+}
+
 
 
 .show .summary .preview {

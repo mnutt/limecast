@@ -327,8 +327,9 @@ div#sort {
 
 .show div.audio_player .popup {
 	position: absolute;
-	top: 0.9em;
-	right: 0;
+	top: 0.5em;
+	right: 10px;
+	cursor: pointer;
 }
 
 .show div.audio_player span.label {

@@ -5,6 +5,15 @@ module ApplicationHelper
     @javascript_includes << scripts
   end
 
+  def comma_separated_list_items(arr)
+    # :-( RIP: "<li>" + arr.zip([","] * (arr.length-1)).map(&:join).join("</li><li>") + "</li>"
+    #        : a.fill((0..-2)){|i| "#{a[i]}," }.map {|i| "<li>#{i}</li>" }.join
+
+    arr.map do |i|
+      "<li>#{i}#{',' unless i == arr.last}</li>"
+    end.join
+  end
+
   def time_to_words(time, abbr=true)
     time.to_i.to_duration.to_s(abbr)
   end
@@ -30,6 +39,10 @@ module ApplicationHelper
     link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title.to_s, url, options)
   end
 
+  def span_with_icon(title, icon, options={})
+    content_tag(:span, image_tag("icons/#{icon.to_s}.png", :class => "inline_icon"), options)
+  end
+  
   def relative_time(date, abbr=true)
     time_ago = Time.now - date
     time_to_words(time_ago, abbr) + " ago"

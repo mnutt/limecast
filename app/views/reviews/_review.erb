@@ -1,28 +1,24 @@
-<% with_podcast ||= false -%>
+<li id="<%=h dom_id(review) -%>" class="review <%= review.positive? ? "positive" : "negative" %>">
 
-<li id="<%=h dom_id(review) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
-  <div class="show">
-    <%= link_to_podcast(review.episode.podcast) if with_podcast -%>
+  <div class="info">
+    <cite><%= link_to_profile review.reviewer -%></cite>
+    <span class="created_at light"><%= time_ago_in_words review.created_at %> ago</span>
+  </div>
 
+  <div class="summary">
     <span class="title"><%= link_to_with_icon (@q ? search_excerpt(review.title, @q) : h(review.title)), 
                                               (review.positive ? :thumbs_up : :thumbs_down), 
                                               review_url(:podcast => review.episode.podcast, :id => review.id), :title => 'permalink' -%></span>
-    <span class="body"><%= @q ? search_excerpt(review.body, @q) : format_with_paragraph_entity(unescape_entities(review.body)) -%></span>
-
-    <% if @user.nil? -%>
-      <cite><%= link_to_profile review.reviewer -%></cite>
-    <% end -%>
-
-    <span class="episode"><%= link_to review.episode.date_title, episode_url(review.episode.podcast, review.episode) -%></span>
-
-    <%= render(:partial => 'reviews/modify_links', :object => review) -%>
-    <%= render(:partial => 'reviews/rating_links', :object => review) -%>
-
+    <span class="body"><%= unescape_entities(review.body) -%></span>
   </div>
 
-  <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
 
-  <% form_for review, :url => review_url(:podcast => review.episode.podcast, :id => review.id), :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>
-    <%= render :partial => 'reviews/form', :locals => {:f => f, :podcast => review.episode.podcast, :options => { :suffix => "_#{review.id}" }} -%>
-  <% end -%>
+  <!-- some stuff from orig design, not sure if it's still going to be used yet //-->
+  <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
+  <%#= render(:partial => 'reviews/modify_links', :object => review) -%>
+  <%#= render(:partial => 'reviews/rating_links', :object => review) -%>
+  <%# form_for review, :url => review_url(:podcast => review.episode.podcast, :id => review.id), :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>
+    <%#= render :partial => 'reviews/form', :locals => {:f => f, :podcast => review.episode.podcast, :options => { :suffix => "_#{review.id}" }} -%>
+  <%# end -%>
+
 </li>

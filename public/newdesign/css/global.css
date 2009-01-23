@@ -77,25 +77,3 @@
 .i3 {display:inline-block;}
 .i3 {display:block;}
 
-/* Abstraction for a set of links that use regular text if 'current' */
-.linkable a { display: inline; }
-.linkable span { display: none; }
-.linkable.current a { display: none; }
-.linkable.current span { display: inline; }
-
-
-/* icons */
-a img.inline_icon {
-  margin: -4px 0 0 0;
-  position: relative;
-  top: 3px;
-  width: 16px;
-  height: 16px;
-  overflow: hidden;
-  display: inline-table;
-}
-span > img.inline_icon {
-  margin: -4px 0 0 0;
-  position: relative;
-  top: 3px;
-}

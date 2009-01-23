@@ -3,7 +3,7 @@ class Date
 
   def to_s(format = nil)
     if format == nil
-      strftime("%Y %b %d").gsub(/(\s+)0/, " ")
+      to_s(:long_ordinal)
     elsif format == :url
       strftime("%Y %b %d").gsub(/(\s+)0/, " ").gsub(" ", "-")
     else

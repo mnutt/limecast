@@ -1,0 +1,10 @@
+<div class="dropdown">
+  <a href="#"></a>
+  <div>
+    <ul class="cbb">
+      <% items.each do |i| -%>
+      <li <%= 'class="selected"' if i == items.first -%>><%= link_to i, "#" -%></li>
+      <% end -%>
+    </ul>
+  </div>
+</div>

@@ -1,13 +1,10 @@
 body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 62.5%;}
 
-a {color: #2d5cad; text-decoration: none;}
+a {font-size: 1.4em; color: #2d5cad; text-decoration: none;}
 a:hover {text-decoration: underline;}
 
 p {color: #171717; font-size: 1.4em; line-height: 1.6em; margin: 0; font-weight: normal;}
-
-.light {color: #a9a9a9;}
-
-/*p a {font-size: 1.1em;}*/
+p a {font-size: 1.1em;}
 
 
 h1, h2, h3, h4, h5, h6 {font-family: Verdana, Arial, Helvetica, sans-serif; color: #171717; font-weight: bold; margin: 0 0 .5em 0;}
@@ -16,6 +13,9 @@ h1 {font-size: 2em;}
 h2 {font-size: 1.8em;}
 h3 {font-size: 1.6em;}
 h4 {font-size: 1.4em;}
+
+ul {display: inline;}
+ul li {display: inline;}
 
 
 

@@ -55,6 +55,10 @@ div#sort {
 	font-size: 0.5em;
 }
 
+.dropdown ul li span {
+	display: none;
+}
+
 
 
 .show .summary .preview {
@@ -141,12 +145,17 @@ div#sort {
 }
 
 .show #social a {
+	color: #a9a9a9;
 	font-size: 1em;
 	float: left;
 	display: block;
 	padding: 0px 10px 0px 0px;  
 	background: url("../imgs/social.png") no-repeat top right; 
 	text-decoration: none;
+}
+
+.show #social a span {
+	color: #2d5cad;
 }
 
 .show #social li {
@@ -167,6 +176,10 @@ div#sort {
 .show #s_options {
 	float: right;
 	width: 280px;
+}
+
+.show #s_options a {
+	font-size: 1.5em;
 }
 
 .show #s_options h2 {
@@ -326,6 +339,14 @@ div#sort {
 	font-size: 1.2em;
 	border-top: 1px dotted #a9a9a9;
 	border-bottom: 1px dotted #a9a9a9;
+	position: relative;
+}
+
+.show div.audio_player .popup {
+	position: absolute;
+	top: 0.5em;
+	right: 10px;
+	cursor: pointer;
 }
 
 .show div.audio_player span.label {
@@ -362,6 +383,10 @@ div#sort {
 
 
 /* Reviews list */
+li.review {
+	border-bottom: solid 1px #D4F0AA;
+}
+
 .show #r_info, .show #r_view {
 	padding-bottom: 2px;
 	border-bottom: 1px solid #a9a9a9;
@@ -389,7 +414,7 @@ div#sort {
 }
 
 .show li.review .info {
-	width: 23%;
+	width: 150px;
 	float: left;
 	margin: 10px 1%;
 	font-size: 1.2em;
@@ -400,7 +425,6 @@ div#sort {
 }
 
 .show li.review .summary {
-	width: 75%;
 	margin: 10px 0;
 	float: left;
 }

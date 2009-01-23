@@ -91,7 +91,7 @@
 
 /* icons */
 a img.inline_icon {
-  margin: -4px 0 0 0;
+  margin: -4px 4px 0 0;
   position: relative;
   top: 3px;
   width: 16px;
@@ -100,7 +100,18 @@ a img.inline_icon {
   display: inline-table;
 }
 span > img.inline_icon {
-  margin: -4px 0 0 0;
+  margin: -4px 4px 0 0;
   position: relative;
   top: 3px;
 }
+
+/* fixes float height problem */ 
+.clearfix:after {
+   content: ".";
+   display: block;
+   height: 0;
+   clear: both;
+   visibility: hidden;
+   }
+
+.clearfix {display: inline-block;}  /* for IE/Mac */

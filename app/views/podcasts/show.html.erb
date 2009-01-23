@@ -13,7 +13,7 @@
     <a href="#">Series reviews (<%= @podcast.episodes.count %>)</a>
   </h2>
 
-  <div id="s_episodes_wrap" style="display: none">
+  <div id="s_episodes_wrap"<%= " style=\"display: none;\"" if params[:controller] == 'reviews' %>>
     <div class="cbb" id="s_episodes">
       <div id="e_info">
         <p>
@@ -31,7 +31,16 @@
         </ul>
         <div id="sort">
           Sort by: 
-                                  <%= render :partial => "layouts/dropdown", :locals => {:items => ["Most recent", "First to last"]} -%>
+                                        <div id="episode_sort_container">
+                                          <form method="GET" action="google.com">
+                                            <select name="episode_sort" id="episode_sort">
+                                                    <option>Most recent</option>
+                                                    <option>First to last</option>
+                                      </select>
+                                      <input type="submit" value="GO"/>
+                                          </form>
+                                        </div>
+          <%#= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
         </div>
       </div>
 
@@ -42,6 +51,7 @@
           <input class="text search" id="w" name="q" size="15" type="radio" /><label for="w">Web</label>
           <input class="text search" id="m" name="q" size="15" type="radio" /><label for="m">Magnet</label>
           <strong>2.</strong>
+          <%#= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
           <a href="#" class="options">Flash (small)</a>
         </form>
         <ul>
@@ -51,9 +61,9 @@
       </div>
       <%= render :partial => "episodes/episode", :collection => @episodes -%>
     </div><!-- /s_episodes -->
-  </div><!-- /s_episodes_wrap -->
-
-  <div id="s_reviews_wrap" style="display:; none">
+  </div><!-- /s_episodes -->
+    
+  <div id="s_reviews_wrap"<%= " style=\"display: none;\"" if params[:controller] == 'podcasts' %>>
     <div class="cbb" id="s_reviews">
       <div id="r_view">
         <p>View:
@@ -72,7 +82,6 @@
         </p>
       </div>
       <%= render :partial => 'reviews/reviews', :objects => {:reviews => @reviews} %>
-      <%#= render :partial => 'reviews/review', :collection => @reviews -%>
     </div><!-- /s_reviews -->
   </div><!-- /s_reviews_wrap -->
   

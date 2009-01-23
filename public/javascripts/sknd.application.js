@@ -16,9 +16,16 @@ $(document).ready(function() {
     return false;
   });
 
+  $(".audio_player").hover(function(){
+		$(this).find("a.popup").show();
+  }, function(){
+		$(this).find("a.popup").hide();
+	});
+
   // Episodes/Reviews toggle links
   $(".supplemental h2.linkable a").click(function(){
     $(".supplemental h2.linkable.current").removeClass('current');
+    $(this).parent().addClass('current');
     $(this).addClass('current');
 
     $("#s_episodes_wrap").toggle();
@@ -28,38 +35,53 @@ $(document).ready(function() {
   $(".supplemental #r_view .linkable a").click(function(){
     $(".supplemental #r_view .linkable.current").removeClass('current');
     $(this).parent('span.linkable').addClass('current');
-    
-    if ($(this).attr('rel') == 'all') $(".supplemental #r_view li.review").show();
+
+    if ($(this).attr('rel') == 'all') $("#s_reviews .review").show();
     else if ($(this).attr('rel') == 'positive') {
-      $(".supplemental #r_view li.negative").hide();
-      $(".supplemental #r_view li.positive").show();
+      $("#s_reviews .review.negative").hide();
+      $("#s_reviews .review.positive").show();
     } else if ($(this).attr('rel') == 'negative') {
-      $(".supplemental #r_view li.negative").show();
-      $(".supplemental #r_view li.positive").hide();
+      $("#s_reviews .review.negative").show();
+      $("#s_reviews .review.positive").hide();
     }
     
     return false;
   });
 });
 
+/*
 $.fn.extend({
-  dropdown: function(){
+  dropdown: function(opts){
     var me = $(this);
+		opts.click = opts.click || function(){};
 
     var update_text = function(){
-      me.find('> a').text(
-        me.find('ul li.selected a').text()
-      )
-    }
+      me.find('> a').text( selected_text() );
+    };
+
+		var selected_text = function(){
+      return me.find('ul li.selected a').text();
+    };
+
+		var selected_data = function(){
+		  var data = me.find('ul li.selected span').text();
+
+			if(data != "")
+			  return data;
+  		else
+				return selected_text();
+		};
 
     me.find('ul li a').click(function(){
       me.find('ul li').removeClass('selected');
       $(this).parent().addClass('selected');
       update_text();
+
+			opts.click( selected_data() );
     });
 
     me.find('> a').click(function(){
-      $(this).parent().find("div").toggle();
+      me.find("div").toggle();
     });
 
     update_text();
@@ -69,6 +91,17 @@ $.fn.extend({
 });
 
 $(document).ready(function(){
-  $('.dropdown').dropdown();
+  $('.dropdown').map(function(){
+    $(this).dropdown({
+      click: function(data){
+	  	  alert(data);
+      }
+    });
+  });
 });
+*/
+$(document).ready(function(){
+  $("#episode_sort_container").fdd2div({OpenStatus:1, GenerateHyperlinks:0});
+});
+
 

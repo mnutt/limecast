@@ -34,14 +34,14 @@ $(document).ready(function() {
   $(".supplemental #r_view .linkable a").click(function(){
     $(".supplemental #r_view .linkable.current").removeClass('current');
     $(this).parent('span.linkable').addClass('current');
-    
-    if ($(this).attr('rel') == 'all') $(".supplemental #r_view li.review").show();
+
+    if ($(this).attr('rel') == 'all') $("#s_reviews .review").show();
     else if ($(this).attr('rel') == 'positive') {
-      $(".supplemental #r_view li.negative").hide();
-      $(".supplemental #r_view li.positive").show();
+      $("#s_reviews .review.negative").hide();
+      $("#s_reviews .review.positive").show();
     } else if ($(this).attr('rel') == 'negative') {
-      $(".supplemental #r_view li.negative").show();
-      $(".supplemental #r_view li.positive").hide();
+      $("#s_reviews .review.negative").show();
+      $("#s_reviews .review.positive").hide();
     }
     
     return false;

@@ -318,6 +318,13 @@ div#sort {
 	font-size: 1.2em;
 	border-top: 1px dotted #a9a9a9;
 	border-bottom: 1px dotted #a9a9a9;
+	position: relative;
+}
+
+.show div.audio_player .popup {
+	position: absolute;
+	top: 0.9em;
+	right: 0;
 }
 
 .show div.audio_player span.label {

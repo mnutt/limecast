@@ -16,6 +16,12 @@ $(document).ready(function() {
     return false;
   });
 
+  $(".audio_player").hover(function(){
+		$(this).find("a.popup").show();
+  }, function(){
+		$(this).find("a.popup").hide();
+	});
+
   // Episodes/Reviews toggle links
   $(".supplemental h2.linkable a").click(function(){
     $(".supplemental h2.linkable.current").removeClass('current');

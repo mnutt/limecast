@@ -210,14 +210,14 @@ div#sort {
 	line-height: 42px;
 }
 
-.show .supplemental h2#current {
+.show .supplemental h2.current {
 	margin-left: 20px;
 	margin-right: 8px;
 	padding: 10px 0 5px 10px;
 	background: url('../imgs/tab_left.png') top left no-repeat;
 }
 
-.show .supplemental h2#current span {
+.show .supplemental h2.current span {
 	padding: 10px 40px 25px 10px;
 	background: #fff url('../imgs/tab_right.png') top right no-repeat;
 }

@@ -350,6 +350,10 @@ div#sort {
 
 
 /* Reviews list */
+li.review {
+	border-bottom: solid 1px #D4F0AA;
+}
+
 .show #r_info, .show #r_view {
 	padding-bottom: 2px;
 	border-bottom: 1px solid #a9a9a9;
@@ -377,7 +381,7 @@ div#sort {
 }
 
 .show li.review .info {
-	width: 23%;
+	width: 150px;
 	float: left;
 	margin: 10px 1%;
 	font-size: 1.2em;
@@ -388,7 +392,6 @@ div#sort {
 }
 
 .show li.review .summary {
-	width: 75%;
 	margin: 10px 0;
 	float: left;
 }

@@ -99,3 +99,14 @@ span > img.inline_icon {
   position: relative;
   top: 3px;
 }
+
+/* fixes float height problem */ 
+.clearfix:after {
+   content: ".";
+   display: block;
+   height: 0;
+   clear: both;
+   visibility: hidden;
+   }
+
+.clearfix {display: inline-block;}  /* for IE/Mac */

@@ -1,4 +1,4 @@
-<li id="<%=h dom_id(review) -%>" class="review <%= review.positive? ? "positive" : "negative" %>">
+<li id="<%=h dom_id(review) -%>" class="review <%= review.positive? ? "positive" : "negative" %> clearfix">
 
   <div class="info">
     <cite><%= link_to_profile review.reviewer -%></cite>

@@ -1,8 +1,8 @@
-<li id="<%=h dom_id(review) -%>" class="review <%= cycle('odd','even', :name => 'row_class') -%>">
+<li id="<%=h dom_id(review) -%>" class="review <%= review.positive? ? "positive" : "negative" %>">
 
   <div class="info">
     <cite><%= link_to_profile review.reviewer -%></cite>
-    <span class="created_at"><%= time_ago_in_words review.created_at %> ago</span>
+    <span class="created_at light"><%= time_ago_in_words review.created_at %> ago</span>
   </div>
 
   <div class="summary">

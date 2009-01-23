@@ -1,10 +1,13 @@
 body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 62.5%;}
 
-a {font-size: 1.4em; color: #2d5cad; text-decoration: none;}
+a {color: #2d5cad; text-decoration: none;}
 a:hover {text-decoration: underline;}
 
 p {color: #171717; font-size: 1.4em; line-height: 1.6em; margin: 0; font-weight: normal;}
-p a {font-size: 1.1em;}
+
+.light {color: #a9a9a9;}
+
+/*p a {font-size: 1.1em;}*/
 
 
 h1, h2, h3, h4, h5, h6 {font-family: Verdana, Arial, Helvetica, sans-serif; color: #171717; font-weight: bold; margin: 0 0 .5em 0;}

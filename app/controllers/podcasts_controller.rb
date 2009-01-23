@@ -17,7 +17,7 @@ class PodcastsController < ApplicationController
     @episodes = @podcast.episodes.
       paginate(:order => "published_at DESC", :page => (params[:page] || 1), :per_page => params[:limit] || 5)
 
-    @reviews = with(@podcast.episodes.newest.first) {|ep| ep.nil? ? [] : ep.reviews }
+    @reviews = @podcast.reviews
     @review  = Review.new(:episode => @podcast.episodes.newest.first)
 
     render :layout => "sknd"

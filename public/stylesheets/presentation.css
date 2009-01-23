@@ -133,12 +133,17 @@ div#sort {
 }
 
 .show #social a {
+	color: #a9a9a9;
 	font-size: 1em;
 	float: left;
 	display: block;
 	padding: 0px 10px 0px 0px;  
 	background: url("../imgs/social.png") no-repeat top right; 
 	text-decoration: none;
+}
+
+.show #social a span {
+	color: #2d5cad;
 }
 
 .show #social li {

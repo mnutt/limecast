@@ -69,7 +69,7 @@ form#search {float: left; margin: 0px 0 0 20px;}
 	display: inline;
 }
 
-#social a {
+#social ul li a {
 	font-size: 1em;
 	float: left;
 	display: block;

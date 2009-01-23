@@ -157,6 +157,10 @@ div#sort {
 	width: 280px;
 }
 
+.show #s_options a {
+	font-size: 1.5em;
+}
+
 .show #s_options h2 {
 	margin: 0;
 }

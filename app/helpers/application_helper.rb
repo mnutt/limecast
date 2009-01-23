@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def span_with_icon(title, icon, options={})
-    content_tag(:span, image_tag("icons/#{icon.to_s}.png", :class => "inline_icon"), options)
+    content_tag(:span, image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + " #{title}" , options)
   end
   
   def relative_time(date, abbr=true)

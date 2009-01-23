@@ -14,12 +14,10 @@ class PodcastsController < ApplicationController
     raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
 
     @feeds    = @podcast.feeds.all
-    @episodes = @podcast.episodes.find(:all, :order => "published_at DESC", :limit => 5)
+    @episodes = @podcast.episodes.find(:all, :order => "published_at DESC", :limit => 3)
 
     @reviews = with(@podcast.episodes.newest.first) {|ep| ep.nil? ? [] : ep.reviews }
     @review  = Review.new(:episode => @podcast.episodes.newest.first)
-
-    render :layout => "sknd"
   end
 
   def info

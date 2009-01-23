@@ -49,6 +49,7 @@ $(document).ready(function() {
   });
 });
 
+/*
 $.fn.extend({
   dropdown: function(opts){
     var me = $(this);
@@ -98,4 +99,9 @@ $(document).ready(function(){
     });
   });
 });
+*/
+$(document).ready(function(){
+  $("#episode_sort_container").fdd2div({OpenStatus:1, GenerateHyperlinks:0});
+});
+
 

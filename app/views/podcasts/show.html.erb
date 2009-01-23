@@ -31,7 +31,16 @@
         </ul>
         <div id="sort">
           Sort by: 
-          <%= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
+					<div id="episode_sort_container">
+					  <form method="GET" action="google.com">
+  					  <select name="episode_sort" id="episode_sort">
+  					  	<option>Most recent</option>
+  					  	<option>First to last</option>
+    				  </select>
+			      	<input type="submit" value="GO"/>
+					  </form>
+					</div>
+          <%#= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
         </div>
       </div>
 
@@ -42,7 +51,7 @@
           <input class="text search" id="w" name="q" size="15" type="radio" /><label for="w">Web</label>
           <input class="text search" id="m" name="q" size="15" type="radio" /><label for="m">Magnet</label>
           <strong>2.</strong>
-          <%= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
+          <%#= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
           <a href="#" class="options">Flash (small)</a>
         </form>
         <ul>

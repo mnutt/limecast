@@ -1,12 +1,6 @@
-body {text-align: center; background: #646464;}
-
-.container {margin: 20px;}
+body {text-align: center;}
 
 #wrapper {width: 980px; margin: 0 auto; text-align: left; overflow: auto;}
 
-#sidebar {width: 200px; float: left;}
 
-#content {width: 710px; float: right;}
-
-table {width: 100%;}
 

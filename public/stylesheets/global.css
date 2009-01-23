@@ -1,12 +1,17 @@
+.clear {
+	clear: both;
+	height: 1%;
+}
+
 .tm {padding-top: 1em;} /*Top Margin*/
 
 /**** Rounded Action Corner Box **************/
 
 /* Basic styling, used when JavaScript is unsupported */
 .cbb {
-	margin:1em 0;
+	margin:0em;
 	padding:0 10px;
-	border:1px solid #666;
+	border:1px solid #dddddd;
 	background:#fff;
 }
 .cbb h1 {

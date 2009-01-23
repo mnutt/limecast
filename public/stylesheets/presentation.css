@@ -3,24 +3,36 @@ ul li {display: inline;}
 
 */
 
+body {background: url('../imgs/header.png') top left repeat-x; }
 
-.show #wrapper {border-left: 1px solid #000; border-right: 1px solid #000; background: #f9f9f9; position: relative;}
-.show #header {overflow: hidden; margin: 20px;}
 
-.show .summary {overflow: hidden; margin: 20px;}
+.show #wrapper {position: relative; margin: auto;}
+.show #header {position: relative; margin: 0; height: 54px;}
+.show #content {position: relative; background: #f9f9f9; margin: 0px;}
+
+.show .summary {margin: 0px 20px 20px 20px; padding-top: 10px;}
 
 .show .supplemental {overflow: hidden; margin: 20px; width: 640px;}
 
-
-.show #utility_nav ul {font-size: .8em; position: absolute; top: 10px; right: 20px;}
+.show #utility_nav ul a {color: #fff;}
+.show #utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}
 .show #utility_nav ul li {display: inline; margin-left: 2px;}
 
-.show #logo {float: left; margin-top: -13px;}
-.show #global_nav {margin: 13px 0 0 0;}
-.show #global_nav a {margin-left: 20px;}
+.show #logo {margin-top: 5px;}
+.show #global_nav {margin: 0; position: absolute; top: 22px; left: 0; height: 30px; width: 100%;}
+.show #global_nav a {}
 .show #global_nav ul {float: left; margin: 0px 0 0 0px;}
 .show #global_nav ul li {display: inline;}
-.show form#search {float: left; margin: 0px 0 0 20px;}
+
+.show form#search {text-align: right; margin: -35px 0 0 0px;}
+.show form#search input.text {
+	background: url('../imgs/text_box.png') top left repeat-x;
+	width: 152px;
+	height: 24px;
+	border: 0;
+	padding: 5px 0 0 5px;
+	color: #a9a9a9;
+}
 
 
 div#sort {
@@ -153,7 +165,7 @@ div#sort {
 
 
 .show #s_options {
-	float: left;
+	float: right;
 	width: 280px;
 }
 

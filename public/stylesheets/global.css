@@ -86,7 +86,7 @@
 
 /* icons */
 a img.inline_icon {
-  margin: -4px 0 0 0;
+  margin: -4px 4px 0 0;
   position: relative;
   top: 3px;
   width: 16px;
@@ -95,7 +95,7 @@ a img.inline_icon {
   display: inline-table;
 }
 span > img.inline_icon {
-  margin: -4px 0 0 0;
+  margin: -4px 4px 0 0;
   position: relative;
   top: 3px;
 }

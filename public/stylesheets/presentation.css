@@ -306,20 +306,23 @@ div#sort {
 
 .show .episode h3  {
 	margin: 0;
-	font-size: 1.1em;
+	font-size: 1.3em;
 }
 
-.show .episode div p a {
-	font-size: .9em;
-
+.show .episode p {
+	color: #a9a9a9;
 }
 
-.show span.e_stat {
-	font-size: .8em;
+.show .episode span.details {
+	font-size: .85em;
 	font-style: italic;
 	display: block;
 	line-height: 1.4em;
 } 
+
+.show .episode .links {
+	font-size: 1.2em;
+}
 
 .show div.audio_player {
 	padding: 5px 0;

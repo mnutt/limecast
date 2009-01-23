@@ -7,10 +7,10 @@
   <% end %>
     <h3><%= link_to episode.title, episode_url(:podcast => @podcast, :episode => episode) -%></h3>
     <p>
-      <span class="e_stat"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></span>
+      <span class="details"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></span>
       <%= episode.summary -%>
     </p>
-    <p>
+    <p class="links">
       <%= link_to "View 5 min video preview", episode_url(:episode => episode, :podcast => @podcast) -%> |
       <a href="#">Discuss this episode (<%= episode.reviews.count -%>)</a>
     </p>

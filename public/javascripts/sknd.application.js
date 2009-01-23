@@ -25,6 +25,7 @@ $(document).ready(function() {
   // Episodes/Reviews toggle links
   $(".supplemental h2.linkable a").click(function(){
     $(".supplemental h2.linkable.current").removeClass('current');
+    $(this).parent().addClass('current');
     $(this).addClass('current');
 
     $("#s_episodes_wrap").toggle();

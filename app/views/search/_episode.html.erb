@@ -1,4 +1,5 @@
 <li>
   <%= link_to episode.date_title, episode_url(episode.podcast, episode) -%>
+  <%= search_excerpt(episode.title, @parsed_q) %>
   <%= search_excerpt(episode.summary, @parsed_q) %>
 </li>

@@ -1,16 +1,23 @@
 # == Schema Information
-# Schema version: 20081126170503
+# Schema version: 20090123214455
 #
 # Table name: sources
 #
-#  id         :integer(4)    not null, primary key
-#  url        :string(255)
-#  type       :string(255)
-#  guid       :string(255)
-#  size       :integer(4)
-#  episode_id :integer(4)
-#  format     :string(255)
-#  feed_id    :integer(4)
+#  id                      :integer(4)    not null, primary key
+#  url                     :string(255)   
+#  type                    :string(255)   
+#  guid                    :string(255)   
+#  episode_id              :integer(4)    
+#  format                  :string(255)   
+#  feed_id                 :integer(4)    
+#  sha1hash                :string(24)    
+#  screenshot_file_name    :string(255)   
+#  stringshot_content_type :string(255)   
+#  stringshot_file_size    :string(255)   
+#  preview_file_name       :string(255)   
+#  preview_content_type    :string(255)   
+#  preview_file_size       :string(255)   
+#  size                    :integer(8)    
 #
 
 class Source < ActiveRecord::Base

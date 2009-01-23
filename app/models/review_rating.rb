@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20081126170503
+# Schema version: 20090123214455
 #
 # Table name: review_ratings
 #
 #  id         :integer(4)    not null, primary key
-#  insightful :boolean(1)
-#  review_id  :integer(4)
-#  user_id    :integer(4)
+#  insightful :boolean(1)    
+#  review_id  :integer(4)    
+#  user_id    :integer(4)    
 #
 
 class ReviewRating < ActiveRecord::Base

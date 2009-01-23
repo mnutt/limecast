@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20081126170503
+# Schema version: 20090123214455
 #
 # Table name: tags
 #
 #  id          :integer(4)    not null, primary key
-#  name        :string(255)
-#  badge       :boolean(1)
-#  blacklisted :boolean(1)
-#  category    :boolean(1)
-#  map_to_id   :integer(4)
+#  name        :string(255)   
+#  badge       :boolean(1)    
+#  blacklisted :boolean(1)    
+#  category    :boolean(1)    
+#  map_to_id   :integer(4)    
 #
 
 class Tag < ActiveRecord::Base

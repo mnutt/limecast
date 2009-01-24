@@ -376,6 +376,7 @@ div#sort {
 /* Reviews list */
 li.review {
 	border-bottom: solid 1px #D4F0AA;
+	display: block;
 }
 
 .show #r_info, .show #r_view {

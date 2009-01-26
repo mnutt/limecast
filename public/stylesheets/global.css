@@ -5,6 +5,56 @@
 
 .tm {padding-top: 1em;} /*Top Margin*/
 
+
+/**** Form elements **************/
+.show form#search {text-align: right; margin: 3px 0 0 0px; display: block;}
+.show form#search input.text {
+	background: url('../imgs/text_box.png') top left repeat-x;
+	width: 152px;
+	height: 19px;
+	border: 0;
+	padding: 5px 0 0 5px;
+	color: #a9a9a9;
+
+}
+
+/*
+	Setting general button styles.
+	Background position can't be set to "top",
+	because of Firefox behavior.
+	overflow: visible; is to remove magic padding in IE.
+*/
+button {
+	text-align: center;
+	background: url('../imgs/button.png') no-repeat right;
+	border: 0;
+	margin: 0;
+	padding: 0 3px 0 0;
+	overflow: visible;
+	cursor: pointer;
+}
+/*
+	Sets the general styles for the span within the button
+	content, and the starting image. This image contains the
+	rounded corners to the left and is as wide as
+	the widest button might become.
+*/
+button span {
+	position: relative;
+	display: block;
+	white-space: nowrap;
+	height: 23px;
+	color: #fff;
+	font: bold 12px/23px Arial, Helvetica, sans-serif;
+
+	background: url('../imgs/button_left.png') no-repeat left top;
+	padding: 0 5px 0 10px;
+}
+
+
+
+
+
 /**** Rounded Action Corner Box **************/
 
 /* Basic styling, used when JavaScript is unsupported */

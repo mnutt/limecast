@@ -16,3 +16,6 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 
 .add.favorite { padding: 4px 0 4px 18px; background: url('../imgs/plus.png') center left no-repeat; }
 .is.favorite  { padding: 4px 0 4px 18px; background: url('../imgs/checkmark.png') center left no-repeat; }
+
+.linkable .positive, .positive .title { padding: 4px 0 4px 18px; background: url('../images/icons/thumbs_up.png') center left no-repeat; }
+.linkable .negative, .negative .title { padding: 4px 0 4px 18px; background: url('../images/icons/thumbs_down.png') center left no-repeat; }

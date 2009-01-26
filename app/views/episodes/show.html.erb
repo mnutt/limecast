@@ -4,42 +4,7 @@
 
 <div class="supplemental">
   <h2><a href="#">Episode reviews (38)</a></h2>
-
-  <div class="cbb" id="s_episodes">
-    <div id="e_info">
-      <p>
-        <%= pluralize(@podcast.episodes.count, 'episode') -%>
-        <span>since <%= @podcast.episodes.first.published_at.to_date -%> every <%= @podcast.average_time_between_episodes.to_i.to_duration -%></span>
-      </p>
-    </div>
-
-    <div id="e_view">
-      <p>View:<a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a><a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a></p>
-      <ul>
-        <% [5, 10, 20, 50].each do |count| -%>
-          <li><%= link_to count, {:limit => count}, :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : "" -%>,</li>
-        <% end -%>
-      </ul>
-      <p id="sort">Sort by: <a href="#" class="options">Most recent</a></p>
-    </div>
-
-    <div id="dl_option_cont">
-      <p>Choose download format (2 Steps):</p>
-      <form action="http://limecast.com/search" method="get" id="dl_option">            
-        <strong>1.</strong>
-        <input class="text search" id="w" name="q" size="15" type="radio" /><label for="w">Web</label>
-        <input class="text search" id="m" name="q" size="15" type="radio" /><label for="m">Magnet</label>
-        <strong>2.</strong>
-        <a href="#" class="options">Flash (small)</a>
-      </form>
-      <ul>
-        <li><a href="#">help</a> | </li>
-        <li><a href="#">hide</a></li>
-      </ul>
-    </div>
-
-    <%= render :partial => "episodes/episode", :collection => @episodes -%>
-
-    </div><!-- /s_episodes -->
-
-  </div> <!-- /s_episodes_reviews -->
+  <div id="s_reviews_wrap">
+    <%= render :partial => 'reviews/reviews', :object => @episode.reviews, :locals => {:podcast => @podcast} %>
+  </div><!-- /s_reviews_wrap -->
+</div>

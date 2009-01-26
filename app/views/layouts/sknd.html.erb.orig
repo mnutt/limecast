@@ -35,21 +35,28 @@
 
 
         <div id="global_nav">
+<<<<<<< HEAD:app/views/layouts/sknd.html.erb
           <a href="index.php" id="logo"><span>LimeCast</span></a>        
           <!--
+=======
+          <a href="/"><img src="imgs/logo.png" alt="LimeCast Logo"  title="LimeCast" id="logo" /></a>
+>>>>>>> 920d770749a4d86caf7b1b0a4da8671b6a75d4e1:app/views/layouts/sknd.html.erb
           <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">Browse</a></li>
             <li><a href="#">Popular</a></li>
             <li><a href="#" id="add_podcast">Add podcast</a><li>
           </ul>
+<<<<<<< HEAD:app/views/layouts/sknd.html.erb
           -->
           <a href="#" id="add_podcast"><span>Add podcast</span></a>
+=======
+>>>>>>> 920d770749a4d86caf7b1b0a4da8671b6a75d4e1:app/views/layouts/sknd.html.erb
 
           <form action="http://limecast.com/search" method="get" id="search">            
             <input class="text search" id="q" name="q" size="15" type="text" />
             <button type="submit">
-                    <span>Search</span>
+            	<span>Search</span>
             </button>
           </form>
 

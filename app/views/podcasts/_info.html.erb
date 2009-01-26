@@ -1,0 +1,6 @@
+<div id="e_info">
+  <p>
+    <%= pluralize(podcast.episodes.count, 'episode') -%>
+    <span>since <%= podcast.episodes.first.published_at.to_date -%> every <%= podcast.average_time_between_episodes.to_i.to_duration -%></span>
+  </p>
+</div>

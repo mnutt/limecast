@@ -36,17 +36,8 @@
       </div>
     </div>
 
-    <div id="social">
-      <ul>
-        <%- if @podcast.found_by -%>
-          <li><%= link_to "First found by <span>#{@podcast.found_by.login}</span>" -%></li>
-        <%- end -%>
-        <%- if @podcast.owned_by -%>
-          <li><%= link_to "Owned by <span>#{@podcast.owned_by.login}</span>" -%></li>
-        <%- end -%>
-        <li><a href="#">Marked as favorite by <span><%= pluralize(@podcast.favorites.count, "person") -%></span></a></li>
-      </ul>
-    </div>
+    <%= render :partial => "subscribe" -%>
+    <%= render :partial => "social", :locals => {:podcast => @podcast} -%>
 
   </div><!-- /description -->
 

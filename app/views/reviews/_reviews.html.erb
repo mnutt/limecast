@@ -1,6 +1,24 @@
-<ul class="reviews">
-  <%= render :partial => 'reviews/review', :collection => reviews -%>
-</ul>
+<div class="cbb" id="s_reviews">
+  <div id="r_view">
+    <p>View:
+      <span class="linkable current">
+        <%= link_to "All (#{reviews.count})", reviews_url(:podcast => podcast), :rel => "all" %>
+        <span>All (<%= reviews.count -%>)</span>
+      </span>
+      <span class="linkable">
+        <%= link_to "Positive (#{reviews.that_are_positive.count})", positive_reviews_url(:podcast => podcast), :class => "positive", :rel => "positive" %>
+        <span class="positive">Positive (<%= reviews.that_are_positive.count -%>)</span>
+      </span>
+      <span class="linkable">
+        <%= link_to "Negative (#{reviews.that_are_negative.count})", negative_reviews_url(:podcast => podcast), :class => "negative", :rel => "negative" %>
+        <span class="negative">Negative (<%= reviews.that_are_negative.count -%>)</span>
+      </span>
+    </p>
+  </div>
+  <ul class="reviews">
+    <%= render :partial => 'reviews/review', :collection => reviews -%>
+  </ul>
+</div><!-- /s_reviews -->
 
 <!-- some stuff from orig design, not sure if it's still going to be used yet //-->
 <%# if can_add_reviews?(episode) %>

@@ -32,5 +32,4 @@ class Tag < ActiveRecord::Base
     name
   end
 
-
 end

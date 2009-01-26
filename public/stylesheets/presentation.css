@@ -18,22 +18,42 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 .show #utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}
 .show #utility_nav ul li {display: inline; margin-left: 2px;}
 
-.show #logo {margin-top: 5px;}
+
 .show #global_nav {margin: 0; position: absolute; top: 22px; left: 0; height: 30px; width: 100%;}
 .show #global_nav a {}
 .show #global_nav ul {float: left; margin: 0px 0 0 0px;}
 .show #global_nav ul li {display: inline;}
 
-.show form#search {text-align: right; margin: -35px 0 0 0px;}
-.show form#search input.text {
-	background: url('../imgs/text_box.png') top left repeat-x;
-	width: 152px;
+.show a#logo {
+	margin-top: 3px; 
+	float: left;
+	background: url('../imgs/logo.png') top left no-repeat;
+	width: 111px;
 	height: 24px;
-	border: 0;
-	padding: 5px 0 0 5px;
-	color: #a9a9a9;
+	display: block;
 }
 
+.show a#logo:hover {
+	background: url('../imgs/logo_over.png') top left no-repeat;
+}
+
+a#add_podcast {
+	float: left;
+	background: url('../imgs/add_podcast.png') top left no-repeat;
+	width: 128px;
+	height: 19px;
+	display: block;
+	margin: 5px 0 0 15px;
+	padding: 5px 0 5px 20px;
+}
+
+a#add_podcast:hover {
+	background: url('../imgs/add_podcast_over.png') top left no-repeat;
+}
+
+a#add_podcast span, a#logo span {
+	margin-left: -5000px;
+}
 
 div#sort {
 	float: right;

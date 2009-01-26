@@ -35,7 +35,7 @@
 
 
         <div id="global_nav">
-          <a href="index.php"><img src="imgs/logo.png" alt="LimeCast Logo"  title="LimeCast" id="logo" /></a>        
+          <a href="index.php" id="logo"><span>LimeCast</span></a>        
           <!--
           <ul>
             <li><a href="#">Home</a></li>
@@ -43,11 +43,13 @@
             <li><a href="#">Popular</a></li>
           </ul>
           -->
-          <a href="#" id="add_podcast">Add podcast</a>
+          <a href="#" id="add_podcast"><span>Add podcast</span></a>
 
           <form action="http://limecast.com/search" method="get" id="search">            
             <input class="text search" id="q" name="q" size="15" type="text" />
-            <input class="image_button" name="commit" src="/images/content/button_search.png" type="image" value="Search" />
+            <button type="submit">
+            	<span>Search</span>
+            </button>
           </form>
 
 

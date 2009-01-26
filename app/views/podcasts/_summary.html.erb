@@ -27,63 +27,8 @@
       </ul>
     </div>
 
-    <div class="cbb" id="s_options">
-      <h2>Subscribe</h2>
-      <h6>Through an application:</h6>
-      <ul>
-        <li><a href="#" id="itune" class="icon">iTunes</a></li>
-        <li><a href="#" id="miro" class="icon">miro</a></li>
-      </ul>
-      <h6 class="tm">With an RSS feed:</h6>
-      <ul id="v_options">
-        <li>
-        <a href="#" class="icon rss">Flash</a>
-        <span class="v_options">
-          <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
-        </span>
-        </li>
-
-        <li>
-        <a href="#" class="icon rss">MP3</a>
-        <span class="v_options">
-          <a href="#" title="1024x760 | bitrate: 1.6meg">High</a>
-        </span>
-        </li>
-
-        <li>
-        <a href="#" class="icon rss">Quicktime</a>
-        <span class="v_options">
-          <a href="#" title="1024x760 | bitrate: 1.6meg">HD</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
-        </span>
-        </li>
-
-        <li>
-        <a href="#" class="icon rss">WMV</a>
-        <span class="v_options">
-          <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
-        </span>
-        </li>
-
-        <li>
-        <a href="#" class="icon rss">XVID</a>
-        <span class="v_options">
-          <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
-        </span>
-        </li>
-      </ul>
-    </div>
-
-    <div id="social">
-      <ul>
-        <%- if @podcast.found_by -%>
-          <li><%= link_to "First found by <span>#{@podcast.found_by.login}</span>" -%></li>
-        <%- end -%>
-        <%- if @podcast.owned_by -%>
-          <li><%= link_to "Owned by <span>#{@podcast.owned_by.login}</span>" -%></li>
-        <%- end -%>
-        <li><a href="#">Marked as favorite by <span><%= pluralize(@podcast.favorites.count, "person") -%></span></a></li>
-      </ul>
-    </div>
+    <%= render :partial => "subscribe" -%>
+    <%= render :partial => "social", :locals => {:podcast => @podcast} -%>
 
   </div><!-- /bottom_border -->
 

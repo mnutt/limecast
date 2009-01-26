@@ -24,7 +24,7 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 	font-size: 1.5em;
 }
 .show #global_nav a {}
-.show #global_nav ul {float: left; margin: 0px 0 0 0px;}
+.show #global_nav ul { display: inline; padding: 0 0 10px 0;}
 .show #global_nav ul li {display: inline;}
 
 .show form#search {text-align: right; margin: -35px 0 0 0px;}
@@ -120,6 +120,10 @@ div#sort {
 	font-weight: normal;
 	margin: 0;
 	display: inline;
+}
+
+.show p.favorite {
+	float: right;
 }
 
 .show #s_desc ul, .show #s_desc ul li {

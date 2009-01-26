@@ -80,6 +80,14 @@ class Podcast < ActiveRecord::Base
     has :created_at
   end
 
+  def found_by
+    feeds.first.finder rescue nil
+  end
+
+  def owned_by
+    owner
+  end
+
   def download_logo(link)
     file = PaperClipFile.new
     file.original_filename = File.basename(link)

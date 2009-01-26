@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+# To save himself, a user can do any of the following:
+# 
+# * Log into the site once every 29 days
+# * Confirm his email
+# * Have a score of 1 or more
+# * Favorite something
+# * Tag something or make a tag
+
+require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
+require 'logger'
+@logger = Logger.new(RAILS_ROOT + "/log/purge_deadbeat_users.log")
+
+# Get ids of users we'll keep
+frequent_users = User.frequent_users.map(&:id)
+activated_users = User.active.all.map(&:id)
+users_with_score = User.find(:all, :conditions => "score > 0").map(&:id)
+users_with_favorites = User.find(:all, :include => [:favorites]).reject { |u| u.favorites.count < 1 }.map(&:id)
+users_with_tags = UserTagging.find(:all).map(&:user_id).uniq
+
+# Add them up
+keepers = (frequent_users + activated_users + users_with_score + users_with_favorites + users_with_tags).uniq
+
+# Find all non-keepers
+deadbeat_users = User.find(:all, :conditions => ["id NOT IN (?)", keepers])
+
+
+@logger.info "#{Time.now.to_s(:long_ordinal)} -- Checking for deadbeat users"
+@logger.info "-- The deadbeat users being 'deleted' are: #{'none' if deadbeat_users.empty?}"
+deadbeat_users.each do |u|
+  @logger.info "--> #{u.inspect}"
+  u.delete!
+end
+@logger.info "\n"

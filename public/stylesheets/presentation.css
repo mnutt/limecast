@@ -8,11 +8,14 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 
 .show #wrapper {position: relative; margin: auto;}
 .show #header {position: relative; margin: 0; height: 54px;}
-.show #content {position: relative; background: #f9f9f9; margin: 0px;}
+.show #content {position: relative; margin: 0px; background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;}
 
-.show .summary {margin: 0px 20px 20px 20px; padding-top: 10px;}
+.show .summary {margin: 0px 20px 20px 20px; padding-top: 10px; overflow: visible;}
 
 .show .supplemental {overflow: hidden; margin: 20px; width: 640px;}
+
+
+/**** Header **************/
 
 .show #utility_nav ul a {color: #fff;}
 .show #utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}
@@ -58,35 +61,14 @@ a#add_podcast span, a#logo span {
 	margin-left: -5000px;
 }
 
-div#sort {
-	float: right;
-}
-
-.dropdown {
-	display: inline;
-	position: relative;
-}
-.dropdown a {
-}
-.dropdown > div {
-	position: absolute;
-	width: 100px;
-	top: 1em;
-	right: 0;
-}
-.dropdown .selected {
-	font-size: 0.5em;
-}
-
-.dropdown ul li span {
-	display: none;
-}
 
 
+/**** Summary **************/
 
-.show .summary .preview {
+.show .summary .preview img{
 	float: left;
 	margin-right: 20px;
+	width: 160px;
 }
   .podcast.show .summary .preview { width: 160px; }
   .episode.show .summary .preview { width: 340px; }
@@ -105,17 +87,9 @@ div#sort {
 
 .show .summary h6#page_type {
 	float: right;
-	margin-top: -2.5em;
+	margin-top: -3em;
 }
 
-.show .summary h2 {
-	margin-bottom: 0;
-}
-
-.show .summary h2 a {
-	font-size: 0.65em;
-	font-weight: normal;
-}
 
 .episode.show .summary .media {
 	font-size: 1.2em;
@@ -131,7 +105,7 @@ div#sort {
 	position: relative;
 	float: left;
 	width: 460px;
-	margin-right: 20px;
+	
 }
 
 .show #s_desc h6 {
@@ -146,14 +120,25 @@ div#sort {
 	float: right;
 }
 
+.show #s_desc p {
+	margin: -5px 0 5px 0;
+}
+
 .show #s_desc ul, .show #s_desc ul li {
 	display: inline;
+	font-size: 1.2em;
+	color: #a9a9a9;
 }
 
 .show .description {
-	overflow: auto;
+	overflow: visible;
 	position: relative;
 	padding-bottom: 20px;
+	display: block;
+	min-height: 200px;
+	width: 760px;
+	float: right;
+	margin-bottom: 20px;
 } 
 
 .podcast.show .description {
@@ -201,43 +186,85 @@ div#sort {
 
 
 
-.show #s_options {
+.show #subscribe {
 	float: right;
-	width: 280px;
+	position: relative;
+	width: 295px;
+	height: 200px;
+	background: url("../imgs/subscribe.png") no-repeat top left;
+	margin-right: -10px;
 }
 
-.show #s_options a {
-	font-size: 1.5em;
-}
-
-.show #s_options h2 {
-	margin: 0;
-}
-
-.show #s_options h6 {
-	color: #a9a9a9;
-	font-weight: normal;
-	font-size: 1.3em;
-	margin: 0;
-}
-
-.show #s_options ul li {
-	display: inline;
-}
-
-.show #s_options ul#v_options li {
+.show #subscribe div {
 	display: block;
-	padding-bottom: 2px;
-	border-bottom: 1px dotted #a9a9a9;
+	background: url("../imgs/subscribe_right.png") no-repeat top right;
+	height: 200px;
+
 }
 
-.show #s_options ul#v_options li:last-child {
-	border-bottom: none;
+.show #subscribe h2 {
+	margin: 0;
+	color: #fff;
 }
 
-.show span.v_options {
+.show #subscribe p {
+	margin: 0;
+	color: #fff;
+	font-size: 1.2em;
+}
+
+.show #subscribe p span {
+	margin: 0;
+	color: #fff;
+	font-size: .8em;
+}
+
+.show #subscribe  a {
+	color: #fff;
+	padding-top: 6px;
+	padding-left: 70px;
+	display: block;
+	width: 225px;
+	height: 55px;
+	outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**** episodes/reveiws **************/
+div#sort {
 	float: right;
-	margin-top: -1.8em;
+}
+
+.dropdown {
+	display: inline;
+	position: relative;
+}
+.dropdown a {
+}
+.dropdown > div {
+	position: absolute;
+	width: 100px;
+	top: 1em;
+	right: 0;
+}
+.dropdown .selected {
+	font-size: 0.5em;
+}
+
+.dropdown ul li span {
+	display: none;
 }
 
 

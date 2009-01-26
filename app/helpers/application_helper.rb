@@ -10,7 +10,7 @@ module ApplicationHelper
     #        : a.fill((0..-2)){|i| "#{a[i]}," }.map {|i| "<li>#{i}</li>" }.join
 
     arr.map do |i|
-      "<li>#{i}#{',' unless i == arr.last}</li>"
+      "<li>#{i}#{', ' unless i == arr.last}</li>"
     end.join
   end
 

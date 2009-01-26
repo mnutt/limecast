@@ -1,14 +1,14 @@
 @import url(reset.css);
 
-@import url(typography.css);
-
 @import url(layout.css);
+
+@import url(typography.css);
 
 @import url(global.css);
 
-@import url(presentation.css);
-
 @import url(icons.css);
+
+@import url(presentation.css);
 
 /*******************/
 /* COLOR REFERENCE */

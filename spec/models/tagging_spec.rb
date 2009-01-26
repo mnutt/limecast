@@ -14,10 +14,6 @@ describe Tagging, "being created" do
     tagging.tag.should == good_tag
   end
 
-  # it 'should create a tag from a user' do
-  #   user_tag = Tag.create :name => "user1", :user_id => 
-  # end
-
   it 'should allow any number of tags per podcast' do
     adding_tagging = lambda { @podcast.tags << Factory.create(:tag) }
 

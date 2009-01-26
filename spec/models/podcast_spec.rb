@@ -164,6 +164,36 @@ describe Podcast, "being saved with tag_string" do
   end
 end
 
+describe Podcast, "being saved with tag_string from users" do
+  before do
+    @user = Factory.create(:user)
+    @user2 = Factory.create(:user)
+    @podcast = Factory.create(:podcast)
+  end
+
+  it 'should create tags and the user taggings' do
+    lambda {
+      @podcast.update_attributes(:tag_string => ["tag1 tag2 tag3", @user])
+    }.should change(Tag, :count).by(3)
+
+    tagging = Tagging.find_by_podcast_id_and_tag_id(@podcast.id, @user.id)
+    @user.user_taggings.reload.map { |ut| ut.tag.name }.should == %w(tag1 tag2 tag3)
+    @user.user_taggings.reload.map { |ut| ut.podcast.id }.should == [@podcast.id, @podcast.id, @podcast.id]
+  end
+
+  it 'should create a tag from multiple users' do
+    lambda {
+      @podcast.update_attributes(:tag_string => ["tag1", @user])
+    }.should change(Tag, :count).by(1)
+    lambda {
+      @podcast.update_attributes(:tag_string => ["tag1", @user2])
+    }.should change(Tag, :count).by(0)
+    
+    tag = Tag.find_by_name('tag1')
+    tag.taggings.find_by_podcast_id(@podcast.id).user_taggings.map(&:user_id).should == [@user.id, @user2.id]
+  end
+end
+
 describe Podcast, "with associated tags" do
   before do
     @podcast1 = Factory.create(:podcast)

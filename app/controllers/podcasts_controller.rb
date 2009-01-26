@@ -1,5 +1,6 @@
 class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
+  before_filter :add_user_to_tag_string, :only => [:create, :update]
 
   def index
     @podcasts = Podcast.parsed.sorted
@@ -63,7 +64,7 @@ class PodcastsController < ApplicationController
     authorize_write @podcast
     logger.info "got here"
 
-    @podcast.attributes = params[:podcast_attr].keep_keys([:custom_title, :primary_feed_id])
+    @podcast.attributes = params[:podcast_attr].keep_keys([:tag_string, :custom_title, :primary_feed_id])
     logger.info "got here"
 
     respond_to do |format|
@@ -109,5 +110,12 @@ class PodcastsController < ApplicationController
     @podcast.destroy
 
     redirect_to(podcasts_url)
+  end
+  
+  protected
+  def add_user_to_tag_string
+    if params[:podcast_attr] && params[:podcast_attr][:tag_string] && current_user
+      params[:podcast_attr][:tag_string] = [params[:podcast_attr][:tag_string], current_user]
+    end
   end
 end

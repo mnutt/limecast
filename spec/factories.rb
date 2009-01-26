@@ -5,6 +5,11 @@ Factory.define :tag do |t|
   t.name { Factory.next :tag }
 end
 
+Factory.define :tagging do |t|
+  t.tag { Factory.create :tag }
+  t.podcast { Factory.create :podcast }
+end
+
 Factory.define :feed do |f|
   f.url     { "#{Factory.next :site}/feed.xml" }
   f.content { File.open("#{RAILS_ROOT}/spec/data/example.xml").read }

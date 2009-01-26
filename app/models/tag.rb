@@ -12,7 +12,8 @@
 
 class Tag < ActiveRecord::Base
   belongs_to :map_to, :class_name => 'Tag'
-  has_many :taggings
+  has_many :taggings, :dependent => :destroy
+  has_many :user_taggings, :through => :taggings
   has_many :podcasts, :through => :taggings
 
   validates_format_of     :name, :with => /^[a-z0-9]+$/

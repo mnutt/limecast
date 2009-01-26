@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
   has_many :reviews, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
   has_many :favorite_podcasts, :through => :favorites, :source => :podcast
+  has_many :user_taggings, :dependent => :destroy
+  has_many :taggings, :through => :user_taggings
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password

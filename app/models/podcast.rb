@@ -22,30 +22,6 @@
 #  primary_feed_id   :integer(4)    
 #
 
- # == Schema Information
-# Schema version: 20081126170503
-#
-# Table name: podcasts
-#
-#  id                :integer(4)    not null, primary key
-#  title             :string(255)
-#  site              :string(255)
-#  logo_file_name    :string(255)
-#  logo_content_type :string(255)
-#  logo_file_size    :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  description       :text
-#  language          :string(255)
-#  category_id       :integer(4)
-#  clean_url         :string(255)
-#  owner_id          :integer(4)
-#  owner_email       :string(255)
-#  owner_name        :string(255)
-#  custom_title      :string(255)
-#  primary_feed_id   :integer(4)
-#
-
 require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
@@ -173,10 +149,21 @@ class Podcast < ActiveRecord::Base
     self.feeds.map(&:finder).compact
   end
 
-  def tag_string=(v)
+  # Takes a string of space-delimited tags and tries to add them to the podcast's taggings.
+  # Also takes an additional user argument, which will add a UserTagging to join the Tagging 
+  # with a User (to see which users added which tags).
+  def tag_string=(*args)
+    args.flatten!
+    v, user = args
+
     v.split.each do |tag_name|
       t = Tag.find_by_name(tag_name) || Tag.create(:name => tag_name)
       self.tags << t unless self.tags.include?(t)
+
+      if user && user.is_a?(User)
+        tagging = taggings.find_by_tag_id(t.id)
+        tagging.users << user rescue nil
+      end
     end
   end
 

@@ -101,7 +101,9 @@ $(document).ready(function(){
 });
 */
 $(document).ready(function(){
-  $("#episode_sort_container").fdd2div({OpenStatus:1, GenerateHyperlinks:0});
+  var tmp = $("#episode_sort_container");
+  if(tmp.length)
+    tmp.fdd2div({OpenStatus:1, GenerateHyperlinks:0});
 });
 
 

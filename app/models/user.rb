@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
   end
 
   named_scope :older_than, lambda {|date| {:conditions => ["users.created_at < (?)", date]} }
+  named_scope :active, lambda {|date| {:conditions => ["users.created_at < (?)", date]} }
 
   define_index do
     indexes :login, :email

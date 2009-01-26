@@ -14,28 +14,14 @@ describe Tagging, "being created" do
     tagging.tag.should == good_tag
   end
 
-  it 'should not allow any more than two category tags per podcast' do
-    adding_tagging = lambda { @podcast.tags << Factory.create(:tag, :category => true) }
+  # it 'should create a tag from a user' do
+  #   user_tag = Tag.create :name => "user1", :user_id => 
+  # end
 
-    adding_tagging.should change(Tagging, :count).by(1)
-    adding_tagging.should change(Tagging, :count).by(1)
-    adding_tagging.should raise_error(ActiveRecord::RecordInvalid)
-  end
-
-  it 'should allow any number of non category tags per podcast' do
+  it 'should allow any number of tags per podcast' do
     adding_tagging = lambda { @podcast.tags << Factory.create(:tag) }
 
     10.times { adding_tagging.should change(Tagging, :count).by(1) }
-  end
-
-  it 'should allow two category tags and any number of non category tags per podcast' do
-    2.times do
-      lambda { @podcast.tags << Factory.create(:tag, :category => true) }.should change(Tagging, :count).by(1)
-    end
-
-    11.times do
-      lambda { @podcast.tags << Factory.create(:tag) }.should change(Tagging, :count).by(1)
-    end
   end
 
   it 'should not allow duplicate taggings' do
@@ -45,5 +31,6 @@ describe Tagging, "being created" do
     adding_tagging.should change(Tagging, :count).by(1)
     adding_tagging.should raise_error(ActiveRecord::RecordInvalid)
   end
+
 end
 

@@ -1,4 +1,4 @@
-<div id="edit_form" style="display:none" class="clearfix">
+<div id="edit_form" style="display:none">
   <% form_for :podcast_attr, @podcast, :html => {:class => 'edit'} do |f| -%>
     <div class="field">
       <%= f.label :custom_title, "Title" -%>
@@ -35,7 +35,6 @@
             <span><%= link_to "Delete", "#" -%></span>
           <% end -%>
         </div>
-        <br/>
       <% end -%>
     <% end -%>
 

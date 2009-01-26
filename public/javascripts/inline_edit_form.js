@@ -1,5 +1,10 @@
 $(document).ready(function() {
-  $('li.edit, input.cancel').click(function() {
+  $('a.edit_toggle, input.cancel').click(function() {
+    if($('#edit_form').css("display") == "none") {
+      $('.edit_toggle').html($('.edit_toggle').html().replace(/Edit/g, "Cancel"));
+    } else {
+      $('.edit_toggle').html($('.edit_toggle').html().replace(/Cancel/g, "Edit"));
+    }
     $('#edit_form').toggle();
     return false;
   });

@@ -4,25 +4,7 @@
 
 <div class="supplemental">
   <h2><a href="#">Episode reviews (38)</a></h2>
-  <div id="s_reviews_wrap"<%= " style=\"display: none;\"" if params[:controller] == 'podcasts' %>>
-    <div class="cbb" id="s_reviews">
-      <div id="r_view">
-        <p>View:
-          <span class="linkable current">
-            <%= link_to "All (#{@podcast.reviews.count})", reviews_url(:podcast => @podcast), :rel => "all" %>
-            <span>All (<%= @podcast.reviews.count -%>)</span>
-          </span>
-          <span class="linkable">
-            <%= link_to "Positive (#{@podcast.reviews.that_are_positive.count})", positive_reviews_url(:podcast => @podcast), :class => "positive", :rel => "positive" %>
-            <span class="positive">Positive (<%= @podcast.reviews.that_are_positive.count -%>)</span>
-          </span>
-          <span class="linkable">
-            <%= link_to "Negative (#{@podcast.reviews.that_are_negative.count})", negative_reviews_url(:podcast => @podcast), :class => "negative", :rel => "negative" %>
-            <span class="negative">Negative (<%= @podcast.reviews.that_are_negative.count -%>)</span>
-          </span>
-        </p>
-      </div>
-      <%= render :partial => 'reviews/reviews', :object => @episode.reviews %>
-    </div><!-- /s_reviews -->
+  <div id="s_reviews_wrap">
+    <%= render :partial => 'reviews/reviews', :object => @episode.reviews, :locals => {:podcast => @podcast} %>
   </div><!-- /s_reviews_wrap -->
 </div>

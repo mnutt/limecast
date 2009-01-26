@@ -422,6 +422,11 @@ div#sort {
 
 
 /* Reviews list */
+
+.podcast.show #s_reviews_wrap {
+	display: none;
+}
+
 li.review {
 	border-bottom: solid 1px #D4F0AA;
 	display: block;

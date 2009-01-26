@@ -69,7 +69,15 @@
       <ul>
         <li><a href="#">First found by <span>Kevin</span></a></li>
         <li><a href="#">Marked as favorite by <span>23 people</span></a></li>
-        <li><a href="#">Add to favorites</a></li>
+        <li>
+          <% if current_user && current_user.favorite_podcasts.include?(@podcast) -%>
+            <a href="#"><span class="is favorite">Marked as favorite</span></a>
+          <% else -%>
+            <%= link_to '<span class="add favorite">Add to favorites</span>',
+                  favorite_podcast_url(:podcast => @podcast.clean_url),
+                  :class => "add favorite" -%>
+          <% end -%>
+        </li>
       </ul>
     </div>
 

@@ -12,4 +12,7 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 #itune {padding-left: 20px; background: url('../imgs/icons/itunes.png') center left no-repeat;}
 #miro {background: url('../imgs/icons/miro.png') center left no-repeat;}
 
-.rss {background: url('../imgs/icons/rss.png') center left no-repeat;}.
+.rss {background: url('../imgs/icons/rss.png') center left no-repeat;}
+
+.add.favorite { padding: 4px 0 4px 18px; background: url('../imgs/plus.png') center left no-repeat; }
+.is.favorite  { padding: 4px 0 4px 18px; background: url('../imgs/checkmark.png') center left no-repeat; }

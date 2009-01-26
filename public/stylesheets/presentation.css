@@ -20,8 +20,11 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 
 
 .show #global_nav {margin: 0; position: absolute; top: 22px; left: 0; height: 30px; width: 100%;}
+.show #global_nav {
+	font-size: 1.5em;
+}
 .show #global_nav a {}
-.show #global_nav ul {float: left; margin: 0px 0 0 0px;}
+.show #global_nav ul { display: inline; padding: 0 0 10px 0;}
 .show #global_nav ul li {display: inline;}
 
 .show a#logo {
@@ -139,6 +142,10 @@ div#sort {
 	display: inline;
 }
 
+.show p.favorite {
+	float: right;
+}
+
 .show #s_desc ul, .show #s_desc ul li {
 	display: inline;
 }
@@ -164,7 +171,8 @@ div#sort {
 	display: inline;
 }
 
-.show #social a {
+.show #social ul li > a,
+.show #social ul li > span {
 	color: #a9a9a9;
 	font-size: 1em;
 	float: left;
@@ -393,6 +401,14 @@ div#sort {
 .show form#dl_option, .show #dl_option_cont p {
 	display: inline;
 	font-size: 1.2em;
+}
+
+.show #dl_option_cont ul {
+	float: right;
+}
+
+.show #dl_option_cont ul li {
+	display: inline;
 }
 
 

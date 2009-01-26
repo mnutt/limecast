@@ -15,57 +15,15 @@
 
   <div id="s_episodes_wrap"<%= " style=\"display: none;\"" if params[:controller] == 'reviews' %>>
     <div class="cbb" id="s_episodes">
-      <div id="e_info">
-        <p>
-          <%= pluralize(@podcast.episodes.count, 'episode') -%>
-          <span>since <%= @podcast.episodes.first.published_at.to_date -%> every <%= @podcast.average_time_between_episodes.to_i.to_duration -%></span>
-        </p>
-      </div>
-
-      <div id="e_view">
-        <p>View:<a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a><a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a></p>
-        <ul class="pages">
-          <% [5, 10, 20, 50].each do |count| -%>
-            <li><%= link_to count, {:limit => count}, :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : "" -%>,</li>
-          <% end -%>
-        </ul>
-        <div id="sort">
-          Sort by: 
-          <div id="episode_sort_container">
-            <form method="GET" action="google.com">
-              <select name="episode_sort" id="episode_sort">
-                <option>Most recent</option>
-                <option>First to last</option>
-              </select>
-              <input type="submit" value="GO"/>
-            </form>
-          </div>
-          <%#= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
-        </div>
-      </div>
-
-      <div id="dl_option_cont">
-        <p>Choose download format (2 Steps):</p>
-        <form action="http://limecast.com/search" method="get" id="dl_option">            
-          <strong>1.</strong>
-          <input class="text search" id="w" name="q" size="15" type="radio" /><label for="w">Web</label>
-          <input class="text search" id="m" name="q" size="15" type="radio" /><label for="m">Magnet</label>
-          <strong>2.</strong>
-          <%#= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
-          <a href="#" class="options">Flash (small)</a>
-        </form>
-        <ul>
-          <li><a href="#">help</a> | </li>
-          <li><a href="#">hide</a></li>
-        </ul>
-      </div>
-
+			<%= render :partial => "info", :locals => {:podcast => @podcast} -%>
+			<%= render :partial => "view_options" -%>
+			<%= render :partial => "download_options" -%>
       <%= render :partial => "episodes/episode", :collection => @episodes -%>
     </div><!-- /s_episodes -->
   </div><!-- /s_episodes -->
     
   <div id="s_reviews_wrap">
-                <%= render :partial => 'reviews/reviews', :object => @reviews, :locals => {:podcast => @podcast} %>
+    <%= render :partial => 'reviews/reviews', :object => @reviews, :locals => {:podcast => @podcast} %>
   </div>
   
 </div> <!-- /supplemental -->

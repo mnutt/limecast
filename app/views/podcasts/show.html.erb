@@ -15,9 +15,9 @@
 
   <div id="s_episodes_wrap"<%= " style=\"display: none;\"" if params[:controller] == 'reviews' %>>
     <div class="cbb" id="s_episodes">
-			<%= render :partial => "info", :locals => {:podcast => @podcast} -%>
-			<%= render :partial => "view_options" -%>
-			<%= render :partial => "download_options" -%>
+                        <%= render :partial => "info", :locals => {:podcast => @podcast} -%>
+                        <%= render :partial => "view_options" -%>
+                        <%= render :partial => "download_options" -%>
       <%= render :partial => "episodes/episode", :collection => @episodes -%>
     </div><!-- /s_episodes -->
   </div><!-- /s_episodes -->

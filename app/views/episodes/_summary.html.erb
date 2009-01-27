@@ -4,8 +4,8 @@
 
   <div class="preview">
     <%= image_tag(@episode.sources.first.screenshot.url, :alt => "#{@episode.title} cover art", :width => 340, :height => 252) -%>
-    <%= link_to "&lt; Previous episode", "#", :class => "previous"-%>
-    <%= link_to "Next episode &gt;", "#", :class => "next"-%>
+    <%= link_to "Previous episode", "#", :class => "previous"-%>
+    <%= link_to "Next episode", "#", :class => "next"-%>
   </div>
 
   <div class="description">

@@ -19,3 +19,12 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 
 .linkable .positive, .positive .title { padding: 4px 0 4px 18px; background: url('../images/icons/thumbs_up.png') center left no-repeat; }
 .linkable .negative, .negative .title { padding: 4px 0 4px 18px; background: url('../images/icons/thumbs_down.png') center left no-repeat; }
+
+.episode.show .summary .preview .previous {
+  padding: 4px 0 4px 11px;
+  background: url('../imgs/icons/left-arrow.gif') center left no-repeat;
+}
+.episode.show .summary .preview .next {
+  padding: 4px 11px 4px 0;
+  background: url('../imgs/icons/right-arrow.gif') center right no-repeat;
+}

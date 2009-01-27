@@ -1,6 +1,8 @@
 <% @classes = %{podcast show} -%>
 
-<%= render :partial => "summary" -%>
+<div class="summary">
+  <%= render :partial => "summary" -%>
+</div>
 
 <div class="supplemental">
 
@@ -19,11 +21,11 @@
       <%= render :partial => "view_options" -%>
       <%= render :partial => "download_options" -%>
       <%= render :partial => "episodes/episode", :collection => @episodes -%>
-    </div><!-- /s_episodes -->
-  </div><!-- /s_episodes -->
+    </div>
+  </div>
     
   <div id="s_reviews_wrap">
     <%= render :partial => 'reviews/reviews', :object => @reviews, :locals => {:podcast => @podcast} %>
   </div>
   
-</div> <!-- /supplemental -->
+</div>

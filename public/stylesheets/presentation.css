@@ -98,7 +98,7 @@ a#add_podcast span, a#logo span {
 	font-size: 0.85em;
 }
 
-.show #s_desc {
+.show .description #s_desc {
 	position: relative;
 	float: left;
 	width: 460px;

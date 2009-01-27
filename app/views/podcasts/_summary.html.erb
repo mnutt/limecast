@@ -1,37 +1,30 @@
-<div class="summary">
+<h1><%=h @podcast.custom_title %></h1>
+<h6 id="page_type">VIDEO PODCAST SERIES</h6>
 
-  <h1><%=h @podcast.custom_title %></h1>
-  <h6 id="page_type">VIDEO PODCAST SERIES</h6>
+<div class="preview">
+  <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
+</div>
 
-  <div class="preview">
-    <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
+<div class="description">
+  <div id="s_desc">
+    <p class="favorite">
+      <% if @podcast.is_favorite_of?(current_user) -%>
+        <a href="#"><span class="is favorite">Marked as favorite</span></a>
+      <% else -%>
+        <%= link_to '<span class="add favorite">Add to favorites</span>', favorite_podcast_url(:podcast => @podcast.clean_url) -%>
+      <% end -%>
+    </p>
+    <h4>Series description</h4>
+    <p>
+      <%= link_to h(@podcast.clean_site), h(@podcast.site) %> - <%= unescape_entities h(@podcast.description) -%>
+    </p>
+    <h6>Tags:</h6>
+    <ul>
+      <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
+    </ul>
   </div>
 
-  <div class="description">
-    <div id="s_desc">
-      <p class="favorite">
-        <% if current_user && current_user.favorite_podcasts.include?(@podcast) -%>
-          <a href="#"><span class="is favorite">Marked as favorite</span></a>
-        <% else -%>
-          <%= link_to '<span class="add favorite">Add to favorites</span>',
-                favorite_podcast_url(:podcast => @podcast.clean_url) -%>
-        <% end -%>
-      </p>
-      <h4>Series description</h4>
-      <p>
-        <%= link_to h(@podcast.clean_site), h(@podcast.site) %> - <%= unescape_entities h(@podcast.description) -%>
-      </p>
-      <h6>Tags:</h6>
-      <ul>
-        <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
-      </ul>
-    </div> <!-- /s_desc -->
+  <%= render :partial => "subscribe" -%>
+  <%= render :partial => "social", :locals => {:podcast => @podcast} -%>
 
-    
-
-    <%= render :partial => "subscribe" -%>
-    <%= render :partial => "social", :locals => {:podcast => @podcast} -%>
-
-  </div><!-- /description -->
-
-</div> <!-- /s_subscribe -->
+</div>

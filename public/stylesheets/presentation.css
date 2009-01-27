@@ -148,6 +148,11 @@ a#add_podcast span, a#logo span {
   }
 
 
+.show .description h2 a {
+	font-size: 0.7em;
+	font-weight: normal;
+}
+
 .show #social ul {
 	position: absolute;
 	bottom: 23px;

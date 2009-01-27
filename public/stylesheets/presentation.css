@@ -64,11 +64,9 @@ a#add_podcast span, a#logo span {
 
 
 /**** Summary **************/
-
-.show .summary .preview img{
+.show .summary .preview {	
 	float: left;
 	margin-right: 20px;
-	width: 160px;
 }
   .podcast.show .summary .preview { width: 160px; }
   .episode.show .summary .preview { width: 340px; }
@@ -136,14 +134,18 @@ a#add_podcast span, a#logo span {
 	padding-bottom: 20px;
 	display: block;
 	min-height: 200px;
-	width: 760px;
-	float: right;
+	float: left;
 	margin-bottom: 20px;
 } 
 
-.podcast.show .description {
-	background: url('../imgs/b_border.png') bottom left repeat-x;
-}
+  .podcast.show .description {
+  	background: url('../imgs/b_border.png') bottom left repeat-x;
+  	width: 760px;
+  }
+  
+  .episode.show .description {
+  	width: 580px;
+  }
 
 
 .show #social ul {

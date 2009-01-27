@@ -73,12 +73,12 @@ a#add_podcast span, a#logo span {
   
   .episode.show .summary .preview .previous {
     display: block;
-    width: 50%;
+    width: 40%;
   	float: left;
   }
   .episode.show .summary .preview .next {
     display: block;
-    width: 50%;
+    width: 40%;
   	float: right;
     text-align: right;
   }

@@ -5,7 +5,6 @@ ul li {display: inline;}
 
 body {background: url('../imgs/header.png') top left repeat-x; }
 
-
 .show #wrapper {position: relative; margin: auto;}
 .show #header {position: relative; margin: 0; height: 54px;}
 .show #content {position: relative; margin: 0px; background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;}

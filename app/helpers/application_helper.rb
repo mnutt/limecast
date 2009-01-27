@@ -20,7 +20,7 @@ module ApplicationHelper
     end.join
   end
 
-  def time_to_words(time, abbr=true)
+  def time_to_words(time, abbr = false)
     time.to_i.to_duration.to_s(abbr)
   end
 

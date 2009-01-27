@@ -696,14 +696,19 @@ ul.tabs-nav  {
 .show ul.v_options_list li  {
 	display: block;
 	padding: 3px 0;
-	font-size: 1.4em;
+
 	border-bottom: 1px dotted #ddd;
+	overflow: hidden;
+}
+
+.show ul.v_options_list li p {
+	float: left;
 }
 
 
 .show span.v_options {
 	float: right;
-	margin-top: -1.3em;
+	font-size: 1.4em;
 }
 
 

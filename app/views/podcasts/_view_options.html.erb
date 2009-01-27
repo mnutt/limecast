@@ -1,14 +1,19 @@
 <div id="view_options">
-  <p>View:<a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a><a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a></p>
-  <ul class="pages">
-    <% [5, 10, 20, 50].each do |count| -%>
-      <li><%= link_to count, {:limit => count}, :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : "" -%>,</li>
+  <p>
+    View:
+    <a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a>
+    <a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a>
+  </p>
+  <p class="per_page">
+    <% comma_separated_items([5, 10, 20, 50]) do |count, comma| -%>
+      <%= link_to count, {:limit => count}, :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : nil -%><%= comma -%>
     <% end -%>
-  </ul>
+    per page
+  </p>
   <div id="sort">
     Sort by: 
     <div id="episode_sort_container">
-      <form method="GET" action="google.com">
+      <form method="get" action="google.com">
         <select name="episode_sort" id="episode_sort">
           <option>Most recent</option>
           <option>First to last</option>

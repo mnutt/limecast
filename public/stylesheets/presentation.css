@@ -5,7 +5,6 @@ ul li {display: inline;}
 
 body {background: url('../imgs/header.png') top left repeat-x; }
 
-
 .show #wrapper {position: relative; margin: auto;}
 .show #header {position: relative; margin: 0; height: 54px;}
 .show #content {position: relative; margin: 0px; background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;}
@@ -64,13 +63,12 @@ a#add_podcast span, a#logo span {
 
 
 /**** Summary **************/
-
-.show .summary .preview img{
+.show .summary .preview {	
 	float: left;
 	margin-right: 20px;
-	width: 160px;
 }
-  .podcast.show .summary .preview { width: 160px; }
+  .podcast.show .summary .preview,
+  .podcast.show .summary .preview img { width: 160px; }
   .episode.show .summary .preview { width: 340px; }
   
   .episode.show .summary .preview .previous {
@@ -101,7 +99,7 @@ a#add_podcast span, a#logo span {
 	font-size: 0.85em;
 }
 
-.show #s_desc {
+.show .description #s_desc {
 	position: relative;
 	float: left;
 	width: 460px;
@@ -136,15 +134,24 @@ a#add_podcast span, a#logo span {
 	padding-bottom: 20px;
 	display: block;
 	min-height: 200px;
-	width: 760px;
-	float: right;
+	float: left;
 	margin-bottom: 20px;
 } 
 
-.podcast.show .description {
-	background: url('../imgs/b_border.png') bottom left repeat-x;
-}
+  .podcast.show .description {
+  	background: url('../imgs/b_border.png') bottom left repeat-x;
+  	width: 760px;
+  }
+  
+  .episode.show .description {
+  	width: 580px;
+  }
 
+
+.show .description h2 a {
+	font-size: 0.7em;
+	font-weight: normal;
+}
 
 .show #social ul {
 	position: absolute;
@@ -278,18 +285,13 @@ div#sort {
 	margin: 6px 5px 0 5px;
 }
 
-.show #view_options ul.pages {
+.show #view_options .per_page {
 	border-left: 1px solid #a9a9a9;
 	padding-left: 5px;
 	display: inline;
 }
 
-.show #view_options ul.pages li {
-	display: inline;
-	font-size: 1em;
-}
-
-.show #view_options ul.pages li a.pp_current {
+.show #view_options .per_page a.pp_current {
 	border: 1px solid #a9a9a9;
 	padding: 0px 4px;
 }

@@ -5,12 +5,12 @@
 a.popup       { padding: 5px 24px 5px 0; background: url('../images/icons/audio_popout.png') right no-repeat; }
 a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_popout_over.png') right no-repeat; }
 
-.options {padding-right: 14px; background: url('../imgs/icons/options.png') right bottom no-repeat;}
+.options {padding-right: 15px; background: url('../imgs/icons/arrow.gif') right center no-repeat;}
 
 .dropdown > a {padding-right: 14px; background: url('../imgs/icons/options.png') right bottom no-repeat;}
 
-#itune {padding-left: 20px; background: url('../imgs/icons/itunes.png') center left no-repeat;}
-#miro {background: url('../imgs/icons/miro.png') center left no-repeat;}
+.itunes {padding-left: 20px; background: url('../imgs/icons/itunes.png') center left no-repeat;}
+.miro {background: url('../imgs/icons/miro.png') center left no-repeat;}
 
 .rss {background: url('../imgs/icons/rss.png') center left no-repeat;}
 

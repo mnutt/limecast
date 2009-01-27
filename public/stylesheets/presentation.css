@@ -67,7 +67,8 @@ a#add_podcast span, a#logo span {
 	float: left;
 	margin-right: 20px;
 }
-  .podcast.show .summary .preview { width: 160px; }
+  .podcast.show .summary .preview,
+  .podcast.show .summary .preview img { width: 160px; }
   .episode.show .summary .preview { width: 340px; }
   
   .episode.show .summary .preview .previous {

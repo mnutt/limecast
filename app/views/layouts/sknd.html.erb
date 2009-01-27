@@ -9,6 +9,7 @@
     <%= javascript_include_tag 'jquery.reflect' -%>
     <%= javascript_include_tag 'jquery.flash' -%>
     <%= javascript_include_tag 'jquery.fdd2div' -%>
+    <script type="text/javascript" src="/js/jquery.tabs.js"></script>
     <script type="text/javascript" src="/javascripts/sknd.application.js"></script>
 
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/screen.css" />
@@ -46,10 +47,10 @@
           -->
           <a href="#" id="add_podcast"><span>Add podcast</span></a>
 
-          <form action="http://limecast.com/search" method="get" id="search">            
+          <form action="/search" method="get" id="search">            
             <input class="text search" id="q" name="q" size="15" type="text" />
             <button type="submit">
-                    <span>Search</span>
+              <span>Search</span>
             </button>
           </form>
 

@@ -6,15 +6,21 @@ module ApplicationHelper
   end
 
   def comma_separated_list_items(arr)
+    comma_separated_items(arr) do |contents, comma|
+      "<li>#{contents}#{comma}</li>\n"
+    end
+  end
+
+  def comma_separated_items(arr)
     # :-( RIP: "<li>" + arr.zip([","] * (arr.length-1)).map(&:join).join("</li><li>") + "</li>"
     #        : a.fill((0..-2)){|i| "#{a[i]}," }.map {|i| "<li>#{i}</li>" }.join
 
     arr.map do |i|
-      "<li>#{i}#{', ' unless i == arr.last}</li>"
+      yield i, ("," unless i == arr.last)
     end.join
   end
 
-  def time_to_words(time, abbr=true)
+  def time_to_words(time, abbr = false)
     time.to_i.to_duration.to_s(abbr)
   end
 

@@ -3,7 +3,7 @@ class Duration
     @dur = dur
   end
 
-  def to_s(abbr = true)
+  def to_s(abbr = false)
     h = self.to_hash
 
     [:days, :hours, :minutes, :seconds].map do |unit|

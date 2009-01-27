@@ -193,52 +193,6 @@ a#add_podcast span, a#logo span {
 
 
 
-.show #subscribe {
-	float: right;
-	position: relative;
-	width: 295px;
-	height: 200px;
-	background: url("../imgs/subscribe.png") no-repeat top left;
-	margin-right: -10px;
-}
-
-.show #subscribe div {
-	display: block;
-	background: url("../imgs/subscribe_right.png") no-repeat top right;
-	height: 200px;
-
-}
-
-.show #subscribe h2 {
-	margin: 0;
-	color: #fff;
-}
-
-.show #subscribe p {
-	margin: 0;
-	color: #fff;
-	font-size: 1.2em;
-}
-
-.show #subscribe p span {
-	margin: 0;
-	color: #fff;
-	font-size: .8em;
-}
-
-.show #subscribe  a {
-	color: #fff;
-	padding-top: 6px;
-	padding-left: 70px;
-	display: block;
-	width: 225px;
-	height: 55px;
-	outline: none;
-}
-
-
-
-
 
 
 
@@ -520,3 +474,260 @@ li.review {
 .show li.review .summary .body {
 	font-size: 1.4em;
 }
+
+
+
+
+
+/* Subscribe Button **/
+
+.show #subscribe {
+	position: absolute;
+	top: 0px;
+	right: -10px;
+	width: 295px;
+	height: 67px;
+	background: url("../imgs/subscribe.png") no-repeat top left;
+	z-index: 3;
+}
+
+.show #subscribe div {
+	display: block;
+	background: url("../imgs/subscribe_right.png") no-repeat top right;
+	height: 67px;
+
+}
+
+.show #subscribe h2 {
+	margin: 0;
+	color: #fff;
+}
+
+.show #subscribe p {
+	margin: 0;
+	color: #fff;
+	font-size: 1.2em;
+}
+
+.show #subscribe p span {
+	margin: 0;
+	color: #fff;
+	font-size: .8em;
+}
+
+.show #subscribe div a {
+	color: #fff;
+	padding-top: 6px;
+	padding-left: 70px;
+	display: block;
+	width: 225px;
+	height: 55px;
+	outline: none;
+}
+
+.show #s_options_toggle { 
+	position: absolute;
+	top: 58px;
+	right: 15px;
+	font-size: 1.2em;
+	z-index: 1;
+}
+
+/* Subscribe dropdown **/
+
+#subscribe_options {
+	width: 283px;
+	height: 200px;
+	position: absolute;
+	top: 48px;
+	right: -4px;
+	z-index: 2;
+}
+
+
+	
+
+
+#tabnav a:link.active, #tabnav a:visited.active
+	{
+		border-bottom: 1px solid #fff;
+		background: #fff;
+		color: #000;
+	}
+
+#tabnav a:hover
+	{
+		background: #fff url('../imgs/tab_shadow_over.png') bottom left repeat-x;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Caution! Ensure accessibility in print and other media types... */
+@media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
+    .tabs-hide {
+        display: none;
+    }
+}
+
+/* Hide useless elements in print layouts... */
+@media print {
+    .tabs-nav {
+        display: none;
+    }
+}
+
+/* Skin */
+.tabs-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 0px;
+}
+.tabs-nav:after { /* clearing without presentational markup, IE gets extra treatment */
+    display: block;
+    clear: both;
+    content: " ";
+}
+ul.tabs-nav  {
+  
+		margin: -10px 0 0 -12px;
+    width: 282px;
+}
+.tabs-nav li {
+    float: left;
+    margin: 0px;
+    min-width: 65px; /* be nice to Opera */
+		border-right: 1px solid #a9a9a9;
+}
+
+.tabs-nav li:last-child {
+		border-right: none;
+}
+
+.tabs-nav a, .tabs-nav a span {
+    display: block;
+    padding: 15px 5px 3px 2px;
+    background: #e4e4e4;
+
+}
+.tabs-nav a {
+    position: relative;
+    top: 1px;
+    z-index: 2;
+    padding-left: 18px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.2em;
+    text-align: center;
+
+    white-space: nowrap; /* required in IE 6 */    
+}
+.tabs-nav .tabs-selected a {
+    color: #000;
+		background: #fff;
+}
+
+
+.tabs-nav .tabs-selected a, .tabs-nav a:hover, .tabs-nav a:focus, .tabs-nav a:active {
+    outline: 0; /* prevent dotted border in Firefox */
+}
+
+.tabs-nav a span {
+    width: 64px; /* IE 6 treats width as min-width */
+    min-width: 64px;
+    height: 18px; /* IE 6 treats height as min-height */
+    min-height: 18px;
+    padding-top: 6px;
+    padding-right: 0;
+}
+*>.tabs-nav a span { /* hide from IE 6 */
+    width: auto;
+    height: auto;
+}
+.tabs-nav .tabs-selected a span {
+  
+		background: #fff;
+}
+
+.tabs-nav .tabs-selected a:link, .tabs-nav .tabs-selected a:visited, .tabs-nav .tabs-disabled a:link, .tabs-nav .tabs-disabled a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
+    cursor: text;
+}
+.tabs-nav a:hover, .tabs-nav a:focus, .tabs-nav a:active { /* @ Opera, we need to be explicit again here now... */
+    cursor: pointer;
+}
+
+.tabs-container {
+    border-top: 1px solid #97a5b0;
+    padding: 1em 8px;
+    background: #fff; /* declare background color for container to avoid distorted fonts in IE while fading */
+}
+
+
+.tabs-nav a.itunes span {padding-left:  8px; background:  url('../imgs/icons/itunes.png') center left no-repeat;}
+.tabs-nav a.miro span {background:  url('../imgs/icons/miro.png') center left no-repeat;}
+.tabs-nav a.rss span {background:  url('../imgs/icons/rss.png') center left no-repeat;}
+
+
+.show ul.v_options_list ul  {
+	clear: left;
+	margin-top: 10px;
+}
+
+
+.show ul.v_options_list li  {
+	display: block;
+	padding: 3px 0;
+	font-size: 1.4em;
+	border-bottom: 1px dotted #ddd;
+}
+
+
+.show span.v_options {
+	float: right;
+	margin-top: -1.3em;
+}
+
+
+.show ul.v_options_list li .selected_vid {
+	padding-right: 12px;
+	font-weight: bold;
+	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
+}
+
+.show .vid_info {
+	color: #a9a9a9;
+	text-align: center;
+	margin-top: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

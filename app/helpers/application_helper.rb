@@ -132,4 +132,29 @@ module ApplicationHelper
     text.strip.gsub(/\r\n?/, "\n").gsub(/\n+/, "&#182;")
   end
 
+  # Renders a UL tag, where each LI has an A. The anchors have a +rel+ attribute
+  # that can be used by JS.
+  #
+  # Example:
+  #   * dropdown [["Most recent","recent"], ["First to last","oldest"]], 'oldest', {} -%>
+  #
+  def dropdown(links=[], selected=nil, options={})
+    title = options.delete(:title)
+    selected = (selected.nil? ? (links.first) : (links.find {|l| l.last==selected}))
+    focuser   = "#{label_tag 'focuser', selected.first}"
+    
+    links   = case links
+              when Array
+                links.map { |l| 
+                  is_selected = (selected==l) ? " class=\"selected\"" : ""
+                  "<li#{is_selected}>#{link_to l.first, '#', :rel => l.last}</li>"
+                }
+              else
+                []
+              end.join
+
+    content_tag :div, "#{title}#{focuser}<ul>#{links}</ul>", {:class => "dropdown"}.merge(options)
+  end
+  
+
 end

@@ -7,7 +7,7 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 
 .options {padding-right: 14px; background: url('../imgs/icons/options.png') right bottom no-repeat;}
 
-.dropdown > a {padding-right: 14px; background: url('../imgs/icons/options.png') right bottom no-repeat;}
+.dropdown label {padding-right: 18px; background-image: url('../imgs/icons/options.png'); background-position: right 4px; background-repeat: no-repeat;}
 
 #itune {padding-left: 20px; background: url('../imgs/icons/itunes.png') center left no-repeat;}
 #miro {background: url('../imgs/icons/miro.png') center left no-repeat;}

@@ -90,20 +90,29 @@ $.fn.extend({
   }
 });
 
+*/
+// $(document).ready(function(){
+//   var tmp = $("#episode_sort_container");
+//   if(tmp.length)
+//     tmp.fdd2div({OpenStatus:1, GenerateHyperlinks:0});
+// });
+// 
+// 
+
 $(document).ready(function(){
-  $('.dropdown').map(function(){
-    $(this).dropdown({
-      click: function(data){
-	  	  alert(data);
-      }
-    });
+  $('.dropdown a').click(function(){
+    if($(this).hasClass('selected')) 
+      event.stopPropagation();
+    else {
+      $(this).parent().parent().find('li').removeClass('selected');
+      $(this).parent().addClass('selected');
+      $(this).parent().parent().parent().find('label').html($(this).html()).click();
+    }
+  });
+
+  $('.dropdown label').click(function(){
+    $(this).parent().toggleClass('open');
+  }).blur(function(){ 
+    $(this).parent().toggleClass('open');
   });
 });
-*/
-$(document).ready(function(){
-  var tmp = $("#episode_sort_container");
-  if(tmp.length)
-    tmp.fdd2div({OpenStatus:1, GenerateHyperlinks:0});
-});
-
-

@@ -139,6 +139,39 @@ button span {
 .linkable.current span { display: inline; }
 
 
+/**** global dropdown ***************/
+.dropdown {
+	min-height: 1em;
+	color: #2d5cad;
+	position: relative;
+}
+.dropdown ul {
+	background-color: #FFF;
+	position: absolute;
+	left: 0;
+}
+.dropdown li {
+	display: none;
+	padding: 0px;
+}
+.dropdown.open li {
+	padding-right: 18px;
+	display: block;
+}
+.dropdown label {
+	z-index: 100;
+	white-space: nowrap;
+	height: 100%;
+	padding: 0px;
+}
+.dropdown li a {
+	white-space: nowrap;
+}
+.dropdown li.selected a {
+	font-weight: bold;
+}
+
+
 /* icons */
 a img.inline_icon {
   margin: -4px 4px 0 0;
@@ -165,3 +198,4 @@ span > img.inline_icon {
    }
 
 .clearfix {display: inline-block;}  /* for IE/Mac */
+

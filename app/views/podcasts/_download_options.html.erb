@@ -5,10 +5,9 @@
     <input class="text search" id="w" name="q" size="15" type="radio" /><label for="w">Web</label>
     <input class="text search" id="m" name="q" size="15" type="radio" /><label for="m">Magnet</label>
     <strong>2.</strong>
-    <%#= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
-    <a href="#" class="options">Flash (small)</a>
+    Sort by: <%= dropdown [["Flash (small)","flash-small"], ["Flash (large)", "flash-large"]], nil, {} %>
   </form>
-  <ul>
+  <ul class="help_or_hide">
     <li><a href="#">help</a> | </li>
     <li><a href="#">hide</a></li>
   </ul>

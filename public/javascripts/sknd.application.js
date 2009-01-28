@@ -88,17 +88,9 @@ $.fn.extend({
 
     return me;
   }
-});
+}); */
 
-*/
-// $(document).ready(function(){
-//   var tmp = $("#episode_sort_container");
-//   if(tmp.length)
-//     tmp.fdd2div({OpenStatus:1, GenerateHyperlinks:0});
-// });
-// 
-// 
-
+// Setup all the dropdowns
 $(document).ready(function(){
   $('.dropdown a').click(function(){
     if($(this).hasClass('selected')) 

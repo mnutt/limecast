@@ -375,12 +375,21 @@ div#sort .dropdown label {
 	font-size: 1.2em;
 }
 
-.show #download_options ul,
+#download_options .dropdown {
+	display: inline;
+}
+#download_options .dropdown li,
+#download_options .dropdown label {
+	line-height: 1.5em;
+}
+
+
+.show #download_options ul.help_or_hide,
 .show #dl_option_cont ul {
 	float: right;
 }
 
-.show #download_options ul li,
+.show #download_options ul.help_or_hide li,
 .show #dl_option_cont ul li {
 	display: inline;
 }

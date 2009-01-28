@@ -441,8 +441,7 @@ form#quick_signin a.close {
 }
 
 form#quick_signin .message {
-  text-indent: 90px;
-  padding: 1em 0;
+  text-indent: 60px;
 }
 
 form#quick_signin input.text,
@@ -450,6 +449,21 @@ form#quick_signin div.response_container {
   width: 200px;
 }
 
+form#quick_signin div.field label {
+  padding: 5px 0 0;
+  width: 50px;
+}
+
+form#quick_signin div.field div {
+  margin: 0 0 0 60px;
+}
+form#quick_signin div.controls,
+form#quick_signin div.response_container {
+  padding: 0 0 0 60px;
+}
+form#quick_signin .message {
+  text-indent: 60px;
+}
 
 /**
 * Edit Actions (the edit links at the top of '/show' pages)

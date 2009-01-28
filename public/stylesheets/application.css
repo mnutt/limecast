@@ -10,7 +10,7 @@
   border: 1px solid #181818;
 }
 .quick_signin_container.from_top_bar .titlebar {
-  background-color: orange;
+  margin-bottom: 20px;
 }
 .quick_signin_container.from_top_bar form#quick_signin a.close {
   background: url("../images/icons/close.png") no-repeat center;
@@ -22,9 +22,8 @@
   overflow: hidden;
   float: right;
 }
-.quick_signin_container.after_favoriting form#quick_signin .message {
-  position: relative;
-  top: -10px;
+.quick_signin_container.after_favoriting form#quick_signin {
+  margin-bottom: 12px;
 }
 
 

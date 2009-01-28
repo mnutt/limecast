@@ -38,6 +38,7 @@ class Feed < ActiveRecord::Base
   validates_presence_of   :url
   validates_uniqueness_of :url
 
+  named_scope :with_itunes_link, :conditions => 'feeds.itunes_link IS NOT NULL and feeds.itunes_link <> ""'
   named_scope :parsed, :conditions => {:state => 'parsed'}
   def pending?; self.state == 'pending' || self.state.nil? end
   def parsed?;  self.state == 'parsed' end
@@ -177,6 +178,10 @@ class Feed < ActiveRecord::Base
     self.sources.first.attributes['format'].to_s unless self.sources.blank?
   end
 
+  def apparent_resolution
+    self.sources.first.resolution unless self.sources.blank?
+  end
+
   # takes the name of the Feed url (ie "http://me.com/feeds/quicktime-small" -> "Quicktime Small")
   def apparent_format_long
     url.split("/").last.titleize
@@ -186,7 +191,7 @@ class Feed < ActiveRecord::Base
   end
 
   def formatted_bitrate
-    self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
+    self.bitrate.nearest_multiple_of(8).to_bitrate.to_s if self.bitrate and self.bitrate > 0
   end
 
   def rfeed

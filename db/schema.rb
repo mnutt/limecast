@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090114185410) do
+ActiveRecord::Schema.define(:version => 20090128170503) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -140,6 +140,8 @@ ActiveRecord::Schema.define(:version => 20090114185410) do
     t.string  "preview_content_type"
     t.string  "preview_file_size"
     t.integer "size",                    :limit => 8
+    t.integer "height"
+    t.integer "width"
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

@@ -527,10 +527,10 @@ li.review {
 
 .show #s_options_toggle { 
 	position: absolute;
-	top: 58px;
+	top: 60px;
 	right: 15px;
 	font-size: 1.2em;
-	z-index: 1;
+	z-index: 4;
 }
 
 /* Subscribe dropdown **/

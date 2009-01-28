@@ -1,4 +1,12 @@
 $(document).ready(function() {
+  // Subscribe button
+  $("#s_options_toggle").click(function(){
+    $("#subscribe_options").slideDown("fast");
+    $(this).toggle();
+  }).blur(function(){
+    alert('blurred');
+  });
+
   $(".audio_player .url").map(function(){
     var flashvars = {
       soundFile: $(this).attr('href')

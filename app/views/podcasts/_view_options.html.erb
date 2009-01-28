@@ -1,4 +1,7 @@
 <div id="view_options">
+  <div id="sort">
+    Sort by: <%= dropdown [["Most recent","recent"], ["First to last","oldest"]], nil, {} %>
+  </div>
   <p>
     View:
     <a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a>
@@ -10,17 +13,4 @@
     <% end -%>
     per page
   </p>
-  <div id="sort">
-    Sort by: 
-    <div id="episode_sort_container">
-      <form method="get" action="google.com">
-        <select name="episode_sort" id="episode_sort">
-          <option>Most recent</option>
-          <option>First to last</option>
-        </select>
-        <input type="submit" value="GO"/>
-      </form>
-    </div>
-    <%#= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
-  </div>
 </div>

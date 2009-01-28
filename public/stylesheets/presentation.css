@@ -206,28 +206,18 @@ a#add_podcast span, a#logo span {
 /**** episodes/reveiws **************/
 div#sort {
 	float: right;
-}
-
-.dropdown {
-	display: inline;
+	padding-top: 3px;
 	position: relative;
-}
-.dropdown a {
-}
-.dropdown > div {
-	position: absolute;
-	width: 100px;
-	top: 1em;
-	right: 0;
-}
-.dropdown .selected {
-	font-size: 0.5em;
+	width: 12em;
 }
 
-.dropdown ul li span {
-	display: none;
+div#sort .dropdown {
+	display: inline;
 }
-
+div#sort .dropdown li,
+div#sort .dropdown label {
+	line-height: 1.5em;
+}
 
 .show .supplemental h2 a {
 	font-size: 1em;
@@ -259,13 +249,10 @@ div#sort {
 }
 
 .show #e_info, .show #view_options {
+	font-size: 1.2em;
 	padding-bottom: 2px;
 	border-bottom: 1px solid #a9a9a9;
 	margin: 0 5px;
-}
-
-.show #e_info p, .show #view_options p {
-	font-size: 1.2em;
 }
 
 .show #e_info p span, .show #view_options p {
@@ -297,7 +284,8 @@ div#sort {
 }
 
 .show p#sort {
-	float: right;
+	position: absolute;
+	right: 0px;
 	margin-top: -1.6em;
 }
 
@@ -387,12 +375,24 @@ div#sort {
 	font-size: 1.2em;
 }
 
-.show #download_options ul,
+.show form#dl_option {
+}
+
+#download_options .dropdown {
+	display: inline;
+}
+#download_options .dropdown li,
+#download_options .dropdown label {
+	line-height: 1.5em;
+}
+
+
+.show #download_options ul.help_or_hide,
 .show #dl_option_cont ul {
 	float: right;
 }
 
-.show #download_options ul li,
+.show #download_options ul.help_or_hide li,
 .show #dl_option_cont ul li {
 	display: inline;
 }

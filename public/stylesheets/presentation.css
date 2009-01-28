@@ -375,6 +375,9 @@ div#sort .dropdown label {
 	font-size: 1.2em;
 }
 
+.show form#dl_option {
+}
+
 #download_options .dropdown {
 	display: inline;
 }

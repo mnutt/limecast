@@ -145,26 +145,28 @@ button span {
 	color: #2d5cad;
 	position: relative;
 }
-.dropdown ul {
-	background-color: #FFF;
+.dropdown div.dropdown_wrap {
 	position: absolute;
-	left: 0;
+	visibility: hidden;
+	left: -14px;
+}
+.dropdown.open div.dropdown_wrap {
+	visibility: visible;
 }
 .dropdown li {
-	display: none;
-	padding: 0px;
-}
-.dropdown.open li {
+	cursor: pointer;
 	padding-right: 18px;
-	display: block;
 }
-.dropdown label {
+.dropdown .focuser {
+	cursor: default;
+	position: relative;
 	z-index: 100;
 	white-space: nowrap;
 	height: 100%;
 	padding: 0px;
 }
 .dropdown li a {
+	cursor: default;
 	white-space: nowrap;
 }
 .dropdown li.selected a {

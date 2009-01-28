@@ -149,8 +149,9 @@ module ApplicationHelper
     options[:class] = "dropdown #{options[:class]}"
 
     selected = (selected.nil? ? (links.first) : (links.find {|l| l.last==selected}))
-    focuser   = "#{label_tag 'focuser', selected.first}"
-
+#    focuser   = "<input class=\"focuser\" value=\"#{selected.first}\" readonly=\"readonly\" />"
+#    focuser = label_tag :focuser, selected.first, :class => 'focuser'
+    focuser = link_to selected.first, "#", :class => 'focuser'
     
     links   = case links
               when Array
@@ -162,7 +163,7 @@ module ApplicationHelper
                 []
               end.join
 
-    content_tag :div, "#{title}#{focuser}<ul>#{links}</ul>", {:class => options[:class]}.merge(options)
+    content_tag :div, "#{title}#{focuser}<div class=\"dropdown_wrap\"><ul class=\"cbb\">#{links}</ul></div>", {:class => options[:class]}.merge(options)
   end
   
 

@@ -90,21 +90,28 @@ $.fn.extend({
   }
 }); */
 
-// Setup all the dropdowns
+// Dropdown JS initializer
+// <div.dropdown>
+//   <a.focuser> <--[the item that captures focus and closes/opens wrapper]
+//   <div.dropdown_wrap> <--[a wrapper so the UL won't clash with cbb]
+//     <ul.cbb>
+//       <li>
+//         <a>
 $(document).ready(function(){
-  $('.dropdown a').click(function(){
-    if($(this).hasClass('selected')) 
+  $('.dropdown ul li a').click(function(){
+    if($(this).hasClass('selected')) {
       event.stopPropagation();
-    else {
-      $(this).parent().parent().find('li').removeClass('selected');
+    } else {
+      $(this).parents(".dropdown ul").find('li').removeClass('selected');
       $(this).parent().addClass('selected');
-      $(this).parent().parent().parent().find('label').html($(this).html()).click();
+      $(this).parents(".dropdown").toggleClass('open').find('a.focuser').html($(this).html());
     }
   });
 
-  $('.dropdown label').click(function(){
-    $(this).parent().toggleClass('open');
-  }).blur(function(){ 
-    $(this).parent().toggleClass('open');
+  $('.dropdown .focuser').click(function(){
+    $(this).parents(".dropdown").toggleClass('open');
+  }).blur(function(event){
+    // FIXME the blur action is conflicting with the "LI A" click events; also, doesn't seem to work in safari anymore?
+    // $(this).parents(".dropdown").toggleClass('open');
   });
 });

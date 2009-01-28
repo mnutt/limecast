@@ -146,8 +146,11 @@ module ApplicationHelper
   #
   def dropdown(links=[], selected=nil, options={})
     title = options.delete(:title)
+    options[:class] = "dropdown #{options[:class]}"
+
     selected = (selected.nil? ? (links.first) : (links.find {|l| l.last==selected}))
     focuser   = "#{label_tag 'focuser', selected.first}"
+
     
     links   = case links
               when Array
@@ -159,7 +162,7 @@ module ApplicationHelper
                 []
               end.join
 
-    content_tag :div, "#{title}#{focuser}<ul>#{links}</ul>", {:class => "dropdown"}.merge(options)
+    content_tag :div, "#{title}#{focuser}<ul>#{links}</ul>", {:class => options[:class]}.merge(options)
   end
   
 

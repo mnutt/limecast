@@ -47,6 +47,31 @@ $(document).ready(function() {
     
     return false;
   });
+
+  
+  // Dropdown JS initializer
+  // <div.dropdown>
+  //   <a.focuser> <--[the item that captures focus and closes/opens wrapper]
+  //   <div.dropdown_wrap> <--[a wrapper so the UL won't clash with cbb]
+  //     <ul.cbb>
+  //       <li>
+  //         <a>
+  $('.dropdown ul li a').click(function(){
+    if($(this).hasClass('selected')) {
+      event.stopPropagation();
+    } else {
+      $(this).parents(".dropdown ul").find('li').removeClass('selected');
+      $(this).parent().addClass('selected');
+      $(this).parents(".dropdown").toggleClass('open').find('a.focuser').html($(this).html());
+    }
+  });
+
+  $('.dropdown .focuser').click(function(){
+    $(this).parents(".dropdown").toggleClass('open');
+  }).blur(function(event){
+    // FIXME the blur action is conflicting with the "LI A" click events; also, doesn't seem to work in safari anymore?
+    // $(this).parents(".dropdown").toggleClass('open');
+  });
 });
 
 /*
@@ -90,28 +115,3 @@ $.fn.extend({
   }
 }); */
 
-// Dropdown JS initializer
-// <div.dropdown>
-//   <a.focuser> <--[the item that captures focus and closes/opens wrapper]
-//   <div.dropdown_wrap> <--[a wrapper so the UL won't clash with cbb]
-//     <ul.cbb>
-//       <li>
-//         <a>
-$(document).ready(function(){
-  $('.dropdown ul li a').click(function(){
-    if($(this).hasClass('selected')) {
-      event.stopPropagation();
-    } else {
-      $(this).parents(".dropdown ul").find('li').removeClass('selected');
-      $(this).parent().addClass('selected');
-      $(this).parents(".dropdown").toggleClass('open').find('a.focuser').html($(this).html());
-    }
-  });
-
-  $('.dropdown .focuser').click(function(){
-    $(this).parents(".dropdown").toggleClass('open');
-  }).blur(function(event){
-    // FIXME the blur action is conflicting with the "LI A" click events; also, doesn't seem to work in safari anymore?
-    // $(this).parents(".dropdown").toggleClass('open');
-  });
-});

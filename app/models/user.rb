@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
   has_many :reviews, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
   has_many :favorite_podcasts, :through => :favorites, :source => :podcast
+  has_many :user_taggings, :dependent => :destroy
+  has_many :taggings, :through => :user_taggings
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
@@ -83,6 +85,8 @@ class User < ActiveRecord::Base
   end
 
   named_scope :older_than, lambda {|date| {:conditions => ["users.created_at < (?)", date]} }
+  named_scope :active,  {:conditions => {:state => 'active'}}
+  named_scope :frequent_users, {:conditions => ["users.logged_in_at > (?)", 29.days.ago]}
 
   define_index do
     indexes :login, :email

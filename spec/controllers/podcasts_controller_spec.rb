@@ -223,6 +223,12 @@ describe PodcastsController do
         do_post(:primary_feed_id => @feed.id)
         @podcast.reload.primary_feed.should == @feed
       end
+      
+      it "should add a user tagging for tag 'good'" do
+        do_post(:tag_string => "good")
+        @podcast.reload.tag_string.should == "good"
+        @podcast.tags.last.user_taggings.last.user.should == @user
+      end
     end
 
     describe "when user is not authorized" do

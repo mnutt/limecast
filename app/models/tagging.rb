@@ -12,17 +12,14 @@ class Tagging < ActiveRecord::Base
   belongs_to :podcast
   belongs_to :tag
 
+  has_many :user_taggings, :dependent => :destroy
+  has_many :users, :through => :user_taggings
+
   before_save :map_to_different_tag
 
-  validates_uniqueness_of :tag_id, :scope => :podcast_id, :message => "has already been used on this Podcast"
+  attr_accessor :user, :user_id
 
-  def validate
-    if self.tag && self.tag.category?
-      if self.podcast && self.podcast.tags.select {|t| t.category? }.size >= 2
-        errors.add(:podcast, 'already has 2 category tags')
-      end
-    end
-  end
+  validates_uniqueness_of :tag_id, :scope => :podcast_id, :message => "has already been used on this Podcast"
 
   def map_to_different_tag
     return if self.tag.nil?

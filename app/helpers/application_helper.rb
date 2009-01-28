@@ -79,7 +79,7 @@ module ApplicationHelper
 
   # The 'search_term_context.js' script was stripping out results beyond the ones 
   # that it found (ie "Abracadabra" -> "Abrcdbr"), so this uses Rails instead to do the job.
-  def search_excerpt(text, query)
+  def search_excerpt(text, query='')
     text      = strip_tags(format_with_paragraph_entity(text))
     escaped   = unescape_entities(text)
     excerpted = excerpt(escaped, query.split.first, :radius => 50)

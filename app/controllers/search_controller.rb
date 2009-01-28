@@ -27,9 +27,9 @@ class SearchController < ApplicationController
     def @podcast_groups.count(klass); inject(0) { |count, p| count + p[1].select { |o| o.is_a?(klass) }.size }; end
 
     # Group all the podcast-related search results by podcast-id
-    @feeds.each    { |f| @podcast_groups.add(f, f.podcast.id) } if @feeds
-    @episodes.each { |e| @podcast_groups.add(e, e.podcast.id) } if @episodes
-    @reviews.each  { |r| @podcast_groups.add(r, r.episode.podcast.id) } if @reviews
+    @feeds.each    { |f| @podcast_groups.add(f, f.podcast.id) unless f.podcast.nil? } if @feeds
+    @episodes.each { |e| @podcast_groups.add(e, e.podcast.id) unless e.podcast.nil? } if @episodes
+    @reviews.each  { |r| @podcast_groups.add(r, r.episode.podcast.id) unless r.episode.nil? || r.episode.podcast.nil? } if @reviews
     @podcasts.each { |p| @podcast_groups.add(p, p.id) } if @podcasts
 
     # rewrites @podcasts to have all the podcasts we need

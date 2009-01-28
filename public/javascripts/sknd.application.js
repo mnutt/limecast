@@ -64,13 +64,16 @@ $(document).ready(function() {
       $(this).parent().addClass('selected');
       $(this).parents(".dropdown").toggleClass('open').find('a.focuser').html($(this).html());
     }
+    return false;
   });
 
   $('.dropdown .focuser').click(function(){
     $(this).parents(".dropdown").toggleClass('open');
+    return false;
   }).blur(function(event){
     // FIXME the blur action is conflicting with the "LI A" click events; also, doesn't seem to work in safari anymore?
     // $(this).parents(".dropdown").toggleClass('open');
+    // return false;
   });
 });
 

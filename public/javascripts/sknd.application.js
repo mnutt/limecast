@@ -72,7 +72,7 @@ $(document).ready(function() {
     if($(this).hasClass('selected')) {
       event.stopPropagation();
     } else {
-      $(this).parents(".dropdown ul").find('li').removeClass('selected');
+      $(this).parents(".dropdown").find("ul li").removeClass('selected');
       $(this).parent().addClass('selected');
       $(this).parents(".dropdown").toggleClass('open').find('a.focuser').html($(this).html());
     }

@@ -13,7 +13,7 @@
 <div id="subscribe_options_container" class="clearfix" style="display: none">
   <script type="text/javascript">
       $(function() {
-          $('#subscribe_options').tabs({
+					$('#subscribe_options').tabs({
             fxFade: true,
             fxSpeed: 'fast'
           });
@@ -40,10 +40,10 @@
         $("#subscribe").attr("class", type + "_feed");
       }
 
-                        function update_selected_link(link){
+      function update_selected_link(link){
         $("#subscribe_options .pane a").removeClass("circle");
-                                link.addClass("circle");
-                        }
+        link.addClass("circle");
+      }
 
       var c = read_cookies();
       console.log(c);
@@ -57,7 +57,7 @@
 
           update_cookies(url, type, info);
           update_subscribe_button(url, type, info);
-                                        update_selected_link($(this));
+          update_selected_link($(this));
 
           $("#subscribe_options_container").slideUp("fast");
           $("#s_options_toggle").toggle();

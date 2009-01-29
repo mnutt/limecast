@@ -22,17 +22,33 @@
       });
 
     $(function(){
+      function read_cookies(){
+        return {
+          url:  $.cookie('podcast_' + PODCAST_ID + '_subscription_url'),
+          type: $.cookie('podcast_' + PODCAST_ID + '_subscription_type'),
+          info: $.cookie('podcast_' + PODCAST_ID + '_subscription_info')
+        };
+      }
       function update_cookies(url, type, info){
         $.cookie('podcast_' + PODCAST_ID + '_subscription_url', url);
         $.cookie('podcast_' + PODCAST_ID + '_subscription_type', type);
         $.cookie('podcast_' + PODCAST_ID + '_subscription_info', info);
       }
 
-      function update_subcribe_button(url, type, info){
+      function update_subscribe_button(url, type, info){
         $("#subscribe a").attr("href", url);
         $("#subscribe p").html(type + " <span>(" + info + ")</span>");
         $("#subscribe").attr("class", type + "_feed");
       }
+
+                        function update_selected_link(link){
+        $("#subscribe_options .pane a").removeClass("circle");
+                                link.addClass("circle");
+                        }
+
+      var c = read_cookies();
+      console.log(c);
+      update_subscribe_button(c.url, c.type, c.info);
 
       $("#subscribe_options .pane a").map(function(){
         $(this).click(function(){
@@ -41,7 +57,11 @@
           var info = $(this).parents('li').find('p').text() + " - " + $(this).text();
 
           update_cookies(url, type, info);
-          update_subcribe_button(url, type, info);
+          update_subscribe_button(url, type, info);
+                                        update_selected_link($(this));
+
+          $("#subscribe_options_container").slideUp("fast");
+          $("#s_options_toggle").toggle();
 
           return false;
         });
@@ -79,6 +99,5 @@
   
 
 </div>
-
 
 

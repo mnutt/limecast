@@ -9,7 +9,7 @@
   <% if @user == current_user -%>
     <div id="edit_actions" class="clearfix">
       <span class="label">This is me!</span>
-      <%= link_to_with_icon "Edit", :edit, edit_user_url(current_user) %>
+      <%= link_to_with_icon "Edit", :edit, edit_user_url(current_user), :class => 'edit_toggle' %>
       <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
       
       <%= render :partial => "form" -%>

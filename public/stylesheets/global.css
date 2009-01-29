@@ -148,7 +148,7 @@ input.radio {
 .dropdown div.dropdown_wrap {
 	position: absolute;
 	visibility: hidden;
-	left: -14px;
+	left: -5px;
 	z-index: 0;
 }
 .dropdown.open div.dropdown_wrap {
@@ -160,7 +160,7 @@ input.radio {
 	padding-right: 18px;
 }
 .dropdown .focuser {
-	cursor: default;
+	cursor: pointer;
 	position: relative;
 	z-index: 100;
 	white-space: nowrap;
@@ -168,7 +168,7 @@ input.radio {
 	padding: 0px;
 }
 .dropdown li a {
-	cursor: default;
+	cursor: pointer;
 	white-space: nowrap;
 }
 .dropdown li.selected a {

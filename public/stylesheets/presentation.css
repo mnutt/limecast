@@ -487,7 +487,6 @@ li.review {
 	right: -10px;
 	width: 295px;
 	height: 67px;
-	background: url("../imgs/subscribe.png") no-repeat top left;
 	z-index: 3;
 }
 
@@ -535,7 +534,7 @@ li.review {
 
 /* Subscribe dropdown **/
 
-#subscribe_options {
+#subscribe_options_container {
 	width: 283px;
 	height: 200px;
 	position: absolute;
@@ -544,7 +543,12 @@ li.review {
 	z-index: 2;
 }
 
-
+.pane p.info {
+  display: none;
+}
+.selected.pane p.info {
+  display: block;
+}
 	
 
 
@@ -718,7 +722,7 @@ ul.tabs-nav  {
 	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
 }
 
-.show .vid_info {
+.show .info {
 	color: #a9a9a9;
 	text-align: center;
 	margin-top: 5px;

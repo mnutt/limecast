@@ -11,8 +11,11 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 
 .itunes {padding-left: 20px; background: url('../imgs/icons/itunes.png') center left no-repeat;}
 .miro {background: url('../imgs/icons/miro.png') center left no-repeat;}
-
 .rss {background: url('../imgs/icons/rss.png') center left no-repeat;}
+
+#subscribe.itunes_feed { background: url('../imgs/subscribe_itunes.png') top left no-repeat; }
+#subscribe.miro_feed   { background: url('../imgs/subscribe_miro.png') top left no-repeat; }
+#subscribe.rss_feed    { background: url('../imgs/subscribe_rss.png') top left no-repeat; }
 
 .add.favorite { padding: 4px 0 4px 18px; background: url('../imgs/icons/plus.png') center left no-repeat; }
 .is.favorite  { padding: 4px 0 4px 18px; background: url('../imgs/icons/checkmark.png') center left no-repeat; }

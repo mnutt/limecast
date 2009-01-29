@@ -13,7 +13,7 @@
 <div id="subscribe_options_container" class="clearfix" style="display: none">
   <script type="text/javascript">
       $(function() {
-					$('#subscribe_options').tabs({
+                                        $('#subscribe_options').tabs({
             fxFade: true,
             fxSpeed: 'fast'
           });
@@ -21,23 +21,29 @@
       });
 
     $(function(){
-      function read_cookies(){
-        return {
-          url:  $.cookie('podcast_' + PODCAST_ID + '_subscription_url'),
-          type: $.cookie('podcast_' + PODCAST_ID + '_subscription_type'),
-          info: $.cookie('podcast_' + PODCAST_ID + '_subscription_info')
-        };
-      }
-      function update_cookies(url, type, info){
-        $.cookie('podcast_' + PODCAST_ID + '_subscription_url', url);
-        $.cookie('podcast_' + PODCAST_ID + '_subscription_type', type);
-        $.cookie('podcast_' + PODCAST_ID + '_subscription_info', info);
+      function read_cookie(){
+        return $.cookie('podcast_' + PODCAST_ID + '_subscription');
       }
 
-      function update_subscribe_button(url, type, info){
-        $("#subscribe a").attr("href", url);
-        $("#subscribe p").html(type + " <span>(" + info + ")</span>");
-        $("#subscribe").attr("class", type + "_feed");
+      function update_cookie(id){
+        $.cookie('podcast_' + PODCAST_ID + '_subscription', id);
+      }
+
+      function update_subscribe_button(link){
+        var url  = link.attr('href');
+        var type = link.parents('div').attr('id');
+        var info = link.parents('li').find('p').text() + " - " + link.text();
+
+				$("#subscribe")
+				  .attr("class", type + "_feed")
+          .find("a")
+					  .attr("href", url)
+					.end()
+					.find("p")
+					  .html(type + " <span>(" + info + ")</span>");
+        //$("#subscribe a").attr("href", url);
+        //$("#subscribe p").html(type + " <span>(" + info + ")</span>");
+        //$("#subscribe").attr("class", type + "_feed");
       }
 
       function update_selected_link(link){
@@ -45,17 +51,16 @@
         link.addClass("circle");
       }
 
-      var c = read_cookies();
-      console.log(c);
-      update_subscribe_button(c.url, c.type, c.info);
+      var link = $(read_cookie());
+			if( link.length != 1 ) {
+				link = $("a.primary");
+			}
+      update_subscribe_button(link);
+      update_selected_link(link);
+
 
       $("#subscribe_options .pane a").map(function(){
         $(this).click(function(){
-          var url  = $(this).attr('href');
-          var type = $(this).parents('div').attr('id');
-          var info = $(this).parents('li').find('p').text() + " - " + $(this).text();
-
-          update_cookies(url, type, info);
           update_subscribe_button(url, type, info);
           update_selected_link($(this));
 

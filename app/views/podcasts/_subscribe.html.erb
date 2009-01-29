@@ -14,11 +14,10 @@
   <% rounded_corners do -%>
   <script type="text/javascript">
       $(function() {
-                                        $('#subscribe_options').tabs({
-            fxFade: true,
-            fxSpeed: 'fast'
-          });
-
+        $('#subscribe_options').tabs({
+          fxFade: true,
+          fxSpeed: 'fast'
+        });
       });
 
     $(function(){
@@ -54,7 +53,12 @@
       }
       update_subscribe_button(link);
       update_selected_link(link);
-
+     
+			if(name.match(/miro/)) {
+        $('#subscribe_options').triggerTab(2);
+			} else if(name.match(/rss/)) {
+        $('#subscribe_options').triggerTab(3);
+			}
 
       $("#subscribe_options .pane a").map(function(){
         $(this).click(function(){
@@ -92,7 +96,7 @@
         <p class="info">340x240 - 1.6mg bitrate</p>
       </div>
     
-      <div id="rss" class="pane selected">
+      <div id="rss" class="pane">
         <%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "rss", :url => lambda {|f| f.url } } -%>
         <p class="info">340x240 - 1.6mg bitrate</p>
       </div>

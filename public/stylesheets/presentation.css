@@ -271,7 +271,7 @@ div#sort .dropdown label {
 	height: 29px;
 }
 
-#download_options div {
+#download_options > div {
 	background: url('../imgs/bg_dl_right.png') top right no-repeat;
 	height: 29px;
 	margin: 0px 0 0 9px;
@@ -307,7 +307,7 @@ div#sort .dropdown label {
 }
 
 
-.show #download_options ul {
+.show #download_options ul#dl_view {
 	position: absolute;
 	top: 1px;
 	right: 3px;
@@ -315,11 +315,11 @@ div#sort .dropdown label {
 	background: url('../imgs/dl_divider.png') center left no-repeat;
 }
 
-.show #download_options ul li {
+.show #download_options ul#dl_view li {
 	display: inline;
 }
 
-.show #download_options ul li a {
+.show #download_options ul#dl_view li a {
 	
 	line-height: 28px;
 	padding: 3px 7px 8px 7px;

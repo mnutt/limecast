@@ -1,7 +1,4 @@
 <div id="view_options">
-  <div id="sort">
-    Sort by: <%= dropdown [["Most recent","recent"], ["First to last","oldest"]], nil, {} %>
-  </div>
   <p>
     View:
     <a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a>
@@ -13,4 +10,7 @@
     <% end -%>
     per page
   </p>
+  <div id="sort" class="options">
+    <p>Sort by: <%= dropdown [["Most recent","recent"], ["First to last","oldest"]], nil, {} %></p>
+  </div>
 </div>

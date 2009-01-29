@@ -271,8 +271,12 @@ div#sort .dropdown label {
 	margin-left: -2px;
 }
 
+.show .supplemental .linkable a {margin-left: 40px; margin-right: 6px;}
+
+
+
 /* Abstraction for a set of links that use regular text if 'current' */
-.linkable a { display: inline; margin-left: 40px; margin-right: 6px;}
+.linkable a { display: inline;}
 .linkable span { display: none; }
 .linkable.current a { display: none; }
 .linkable.current span { display: inline; }
@@ -584,21 +588,28 @@ li.review {
 }
 
 .show #r_info, .show #r_view {
-	padding-bottom: 2px;
-	border-bottom: 1px solid #a9a9a9;
-	margin: 0 5px;
+	padding: 5px 0;
+	border-bottom: 1px solid #ddd;
+	margin: 0px;
 }
 
 .show #r_view {
 	text-align: right;
 }
 
-.show #r_view span {
-	margin-right: 5px;
-}
 
 .show #r_view .linkable {
 	color: #171717;
+	font-weight: bold;
+}
+
+.show #r_view .current {
+	margin-right: 6px;
+	margin-left: 40px;
+}
+
+.show #r_view span#first_linkable {
+	margin-right: -40px;
 }
 
 .show #r_info p, .show #r_view p {
@@ -610,9 +621,9 @@ li.review {
 }
 
 .show li.review .info {
-	width: 150px;
+	width: 163px;
 	float: left;
-	margin: 10px 1%;
+	margin: 10px 0;
 	font-size: 1.2em;
 }
 
@@ -621,13 +632,14 @@ li.review {
 }
 
 .show li.review .summary {
-	margin: 10px 0;
+	margin: -3px 0 10px 0;
 	float: left;
 }
 
 .show li.review .summary .title {
 	display: block;
 	font-weight: bold;
+	margin: 0;
 }
 
 .show li.review .summary .title a {
@@ -638,6 +650,16 @@ li.review {
 
 .show li.review .summary .body {
 	font-size: 1.4em;
+}
+
+.show #s_reviews #review_login {
+	min-height: 200px;
+	margin: 20px 0 20px 0;
+}
+
+.show #s_reviews #review_doit {
+	min-height: 200px;
+	margin: 20px 0 20px 0;
 }
 
 
@@ -696,8 +718,8 @@ li.review {
 
 .show #s_options_toggle { 
 	position: absolute;
-	top: 60px;
-	right: 15px;
+	top: 63px;
+	right: 5px;
 	font-size: 1.2em;
 	z-index: 4;
 }
@@ -868,8 +890,25 @@ ul.tabs-nav  {
 
 .show .info {
 	color: #a9a9a9;
-	text-align: center;
 	margin-top: 5px;
+}
+
+.show .info .created_at {
+	margin-left: 18px;
+}
+
+#pagination ul {
+	float: right;
+	margin: 0 10px 10px 0;
+}
+
+#pagination ul li {
+	display: inline;
+}
+
+#pagination ul li a {
+	font-size: 1.4em;
+	padding: 5px 8px;
 }
 
 

@@ -25,12 +25,12 @@ module ApplicationHelper
   end
 
   def link_to_profile(user)
-    link_text = image_tag("icons/user_#{user.rank(:include_admin => logged_in?)}.png", :class => "inline_icon")
-    link_text += h(user.login)
+    link_text = h(user.login)
     link_text += " (#{user.score})" unless user.podcaster?
 
-    link_to "<span class=\"searched\">#{link_text}</span>", user_url(user),
-    :title => "#{user.rank.capitalize} User"
+    link_to "<span class=\"searched \">#{link_text}</span>", user_url(user),
+    :title => "#{user.rank.capitalize} User",
+    :class=> "reg_user"
   end
 
   def link_to_podcast(podcast)

@@ -38,3 +38,6 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 	font-weight: bold;
 	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
 }
+
+
+.reg_user { padding-left: 18px; background: url('../images/icons/user_regular.png') center left no-repeat; }

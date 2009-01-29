@@ -1,7 +1,7 @@
 <div id="s_reviews" class="rounded_corners">
   <% rounded_corners do -%>
     <div id="r_view">
-      <p>View:
+      <p><span id="first_linkable">View:</span>
         <span class="linkable current">
           <%= link_to "All (#{reviews.count})", reviews_url(:podcast => podcast), :rel => "all" %>
           <span>All (<%= reviews.count -%>)</span>
@@ -19,6 +19,14 @@
     <ul class="reviews">
       <%= render :partial => 'reviews/review', :collection => reviews -%>
     </ul>
+    <div id="review_login" style="display: none;">
+      <h4>Login or register to add a comment</h4>
+      <p><a href="#"><strong>Join now by creating an account</strong></a> or <a href="#"><strong>sign in</strong></a> to review this series.</p>
+    </div>
+    <div id="review_doit">
+      <h4>Review this series</h4>
+      <p>Mark as:            Positive            Negative</p>
+    </div>
   <% end -%>
 </div><!-- /s_reviews -->
 

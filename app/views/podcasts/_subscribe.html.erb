@@ -54,11 +54,11 @@
       update_subscribe_button(link);
       update_selected_link(link);
      
-			if(name.match(/miro/)) {
+                        if(name.match(/miro/)) {
         $('#subscribe_options').triggerTab(2);
-			} else if(name.match(/rss/)) {
+                        } else if(name.match(/rss/)) {
         $('#subscribe_options').triggerTab(3);
-			}
+                        }
 
       $("#subscribe_options .pane a").map(function(){
         $(this).click(function(){

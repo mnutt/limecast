@@ -61,7 +61,7 @@ input.radio {
 /**** Rounded Action Corner Box **************/
 
 /* Basic styling, used when JavaScript is unsupported */
-.cbb {
+/*.cbb {
 	margin:0em;
 	padding:0 10px;
 	border:1px solid #dddddd;
@@ -73,8 +73,9 @@ input.radio {
 	background:#efece6;
 	font:bold 1.2em/1 Arial, Helvetica, sans-serif;
 }
+*/
 /* Normal styling */
-.cb {margin:0.0em 0;}
+.rounded_corners {margin:0.0em 0;}
 	/* Top corners and border */
 .bt {
 	height:5px;

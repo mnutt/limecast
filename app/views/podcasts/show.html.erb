@@ -16,11 +16,13 @@
   </h2>
 
   <div id="s_episodes_wrap"<%= " style=\"display: none;\"" if params[:controller] == 'reviews' %>>
-    <div class="cbb" id="s_episodes">
-      <%= render :partial => "info", :locals => {:podcast => @podcast} -%>
-      <%= render :partial => "view_options" -%>
-      <%= render :partial => "download_options" -%>
-      <%= render :partial => "episodes/episode", :collection => @episodes -%>
+    <div id="s_episodes" class="rounded_corners">
+      <% rounded_corners do -%>
+        <%= render :partial => "info", :locals => {:podcast => @podcast} -%>
+        <%= render :partial => "view_options" -%>
+        <%= render :partial => "download_options" -%>
+        <%= render :partial => "episodes/episode", :collection => @episodes -%>
+      <% end -%>
     </div>
   </div>
     

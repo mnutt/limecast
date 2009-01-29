@@ -3,8 +3,9 @@
 <% selected_item ||= default_selected_item %>
 <div class="dropdown">
   <a href="#"></a>
-  <div>
-    <ul class="cbb">
+  <div class="rounded_corners">
+    <% rounded_corners do -%>
+    <ul>
       <% items.each do |i| -%>
         <% label, data = *i-%>
         <li <%= 'class="selected"' if (data || label) == selected_item -%>>
@@ -13,5 +14,6 @@
         </li>
       <% end -%>
     </ul>
+    <% end -%>
   </div>
 </div>

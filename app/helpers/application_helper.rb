@@ -163,8 +163,22 @@ module ApplicationHelper
                 []
               end.join
 
-    content_tag :div, "#{title}#{focuser}<div class=\"dropdown_wrap\"><ul class=\"cbb\">#{links}</ul></div>", {:class => options[:class]}.merge(options)
+    ul = "<ul>#{links}</ul>"
+    content_tag :div, "#{title}#{focuser}<div class=\"dropdown_wrap rounded_corners\">#{rounded_corners ul}</div>", {:class => options[:class]}.merge(options)
   end
   
+  # Important! You need to specity "rounded_corners" class on the element that wraps rounded_corners!!!!
+  def rounded_corners(text=nil, &block)
+    wrap = <<-ROUNDED
+    <div class="bt"><div></div></div><div class="i1"><div class="i2"><div class="i3">%s</div></div></div><div class="bb"><div></div></div>
+    ROUNDED
+    if block_given?
+      rounded_content = wrap % capture(&block)
+      block_called_from_erb?(block) ? concat(rounded_content) : rounded_content
+    else
+      wrap % text
+    end
+  end
+
 
 end

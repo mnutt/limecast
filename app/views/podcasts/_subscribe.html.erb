@@ -71,10 +71,8 @@
   </script>  
   
 
-
-
-    
-  <div id="subscribe_options" class="cbb">
+  <div id="subscribe_options" class="rounded_corners">
+    <% rounded_corners do -%>
     <ul>
       <li<%= ' class="disabled"' if @podcast.feeds.with_itunes_link.empty? -%>><a href="#itunes" class="itunes"><span>iTunes</span></a></li>
       <li><a href="#miro" class="miro"><span>miro</span></a></li>
@@ -95,7 +93,9 @@
       <%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds, :url => lambda {|f| f.url } } -%>
       <p class="info">340x240 - 1.6mg bitrate</p>
     </div>
+    <% end -%>
   </div>
+
 </div>
 
 

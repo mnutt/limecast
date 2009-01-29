@@ -63,10 +63,11 @@ $(document).ready(function() {
   // Dropdown JS initializer
   // <div.dropdown>
   //   <a.focuser> <--[the item that captures focus and closes/opens wrapper]
-  //   <div.dropdown_wrap> <--[a wrapper so the UL won't clash with cbb]
-  //     <ul.cbb>
-  //       <li>
-  //         <a>
+  //   <div.dropdown_wrap.rounded_corners> <--[a wrapper so the UL won't clash with rounded_corners]
+  //     <--rounded corner wrapper divs-->
+  //       <ul>
+  //         <li>
+  //           <a>
   $('.dropdown ul li a').click(function(){
     if($(this).hasClass('selected')) {
       event.stopPropagation();

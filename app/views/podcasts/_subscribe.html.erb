@@ -14,16 +14,16 @@
   <% rounded_corners do -%>
   <script type="text/javascript">
       $(function() {
-                                        $('#subscribe_options').tabs({
-            fxFade: true,
-            fxSpeed: 'fast'
-          });
-
+        $('#subscribe_options').tabs({
+          fxFade: true,
+          fxSpeed: 'fast'
+        });
       });
 
     $(function(){
       function read_cookie(){
-        return $.cookie('podcast_' + PODCAST_ID + '_subscription');
+        var id = $.cookie('podcast_' + PODCAST_ID + '_subscription');
+        return id;
       }
 
       function update_cookie(id){
@@ -53,11 +53,19 @@
       }
       update_subscribe_button(link);
       update_selected_link(link);
-
+     
+                        if(name.match(/miro/)) {
+        $('#subscribe_options').triggerTab(2);
+                        } else if(name.match(/rss/)) {
+        $('#subscribe_options').triggerTab(3);
+                        }
 
       $("#subscribe_options .pane a").map(function(){
         $(this).click(function(){
           update_subscribe_button($(this));
+          update_selected_link($(this));
+
+          update_cookie("#" + $(this).attr('id'));
 
           $("#subscribe_options_container").slideUp("fast");
           $("#s_options_toggle").toggle();
@@ -79,17 +87,17 @@
       </ul>
     
       <div id="itunes" class="pane">
-        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :url => lambda {|f| "http://www.itunes.com/podcast?id=#{feed.itunes_link}" } } -%>
+        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| "http://www.itunes.com/podcast?id=#{feed.itunes_link}" } } -%>
         <p class="info">340x240 - 1.6mg bitrate</p>
       </div>
     
       <div id="miro" class="pane">
-        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :url => lambda {|f| "http://subscribe.getmiro.com/?url1=#{f.url}" } } -%>
+        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "miro", :url => lambda {|f| "http://subscribe.getmiro.com/?url1=#{f.url}" } } -%>
         <p class="info">340x240 - 1.6mg bitrate</p>
       </div>
     
-      <div id="rss" class="pane selected">
-        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :url => lambda {|f| f.url } } -%>
+      <div id="rss" class="pane">
+        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "rss", :url => lambda {|f| f.url } } -%>
         <p class="info">340x240 - 1.6mg bitrate</p>
       </div>
   </div>

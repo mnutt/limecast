@@ -23,13 +23,11 @@
 
     $(function(){
       function read_cookie(){
-			  var id = $.cookie('podcast_' + PODCAST_ID + '_subscription');
-			  console.log(id);
+        var id = $.cookie('podcast_' + PODCAST_ID + '_subscription');
         return id;
       }
 
       function update_cookie(id){
-			  console.log(id);
         $.cookie('podcast_' + PODCAST_ID + '_subscription', id);
       }
 
@@ -85,17 +83,17 @@
       </ul>
     
       <div id="itunes" class="pane">
-				<%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| "http://www.itunes.com/podcast?id=#{feed.itunes_link}" } } -%>
+        <%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| "http://www.itunes.com/podcast?id=#{feed.itunes_link}" } } -%>
         <p class="info">340x240 - 1.6mg bitrate</p>
       </div>
     
       <div id="miro" class="pane">
-				<%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "miro", :url => lambda {|f| "http://subscribe.getmiro.com/?url1=#{f.url}" } } -%>
+        <%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "miro", :url => lambda {|f| "http://subscribe.getmiro.com/?url1=#{f.url}" } } -%>
         <p class="info">340x240 - 1.6mg bitrate</p>
       </div>
     
       <div id="rss" class="pane selected">
-				<%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "rss", :url => lambda {|f| f.url } } -%>
+        <%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "rss", :url => lambda {|f| f.url } } -%>
         <p class="info">340x240 - 1.6mg bitrate</p>
       </div>
   </div>

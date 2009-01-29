@@ -68,6 +68,8 @@ a#add_podcast span, a#logo span {
 	margin-right: 20px;
 }
 
+
+
 .podcast.show .summary .preview,
 .podcast.show .summary .preview img { width: 160px; }
 .episode.show .summary .preview { width: 340px; }
@@ -85,9 +87,13 @@ a#add_podcast span, a#logo span {
   text-align: right;
 }
 
+.summary h1 {
+	margin: .5em 0 1em 0;
+}
+
 .show .summary h6#page_type {
 	float: right;
-	margin-top: -3em;
+	margin-top: -4em;
 }
 
 
@@ -137,7 +143,7 @@ a#add_podcast span, a#logo span {
 	position: relative;
 	padding-bottom: 20px;
 	display: block;
-	min-height: 200px;
+
 	float: left;
 	margin-bottom: 20px;
 } 
@@ -162,15 +168,16 @@ a#add_podcast span, a#logo span {
 #social {
   float:left;
   width:100%;
- 
+ 	
   line-height:normal;
   }
 #social ul {
   margin:0;
   padding:0;
   list-style:none;
-	position: absolute;
-	bottom: 23px;
+	position: relative;
+	bottom: -40px;
+	margin-bottom: 60px;
 	left: 0;
   }
 #social li {
@@ -227,6 +234,10 @@ div#sort {
 	top: 72px;
 }
 
+div#sort .dropdown div.dropdown_wrap {
+	left: -35px;
+}
+
 div#sort .dropdown {
 	display: inline;
 }
@@ -277,6 +288,10 @@ div#sort .dropdown label {
 	left: 19px;
 	background: url('../imgs/bg_dl_left.png') top left no-repeat;
 	height: 29px;
+}
+
+#download_options .dropdown {
+	font-size: 1em;
 }
 
 #download_options > div {

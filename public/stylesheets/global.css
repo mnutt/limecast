@@ -51,7 +51,10 @@ button span {
 	padding: 0 5px 0 10px;
 }
 
+input.radio {
+	margin: 0px 3px 0 3px;
 
+}
 
 
 
@@ -144,6 +147,7 @@ button span {
 	min-height: 1em;
 	color: #2d5cad;
 	position: relative;
+	font-size: 1.4em;
 }
 .dropdown ul {
 	background-color: #FFF;
@@ -169,6 +173,8 @@ button span {
 }
 .dropdown li.selected a {
 	font-weight: bold;
+	padding-right: 12px;
+	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
 }
 
 

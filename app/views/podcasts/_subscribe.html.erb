@@ -34,13 +34,13 @@
         var type = link.parents('div').attr('id');
         var info = link.parents('li').find('p').text() + " - " + link.text();
 
-				$("#subscribe")
-				  .attr("class", type + "_feed")
+                                $("#subscribe")
+                                  .attr("class", type + "_feed")
           .find("a")
-					  .attr("href", url)
-					.end()
-					.find("p")
-					  .html(type + " <span>(" + info + ")</span>");
+                                          .attr("href", url)
+                                        .end()
+                                        .find("p")
+                                          .html(type + " <span>(" + info + ")</span>");
         //$("#subscribe a").attr("href", url);
         //$("#subscribe p").html(type + " <span>(" + info + ")</span>");
         //$("#subscribe").attr("class", type + "_feed");
@@ -52,9 +52,9 @@
       }
 
       var link = $(read_cookie());
-			if( link.length != 1 ) {
-				link = $("a.primary");
-			}
+                        if( link.length != 1 ) {
+                                link = $("a.primary");
+                        }
       update_subscribe_button(link);
       update_selected_link(link);
 

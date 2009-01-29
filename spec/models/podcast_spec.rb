@@ -129,6 +129,16 @@ describe Podcast, "cleaning up the title" do
     @podcast.title = " - Podcast"
     @podcast.send(:sanitize_title).should == "Podcast"
   end
+  
+  it 'should auto-increment the title if the name clashes with another podcast' do
+    new_podcast = Factory.create(:podcast)
+    new_podcast.update_attribute(:title, "Podcast")
+    new_podcast.reload.title.should == "Podcast 2"
+
+    newer_podcast = Factory.create(:podcast)
+    newer_podcast.update_attribute(:title, "Podcast")
+    newer_podcast.reload.title.should == "Podcast 3"
+  end
 end
 
 describe Podcast, "generating the clean url" do

@@ -21,17 +21,33 @@
       });
 
     $(function(){
+      function read_cookies(){
+        return {
+          url:  $.cookie('podcast_' + PODCAST_ID + '_subscription_url'),
+          type: $.cookie('podcast_' + PODCAST_ID + '_subscription_type'),
+          info: $.cookie('podcast_' + PODCAST_ID + '_subscription_info')
+        };
+      }
       function update_cookies(url, type, info){
         $.cookie('podcast_' + PODCAST_ID + '_subscription_url', url);
         $.cookie('podcast_' + PODCAST_ID + '_subscription_type', type);
         $.cookie('podcast_' + PODCAST_ID + '_subscription_info', info);
       }
 
-      function update_subcribe_button(url, type, info){
+      function update_subscribe_button(url, type, info){
         $("#subscribe a").attr("href", url);
         $("#subscribe p").html(type + " <span>(" + info + ")</span>");
         $("#subscribe").attr("class", type + "_feed");
       }
+
+                        function update_selected_link(link){
+        $("#subscribe_options .pane a").removeClass("circle");
+                                link.addClass("circle");
+                        }
+
+      var c = read_cookies();
+      console.log(c);
+      update_subscribe_button(c.url, c.type, c.info);
 
       $("#subscribe_options .pane a").map(function(){
         $(this).click(function(){
@@ -40,7 +56,11 @@
           var info = $(this).parents('li').find('p').text() + " - " + $(this).text();
 
           update_cookies(url, type, info);
-          update_subcribe_button(url, type, info);
+          update_subscribe_button(url, type, info);
+                                        update_selected_link($(this));
+
+          $("#subscribe_options_container").slideUp("fast");
+          $("#s_options_toggle").toggle();
 
           return false;
         });
@@ -51,10 +71,8 @@
   </script>  
   
 
-
-
-    
-  <div id="subscribe_options" class="cbb">
+  <div id="subscribe_options" class="rounded_corners">
+    <% rounded_corners do -%>
     <ul>
       <li<%= ' class="disabled"' if @podcast.feeds.with_itunes_link.empty? -%>><a href="#itunes" class="itunes"><span>iTunes</span></a></li>
       <li><a href="#miro" class="miro"><span>miro</span></a></li>
@@ -75,8 +93,9 @@
       <%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds, :url => lambda {|f| f.url } } -%>
       <p class="info">340x240 - 1.6mg bitrate</p>
     </div>
+    <% end -%>
   </div>
-</div>
 
+</div>
 
 

@@ -2,11 +2,20 @@ class ReviewsController < ApplicationController
   before_filter :login_required, :only => [:new, :update]
 
   def index
-    @filter = params[:filter] || "all"
     @podcast = Podcast.find_by_clean_url(params[:podcast])
-    @feeds   = @podcast.feeds
+    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
 
-    @reviews = filter(@podcast.reviews, params[:filter])
+    @feeds    = @podcast.feeds.all
+    @episodes = @podcast.episodes.
+      paginate(:order => "published_at DESC", :page => (params[:page] || 1), :per_page => params[:limit] || 5)
+    
+    @reviews = @podcast.reviews
+    @review  = Review.new(:episode => @podcast.episodes.newest.first)
+
+    # @reviews = filter(@podcast.reviews, params[:filter])
+    # @filter = params[:filter] || "all"
+
+    render :template => 'podcasts/show', :layout => 'sknd'
   end
 
   def search

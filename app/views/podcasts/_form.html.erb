@@ -32,7 +32,7 @@
             <span>Primary</span>
           <% else -%>
             <span><%= link_to "Make Primary", "#", :class => "make_primary", :rel => feed.id -%></span>
-            <span><%= link_to "Delete", "#" -%></span>
+            <span><%= submit_tag "Delete", :onclick => "$('#edit_feed_'+#{feed.id})[0]._method.value='delete';" -%></span>
           <% end -%>
         </div>
         <br/>

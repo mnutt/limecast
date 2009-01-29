@@ -186,17 +186,21 @@ input.radio {
 /* LimeCast form */
 .limecast_form {
 	position: relative;
-	background: red !important;
+	padding: 5px;
 }
 .limecast_form .top {
-	height: 30px;
+	height: 15px;
 	border: solid #333;
 	border-width: 1px 1px 0 1px;
 }
+.limecast_form .middle {
+	padding: 10px;
+}
 .limecast_form .bottom {
-	height: 30px;
+	height: 15px;
 	border: solid #333;
 	border-width: 0 1px 1px 1px;
+	text-align: center;
 }
 .limecast_form form {
 	width: 105%;

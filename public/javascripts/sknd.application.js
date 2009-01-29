@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  // Edit Podcast link
+  $('.edit').click(function() { $('.limecast_form').toggle(); return false; });
+
   // Subscribe button
   $("#s_options_toggle").click(function(){
     $("#subscribe_options").slideDown("fast");

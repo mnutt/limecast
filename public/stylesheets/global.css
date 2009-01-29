@@ -173,6 +173,25 @@ button span {
 	font-weight: bold;
 }
 
+/* LimeCast form */
+.limecast_form {
+	position: relative;
+	background: red !important;
+}
+.limecast_form .top {
+	height: 30px;
+	border: solid #333;
+	border-width: 1px 1px 0 1px;
+}
+.limecast_form .bottom {
+	height: 30px;
+	border: solid #333;
+	border-width: 0 1px 1px 1px;
+}
+.limecast_form form {
+	width: 105%;
+}
+
 
 /* icons */
 a img.inline_icon {

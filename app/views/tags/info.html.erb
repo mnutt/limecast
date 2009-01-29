@@ -1,0 +1,11 @@
+<h1><%= @tag.name -%></h1>
+
+<h2>Taggings</h2>
+<ul>
+  <% @tag.taggings.select{|t| t.podcast}.each do |tagging| -%>
+    <li>
+      <%= link_to tagging.podcast.title, info_podcast_url(tagging.podcast) -%> 
+      by <%= tagging.user ? tagging.user.login : "autotagger" -%>
+    </li>
+  <% end -%>
+</ul>

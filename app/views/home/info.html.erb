@@ -1,0 +1,21 @@
+<h1>LimeCast</h1>
+<p>Release Date: <%= @release -%></p>
+<p>Commit: <%= @commit -%></p>
+<p>Message: <%= @message -%></p>
+
+<h2>Info Pages</h2>
+<ul>
+  <li><%= link_to "Icons", info_icons_url -%></li>
+  <li><%= link_to "Add", info_add_url -%></li>
+  <li><%= link_to "Hashing", info_hash_url -%></li>
+  <li><%= link_to "Tags", info_tags_url -%></li>
+</ul>
+
+<h2>Podcasts</h2>
+<ul>
+  <% @podcasts.each do |podcast| -%>
+    <li>
+      <%= link_to podcast.title, info_podcast_url(podcast) -%>
+    </li>
+  <% end -%>
+</ul>

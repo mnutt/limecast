@@ -17,6 +17,37 @@
 <%- end -%>
 </ul>
 
+<table>
+  <tr>
+    <th>Episode</th>
+    <% @podcast.feeds.each do |f| -%>
+    <th>
+      <%= link_to "Feed #{f.id}", info_feed_url(@podcast, f) -%><br>
+      <% if f.primary? -%>(Primary)<% end -%>
+    </th>
+    <% end -%>
+  </tr>
+  <% @podcast.episodes.each do |e| -%>
+    <tr>
+      <td>
+        <%= link_to e.date_title, info_episode_url(@podcast, e) -%>
+      </td>
+
+      <% @podcast.feeds.each do |f| -%>
+        <td>
+          <% source = Source.find_by_feed_id_and_episode_id(f.id, e.id) -%>
+          <% if source -%>
+            <% link_to info_source_url(@podcast, e, source) do -%>
+              <%= f.formatted_bitrate -%>
+              <%= f.apparent_format -%>
+            <% end -%>
+          <% end -%>
+        </td>
+      <% end -%>
+    </tr>
+  <% end -%>
+</table>
+
 <h2>Feeds</h2>
 <ul>
 <%- @podcast.feeds.each do |f| -%>

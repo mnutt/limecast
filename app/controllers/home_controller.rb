@@ -15,7 +15,26 @@ class HomeController < ApplicationController
     end
   end
 
-
   def icons
+    render :layout => false
+  end
+
+  def info
+    @podcasts = Podcast.all
+    
+    release_dir = File.dirname(RAILS_ROOT)
+    if File.exist?(File.join(release_dir, '..', 'current'))
+      @release = release_dir.split("/").last
+    else
+      @release = "(not deployed)"
+    end
+
+    if File.exist?("#{RAILS_ROOT}/.git")
+      master_info = "#{RAILS_ROOT}/.git/refs/heads/master"
+      @commit = File.read(master_info) if File.exist?(master_info)
+      commit_msg = "#{RAILS_ROOT}/.git/COMMIT_EDITMSG"
+      @message = File.read(commit_msg) if File.exist?(commit_msg)
+    end
+    render :layout => false
   end
 end

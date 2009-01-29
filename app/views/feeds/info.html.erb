@@ -1,0 +1,49 @@
+<h1><%= @feed.url -%></h1>
+
+<dl>
+  <dt>Updated</dt>
+  <dd><%= @feed.updated_at.to_s -%></dd>
+
+  <dt>Name</dt>
+  <dd><%= @feed.formatted_bitrate -%> .<%= @feed.apparent_format -%></dd>
+
+  <dt>Podcast</dt>
+  <dd><%= link_to_podcast @feed.podcast -%></dd>
+
+  <dt>Primary?</dt>
+  <dd><%= @feed.primary? ? "true" : "false" -%></dd>
+
+  <dt>Found by</dt>
+  <dd><%= link_to @feed.finder.login, info_user_url(@feed.finder) if @feed.finder -%></dd>
+
+  <dt>Sources</dt>
+  <dd>
+    <ul>
+      <% @feed.sources.each do |s| -%>
+        <li><%= link_to s.episode.date_title, info_source_url(@feed.podcast, s.episode, s) -%></li>
+      <% end -%>
+    </ul>
+  </dd>
+
+  <dt>XML</dt>
+  <dd>todo</dd>
+
+  <dt>Link</dt>
+  <dd><%= link_to @feed.url, @feed.url -%></dd>
+
+  <dt>Link page</dt>
+  <dd>???</dd>
+
+  <dt>RSS</dt>
+  <dd>???</dd>
+  
+  <dt>iTunes link</dt>
+  <dd><%= link_to @feed.itunes_link, @feed.itunes_link -%></dd>
+
+  <dt>Description HTML</dt>
+  <dd><%=h @feed.podcast.description -%></dd>
+
+  <dt>Description scrubbed</dt>
+  <dd><%=h sanitize_summary(@feed.podcast.description) -%></dd>
+
+</dl>

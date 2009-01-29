@@ -119,6 +119,12 @@ class UsersController < ApplicationController
     redirect_to user_url(:user => @user)
   end
 
+  def info
+    raise Unauthenticated unless current_user && current_user.admin?
+    @user = User.find_by_login(params[:user])
+    render :layout => false
+  end
+
 protected
   def find_user
     @user = User.find(params[:id])

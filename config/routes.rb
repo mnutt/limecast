@@ -23,6 +23,20 @@ ActionController::Routing::Routes.draw do |map|
   map.login     '/login',         :controller => 'sessions', :action => 'new'
   map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'
 
+  map.with_options :path_prefix => '/info' do |info|
+    info.root         :controller => 'home', :action => 'info'
+    info.info_icons   'icons', :controller => 'home', :action => 'icons'
+    info.info_hash    'hash', :controller => 'feeds', :action => 'hash_info'
+    info.info_add     'add', :controller => 'feeds', :action => 'add_info'
+    info.info_user    'user/:user', :controller => 'users', :action => 'info'
+    info.info_tags    'tags', :controller => 'tags', :action => 'info_index'
+    info.info_tag     'tag/:tag', :controller => 'tags', :action => 'info'
+    info.info_feed    ':podcast/feed/:id', :controller => 'feeds', :action => 'info'
+    info.info_source  ':podcast/:episode/:id', :controller => 'sources', :action => 'info'
+    info.info_episode ':podcast/:episode', :controller => 'episodes', :action => 'info'
+    info.info_podcast ':podcast', :controller => 'podcasts', :action => 'info'
+  end
+
   map.with_options :controller => 'tags' do |t|
     t.tags        '/tags',            :action => 'index'
     t.tags        '/tag',             :action => 'index'
@@ -45,7 +59,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options :controller => 'home' do |h|
     h.root                        :action => 'home'
-    h.admin       '/icons',       :action => 'icons'
     h.use         '/use',         :action => 'use'
     h.privacy     '/privacy',     :action => 'privacy'
     h.stats       '/stats',       :action => 'stats'
@@ -61,7 +74,6 @@ ActionController::Routing::Routes.draw do |map|
     p.favorite_podcast '/:podcast/favorite', :action => 'favorite'
     p.podcast          '/:podcast',          :action => 'show',   :conditions => {:method => :get}
     p.podcast          '/:podcast',          :action => 'update', :conditions => {:method => :post}
-    p.info             '/:podcast/info',     :action => 'info'
   end
 
   map.positive_reviews '/:podcast/reviews/positive', :controller => 'reviews', :filter => 'positive'
@@ -75,6 +87,5 @@ ActionController::Routing::Routes.draw do |map|
     e.podcast_episodes '/:podcast/episodes',         :action => 'index'
     e.episode          '/:podcast/:episode',         :action => 'show'
     e.search_podcast_episodes '/:podcast/episodes/search', :action => 'search'
-    e.info             '/:podcast/:episode/info',    :action => 'info'
   end
 end

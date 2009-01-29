@@ -22,4 +22,14 @@ class TagsController < ApplicationController
     render :action => 'show'
   end
 
+  def info
+    @tag = Tag.find_by_name(params[:tag]) or raise ActiveRecord::RecordNotFound
+    render :layout => false
+  end
+
+  def info_index
+    @tags = Tag.find(:all)
+    render :layout => false
+  end
+
 end

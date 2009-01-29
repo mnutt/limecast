@@ -84,6 +84,19 @@ class FeedsController < ApplicationController
     end
   end
 
+  def info
+    @feed = Feed.find(params[:id])
+    render :layout => false
+  end
+
+  def add_info
+    render :layout => false
+  end
+
+  def hash_info
+    render :layout => false
+  end
+
   protected
 
     def feed_in_session?(feed)

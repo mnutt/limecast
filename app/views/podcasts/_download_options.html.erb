@@ -35,8 +35,7 @@
       <input class="radio" id="w" name="q" type="radio" align="BOTTOM" /><label for="w">Web</label>
       <input class="radio" id="m" name="q" type="radio" /><label for="m">LimeWire</label>
       <strong>2.</strong>
-      <%#= render :partial => "layouts/dropdown", :locals => {:items => [["Most recent","recent"], ["First to last","oldest"]], :selected_item => "oldest"} -%>
-      <a href="#" class="options">Flash (small)</a>
+      <%= dropdown [["Flash (small)","flash-small"], ["Flash (large)", "flash-large"]], nil, {:class => "options"} %>
     </form>
     <ul>
       <li><a href="#" class="help">help</a>|</li>
@@ -57,4 +56,5 @@
   <p>Select the type and quality of the file you would like to download.</p>
   <p id="help_disclaimer">The settings you choose will be set in your browsers cookies but to ensure your settings
   stay the same, login. Or if you don't have an account sign up!</p>
+
 </div>

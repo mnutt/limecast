@@ -505,6 +505,40 @@ a.help_on {
 
 
 
+.show #download_options p,
+.show form#dl_option, .show #dl_option_cont p {
+	display: inline;
+	font-size: 1.2em;
+}
+
+.show form#dl_option {
+}
+
+#download_options .dropdown {
+	display: inline;
+}
+#download_options .dropdown li,
+#download_options .dropdown label {
+	line-height: 1.5em;
+}
+
+
+.show #download_options ul.help_or_hide,
+.show #dl_option_cont ul {
+	float: right;
+}
+
+.show #download_options ul.help_or_hide li,
+.show #dl_option_cont ul li {
+	display: inline;
+}
+
+
+.show form#dl_option a {
+	font-size: 1em;
+}
+
+
 
 
 
@@ -633,10 +667,10 @@ li.review {
 
 .show #s_options_toggle { 
 	position: absolute;
-	top: 58px;
+	top: 60px;
 	right: 15px;
 	font-size: 1.2em;
-	z-index: 1;
+	z-index: 4;
 }
 
 /* Subscribe dropdown **/

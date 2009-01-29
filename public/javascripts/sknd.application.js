@@ -3,9 +3,10 @@ $(document).ready(function() {
   $('.edit').click(function() { $('.limecast_form').toggle(); return false; });
 
   // Subscribe button
-  $("#s_options_toggle").click(function(){
+  $("#s_options_toggle").click(function(e){
     $("#subscribe_options_container").slideDown("fast");
     $(this).toggle();
+		e.preventDefault();
   }).blur(function(){
     alert('blurred');
   });

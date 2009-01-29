@@ -34,13 +34,14 @@ $(document).ready(function() {
 	});
 
   // Episodes/Reviews toggle links
-  $(".supplemental h2.linkable a").click(function(){
+  $(".supplemental h2.linkable a").click(function(e){
     $(".supplemental h2.linkable.current").removeClass('current');
     $(this).parent().addClass('current');
     $(this).addClass('current');
 
-    $("#s_episodes_wrap").toggle();
     $("#s_reviews_wrap").toggle();
+    $("#s_episodes_wrap").toggle();
+    return false;
   });
   
   $(".supplemental #r_view .linkable a").click(function(){
@@ -72,7 +73,7 @@ $(document).ready(function() {
     if($(this).hasClass('selected')) {
       event.stopPropagation();
     } else {
-      $(this).parents(".dropdown ul").find('li').removeClass('selected');
+      $(this).parents(".dropdown").find("ul li").removeClass('selected');
       $(this).parent().addClass('selected');
       $(this).parents(".dropdown").toggleClass('open').find('a.focuser').html($(this).html());
     }

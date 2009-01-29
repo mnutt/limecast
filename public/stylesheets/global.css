@@ -149,7 +149,7 @@ input.radio {
 .dropdown div.dropdown_wrap {
 	position: absolute;
 	visibility: hidden;
-	left: -14px;
+	left: -5px;
 	z-index: 0;
 }
 .dropdown.open div.dropdown_wrap {
@@ -161,7 +161,7 @@ input.radio {
 	padding-right: 18px;
 }
 .dropdown .focuser {
-	cursor: default;
+	cursor: pointer;
 	position: relative;
 	z-index: 100;
 	white-space: nowrap;
@@ -169,7 +169,7 @@ input.radio {
 	padding: 0px;
 }
 .dropdown li a {
-	cursor: default;
+	cursor: pointer;
 	white-space: nowrap;
 }
 .dropdown li.selected a {
@@ -191,6 +191,7 @@ input.radio {
 	border-width: 1px 1px 0 1px;
 }
 .limecast_form .middle {
+	margin: -20px 0;
 	padding: 10px;
 }
 .limecast_form .bottom {

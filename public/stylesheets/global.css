@@ -191,6 +191,7 @@ input.radio {
 	border-width: 1px 1px 0 1px;
 }
 .limecast_form .middle {
+	margin: -20px 0;
 	padding: 10px;
 }
 .limecast_form .bottom {

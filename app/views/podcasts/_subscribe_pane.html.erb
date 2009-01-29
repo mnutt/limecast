@@ -1,0 +1,14 @@
+<ul class="v_options_list">
+  <% feeds.group_by(&:format).each do |format| -%>
+    <li>
+      <p><%= feeds_label_from_format(format[0].to_s) -%></p>
+      <span class="v_options">
+        <% delimited_items(format[1], "|") do |feed, delimiter| -%>
+          <%= link_to default_bitrate_label(feed.bitrate), url.call(feed),
+            :title => [feed.apparent_resolution, "bitrate: #{feed.formatted_bitrate}"].compact.join(" | ") -%>
+          <%= delimiter -%>
+        <% end %>
+      </span>
+    </li>
+  <% end %>
+</ul>

@@ -5,7 +5,7 @@
     <a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a>
   </p>
   <p class="per_page">
-    <% comma_separated_items([5, 10, 20, 50]) do |count, comma| -%>
+    <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
       <%= link_to count, {:limit => count}, :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : nil -%><%= comma -%>
     <% end -%>
     per page

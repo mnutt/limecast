@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
     @feeds    = @podcast.feeds.all
     @episodes = @podcast.episodes.
       paginate(:order => "published_at DESC", :page => (params[:page] || 1), :per_page => params[:limit] || 5)
-    
+
     @reviews = @podcast.reviews
     @review  = Review.new(:episode => @podcast.episodes.newest.first)
 

@@ -247,16 +247,24 @@ div#sort .dropdown label {
 .show .supplemental h2.current {
 	margin-left: 20px;
 	margin-right: 8px;
-	padding: 10px 0 5px 10px;
+	padding: 10px 0 6px 10px;
 	background: url('../imgs/tab_left.png') top left no-repeat;
 }
 
 .show .supplemental h2.current span {
-	padding: 10px 40px 25px 10px;
+	padding: 10px 40px 7px 10px;
 	background: #fff url('../imgs/tab_right.png') top right no-repeat;
 }
 
+.show .supplemental #series_reviews {
+	margin-left: -2px;
+}
 
+/* Abstraction for a set of links that use regular text if 'current' */
+.linkable a { display: inline; margin-left: 40px; margin-right: 6px;}
+.linkable span { display: none; }
+.linkable.current a { display: none; }
+.linkable.current span { display: inline; }
 
 
 /* Download options */
@@ -376,6 +384,7 @@ a.help_on {
 
 .show #s_episodes {
 	margin-top: -5px;	
+	margin-bottom: 20px;
 }
 
 .show #s_episodes p {
@@ -425,8 +434,12 @@ a.help_on {
 	padding: 0px 4px;
 }
 
+.show #episode_cont {
+	margin: 60px 0px 20px 0px;
+}
+
 .show .episode {
-	margin: 60px 5px 20px 5px;
+	margin: 20px 5px 20px 5px;
 	overflow: auto;
 }
 
@@ -546,6 +559,8 @@ a.help_on {
 
 .podcast.show #s_reviews_wrap {
 	display: none;
+	margin-top: -5px;
+	margin-bottom: 20px;
 }
 
 li.review {
@@ -833,7 +848,36 @@ ul.tabs-nav  {
 
 
 
+#footer {
+	text-align: left;
+	color:#fff;
+	width: 980px;
+	margin: -20px auto 0 auto;
+	font-size:0.9em;
+	padding: 20px;
+}
 
+#footer a, #footer h4 {
+	color:#fff;
+}
 
+div.foot_wrapper {
+	background: #313131 url('../imgs/bg_footer.png') top left repeat-x;
+}
 
+div#footer div.section {
+float:left;
+margin:0 22px 20px 0;
+width:305px;
+}
+
+div#footer div.info {
+border-top:1px solid #262626;
+clear:both;
+padding:20px 0 0;
+}
+
+div#footer div.section ul li {
+padding:0 0 5px;
+}
 

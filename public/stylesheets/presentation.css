@@ -573,7 +573,6 @@ a.help_on {
 /* Reviews list */
 
 .podcast.show #s_reviews_wrap {
-	display: none;
 	margin-top: -5px;
 	margin-bottom: 20px;
 }
@@ -622,6 +621,7 @@ li.review {
 
 .show li.review .summary {
 	margin: 10px 0;
+	width: 440px;
 	float: left;
 }
 

@@ -9,5 +9,5 @@
       <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast) %>
     </li>
   </ul>
-  <%= render :partial => "form", :layout => "layouts/limecast_form", :locals => {:obj => @podcast} -%>
+  <%= render :partial => "podcasts/form", :layout => "layouts/limecast_form", :locals => {:obj => @podcast} -%>
 </div>

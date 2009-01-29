@@ -149,9 +149,11 @@ input.radio {
 	position: absolute;
 	visibility: hidden;
 	left: -14px;
+	z-index: 0;
 }
 .dropdown.open div.dropdown_wrap {
 	visibility: visible;
+	z-index: 10;
 }
 .dropdown li {
 	cursor: pointer;
@@ -173,6 +175,31 @@ input.radio {
 	font-weight: bold;
 	padding-right: 12px;
 	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
+}
+
+
+
+/* LimeCast form */
+.limecast_form {
+	position: relative;
+	padding: 5px;
+}
+.limecast_form .top {
+	height: 15px;
+	border: solid #333;
+	border-width: 1px 1px 0 1px;
+}
+.limecast_form .middle {
+	padding: 10px;
+}
+.limecast_form .bottom {
+	height: 15px;
+	border: solid #333;
+	border-width: 0 1px 1px 1px;
+	text-align: center;
+}
+.limecast_form form {
+	width: 105%;
 }
 
 

@@ -1,4 +1,4 @@
-<div id="subscribe" style="background: url('../imgs/subscribe_itunes.png') top left no-repeat;">
+<div id="subscribe" class="itunes_feed">
   <div>
     <a href="#">
       <h2>Subscribe</h2>
@@ -10,157 +10,72 @@
 
 <a href="#" class="options" id="s_options_toggle">Change subscription options</a>
 
-<div id="subscribe_options" class="clearfix" style="display: none">
+<div id="subscribe_options_container" class="clearfix" style="display: none">
   <script type="text/javascript">
       $(function() {
-
-          $('#container-1').tabs();
-          $('#container-2').tabs(2);
-          $('#container-3').tabs({ fxSlide: true });
-          $('#container-4').tabs({ fxFade: true, fxSpeed: 'fast' });
-          $('#container-5').tabs({ fxSlide: true, fxFade: true, fxSpeed: 'normal' });
-          $('#container-6').tabs({
-              fxFade: true,
-              fxSpeed: 'fast',
-              onClick: function() {
-                  alert('onClick');
-              },
-              onHide: function() {
-                  alert('onHide');
-              },
-              onShow: function() {
-                  alert('onShow');
-              }
-          });
-          $('#container-7').tabs({ fxAutoHeight: true });
-          $('#container-8').tabs({ fxShow: { height: 'show', opacity: 'show' }, fxSpeed: 'normal' });
-          $('#container-9').tabs({ remote: true });
-          $('#container-10').tabs();
-          $('#container-11').tabs({ disabled: [3] });
-
-          $('<p><a href="#">Disable third tab<\/a><\/p>').prependTo('#fragment-28').find('a').click(function() {
-              $(this).parents('div').eq(1).disableTab(3);
-              return false;
-          });
-          $('<p><a href="#">Activate third tab<\/a><\/p>').prependTo('#fragment-28').find('a').click(function() {
-              $(this).parents('div').eq(1).triggerTab(3);
-              return false;
-          });
-          $('<p><a href="#">Enable third tab<\/a><\/p>').prependTo('#fragment-28').find('a').click(function() {
-              $(this).parents('div').eq(1).enableTab(3);
-              return false;
+          $('#subscribe_options').tabs({
+            fxFade: true,
+            fxSpeed: 'fast'
           });
 
       });
+
+    $(function(){
+      function update_cookies(url, type, info){
+        $.cookie('podcast_' + PODCAST_ID + '_subscription_url', url);
+        $.cookie('podcast_' + PODCAST_ID + '_subscription_type', type);
+        $.cookie('podcast_' + PODCAST_ID + '_subscription_info', info);
+      }
+
+      function update_subcribe_button(url, type, info){
+        $("#subscribe a").attr("href", url);
+        $("#subscribe p").html(type + " <span>(" + info + ")</span>");
+        $("#subscribe").attr("class", type + "_feed");
+      }
+
+      $("#subscribe_options .pane a").map(function(){
+        $(this).click(function(){
+          var url  = $(this).attr('href');
+          var type = $(this).parents('div').attr('id');
+          var info = $(this).parents('li').find('p').text() + " - " + $(this).text();
+
+          update_cookies(url, type, info);
+          update_subcribe_button(url, type, info);
+
+          return false;
+        });
+      });
+    });
+
+    PODCAST_ID = <%= @podcast.id -%>;
   </script>  
   
 
 
 
     
-    <div id="container-4" class="cbb">
-        <ul>
-            <li><a href="#itunes" class="itunes"><span>iTunes</span></a></li>
-            <li><a href="#miro" class="miro"><span>miro</span></a></li>
-            <li><a href="#rss" class="rss"><span>RSS</span></a></li>
-        </ul>
-        
-   
-        <div id="itunes">
-             <ul class="v_options_list">
-               <li>
-               <p>Flash</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg" class="circle">Large</a>
-               </span>
-               </li>
-
-               <li>
-               <p>MP3</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">High</a>
-               </span>
-               </li>
-
-               <li>
-               <p>Quicktime</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">HD</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
-               </span>
-               </li>
-
-               <li>
-               <p>WMV</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
-               </span>
-               </li>
-
-             </ul>
-             <p class="vid_info">340x240 - 1.6mg bitrate</p>
-        </div>
-        
-        
-        <div id="miro">
-             <ul class="v_options_list">
-               <li>
-               <p>Flash</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a>
-               </span>
-               </li>
-
-        
-
-          
-             </ul>
-             <p class="vid_info">340x240 - 1.6mg bitrate</p>
-        </div>
-        
-        
-        <div id="rss">
-             <ul class="v_options_list">
-               <li>
-               <p>Flash</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a>
-               </span>
-               </li>
-
-               <li>
-               <p>MP3</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">High</a>
-               </span>
-               </li>
-
-               <li>
-               <p>Quicktime</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">HD</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
-               </span>
-               </li>
-
-               <li>
-               <p>WMV</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
-               </span>
-               </li>
-
-               <li>
-               <p>XVID</p>
-               <span class="v_options">
-                 <a href="#" title="1024x760 | bitrate: 1.6meg">Large</a> | <a href="#" title="1024x760 | bitrate: 1.6meg">Small</a>
-               </span>
-               </li>
-             </ul>
-             <p class="vid_info">340x240 - 1.6mg bitrate</p>
-        </div>
+  <div id="subscribe_options" class="cbb">
+    <ul>
+      <li<%= ' class="disabled"' if @podcast.feeds.with_itunes_link.empty? -%>><a href="#itunes" class="itunes"><span>iTunes</span></a></li>
+      <li><a href="#miro" class="miro"><span>miro</span></a></li>
+      <li><a href="#rss" class="rss"><span>RSS</span></a></li>
+    </ul>
+    
+    <div id="itunes" class="pane">
+      <%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :url => lambda {|f| "http://www.itunes.com/podcast?id=#{feed.itunes_link}" } } -%>
+      <p class="info">340x240 - 1.6mg bitrate</p>
     </div>
-
-
-
+    
+    <div id="miro" class="pane">
+      <%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds, :url => lambda {|f| "http://subscribe.getmiro.com/?url1=#{f.url}" } } -%>
+      <p class="info">340x240 - 1.6mg bitrate</p>
+    </div>
+    
+    <div id="rss" class="pane selected">
+      <%= render :partial => "subscribe_pane", :locals => {:feeds => @podcast.feeds, :url => lambda {|f| f.url } } -%>
+      <p class="info">340x240 - 1.6mg bitrate</p>
+    </div>
+  </div>
 </div>
 
 

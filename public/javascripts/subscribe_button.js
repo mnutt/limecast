@@ -45,18 +45,17 @@ $(function(){
     $('#subscribe_options').triggerTab(3);
   }
 
-  $("#subscribe_options .pane a").map(function(){
-    $(this).click(function(){
-      update_subscribe_button($(this));
-      update_selected_link($(this));
+  $("#subscribe_options .pane a").click(function(e){
+    update_subscribe_button($(this));
+    update_selected_link($(this));
 
-      update_cookie("#" + $(this).attr('id'));
+    update_cookie("#" + $(this).attr('id'));
 
-      $("#subscribe_options_container").slideUp("fast");
-      $("#s_options_toggle").toggle();
+    $("#subscribe_options_container").slideUp("fast");
+    $("#s_options_toggle").toggle();
 
-      return false;
-    });
+    e.preventDefault();
   });
+
 });
 

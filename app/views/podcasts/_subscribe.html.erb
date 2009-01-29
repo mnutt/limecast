@@ -45,8 +45,8 @@
         link.addClass("circle");
       }
 
-			var default_link = "#rss a.primary";
-			var name = read_cookie() || default_link;
+      var default_link = "#rss a.primary";
+      var name = read_cookie() || default_link;
       var link = $(name);
       if( link.length != 1 ) {
         link = $(default_link);

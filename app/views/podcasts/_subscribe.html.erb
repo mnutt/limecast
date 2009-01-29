@@ -35,16 +35,9 @@
         var type = link.parents('div').attr('id');
         var info = link.parents('li').find('p').text() + " - " + link.text();
 
-                                $("#subscribe")
-                                  .attr("class", type + "_feed")
-          .find("a")
-                                          .attr("href", url)
-                                        .end()
-                                        .find("p")
-                                          .html(type + " <span>(" + info + ")</span>");
-        //$("#subscribe a").attr("href", url);
-        //$("#subscribe p").html(type + " <span>(" + info + ")</span>");
-        //$("#subscribe").attr("class", type + "_feed");
+        $("#subscribe a").attr("href", url);
+        $("#subscribe p").html(type + " <span>(" + info + ")</span>");
+        $("#subscribe").attr("class", type + "_feed");
       }
 
       function update_selected_link(link){
@@ -52,18 +45,19 @@
         link.addClass("circle");
       }
 
-      var link = $(read_cookie());
-                        if( link.length != 1 ) {
-                                link = $("a.primary");
-                        }
+			var default_link = "#rss a.primary";
+			var name = read_cookie() || default_link;
+      var link = $(name);
+      if( link.length != 1 ) {
+        link = $(default_link);
+      }
       update_subscribe_button(link);
       update_selected_link(link);
 
 
       $("#subscribe_options .pane a").map(function(){
         $(this).click(function(){
-          update_subscribe_button(url, type, info);
-          update_selected_link($(this));
+          update_subscribe_button($(this));
 
           $("#subscribe_options_container").slideUp("fast");
           $("#s_options_toggle").toggle();

@@ -5,9 +5,9 @@
       <span class="v_options">
         <% delimited_items(format[1], "|") do |feed, delimiter| -%>
           <%= link_to default_bitrate_label(feed.bitrate), url.call(feed),
-                                                :id    => "feed_#{feed.id}_#{type}",
-                                                :title => [feed.apparent_resolution, "bitrate: #{feed.formatted_bitrate}"].compact.join(" | "),
-                              :class => (feed.primary? ? "primary" : nil)-%>
+                :id    => "feed_#{feed.id}_#{type}",
+                :title => [feed.apparent_resolution, "bitrate: #{feed.formatted_bitrate}"].compact.join(" | "),
+                :class => (feed.primary? ? "primary" : nil)-%>
           <%= delimiter -%>
         <% end %>
       </span>

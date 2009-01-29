@@ -17,13 +17,6 @@ class Tagging < ActiveRecord::Base
 
   validates_uniqueness_of :tag_id, :scope => :podcast_id, :message => "has already been used on this Podcast"
 
-  def validate
-    if self.tag && self.tag.category?
-      if self.podcast && self.podcast.tags.select {|t| t.category? }.size >= 2
-        errors.add(:podcast, 'already has 2 category tags')
-      end
-    end
-  end
 
   def map_to_different_tag
     return if self.tag.nil?

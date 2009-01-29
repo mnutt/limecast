@@ -11,7 +11,7 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 
 .show .summary {margin: 0px 20px 20px 20px; padding-top: 10px; overflow: visible;}
 
-.show .supplemental {overflow: hidden; margin: 20px; width: 640px;}
+.show .supplemental {overflow: hidden; position:  relative; margin: 20px; width: 640px;}
 
 
 /**** Header **************/
@@ -67,21 +67,23 @@ a#add_podcast span, a#logo span {
 	float: left;
 	margin-right: 20px;
 }
-  .podcast.show .summary .preview,
-  .podcast.show .summary .preview img { width: 160px; }
-  .episode.show .summary .preview { width: 340px; }
+
+.podcast.show .summary .preview,
+.podcast.show .summary .preview img { width: 160px; }
+.episode.show .summary .preview { width: 340px; }
   
-  .episode.show .summary .preview .previous {
-    display: block;
-    width: 40%;
-  	float: left;
-  }
-  .episode.show .summary .preview .next {
-    display: block;
-    width: 40%;
-  	float: right;
-    text-align: right;
-  }
+.episode.show .summary .preview .previous {
+  display: block;
+  width: 40%;
+	float: left;
+}
+
+.episode.show .summary .preview .next {
+  display: block;
+  width: 40%;
+  float: right;
+  text-align: right;
+}
 
 .show .summary h6#page_type {
 	float: right;
@@ -114,7 +116,9 @@ a#add_podcast span, a#logo span {
 	display: inline;
 }
 
-.show p.favorite {
+.show p.favorite_cont {
+	font-size: 1.2em;
+	padding: 8px 0 5px 0;
 	float: right;
 }
 
@@ -138,14 +142,14 @@ a#add_podcast span, a#logo span {
 	margin-bottom: 20px;
 } 
 
-  .podcast.show .description {
-  	background: url('../imgs/b_border.png') bottom left repeat-x;
-  	width: 760px;
-  }
+.podcast.show .description {
+	background: url('../imgs/b_border.png') bottom left repeat-x;
+  width: 760px;
+}
   
-  .episode.show .description {
-  	width: 580px;
-  }
+.episode.show .description {
+	width: 580px;
+}
 
 
 .show .description h2 a {
@@ -153,47 +157,60 @@ a#add_podcast span, a#logo span {
 	font-weight: normal;
 }
 
-.show #social ul {
+/**** Social links **************/
+
+#social {
+  float:left;
+  width:100%;
+ 
+  line-height:normal;
+  }
+#social ul {
+  margin:0;
+  padding:0;
+  list-style:none;
 	position: absolute;
 	bottom: 23px;
 	left: 0;
-}
+  }
+#social li {
+  float:left;
+  background:url("../imgs/social_left.png") no-repeat left top;
+  margin-right: 5px;
+  padding:0 0 0 9px;
 
-.show #social ul li {
-	display: inline;
-}
-
-.show #social ul li > a,
-.show #social ul li > span {
-	color: #a9a9a9;
-	font-size: 1em;
-	float: left;
-	display: block;
-	padding: 0px 10px 0px 0px;  
-	background: url("../imgs/social.png") no-repeat top right; 
-	text-decoration: none;
-}
-
-.show #social a span {
-	color: #2d5cad;
-}
-
-.show #social li {
-	float: left;  
-	padding-left: 10px;  
-
+  }
+#social a {
+  float:left;
+  display:block;
+  background:url("../imgs/social_right.png") no-repeat right top;
+  padding:0px 9px 0px 0px;
 	line-height: 22px;
-	margin-right: 10px;
-	background: url("../imgs/social.png") no-repeat top left;  
+  text-decoration:none;
+	font-size: 1em;
+  color:#a9a9a9;
+  }
+
+#social a span {
+	color: #2951a5;
 }
-.show #social a:hover {
-	color: #fff;
-	background: url("../imgs/social.png") no-repeat bottom right;
+
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#social a {float:none;}
+/* End IE5-Mac hack */
+#social a:hover {
+  color:#333;
+  }
+
+#social li:hover, #header li:hover a {
+  background-position:0% -23px;
+  color:#fff;
+  }
+#social li:hover a, #social li:hover a span {
+  background-position:100% -23px;
+	color:#fff;
 }
-
-
-
-
 
 
 
@@ -205,10 +222,9 @@ a#add_podcast span, a#logo span {
 
 /**** episodes/reveiws **************/
 div#sort {
-	float: right;
-	padding-top: 3px;
-	position: relative;
-	width: 12em;
+	position: absolute;
+	right: 20px;
+	top: 72px;
 }
 
 div#sort .dropdown {
@@ -240,6 +256,124 @@ div#sort .dropdown label {
 	background: #fff url('../imgs/tab_right.png') top right no-repeat;
 }
 
+
+
+
+/* Download options */
+
+#download_options {
+	overflow: visible;
+	position: absolute;
+	width: 602px;
+	top: 110px;
+	left: 19px;
+	background: url('../imgs/bg_dl_left.png') top left no-repeat;
+	height: 29px;
+}
+
+#download_options > div {
+	background: url('../imgs/bg_dl_right.png') top right no-repeat;
+	height: 29px;
+	margin: 0px 0 0 9px;
+	padding-right: 9px;
+}
+
+
+.show #download_options p,
+.show form#dl_option {
+	display: inline;
+	font-size: 1.2em;
+	float: left;
+	line-height: 28px;
+}
+
+.show #download_options p {
+	padding-right: 5px;
+}
+
+.show form#dl_option strong {
+	padding-left: 10px;
+	background: url('../imgs/dl_divider.png') center left no-repeat;
+}
+
+.show form#dl_option label {
+	margin: 0 2px;
+	color: #2951a5;
+}
+
+.show form#dl_option label:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+
+.show #download_options ul#dl_view {
+	position: absolute;
+	top: 1px;
+	right: 3px;
+	padding-left: 5px;
+	background: url('../imgs/dl_divider.png') center left no-repeat;
+}
+
+.show #download_options ul#dl_view li {
+	display: inline;
+}
+
+.show #download_options ul#dl_view li a {
+	
+	line-height: 28px;
+	padding: 3px 7px 8px 7px;
+}
+
+/* Download options help */
+
+#dl_help {
+	position: relative;
+	top: 44px;
+	height: 200px;
+	margin: 0 10px 0 10px;
+	padding: 10px;
+	position: relative;
+	background: url('../imgs/bg_dl_help.png') bottom left no-repeat;
+}
+
+#dl_help p {
+	font-size: 1.2em;
+	padding: 0px 0 10px 0;
+}
+
+#dl_help h6 {
+	font-size: 1.2em;
+}
+
+p#help_disclaimer {
+	font-size: 1em;
+	font-style: italic;
+	padding-top: 20px;
+}
+
+a.help_on {
+	outline: none;
+	background: url('../imgs/help_on.png') top left no-repeat;
+}
+
+#download_setting p {
+	position: absolute;
+	top: 110px;
+	left: 19px;
+	color: #a9a9a9;
+	font-size: 1.2em;
+	line-height: 28px;
+}
+
+
+
+
+/* Episode */
+.show form#dl_option a {
+	font-size: 1em;
+}
+
 .show #s_episodes {
 	margin-top: -5px;	
 }
@@ -248,10 +382,17 @@ div#sort .dropdown label {
 	margin: 0 0px;
 }
 
-.show #e_info, .show #view_options {
-	font-size: 1.2em;
-	padding-bottom: 2px;
-	border-bottom: 1px solid #a9a9a9;
+.show #e_info {
+	font-size: .9em;
+	padding-bottom: 4px;
+	border-bottom: 1px solid #ddd;
+	margin: 0 5px;
+}
+
+.show #view_options {
+	font-size: .9em;
+	padding: 2px 0 6px 0;
+	border-bottom: 1px solid #ddd;
 	margin: 0 5px;
 }
 
@@ -263,18 +404,19 @@ div#sort .dropdown label {
 	display: inline;
 }
 
-.show #view_options p a {
-	font-size: 1em;
-}
+
 
 .show #view_options img {
-	padding: 0;
-	margin: 6px 5px 0 5px;
+	padding: 2px;
+	margin-right: 1px;
+	position: relative;
+	top: 4px;
+	left: 0px;
 }
 
 .show #view_options .per_page {
 	border-left: 1px solid #a9a9a9;
-	padding-left: 5px;
+	padding-left: 7px;
 	display: inline;
 }
 
@@ -283,15 +425,8 @@ div#sort .dropdown label {
 	padding: 0px 4px;
 }
 
-.show p#sort {
-	position: absolute;
-	right: 0px;
-	margin-top: -1.6em;
-}
-
-
 .show .episode {
-	margin: 20px 5px;
+	margin: 60px 5px 20px 5px;
 	overflow: auto;
 }
 
@@ -369,6 +504,7 @@ div#sort .dropdown label {
 }
 
 
+
 .show #download_options p,
 .show form#dl_option, .show #dl_option_cont p {
 	display: inline;
@@ -401,7 +537,6 @@ div#sort .dropdown label {
 .show form#dl_option a {
 	font-size: 1em;
 }
-
 
 
 
@@ -479,6 +614,11 @@ li.review {
 
 
 
+
+
+
+
+
 /* Subscribe Button **/
 
 .show #subscribe {
@@ -526,10 +666,10 @@ li.review {
 
 .show #s_options_toggle { 
 	position: absolute;
-	top: 58px;
+	top: 60px;
 	right: 15px;
 	font-size: 1.2em;
-	z-index: 1;
+	z-index: 4;
 }
 
 /* Subscribe dropdown **/
@@ -566,26 +706,6 @@ li.review {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Caution! Ensure accessibility in print and other media types... */
 @media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
     .tabs-hide {
@@ -602,105 +722,101 @@ li.review {
 
 /* Skin */
 .tabs-nav {
-    list-style: none;
-    margin: 0;
-    padding: 0 0 0 0px;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 0px;
 }
+
 .tabs-nav:after { /* clearing without presentational markup, IE gets extra treatment */
     display: block;
     clear: both;
     content: " ";
 }
+
 ul.tabs-nav  {
-  
-		margin: -10px 0 0 -12px;
-    width: 282px;
+  margin: -10px 0 0 -12px;
+  width: 282px;
 }
+
 .tabs-nav li {
-    float: left;
-    margin: 0px;
-    min-width: 65px; /* be nice to Opera */
-		border-right: 1px solid #a9a9a9;
+  float: left;
+  margin: 0px;
+  min-width: 65px; /* be nice to Opera */
+	border-right: 1px solid #a9a9a9;
 }
 
 .tabs-nav li:last-child {
-		border-right: none;
+	border-right: none;
 }
 
 .tabs-nav a, .tabs-nav a span {
-    display: block;
-    padding: 15px 5px 3px 2px;
-    background: #e4e4e4;
-
+  display: block;
+  padding: 15px 5px 3px 2px;
+  background: #e4e4e4;
 }
+
 .tabs-nav a {
-    position: relative;
-    top: 1px;
-    z-index: 2;
-    padding-left: 18px;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 1.2em;
-    text-align: center;
-
-    white-space: nowrap; /* required in IE 6 */    
+  position: relative;
+  top: 1px;
+  z-index: 2;
+  padding-left: 18px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.2em;
+  text-align: center;
+  white-space: nowrap; /* required in IE 6 */    
 }
+
 .tabs-nav .tabs-selected a {
-    color: #000;
-		background: #fff;
+  color: #000;
+	background: #fff;
 }
-
 
 .tabs-nav .tabs-selected a, .tabs-nav a:hover, .tabs-nav a:focus, .tabs-nav a:active {
     outline: 0; /* prevent dotted border in Firefox */
 }
 
 .tabs-nav a span {
-    width: 64px; /* IE 6 treats width as min-width */
-    min-width: 64px;
-    height: 18px; /* IE 6 treats height as min-height */
-    min-height: 18px;
-    padding-top: 6px;
-    padding-right: 0;
+  width: 64px; /* IE 6 treats width as min-width */
+  min-width: 64px;
+  height: 18px; /* IE 6 treats height as min-height */
+  min-height: 18px;
+  padding-top: 6px;
+  padding-right: 0;
 }
 *>.tabs-nav a span { /* hide from IE 6 */
-    width: auto;
-    height: auto;
+  width: auto;
+  height: auto;
 }
-.tabs-nav .tabs-selected a span {
-  
+.tabs-nav .tabs-selected a span { 
 		background: #fff;
 }
 
 .tabs-nav .tabs-selected a:link, .tabs-nav .tabs-selected a:visited, .tabs-nav .tabs-disabled a:link, .tabs-nav .tabs-disabled a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
-    cursor: text;
+  cursor: text;
 }
 .tabs-nav a:hover, .tabs-nav a:focus, .tabs-nav a:active { /* @ Opera, we need to be explicit again here now... */
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tabs-container {
-    border-top: 1px solid #97a5b0;
-    padding: 1em 8px;
-    background: #fff; /* declare background color for container to avoid distorted fonts in IE while fading */
+  border-top: 1px solid #97a5b0;
+  padding: 1em 8px;
+  background: #fff; /* declare background color for container to avoid distorted fonts in IE while fading */
 }
-
 
 .tabs-nav a.itunes span {padding-left:  8px; background:  url('../imgs/icons/itunes.png') center left no-repeat;}
 .tabs-nav a.miro span {background:  url('../imgs/icons/miro.png') center left no-repeat;}
 .tabs-nav a.rss span {background:  url('../imgs/icons/rss.png') center left no-repeat;}
-
 
 .show ul.v_options_list ul  {
 	clear: left;
 	margin-top: 10px;
 }
 
-
 .show ul.v_options_list li  {
 	display: block;
 	padding: 3px 0;
-
 	border-bottom: 1px dotted #ddd;
 	overflow: hidden;
 }
@@ -709,12 +825,10 @@ ul.tabs-nav  {
 	float: left;
 }
 
-
 .show span.v_options {
 	float: right;
 	font-size: 1.4em;
 }
-
 
 .show ul.v_options_list li .selected_vid {
 	padding-right: 12px;

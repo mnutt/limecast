@@ -7,6 +7,7 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 
 .options {padding-right: 15px; background: url('../imgs/icons/arrow.gif') right center no-repeat;}
 
+
 .dropdown .focuser {padding-right: 18px; background-image: url('../imgs/icons/arrow.gif'); background-position: right 4px; background-repeat: no-repeat;}
 
 .itunes {padding-left: 20px; background: url('../imgs/icons/itunes.png') center left no-repeat;}
@@ -17,8 +18,8 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 #subscribe.miro_feed   { background: url('../imgs/subscribe_miro.png') top left no-repeat; }
 #subscribe.rss_feed    { background: url('../imgs/subscribe_rss.png') top left no-repeat; }
 
-.add.favorite { padding: 4px 0 4px 18px; background: url('../imgs/icons/plus.png') center left no-repeat; }
-.is.favorite  { padding: 4px 0 4px 18px; background: url('../imgs/icons/checkmark.png') center left no-repeat; }
+.add  { padding-left: 18px; background: url('../imgs/icons/plus.png') center left no-repeat; }
+.is { padding: 4px 0 4px 18px; background: url('../imgs/icons/checkmark.png') center left no-repeat; }
 
 .linkable .positive, .positive .title { padding: 4px 0 4px 18px; background: url('../images/icons/thumbs_up.png') center left no-repeat; }
 .linkable .negative, .negative .title { padding: 4px 0 4px 18px; background: url('../images/icons/thumbs_down.png') center left no-repeat; }
@@ -30,4 +31,10 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 .episode.show .summary .preview .next {
   padding: 4px 11px 4px 0;
   background: url('../imgs/icons/right-arrow.gif') center right no-repeat;
+}
+
+.circle {
+	padding-right: 12px;
+	font-weight: bold;
+	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
 }

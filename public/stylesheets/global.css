@@ -51,7 +51,10 @@ button span {
 	padding: 0 5px 0 10px;
 }
 
+input.radio {
+	margin: 0px 3px 0 3px;
 
+}
 
 
 
@@ -144,14 +147,17 @@ button span {
 	min-height: 1em;
 	color: #2d5cad;
 	position: relative;
+	font-size: 1.4em;
 }
 .dropdown div.dropdown_wrap {
 	position: absolute;
 	visibility: hidden;
 	left: -14px;
+	z-index: 0;
 }
 .dropdown.open div.dropdown_wrap {
 	visibility: visible;
+	z-index: 10;
 }
 .dropdown li {
 	cursor: pointer;
@@ -171,6 +177,33 @@ button span {
 }
 .dropdown li.selected a {
 	font-weight: bold;
+	padding-right: 12px;
+	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
+}
+
+
+
+/* LimeCast form */
+.limecast_form {
+	position: relative;
+	padding: 5px;
+}
+.limecast_form .top {
+	height: 15px;
+	border: solid #333;
+	border-width: 1px 1px 0 1px;
+}
+.limecast_form .middle {
+	padding: 10px;
+}
+.limecast_form .bottom {
+	height: 15px;
+	border: solid #333;
+	border-width: 0 1px 1px 1px;
+	text-align: center;
+}
+.limecast_form form {
+	width: 105%;
 }
 
 

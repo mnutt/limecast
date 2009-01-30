@@ -129,7 +129,7 @@ describe Podcast, "cleaning up the title" do
     @podcast.title = " - Podcast"
     @podcast.send(:sanitize_title).should == "Podcast"
   end
-  
+
   it 'should auto-increment the title if the name clashes with another podcast' do
     new_podcast = Factory.create(:podcast)
     new_podcast.update_attribute(:title, "Podcast")

@@ -25,7 +25,23 @@
     </div>
     <div id="review_doit">
       <h4>Review this series</h4>
-      <p>Mark as:            Positive            Negative</p>
+      <form action="" method="get" id="leave_series_review">         
+        <p><strong>Mark as:</strong>
+        <input class="radio" id="p" name="p" type="radio" align="BOTTOM" /><label for="p">Positive</label>
+        <input class="radio" id="n" name="p" type="radio" /><label for="n">Negative</label>
+        <h6>Heading</h6>
+        <input class="text search" id="q" name="q" size="15" type="text" />
+        <h6>Your review of the 1Up Show</h6>
+        <textarea rows="2" cols="20">
+       
+        </textarea>
+
+        </p>
+        <button type="submit">
+          <span>Submit review</span>
+        </button>
+      </form>
+      
     </div>
   <% end -%>
 </div><!-- /s_reviews -->

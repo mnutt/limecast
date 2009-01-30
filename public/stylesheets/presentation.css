@@ -323,12 +323,12 @@ div#sort .dropdown label {
 	background: url('../imgs/dl_divider.png') center left no-repeat;
 }
 
-.show form#dl_option label {
+.show form#dl_option label, .show #s_reviews #review_doit label {
 	margin: 0 2px;
 	color: #2951a5;
 }
 
-.show form#dl_option label:hover {
+.show form#dl_option label:hover, .show #s_reviews #review_doit label:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
@@ -658,14 +658,44 @@ li.review {
 }
 
 .show #s_reviews #review_doit {
-	min-height: 200px;
 	margin: 20px 0 20px 0;
 }
 
+.show #s_reviews #review_doit h4 {
+	font-size: 1.6em;
+}
 
+.show #s_reviews #review_doit p {
+	margin-top: 15px;
+}
 
+.show #s_reviews #review_doit h6 {
+	font-size: 1.4em;
+	margin-top: 1.5em;
+}
 
+.show #s_reviews #review_doit input {
+	border: 1px solid #171717;
+	-moz-border-radius: 3px;
+	width: 300px;
+	height: 25px;
+	font-size: 1.4em;
+	padding: 5px 0 0 5px;
+}
 
+.show #s_reviews #review_doit textarea {
+	border: 1px solid #171717;
+	-moz-border-radius: 3px;
+	width: 400px;
+	height: 125px;
+	font-size: 1.8em;
+	padding: 5px;
+	display: block;
+}
+
+.show #s_reviews #review_doit button {
+	margin: 15px 0 0 0px;
+}
 
 
 

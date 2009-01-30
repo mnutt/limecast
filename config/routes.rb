@@ -32,8 +32,8 @@ ActionController::Routing::Routes.draw do |map|
     info.info_tags    'tags', :controller => 'tags', :action => 'info_index'
     info.info_tag     'tag/:tag', :controller => 'tags', :action => 'info'
     info.info_feed    ':podcast/feed/:id', :controller => 'feeds', :action => 'info'
-    info.info_source  ':podcast/:episode/:id', :controller => 'sources', :action => 'info'
     info.info_episode ':podcast/:episode', :controller => 'episodes', :action => 'info'
+    info.info_source  ':podcast/:episode/:id', :controller => 'sources', :action => 'info'
     info.info_podcast ':podcast', :controller => 'podcasts', :action => 'info'
   end
 

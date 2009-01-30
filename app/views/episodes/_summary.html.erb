@@ -12,8 +12,8 @@
     <div>
       <h2>
         <%=h @podcast.custom_title %>
-        <%= link_to "View series &gt;&gt;", podcast_url(:podcast => @podcast) -%>
       </h2>
+      <div class="callout"><ul><li><%= link_to "View series & episode list", podcast_url(:podcast => @podcast) -%></li></ul></div>
       <h3><%=h @episode.title -%></h3>
 
       <p class="media">

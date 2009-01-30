@@ -964,16 +964,16 @@ ul.tabs-nav  {
 	margin-left: 18px;
 }
 
-#pagination ul {
+.pagination ul {
 	float: right;
 	margin: 0 10px 10px 0;
 }
 
-#pagination ul li {
+.pagination ul li {
 	display: inline;
 }
 
-#pagination ul li a {
+.pagination a {
 	font-size: 1.4em;
 	padding: 5px 8px;
 }

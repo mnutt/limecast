@@ -1,5 +1,7 @@
 <h1><%= @feed.url -%></h1>
 
+<p>from <%= link_to @feed.podcast.title, info_podcast_url(@feed.podcast) -%></p>
+
 <dl>
   <dt>Updated</dt>
   <dd><%= @feed.updated_at.to_s -%></dd>
@@ -29,16 +31,16 @@
   <dd>todo</dd>
 
   <dt>Link</dt>
-  <dd><%= link_to @feed.url, @feed.url -%></dd>
+  <dd><%= link_to @feed.podcast.site -%></dd>
 
   <dt>Link page</dt>
-  <dd>???</dd>
+  <dd><%= link_to @feed.podcast.clean_site -%></dd>
 
   <dt>RSS</dt>
-  <dd>???</dd>
+  <dd><%= link_to @feed.url -%></dd>
   
   <dt>iTunes link</dt>
-  <dd><%= link_to @feed.itunes_link, @feed.itunes_link -%></dd>
+  <dd><%= link_to @feed.itunes_link -%></dd>
 
   <dt>Description HTML</dt>
   <dd><%=h @feed.podcast.description -%></dd>

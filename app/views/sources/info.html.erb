@@ -1,0 +1,25 @@
+<h1><%= @source.file_name -%></h1>
+
+<dl>
+  <dt>Screenshot:</dt>
+  <dd>
+    <%= link_to(@source.screenshot.url, @source.screenshot.url) -%>
+    (<%= FileSize.new(@source.screenshot_file_size.to_i || 0) -%>)
+  </dd>
+
+  <dt>Preview:</dt>
+  <dd>
+    <%= link_to(@source.preview.url, @source.preview.url) -%>
+    (<%= FileSize.new(@source.preview_file_size.to_i || 0) -%>)
+  </dd>
+
+  <dt>URL:</dt>
+  <dd>
+    <%= link_to(@source.url, @source.url) -%>
+  </dd>
+
+  <dt>SHA1 Hash:</dt>
+  <dd>
+    <%= @source.sha1hash -%>
+  </dd>
+</dl>

@@ -1,11 +1,13 @@
 <h1><%=h @episode.title %></h1>
 
+<p>from <%= link_to @episode.podcast.title, info_podcast_url(@episode.podcast) -%></p>
+
 <table cellpadding="0" cellspacing="0" border="0">
 <%- @episode.attributes.each do |k,v| -%>
   <% next if %w{id duration}.include?(k) || k.to_s =~ /_id/ %>
   <tr>
     <td><%= k %></td>
-    <td><%= v %></td>
+    <td><%=h v %></td>
   </tr>
 <%- end -%>
   <tr>
@@ -24,30 +26,7 @@
 <h2>Sources</h2>
 <ul>
 <%- @episode.sources.each do |s| -%>
-  <li>
-    <table cellpadding="0" cellspacing="0" border="0">
-      <tr>
-        <td>screenshot</td>
-        <td><%= link_to nil, s.screenshot.url %></td>
-      </tr>
-      <tr>
-        <td>preview</td>
-        <td><%= s.preview.url %></td>
-      </tr>
-      <tr>
-        <td>preview file size</td>
-        <td><%= s.preview_file_size.to_i.to_file_size %></td>
-      </tr>
-      <tr>
-        <td>format</td>
-        <td><%= s.format %></td>
-      </tr>
-      <tr>
-        <td>url</td>
-        <td><%= link_to nil, s.url %></td>
-      </tr>
-    </table>
-  </li>
+  <li><%= link_to s.file_name, info_source_url(@episode.podcast, @episode, s) -%></li>
 <%- end -%>
 </ul>
 

@@ -1,5 +1,5 @@
 $(function() {
-  $('#subscribe_options').tabs({
+  $tabs = $('#subscribe_options').tabs({
     fxFade: true,
     fxSpeed: 'fast'
   });
@@ -30,6 +30,13 @@ $(function(){
     link.addClass("circle");
   }
 
+  function select_tab(name) {
+    $('#subscribe_options .tabs-nav li').removeClass("tabs-selected");
+    $('#subscribe_options a.' + name).parents("li").addClass("tabs-selected");
+    $('#subscribe_options .tabs-container').addClass("tabs-hide").attr("style", "");
+    $('#subscribe_options .tabs-container#' + name).removeClass("tabs-hide").css("display", "block");
+  }
+
   var default_link = "#rss a.primary";
   var name = read_cookie() || default_link;
   var link = $(name);
@@ -40,23 +47,24 @@ $(function(){
   update_selected_link(link);
  
   if(name.match(/miro/)) {
-    $('#subscribe_options').triggerTab(2);
+    //$('#subscribe_options').triggerTab(2);
+    select_tab("miro");
   } else if(name.match(/rss/)) {
-    $('#subscribe_options').triggerTab(3);
+    select_tab("rss");
+    //$('#subscribe_options').triggerTab(3);
+    //$('#subscribe_options').tabs('select', 2);
   }
 
-  $("#subscribe_options .pane a").map(function(){
-    $(this).click(function(){
-      update_subscribe_button($(this));
-      update_selected_link($(this));
+  $("#subscribe_options .pane a").click(function(e){
+    update_subscribe_button($(this));
+    update_selected_link($(this));
 
-      update_cookie("#" + $(this).attr('id'));
+    update_cookie("#" + $(this).attr('id'));
 
-      $("#subscribe_options_container").slideUp("fast");
-      $("#s_options_toggle").toggle();
+    $("#subscribe_options_container").slideUp("fast");
 
-      return false;
-    });
+    e.preventDefault();
   });
+
 });
 

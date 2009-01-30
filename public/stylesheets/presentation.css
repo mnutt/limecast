@@ -91,15 +91,28 @@ a#add_podcast span, a#logo span {
 	margin: .5em 0 1em 0;
 }
 
-.show .summary h6#page_type {
+.summary h6#page_type {
 	float: right;
 	margin-top: -4em;
+}
+
+.podcast h6#page_type {
+	margin-top: -50px;
+	padding: 10px 30px 10px 0;
+	background: url('../imgs/icons/series.png') center right no-repeat;
+}
+
+.episode h6#page_type {
+	margin-top: -57px;
+	padding: 17px 30px 10px 0;
+	background: url('../imgs/icons/episode.png') center right no-repeat;
 }
 
 
 .episode.show .summary .media {
 	font-size: 1.2em;
 	font-style: italic;
+	margin-bottom: 5px;
 }
 
 .episode.show .summary p .date {
@@ -163,62 +176,16 @@ a#add_podcast span, a#logo span {
 	font-weight: normal;
 }
 
-/**** Social links **************/
 
-#social {
-  float:left;
-  width:100%;
- 	
-  line-height:normal;
-  }
-#social ul {
-  margin:0;
-  padding:0;
-  list-style:none;
-	position: relative;
-	bottom: -40px;
-	margin-bottom: 60px;
-	left: 0;
-  }
-#social li {
-  float:left;
-  background:url("../imgs/social_left.png") no-repeat left top;
-  margin-right: 5px;
-  padding:0 0 0 9px;
 
-  }
-#social a {
-  float:left;
-  display:block;
-  background:url("../imgs/social_right.png") no-repeat right top;
-  padding:0px 9px 0px 0px;
-	line-height: 22px;
-  text-decoration:none;
-	font-size: 1em;
-  color:#a9a9a9;
-  }
-
-#social a span {
-	color: #2951a5;
+.episode .description h2 {
+	display: inline;
 }
 
-
-/* Commented Backslash Hack hides rule from IE5-Mac \*/
-#social a {float:none;}
-/* End IE5-Mac hack */
-#social a:hover {
-  color:#333;
-  }
-
-#social li:hover, #header li:hover a {
-  background-position:0% -23px;
-  color:#fff;
-  }
-#social li:hover a, #social li:hover a span {
-  background-position:100% -23px;
-	color:#fff;
+.episode .description .callout ul {
+	float: right;
+	margin-top: -2.2em;
 }
-
 
 
 
@@ -273,7 +240,9 @@ div#sort .dropdown label {
 
 .show .supplemental .linkable a {margin-left: 40px; margin-right: 6px;}
 
-
+.episode .supplemental  {
+	margin-top: 20px;
+}
 
 /* Abstraction for a set of links that use regular text if 'current' */
 .linkable a { display: inline;}
@@ -323,12 +292,14 @@ div#sort .dropdown label {
 	background: url('../imgs/dl_divider.png') center left no-repeat;
 }
 
-.show form#dl_option label {
+.show form#dl_option label, .show #s_reviews #review_doit label {
 	margin: 0 2px;
 	color: #2951a5;
 }
 
-.show form#dl_option label:hover {
+#s_reviews img {margin: 0 -7px 0 20px;}
+
+.show form#dl_option label:hover, .show #s_reviews #review_doit label:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
@@ -576,14 +547,37 @@ a.help_on {
 
 /* Reviews list */
 
-.podcast.show #s_reviews_wrap {
+.show #s_reviews_wrap {
 	margin-top: -5px;
 	margin-bottom: 20px;
 }
 
 li.review {
+	position: relative;
 	border-bottom: solid 1px #D4F0AA;
 	display: block;
+}
+
+.review .allreviews {
+	display: block;
+}
+
+.review .helpfulness {
+	color: #a9a9a9;
+	font-size: 1.2em;
+	margin-top: 10px;
+	margin-right: 150px;
+	text-align: right;
+}
+
+.review div.social {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: auto;
+	margin: 0;
+	padding: 0;
+
 }
 
 .show #r_info, .show #r_view {
@@ -658,14 +652,44 @@ li.review {
 }
 
 .show #s_reviews #review_doit {
-	min-height: 200px;
 	margin: 20px 0 20px 0;
 }
 
+.show #s_reviews #review_doit h4 {
+	font-size: 1.6em;
+}
 
+.show #s_reviews #review_doit p {
+	margin-top: 15px;
+}
 
+.show #s_reviews #review_doit h6 {
+	font-size: 1.4em;
+	margin-top: 1.5em;
+}
 
+.show #s_reviews #review_doit input {
+	border: 1px solid #171717;
+	-moz-border-radius: 3px;
+	width: 300px;
+	height: 25px;
+	font-size: 1.4em;
+	padding: 5px 0 0 5px;
+}
 
+.show #s_reviews #review_doit textarea {
+	border: 1px solid #171717;
+	-moz-border-radius: 3px;
+	width: 400px;
+	height: 125px;
+	font-size: 1.8em;
+	padding: 5px;
+	display: block;
+}
+
+.show #s_reviews #review_doit button {
+	margin: 15px 0 0 0px;
+}
 
 
 
@@ -721,7 +745,7 @@ li.review {
 	top: 63px;
 	right: 5px;
 	font-size: 1.2em;
-	z-index: 4;
+	z-index: 1;
 }
 
 /* Subscribe dropdown **/
@@ -893,20 +917,20 @@ ul.tabs-nav  {
 	margin-top: 5px;
 }
 
-.show .info .created_at {
+.show .info .created_at, .review .allreviews {
 	margin-left: 18px;
 }
 
-#pagination ul {
+.pagination ul {
 	float: right;
 	margin: 0 10px 10px 0;
 }
 
-#pagination ul li {
+.pagination ul li {
 	display: inline;
 }
 
-#pagination ul li a {
+.pagination a {
 	font-size: 1.4em;
 	padding: 5px 8px;
 }

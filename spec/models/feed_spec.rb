@@ -202,7 +202,7 @@ describe Feed, "updating podcast" do
     @feed.update_attribute :finder, @user
     @user.calculate_score!
   end
-  
+
   it "should throw an error if the podcast and feed hosts don't match" do
     lambda { @feed.update_podcast! }.should raise_error(Feed::FeedDoesNotMatchPodcast)
   end

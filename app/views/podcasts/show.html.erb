@@ -22,15 +22,11 @@
         <%= render :partial => "podcasts/view_options" -%>
         <%= render :partial => "podcasts/download_options" -%>
         <div id="episode_cont"><%= render :partial => "episodes/episode", :collection => @episodes -%></div>
-        <div id="pagination">
-          <ul>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a>...</li>
-            <li ><a href="#">24</a></li>
-            <li ><a href="#"><img src="../imgs/icons/right-arrow.gif" title="Older episodes" /></a></li>
-          </ul>
-        </div>
+        <%= will_paginate @episodes,
+          :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Newer episodes" />',
+          :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Older episodes" />',
+          :inner_window   => 1,
+          :outer_window   => 1 -%>
       <% end -%>
     </div>
   </div>

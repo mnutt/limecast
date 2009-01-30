@@ -4,20 +4,23 @@
 
   <div class="preview">
     <%= image_tag(@episode.sources.first.screenshot.url, :alt => "#{@episode.title} cover art", :width => 340, :height => 252) -%>
-    <%= link_to "Previous episode", "#", :class => "previous"-%>
-    <%= link_to "Next episode", "#", :class => "next"-%>
+    <%= link_to "Older episode", episode_url(:podcast => @podcast, :episode => @episode.previous_episode), :class => "previous" if @episode.previous_episode -%>
+    <%= link_to "Newer episode", episode_url(:podcast => @podcast, :episode => @episode.next_episode), :class => "next" if @episode.next_episode -%>
   </div>
 
   <div class="description">
     <div>
       <h2>
         <%=h @podcast.custom_title %>
-        <%= link_to "View series &gt;&gt;", podcast_url(:podcast => @podcast) -%>
       </h2>
+      <div class="callout"><ul><li><%= link_to "View series & episode list", podcast_url(:podcast => @podcast) -%></li></ul></div>
       <h3><%=h @episode.title -%></h3>
 
       <p class="media">
-        <strong>5 minute preview</strong> (Full download is <%= @episode.duration.to_duration -%>)
+        <strong>5 minute preview</strong>
+        <%- if @episode.duration -%>
+          (Full download is <%= @episode.duration.to_duration -%>)
+        <%- end -%>
       </p>
       <p>
         <span class="date"><%= @episode.published_at.to_date %></span> - <%= (@episode.summary) -%>
@@ -26,3 +29,4 @@
   </div>
 </div>
 
+<div class="clear"></div>

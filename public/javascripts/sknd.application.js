@@ -6,8 +6,6 @@ $(document).ready(function() {
   $("#s_options_toggle").click(function(e){
     $("#subscribe_options_container").slideDown("fast");
 		e.preventDefault();
-  }).blur(function(){
-    alert('blurred');
   });
 
   $(".audio_player .url").map(function(){

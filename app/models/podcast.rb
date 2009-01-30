@@ -188,7 +188,7 @@ class Podcast < ActiveRecord::Base
     self.title = "#{self.title} 2" if conflict and conflict != self
 
     i = 2 # Number to attach to the end of the title to make it unique
-    while(Podcast.find_by_title(self.title) and conflict != self)
+    while(conflict = Podcast.find_by_title(self.title) and conflict != self)
       i += 1
       self.title.chop!
       self.title = "#{self.title}#{i.to_s}"

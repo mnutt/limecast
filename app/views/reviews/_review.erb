@@ -3,12 +3,23 @@
   <div class="info">
     <cite><%= link_to_profile review.reviewer -%></cite>
     <span class="created_at light"><%= time_ago_in_words review.created_at %> ago</span>
+    <a href="#" class="allreviews">See all my reviews</a>
   </div>
 
   <div class="summary">
     <span class="title"><%= link_to (@q ? search_excerpt(review.title, @q) : h(review.title)), 
                                               review_url(:podcast => review.episode.podcast, :id => review.id), :title => 'permalink' -%></span>
     <span class="body"><%= unescape_entities(review.body) -%></span>
+    <div class="helpfulness">Did you find this review helpful?
+      <div class="social">
+        <ul>
+            <li><a href="#"><span>Yes</span></a></li>
+            <li><a href="#"><span>No</span></a></li>
+ 
+        </ul>
+      </div>
+      
+    </div>
   </div>
 
 

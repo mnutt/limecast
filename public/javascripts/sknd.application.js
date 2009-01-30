@@ -1,6 +1,7 @@
 $(document).ready(function() {
   // Edit Podcast link
-  $('.edit').click(function() { $('.limecast_form').toggle(); return false; });
+  $('#edit_link').click(function() { $('.limecast_form').toggle(); return false; });
+  $('.limecast_form .cancel').click(function(){ $(this).parents(".limecast_form").hide(); return false; });
 
   // Subscribe button
   $("#s_options_toggle").click(function(){

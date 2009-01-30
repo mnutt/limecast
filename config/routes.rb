@@ -60,7 +60,7 @@ ActionController::Routing::Routes.draw do |map|
     p.recs             '/:podcast/recs',     :action => 'recs'
     p.favorite_podcast '/:podcast/favorite', :action => 'favorite'
     p.podcast          '/:podcast',          :action => 'show',   :conditions => {:method => :get}
-    p.podcast          '/:podcast',          :action => 'update', :conditions => {:method => :post}
+    p.podcast          '/:podcast',          :action => 'update', :conditions => {:method => :put}
     p.info             '/:podcast/info',     :action => 'info'
   end
 

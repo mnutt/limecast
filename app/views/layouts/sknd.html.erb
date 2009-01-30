@@ -23,7 +23,6 @@
 
   <body class="<%= @classes -%>">
 
-
     <div id="wrapper">
       <div id="header">
         <div id="utility_nav">
@@ -37,7 +36,7 @@
 
 
         <div id="global_nav">
-          <a href="index.php" id="logo"><span>LimeCast</span></a>        
+          <a href="/" id="logo"><span>LimeCast</span></a>
           <!--
           <ul>
             <li><a href="#">Home</a></li>
@@ -60,7 +59,19 @@
       </div> <!-- /header -->
   
       <div id="content">
+
+        <% if flash[:notice] -%>
+          <span id="notice">
+            <% if Array === flash[:notice] -%>
+              <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+            <% else -%>
+              <%= flash[:notice] -%>
+            <% end -%>
+          </span>
+        <% end -%>
+
         <%= yield %>
+
       </div> <!-- /content -->
     </div> <!-- /wrapper -->
   

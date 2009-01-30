@@ -187,8 +187,8 @@ input.radio {
 }
 .limecast_form .top {
 	height: 15px;
-	border: solid #333;
-	border-width: 1px 1px 0 1px;
+	border: dashed #BBB;
+	border-width: 2px 2px 0 2px;
 }
 .limecast_form .middle {
 	margin: -20px 0;
@@ -196,8 +196,9 @@ input.radio {
 }
 .limecast_form .bottom {
 	height: 15px;
-	border: solid #333;
-	border-width: 0 1px 1px 1px;
+	border: dashed #BBB;
+	border-width: 0 2px 2px 2px;
+	padding: 20px 0 10px 0;
 	text-align: center;
 }
 .limecast_form form {

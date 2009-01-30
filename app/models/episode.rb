@@ -35,11 +35,21 @@ class Episode < ActiveRecord::Base
   named_scope :without, lambda {|who| who.id.nil? ? {} : {:conditions => ["episodes.id NOT IN (?)", who.id]} }
   named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at DESC"} }
   named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at ASC"} }
+  named_scope :after,  lambda {|other| {:conditions => ["published_at > ?", other.published_at]} }
+  named_scope :before, lambda {|other| {:conditions => ["published_at < ?", other.published_at]} }
 
   define_index do
     indexes :title, :summary
 
     has :created_at, :podcast_id
+  end
+
+  def next_episode
+    self.podcast.episodes.after(self).oldest.first rescue nil
+  end
+
+  def previous_episode
+    self.podcast.episodes.before(self).newest.first rescue nil
   end
 
   def generate_url

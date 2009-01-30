@@ -49,7 +49,7 @@ describe Podcast, "getting the average time between episodes" do
   end
 
   it 'should be zero for podcasts with no episodes' do
-    Factory.create(:podcast).average_time_between_episodes.should == 0
+    Factory.create(:podcast, :title => "Another Podcast").average_time_between_episodes.should == 0
   end
 end
 
@@ -117,25 +117,25 @@ describe Podcast, "cleaning up the title" do
 
   it 'should remove things in parentheses' do
     @podcast.title = "Podcast (junk)"
-    @podcast.send(:sanitize_title).should == "Podcast"
+    @podcast.send(:sanitize_titles).should == "Podcast"
   end
 
   it 'should remove extra space' do
     @podcast.title = " Podcast "
-    @podcast.send(:sanitize_title).should == "Podcast"
+    @podcast.send(:sanitize_titles).should == "Podcast"
   end
 
   it 'should remove leading dashes' do
     @podcast.title = " - Podcast"
-    @podcast.send(:sanitize_title).should == "Podcast"
+    @podcast.send(:sanitize_titles).should == "Podcast"
   end
 
   it 'should auto-increment the title if the name clashes with another podcast' do
-    new_podcast = Factory.create(:podcast)
+    new_podcast = Factory.create(:podcast, :title => "Another Podcast")
     new_podcast.update_attribute(:title, "Podcast")
     new_podcast.reload.title.should == "Podcast 2"
 
-    newer_podcast = Factory.create(:podcast)
+    newer_podcast = Factory.create(:podcast, :title => "A Third Podcast")
     newer_podcast.update_attribute(:title, "Podcast")
     newer_podcast.reload.title.should == "Podcast 3"
   end
@@ -147,17 +147,17 @@ describe Podcast, "generating the clean url" do
   end
 
   it 'should remove leading and trailing whitespaces' do
-    @podcast.title = ' title '
+    @podcast.custom_title = ' title '
     @podcast.send(:sanitize_url).should == 'title'
   end
 
   it 'should remove non-alphanumeric characters' do
-    @podcast.title = ' ^$(title '
+    @podcast.custom_title = ' ^$(title '
     @podcast.send(:sanitize_url).should == 'title'
   end
 
   it 'should convert interior spaces to dashes' do
-    @podcast.title = ' my $title '
+    @podcast.custom_title = ' my $title '
     @podcast.send(:sanitize_url).should == 'my-title'
   end
 end
@@ -177,7 +177,7 @@ end
 describe Podcast, "with associated tags" do
   before do
     @podcast1 = Factory.create(:podcast)
-    @podcast2 = Factory.create(:podcast)
+    @podcast2 = Factory.create(:podcast, :title => "Another Podcast")
 
     @podcast1.tag_string = "tag1 commontag"
     @podcast2.tag_string = "tag2 commontag"
@@ -303,5 +303,28 @@ describe Podcast, "primary feed" do
     @podcast.update_attribute(:primary_feed_id, @feed2.id)
     @podcast.primary_feed.should == @feed2
     @feed2.should be_primary
+  end
+end
+
+describe Podcast, "messages" do
+  before do
+    @podcast = Factory.create(:parsed_podcast)
+  end
+
+  it 'should add a message when url changes' do
+    @podcast.update_attribute(:custom_title, '')
+    @podcast.messages.should include("The podcast url has changed.")
+  end
+
+  it 'should add a message when it has auto-changed the title' do
+    @podcast2 = Factory.create(:parsed_podcast, :title => "Another Podcast")
+    @podcast2.update_attribute(:title, 'Podcast')
+    @podcast2.messages.should include("There was another podcast with the same title, so we have suggested a new title.")
+  end
+
+  it 'should add a message when it has auto-changed the custom_title' do
+    @podcast2 = Factory.create(:parsed_podcast, :title => "Another Podcast")
+    @podcast2.update_attribute(:custom_title, 'Podcast')
+    @podcast2.messages.should include("There was another podcast with the same title, so we have suggested a new title.")
   end
 end

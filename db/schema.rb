@@ -134,8 +134,8 @@ ActiveRecord::Schema.define(:version => 20090128170503) do
     t.integer "feed_id"
     t.string  "sha1hash",                :limit => 24
     t.string  "screenshot_file_name"
-    t.string  "stringshot_content_type"
-    t.string  "stringshot_file_size"
+    t.string  "screenshot_content_type"
+    t.string  "screenshot_file_size"
     t.string  "preview_file_name"
     t.string  "preview_content_type"
     t.string  "preview_file_size"
@@ -159,12 +159,8 @@ ActiveRecord::Schema.define(:version => 20090128170503) do
     t.string  "name"
     t.boolean "badge"
     t.boolean "blacklisted"
+    t.boolean "category"
     t.integer "map_to_id"
-  end
-
-  create_table "user_taggings", :force => true do |t|
-    t.integer "user_id"
-    t.integer "tagging_id"
   end
 
   create_table "users", :force => true do |t|
@@ -184,7 +180,6 @@ ActiveRecord::Schema.define(:version => 20090128170503) do
     t.string   "reset_password_code"
     t.datetime "reset_password_sent_at"
     t.integer  "score",                                   :default => 0
-    t.datetime "logged_in_at"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

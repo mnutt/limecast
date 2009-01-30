@@ -27,7 +27,7 @@ Factory.define :parsed_podcast, :class => Podcast do |p|
 end
 
 Factory.define :failed_podcast, :class => Podcast do |p|
-  p.title 'Podcast'
+  p.title 'Failed Podcast'
   p.site  { Factory.next :site }
   p.feeds { [Factory.create(:feed, :state => 'failed')] }
 

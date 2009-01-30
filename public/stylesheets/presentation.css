@@ -285,7 +285,9 @@ div#sort .dropdown label {
 
 .show .supplemental .linkable a {margin-left: 40px; margin-right: 6px;}
 
-
+.episode .supplemental  {
+	margin-top: 20px;
+}
 
 /* Abstraction for a set of links that use regular text if 'current' */
 .linkable a { display: inline;}
@@ -590,7 +592,7 @@ a.help_on {
 
 /* Reviews list */
 
-.podcast.show #s_reviews_wrap {
+.show #s_reviews_wrap {
 	margin-top: -5px;
 	margin-bottom: 20px;
 }

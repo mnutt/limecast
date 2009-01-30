@@ -193,3 +193,17 @@ describe Feed, "changing" do
     end
   end
 end
+
+describe Feed, "updating podcast" do
+  before do
+    @user = Factory.create(:user)
+    @podcast = Factory.create(:parsed_podcast)
+    @feed = @podcast.feeds.first
+    @feed.update_attribute :finder, @user
+    @user.calculate_score!
+  end
+  
+  it "should throw an error if the podcast and feed hosts don't match" do
+    lambda { @feed.update_podcast! }.should raise_error(Feed::FeedDoesNotMatchPodcast)
+  end
+end

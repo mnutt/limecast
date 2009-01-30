@@ -7,7 +7,7 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 
 .show #wrapper {position: relative; margin: auto;}
 .show #header {position: relative; margin: 0; height: 54px;}
-.show #content {position: relative; margin: 0px; background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;}
+.show #content {position: relative; overflow:  hidden ;margin: 0px; background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;}
 
 .show .summary {margin: 0px 20px 20px 20px; padding-top: 10px; overflow: visible;}
 
@@ -89,11 +89,18 @@ a#add_podcast span, a#logo span {
 
 .summary h1 {
 	margin: .5em 0 1em 0;
+	width: 800px;
+}
+.summary h2 {
+	margin: -1.4em 0 1em 0;
+	width: 800px;
+	color: #a9a9a9;
 }
 
 .summary h6#page_type {
-	float: right;
-	margin-top: -4em;
+	position: absolute;
+	top: 67px;
+	right: 20px;
 }
 
 .podcast h6#page_type {
@@ -108,11 +115,10 @@ a#add_podcast span, a#logo span {
 	background: url('../imgs/icons/episode.png') center right no-repeat;
 }
 
-
 .episode.show .summary .media {
 	font-size: 1.2em;
 	font-style: italic;
-	margin-bottom: 5px;
+	margin: 10px 0;
 }
 
 .episode.show .summary p .date {
@@ -179,12 +185,18 @@ a#add_podcast span, a#logo span {
 
 
 .episode .description h2 {
-	display: inline;
+	margin: 0;
+	width: 300px;
 }
 
-.episode .description .callout ul {
+.episode .description h3 {
+	color: #a9a9a9;
+}
+
+
+.episode .callout  {
 	float: right;
-	margin-top: -2.2em;
+	margin-top: -2.5em;
 }
 
 
@@ -558,22 +570,19 @@ li.review {
 	display: block;
 }
 
-.review .allreviews {
-	display: block;
-}
 
 .review .helpfulness {
 	color: #a9a9a9;
 	font-size: 1.2em;
-	margin-top: 10px;
-	margin-right: 150px;
+	margin-top: 9px;
+	margin-right: 135px;
 	text-align: right;
 }
 
 .review div.social {
 	position: absolute;
 	bottom: 10px;
-	right: 10px;
+	right: -5px;
 	width: auto;
 	margin: 0;
 	padding: 0;
@@ -917,20 +926,27 @@ ul.tabs-nav  {
 	margin-top: 5px;
 }
 
-.show .info .created_at, .review .allreviews {
+.review .allreviews {
+	position: absolute;
+	bottom: 10px;
+	left: 18px;
+}
+
+.show .info .created_at {
+	display: block;
 	margin-left: 18px;
 }
 
-.pagination ul {
+#pagination ul {
 	float: right;
 	margin: 0 10px 10px 0;
 }
 
-.pagination ul li {
+#pagination ul li {
 	display: inline;
 }
 
-.pagination a {
+#pagination ul li a {
 	font-size: 1.4em;
 	padding: 5px 8px;
 }
@@ -947,7 +963,7 @@ ul.tabs-nav  {
 	text-align: left;
 	color:#fff;
 	width: 980px;
-	margin: -20px auto 0 auto;
+	margin: 0px auto 0 auto;
 	font-size:0.9em;
 	padding: 20px;
 }

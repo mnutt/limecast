@@ -242,7 +242,7 @@ span > img.inline_icon {
 	float:left;
 	display:block;
   background:url("../imgs/series_left.png") no-repeat left top;
-  margin-right: 5px;
+  margin-right: -5px;
   padding:0 3px 0 10px;
 	line-height: 19px;
 }

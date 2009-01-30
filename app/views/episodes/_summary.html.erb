@@ -1,5 +1,8 @@
 <div class="summary">
-  <h1><%=h @podcast.custom_title %>/<%=h @episode.title -%></h1>
+  <h1><%=h @podcast.custom_title %></h1>
+  
+  <h2><%=h @episode.title -%></h2>
+  
   <h6 id="page_type">VIDEO PODCAST EPISODE</h6>
 
   <div class="preview">
@@ -10,18 +13,19 @@
 
   <div class="description">
     <div>
-      <h2>
-        <%=h @podcast.custom_title %>
-      </h2>
-      <div class="callout"><ul><li><%= link_to "View series & episode list", podcast_url(:podcast => @podcast) -%></li></ul></div>
-      <h3><%=h @episode.title -%></h3>
+      
+      
+     
 
-      <p class="media">
-        <strong>5 minute preview</strong> (Full download is <%= @episode.duration.to_duration -%>)
-      </p>
+      <h4>Episode description</h4>
+      <div class="callout"><ul><li><%= link_to "Go to series page", podcast_url(:podcast => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
       <p>
         <span class="date"><%= @episode.published_at.to_date %></span> - <%= (@episode.summary) -%>
       </p>
+      <p class="media">
+        <strong>5 minute preview</strong> (Full download is <%= @episode.duration.to_duration -%>)
+      </p>
+      
     </div>
   </div>
 </div>

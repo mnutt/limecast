@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090123214455
+# Schema version: 20090201232032
 #
 # Table name: sources
 #
@@ -12,12 +12,13 @@
 #  feed_id                 :integer(4)    
 #  sha1hash                :string(24)    
 #  screenshot_file_name    :string(255)   
-#  stringshot_content_type :string(255)   
-#  stringshot_file_size    :string(255)   
+#  screenshot_content_type :string(255)   
+#  screenshot_file_size    :string(255)   
 #  preview_file_name       :string(255)   
 #  preview_content_type    :string(255)   
 #  preview_file_size       :string(255)   
 #  size                    :integer(8)    
+#  xml                     :text          
 #
 
 class Source < ActiveRecord::Base

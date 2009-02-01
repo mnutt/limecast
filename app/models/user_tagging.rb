@@ -1,3 +1,13 @@
+# == Schema Information
+# Schema version: 20090201232032
+#
+# Table name: user_taggings
+#
+#  id         :integer(4)    not null, primary key
+#  user_id    :integer(4)    
+#  tagging_id :integer(4)    
+#
+
 # This is merely a denormalized table to track which users added taggings.
 class UserTagging < ActiveRecord::Base
   belongs_to :user

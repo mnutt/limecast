@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090123214455
+# Schema version: 20090201232032
 #
 # Table name: feeds
 #
@@ -14,6 +14,7 @@
 #  bitrate     :integer(4)    
 #  finder_id   :integer(4)    
 #  format      :string(255)   
+#  xml         :text          
 #
 
 require 'open-uri'

@@ -98,7 +98,9 @@ class Feed < ActiveRecord::Base
     update_badges!
     update_episodes!
 
-    self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64), :state => 'parsed')
+    self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64), 
+                           :state => 'parsed', 
+                           :xml => @content)
   end
 
   def update_finder_score
@@ -126,7 +128,8 @@ class Feed < ActiveRecord::Base
         :type       => e.enclosure.content_type,
         :size       => e.enclosure.size,
         :url        => e.enclosure.url,
-        :episode_id => episode.id
+        :episode_id => episode.id,
+        :xml        => e.raw_xml
       )
     end
   end

@@ -1,6 +1,6 @@
 class AddXmlTextForDebugging < ActiveRecord::Migration
   def self.up
-    add_column :feeds, :xml, :text
+    add_column :feeds, :xml, :text, :limit => 500.kilobytes
     add_column :sources, :xml, :text
   end
 

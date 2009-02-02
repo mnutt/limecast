@@ -1,4 +1,4 @@
-<h1><%= @source.file_name -%></h1>
+<h1><%=h @source.file_name -%></h1>
 
 <dl>
   <dt>Screenshot:</dt>
@@ -15,11 +15,16 @@
 
   <dt>URL:</dt>
   <dd>
-    <%= link_to(@source.url, @source.url) -%>
+    <%= link_to(h(@source.url), @source.url) -%>
   </dd>
 
   <dt>SHA1 Hash:</dt>
   <dd>
-    <%= @source.sha1hash -%>
+    <%=h @source.sha1hash -%>
+  </dd>
+
+  <dt>XML:</dt>
+  <dd>
+    <pre><%= h(@source.xml) -%></pre>
   </dd>
 </dl>

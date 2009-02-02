@@ -56,25 +56,25 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => 'podcasts' do |p|
     p.add_podcast '/add',                    :action => 'new'
     p.all         '/all',                    :action => 'index'
-    p.cover            '/:podcast/cover',    :action => 'cover'
-    p.recs             '/:podcast/recs',     :action => 'recs'
-    p.favorite_podcast '/:podcast/favorite', :action => 'favorite'
-    p.podcast          '/:podcast',          :action => 'show',   :conditions => {:method => :get}
-    p.podcast          '/:podcast',          :action => 'update', :conditions => {:method => :put}
-    p.info             '/:podcast/info',     :action => 'info'
+    p.cover            '/:podcast_slug/cover',    :action => 'cover'
+    p.recs             '/:podcast_slug/recs',     :action => 'recs'
+    p.favorite_podcast '/:podcast_slug/favorite', :action => 'favorite'
+    p.podcast          '/:podcast_slug',          :action => 'show',   :conditions => {:method => :get}
+    p.podcast          '/:podcast_slug',          :action => 'update', :conditions => {:method => :put}
+    p.info             '/:podcast_slug/info',     :action => 'info'
   end
 
-  map.positive_reviews '/:podcast/reviews/positive', :controller => 'reviews', :filter => 'positive'
-  map.negative_reviews '/:podcast/reviews/negative', :controller => 'reviews', :filter => 'negative'
+  map.positive_reviews '/:podcast_slug/reviews/positive', :controller => 'reviews', :filter => 'positive'
+  map.negative_reviews '/:podcast_slug/reviews/negative', :controller => 'reviews', :filter => 'negative'
   map.with_options :controller => 'reviews' do |r|
-    r.rate_review      '/:podcast/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
-    r.resources :reviews, :path_prefix => '/:podcast', :collection => {:search => :get}
+    r.rate_review      '/:podcast_slug/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
+    r.resources :reviews, :path_prefix => '/:podcast_slug', :collection => {:search => :get}
   end
 
   map.with_options :controller => 'episodes' do |e|
-    e.podcast_episodes '/:podcast/episodes',         :action => 'index'
-    e.episode          '/:podcast/:episode',         :action => 'show'
-    e.search_podcast_episodes '/:podcast/episodes/search', :action => 'search'
-    e.info             '/:podcast/:episode/info',    :action => 'info'
+    e.podcast_episodes '/:podcast_slug/episodes',         :action => 'index'
+    e.episode          '/:podcast_slug/:episode',         :action => 'show'
+    e.search_podcast_episodes '/:podcast_slug/episodes/search', :action => 'search'
+    e.info             '/:podcast_slug/:episode/info',    :action => 'info'
   end
 end

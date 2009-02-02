@@ -35,7 +35,7 @@
 <ul>
 <%- @podcast.episodes.each do |e| -%>
   <li>
-  <%= link_to e.title, episode_url(:episode => e, :podcast => @podcast) + "/info" %>
+  <%= link_to e.title, episode_url(:episode => e, :podcast_slug => @podcast) + "/info" %>
   </li>
 <%- end -%>
 </ul>

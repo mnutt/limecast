@@ -8,8 +8,8 @@
     <% feed = feed_form.object -%>
     <fieldset>
       <div class="feed_details">
-        <%= feed.formatted_bitrate -%> 
-        <%= feed.apparent_format %> 
+        <strong><%= feed.formatted_bitrate -%> 
+        <%= feed.apparent_format %> </strong>
         <%= link_to feed.url %>
       </div>
       <div class="field">
@@ -22,7 +22,7 @@
       </div>
       <% unless feed.new_record? %>
         <div>
-          <%= feed_form.check_box :_delete %>
+          <%= feed_form.check_box :_delete, :onchange => "if(!confirm('Are you sure you want to mark this feed for deletion?')) this.checked = false;" %>
           <%= feed_form.label :_delete, 'Remove' %>
         </div>
       <% end %>

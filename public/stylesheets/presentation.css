@@ -7,7 +7,7 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 
 .show #wrapper {position: relative; margin: auto;}
 .show #header {position: relative; margin: 0; height: 54px;}
-.show #content {position: relative; overflow:  hidden ;margin: 0px; background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;}
+.show #content {position: relative; margin: 0px 20px 20px 20px;  overflow:  hidden ;margin: 0px; background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;}
 
 .show .summary {margin: 0px 20px 20px 20px; padding-top: 10px; overflow: visible;}
 
@@ -126,6 +126,11 @@ a#add_podcast span, a#logo span {
 .episode.show .summary p .date {
 	font-style: italic;
 	font-size: 0.85em;
+}
+
+.addit {
+	float: right;
+	margin-top: 3px;
 }
 
 .show .description #s_desc {
@@ -959,7 +964,9 @@ ul.tabs-nav  {
 
 
 
-
+.addpage .huge input {
+	width: 90%;
+}
 
 
 

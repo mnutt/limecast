@@ -235,6 +235,48 @@ span > img.inline_icon {
 
 
 
+
+/**** ADD button **************/
+
+
+
+.addit li {
+	float:left;
+	display:block;
+  background:url("../imgs/add_left.png") no-repeat left top;
+  margin-right: -5px;
+  padding:0 3px 0 15px;
+	line-height: 14px;
+}
+
+.addit a {
+	float:left;
+  display:block;
+  background: url("../imgs/add_right.png") no-repeat right top;
+  padding:0px 8px 3px 2px;
+	line-height: 14px;
+  text-decoration:none;
+	font-size: .8em;
+  color:#fff;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+.addit a {float:none;}
+/* End IE5-Mac hack */
+#addit a:hover {
+  color:#333;
+  }
+
+.addit li:hover {
+  background-position:0% -17px;
+  color:#fff;
+  }
+.addit li:hover a, .addit li:hover a span {
+  background-position:100% -17px;
+}
+
+
+
 /**** call out links (with arrow) **************/
 
 
@@ -270,7 +312,7 @@ span > img.inline_icon {
   background-position:0% -17px;
   color:#fff;
   }
-.callout li:hover a, .social li:hover a span {
+.callout li:hover a, .callout li:hover a span {
   background-position:100% -17px;
 }
 

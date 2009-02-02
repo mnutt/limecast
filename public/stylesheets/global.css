@@ -245,7 +245,7 @@ span > img.inline_icon {
   background:url("../imgs/series_left.png") no-repeat left top;
   margin-right: -5px;
   padding:0 3px 0 10px;
-	line-height: 19px;
+	line-height: 14px;
 }
 
 .callout a {
@@ -253,9 +253,9 @@ span > img.inline_icon {
   display:block;
   background: url("../imgs/series_right.png") no-repeat right top;
   padding:0px 23px 3px 0px;
-	line-height: 19px;
+	line-height: 14px;
   text-decoration:none;
-	font-size: 1.2em;
+	font-size: 1em;
   color:#fff;
 }
 
@@ -267,11 +267,11 @@ span > img.inline_icon {
   }
 
 .callout li:hover {
-  background-position:0% -22px;
+  background-position:0% -17px;
   color:#fff;
   }
 .callout li:hover a, .social li:hover a span {
-  background-position:100% -22px;
+  background-position:100% -17px;
 }
 
 

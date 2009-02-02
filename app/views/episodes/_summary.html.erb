@@ -1,10 +1,12 @@
 <div class="summary">
-  <h1><%=h @podcast.custom_title %></h1>
-  
-  <h2><%=h @episode.title -%></h2>
-  
-  <h6 id="page_type">VIDEO PODCAST EPISODE</h6>
-
+  <div id="episode_head">
+    <h1><%=h @podcast.custom_title %></h1>
+    <div class="callout"><ul><li><%= link_to "Go to series page", podcast_url(:podcast => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
+    <div class="clear"></div>
+    <h2><%=h @episode.title -%></h2>
+    <div class="clear"></div>
+    <h6 id="page_type">VIDEO PODCAST EPISODE</h6>
+  </div>
   <div class="preview">
     <%= image_tag(@episode.sources.first.screenshot.url, :alt => "#{@episode.title} cover art", :width => 340, :height => 252) -%>
     <%= link_to "Older episode", episode_url(:podcast => @podcast, :episode => @episode.previous_episode), :class => "previous" if @episode.previous_episode -%>
@@ -13,13 +15,9 @@
 
   <div class="description">
     <div>
-      
-      
-     
-
 
       <h4>Episode description</h4>
-      <div class="callout"><ul><li><%= link_to "Go to series page", podcast_url(:podcast => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
+      
 
       <p class="media">
         <strong>5 minute preview</strong>

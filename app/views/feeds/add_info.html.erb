@@ -1,1 +1,5 @@
-<h1>Podcast Add</h1>
+<h1>Last Failed Feed</h1>
+
+<p>Feed: <%= link_to h(@exception[:feed]), @exception[:feed] -%></p>
+<p>Error: <%= @exception[:klass] -%>: <%= @exception[:message] -%></p>
+<p><%= @exception[:backtrace].join("<br>") -%></p>

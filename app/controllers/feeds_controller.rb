@@ -90,6 +90,7 @@ class FeedsController < ApplicationController
   end
 
   def add_info
+    @exception = YAML.load_file("#{RAILS_ROOT}/log/last_add_failed.yml")
     render :layout => false
   end
 

@@ -59,8 +59,10 @@ class Feed < ActiveRecord::Base
     update_finder_score
 
   rescue Exception
-    PodcastMailer.deliver_failed_feed(self, $!)
-    self.update_attributes(:state => 'failed', :error => $!.class.to_s)
+    exception = $!
+    log_failed(exception)
+    PodcastMailer.deliver_failed_feed(self, exception)
+    self.update_attributes(:state => 'failed', :error => exception.class.to_s)
   end
 
   def url
@@ -202,6 +204,17 @@ class Feed < ActiveRecord::Base
   end
 
   protected
+
+  def log_failed(exception)
+    stored_exception = { :feed => self.url,
+      :klass => exception.class.to_s,
+      :message => exception.to_s,
+      :backtrace => exception.backtrace
+    }
+    File.open("#{RAILS_ROOT}/log/last_add_failed.yml", "w") do |f|
+      f.write(YAML::dump(stored_exception))
+    end
+  end
 
   def sanitize
     self.url.gsub!(%r{^feed://}, "http://")

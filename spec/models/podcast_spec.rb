@@ -310,12 +310,12 @@ describe Podcast, "messages" do
   before do
     @podcast = Factory.create(:parsed_podcast)
   end
-  
+
   it 'should add a message when url changes' do
     @podcast.update_attribute(:custom_title, '')
     @podcast.messages.should include("The podcast url has changed.")
   end
-  
+
   it 'should add a message when it has auto-changed the title' do
     @podcast2 = Factory.create(:parsed_podcast, :title => "Another Podcast")
     @podcast2.update_attribute(:title, 'Podcast')

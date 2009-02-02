@@ -13,6 +13,7 @@ end
 Factory.define :feed do |f|
   f.url     { "#{Factory.next :site}/feed.xml" }
   f.content { File.open("#{RAILS_ROOT}/spec/data/example.xml").read }
+  f.xml ""
   f.bitrate 64
 end
 
@@ -53,6 +54,7 @@ end
 Factory.define :source do |s|
   s.url  "http://example.com/source.mpg"
   s.guid { (Time.now.to_i * rand).to_s }
+  s.xml ""
   s.size 1234567890
 end
 

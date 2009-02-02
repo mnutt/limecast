@@ -78,6 +78,7 @@ a#add_podcast span, a#logo span {
   display: block;
   width: 40%;
 	float: left;
+	font-size: 1.2em;
 }
 
 .episode.show .summary .preview .next {
@@ -85,6 +86,7 @@ a#add_podcast span, a#logo span {
   width: 40%;
   float: right;
   text-align: right;
+	font-size: 1.2em;
 }
 
 .summary h1 {
@@ -193,10 +195,13 @@ a#add_podcast span, a#logo span {
 	color: #a9a9a9;
 }
 
+.episode .summary h1 {float: left; width: auto;}
+.episode .summary h2 {float: left; width: auto;}
+.episode #episode_head {width: 735px;}
 
 .episode .callout  {
-	float: right;
-	margin-top: -2.5em;
+	float: left;
+	margin: 15px 0 0 10px;
 }
 
 

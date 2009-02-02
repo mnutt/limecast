@@ -1,14 +1,16 @@
 <% @title = "All Podcasts" -%>
 <% @full_width = true -%>
+<% @classes = %{show} -%>
+<div class="summary">
+  <div class="page_head">
+    <h1>All podcasts</h1>
+  </div>
 
-<div class="page_head">
-  <h1>All podcasts</h1>
+  <div class="multicolumn">
+    <ul class="podcasts">
+      <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
+    </ul>
+  </div>
+
+  <% reset_cycle('row_class') %>
 </div>
-
-<div class="multicolumn">
-  <ul class="podcasts">
-    <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
-  </ul>
-</div>
-
-<% reset_cycle('row_class') %>

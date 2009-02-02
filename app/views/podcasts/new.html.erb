@@ -1,44 +1,49 @@
 <% @title = "Add Podcast" -%>
 <% javascript_include "podcasts_new" -%>
 <% @full_width = true -%>
-
-<div class="page_head">
-  <h1>Feed me</h1>
-</div>
-<p>Know the address of a podcast <a href="#" title="Really Simple Syndication">RSS</a> feed? Add it to LimeCast:</p>
-
-<div id="added_podcast_list"></div>
-
-
-<form method="post" id="new_podcast" action="/podcasts">
-  <% if protect_against_forgery? -%>
-    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token -%>" />
-  <% end -%>
-  <div class="field huge">
-    <label>Feed</label>
-    <div>
-      <label for="feed_url" class="default" style="display:none;">http://example.com/rss.xml</label>
-      <input type="text" class="text" id="feed_url" name="feed[url]" />
-      <input type="submit" class="button" value="Add" />
-    </div>
+<% @classes = %{show addpage} -%>
+<div class="summary">
+  <div class="page_head">
+    <h1>Feed me</h1>
   </div>
-</form>
+  <p>Know the address of a podcast <a href="#" title="Really Simple Syndication">RSS</a> feed? Add it to LimeCast:</p>
 
-<div id="added_podcast" style="display: none;">
-  <form>
+  <div id="added_podcast_list"></div>
+
+
+  <form method="post" id="new_podcast" action="/podcasts">
+    <% if protect_against_forgery? -%>
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token -%>" />
+    <% end -%>
     <div class="field huge">
       <label>Feed</label>
       <div>
-        <input type="text"   class="text"   readonly="readonly" style="background: #777; color: #444" />
-        <input type="submit" class="button" readonly="readonly" style="background: #666" value="Add" />
+        <label for="feed_url" class="default" style="display:none;">http://example.com/rss.xml</label>
+        <input type="text" class="text" id="feed_url" name="feed[url]" />
+        <button type="submit">
+          <span>Add</span>
+        </button>
+ 
       </div>
     </div>
   </form>
-  <div class="status">
-    <%= render :partial => 'feeds/status_loading' -%>
-  </div>
-</div>
 
-<% if !logged_in? -%>
-  <div class="quick_signin_container after_adding_podcast"></div>
-<% end -%>
+  <div id="added_podcast" style="display: none;">
+    <form>
+      <div class="field huge">
+        <label>Feed</label>
+        <div>
+          <input type="text"   class="text"   readonly="readonly" style="background: #777; color: #444" />
+          <input type="submit" class="button" readonly="readonly" style="background: #666" value="Add" />
+        </div>
+      </div>
+    </form>
+    <div class="status">
+      <%= render :partial => 'feeds/status_loading' -%>
+    </div>
+  </div>
+
+  <% if !logged_in? -%>
+    <div class="quick_signin_container after_adding_podcast"></div>
+  <% end -%>
+</div>

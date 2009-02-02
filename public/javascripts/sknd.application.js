@@ -38,8 +38,8 @@ $(document).ready(function() {
     $(this).parent().addClass('current');
     $(this).addClass('current');
 
-    $("#s_reviews_wrap").toggle();
-    $("#s_episodes_wrap").toggle();
+    $(".reviews.list").parents('.wrapper').toggle();
+    $(".episodes.list").parents('.wrapper').toggle();
     return false;
   });
   
@@ -47,13 +47,13 @@ $(document).ready(function() {
     $(".supplemental #r_view .linkable.current").removeClass('current');
     $(this).parent('span.linkable').addClass('current');
 
-    if ($(this).attr('rel') == 'all') $("#s_reviews .review").show();
+    if ($(this).attr('rel') == 'all') $(".reviews.list .review").show();
     else if ($(this).attr('rel') == 'positive') {
-      $("#s_reviews .review.negative").hide();
-      $("#s_reviews .review.positive").show();
+      $(".reviews.list .review.negative").hide();
+      $(".reviews.list .review.positive").show();
     } else if ($(this).attr('rel') == 'negative') {
-      $("#s_reviews .review.negative").show();
-      $("#s_reviews .review.positive").hide();
+      $(".reviews.list .review.negative").show();
+      $(".reviews.list .review.positive").hide();
     }
     
     return false;

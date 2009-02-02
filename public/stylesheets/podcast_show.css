@@ -39,13 +39,13 @@
   	background: url('../imgs/dl_divider.png') center left no-repeat;
   }
   
-  .podcast.show form#dl_option label, .show #s_reviews #review_doit label {
+  .podcast.show form#dl_option label, .show .reviews.list #review_doit label {
   	margin: 0 2px;
   	color: #2951a5;
   }
   
   
-  .podcast.show form#dl_option label:hover, .show #s_reviews #review_doit label:hover {
+  .podcast.show form#dl_option label:hover, .show .reviews.list #review_doit label:hover {
   	text-decoration: underline;
   	cursor: pointer;
   }
@@ -111,3 +111,178 @@
   }
 
 
+
+
+/* Episode */
+.podcast.show form#dl_option a {
+	font-size: 1em;
+}
+
+.podcast.show .episodes.list {
+	margin-top: -5px;	
+	margin-bottom: 20px;
+}
+
+.podcast.show .episodes.list p {
+	margin: 0 0px;
+}
+
+.podcast.show #e_info {
+	font-size: .9em;
+	padding-bottom: 4px;
+	border-bottom: 1px solid #ddd;
+	margin: 0 5px;
+}
+
+.podcast.show #view_options {
+	font-size: .9em;
+	padding: 2px 0 6px 0;
+	border-bottom: 1px solid #ddd;
+	margin: 0 5px;
+}
+
+.podcast.show #e_info p span, .podcast.show #view_options p {
+	color: #a9a9a9;
+}
+
+.podcast.show #view_options p {
+	display: inline;
+}
+
+
+
+.podcast.show #view_options img {
+	padding: 2px;
+	margin-right: 1px;
+	position: relative;
+	top: 4px;
+	left: 0px;
+}
+
+.podcast.show #view_options .per_page {
+	border-left: 1px solid #a9a9a9;
+	padding-left: 7px;
+	display: inline;
+}
+
+.podcast.show #view_options .per_page a.pp_current {
+	border: 1px solid #a9a9a9;
+	padding: 0px 4px;
+}
+
+.podcast.show #episode_cont {
+	margin: 60px 0px 20px 0px;
+}
+
+.podcast.show .episode {
+	margin: 20px 5px 20px 5px;
+	overflow: auto;
+}
+
+.podcast.show .episode a img {
+	float: left;
+	border: 1px solid #171717;
+	margin-right: 20px;
+}
+
+.podcast.show .episode a:hover img {
+	border: 1px solid #2d5cad;
+}
+
+.podcast.show .episode > div {
+	float: left;
+	width: 480px;
+}
+
+.podcast.show .episode > div.no_screenshot {
+	float: left;
+	width: 595px;
+}
+
+.podcast.show .episode h3  {
+	margin: 0;
+	font-size: 1.3em;
+}
+
+.podcast.show .episode p {
+	color: #a9a9a9;
+}
+
+.podcast.show .episode span.details {
+	font-size: .85em;
+	font-style: italic;
+	display: block;
+	line-height: 1.4em;
+} 
+
+.podcast.show .episode .links {
+	font-size: 1.2em;
+}
+
+.podcast.show div.audio_player {
+	padding: 5px 0;
+	margin-top: 5px;
+	font-size: 1.2em;
+	border-top: 1px dotted #a9a9a9;
+	border-bottom: 1px dotted #a9a9a9;
+	position: relative;
+}
+
+.podcast.show div.audio_player .popup {
+	position: absolute;
+	top: 0.5em;
+	right: 10px;
+	cursor: pointer;
+}
+
+.podcast.show div.audio_player span.label {
+	width: 70px;
+	display: block;
+	line-height: 1em;
+	text-align: right;
+	margin-right: 10px;
+	float: left;
+}
+
+.podcast.show div.audio_player a {
+  display: none;
+}
+
+.podcast.show div.audio_player img {
+	float: left;
+}
+
+
+
+.podcast.show #download_options p,
+.podcast.show form#dl_option, .podcast.show #dl_option_cont p {
+	display: inline;
+	font-size: 1.2em;
+}
+
+.podcast.show form#dl_option {
+}
+
+.podcast.show #download_options .dropdown {
+	display: inline;
+}
+.podcast.show #download_options .dropdown li,
+.podcast.show #download_options .dropdown label {
+	line-height: 1.5em;
+}
+
+
+.podcast.show #download_options ul.help_or_hide,
+.podcast.show #dl_option_cont ul {
+	float: right;
+}
+
+.podcast.show #download_options ul.help_or_hide li,
+.podcast.show #dl_option_cont ul li {
+	display: inline;
+}
+
+
+.podcast.show form#dl_option a {
+	font-size: 1em;
+}

@@ -209,7 +209,6 @@ a#add_podcast span, a#logo span {
 
 
 
-#s_reviews img {margin: 0 -7px 0 20px;}
 
 
 
@@ -273,187 +272,11 @@ div#sort .dropdown label {
 
 
 
-/* Episode */
-.show form#dl_option a {
-	font-size: 1em;
-}
-
-.show #s_episodes {
-	margin-top: -5px;	
-	margin-bottom: 20px;
-}
-
-.show #s_episodes p {
-	margin: 0 0px;
-}
-
-.show #e_info {
-	font-size: .9em;
-	padding-bottom: 4px;
-	border-bottom: 1px solid #ddd;
-	margin: 0 5px;
-}
-
-.show #view_options {
-	font-size: .9em;
-	padding: 2px 0 6px 0;
-	border-bottom: 1px solid #ddd;
-	margin: 0 5px;
-}
-
-.show #e_info p span, .show #view_options p {
-	color: #a9a9a9;
-}
-
-.show #view_options p {
-	display: inline;
-}
-
-
-
-.show #view_options img {
-	padding: 2px;
-	margin-right: 1px;
-	position: relative;
-	top: 4px;
-	left: 0px;
-}
-
-.show #view_options .per_page {
-	border-left: 1px solid #a9a9a9;
-	padding-left: 7px;
-	display: inline;
-}
-
-.show #view_options .per_page a.pp_current {
-	border: 1px solid #a9a9a9;
-	padding: 0px 4px;
-}
-
-.show #episode_cont {
-	margin: 60px 0px 20px 0px;
-}
-
-.show .episode {
-	margin: 20px 5px 20px 5px;
-	overflow: auto;
-}
-
-.show .episode a img {
-	float: left;
-	border: 1px solid #171717;
-	margin-right: 20px;
-}
-
-.show .episode a:hover img {
-	border: 1px solid #2d5cad;
-}
-
-.show .episode > div {
-	float: left;
-	width: 480px;
-}
-
-.show .episode > div.no_screenshot {
-	float: left;
-	width: 595px;
-}
-
-.show .episode h3  {
-	margin: 0;
-	font-size: 1.3em;
-}
-
-.show .episode p {
-	color: #a9a9a9;
-}
-
-.show .episode span.details {
-	font-size: .85em;
-	font-style: italic;
-	display: block;
-	line-height: 1.4em;
-} 
-
-.show .episode .links {
-	font-size: 1.2em;
-}
-
-.show div.audio_player {
-	padding: 5px 0;
-	margin-top: 5px;
-	font-size: 1.2em;
-	border-top: 1px dotted #a9a9a9;
-	border-bottom: 1px dotted #a9a9a9;
-	position: relative;
-}
-
-.show div.audio_player .popup {
-	position: absolute;
-	top: 0.5em;
-	right: 10px;
-	cursor: pointer;
-}
-
-.show div.audio_player span.label {
-	width: 70px;
-	display: block;
-	line-height: 1em;
-	text-align: right;
-	margin-right: 10px;
-	float: left;
-}
-
-.show div.audio_player a {
-  display: none;
-}
-
-.show div.audio_player img {
-	float: left;
-}
-
-
-
-.show #download_options p,
-.show form#dl_option, .show #dl_option_cont p {
-	display: inline;
-	font-size: 1.2em;
-}
-
-.show form#dl_option {
-}
-
-#download_options .dropdown {
-	display: inline;
-}
-#download_options .dropdown li,
-#download_options .dropdown label {
-	line-height: 1.5em;
-}
-
-
-.show #download_options ul.help_or_hide,
-.show #dl_option_cont ul {
-	float: right;
-}
-
-.show #download_options ul.help_or_hide li,
-.show #dl_option_cont ul li {
-	display: inline;
-}
-
-
-.show form#dl_option a {
-	font-size: 1em;
-}
-
-
-
-
-
 /* Reviews list */
 
-.show #s_reviews_wrap {
+.reviews.list img {margin: 0 -7px 0 20px;}
+
+.show .wrapper {
 	margin-top: -5px;
 	margin-bottom: 20px;
 }
@@ -549,29 +372,29 @@ li.review {
 	font-size: 1.4em;
 }
 
-.show #s_reviews #review_login {
+.show .reviews.list #review_login {
 	min-height: 200px;
 	margin: 20px 0 20px 0;
 }
 
-.show #s_reviews #review_doit {
+.show .reviews.list #review_doit {
 	margin: 20px 0 20px 0;
 }
 
-.show #s_reviews #review_doit h4 {
+.show .reviews.list #review_doit h4 {
 	font-size: 1.6em;
 }
 
-.show #s_reviews #review_doit p {
+.show .reviews.list #review_doit p {
 	margin-top: 15px;
 }
 
-.show #s_reviews #review_doit h6 {
+.show .reviews.list #review_doit h6 {
 	font-size: 1.4em;
 	margin-top: 1.5em;
 }
 
-.show #s_reviews #review_doit input {
+.show .reviews.list #review_doit input {
 	border: 1px solid #171717;
 	-moz-border-radius: 3px;
 	width: 300px;
@@ -580,7 +403,7 @@ li.review {
 	padding: 5px 0 0 5px;
 }
 
-.show #s_reviews #review_doit textarea {
+.show .reviews.list #review_doit textarea {
 	border: 1px solid #171717;
 	-moz-border-radius: 3px;
 	width: 400px;
@@ -590,7 +413,7 @@ li.review {
 	display: block;
 }
 
-.show #s_reviews #review_doit button {
+.show .reviews.list #review_doit button {
 	margin: 15px 0 0 0px;
 }
 
@@ -848,7 +671,7 @@ ul.tabs-nav  {
 
 
 
-.addpage .huge input {
+.podcast.new .huge input {
 	width: 90%;
 }
 

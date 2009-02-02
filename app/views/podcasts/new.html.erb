@@ -10,7 +10,6 @@
 
   <div id="added_podcast_list"></div>
 
-
   <form method="post" id="new_podcast" action="/podcasts">
     <% if protect_against_forgery? -%>
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token -%>" />

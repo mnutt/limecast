@@ -1,0 +1,113 @@
+/* Download options */
+
+  .podcast.show #download_options {
+  	overflow: visible;
+  	position: absolute;
+  	width: 602px;
+  	top: 110px;
+  	left: 19px;
+  	background: url('../imgs/bg_dl_left.png') top left no-repeat;
+  	height: 29px;
+  }
+  
+  .podcast.show #download_options .dropdown {
+  	font-size: 1em;
+  }
+  
+  .podcast.show #download_options > div {
+  	background: url('../imgs/bg_dl_right.png') top right no-repeat;
+  	height: 29px;
+  	margin: 0px 0 0 9px;
+  	padding-right: 9px;
+  }
+  
+  
+  .podcast.show #download_options p,
+  .podcast.show form#dl_option {
+  	display: inline;
+  	font-size: 1.2em;
+  	float: left;
+  	line-height: 28px;
+  }
+  
+  .podcast.show #download_options p {
+  	padding-right: 5px;
+  }
+  
+  .podcast.show form#dl_option strong {
+  	padding-left: 10px;
+  	background: url('../imgs/dl_divider.png') center left no-repeat;
+  }
+  
+  .podcast.show form#dl_option label, .show #s_reviews #review_doit label {
+  	margin: 0 2px;
+  	color: #2951a5;
+  }
+  
+  
+  .podcast.show form#dl_option label:hover, .show #s_reviews #review_doit label:hover {
+  	text-decoration: underline;
+  	cursor: pointer;
+  }
+  
+  
+  .podcast.show #download_options ul#dl_view {
+  	position: absolute;
+  	top: 1px;
+  	right: 3px;
+  	padding-left: 5px;
+  	background: url('../imgs/dl_divider.png') center left no-repeat;
+  }
+  
+  .podcast.show #download_options ul#dl_view li {
+  	display: inline;
+  }
+  
+  .podcast.show #download_options ul#dl_view li a {
+  	
+  	line-height: 28px;
+  	padding: 3px 7px 8px 7px;
+  }
+  
+  /* Download options help */
+  
+  .podcast.show #dl_help {
+  	position: relative;
+  	top: 44px;
+  	height: 200px;
+  	margin: 0 10px 0 10px;
+  	padding: 10px;
+  	position: relative;
+  	background: url('../imgs/bg_dl_help.png') bottom left no-repeat;
+  }
+  
+  .podcast.show #dl_help p {
+  	font-size: 1.2em;
+  	padding: 0px 0 10px 0;
+  }
+  
+  .podcast.show #dl_help h6 {
+  	font-size: 1.2em;
+  }
+  
+  p#help_disclaimer {
+  	font-size: 1em;
+  	font-style: italic;
+  	padding-top: 20px;
+  }
+  
+  a.help_on {
+  	outline: none;
+  	background: url('../imgs/help_on.png') top left no-repeat;
+  }
+  
+  #download_setting p {
+  	position: absolute;
+  	top: 110px;
+  	left: 19px;
+  	color: #a9a9a9;
+  	font-size: 1.2em;
+  	line-height: 28px;
+  }
+
+

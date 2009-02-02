@@ -1,7 +1,7 @@
 class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
 
-	layout 'sknd'
+  layout 'sknd'
 
   def index
     @podcasts = Podcast.parsed.sorted

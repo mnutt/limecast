@@ -40,7 +40,7 @@ class Admin::PodcastsController < AdminController
   # POST /admin_podcasts
   # POST /admin_podcasts.xml
   def create
-    @podcast = Podcast.new(params[:podcast])
+    @podcast = Podcast.new(params[:podcast_slug])
 
     respond_to do |format|
       if @podcast.save
@@ -58,7 +58,7 @@ class Admin::PodcastsController < AdminController
   # PUT /admin_podcasts/1.xml
   def update
     @podcast = Podcast.find(params[:id])
-    @podcast.attributes = params[:podcast]
+    @podcast.attributes = params[:podcast_slug]
 
     respond_to do |format|
       if @podcast.save

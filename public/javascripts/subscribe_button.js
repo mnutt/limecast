@@ -59,6 +59,7 @@ $(function(){
     update_subscribe_button($(this));
     update_selected_link($(this));
 
+    // XXX: %23 is # ... Doesnt seem to be working in firefox. Bug with encoding? should be able to take '#' out.
     update_cookie("#" + $(this).attr('id'));
 
     $("#subscribe_options_container").slideUp("fast");

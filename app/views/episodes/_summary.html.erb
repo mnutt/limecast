@@ -17,6 +17,25 @@
     <%= link_to "Newer episode", episode_url(:podcast => @podcast, :episode => @episode.next_episode), :class => "next" if @episode.next_episode -%>
   </div>
 
+    <script type="text/javascript">
+  		$(document).ready(function(){
+  		   $("#zone-bar li em").click(function() {
+  		   		var hidden = $(this).parents("li").children("ul").is(":hidden");
+
+  				$("#zone-bar>ul>li>ul").hide()        
+  			   	$("#zone-bar>ul>li>a").removeClass();
+
+  			   	if (hidden) {
+  			   		$(this)
+  				   		.parents("li").children("ul").toggle()
+  				   		.parents("li").children("a").addClass("zoneCur");
+  				   	} 
+  			   });
+  			 
+  		});
+  	</script>
+
+
   <div class="description">
     <div>
 
@@ -33,6 +52,33 @@
       <p>
         <span class="date"><%= @episode.published_at.to_date %></span> - <%= (@episode.summary) -%>
       </p>
+  
+  
+      <div id="zone-bar">
+  			<ul>
+  				<li>
+  					<span>
+  						<a href="wxample.com">Download full version</a>
+  						<em class="opener-technology">
+  							<a href="#" class="arrowz"><img src="../imgs/zonebar-downarrow.png" alt="dropdown" /></a>
+  						</em>
+  					</span>
+  					<ul class="technologysublist rounded_corners">
+  					   <% rounded_corners do -%>
+  						<li><a href="#">Apple</a></li>
+  						<li><a href="#">Design</a></li>
+  						<li><a href="#">Gadgets</a></li>
+  						<li><a href="#">Hardware</a></li>
+  						<li><a href="#">Industry News</a></li>
+  
+  						  <% end -%>
+  					</ul>
+  				</li>
+  				
+  		
+  			
+  			</ul>
+  		</div>
 
       
     </div>

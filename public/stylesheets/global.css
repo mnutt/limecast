@@ -246,17 +246,17 @@ span > img.inline_icon {
   background:url("../imgs/add_left.png") no-repeat left top;
   margin-right: -5px;
   padding:0 3px 0 15px;
-	line-height: 14px;
+	line-height: 13px;
 }
 
 .addit a {
 	float:left;
   display:block;
   background: url("../imgs/add_right.png") no-repeat right top;
-  padding:0px 8px 3px 2px;
-	line-height: 14px;
+  padding:1px 8px 3px 2px;
+	line-height: 13px;
   text-decoration:none;
-	font-size: .8em;
+	font-size: .7em;
   color:#fff;
 }
 
@@ -372,3 +372,91 @@ span > img.inline_icon {
 	color:#fff;
 }
 
+
+
+#zone-bar {
+
+	}
+	#zone-bar ul {
+		display: block;
+		}
+		#zone-bar ul li {
+			height: 36px;
+			padding: 5px 5px 0 0px;
+			position: relative;
+			float: left;
+			margin-right: 10px;
+			background: url(../imgs/zonebar-navleft.png) center left no-repeat;
+			}
+			#zone-bar ul li:hover {
+				background: url(../imgs/zonebar-navleft.png) center left no-repeat;
+			}
+				#zone-bar ul li a {
+					display: block;
+					float: left;
+					height: 23px;
+					position: relative;
+					top: -6px;
+					left: 5px;
+					padding-right: 27px;
+					padding-bottom: 0px;
+					padding-top: 3px;
+					color: #fff;
+					font-weight: bold;
+					font-size: 1.1em;
+		
+					}
+			#zone-bar ul li a.arrowz {
+				display: block;
+				float: left;
+				height: 23px;
+				position: relative;
+				top: -3px;
+				right: -1px;
+				padding-right: 5px;
+				padding-left: 5px;
+				margin-left: -19px;
+				color: #383838;
+				font-weight: bold;
+				font-size: 1.1em;
+				text-decoration: none;
+				background: url(../imgs/zonebar-navright.png) center right no-repeat;
+				}
+			
+				#zone-bar ul li a:hover {
+					background: url(../imgs/zonebar-navright.png) center right no-repeat;
+				}
+	
+				#zone-bar ul li a.arrowz:hover {
+					background: url(../imgs/zonebar-navright.png) center right no-repeat;
+				}
+				#zone-bar ul li a span {
+					position: relative;
+					top: 6px;
+				}
+			#zone-bar ul li ul {
+				display: none;
+				position: absolute;
+				top: 29px;
+				left: 0px;
+				width: 300px;
+				
+				}
+				#zone-bar ul li ul li {
+					float: none;
+					padding: 0; margin: 0;
+					height: 100%;
+				}
+				#zone-bar ul li ul li:hover {
+					background: none;
+					}
+					#zone-bar ul li ul li a {
+						display: block;
+						float: none;
+						margin-left: -5px;
+						padding: 5px 0 0 10px;
+		
+					}
+					#zone-bar ul li ul li a:hover {
+						background: #d9f0b7;
+					}

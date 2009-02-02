@@ -27,4 +27,11 @@
   <dd>
     <pre><%= h(@source.xml) -%></pre>
   </dd>
+
+  <dt>Curl Errors:</dt>
+  <dd><%= h(@source.curl_info.blank? ? "No errors." : @source.curl_info) -%></dd>
+
+  <dt>FFmpeg output:</dt>
+  <dd><pre><%= h(@source.ffmpeg_info) -%></pre></dd>
+
 </dl>

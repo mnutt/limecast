@@ -8,11 +8,11 @@
     <h6 id="page_type">VIDEO PODCAST EPISODE</h6>
   </div>
   <div class="preview">
-                <%- if @episode.sources.first.screenshot? -%>
+    <%- if @episode.sources.first.screenshot? -%>
       <%= image_tag(@episode.sources.first.screenshot.url, :alt => "#{@episode.title} cover art", :width => 340, :height => 252) -%>
-                <%- else -%>
+    <%- else -%>
       <%= image_tag('/imgs/video_placeholder.png', :alt => "#{@episode.title} cover art is missing", :width => 340, :height => 252) -%>
-                <%- end -%>
+    <%- end -%>
     <%= link_to "Older episode", episode_url(:podcast => @podcast, :episode => @episode.previous_episode), :class => "previous" if @episode.previous_episode -%>
     <%= link_to "Newer episode", episode_url(:podcast => @podcast, :episode => @episode.next_episode), :class => "next" if @episode.next_episode -%>
   </div>

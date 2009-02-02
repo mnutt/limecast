@@ -8,12 +8,12 @@ class PodcastsController < ApplicationController
   end
 
   def recs
-    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
   end
 
   def show
-    @podcast = Podcast.find_by_clean_url(params[:podcast])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
     @feeds    = @podcast.feeds.all
     @episodes = @podcast.episodes.
@@ -26,7 +26,7 @@ class PodcastsController < ApplicationController
   end
 
   def info
-    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
     render :layout => "info"
   end
 
@@ -40,7 +40,7 @@ class PodcastsController < ApplicationController
   end
 
   def cover
-    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     @feeds   = @podcast.feeds.all
   end
 
@@ -60,8 +60,8 @@ class PodcastsController < ApplicationController
 
 
   def update
-    raise ActiveRecord::RecordNotFound if params[:podcast].nil?
-    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
+    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
     @podcast.attributes = params[:podcast_attr].keep_keys([:custom_title, :primary_feed_id])
@@ -82,8 +82,8 @@ class PodcastsController < ApplicationController
   end
 
   def favorite
-    raise ActiveRecord::RecordNotFound if params[:podcast].nil?
-    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
+    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
 
     if current_user
       @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)

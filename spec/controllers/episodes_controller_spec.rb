@@ -12,9 +12,9 @@ describe EpisodesController do
     @source = Factory.create(:source, :episode => @episode, :feed => @feed)
   end
 
-  describe "handling GET /:podcast/episodes" do
+  describe "handling GET /:podcast_slug/episodes" do
     def do_get(podcast)
-      get :index, :podcast => podcast
+      get :index, :podcast_slug => podcast
     end
 
     it "should be successful" do
@@ -38,14 +38,14 @@ describe EpisodesController do
     end
   end
 
-  describe "handling GET /:podcast/episodes/search" do
+  describe "handling GET /:podcast_slug/episodes/search" do
     before(:each) do
       @episode2 = Factory.create(:episode, :published_at => 2.days.ago, :summary => "blah blah")
       @source = Factory.create(:source, :episode => @episode2, :feed => @feed)
     end
 
     def do_get(podcast, query='')
-      get :search, :podcast => podcast, :q => query
+      get :search, :podcast_slug => podcast, :q => query
     end
 
     it "should be successful" do
@@ -72,9 +72,9 @@ describe EpisodesController do
 
   end
 
-  describe "handling GET /:podcast/:episode" do
+  describe "handling GET /:podcast_slug/:episode" do
     def do_get(podcast, episode)
-      get :show, :podcast => podcast, :episode => episode
+      get :show, :podcast_slug => podcast, :episode => episode
     end
 
     it "should be successful" do
@@ -93,9 +93,9 @@ describe EpisodesController do
     end
   end
 
-#   describe "handling DELETE /:podcast/:episodes" do
+#   describe "handling DELETE /:podcast_slug/:episodes" do
 #     def do_get(podcast, episode)
-#       get :destroy, :podcast => podcast, :episode => episode
+#       get :destroy, :podcast_slug => podcast, :episode => episode
 #     end
 #
 #     it "should find the episode requested" do
@@ -114,9 +114,9 @@ describe EpisodesController do
 #     end
 #   end
 
-  describe "handling GET /:podcast/:episode" do
+  describe "handling GET /:podcast_slug/:episode" do
     def do_get(podcast, episode)
-      get :show, :podcast => podcast, :episode => episode
+      get :show, :podcast_slug => podcast, :episode => episode
     end
 
     it "should be successful" do

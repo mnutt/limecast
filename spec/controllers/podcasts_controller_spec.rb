@@ -29,7 +29,7 @@ describe PodcastsController do
     end
   end
 
-  describe "handling GET /:podcast" do
+  describe "handling GET /:podcast_slug" do
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
       @podcast.feeds.first.extend(StopRemoveEmptyPodcast)
@@ -38,7 +38,7 @@ describe PodcastsController do
     end
 
     def do_get
-      get :show, :podcast => @podcast.clean_url
+      get :show, :podcast_slug => @podcast.clean_url
     end
 
     it "should be successful" do
@@ -57,7 +57,7 @@ describe PodcastsController do
     end
   end
 
-  describe "handling GET /:podcast/cover" do
+  describe "handling GET /:podcast_slug/cover" do
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
       get :cover, :podcast => @podcast.clean_url
@@ -259,7 +259,7 @@ describe PodcastsController do
   end
 
 
-  describe "handling POST /:podcast/favorite" do
+  describe "handling POST /:podcast_slug/favorite" do
     before do
       @user = Factory.create(:user)
       @podcast = Factory.create(:podcast)

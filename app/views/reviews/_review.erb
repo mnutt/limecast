@@ -8,7 +8,7 @@
 
   <div class="summary">
     <span class="title"><%= link_to (@q ? search_excerpt(review.title, @q) : h(review.title)), 
-                                              review_url(:podcast => review.episode.podcast, :id => review.id), :title => 'permalink' -%></span>
+                                              review_url(:podcast_slug => review.episode.podcast, :id => review.id), :title => 'permalink' -%></span>
     <span class="body"><%= unescape_entities(review.body) -%></span>
     <div class="helpfulness">Did you find this review helpful?
       <div class="social">
@@ -27,7 +27,7 @@
   <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
   <%#= render(:partial => 'reviews/modify_links', :object => review) -%>
   <%#= render(:partial => 'reviews/rating_links', :object => review) -%>
-  <%# form_for review, :url => review_url(:podcast => review.episode.podcast, :id => review.id), :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>
+  <%# form_for review, :url => review_url(:podcast_slug => review.episode.podcast, :id => review.id), :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>
     <%#= render :partial => 'reviews/form', :locals => {:f => f, :podcast => review.episode.podcast, :options => { :suffix => "_#{review.id}" }} -%>
   <%# end -%>
 

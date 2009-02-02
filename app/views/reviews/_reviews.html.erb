@@ -3,15 +3,15 @@
     <div id="r_view">
       <p><span id="first_linkable">View:</span>
         <span class="linkable current">
-          <%= link_to "All (#{reviews.count})", reviews_url(:podcast => podcast), :rel => "all" %>
+          <%= link_to "All (#{reviews.count})", reviews_url(:podcast_slug => podcast), :rel => "all" %>
           <span>All (<%= reviews.count -%>)</span>
         </span>
         <span class="linkable">
-          <%= link_to "Positive (#{reviews.that_are_positive.count})", positive_reviews_url(:podcast => podcast), :class => "positive", :rel => "positive" %>
+          <%= link_to "Positive (#{reviews.that_are_positive.count})", positive_reviews_url(:podcast_slug => podcast), :class => "positive", :rel => "positive" %>
           <span class="positive">Positive (<%= reviews.that_are_positive.count -%>)</span>
         </span>
         <span class="linkable">
-          <%= link_to "Negative (#{reviews.that_are_negative.count})", negative_reviews_url(:podcast => podcast), :class => "negative", :rel => "negative" %>
+          <%= link_to "Negative (#{reviews.that_are_negative.count})", negative_reviews_url(:podcast_slug => podcast), :class => "negative", :rel => "negative" %>
           <span class="negative">Negative (<%= reviews.that_are_negative.count -%>)</span>
         </span>
       </p>

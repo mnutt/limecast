@@ -184,6 +184,7 @@ input.radio {
 .limecast_form {
 	position: relative;
 	padding: 5px;
+	min-width: 400px;
 }
 .limecast_form .top {
 	height: 15px;
@@ -201,9 +202,12 @@ input.radio {
 	padding: 20px 0 10px 0;
 	text-align: center;
 }
-.limecast_form form {
-	width: 105%;
+.limecast_form fieldset {
+	margin: 10px 0 0 10px;
 }
+.limecast_form .field {
+	margin-bottom: 5px;
+} 
 
 
 /* icons */

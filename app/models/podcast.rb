@@ -41,6 +41,8 @@ class Podcast < ActiveRecord::Base
   has_many :tags, :through => :taggings, :order => 'name ASC'
   has_many :badges, :source => :tag, :through => :taggings, :conditions => {:badge => true}, :order => 'name ASC'
 
+  accepts_nested_attributes_for :feeds, :allow_destroy => true
+
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],

@@ -4,7 +4,8 @@ require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
 require 'logger'
 @logger = Logger.new(RAILS_ROOT + "/log/update_sources.log")
 
-def parse_ffmpeg_info(raw_info)
+def parse_ffmpeg_info(raw_info, source)
+  source.update_attribute(:ffmpeg_info, raw_info)
   {
     :duration    => parse_duration(raw_info),
     :bitrate     => parse_bitrate(raw_info),
@@ -73,7 +74,9 @@ end
 def download_file(source)
   @logger.info "Downloading"
 
-  `curl -L '#{source.url.gsub("'", "")}' > #{tmp_file(source)}`
+  @curl_info = `curl -L '#{source.url.gsub("'", "")}' > #{tmp_file(source)}`
+
+  source.update_attributes(:downloaded_at => Time.now, :curl_info => @curl_info)
 end
 
 def hash_file(source)
@@ -85,7 +88,7 @@ end
 def get_video_info(source)
   @logger.info "FFmpeg'ing"
 
-  info = parse_ffmpeg_info(`ffmpeg -i #{tmp_file(source)} 2>&1`)
+  info = parse_ffmpeg_info(`ffmpeg -i #{tmp_file(source)} 2>&1`, source)
 
   @logger.info "Got: #{info.inspect}"
 
@@ -174,6 +177,7 @@ while true
     info = get_video_info(source)
 
     info[:sha1hash] = hash_file(source)
+    source.update_attribute(:hashed_at, Time.now)
 
     unless info[:video_codec].nil? || info[:duration].nil?
       # Get a screen shot

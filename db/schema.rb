@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090126170211) do
+ActiveRecord::Schema.define(:version => 20090201232032) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -61,10 +61,11 @@ ActiveRecord::Schema.define(:version => 20090126170211) do
     t.integer  "podcast_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",       :default => "pending"
+    t.string   "state",                           :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
+    t.text     "xml",         :limit => 16777215
   end
 
   add_index "feeds", ["podcast_id"], :name => "index_feeds_on_podcast_id"
@@ -140,6 +141,7 @@ ActiveRecord::Schema.define(:version => 20090126170211) do
     t.string  "preview_content_type"
     t.string  "preview_file_size"
     t.integer "size",                    :limit => 8
+    t.text    "xml"
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

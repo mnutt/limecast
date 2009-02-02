@@ -7,7 +7,12 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 
 #wrapper {position: relative; margin: auto;}
 #header {position: relative; margin: 0; height: 54px;}
-#content {position: relative; margin: 0px 20px 20px 20px;  overflow:  hidden ;margin: 0px; background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;}
+#content {
+	position: relative;
+	overflow: hidden;
+	padding: 20px;
+	background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;
+}
 
 /**** Header **************/
 #utility_nav ul a {color: #fff;}
@@ -56,8 +61,8 @@ a#add_podcast span, a#logo span {
 
 
 /* Show specific */
-.show .summary {margin: 0px 20px 20px 20px; padding-top: 10px; overflow: visible;}
-.show .supplemental {overflow: hidden; position:  relative; margin: 20px; width: 640px;}
+.show .summary { overflow: visible;}
+.show .supplemental {overflow: hidden; position:  relative; margin: 20px 0; width: 640px;}
 
 
 
@@ -87,13 +92,20 @@ a#add_podcast span, a#logo span {
 }
 
 .show .summary h1 {
-	margin: .5em 0 1em 0;
+	margin: 0;
 	width: 800px;
 }
 .show .summary h2 {
-	margin: -1.4em 0 1em 0;
 	width: 800px;
 	color: #a9a9a9;
+}
+
+
+.episode.show .summary h2 {
+	margin-bottom: 15px;
+}
+.podcast.show .summary h1 {
+	margin-bottom: 15px;
 }
 
 .show .summary h6#page_type {
@@ -203,7 +215,7 @@ a#add_podcast span, a#logo span {
 
 .episode .callout  {
 	float: left;
-	margin: 15px 0 0 10px;
+	margin: 5px 0 0 10px;
 }
 
 

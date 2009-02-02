@@ -3,6 +3,7 @@
 require 'thinking_sphinx' # HACK: fix weird TS require issues
 
 class ApplicationController < ActionController::Base
+  layout 'sknd'
   helper :all # include all helpers, all the time
 
   include ExceptionNotifiable

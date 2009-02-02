@@ -187,13 +187,13 @@ input.radio {
 	min-width: 400px;
 }
 .limecast_form .top {
-	height: 15px;
+	height: 30px;
 	border: dashed #BBB;
 	border-width: 2px 2px 0 2px;
 }
 .limecast_form .middle {
-	margin: -20px 0;
-	padding: 10px;
+	margin: -25px 0;
+	padding: 10px 10px;
 }
 .limecast_form .bottom {
 	height: 15px;
@@ -204,6 +204,7 @@ input.radio {
 }
 .limecast_form fieldset {
 	margin: 10px 0 0 10px;
+	margin-left: 10px;
 }
 .limecast_form .field {
 	margin-bottom: 5px;

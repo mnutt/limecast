@@ -14,6 +14,7 @@
     <script type="text/javascript" src="/javascripts/sknd.application.js"></script>
 
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/screen.css" />
+    <%= stylesheet_link_tag @css_includes if @css_includes -%>
     <!--[if IE]>
     <link rel="stylesheet" type="text/css" href="stylesheets/ie.css" />
     <![endif]-->
@@ -58,7 +59,9 @@
         </div> <!-- /global_nav -->
       </div> <!-- /header -->
   
-      <div id="content">
+      <!-- HACK Use content wrapper so we can use margin on #content div. -->
+      <div id="content_wrapper">
+        <div id="content">
 
         <% if flash[:notice] -%>
           <span id="notice">
@@ -72,6 +75,7 @@
 
         <%= yield %>
 
+        </div> <!-- /content -->
       </div> <!-- /content -->
     </div> <!-- /wrapper -->
   

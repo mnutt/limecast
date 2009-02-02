@@ -5,31 +5,32 @@ ul li {display: inline;}
 
 body {background: url('../imgs/header.png') top left repeat-x; }
 
-.show #wrapper {position: relative; margin: auto;}
-.show #header {position: relative; margin: 0; height: 54px;}
-.show #content {position: relative; margin: 0px 20px 20px 20px;  overflow:  hidden ;margin: 0px; background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;}
-
-.show .summary {margin: 0px 20px 20px 20px; padding-top: 10px; overflow: visible;}
-
-.show .supplemental {overflow: hidden; position:  relative; margin: 20px; width: 640px;}
-
+#wrapper {position: relative; margin: auto;}
+#header {position: relative; margin: 0; height: 54px;}
+#content_wrapper {
+	position: relative;
+	overflow: hidden;
+	background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;
+}
+#content {
+	margin: 20px;
+}
 
 /**** Header **************/
+#utility_nav ul a {color: #fff;}
+#utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}
+#utility_nav ul li {display: inline; margin-left: 2px;}
 
-.show #utility_nav ul a {color: #fff;}
-.show #utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}
-.show #utility_nav ul li {display: inline; margin-left: 2px;}
 
-
-.show #global_nav {margin: 0; position: absolute; top: 22px; left: 0; height: 30px; width: 100%;}
-.show #global_nav {
+#global_nav {margin: 0; position: absolute; top: 22px; left: 0; height: 30px; width: 100%;}
+#global_nav {
 	font-size: 1.5em;
 }
-.show #global_nav a {}
-.show #global_nav ul { display: inline; padding: 0 0 10px 0;}
-.show #global_nav ul li {display: inline;}
+#global_nav a {}
+#global_nav ul { display: inline; padding: 0 0 10px 0;}
+#global_nav ul li {display: inline;}
 
-.show a#logo {
+a#logo {
 	margin-top: 3px; 
 	float: left;
 	background: url('../imgs/logo.png') top left no-repeat;
@@ -38,7 +39,7 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 	display: block;
 }
 
-.show a#logo:hover {
+a#logo:hover {
 	background: url('../imgs/logo_over.png') top left no-repeat;
 }
 
@@ -61,15 +62,18 @@ a#add_podcast span, a#logo span {
 }
 
 
+/* Show specific */
+.show .summary { overflow: visible;}
+.show .supplemental {overflow: hidden; position:  relative; margin: 20px 0; width: 640px;}
+
+
+
 
 /**** Summary **************/
 .show .summary .preview {	
 	float: left;
 	margin-right: 20px;
 }
-
-
-
 .podcast.show .summary .preview,
 .podcast.show .summary .preview img { width: 160px; }
 .episode.show .summary .preview { width: 340px; }
@@ -89,29 +93,36 @@ a#add_podcast span, a#logo span {
 	font-size: 1.2em;
 }
 
-.summary h1 {
-	margin: .5em 0 1em 0;
+.show .summary h1 {
+	margin: 0;
 	width: 800px;
 }
-.summary h2 {
-	margin: -1.4em 0 1em 0;
+.show .summary h2 {
 	width: 800px;
 	color: #a9a9a9;
 }
 
-.summary h6#page_type {
+
+.episode.show .summary h2 {
+	margin-bottom: 15px;
+}
+.podcast.show .summary h1 {
+	margin-bottom: 15px;
+}
+
+.show .summary h6#page_type {
 	position: absolute;
 	top: 67px;
 	right: 20px;
 }
 
-.podcast h6#page_type {
+.podcast.show h6#page_type {
 	margin-top: -50px;
 	padding: 10px 30px 10px 0;
 	background: url('../imgs/icons/series.png') center right no-repeat;
 }
 
-.episode h6#page_type {
+.episode.show h6#page_type {
 	margin-top: -57px;
 	padding: 17px 30px 10px 0;
 	background: url('../imgs/icons/episode.png') center right no-repeat;
@@ -128,7 +139,7 @@ a#add_podcast span, a#logo span {
 	font-size: 0.85em;
 }
 
-.addit {
+.podcast.show .summary .addit {
 	float: right;
 	margin-top: 3px;
 }
@@ -206,7 +217,7 @@ a#add_podcast span, a#logo span {
 
 .episode .callout  {
 	float: left;
-	margin: 15px 0 0 10px;
+	margin: 5px 0 0 10px;
 }
 
 
@@ -270,303 +281,13 @@ div#sort .dropdown label {
 .linkable.current span { display: inline; }
 
 
-/* Download options */
-
-#download_options {
-	overflow: visible;
-	position: absolute;
-	width: 602px;
-	top: 110px;
-	left: 19px;
-	background: url('../imgs/bg_dl_left.png') top left no-repeat;
-	height: 29px;
-}
-
-#download_options .dropdown {
-	font-size: 1em;
-}
-
-#download_options > div {
-	background: url('../imgs/bg_dl_right.png') top right no-repeat;
-	height: 29px;
-	margin: 0px 0 0 9px;
-	padding-right: 9px;
-}
-
-
-.show #download_options p,
-.show form#dl_option {
-	display: inline;
-	font-size: 1.2em;
-	float: left;
-	line-height: 28px;
-}
-
-.show #download_options p {
-	padding-right: 5px;
-}
-
-.show form#dl_option strong {
-	padding-left: 10px;
-	background: url('../imgs/dl_divider.png') center left no-repeat;
-}
-
-.show form#dl_option label, .show #s_reviews #review_doit label {
-	margin: 0 2px;
-	color: #2951a5;
-}
-
-#s_reviews img {margin: 0 -7px 0 20px;}
-
-.show form#dl_option label:hover, .show #s_reviews #review_doit label:hover {
-	text-decoration: underline;
-	cursor: pointer;
-}
-
-
-.show #download_options ul#dl_view {
-	position: absolute;
-	top: 1px;
-	right: 3px;
-	padding-left: 5px;
-	background: url('../imgs/dl_divider.png') center left no-repeat;
-}
-
-.show #download_options ul#dl_view li {
-	display: inline;
-}
-
-.show #download_options ul#dl_view li a {
-	
-	line-height: 28px;
-	padding: 3px 7px 8px 7px;
-}
-
-/* Download options help */
-
-#dl_help {
-	position: relative;
-	top: 44px;
-	height: 200px;
-	margin: 0 10px 0 10px;
-	padding: 10px;
-	position: relative;
-	background: url('../imgs/bg_dl_help.png') bottom left no-repeat;
-}
-
-#dl_help p {
-	font-size: 1.2em;
-	padding: 0px 0 10px 0;
-}
-
-#dl_help h6 {
-	font-size: 1.2em;
-}
-
-p#help_disclaimer {
-	font-size: 1em;
-	font-style: italic;
-	padding-top: 20px;
-}
-
-a.help_on {
-	outline: none;
-	background: url('../imgs/help_on.png') top left no-repeat;
-}
-
-#download_setting p {
-	position: absolute;
-	top: 110px;
-	left: 19px;
-	color: #a9a9a9;
-	font-size: 1.2em;
-	line-height: 28px;
-}
-
-
-
-
-/* Episode */
-.show form#dl_option a {
-	font-size: 1em;
-}
-
-.show #s_episodes {
-	margin-top: -5px;	
-	margin-bottom: 20px;
-}
-
-.show #s_episodes p {
-	margin: 0 0px;
-}
-
-.show #e_info {
-	font-size: .9em;
-	padding-bottom: 4px;
-	border-bottom: 1px solid #ddd;
-	margin: 0 5px;
-}
-
-.show #view_options {
-	font-size: .9em;
-	padding: 2px 0 6px 0;
-	border-bottom: 1px solid #ddd;
-	margin: 0 5px;
-}
-
-.show #e_info p span, .show #view_options p {
-	color: #a9a9a9;
-}
-
-.show #view_options p {
-	display: inline;
-}
-
-
-
-.show #view_options img {
-	padding: 2px;
-	margin-right: 1px;
-	position: relative;
-	top: 4px;
-	left: 0px;
-}
-
-.show #view_options .per_page {
-	border-left: 1px solid #a9a9a9;
-	padding-left: 7px;
-	display: inline;
-}
-
-.show #view_options .per_page a.pp_current {
-	border: 1px solid #a9a9a9;
-	padding: 0px 4px;
-}
-
-.show #episode_cont {
-	margin: 60px 0px 20px 0px;
-}
-
-.show .episode {
-	margin: 20px 5px 20px 5px;
-	overflow: auto;
-}
-
-.show .episode a img {
-	float: left;
-	border: 1px solid #171717;
-	margin-right: 20px;
-}
-
-.show .episode a:hover img {
-	border: 1px solid #2d5cad;
-}
-
-.show .episode > div {
-	float: left;
-	width: 480px;
-}
-
-.show .episode > div.no_screenshot {
-	float: left;
-	width: 595px;
-}
-
-.show .episode h3  {
-	margin: 0;
-	font-size: 1.3em;
-}
-
-.show .episode p {
-	color: #a9a9a9;
-}
-
-.show .episode span.details {
-	font-size: .85em;
-	font-style: italic;
-	display: block;
-	line-height: 1.4em;
-} 
-
-.show .episode .links {
-	font-size: 1.2em;
-}
-
-.show div.audio_player {
-	padding: 5px 0;
-	margin-top: 5px;
-	font-size: 1.2em;
-	border-top: 1px dotted #a9a9a9;
-	border-bottom: 1px dotted #a9a9a9;
-	position: relative;
-}
-
-.show div.audio_player .popup {
-	position: absolute;
-	top: 0.5em;
-	right: 10px;
-	cursor: pointer;
-}
-
-.show div.audio_player span.label {
-	width: 70px;
-	display: block;
-	line-height: 1em;
-	text-align: right;
-	margin-right: 10px;
-	float: left;
-}
-
-.show div.audio_player a {
-  display: none;
-}
-
-.show div.audio_player img {
-	float: left;
-}
-
-
-
-.show #download_options p,
-.show form#dl_option, .show #dl_option_cont p {
-	display: inline;
-	font-size: 1.2em;
-}
-
-.show form#dl_option {
-}
-
-#download_options .dropdown {
-	display: inline;
-}
-#download_options .dropdown li,
-#download_options .dropdown label {
-	line-height: 1.5em;
-}
-
-
-.show #download_options ul.help_or_hide,
-.show #dl_option_cont ul {
-	float: right;
-}
-
-.show #download_options ul.help_or_hide li,
-.show #dl_option_cont ul li {
-	display: inline;
-}
-
-
-.show form#dl_option a {
-	font-size: 1em;
-}
-
-
-
 
 
 /* Reviews list */
 
-.show #s_reviews_wrap {
+.reviews.list img {margin: 0 -7px 0 20px;}
+
+.show .wrapper {
 	margin-top: -5px;
 	margin-bottom: 20px;
 }
@@ -662,29 +383,29 @@ li.review {
 	font-size: 1.4em;
 }
 
-.show #s_reviews #review_login {
+.show .reviews.list #review_login {
 	min-height: 200px;
 	margin: 20px 0 20px 0;
 }
 
-.show #s_reviews #review_doit {
+.show .reviews.list #review_doit {
 	margin: 20px 0 20px 0;
 }
 
-.show #s_reviews #review_doit h4 {
+.show .reviews.list #review_doit h4 {
 	font-size: 1.6em;
 }
 
-.show #s_reviews #review_doit p {
+.show .reviews.list #review_doit p {
 	margin-top: 15px;
 }
 
-.show #s_reviews #review_doit h6 {
+.show .reviews.list #review_doit h6 {
 	font-size: 1.4em;
 	margin-top: 1.5em;
 }
 
-.show #s_reviews #review_doit input {
+.show .reviews.list #review_doit input {
 	border: 1px solid #171717;
 	-moz-border-radius: 3px;
 	width: 300px;
@@ -693,7 +414,7 @@ li.review {
 	padding: 5px 0 0 5px;
 }
 
-.show #s_reviews #review_doit textarea {
+.show .reviews.list #review_doit textarea {
 	border: 1px solid #171717;
 	-moz-border-radius: 3px;
 	width: 400px;
@@ -703,7 +424,7 @@ li.review {
 	display: block;
 }
 
-.show #s_reviews #review_doit button {
+.show .reviews.list #review_doit button {
 	margin: 15px 0 0 0px;
 }
 
@@ -961,7 +682,7 @@ ul.tabs-nav  {
 
 
 
-.addpage .huge input {
+.podcast.new .huge input {
 	width: 90%;
 }
 

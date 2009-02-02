@@ -1,0 +1,22 @@
+<div class="feed_url"><%= obj.url -%></div>
+
+<div class="field">
+  <%= label :feed, :itunes_link, "iTunes" -%>
+  <%= text_field :feed, :itunes_link, :value => (obj.itunes_link.split("?id=").last if obj.itunes_link), :size => 10 -%>
+</div>
+
+<div class="field">
+  <%= label :feed, :format -%>
+  <%= text_field :feed, :format, :size => 15 -%>
+</div>
+
+<!-- <div class="status"></div> //-->
+
+<div class="field">
+  (<%= [obj.apparent_format, obj.formatted_bitrate].compact.join(", ") -%>)
+  <% if obj.primary? -%>
+    <span>Primary</span>
+  <% else -%>
+    <span><%= link_to "Make Primary", "#", :class => "make_primary", :rel => obj.id -%></span>
+  <% end -%>
+</div>

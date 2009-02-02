@@ -1,12 +1,6 @@
-<% obj.messages.each do |msg| -%>
-  <span class="message"><%= msg %></span>
-<% end -%>
-
 <div class="field">
   <%= label obj, :custom_title, "Title" -%>
-  <div>
-    <%= text_field :podcast_attr, :custom_title, :class => "text", :value => obj.custom_title -%>
-  </div>
+  <%= text_field :podcast_attr, :custom_title, :class => "text", :value => obj.custom_title -%>
 </div>
 
 <!--

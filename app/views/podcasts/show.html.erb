@@ -1,4 +1,5 @@
 <% @classes = %{podcast show} -%>
+<%- stylesheet_include 'podcast_show' -%>
 
 <div class="summary">
   <%= render :partial => "podcasts/summary" -%>
@@ -15,8 +16,8 @@
     <a href="#" id="series_reviews">Series reviews (<%= @podcast.episodes.count %>)</a>
   </h2>
 
-  <div id="s_episodes_wrap"<%= " style=\"display: none;\"" if params[:controller] == 'reviews' %>>
-    <div id="s_episodes" class="rounded_corners">
+  <div class="wrapper"<%= " style=\"display: none;\"" if params[:controller] == 'reviews' %>>
+    <div class="episodes list rounded_corners">
       <% rounded_corners do -%>
         <%= render :partial => "podcasts/info", :locals => {:podcast => @podcast} -%>
         <%= render :partial => "podcasts/view_options" -%>
@@ -31,7 +32,7 @@
     </div>
   </div>
     
-  <div id="s_reviews_wrap"<%= " style=\"display: none;\"" unless params[:controller] == 'reviews' %>>
+  <div class="wrapper"<%= " style=\"display: none;\"" unless params[:controller] == 'reviews' %>>
     <%= render :partial => 'reviews/reviews', :object => @reviews, :locals => {:podcast => @podcast} %>
   </div>
 

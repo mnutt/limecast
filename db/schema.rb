@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090128170503) do
+ActiveRecord::Schema.define(:version => 20090203191845) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(:version => 20090128170503) do
     t.datetime "updated_at"
   end
 
-  add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
   add_index "favorites", ["podcast_id"], :name => "index_favorites_on_episode_id"
+  add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
 
   create_table "feeds", :force => true do |t|
     t.string   "url"
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(:version => 20090128170503) do
     t.string   "format"
   end
 
-  add_index "feeds", ["podcast_id"], :name => "index_feeds_on_podcast_id"
   add_index "feeds", ["finder_id"], :name => "index_feeds_on_finder_id"
+  add_index "feeds", ["podcast_id"], :name => "index_feeds_on_podcast_id"
 
   create_table "podcasts", :force => true do |t|
     t.string   "title"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(:version => 20090128170503) do
     t.string   "owner_name"
     t.string   "custom_title"
     t.integer  "primary_feed_id"
+    t.boolean  "has_previews"
+    t.boolean  "has_p2p_acceleration"
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
@@ -122,8 +124,8 @@ ActiveRecord::Schema.define(:version => 20090128170503) do
     t.integer  "not_insightful", :default => 0
   end
 
-  add_index "reviews", ["user_id"], :name => "index_reviews_on_user_id"
   add_index "reviews", ["episode_id"], :name => "index_reviews_on_episode_id"
+  add_index "reviews", ["user_id"], :name => "index_reviews_on_user_id"
 
   create_table "sources", :force => true do |t|
     t.string  "url"
@@ -182,7 +184,7 @@ ActiveRecord::Schema.define(:version => 20090128170503) do
     t.integer  "score",                                   :default => 0
   end
 
-  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
 end

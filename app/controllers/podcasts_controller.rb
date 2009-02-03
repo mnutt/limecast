@@ -17,6 +17,7 @@ class PodcastsController < ApplicationController
     raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
     @feeds    = @podcast.feeds.all
+    @podcast.feeds.build if logged_in? # build a new one so we can include a new Feed in our form
     @episodes = @podcast.episodes.
       paginate(:order => "published_at DESC", :page => (params[:page] || 1), :per_page => params[:limit] || 5)
 
@@ -65,7 +66,8 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
-    @podcast.attributes = params[:podcast].keep_keys([:custom_title, :primary_feed_id])
+    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, 
+                                                      :feeds_attributes, :custom_title, :primary_feed_id])
 
     respond_to do |format|
       if @podcast.save

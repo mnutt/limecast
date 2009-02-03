@@ -2,5 +2,9 @@ body {text-align: center;}
 
 #wrapper {width: 980px; margin: 0 auto; text-align: left; overflow: auto;}
 
-
-
+#notice { 
+	color: red;
+	font-weight: bold;
+	background: white;
+	padding: 5px;
+}

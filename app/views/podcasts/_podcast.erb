@@ -17,9 +17,9 @@
 
   <div class="s_desc">
      
-
+    <h3><%= link_to @podcast.title, podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></h3>
     <p>
-      <%= link_to h(@podcast.clean_site), h(@podcast.site) %> - <%= unescape_entities h(@podcast.description) -%>
+      <%= unescape_entities h(@podcast.description) -%>
       <a href="#" class="adjust">more</a>
     </p>
     <h6>Tags:</h6>

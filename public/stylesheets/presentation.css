@@ -714,6 +714,7 @@ ul.tabs-nav  {
 
 .show #browse .s_desc {
 	width: 540px;
+	padding: 0;
 }
 .show #browse .social {
 	font-size: .7em;
@@ -722,7 +723,7 @@ ul.tabs-nav  {
 }
 .show #browse .addit {
 	float: right;
-	margin-top: 12px;
+	margin: 14px 5px 0px 0;
 }
 
 

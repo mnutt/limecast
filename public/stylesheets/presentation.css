@@ -217,7 +217,11 @@ a#add_podcast span, a#logo span {
 
 .episode .callout  {
 	float: left;
+
+	margin: 16px 0 0 10px;
+
 	margin: 5px 0 0 10px;
+
 }
 
 
@@ -429,7 +433,9 @@ li.review {
 }
 
 
-
+#zone-bar {
+	margin-top: 20px;
+} 
 
 
 /* Subscribe Button **/

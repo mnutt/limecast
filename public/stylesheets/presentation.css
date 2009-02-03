@@ -713,9 +713,11 @@ ul.tabs-nav  {
 }
 
 .show #browse .s_desc {
+	position: relative;
 	width: 540px;
 	padding: 0;
 }
+
 .show #browse .social {
 	font-size: .7em;
 	width: auto;

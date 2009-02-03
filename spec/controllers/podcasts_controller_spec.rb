@@ -205,22 +205,22 @@ describe PodcastsController do
       end
 
       it "should find the podcast requested" do
-        do_post
+        do_put
         assigns(:podcast).id.should == @podcast.id
       end
 
       it "should update the found podcast" do
-        do_post
+        do_put
         assigns(:podcast).reload.custom_title.should == "Custom Title"
       end
 
       it "should redirect to the podcasts list" do
-        do_post
+        do_put
         response.should redirect_to(podcast_url(:podcast_slug => @podcast))
       end
 
       it "should make a feed the primary feed" do
-        do_post(:primary_feed_id => @feed.id)
+        do_put(:primary_feed_id => @feed.id)
         @podcast.reload.primary_feed.should == @feed
       end
     end

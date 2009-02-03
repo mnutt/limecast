@@ -7,45 +7,7 @@
   
   <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast), :id => "edit_link" %>
   
-  <div id="edit_actions">
-    <%= render :partial => "podcasts/form", :layout => "layouts/limecast_form", :locals => {:obj => @podcast} -%>
-    <% @podcast.feeds.sort_by(&:url).each do |feed| -%>
-    <%= render :partial => "feeds/form", :layout => "layouts/limecast_form", :locals => {:obj => feed} -%>
-    <% end -%>
-  </div>
+  <% limecast_form_for @podcast do |podcast_form| -%>
+    <%= render :partial => "podcasts/form", :locals => {:podcast_form => podcast_form} -%>
+  <% end -%>
 </div>
-
-
-
-
-
-<!--
-    <div id="podcast_formats" style="display: none">
-
-      <div id="added_podcast_list"></div>
-
-      <%# form_for :feed, :url => feeds_url, :html => { :id => 'new_podcast' } do |f| -%>
-        <div class="feed huge">
-          <div>
-            <label for="feed_url" class="default" style="display:none;">http://example.com/rss.xml</label>
-            <input type='text'   class="text"   id="feed_url" name="feed[url]" />
-            <input type='submit' class="button" value="Add" />
-          </div>
-        </div>
-      <%# end -%>
-
-      <div id="added_podcast" style="display: none;">
-        <form>
-          <div class="field huge">
-            <label>Feed</label>
-            <div>
-              <input type='text'   class="text"   disabled="disabled" style="background: #222" />
-              <input type='submit' class="button" disabled="disabled" style="background: #666" value="Add" />
-            </div>
-          </div>
-        </form>
-        <div class="status"><%#= render :partial => 'feeds/status_loading' -%></div>
-      </div>
-    
-    </div>
-//-->

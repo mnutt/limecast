@@ -186,4 +186,23 @@ module ApplicationHelper
   end
 
 
+  def limecast_form_for record_or_name_or_array, *args, &proc #@podcast, } do |podcast_form|
+    options = args.extract_options!
+    (options[:html] ||= {})
+    options[:html][:class] = "#{options[:html][:class]} limecast_form clearfix"
+    options[:html][:style] = "display: none; #{options[:html][:style]}"
+
+    form_for(record_or_name_or_array, *(args << options)) do |form_builder|
+      concat('<div class="top"><!-- //--></div>')
+      concat('<div class="middle">')
+      yield form_builder
+      concat('</div>')
+      concat('<div class="bottom controls">')
+      concat form_builder.submit("Save", :class => "button")
+      concat form_builder.submit("Cancel", :class => "button cancel")
+      # concat link_to_with_icon("Delete", :delete, "/podcasts/#{@podcast.id}", :method => "delete", :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!")
+      concat('</div>')
+    end
+  end
+  
 end

@@ -1,58 +1,31 @@
-<div class="field">
-  <%= label obj, :custom_title, "Title" -%>
-  <%= text_field :podcast_attr, :custom_title, :class => "text", :value => obj.custom_title -%>
-</div>
-
-<!--
-    <div id="podcast_formats" style="display: none">
-      <% @podcast.feeds.sort_by(&:url).each do |feed| -%>
-        <% form_for feed, :class => 'edit_feed' do |f| -%>
-          <div class="feed_url"><%= feed.url -%></div>
-          <div class="feed_options">
-            <%= f.label :itunes_link, "iTunes" -%>
-            <%= f.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
-            <%= f.label :format -%>
-            <%= f.text_field :format, :size => 15 -%>
-            <%= link_to "Change", "#", :class => "submit" -%>
-          </div>
-          <div class="status"></div>
-          <div class="feed_meta">
-            (<%= [feed.apparent_format, feed.formatted_bitrate].compact.join(", ") -%>)
-            <% if feed.primary? -%>
-              <span>Primary</span>
-            <% else -%>
-              <span><%= link_to "Make Primary", "#", :class => "make_primary", :rel => feed.id -%></span>
-              <span><%= submit_tag "Delete", :onclick => "$('#edit_feed_'+#{feed.id})[0]._method.value='delete';" -%></span>
-            <% end -%>
-          </div>
-          <br/>
-        <% end -%>
-      <% end -%>
-
-      <div id="added_podcast_list"></div>
-
-      <% form_for :feed, :url => feeds_url, :html => { :id => 'new_podcast' } do |f| -%>
-        <div class="feed huge">
-          <div>
-            <label for="feed_url" class="default" style="display:none;">http://example.com/rss.xml</label>
-            <input type='text'   class="text"   id="feed_url" name="feed[url]" />
-            <input type='submit' class="button" value="Add" />
-          </div>
-        </div>
-      <% end -%>
-
-      <div id="added_podcast" style="display: none;">
-        <form>
-          <div class="field huge">
-            <label>Feed</label>
-            <div>
-              <input type='text'   class="text"   disabled="disabled" style="background: #222" />
-              <input type='submit' class="button" disabled="disabled" style="background: #666" value="Add" />
-            </div>
-          </div>
-        </form>
-        <div class="status"><%= render :partial => 'feeds/status_loading' -%></div>
+  <div class="field">
+    <%= podcast_form.label :custom_title, "Title" -%>
+    <%= podcast_form.text_field :custom_title, :class => "text" -%>
+  </div>  
+  <br />
+  
+  <% podcast_form.fields_for :feeds do |feed_form| %>
+    <% feed = feed_form.object -%>
+    <fieldset>
+      <div class="feed_details">
+        <strong><%= feed.formatted_bitrate -%> 
+        <%= feed.apparent_format %> </strong>
+        <%= link_to feed.url %>
       </div>
-    
-    </div>
-//-->
+      <div class="field">
+        <%= feed_form.label :itunes_link, "iTunes ID" -%>
+        <%= feed_form.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
+      </div>
+      <div class="field">
+        <%= podcast_form.radio_button :primary_feed_id, feed.id %>
+        <%= podcast_form.label "primary_feed_id_#{feed.id}", "Primary" %>
+      </div>
+      <% unless feed.new_record? %>
+        <div>
+          <%= feed_form.check_box :_delete, :onchange => "if(!confirm('Are you sure you want to mark this feed for deletion?')) this.checked = false;" %>
+          <%= feed_form.label :_delete, 'Remove' %>
+        </div>
+      <% end %>
+    </fieldset>
+
+  <% end -%>

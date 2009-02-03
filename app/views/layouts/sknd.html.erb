@@ -59,7 +59,9 @@
         </div> <!-- /global_nav -->
       </div> <!-- /header -->
   
-      <div id="content">
+      <!-- HACK Use content wrapper so we can use margin on #content div. -->
+      <div id="content_wrapper">
+        <div id="content">
 
         <% if flash[:notice] -%>
           <span id="notice">
@@ -73,6 +75,7 @@
 
         <%= yield %>
 
+        </div> <!-- /content -->
       </div> <!-- /content -->
     </div> <!-- /wrapper -->
   

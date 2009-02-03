@@ -64,7 +64,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
-    @podcast.attributes = params[:podcast_attr].keep_keys([:custom_title, :primary_feed_id])
+    @podcast.attributes = params[:podcast].keep_keys([:custom_title, :primary_feed_id])
 
     respond_to do |format|
       if @podcast.save

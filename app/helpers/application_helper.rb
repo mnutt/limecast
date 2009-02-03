@@ -5,6 +5,11 @@ module ApplicationHelper
     @javascript_includes << scripts
   end
 
+  def stylesheet_include(*csses)
+    @css_includes ||= []
+    @css_includes << csses
+  end
+
   def time_to_words(time, abbr=true)
     time.to_i.to_duration.to_s(abbr)
   end

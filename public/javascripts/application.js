@@ -92,7 +92,7 @@ $(window).bind("load", function() {
 * Video Preview
 **************************************************************/
 $(document).ready(function() {
-  $(".preview a").click(function() {
+  $(".preview .container img").click(function() {
     var flashvars = {
       videoURL: $(this).attr('rel'),
       playOnOpen: true
@@ -100,8 +100,8 @@ $(document).ready(function() {
 
     $(this).parent('div').empty().flash({
       src:       "/flash/LimePlayer.swf",
-      width:     425,
-      height:    355,
+      width:     $(this).attr('width'),
+      height:    $(this).attr('height'),
       flashvars: flashvars
     });
 

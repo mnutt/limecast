@@ -60,7 +60,7 @@ describe PodcastsController do
   describe "handling GET /:podcast_slug/cover" do
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
-      get :cover, :podcast => @podcast.clean_url
+      get :cover, :podcast_slug => @podcast.clean_url
     end
 
     it 'should assign the podcast' do
@@ -188,11 +188,11 @@ describe PodcastsController do
     end
   end
 
-  describe "handling POST /:podcast" do
+  describe "handling PUT /:podcast" do
     describe "when user is the podcast owner" do
 
-      def do_post(options={:custom_title => "Custom Title"})
-        post :update, :podcast => @podcast.clean_url, :podcast_attr => options
+      def do_put(options={:custom_title => "Custom Title"})
+        put :update, :podcast_slug => @podcast.clean_url, :podcast => options
       end
 
       before(:each) do
@@ -216,7 +216,7 @@ describe PodcastsController do
 
       it "should redirect to the podcasts list" do
         do_post
-        response.should redirect_to(podcast_url(:podcast => @podcast))
+        response.should redirect_to(podcast_url(:podcast_slug => @podcast))
       end
 
       it "should make a feed the primary feed" do
@@ -237,7 +237,7 @@ describe PodcastsController do
 
       it "should redirect to the podcasts list" do
         lambda {
-          post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title"}
+          put :update, :podcast_slug => @podcast.clean_url, :podcast => {:custom_title => "Custom Title"}
         }.should raise_error(Forbidden)
       end
     end
@@ -249,7 +249,7 @@ describe PodcastsController do
         @podcast = Factory.create(:podcast, :feeds => [Factory.create(:feed, :finder => @user)], :owner_email => "test@example.com")
         login(@user)
 
-        post :update, :podcast => @podcast.clean_url, :podcast_attr => {:owner_email => "malicious@example.com"}
+        put :update, :podcast_slug => @podcast.clean_url, :podcast => {:owner_email => "malicious@example.com"}
       end
 
       it "should not change the params" do
@@ -267,7 +267,7 @@ describe PodcastsController do
     end
 
     def do_post(podcast)
-      xhr :post, :favorite, :podcast => podcast.clean_url
+      xhr :post, :favorite, :podcast_slug => podcast.clean_url
     end
 
     it "should be successful" do

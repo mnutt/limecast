@@ -1,33 +1,19 @@
-<% @title = h(@user.login) -%>
-<% @show_ads = true if @user.reviews.count > 0 -%>
-<% javascript_include "review_edit", "review_delete", "podcast_edit", "inline_edit_form" -%>
+<%# @title = h(@user.login) -%>
+<%# @show_ads = true if @user.reviews.count > 0 -%>
+<%# javascript_include "review_edit", "review_delete", "podcast_edit", "inline_edit_form" -%>
+
+<%= render :partial => 'users/edit' if current_user %>
 
 <div class="user">
 
   <%= render :partial => 'users/small_picture', :locals => { :user => @user } -%>
-
-  <% if @user == current_user -%>
-    <div id="edit_actions" class="clearfix">
-      <span class="label">This is me!</span>
-      <ul class="inline clearfix">
-        <li class="edit">
-          <%= link_to_with_icon "Edit", :edit, edit_user_url(current_user) %>
-        </li>
-        <li class="logout">
-          <%= link_to_with_icon "Signout", :signout, session_url, :method => 'delete' %>
-        </li>
-      </ul>
-      
-      <%= render :partial => "form" -%>
-    </div>  
-  <% end -%>
 
   <h1><%=h @user.login -%><%= " (#{@user.score})" unless @user.podcaster? %></h1>
   
   <% if @user.owned_podcasts.count > 0 -%>
     <h2>Makes</h2>
     <ul class="podcasts clearfix">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
+      <%= render :partial => 'users/podcast', :collection => @user.owned_podcasts -%>
     </ul>
     <% reset_cycle('row_class') %>
   <% end -%>
@@ -35,7 +21,7 @@
   <% if @user.podcasts.size > 0 -%>
     <h2>Found (<%= @user.podcasts.size %>)</h2>
     <ul class="podcasts clearfix">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
+      <%= render :partial => 'users/podcast', :collection => @user.podcasts -%>
     </ul>
     <% reset_cycle('row_class') %>
   <% end -%>
@@ -43,7 +29,7 @@
   <% if @user.favorite_podcasts.size > 0 -%>
     <h2>Favorites</h2>
     <ul class="podcasts clearfix">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
+      <%= render :partial => 'users/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
     </ul>
     <% reset_cycle('row_class') %>
   <% end -%>

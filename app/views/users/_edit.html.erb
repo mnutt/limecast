@@ -1,0 +1,15 @@
+<div id="edit_actions" class="clearfix">
+  <% if current_user.admin? && !@podcast.user_is_finder?(current_user) && !@podcast.user_is_owner?(current_user) -%>
+    <span class="label">I can do anything!</span>
+  <% else -%>
+    <span class="label">This is me!</span>
+  <% end -%>
+  
+  <%= link_to_with_icon "Edit", :edit, edit_user_url(current_user), :id => "edit_link" %>
+  <%= link_to_with_icon "Signout", :signout, session_url, :method => 'delete' %>
+
+  <% limecast_form_for @user do |user_form| -%>
+    <%= render :partial => "users/form", :locals => {:user_form => user_form} -%>
+  <% end -%>
+</div>
+

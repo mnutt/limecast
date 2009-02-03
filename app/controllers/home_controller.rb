@@ -23,7 +23,7 @@ class HomeController < ApplicationController
     @podcasts = Podcast.all
     
     if File.exist?(File.join(RAILS_ROOT, '..', '..', 'current'))
-      @release = RAILS_ROOT.split("/").last
+      @release = Time.parse(RAILS_ROOT.split("/").last) rescue nil
     else
       @release = "(not deployed)"
     end

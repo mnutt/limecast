@@ -22,9 +22,8 @@ class HomeController < ApplicationController
   def info
     @podcasts = Podcast.all
     
-    release_dir = File.dirname(RAILS_ROOT)
-    if File.exist?(File.join(release_dir, '..', 'current'))
-      @release = release_dir.split("/").last
+    if File.exist?(File.join(RAILS_ROOT, '..', '..', 'current'))
+      @release = RAILS_ROOT.split("/").last
     else
       @release = "(not deployed)"
     end

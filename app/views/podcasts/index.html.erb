@@ -1,15 +1,45 @@
 <% @title = "All Podcasts" -%>
 <% @full_width = true -%>
-<% @classes = %{show} -%>
+<% @classes = %{show browse} -%>
 <div class="summary">
-  <div class="page_head">
-    <h1>All podcasts</h1>
-  </div>
 
-  <div class="multicolumn">
-    <ul class="podcasts">
+    <h1>Browse podcasts</h1>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      var adjustheight = 40;
+      $(".adjust").toggle(function() {
+        $('.s_desc p').css('height', '40').css('overflow', 'visible');
+        $(this).text("less");
+    }, function() {
+      $('.s_desc p').css('height', adjustheight).css('overflow', 'hidden');
+      $(this).text("more");
+      });
+    });
+    </script>
+
+  <div class="multicolumn rounded_corners" id="browse">
+    <% rounded_corners do -%>
+    <div id="view_options">
+      <p>
+        View:
+        <a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a>
+        <a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a>
+      </p>
+      <p class="per_page">
+        <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
+          <%= link_to count, {:limit => count}, :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : nil -%><%= comma -%>
+        <% end -%>
+        per page
+      </p>
+      <div id="sort">
+        <p>Sort by: <%= dropdown [["Most recent","recent"], ["Popular","oldest"]], nil, {} %></p>
+      </div>
+    </div>
+    
+    <!--<ul class="podcasts">-->
       <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
-    </ul>
+    <!--</ul>-->
+      <% end -%>
   </div>
 
   <% reset_cycle('row_class') %>

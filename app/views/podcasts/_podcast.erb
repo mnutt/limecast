@@ -1,5 +1,49 @@
+<!--
+
 <li id="<%=h dom_id(podcast) -%>" class="podcast <%= cycle('odd','even', :name => 'row_class') -%>">
-  <%= link_to_podcast(podcast) -%>
+  <%#= link_to_podcast(podcast) -%>
   
-  <%= link_to "#{image_tag((current_user.favorite_podcasts.include?(podcast) ? 'icons/favorite.png' : 'icons/not_favorite.png'), :class => 'inline_icon')}#{current_user.favorite_podcasts.include?(podcast) ? 'Unfavorite' : 'Favorite'}", favorite_podcast_url(podcast.clean_url), :class => "favorite_toggle_link" if local_assigns.include?(:favorite_link) && current_user && user && current_user == user %>
+  <%#= link_to "#{image_tag((current_user.favorite_podcasts.include?(podcast) ? 'icons/favorite.png' : 'icons/not_favorite.png'), :class => 'inline_icon')}#{current_user.favorite_podcasts.include?(podcast) ? 'Unfavorite' : 'Favorite'}", favorite_podcast_url(podcast.clean_url), :class => "favorite_toggle_link" if local_assigns.include?(:favorite_link) && current_user && user && current_user == user %>
 </li>
+-->
+
+
+
+<div class="description">
+<div class="preview">
+  <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
+</div>
+
+
+  <div class="s_desc">
+     
+
+    <p>
+      <%= link_to h(@podcast.clean_site), h(@podcast.site) %> - <%= unescape_entities h(@podcast.description) -%>
+      <a href="#" class="adjust">more</a>
+    </p>
+    <h6>Tags:</h6>
+    <ul>
+      <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
+    </ul>
+    
+    <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
+    
+    
+    <p class="favorite_cont">
+        <% if @podcast.is_favorite_of?(current_user) -%>
+          <a href="#" class="is favorite">Marked as favorite</a>
+        <% else -%>
+          <div class="addit"><ul><li><%= link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => @podcast.clean_url) -%></li></ul></div>
+        <% end -%>
+      </p>
+   
+  </div>
+
+
+  
+  
+  
+
+</div>
+

@@ -93,11 +93,11 @@ a#add_podcast span, a#logo span {
 	font-size: 1.2em;
 }
 
-.show .summary h1 {
+.summary h1 {
 	margin: 0;
 	width: 800px;
 }
-.show .summary h2 {
+.summary h2 {
 	width: 800px;
 	color: #a9a9a9;
 }
@@ -105,8 +105,9 @@ a#add_podcast span, a#logo span {
 
 .episode.show .summary h2 {
 	margin-bottom: 15px;
+	margin-top: -15px;
 }
-.podcast.show .summary h1 {
+.summary h1 {
 	margin-bottom: 15px;
 }
 
@@ -144,14 +145,14 @@ a#add_podcast span, a#logo span {
 	margin-top: 3px;
 }
 
-.show .description #s_desc {
+.show .description .s_desc {
 	position: relative;
 	float: left;
 	width: 460px;
 	
 }
 
-.show #s_desc h6 {
+.show .s_desc h6 {
 	color: #a9a9a9;
 	font-size: 1.4em;
 	font-weight: normal;
@@ -165,11 +166,11 @@ a#add_podcast span, a#logo span {
 	float: right;
 }
 
-.show #s_desc p {
+.show .s_desc p {
 	margin: -5px 0 5px 0;
 }
 
-.show #s_desc ul, .show #s_desc ul li {
+.show .s_desc ul, .show .s_desc ul li {
 	display: inline;
 	font-size: 1.2em;
 	color: #a9a9a9;
@@ -217,11 +218,7 @@ a#add_podcast span, a#logo span {
 
 .episode .callout  {
 	float: left;
-
-	margin: 16px 0 0 10px;
-
-	margin: 5px 0 0 10px;
-
+	margin: 6px 0 0 7px;
 }
 
 
@@ -690,6 +687,42 @@ ul.tabs-nav  {
 
 .podcast.new .huge input {
 	width: 90%;
+}
+
+
+/* Brwose page **/
+
+.show #browse {
+	position: relative;
+	width: 700px;
+}
+
+.show #browse #sort {
+	top: 12px;
+}
+
+.show #browse .preview img {
+	width: 100px;
+	float: left;
+	border: 1px solid #aeaba1;
+}
+
+.show #browse .description {
+	margin: 20px 0 0 5px;
+	padding: 0;
+}
+
+.show #browse .s_desc {
+	width: 540px;
+}
+.show #browse .social {
+	font-size: .7em;
+	width: auto;
+	margin-top: 10px;
+}
+.show #browse .addit {
+	float: right;
+	margin-top: 12px;
 }
 
 

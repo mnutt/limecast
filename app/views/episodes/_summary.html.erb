@@ -20,19 +20,21 @@
     <script type="text/javascript">
   		$(document).ready(function(){
   		   $("#zone-bar li em").click(function() {
-  		   		var hidden = $(this).parents("li").children("ul").is(":hidden");
+  		   		var hidden = $(this).parents("li").children("div").is(":hidden");
 
-  				$("#zone-bar>ul>li>ul").hide()        
+  				$("#zone-bar>ul>li>div").hide()        
   			   	$("#zone-bar>ul>li>a").removeClass();
-
+            
   			   	if (hidden) {
   			   		$(this)
-  				   		.parents("li").children("ul").toggle()
+  				   		.parents("li").children("div").toggle()
   				   		.parents("li").children("a").addClass("zoneCur");
   				   	} 
+  				   	return false;
   			   });
   			 
   		});
+  		
   	</script>
 
 
@@ -58,21 +60,41 @@
   			<ul>
   				<li>
   					<span>
-  						<a href="wxample.com">Download full version</a>
+  						<a href="wxample.com">Download full version<span>Web | Flash - small</span></a>
   						<em class="opener-technology">
   							<a href="#" class="arrowz"><img src="../imgs/zonebar-downarrow.png" alt="dropdown" /></a>
   						</em>
   					</span>
-  					<ul class="technologysublist rounded_corners">
-  					   <% rounded_corners do -%>
-  						<li><a href="#">Apple</a></li>
-  						<li><a href="#">Design</a></li>
-  						<li><a href="#">Gadgets</a></li>
-  						<li><a href="#">Hardware</a></li>
-  						<li><a href="#">Industry News</a></li>
+  					<div class="dl_dropdown rounded_corners" style="display: none;">
+  					  <% rounded_corners do -%>
+  					  	<form action="http://limecast.com/search" method="get">            
+                  Choose:
+                  <input class="radio" id="w" name="q" type="radio" align="BOTTOM" /><label for="w">Web</label>
+                  <input class="radio" id="m" name="q" type="radio" /><label for="m">LimeWire</label>
+                 
+                  
+                </form>
+                <div style="display: block;">
+                  <ul class="v_options_list">
+                    <li>
+                      <p>Quicktime</p>
+                      <span class="v_options">
+                        <a href="#" class="primary" title="bitrate: 2.2 mbps">HD</a>          |                  
+                        <a href="#" class="circle"  title="bitrate: 1.1 mbps">Large</a>                  
+                      </span>
+                    </li>
+                    <li>
+                      <p>MP3</p>
+                      <span class="v_options">
+                        <a class="" href="#" title="bitrate: 128 kbps">Small</a>                  
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                
   
-  						  <% end -%>
-  					</ul>
+  						<% end -%>
+  					</div>
   				</li>
   				
   		

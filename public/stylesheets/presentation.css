@@ -418,7 +418,9 @@ li.review {
 }
 
 
-
+#zone-bar {
+	margin-top: 20px;
+} 
 
 
 /* Subscribe Button **/

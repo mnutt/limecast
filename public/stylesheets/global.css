@@ -382,81 +382,120 @@ span > img.inline_icon {
 		}
 		#zone-bar ul li {
 			height: 36px;
-			padding: 5px 5px 0 0px;
+			padding: 5px 0px 0 0px;
 			position: relative;
 			float: left;
-			margin-right: 10px;
+			
+			
 			background: url(../imgs/zonebar-navleft.png) center left no-repeat;
 			}
 			#zone-bar ul li:hover {
-				background: url(../imgs/zonebar-navleft.png) center left no-repeat;
+				background: url(../imgs/zonebar-navleft_o.png) center left no-repeat;
 			}
 				#zone-bar ul li a {
 					display: block;
 					float: left;
 					height: 23px;
 					position: relative;
-					top: -6px;
-					left: 5px;
-					padding-right: 27px;
+					top: -3px;
+					padding-left: 8px;
+					margin-right: -5px;
+					padding-right: 40px;
 					padding-bottom: 0px;
 					padding-top: 3px;
 					color: #fff;
 					font-weight: bold;
+					height: 36px;
 					font-size: 1.1em;
-		
+					white-space: nowrap;
+					background: url(../imgs/zonebar-navright.png) top right no-repeat;
 					}
+					
+					#zone-bar ul li a:hover {
+
+			
+					}
+					
+			#zone-bar ul li a span {
+				display: block;
+				font-size: .9em;
+				font-weight: normal;
+				margin-top: -1px;
+				font-style: italic;
+			}
+					
 			#zone-bar ul li a.arrowz {
 				display: block;
 				float: left;
 				height: 23px;
 				position: relative;
-				top: -3px;
-				right: -1px;
-				padding-right: 5px;
-				padding-left: 5px;
-				margin-left: -19px;
-				color: #383838;
-				font-weight: bold;
-				font-size: 1.1em;
+				
+				padding-top: 7px;
+				padding-right: 6px;
+				padding-left: 11px;
+				margin-left: -25px;
+
+				height: 36px;
 				text-decoration: none;
-				background: url(../imgs/zonebar-navright.png) center right no-repeat;
-				}
-			
-				#zone-bar ul li a:hover {
-					background: url(../imgs/zonebar-navright.png) center right no-repeat;
-				}
-	
-				#zone-bar ul li a.arrowz:hover {
-					background: url(../imgs/zonebar-navright.png) center right no-repeat;
-				}
-				#zone-bar ul li a span {
-					position: relative;
-					top: 6px;
-				}
-			#zone-bar ul li ul {
-				display: none;
-				position: absolute;
-				top: 29px;
-				left: 0px;
-				width: 300px;
 				
 				}
-				#zone-bar ul li ul li {
-					float: none;
-					padding: 0; margin: 0;
-					height: 100%;
+				
+				
+	
+				#zone-bar ul li a.arrowz:hover {
+					background: url(../imgs/zonebar-navright_o.png) 4px 0px no-repeat;
 				}
-				#zone-bar ul li ul li:hover {
+				
+				
+
+			#zone-bar ul li div.dl_dropdown {
+				position: absolute;
+				top: 40px;
+				left: -3px;
+				width: 250px;
+				z-index: 9000000;
+				font-size: 1.2em;
+				}
+				#zone-bar ul li div a {
+					float: none;
 					background: none;
-					}
-					#zone-bar ul li ul li a {
-						display: block;
-						float: none;
-						margin-left: -5px;
-						padding: 5px 0 0 10px;
-		
-					}
-					#zone-bar ul li ul li a:hover {
-						background: #d9f0b7;
-					}
+					color: #2951a5;
+					font-weight: normal;
+					padding: 0;
+					margin: 0;
+					height: auto;
+					display: inline;
+					position: static;
+				}
+				
+				#zone-bar ul li div ul li {
+					background: none;
+					font-size: .8em;
+				}
+				#zone-bar ul li div ul li:hover {
+					background: none;margin: 0;
+				}
+				
+				#zone-bar ul li div ul.v_options_list {
+					margin-top: 20px;
+				}
+				
+				#zone-bar ul li div ul.v_options_list li {
+					float: none;
+					padding: 3px 0;
+					height: auto;
+				}
+				
+				#zone-bar ul li div ul.v_options_list li p {
+					float: left;
+					margin: 0;
+				}
+				
+				#zone-bar ul li div ul.v_options_list li span {
+					float: right;margin: 0;
+				}
+				
+				
+			
+	
+			

@@ -2,11 +2,31 @@
     <%= podcast_form.label :custom_title, "Title" -%>
     <%= podcast_form.text_field :custom_title, :class => "text" -%>
   </div>  
+  <div class="field">
+    <%= podcast_form.check_box :has_previews %>
+    <%= podcast_form.label :has_previews, "Preview episodes" %>
+  </div>
+  <div class="field">
+    <%= podcast_form.check_box :has_p2p_acceleration %>
+    <%= podcast_form.label :has_p2p_acceleration, "Enable P2P acceleration" %>
+  </div>
+  <div class="field">
+    <%= podcast_form.check_box :_delete, :onchange => "if(!confirm('Are you SURE you want to mark this podcast for deletion?')) this.checked = false;" %>
+    <%= podcast_form.label :_delete, 'Delete podcast' %>
+  </div>
   <br />
+  <h4>Feeds</h4>
   
   <% podcast_form.fields_for :feeds do |feed_form| %>
     <% feed = feed_form.object -%>
+
     <fieldset>
+    <% if feed.new_record? -%>
+      <div class="field">
+        <%= feed_form.label :url, "Add the RSS feed of this podcast in another format..." %>
+        <%= feed_form.text_field :url %>
+      </div>
+    <% else -%>
       <div class="feed_details">
         <strong><%= feed.formatted_bitrate -%> 
         <%= feed.apparent_format %> </strong>
@@ -20,12 +40,11 @@
         <%= podcast_form.radio_button :primary_feed_id, feed.id %>
         <%= podcast_form.label "primary_feed_id_#{feed.id}", "Primary" %>
       </div>
-      <% unless feed.new_record? %>
-        <div>
-          <%= feed_form.check_box :_delete, :onchange => "if(!confirm('Are you sure you want to mark this feed for deletion?')) this.checked = false;" %>
-          <%= feed_form.label :_delete, 'Remove' %>
-        </div>
-      <% end %>
+      <div>
+        <%= feed_form.check_box :_delete, :onchange => "if(!confirm('Are you sure you want to mark this feed for deletion?')) this.checked = false;" %>
+        <%= feed_form.label :_delete, 'Remove' %>
+      </div>
+    <% end -%>
     </fieldset>
-
   <% end -%>
+

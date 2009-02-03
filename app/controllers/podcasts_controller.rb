@@ -5,6 +5,7 @@ class PodcastsController < ApplicationController
 
   def index
     @podcasts = Podcast.parsed.sorted
+    @podcast = @podcasts.first
   end
 
   def recs

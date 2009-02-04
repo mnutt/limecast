@@ -7,6 +7,9 @@
     <% if episode.duration and episode.duration > 0 -%>
       <span class="duration">(<%= time_to_words(episode.duration) -%>)</span>
     <% end -%>
+    <span class="partial_description">
+      <%= sanitize_condensed_summary(episode.summary) -%>
+    </span>
   </div>
 
   <div class="full">

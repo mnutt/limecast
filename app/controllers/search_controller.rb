@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   before_filter :check_for_query
 
   def index
-    params[:q] += " podcast:#{params[:podcast]}" if params[:podcast]
+    params[:q] += " podcast:#{params[:podcast_slug]}" if params[:podcast]
     @parsed_q = (@q = params[:q].strip).dup
 
     extract_podcast!

@@ -13,7 +13,7 @@
 
     <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
 
-    <% form_for @review, :url => review_url(:podcast => @podcast, :id => @review.id), :method => :post, :html => {:class => 'edit'} do |f| -%>
+    <% form_for @review, :url => review_url(:podcast_slug => @podcast, :id => @review.id), :method => :post, :html => {:class => 'edit'} do |f| -%>
       <%= render :partial => 'form', :locals => {:f => f, :podcast => @review.episode.podcast} -%>
     <% end -%>
 

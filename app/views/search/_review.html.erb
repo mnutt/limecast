@@ -1,6 +1,6 @@
 <li>
   <%= review_rating(review) %>
-  <%= link_to "<span class=\"searched\">#{escape_once(review.title)}</span>", review_url(:podcast => review.episode.podcast, :id => review.id) -%>
+  <%= link_to "<span class=\"searched\">#{escape_once(review.title)}</span>", review_url(:podcast_slug => review.episode.podcast, :id => review.id) -%>
   <%= search_excerpt(review.body, @parsed_q) -%>
   <%= link_to_profile review.reviewer -%>
 </li>

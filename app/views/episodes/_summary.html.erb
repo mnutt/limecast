@@ -1,7 +1,7 @@
 <div class="summary">
   <div id="episode_head">
     <h1><%=h @podcast.custom_title %></h1>
-    <div class="callout"><ul><li><%= link_to "Go to series page", podcast_url(:podcast => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
+    <div class="callout"><ul><li><%= link_to "Go to series page", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
     <div class="clear"></div>
     <h2><%=h @episode.title -%></h2>
     <div class="clear"></div>
@@ -15,8 +15,8 @@
     <%- else -%>
       <%= image_tag('/imgs/video_placeholder.png', :alt => "#{@episode.title} cover art is missing", :width => 340) -%>
     <%- end -%>
-    <%= link_to "Older episode", episode_url(:podcast => @podcast, :episode => @episode.previous_episode), :class => "previous" if @episode.previous_episode -%>
-    <%= link_to "Newer episode", episode_url(:podcast => @podcast, :episode => @episode.next_episode), :class => "next" if @episode.next_episode -%>
+    <%= link_to "Older episode", episode_url(:podcast_slug => @podcast, :episode => @episode.previous_episode), :class => "previous" if @episode.previous_episode -%>
+    <%= link_to "Newer episode", episode_url(:podcast_slug => @podcast, :episode => @episode.next_episode), :class => "next" if @episode.next_episode -%>
   </div>
 
   <div class="description">

@@ -29,7 +29,7 @@
       </ul>
   
       <% if !@podcast && objs.size > 3 -%>
-      <p>More results from <%= link_to "#{podcast.title}&hellip;", search_url(:q => @q, :podcast => podcast) %></p>
+      <p>More results from <%= link_to "#{podcast.title}&hellip;", search_url(:q => @q, :podcast_slug => podcast) %></p>
       <% end -%>
     </li>
     <% end -%>

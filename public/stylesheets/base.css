@@ -19,7 +19,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   outline: 0;
   font-weight: inherit;
   font-style: inherit;
-  font-size: 100%;
   font-family: inherit;
   vertical-align: baseline;
   list-style: none;
@@ -45,8 +44,7 @@ html {
 }
 body {
   height: 100%;
-  background-color: #2B2D2F;
-  font: 62.5% Verdana, sans-serif;
+	background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;
 }
 
 #document {
@@ -81,7 +79,7 @@ body {
 #content .urls,
 #content .authors,
 #content h1, #content h2, #content h3, #content h4, #content h5 {
-  margin-bottom: 12px;
+/*  margin-bottom: 12px; */
 }
 
 /** Cancel any Golden Line Separation Margin Here **/
@@ -97,11 +95,6 @@ h1, h2, h3, h4, h5 {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
 }
-h1 { font-size: 2.25em; padding-bottom: 2px; }
-h1.heading { font-size: 1.6em; padding-bottom: 0; } /* effectively h2 */
-h2 { font-size: 1.6em; }
-h3 { font-size: 1.1em; }
-
 a img.inline_icon {
   margin: -4px 2px 0 0;
   position: relative;
@@ -120,8 +113,6 @@ cite {
   font-style: normal;
 }
 div#document {
-  font-size: 1.2em;
-  color: #CBCBCB;
 }
 
 
@@ -154,7 +145,6 @@ div#header div#title h1 {
   display: inline;
   padding: 0 0 0 2px;
   margin: 12px 0 0;
-  font-size: 12px;
 }
 div#header div.add_podcast {
   display: inline;
@@ -217,7 +207,6 @@ div#content div#sidebar {
   float: right;
 }
 div#content span.notice {
-  color: #ABABAB;
 }
 
 
@@ -226,7 +215,6 @@ div#content span.notice {
 **/
 div#body a.button {
   background: url("../images/content/button_bg_left.png") no-repeat left top;
-  color: #383838 !important;
   height: 33px;
   padding: 0 0 0 5px;
   display: block;
@@ -241,7 +229,6 @@ div#body a.button span {
 }
 div#body a.button:hover {
   background-position: left bottom;
-  color: #212121 !important;
 }
 div#body a.button:hover span {
   background-position: right bottom;
@@ -249,8 +236,6 @@ div#body a.button:hover span {
 div#body a.action_button {
   background: url("../images/content/action_button_bg_left.png") no-repeat left top;
   text-transform: uppercase;
-  font-size: 0.9em;
-  color: #306A0F !important;
   height: 32px;
   padding: 0 0 0 15px;
   display: block;
@@ -265,7 +250,6 @@ div#body a.action_button span {
 }
 div#body a.action_button:hover {
   background-position: left bottom;
-  color: #20460A !important;
 }
 div#body a.action_button:hover span {
   background-position: right bottom;
@@ -317,7 +301,6 @@ div#footer {
   background: #181818 url("../images/layout/footer_border.png") repeat-x left top;
   height: 30px;
   position: relative;
-  font-size: 1.1em;
   padding: 10px 8px;
   margin: -50px 0 0 0;
 }
@@ -329,7 +312,6 @@ div#footer ul li {
   float: left;
 }
 div#footer a {
-  color: #AAA;
 }
 
 
@@ -363,40 +345,29 @@ form input.text,
 form textarea.text {
   background: #F3F3F3 url("../images/content/input_bg.png") repeat-x left top;
   border: 1px solid #212121;
-  color: #676767;
   padding: 4px;
 }
 form input.text.focus,
 form textarea.text.focus {
-  color: #212121;
 }
 form input.button {
-  background-color: #AEAEAE;
   border: 2px solid;
-  border-color: #212121 #333 #333 #212121;
   /*-webkit-border-radius: 4px;*/
-  color: #383838;
   padding: 4px;
   cursor: pointer;
 }
 form input.button.hover {
-  background-color: #D7D7D7;
-  color: #555;
 }
 form input.button.focus {
-  background-color: #8E8E8E;
 }
 form input.button.active {
   background: #999 !important;
-  border-color: #000 #222 #222 #000;
-  color: #111;
 }
 form input.image_button {
   border: 1px solid #212121;
   cursor: pointer;
 }
 form div.huge {
-  font-size: 1.5em;
 }
 form div.huge label {
   display: none;
@@ -492,7 +463,6 @@ div#edit_form input.text {
  Notices
 **/
 div#primary span#notice {
-  background-color: #555;
   padding: 10px;
   display: block;
 }

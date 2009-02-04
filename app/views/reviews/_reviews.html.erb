@@ -1,19 +1,55 @@
-<% hide_totals = true unless defined?(hide_totals) -%>
 <% episode ||= podcast.episodes.newest.first -%>
 
-<h2>Reviews</h2>
-<% unless hide_totals -%><p>
-  <%= link_to_with_icon "Positive (#{podcast.reviews.that_are_positive.count})", :thumbs_up, positive_reviews_url(:podcast => podcast) unless podcast.reviews.that_are_positive.count.zero? %>
-  <%= link_to_with_icon "Negative (#{podcast.reviews.that_are_negative.count})", :thumbs_down, negative_reviews_url(:podcast => podcast) unless podcast.reviews.that_are_negative.count.zero? %>
-  <%= link_to "All (#{podcast.reviews.count})", reviews_url(:podcast => podcast) unless podcast.reviews.count.zero? %>
-</p><% end -%>
+<div class="reviews list rounded_corners">
+  <%# rounded_corners do -%>
+    <div id="r_view">
+      <p><span id="first_linkable">View:</span>
+        <span class="linkable current">
+          <%= link_to "All (#{reviews.count})", reviews_url(:podcast_slug => podcast), :rel => "all" %>
+          <span>All (<%= reviews.count -%>)</span>
+        </span>
+        <span class="linkable">
+          <%= link_to "Positive (#{reviews.that_are_positive.count})", positive_reviews_url(:podcast_slug => podcast), :class => "positive", :rel => "positive" %>
+          <span class="positive">Positive (<%= reviews.that_are_positive.count -%>)</span>
+        </span>
+        <span class="linkable">
+          <%= link_to "Negative (#{reviews.that_are_negative.count})", negative_reviews_url(:podcast_slug => podcast), :class => "negative", :rel => "negative" %>
+          <span class="negative">Negative (<%= reviews.that_are_negative.count -%>)</span>
+        </span>
+      </p>
+    </div>
+    <ul class="reviews">
+      <%= render :partial => 'reviews/review', :collection => reviews -%>
+    </ul>
+    <div id="review_login" style="display: none;">
+      <h4>Login or register to add a comment</h4>
+      <p><a href="#"><strong>Join now by creating an account</strong></a> or <a href="#"><strong>sign in</strong></a> to review this series.</p>
+    </div>
+    <div id="review_doit">
+      <% if false%>
+        <% if can_add_reviews?(episode) %>
+          <%= render :partial => 'reviews/add_review', :object => podcast -%>
+        <% end %>
+        <h4>Review this series</h4>
+        <form action="" method="get" id="leave_series_review">         
+          <p><strong>Mark as:</strong>
+          <img src="../images/icons/thumbs_up.png" alt="Thumb's up"/>
+          <input class="radio" id="p" name="p" type="radio" align="BOTTOM" /><label for="p">Positive</label>
+          <img src="../images/icons/thumbs_down.png" alt="Thumb's down"/>
+          <input class="radio" id="n" name="p" type="radio" /><label for="n">Negative</label>
+          <h6>Heading</h6>
+          <input class="text search" id="q" name="q" size="15" type="text" />
+          <h6>Your review of the 1Up Show</h6>
+          <textarea rows="2" cols="20"></textarea>
+  
+          </p>
+          <button type="submit">
+            <span>Submit review</span>
+          </button>
+        </form>
+      <% end %>
+      
+    </div>
+  <%# end -%>
+</div><!-- /s_reviews -->
 
-<ul class="reviews">
-  <%= render :partial => 'reviews/review', :collection => reviews -%>
-</ul>
-
-<% if can_add_reviews?(episode) %>
-  <%= render :partial => 'reviews/add_review', :object => podcast -%>
-<% end %>
-
-<% reset_cycle('row_class') %>

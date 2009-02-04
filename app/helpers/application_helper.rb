@@ -69,35 +69,60 @@ module ApplicationHelper
     @css_includes << csses
   end
 
-  def time_to_words(time, abbr=true)
+  def comma_separated_list_items(arr)
+    delimited_items(arr) do |contents, comma|
+      "<li>#{contents}#{comma}</li>\n"
+    end
+  end
+
+  def delimited_items(arr, delimiter = ",")
+    # :-( RIP: "<li>" + arr.zip([","] * (arr.length-1)).map(&:join).join("</li><li>") + "</li>"
+    #        : a.fill((0..-2)){|i| "#{a[i]}," }.map {|i| "<li>#{i}</li>" }.join
+
+    arr.map do |i|
+      yield i, (delimiter unless i == arr.last)
+    end.join
+  end
+
+  def time_to_words(time, abbr = false)
     time.to_i.to_duration.to_s(abbr)
   end
 
   def link_to_profile(user)
-    link_text = image_tag("icons/user_#{user.rank(:include_admin => logged_in?)}.png", :class => "inline_icon")
-    link_text += h(user.login)
+    link_text = h(user.login)
     link_text += " (#{user.score})" unless user.podcaster?
 
-    link_to "<span class=\"searched\">#{link_text}</span>", user_url(user),
-    :title => "#{user.rank.capitalize} User"
+    link_to "<span class=\"searched \">#{link_text}</span>", user_url(user),
+    :title => "#{user.rank.capitalize} User",
+    :class=> "reg_user"
   end
 
   def link_to_podcast(podcast)
     link_to "#{image_tag(podcast.logo.url(:icon), :class => 'inline_icon')}<span class=\"searched\">#{h(podcast.custom_title)}</span>", podcast_url(podcast)
   end
 
-  def link_to_episode(episode)
-    link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')} <span class=\"searched\">#{h(episode.podcast.custom_title)} &mdash; #{h(episode.date_title)}</span>", episode_url(episode.podcast, episode), :class => 'inline_icon'
-  end
-
   def link_to_episode_date(episode)
     link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')}#{h(episode.date_title)}", episode_url(episode.podcast, episode), :class => 'inline_icon'
+  end
+
+  def link_to_episode(episode)
+    link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')} <span class=\"searched\">#{h(episode.podcast.custom_title)} &mdash; #{h(episode.date_title)}</span>", episode_url(episode.podcast, episode), :class => 'inline_icon'
   end
 
   def link_to_with_icon(title, icon, url, options={})
     link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title.to_s, url, options)
   end
 
+  def messages_for(obj, col)
+    "<p style=\"padding: 1px; color: black; border: solid 4px lemonchiffon; background: white;\" class=\"message\">
+      #{obj.messages[col].join(', ')}
+    </p>" unless obj.messages[col].blank? || obj.messages[col].empty?
+  end
+
+  def span_with_icon(title, icon, options={})
+    content_tag(:span, image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + " #{title}" , options)
+  end
+  
   def relative_time(date, abbr=true)
     time_ago = Time.now - date
     time_to_words(time_ago, abbr) + " ago"
@@ -162,20 +187,20 @@ module ApplicationHelper
     label = item.class == Source ? item.file_name : item.format
 
     if item.class == Feed
-      in_parens = [item.formatted_bitrate, item.apparent_format].compact
+      in_parens = [item.apparent_format, item.formatted_bitrate].compact
     else item.class == Source
       label = item.format if label.length > 12
       bitrate = item.feed.formatted_bitrate if item.feed
       file_size = item.size.to_file_size.to_s
 
-      in_parens = [file_size, item.format].compact
+      in_parens = [bitrate, file_size].compact
     end
 
     in_parens = unless in_parens.empty?
-      "#{in_parens.compact.join(' ')}"
+      "(#{in_parens.compact.join(', ')})"
     end
 
-    in_parens
+    [label, in_parens].join(" ")
   end
 
   def smart_truncate(string, length)
@@ -187,4 +212,64 @@ module ApplicationHelper
     text.strip.gsub(/\r\n?/, "\n").gsub(/\n+/, "&#182;")
   end
 
+  # Renders a UL tag, where each LI has an A. The anchors have a +rel+ attribute
+  # that can be used by JS.
+  #
+  # Example:
+  #   * dropdown [["Most recent","recent"], ["First to last","oldest"]], 'oldest', {} -%>
+  #
+  def dropdown(links=[], selected=nil, options={})
+    title = options.delete(:title)
+    options[:class] = "dropdown #{options[:class]}"
+
+    selected = (selected.nil? ? (links.first) : (links.find {|l| l.last==selected}))
+    focuser = link_to selected.first, "#", :class => 'focuser'
+    
+    links   = case links
+              when Array
+                links.map { |l| 
+                  is_selected = (selected==l) ? " class=\"selected\"" : ""
+                  "<li#{is_selected}>#{link_to l.first, '#', :rel => l.last}</li>"
+                }
+              else
+                []
+              end.join
+
+    ul = "<ul>#{links}</ul>"
+    content_tag :div, "#{title}#{focuser}<div class=\"dropdown_wrap rounded_corners\">#{rounded_corners ul}</div>", {:class => options[:class]}.merge(options)
+  end
+  
+  # Important! You need to specity "rounded_corners" class on the element that wraps rounded_corners!!!!
+  def rounded_corners(text=nil, &block)
+    wrap = <<-ROUNDED
+    <div class="bt"><div></div></div><div class="i1"><div class="i2"><div class="i3">%s</div></div></div><div class="bb"><div></div></div>
+    ROUNDED
+    if block_given?
+      rounded_content = wrap % capture(&block)
+      block_called_from_erb?(block) ? concat(rounded_content) : rounded_content
+    else
+      wrap % text
+    end
+  end
+
+
+  def limecast_form_for record_or_name_or_array, *args, &proc #@podcast, } do |podcast_form|
+    options = args.extract_options!
+    (options[:html] ||= {})
+    options[:html][:class] = "#{options[:html][:class]} limecast_form clearfix"
+    options[:html][:style] = "display: none; #{options[:html][:style]}"
+
+    form_for(record_or_name_or_array, *(args << options)) do |form_builder|
+      concat('<div class="top"><!-- //--></div>')
+      concat('<div class="middle">')
+      yield form_builder
+      concat('</div>')
+      concat('<div class="bottom controls">')
+      concat form_builder.submit("Save", :class => "button")
+      concat form_builder.submit("Cancel", :class => "button cancel")
+      # concat link_to_with_icon("Delete", :delete, "/podcasts/#{@podcast.id}", :method => "delete", :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!")
+      concat('</div>')
+    end
+  end
+  
 end

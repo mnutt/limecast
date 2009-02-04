@@ -384,11 +384,15 @@ form div.huge div input.text {
 }
 
 
+
+
 /**
-* Quick Signin
+* Quick Signin/up
 **/
+
 form#quick_signin {
-  padding: 10px;
+  padding: 0;
+  color: #171717;
 }
 
 form#quick_signin .titlebar {
@@ -396,41 +400,166 @@ form#quick_signin .titlebar {
   top: -10px;
   right: -10px;
 }
-
 form#quick_signin a.close {
   display: none;
 }
-
 form#quick_signin .message {
-  text-indent: 60px;
+  text-indent: 90px;
+  padding: 1em 0;
 }
-
 form#quick_signin input.text,
-form#quick_signin div.response_container {
+form#quick_signin .response_container {
   width: 200px;
 }
-
-form#quick_signin div.field label {
-  padding: 5px 0 0;
-  width: 50px;
+form#quick_signin .response_container {
+  padding: 5px;
+  color: red !important;
+}
+form#quick_signin .response_container p {
+  font-size: 1em;
+}
+form#quick_signin .response_container a {
+  color: #a9a9a9;
 }
 
-form#quick_signin div.field div {
-  margin: 0 0 0 60px;
+.quick_signin_container.from_top_bar {
+  position: absolute;
+  top: 18px;
+  right: 0;
+  /*background-color: #2B2D2F;*/
+  /*border: 1px solid #181818;*/
+  z-index: 10;
 }
-form#quick_signin div.controls,
-form#quick_signin div.response_container {
-  padding: 0 0 0 60px;
+.quick_signin_container.from_top_bar form#quick_signin a.close {
+  background: url("../images/icons/close.png") no-repeat center;
+  display: block;
+  text-indent: -5000px;
+  width: 16px;
+  height: 16px;
+  margin: 5px 5px 0 0;
+  overflow: hidden;
+  float: right;
 }
-form#quick_signin .message {
-  text-indent: 60px;
+.quick_signin_container.after_favoriting form#quick_signin .message {
+  position: relative;
+  top: -10px;
 }
+
+
+
+/**** Rounded Action Corner Box **************/
+
+/* Basic styling, used when JavaScript is unsupported */
+/*.cbb {
+	margin:0em;
+	padding:0 10px;
+	border:1px solid #dddddd;
+	background:#fff;
+}
+.cbb h1 {
+	margin:0 -10px;
+	padding:0.3em 10px;
+	background:#efece6;
+	font:bold 1.2em/1 Arial, Helvetica, sans-serif;
+}
+*/
+/* Normal styling */
+.rounded_corners {margin:0.0em 0;}
+	/* Top corners and border */
+.bt {
+	height:5px;
+	margin:0 0 0 10px;
+	background:url('../imgs/box.png') no-repeat 100% 0;
+}
+.bt div {
+	position:relative;
+	left:-10px;
+	width:10px;
+	height:10px;
+	background:url(../imgs/box.png) no-repeat 0 0;
+	font-size:0;
+	line-height:0;
+}
+
+	/* Bottom corners and border */
+.bb {
+	height:10px;
+	margin:0 0 0 10px;
+	background:url(../imgs/box.png) no-repeat 100% 100%;
+}
+.bb div {
+	position:relative;
+	left:-10px;
+	width:10px;
+	height:10px;
+	background:url(../imgs/box.png) no-repeat 0 100%;
+	font-size:0;
+	line-height:0;
+}
+
+	/* Left border */
+.i1 {
+	padding:0 0 0 10px;
+	background:url(../imgs/border.png) repeat-y 2px 0;
+}
+	/* Right border */
+.i2 {
+	padding:0 10px 0 0;
+	background:url(../imgs/border.png) repeat-y 100% 0;
+}
+	/* Wrapper for the content. Use it to set the background colour and insert some padding between the borders and the content. */
+.i3 {
+	display:block;
+	margin:0;
+	padding:0px 5px;
+	background:#fff;
+}
+	/* Make the content wrapper auto clearing so it will contain floats (see http://positioniseverything.net/easyclearing.html). */
+.i3:after {
+	content:"."; 
+	display:block; 
+	height:0; 
+	clear:both; 
+	visibility:hidden;
+}
+.i3 {display:inline-block;}
+.i3 {display:block;}
+
+/* LimeCast form */
+.limecast_form {
+	position: relative;
+	padding: 5px;
+	min-width: 400px;
+}
+.limecast_form .top {
+	height: 30px;
+	border: dashed #BBB;
+	border-width: 2px 2px 0 2px;
+}
+.limecast_form .middle {
+	margin: -20px 0;
+	padding: 0px 10px;
+}
+.limecast_form .bottom {
+	height: 15px;
+	border: dashed #BBB;
+	border-width: 0 2px 2px 2px;
+	padding: 20px 0 10px 0;
+	text-align: center;
+}
+.limecast_form fieldset {
+	margin: 10px 0 0 10px;
+}
+.limecast_form .field {
+	margin-bottom: 5px;
+}
+
+
 
 /**
 * Edit Actions (the edit links at the top of '/show' pages)
 **/
-div#edit_actions {
-  /* Account for the fact that H1s have a short line-height */
+/*div#edit_actions {
   margin-bottom: 16px;
 }
 div#edit_form span.label {
@@ -456,7 +585,7 @@ div#edit_form label {
 }
 div#edit_form input.text {
   width: auto;
-}
+}*/
 
 
 /**

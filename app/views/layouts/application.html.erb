@@ -20,6 +20,7 @@
 <!--[if IE 7]>
 <%= stylesheet_link_tag 'base_ie7', 'application_ie7' -%>
 <![endif]-->
+<% stylesheet_include "sknd.global", "sknd.presentation", "sknd.typography", "sknd.icons", "podcast_show" -%>
 <%= stylesheet_link_tag @css_includes if @css_includes -%>
 
 <%= javascript_include_tag 'jquery' -%>

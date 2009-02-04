@@ -1,28 +1,32 @@
 class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
-  before_filter :add_user_to_tag_string, :only => [:create, :update]
 
   def index
     @podcasts = Podcast.parsed.sorted
+    @podcast = @podcasts.first
   end
 
   def recs
-    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
   end
 
   def show
-    @podcast = Podcast.find_by_clean_url(params[:podcast])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
     @feeds    = @podcast.feeds.all
-    @episodes = @podcast.episodes.find(:all, :order => "published_at DESC", :limit => 3)
+    @podcast.feeds.build if logged_in? # build a new one so we can include a new Feed in our form
+    @episodes = @podcast.episodes.
+      paginate(:order => "published_at DESC", :page => (params[:page] || 1), :per_page => params[:limit] || 5)
 
-    @reviews = with(@podcast.episodes.newest.first) {|ep| ep.nil? ? [] : ep.reviews }
+    @reviews = @podcast.reviews
     @review  = Review.new(:episode => @podcast.episodes.newest.first)
+
+    render
   end
 
   def info
-    @podcast = Podcast.find_by_clean_url(params[:podcast])
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
     render :layout => "info"
   end
 
@@ -36,7 +40,7 @@ class PodcastsController < ApplicationController
   end
 
   def cover
-    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     @feeds   = @podcast.feeds.all
   end
 
@@ -56,16 +60,12 @@ class PodcastsController < ApplicationController
 
 
   def update
-    logger.info "got here"
-    raise ActiveRecord::RecordNotFound if params[:podcast].nil?
-    logger.info "got here"
-    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
-    logger.info "got here"
+    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
-    logger.info "got here"
 
-    @podcast.attributes = params[:podcast_attr].keep_keys([:tag_string, :custom_title, :primary_feed_id])
-    logger.info "got here"
+    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, 
+                                                      :feeds_attributes, :custom_title, :primary_feed_id])
 
     respond_to do |format|
       if @podcast.save
@@ -82,8 +82,8 @@ class PodcastsController < ApplicationController
   end
 
   def favorite
-    raise ActiveRecord::RecordNotFound if params[:podcast].nil?
-    @podcast = Podcast.find_by_clean_url(params[:podcast]) or raise ActiveRecord::RecordNotFound
+    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
 
     if current_user
       @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)
@@ -110,12 +110,5 @@ class PodcastsController < ApplicationController
     @podcast.destroy
 
     redirect_to(podcasts_url)
-  end
-  
-  protected
-  def add_user_to_tag_string
-    if params[:podcast_attr] && params[:podcast_attr][:tag_string] && current_user
-      params[:podcast_attr][:tag_string] = [params[:podcast_attr][:tag_string], current_user]
-    end
   end
 end

@@ -43,7 +43,7 @@ module ApplicationHelper
   end
 
   def link_to_episode_date(episode)
-    link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')}#{h(episode.date_title)}", episode_url(episode.podcast, epi
+    link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')}#{h(episode.date_title)}", episode_url(episode.podcast, episode), :class => 'inline_icon'
   end
 
   def link_to_episode(episode)
@@ -52,6 +52,12 @@ module ApplicationHelper
 
   def link_to_with_icon(title, icon, url, options={})
     link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title.to_s, url, options)
+  end
+
+  def messages_for(obj, col)
+    "<p style=\"padding: 1px; color: black; border: solid 4px lemonchiffon; background: white;\" class=\"message\">
+      #{obj.messages[col].join(', ')}
+    </p>" unless obj.messages[col].blank? || obj.messages[col].empty?
   end
 
   def span_with_icon(title, icon, options={})

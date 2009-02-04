@@ -1,3 +1,17 @@
+// ---------------------------------
+// START STUFF MOVED OVER FROM SKND
+// ---------------------------------
+$(document).ready(function() {
+
+  // Edit Podcast link
+  $('#edit_link').click(function() { $('.limecast_form').toggle(); return false; });
+  $('.limecast_form .cancel').click(function(){ $(this).parents(".limecast_form").hide(); return false; });
+});
+// ---------------------------------
+// END STUFF MOVED OVER FROM SKND
+// ---------------------------------
+
+
 if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
 
 /**************************************************************
@@ -108,4 +122,8 @@ $(document).ready(function() {
     return false;
   });
 });
+
+
+
+
 

@@ -1,34 +1,20 @@
 <div class="episode">
   <% if episode.sources.first.screenshot? %>
-  <%= link_to(image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95), "#", :title => "#{episode.title} cover art") %>
+  <%= link_to(image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :
   <div>
   <% else %>
   <div class="no_screenshot">
   <% end %>
-    <h3><%= link_to episode.title, episode_url(:podcast => @podcast, :episode => episode) -%></h3>
+    <h3><%= link_to episode.title, episode_url(:podcast => @podcast, :episode => episode
     <p>
-      <span class="details"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></span>
+      <span class="details"><%= episode.published_at.to_date -%> - <%= time_to_words(epi
       <%= episode.summary -%>
     </p>
     <p class="links">
-      <%= link_to "View 5 min video preview", episode_url(:episode => episode, :podcast => @podcast) -%> |
+      <%= link_to "View 5 min video preview", episode_url(:episode => episode, :podcast 
       <a href="#">Discuss this episode (<%= episode.reviews.count -%>)</a>
     </p>
-
-<<<<<<< HEAD:app/views/episodes/_episode.erb
-    <%= render :partial => 'episodes/audio_player', :object => episode if episode.audio_source -%>
-=======
-  <div class="summary">
-    <span class="date"><%= link_to episode.published_at.to_date, episode_url(:episode => episode.clean_url, :podcast => episode.podcast) -%></span>
-    <span class="title"><%= @q ? search_excerpt(episode.title, @q) : episode.title -%></span>
-    <% if episode.duration and episode.duration > 0 -%>
-      <span class="duration">(<%= time_to_words(episode.duration) -%>)</span>
-    <% end -%>
-    <span class="partial_description">
-      <%= sanitize_condensed_summary(episode.summary) -%>
-    </span>
->>>>>>> 574d4c4ae2d933673a96140099b45c7765622578:app/views/episodes/_episode.erb
+    <%= render :partial => 'episodes/audio_player', :object => episode if episode.audio_
   </div>
-
 </div>
 

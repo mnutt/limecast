@@ -48,64 +48,65 @@
 
 <%= javascript_include_tag 'application' -%>
 
+<script type="text/javascript">
+$(document).ready(function(){
+
+  // Attach the global quick signup in the top-bar
+  $('#utility_nav .signin a').click(function(){
+    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {});
+  });
+
+});
+</script>
+
 </head>
 
 <body class="<%= @classes -%><%= " status_#@error" if @error %>">
-<div id="document">
 
-  <div id="header">
-    <div id="title">
-      <% if current_page?(all_url) -%>
-        <span><%= image_tag("icons/lime_sm.png", :class => "inline_icon") + "LimeCast" %></span>
-      <% else -%>
-        <%= link_to_with_icon("LimeCast", :lime_sm, all_url) %>
-      <% end -%>
-      Beta
-    </div>
-    <div class="add_podcast">
-    <% if current_page?('/add') -%>
-      <span><img src="/images/icons/add.png" class="inline_icon" />Add podcast</span>
-    <% else -%>
-      <%= link_to_with_icon "Add podcast", :add, add_podcast_path %>
-    <% end -%>
-    </div>
-    <div id="account_bar">
-      <ul>
-        <li class="search">
-          <% form_for :search, :url => search_url, :html => {:method => :get } do |form| -%>
-            <label for="q" class="default search">Search...</label>
-            <%= text_field_tag "q", params[:q], :size => 15, :class => "text search" %>
-            <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
+    <div id="wrapper">
+      <div id="header">
+        <div id="utility_nav">
+          <ul>
+            <li><a href="#"><strong>Join now!</strong></a> | </li>
+            <li><a href="#">Our Blog</a> | </li>
+            <li><a href="#">Learn more</a> | </li>
+          <% if current_user %>
+            <li><%= link_to_profile current_user -%></li>
+          <% else %>
+            <li class="signin"><%= link_to_with_icon "Sign in", :user, new_session_url -%></li>
+            <div class="quick_signin_container from_top_bar"></div>
           <% end -%>
-        </li>
-        <% if current_user -%>
-        <li class="user">
-          <%= link_to_profile current_user -%>
-        </li>
-        <% else -%>
-        <li class="signup">
-          <%= link_to_with_icon "Sign up or sign in", :user, new_session_url -%>
-        </li>
-        <% end -%>
-      </ul>
-      <% unless current_user -%><div class="quick_signin_container from_top_bar"></div><% end -%>
-    </div>
-  </div>
+          </ul>
+        </div>
 
-  <div id="content" class="clearfix">
-    <% if @full_width %>
 
-      <div id="full_width">
-        <%= yield -%>
-      </div>
+        <div id="global_nav">
+          <a href="/" id="logo"><span>LimeCast</span></a>
+          <!--
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Browse</a></li>
+            <li><a href="#">Popular</a></li>
+            <li><a href="#" id="add_podcast">Add podcast</a><li>
+          </ul>
+          -->
+          <a href="/add" id="add_podcast"><span>Add podcast</span></a>
 
-    <% else %>
+          <form action="/search" method="get" id="search">            
+            <input class="text search" id="q" name="q" size="15" type="text" />
+            <button type="submit">
+              <span>Search</span>
+            </button>
+          </form>
 
-      <div id="sidebar">
-        <%= @ads if @show_ads -%>
-      </div>
-      
-      <div id="primary">
+
+        </div> <!-- /global_nav -->
+      </div> <!-- /header -->
+  
+      <!-- HACK Use content wrapper so we can use margin on #content div. -->
+      <div id="content_wrapper">
+        <div id="content">
+
         <% if flash[:notice] -%>
           <span id="notice">
             <% if Array === flash[:notice] -%>
@@ -115,35 +116,74 @@
             <% end -%>
           </span>
         <% end -%>
+
+        <%= yield %>
+
+        </div> <!-- /content -->
+      </div> <!-- /content -->
+    </div> <!-- /wrapper -->
+  
+
         
-        <%= yield -%>
+        <div class="foot_wrapper">
+          <div id="footer">
+
+            <div class="about section">
+
+              <h4>About</h4>
+
+
+              <ul>
+                <li class="blog">
+                  <a href="http://limecast.limespot.com/"><span>Blog</span></a>
+                </li>
+                <li class="use">
+                  <a href="http://limecast.com/use"><span>Terms of use</span></a>
+
+                </li>
+                <li class="privacy">
+                  <a href="/privacy"><span>Privacy</span></a>
+                </li>
+                <li class="opensource">
+                  <a href="http://wiki.limewire.org/index.php?title=LimeCast"><span>Open source</span></a>
+                </li>
+              </ul>
+
+            </div>
+
+            <div class="legal section">
+
+
+              <h4>Legal</h4>
+
+              <ul>
+                <li class="refund">
+                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/refund" title="Refund Policy">Refund Policy</a>        </li>
+                <li class="refund">
+                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/privacy" title="Privacy Policy">Privacy Policy</a>        </li>
+
+                <li class="refund">
+                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/copyright" title="Copyright Information">Copyright Information</a>        </li>
+                <li class="refund">
+                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/safety" title="Using P2P Safely">Using P2P Safely</a>        </li>
+              </ul>
+
+            </div>
+
+            
+
+            <div class="info cf">
+              <!--<span class="cc_notice">Portions of this web site are available under a Creative Commons license, where noted.</span>-->
+              <span class="copyright">&copy; 2000 - 2009 Lime Wire LLC.</span>
+            </div>
+
+
       </div>
+    </div>
 
-    <% end -%>
-  </div>
+    <%= @tracker -%>
 
-</div>
-
-<div id="footer">
-  <ul class="primary">
-    <li class="blog">
-      <%= link_to "<span>Blog</span>", 'http://limecast.limespot.com/' %>
-    </li>
-    <li class="use">
-      <%= link_to "<span>Terms of use</span>", use_url %>
-    </li>
-    <li class="privacy">
-      <%= link_to "<span>Privacy</span>", '/privacy' %>
-    </li>
-    <li class="opensource">
-      <%= link_to "<span>Open source</span>", "http://wiki.limewire.org/index.php?title=LimeCast" %>
-    </li>
-  </ul>
-</div>
-
-<%= @tracker -%>
-
-<%= render :partial => 'users/quick_signin', :locals => { }  -%>
+    <%= render :partial => 'users/quick_signin', :locals => { }  -%>
 
 </body>
 </html>

@@ -131,53 +131,6 @@ h1.user_admin { background-image: url("../images/icons/marseilles-astronomical/u
 
 
 /**
-* Header - "Golden Line Separation" doesn't apply here
-**/
-div#header {
-  background: #181818 url("../images/layout/header_border.png") repeat-x left bottom;
-  position: relative;
-  padding: 11px 8px;
-}
-div#header div#title {
-  display: inline;
-}
-div#header div#title h1 {
-  display: inline;
-  padding: 0 0 0 2px;
-  margin: 12px 0 0;
-}
-div#header div.add_podcast {
-  display: inline;
-}
-div#header div#account_bar {
-  top: 0;
-  right: 10px;
-  position: absolute;
-  padding: 0;
-  margin: 0;
-  z-index: 1;
-}
-div#header div#account_bar ul {
-  margin: 0;
-  padding: 0;
-}
-div#header div#account_bar ul li {
-  margin: 0 0 0 10px;
-  padding: 10px 0 0 0;
-  float: left;
-}
-div#header div#account_bar ul li.search {
-  padding: 5px 0 0 0;
-  margin-right: -20px;
-}
-div#header div#account_bar ul li.search input.text {
-  top: 5px;
-}
-div#header div#account_bar ul li.search input.image_button {
-  top: 5px;
-}
-
-/**
 * Content
 **/
 div#content {
@@ -293,27 +246,6 @@ div#body a.action_button:hover span {
 #content .search input.text {
   width: 246px;
 }
-
-/**
-* Footer
-**/
-div#footer {
-  background: #181818 url("../images/layout/footer_border.png") repeat-x left top;
-  height: 30px;
-  position: relative;
-  padding: 10px 8px;
-  margin: -50px 0 0 0;
-}
-div#footer ul {
-  clear: both;
-}
-div#footer ul li {
-  margin: 0 5px 0 0;
-  float: left;
-}
-div#footer a {
-}
-
 
 /**
 * Forms

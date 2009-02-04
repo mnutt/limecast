@@ -14,7 +14,7 @@
   <%= podcast_form.label :has_p2p_acceleration, "Enable P2P acceleration" %>
 </div>
 <div class="field">
-  <%= podcast_form.check_box :_delete, :onchange => "if(!confirm('Are you SURE you want to mark this podcast for deletion?')) this.checked = false;" %>
+  <%= podcast_form.check_box :_delete %>
   <%= podcast_form.label :_delete, 'Delete podcast' %>
 </div>
 <br />
@@ -45,7 +45,7 @@
       <%= podcast_form.label "primary_feed_id_#{feed.id}", "Primary" %>
     </div>
     <div>
-      <%= feed_form.check_box :_delete, :onchange => "if(!confirm('Are you sure you want to mark this feed for deletion?')) this.checked = false;" %>
+      <%= feed_form.check_box :_delete %>
       <%= feed_form.label :_delete, 'Remove' %>
     </div>
   <% end -%>

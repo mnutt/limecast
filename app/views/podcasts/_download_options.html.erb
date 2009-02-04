@@ -1,0 +1,61 @@
+<script type="text/javascript">
+    $(function() {
+
+        $("a.help").click(function () {
+              $(this).toggleClass("help_on", 0);
+              $("#dl_help").toggle("blind", { direction: "vertical" }, 1000);
+              return false;
+            });
+            
+        $("a.hide").click(function () {
+              $("#download_options").fadeOut("slow");
+              $("#download_setting").fadeIn("slow");
+              //this needs some work.  need to turn off the help highlight if its on already
+              //$("a.help").toggleClass("help_on", 1000);
+              $("#dl_help").hide();
+              return false;
+            });
+        $("a.show_dl_options").click(function () {
+              $("#download_options").fadeIn("slow");
+              $("#download_setting").fadeOut("slow");
+              return false;
+            });
+      
+
+    });
+</script>
+
+
+
+<div id="download_options">
+  <div>
+    <p>Choose format (2 Steps):</p>
+    <form action="http://limecast.com/search" method="get" id="dl_option">            
+      <strong>1.</strong>
+      <input class="radio" id="w" name="q" type="radio" align="BOTTOM" /><label for="w">Web</label>
+      <input class="radio" id="m" name="q" type="radio" /><label for="m">LimeWire</label>
+      <strong>2.</strong>
+      <%= dropdown [["Flash (small)","flash-small"], ["Flash (large)", "flash-large"]], nil, {} %>
+    </form>
+    <ul id="dl_view">
+      <li><a href="#" class="help">help</a>|</li>
+      <li><a href="#" class="hide">hide</a></li>
+    </ul>
+  </div>
+</div>
+
+<div id="download_setting" style="display: none;">
+  <p>Download options set to Web/Flash(Small) | <a href="#" class="show_dl_options">Change</a>
+</div>
+
+<div id="dl_help" style="display: none;">
+  <h6>Step 1</h6>
+  <p><strong>Web:</strong> Choose this to download as normal through your browser.</p>
+  <p><strong>LimeWire:</strong> Choose this to download through LimeWire.  You must have it installed on your computer.  If you do not have it you can download it from <a href="http://www.limewire.com">LimeWire.com</a>.</p>
+  <h6>Step 2</h6>
+  <p>Select the type and quality of the file you would like to download.</p>
+  <p id="help_disclaimer">The settings you choose will be set in your browsers cookies but to ensure your settings
+  stay the same, login. Or if you don't have an account sign up!</p>
+
+</div>
+

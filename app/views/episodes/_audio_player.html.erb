@@ -1,11 +1,6 @@
 <% episode = audio_player -%>
-
-<div class="preview" style="margin: 0 0 14px 0">
-  <object type="application/x-shockwave-flash" data="/flash/player.swf" width="290" height="24" id="audioplayer_<%= episode.id -%>">
-    <param name="movie" value="/flash/player.swf" />
-    <param name="FlashVars" value="soundFile=<%= episode.audio_source.url -%>&playerID=<%= episode.id -%>" />
-    <param name="quality" value="high" />
-    <param name="menu" value="false" />
-    <param name="wmode" value="transparent" />
-  </object>
+<div class="audio_player">
+  <span class="label">Audio only version:</span>
+  <%= link_to nil, episode.audio_source.url, :class => "url" -%>
+  <a class="popup">Listen to in a pop-up window</a>
 </div>

@@ -32,6 +32,10 @@ class Source < ActiveRecord::Base
     File.basename(self.url)
   end
 
+  def resolution
+    [self.width, self.height].join("x") if self.width && self.height
+  end
+
   def primary?
     feed.primary?
   end

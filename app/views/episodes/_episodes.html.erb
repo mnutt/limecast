@@ -1,0 +1,14 @@
+<div class="episodes list rounded_corners">
+  <%# rounded_corners do -%>
+    <%= render :partial => "podcasts/info", :locals => {:podcast => podcast} -%>
+    <%= render :partial => "podcasts/view_options" -%>
+    <%= render :partial => "podcasts/download_options" -%>
+    <div id="episode_cont"><%= render :partial => "episodes/episode", :collection => episodes -%></div>
+    <%= will_paginate episodes,
+      :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Newer episodes" />',
+      :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Older episodes" />',
+      :inner_window   => 1,
+      :outer_window   => 1 -%>
+  <%# end -%>
+</div>
+

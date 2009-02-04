@@ -1,0 +1,49 @@
+<%- javascript_include "subscribe_button" -%>
+
+<div id="subscribe" class="itunes_feed">
+  <div>
+    <a href="#">
+      <h2>Subscribe</h2>
+      <p>iTunes <span>(Qt - small)</span></p>
+    </a>
+  </div>
+ 
+</div>
+
+<a href="#" class="options" id="s_options_toggle">Change subscription options</a>
+
+<div id="subscribe_options_container" class="rounded_corners clearfix" style="display: none">
+  <%# rounded_corners do -%>
+  <script type="text/javascript">
+    PODCAST_ID = <%= @podcast.id -%>;
+  </script>  
+  
+
+  <div id="subscribe_options">
+      <ul>
+        <li><a href="#itunes" class="itunes"><span>iTunes</span></a></li>
+        <li><a href="#miro" class="miro"><span>miro</span></a></li>
+        <li><a href="#rss" class="rss"><span>RSS</span></a></li>
+      </ul>
+    
+      <div id="itunes" class="pane">
+        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| "http://www.itunes.com/podcast?id=#{f.itunes_link}" } } -%>
+        <p class="info">340x240 - 1.6mg bitrate</p>
+      </div>
+    
+      <div id="miro" class="pane">
+        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "miro", :url => lambda {|f| "http://subscribe.getmiro.com/?url1=#{f.url}" } } -%>
+        <p class="info">340x240 - 1.6mg bitrate</p>
+      </div>
+    
+      <div id="rss" class="pane">
+        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "rss", :url => lambda {|f| f.url } } -%>
+        <p class="info">340x240 - 1.6mg bitrate</p>
+      </div>
+  </div>
+
+  <%# end -%>
+  
+
+</div>
+

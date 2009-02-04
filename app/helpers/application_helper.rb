@@ -1,5 +1,64 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+
+  # Renders a UL tag, where each LI has an A. The anchors have a +rel+ attribute
+  # that can be used by JS.
+  #
+  # Example:
+  #   * dropdown [["Most recent","recent"], ["First to last","oldest"]], 'oldest', {} -%>
+  #
+  def dropdown(links=[], selected=nil, options={})
+    title = options.delete(:title)
+    options[:class] = "dropdown #{options[:class]}"
+
+    selected = (selected.nil? ? (links.first) : (links.find {|l| l.last==selected}))
+#    focuser   = "<input class=\"focuser\" value=\"#{selected.first}\" readonly=\"readonly\" />"
+#    focuser = label_tag :focuser, selected.first, :class => 'focuser'
+    focuser = link_to selected.first, "#", :class => 'focuser'
+    
+    links   = case links
+              when Array
+                links.map { |l| 
+                  is_selected = (selected==l) ? " class=\"selected\"" : ""
+                  "<li#{is_selected}>#{link_to l.first, '#', :rel => l.last}</li>"
+                }
+              else
+                []
+              end.join
+
+    ul = "<ul>#{links}</ul>"
+    content_tag :div, "#{title}#{focuser}<div class=\"dropdown_wrap rounded_corners\">#{rounded_corners ul}</div>", {:class => options[:class]}.merge(options)
+  end
+  
+  # Important! You need to specity "rounded_corners" class on the element that wraps rounded_corners!!!!
+  def rounded_corners(text=nil, &block)
+    wrap = <<-ROUNDED
+    <div class="bt"><div></div></div><div class="i1"><div class="i2"><div class="i3">%s</div></div></div><div class="bb"><div></div></div>
+    ROUNDED
+    if block_given?
+      rounded_content = wrap % capture(&block)
+      block_called_from_erb?(block) ? concat(rounded_content) : rounded_content
+    else
+      wrap % text
+    end
+  end
+  
+
+  def comma_separated_list_items(arr)
+    delimited_items(arr) do |contents, comma|
+      "<li>#{contents}#{comma}</li>\n"
+    end
+  end
+
+  def delimited_items(arr, delimiter = ",")
+    # :-( RIP: "<li>" + arr.zip([","] * (arr.length-1)).map(&:join).join("</li><li>") + "</li>"
+    #        : a.fill((0..-2)){|i| "#{a[i]}," }.map {|i| "<li>#{i}</li>" }.join
+
+    arr.map do |i|
+      yield i, (delimiter unless i == arr.last)
+    end.join
+  end  
+
   def javascript_include(*scripts)
     @javascript_includes ||= []
     @javascript_includes << scripts

@@ -89,6 +89,19 @@ $(document).ready(function() {
   });
 });
 
+/**************************************************************
+* Sign In
+**************************************************************/
+$(document).ready(function(){
+
+  // Attach the global quick signup in the top-bar
+  $('#header .signin a').click(function(){
+    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {});
+  });
+
+});
+
+
 /*
 $.fn.extend({
   dropdown: function(opts){

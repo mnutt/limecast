@@ -103,20 +103,20 @@ module ApplicationHelper
     label = item.class == Source ? item.file_name : item.format
 
     if item.class == Feed
-      in_parens = [item.apparent_format, item.formatted_bitrate].compact
+      in_parens = [item.formatted_bitrate, item.apparent_format].compact
     else item.class == Source
       label = item.format if label.length > 12
       bitrate = item.feed.formatted_bitrate if item.feed
       file_size = item.size.to_file_size.to_s
 
-      in_parens = [bitrate, file_size].compact
+      in_parens = [file_size, item.format].compact
     end
 
     in_parens = unless in_parens.empty?
-      "(#{in_parens.compact.join(', ')})"
+      "#{in_parens.compact.join(' ')}"
     end
 
-    [label, in_parens].join(" ")
+    in_parens
   end
 
   def smart_truncate(string, length)

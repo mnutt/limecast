@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(:version => 20090203191845) do
     t.integer  "feed_id"
     t.string   "sha1hash",                :limit => 24
     t.string   "screenshot_file_name"
-    t.string   "stringshot_content_type"
-    t.string   "stringshot_file_size"
+    t.string   "screenshot_content_type"
+    t.string   "screenshot_file_size"
     t.string   "preview_file_name"
     t.string   "preview_content_type"
     t.string   "preview_file_size"

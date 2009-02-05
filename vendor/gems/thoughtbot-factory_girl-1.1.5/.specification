@@ -50,6 +50,8 @@ rdoc_options:
 - --main
 - README.textile
 require_paths: 
+- bin
+- bin
 - lib
 required_ruby_version: !ruby/object:Gem::Requirement 
   requirements: 

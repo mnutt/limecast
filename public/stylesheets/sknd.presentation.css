@@ -1,12 +1,81 @@
 body {text-align: center;}
-
 #wrapper {width: 980px; margin: 0 auto; text-align: left; overflow: auto;}
+
+#notice { 
+	color: red;
+	font-weight: bold;
+	background: white;
+	padding: 5px;
+}
+
+
+/**
+* Quick Signin/up
+**/
+
+form#quick_signin {
+  padding: 0;
+  color: #171717;
+}
+
+form#quick_signin .titlebar {
+  position: relative;
+  top: -10px;
+  right: -10px;
+}
+form#quick_signin a.close {
+  display: none;
+}
+form#quick_signin .message {
+  text-indent: 90px;
+  padding: 1em 0;
+}
+form#quick_signin input.text,
+form#quick_signin .response_container {
+  width: 200px;
+}
+form#quick_signin .response_container {
+  padding: 5px;
+  color: red !important;
+}
+form#quick_signin .response_container p {
+  font-size: 1em;
+}
+form#quick_signin .response_container a {
+  color: #a9a9a9;
+}
+
+.quick_signin_container.from_top_bar {
+  position: absolute;
+  top: 18px;
+  right: 0;
+  background-color: #2B2D2F;
+  z-index: 10;
+}
+.quick_signin_container.from_top_bar form#quick_signin a.close {
+  background: url("../images/icons/close.png") no-repeat center;
+  display: block;
+  text-indent: -5000px;
+  width: 16px;
+  height: 16px;
+  margin: 5px 5px 0 0;
+  overflow: hidden;
+  float: right;
+}
+.quick_signin_container.after_favoriting form#quick_signin .message {
+  position: relative;
+  top: -10px;
+}
+
+
+
 
 
 /*ul {display: inline;}
 ul li {display: inline;}
 
 */
+
 body {background: url('../imgs/header.png') top left repeat-x; }
 
 #wrapper {position: relative; margin: auto;}
@@ -19,6 +88,7 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 #content {
 	margin: 20px;
 }
+
 /**** Header **************/
 #utility_nav ul a {color: #fff;}
 #utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}

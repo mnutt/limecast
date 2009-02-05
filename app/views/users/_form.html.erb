@@ -1,15 +1,9 @@
-<div id="edit_form" style="display:none">
-  <% form_for :user_attr, current_user do |f| -%>
     <div class="field">
-      <%= f.label :email, "Email" -%>
-      <div>
-        <%= f.text_field :email, :class => "text" -%>
-      </div>
+      <%= user_form.label :email, "Email" -%>
+      <%= user_form.text_field :email, :class => "text" -%>
     </div>
     
-    <div class="controls">
-      <%= submit_tag "Save", :class => "button" -%>
-      <%= submit_tag "Cancel", :class => "button cancel" -%>
+    <div class="field">
+      <%= user_form.check_box :_delete, :onchange => "if(!confirm('Are you SURE you want to delete #{current_user==@user ? 'your' : 'this'} account?')) this.checked = false;" %>
+      <%= user_form.label :_delete, 'Delete account' %>
     </div>
-  <% end -%>
-</div>

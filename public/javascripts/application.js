@@ -106,20 +106,18 @@ $(window).bind("load", function() {
 * Video Preview
 **************************************************************/
 $(document).ready(function() {
-  $(".preview .container img").click(function() {
-    var flashvars = {
-      videoURL: $(this).attr('rel'),
-      playOnOpen: true
-    };
+  var preview = $(".preview .container img");
+  var flashvars = {
+    previewURL: preview.attr('src'),
+    videoURL: preview.attr('rel'),
+    playOnOpen: true
+  };
 
-    $(this).parent('div').empty().flash({
-      src:       "/flash/LimePlayer.swf",
-      width:     $(this).attr('width'),
-      height:    $(this).attr('height'),
-      flashvars: flashvars
-    });
-
-    return false;
+  preview.parent('div').empty().flash({
+    src:       "/flash/CastPlayer.swf",
+    width:     preview.attr('width'),
+    height:    preview.attr('height'),
+    flashvars: flashvars
   });
 });
 

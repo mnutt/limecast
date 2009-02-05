@@ -16,7 +16,7 @@
   <%= rss_link(feed) -%>
 <% end %>
 
-<%= stylesheet_link_tag 'reset', 'base', 'application' -%>
+<%= stylesheet_link_tag 'reset', 'application' -%>
 <!--[if IE 7]>
 <%= stylesheet_link_tag 'base_ie7', 'application_ie7' -%>
 <![endif]-->
@@ -25,6 +25,7 @@
 
 <%= javascript_include_tag 'jquery' -%>
 <%= javascript_include_tag 'jquery-periodic' -%>
+<%= javascript_include_tag 'jquery.truncate' -%>
 <%= javascript_include_tag 'jquery.reflect' -%>
 <%= javascript_include_tag 'jquery.tabs' -%>
 <%= javascript_include_tag 'jquery.cookie' -%>

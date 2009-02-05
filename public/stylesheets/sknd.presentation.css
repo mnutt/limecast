@@ -1,13 +1,82 @@
 body {text-align: center;}
-
 #wrapper {width: 980px; margin: 0 auto; text-align: left; overflow: auto;}
+
+#notice { 
+	color: red;
+	font-weight: bold;
+	background: white;
+	padding: 5px;
+}
+
+
+/**
+* Quick Signin/up
+**/
+
+form#quick_signin {
+  padding: 0;
+  color: #171717;
+}
+
+form#quick_signin .titlebar {
+  position: relative;
+  top: -10px;
+  right: -10px;
+}
+form#quick_signin a.close {
+  display: none;
+}
+form#quick_signin .message {
+  text-indent: 90px;
+  padding: 1em 0;
+}
+form#quick_signin input.text,
+form#quick_signin .response_container {
+  width: 200px;
+}
+form#quick_signin .response_container {
+  padding: 5px;
+  color: red !important;
+}
+form#quick_signin .response_container p {
+  font-size: 1em;
+}
+form#quick_signin .response_container a {
+  color: #a9a9a9;
+}
+
+.quick_signin_container.from_top_bar {
+  position: absolute;
+  top: 18px;
+  right: 0;
+  background-color: #2B2D2F;
+  z-index: 10;
+}
+.quick_signin_container.from_top_bar form#quick_signin a.close {
+  background: url("../images/icons/close.png") no-repeat center;
+  display: block;
+  text-indent: -5000px;
+  width: 16px;
+  height: 16px;
+  margin: 5px 5px 0 0;
+  overflow: hidden;
+  float: right;
+}
+.quick_signin_container.after_favoriting form#quick_signin .message {
+  position: relative;
+  top: -10px;
+}
+
+
+
 
 
 /*ul {display: inline;}
 ul li {display: inline;}
 
 */
-body {background: url('../imgs/header.png') top left repeat-x; }
+
+body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 #wrapper {position: relative; margin: auto;}
 #header {position: relative; margin: 0; height: 54px;}
@@ -19,6 +88,7 @@ body {background: url('../imgs/header.png') top left repeat-x; }
 #content {
 	margin: 20px;
 }
+
 /**** Header **************/
 #utility_nav ul a {color: #fff;}
 #utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}
@@ -71,9 +141,136 @@ a#add_podcast span, a#logo span {
 
 
 
+/**** homepage **************/
+
+#mission {
+	height: 137px;
+	width: 945px;
+	margin: -20px 0 0 -3px;
+	background: url('../imgs/bg_mission.png') bottom left no-repeat;
+}
+
+#mission h1 {
+	padding: 15px 0 0 25px;
+	font-size: 1.8em;
+}
+
+#mission ul {
+	margin-left: 35px;
+}
+
+#mission ul li {
+	padding: 0 0 10px 16px;
+	font-size: 1.3em;
+	background: url('../imgs/mission_bullet.png') 0px 4px no-repeat;
+}
+
+
+#featured_cont {
+	height: 229px;
+	margin: 20px -20px 20px -20px;
+	background: url('../imgs/bg_hp_featured.png') top left repeat-x;
+}
+
+#featured {
+	margin: 20px 0px 20px 40px;
+	overflow: hidden;
+}
+
+#featured h2 {
+	margin-top: 10px;
+	color: #171717;
+}
+
+#first_featured {
+	margin-right: 40px;
+}
+
+.new #featured .description {
+	background: none;
+	float: left;
+	width: 440px;
+}
+
+.new #featured .s_desc {
+
+	width: 255px;
+}
+
+.new #featured .social {
+	font-size: .7em;
+	position: absolute;
+	bottom: -34px;
+}
+
+#pop_recent_cont {
+	float: left;
+}
+
+#tags_review_cont {
+	float: right;
+}
+
+
+#pop_recent_cont .description, #tags_review_cont .description {
+	background: none;
+	width: 440px;
+}
+
+#pop_recent_cont .description .s_desc, #tags_review_cont .description .s_desc {
+	background: none;
+	width: 315px;
+}
+
+#pop_recent_cont, #tags_review_cont {
+	width: 460px;
+}
+
+#pop_recent_cont .preview, #pop_recent_cont .preview img, #tags_review_cont .preview, #tags_review_cont .preview img {
+	width: 55px;
+}
+
+#pop_recent_cont h6, #pop_recent_cont .s_desc ul, #tags_review_cont h6, #tags_review_cont .s_dec ul {
+	font-size: 1.2em;
+}
+
+
+#pop_recent_cont .callout, #tags_review_cont .callout {
+	float: right;
+}
+
+#hp_tower, #hp_open {
+	margin: 20px 0;
+	width: 464px;
+	height: 95px;
+}
+
+#hp_tower h3, #hp_open h3 {
+	margin: 20px 0 0 100px;
+}
+
+#hp_tower p, #hp_open p {
+	font-size: 1.2em;
+	margin: 0px 30px 0 100px;
+}
+
+#hp_tower {
+	float: left;
+	background: url('../imgs/hp_tower.png');
+}
+
+#hp_open {
+	float: right;
+
+	background: url('../imgs/hp_open.png');
+}
+
+
+
+
 
 /**** Summary **************/
-.show .summary .preview {	
+.summary .preview {	
 	float: left;
 	margin-right: 20px;
 }
@@ -147,14 +344,14 @@ a#add_podcast span, a#logo span {
 	margin-top: 3px;
 }
 
-.show .description #s_desc {
+.description .s_desc {
 	position: relative;
 	float: left;
 	width: 460px;
 	
 }
 
-.show #s_desc h6 {
+.s_desc h6 {
 	color: #a9a9a9;
 	font-size: 1.4em;
 	font-weight: normal;
@@ -162,23 +359,23 @@ a#add_podcast span, a#logo span {
 	display: inline;
 }
 
-.show p.favorite_cont {
+p.favorite_cont {
 	font-size: 1.2em;
 	padding: 8px 0 5px 0;
 	float: right;
 }
 
-.show #s_desc p {
+.s_desc p {
 	margin: -5px 0 5px 0;
 }
 
-.show #s_desc ul, .show #s_desc ul li {
+.s_desc ul, .s_desc ul li {
 	display: inline;
 	font-size: 1.2em;
 	color: #a9a9a9;
 }
 
-.show .description {
+.description {
 	overflow: visible;
 	position: relative;
 	padding-bottom: 20px;
@@ -730,4 +927,80 @@ div#footer div.section ul li {
 padding:0 0 5px;
 }
 
+
+/* Brwose page **/
+
+.podcast.index #browse {
+	position: relative;
+	width: 700px;
+}
+
+.podcast.index #sort {
+	top: 12px;
+}
+
+.podcast.index .preview img {
+	width: 100px;
+	float: left;
+	border: 1px solid #aeaba1;
+}
+
+.podcast.index .description {
+	margin: 20px 0 0 5px;
+	padding: 0;
+}
+
+.podcast.index .s_desc {
+	position: relative;
+	width: 540px;
+	padding: 0;
+}
+
+.podcast.index .social {
+	font-size: .7em;
+	width: auto;
+	margin-top: 10px;
+}
+.podcast.index .addit {
+	float: right;
+	margin: 14px 5px 0px 0;
+}
+
+
+
+#view_options {
+	font-size: .9em;
+	padding: 2px 0 6px 0;
+	border-bottom: 1px solid #ddd;
+	margin: 0 5px;
+}
+
+#e_info p span, .podcast.show #view_options p {
+	color: #a9a9a9;
+}
+
+#view_options p {
+	display: inline;
+}
+
+
+
+#view_options img {
+	padding: 2px;
+	margin-right: 1px;
+	position: relative;
+	top: 4px;
+	left: 0px;
+}
+
+#view_options .per_page {
+	border-left: 1px solid #a9a9a9;
+	padding-left: 7px;
+	display: inline;
+}
+
+#view_options .per_page a.pp_current {
+	border: 1px solid #a9a9a9;
+	padding: 0px 4px;
+}
 

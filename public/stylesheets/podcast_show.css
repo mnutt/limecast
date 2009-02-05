@@ -134,42 +134,6 @@
 	margin: 0 5px;
 }
 
-.podcast.show #view_options {
-	font-size: .9em;
-	padding: 2px 0 6px 0;
-	border-bottom: 1px solid #ddd;
-	margin: 0 5px;
-}
-
-.podcast.show #e_info p span, .podcast.show #view_options p {
-	color: #a9a9a9;
-}
-
-.podcast.show #view_options p {
-	display: inline;
-}
-
-
-
-.podcast.show #view_options img {
-	padding: 2px;
-	margin-right: 1px;
-	position: relative;
-	top: 4px;
-	left: 0px;
-}
-
-.podcast.show #view_options .per_page {
-	border-left: 1px solid #a9a9a9;
-	padding-left: 7px;
-	display: inline;
-}
-
-.podcast.show #view_options .per_page a.pp_current {
-	border: 1px solid #a9a9a9;
-	padding: 0px 4px;
-}
-
 .podcast.show #episode_cont {
 	margin: 60px 0px 20px 0px;
 }

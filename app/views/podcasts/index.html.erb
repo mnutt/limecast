@@ -8,7 +8,7 @@
     
     <script type="text/javascript">
      $().ready(function() {  
-      $('.s_desc>p').jTruncate({  
+      $('.s_desc > p').jTruncate({  
        length: 130,  
       });  
      });
@@ -24,7 +24,7 @@
       </p>
       <p class="per_page">
         <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
-          <%= link_to count, {:limit => count}, :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : nil -%><%= comma -%>
+          <%= link_to count, all_url(:limit => count), :class => ((params[:limit] || 5).to_i == count) ? "pp_current" : nil -%><%= comma -%>
         <% end -%>
         per page
       </p>
@@ -33,9 +33,13 @@
       </div>
     </div>
     
-    <!--<ul class="podcasts">-->
-      <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
-    <!--</ul>-->
+    <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
+
+    <%= will_paginate @podcasts,
+      :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Newer episodes" />',
+      :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Older episodes" />',
+      :inner_window   => 1,
+      :outer_window   => 1 -%>
       <% end -%>
   </div>
 </div>

@@ -2,8 +2,8 @@ class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
 
   def index
-    @podcasts = Podcast.parsed.sorted
-    @podcast = @podcasts.first
+    @podcasts = Podcast.sorted.
+      paginate(:page => (params[:page] || 1), :per_page => params[:limit] || 5)
   end
 
   def recs

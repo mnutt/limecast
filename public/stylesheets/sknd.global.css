@@ -7,8 +7,8 @@
 
 
 /**** Form elements **************/
-.show form#search {text-align: right; margin: 3px 0 0 0px; display: block;}
-.show form#search input.text {
+form#search {text-align: right; margin: 3px 0 0 0px; display: block;}
+form#search input.text {
 	background: url('../imgs/text_box.png') top left repeat-x;
 	width: 152px;
 	height: 19px;

@@ -143,7 +143,7 @@ a#add_podcast span, a#logo span {
 
 
 /**** Summary **************/
-.show .summary .preview {	
+.summary .preview {	
 	float: left;
 	margin-right: 20px;
 }
@@ -217,14 +217,14 @@ a#add_podcast span, a#logo span {
 	margin-top: 3px;
 }
 
-.show .description #s_desc {
+.description .s_desc {
 	position: relative;
 	float: left;
 	width: 460px;
 	
 }
 
-.show #s_desc h6 {
+.s_desc h6 {
 	color: #a9a9a9;
 	font-size: 1.4em;
 	font-weight: normal;
@@ -232,23 +232,23 @@ a#add_podcast span, a#logo span {
 	display: inline;
 }
 
-.show p.favorite_cont {
+p.favorite_cont {
 	font-size: 1.2em;
 	padding: 8px 0 5px 0;
 	float: right;
 }
 
-.show #s_desc p {
+.s_desc p {
 	margin: -5px 0 5px 0;
 }
 
-.show #s_desc ul, .show #s_desc ul li {
+.s_desc ul, .s_desc ul li {
 	display: inline;
 	font-size: 1.2em;
 	color: #a9a9a9;
 }
 
-.show .description {
+.description {
 	overflow: visible;
 	position: relative;
 	padding-bottom: 20px;
@@ -800,4 +800,80 @@ div#footer div.section ul li {
 padding:0 0 5px;
 }
 
+
+/* Brwose page **/
+
+.podcast.index #browse {
+	position: relative;
+	width: 700px;
+}
+
+.podcast.index #sort {
+	top: 12px;
+}
+
+.podcast.index .preview img {
+	width: 100px;
+	float: left;
+	border: 1px solid #aeaba1;
+}
+
+.podcast.index .description {
+	margin: 20px 0 0 5px;
+	padding: 0;
+}
+
+.podcast.index .s_desc {
+	position: relative;
+	width: 540px;
+	padding: 0;
+}
+
+.podcast.index .social {
+	font-size: .7em;
+	width: auto;
+	margin-top: 10px;
+}
+.podcast.index .addit {
+	float: right;
+	margin: 14px 5px 0px 0;
+}
+
+
+
+#view_options {
+	font-size: .9em;
+	padding: 2px 0 6px 0;
+	border-bottom: 1px solid #ddd;
+	margin: 0 5px;
+}
+
+#e_info p span, .podcast.show #view_options p {
+	color: #a9a9a9;
+}
+
+#view_options p {
+	display: inline;
+}
+
+
+
+#view_options img {
+	padding: 2px;
+	margin-right: 1px;
+	position: relative;
+	top: 4px;
+	left: 0px;
+}
+
+#view_options .per_page {
+	border-left: 1px solid #a9a9a9;
+	padding-left: 7px;
+	display: inline;
+}
+
+#view_options .per_page a.pp_current {
+	border: 1px solid #a9a9a9;
+	padding: 0px 4px;
+}
 

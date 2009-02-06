@@ -73,6 +73,8 @@ class Feed < ActiveRecord::Base
     url = 'http://' + url unless url =~ %r{://}
 
     url
+  rescue
+    ""
   end
 
   def fetch

@@ -3,16 +3,11 @@ $(document).ready(function(){
 
   $('form#new_review').submit(function(){
     var new_review_form = $(this);
-  console.log("hey");
-  console.log($(this).attr('action'));
-  console.log($(this).serialize());
     $.ajax({
       type:    'post',
-      url:     $(this).attr('action'),
-      data:    $(this).serialize(),
+      url:     new_review_form.attr('action'),
+      data:    new_review_form.serialize(),
       dataType: "json",
-      complete: function(resp){ console.log(resp.responseText);// for(var i in resp){ console.log(resp[i]); console.log(i); }
-      },
       success: function(resp){
         if(resp.logged_in) {
           window.location.reload();

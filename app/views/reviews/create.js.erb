@@ -1,3 +1,1 @@
-{ logged_in: <%= !!current_user %>,
-  <% if current_user -%> html: '<%= escape_javascript render(:partial => 'reviews/review', :object => @review).gsub("'",'"').gsub("\n", "") %>' <% end -%>
-}
+{ logged_in: <%= !!current_user %> }

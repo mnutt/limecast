@@ -76,7 +76,7 @@ ul li {display: inline;}
 
 */
 
-body {background: url('../imgs/header.png') top left repeat-x; }
+body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 #wrapper {position: relative; margin: auto;}
 #header {position: relative; margin: 0; height: 54px;}
@@ -138,6 +138,133 @@ a#add_podcast span, a#logo span {
 /* Show specific */
 .show .summary { overflow: visible;}
 .show .supplemental {overflow: hidden; position:  relative; margin: 20px 0; width: 640px;}
+
+
+
+/**** homepage **************/
+
+#mission {
+	height: 137px;
+	width: 945px;
+	margin: -20px 0 0 -3px;
+	background: url('../imgs/bg_mission.png') bottom left no-repeat;
+}
+
+#mission h1 {
+	padding: 15px 0 0 25px;
+	font-size: 1.8em;
+}
+
+#mission ul {
+	margin-left: 35px;
+}
+
+#mission ul li {
+	padding: 0 0 10px 16px;
+	font-size: 1.3em;
+	background: url('../imgs/mission_bullet.png') 0px 4px no-repeat;
+}
+
+
+#featured_cont {
+	height: 229px;
+	margin: 20px -20px 20px -20px;
+	background: url('../imgs/bg_hp_featured.png') top left repeat-x;
+}
+
+#featured {
+	margin: 20px 0px 20px 40px;
+	overflow: hidden;
+}
+
+#featured h2 {
+	margin-top: 10px;
+	color: #171717;
+}
+
+#first_featured {
+	margin-right: 40px;
+}
+
+.new #featured .description {
+	background: none;
+	float: left;
+	width: 440px;
+}
+
+.new #featured .s_desc {
+
+	width: 255px;
+}
+
+.new #featured .social {
+	font-size: .7em;
+	position: absolute;
+	bottom: -34px;
+}
+
+#pop_recent_cont {
+	float: left;
+}
+
+#tags_review_cont {
+	float: right;
+}
+
+
+#pop_recent_cont .description, #tags_review_cont .description {
+	background: none;
+	width: 440px;
+}
+
+#pop_recent_cont .description .s_desc, #tags_review_cont .description .s_desc {
+	background: none;
+	width: 315px;
+}
+
+#pop_recent_cont, #tags_review_cont {
+	width: 460px;
+}
+
+#pop_recent_cont .preview, #pop_recent_cont .preview img, #tags_review_cont .preview, #tags_review_cont .preview img {
+	width: 55px;
+}
+
+#pop_recent_cont h6, #pop_recent_cont .s_desc ul, #tags_review_cont h6, #tags_review_cont .s_dec ul {
+	font-size: 1.2em;
+}
+
+
+#pop_recent_cont .callout, #tags_review_cont .callout {
+	float: right;
+}
+
+#hp_tower, #hp_open {
+	margin: 20px 0;
+	width: 464px;
+	height: 95px;
+}
+
+#hp_tower h3, #hp_open h3 {
+	margin: 20px 0 0 100px;
+}
+
+#hp_tower p, #hp_open p {
+	font-size: 1.2em;
+	margin: 0px 30px 0 100px;
+}
+
+#hp_tower {
+	float: left;
+	background: url('../imgs/hp_tower.png');
+}
+
+#hp_open {
+	float: right;
+
+	background: url('../imgs/hp_open.png');
+}
+
 
 
 

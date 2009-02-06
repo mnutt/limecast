@@ -21,8 +21,6 @@ class PodcastsController < ApplicationController
 
     @reviews = @podcast.reviews
     @review  = Review.new(:episode => @podcast.episodes.newest.first)
-
-    render
   end
 
   def info

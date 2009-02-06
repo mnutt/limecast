@@ -46,7 +46,7 @@ class ReviewsController < ApplicationController
 
     if current_user
       @review.reviewer = current_user
-      @review.save
+      @review.save!
     else
       session[:review] = review_params
     end

@@ -70,7 +70,7 @@ class Feed < ActiveRecord::Base
     url = self.read_attribute(:url)
 
     # Add http:// if the url does not have :// in it.
-    url = 'http://' + url unless url =~ %r{://}
+    url = 'http://' + url.to_s unless url.to_s =~ %r{://}
 
     url
   end

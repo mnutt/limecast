@@ -44,3 +44,6 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 
 
 
+.close {float: right; padding-right: 18px; background: url('../imgs/icons/close.png') center right no-repeat;}
+
+a.close:hover {background: url('../imgs/icons/close_o.png') center right no-repeat;}

@@ -83,7 +83,7 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 #content_wrapper {
 	position: relative;
 	overflow: hidden;
-	background: #f9f9f9 url('../imgs/bg_content.png') top left repeat-x;
+	background: #f1f1f1 url('../imgs/bg_content.png') top left repeat-x;
 }
 #content {
 	margin: 20px;
@@ -143,14 +143,27 @@ a#add_podcast span, a#logo span {
 
 /**** homepage **************/
 
-#mission {
-	height: 137px;
-	width: 945px;
-	margin: -20px 0 0 -3px;
-	background: url('../imgs/bg_mission.png') bottom left no-repeat;
+.new #content {
+	margin: 0 20px 20px 20px;
 }
 
-#mission h1 {
+#mission {
+	position: relative;
+	height: 137px;
+	width: 945px;
+	margin: 0px 0 0 -3px;
+	background: url('../imgs/bg_mission.png') bottom left no-repeat;
+	z-index: 100000000000000000;
+}
+
+#mission_hidden {
+	position: absolute;
+	top: 0px;
+	left: 17px;
+	z-index: 1;
+}
+
+#mission h1, #mission_hidden h1 {
 	padding: 15px 0 0 25px;
 	font-size: 1.8em;
 }
@@ -164,6 +177,8 @@ a#add_podcast span, a#logo span {
 	font-size: 1.3em;
 	background: url('../imgs/mission_bullet.png') 0px 4px no-repeat;
 }
+
+.new #close_misson {margin: 3px 3px 5px 0; overflow: visible; display: block; height: 10px;}
 
 
 #featured_cont {
@@ -246,7 +261,7 @@ a#add_podcast span, a#logo span {
 }
 
 #hp_tower h3, #hp_open h3 {
-	margin: 20px 0 0 100px;
+	margin: 15px 0 0 100px;
 }
 
 #hp_tower p, #hp_open p {
@@ -465,7 +480,7 @@ div#sort .dropdown label {
 
 .show .supplemental h2.current span {
 	padding: 10px 40px 7px 10px;
-	background: #fff url('../imgs/tab_right.png') top right no-repeat;
+	background: url('../imgs/tab_right.png') top right no-repeat;
 }
 
 .show .supplemental #series_reviews {

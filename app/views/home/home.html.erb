@@ -11,18 +11,37 @@
  });
 </script>
 
+<script type="text/javascript">
+    $(function() {
 
+        $("#close_misson").click(function () {
+              $("#mission").toggle("blind", { direction: "vertical" }, 0300);
+              $("a.close").text($("a.close").text() == 'Close intro'  : 'Show intro'); 
+              return false;
+            });
+  
+      
+
+    });
+</script>
 
 
 
 <div class="summary">
+  
+  
   <div id="mission">
     <h1>Welcome to LimeCast, <a href="http://www.limewire.com">LimeWire's</a> new <a href="all">Podcast Directory</a>.</h1>
       <ul>
         <li>Peer-to-peer technology is reducing the distribution cost of open media to darn near zero.</li>
         <li>We're building software tools to let everyone <a href="#">get involved</a>.</li>
       </ul>
-    
+  </div>
+  
+
+  
+  <div id="close_misson">
+    <a href="#" class="close">Close intro</a>
   </div>
   
   

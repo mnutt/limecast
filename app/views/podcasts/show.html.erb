@@ -16,8 +16,8 @@
     <a href="#">Episodes</a>
   </h2>
   <h2 class="linkable<%= " current" if params[:controller] == 'reviews' %>">
-    <span>Series reviews (<%= @reviews.count %>)</span>
-    <a href="#" id="series_reviews">Series reviews (<%= @podcast.episodes.count %>)</a>
+    <span>Series reviews (<%= @podcast.reviews.count %>)</span>
+    <a href="#" id="series_reviews">Series reviews (<%= @podcast.reviews.count %>)</a>
   </h2>
 
   <div class="wrapper"<%= " style=\"display: none;\"" if params[:controller] == 'reviews' %>>
@@ -25,7 +25,7 @@
   </div>
     
   <div class="wrapper"<%= " style=\"display: none;\"" unless params[:controller] == 'reviews' %>>
-    <%= render :partial => 'reviews/reviews', :object => @reviews, :locals => {:podcast => @podcast} %>
+    <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => {:podcast => @podcast} %>
   </div>
 
 </div>

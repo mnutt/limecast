@@ -107,10 +107,13 @@ $(window).bind("load", function() {
 **************************************************************/
 $(document).ready(function() {
   var preview = $(".preview .container img");
+  var url = window.location.href
+  var hasPlayInUrl = url.lastIndexOf("play") > url.lastIndexOf("?");
+
   var flashvars = {
     previewURL: preview.attr('src'),
     videoURL: preview.attr('rel'),
-    playOnOpen: true
+    playOnOpen: hasPlayInUrl
   };
 
   preview.parent('div').empty().flash({

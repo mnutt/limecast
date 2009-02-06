@@ -490,7 +490,25 @@
           </div>
           
           </li>
-          </ul>
+          
+          <li id="<%=h dom_id(@review) -%>" class="review <%= @review.positive? ? "positive" : "negative" %> clearfix">
+          <div class="info">
+            <cite><%= link_to_profile @review.reviewer -%></cite>
+            <span class="created_at light"><%= time_ago_in_words @review.created_at %> ago</span>
+            <!--<a href="#" class="allreviews">See all my reviews</a>-->
+          </div>
+
+          <div class="summary">
+            <span class="title"><%= @review.title -%></span>
+            <span class="body"><%= unescape_entities(@review.body) -%></span>
+            
+
+            <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
+          </div>
+          
+          </li>
+          
+        </ul>
           
           
           

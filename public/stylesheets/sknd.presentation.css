@@ -258,6 +258,12 @@ a#add_podcast span, a#logo span {
 	float: right;
 }
 
+
+#tags_review_cont li.review .summary {
+	width: 250px;
+}
+
+
 #hp_tower, #hp_open {
 	margin: 20px 0;
 	width: 464px;

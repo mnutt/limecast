@@ -1,6 +1,6 @@
 <% @title = "#{unescape_entities(h(@episode.title))}" -%>
 <% @show_ads = true -%>
-<% javascript_include "review_edit", "review_delete", "episode_delete" -%>
+<% javascript_include "review_edit", "review_delete", "episode_delete", 'AC_OETags' -%>
 
 <div class="podcast">
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
@@ -33,8 +33,9 @@
       <div class="summary">
         <p><%=sanitize_summary @episode.summary %></p>
       </div>
-    
-      <%= render :partial => 'episodes/video_player', :object => @episode if @episode.sources.first.preview.exists? -%>
+      <div class="preview">
+        <%= render :partial => 'episodes/video_player', :object => @episode if @episode.sources.first.preview.exists? -%>
+      </div>
       <%= render :partial => 'episodes/audio_player', :object => @episode if @episode.audio_source -%>
       <%= render :partial => 'episodes/super_button', :locals => {:sources => @episode.sources} -%>
     </div>

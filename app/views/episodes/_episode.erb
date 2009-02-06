@@ -12,7 +12,9 @@
   <div class="full">
     <p class="description searched"><%= @q ? search_excerpt(episode.summary, @q) : sanitize_condensed_summary(episode.summary) -%></p>
 
-    <%= render :partial => 'episodes/video_player', :object => episode if episode.sources.first.preview.exists? -%>
+    <div class="preview">
+      <%= render :partial => 'episodes/video_player', :object => episode if episode.sources.first.preview.exists? -%>
+    </div>
     <%= render :partial => 'episodes/audio_player', :object => episode if episode.audio_source -%>
     <%= render :partial => 'episodes/super_button', :locals => {:sources => episode.sources} -%>
   </div>

@@ -237,8 +237,12 @@ a#add_podcast span, a#logo span {
 	width: 315px;
 }
 
-#pop_recent_cont, #tags_review_cont {
+#pop_recent_cont , #tags_review_cont {
 	width: 460px;
+}
+
+#pop_recent_cont .i3 , #tags_review_cont  .i3 {
+	height: 265px;
 }
 
 #pop_recent_cont .preview, #pop_recent_cont .preview img, #tags_review_cont .preview, #tags_review_cont .preview img {

@@ -2,6 +2,9 @@ class HomeController < ApplicationController
   def home
     @podcasts = Podcast.parsed.sorted
     @podcast = @podcasts.first
+  
+    @reviews = @podcast.reviews
+    @review = @reviews.first
   end
 
   def stats

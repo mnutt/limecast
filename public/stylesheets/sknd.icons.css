@@ -44,6 +44,8 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 
 
 
-.close {float: right; padding-right: 18px; background: url('../imgs/icons/close.png') center right no-repeat;}
-
+.close {float: right; padding-right: 18px; background: url('../imgs/icons/close.png') center right no-repeat; outline: none;}
 a.close:hover {background: url('../imgs/icons/close_o.png') center right no-repeat;}
+
+.openarrow {float: right; padding-right: 18px; background: url('../imgs/icons/openarrow.png') center right no-repeat; outline: none;}
+a.openarrow:hover {background: url('../imgs/icons/openarrow_o.png') center right no-repeat;}

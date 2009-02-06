@@ -70,9 +70,11 @@ class Feed < ActiveRecord::Base
     url = self.read_attribute(:url)
 
     # Add http:// if the url does not have :// in it.
-    url = 'http://' + url unless url =~ %r{://}
+    url = 'http://' + url.to_s unless url.to_s =~ %r{://}
 
     url
+  rescue
+    ""
   end
 
   def fetch
@@ -113,7 +115,7 @@ class Feed < ActiveRecord::Base
   def update_episodes!
     @feed.episodes.each do |e|
       # XXX: Definitely need to figure out something better for this.
-      episode = self.podcast.episodes.find_by_summary(e.summary) || self.podcast.episodes.find_by_title(e.title) || self.podcast.episodes.new
+      episode = self.podcast.episodes.find_by_title(e.title) || self.podcast.episodes.new
       source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => self)
 
       # The feed is a duplicate if the source found matches a source from another feed.

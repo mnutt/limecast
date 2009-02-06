@@ -26,29 +26,9 @@
       <p><a href="#"><strong>Join now by creating an account</strong></a> or <a href="#"><strong>sign in</strong></a> to review this series.</p>
     </div>
     <div id="review_doit">
-      <% if false%>
-        <% if can_add_reviews?(episode) %>
-          <%= render :partial => 'reviews/add_review', :object => podcast -%>
-        <% end %>
-        <h4>Review this series</h4>
-        <form action="" method="get" id="leave_series_review">         
-          <p><strong>Mark as:</strong>
-          <img src="../images/icons/thumbs_up.png" alt="Thumb's up"/>
-          <input class="radio" id="p" name="p" type="radio" align="BOTTOM" /><label for="p">Positive</label>
-          <img src="../images/icons/thumbs_down.png" alt="Thumb's down"/>
-          <input class="radio" id="n" name="p" type="radio" /><label for="n">Negative</label>
-          <h6>Heading</h6>
-          <input class="text search" id="q" name="q" size="15" type="text" />
-          <h6>Your review of the 1Up Show</h6>
-          <textarea rows="2" cols="20"></textarea>
-  
-          </p>
-          <button type="submit">
-            <span>Submit review</span>
-          </button>
-        </form>
+      <% if can_add_reviews?(episode) %>
+        <%= render :partial => 'reviews/add_review', :object => podcast -%>
       <% end %>
-      
     </div>
   <% end -%>
 </div><!-- /s_reviews -->

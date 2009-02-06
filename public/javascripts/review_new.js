@@ -1,19 +1,15 @@
 $(document).ready(function(){
+  console.log("hey");
 
   $('form#new_review').submit(function(){
     var new_review_form = $(this);
     $.ajax({
       type:    'post',
-      url:     $(this).attr('action'),
-      data:    $(this).serialize(),
+      url:     new_review_form.attr('action'),
+      data:    new_review_form.serialize(),
       dataType: "json",
       success: function(resp){
         if(resp.logged_in) {
-          $('ul.reviews').append(resp.html);
-          $('a.delete').show(); // Show all delete links.
-
-          new_review_form.hide();
-
           window.location.reload();
         } else {
           // if not logged in, show quick signin

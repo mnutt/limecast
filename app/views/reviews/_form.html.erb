@@ -2,7 +2,7 @@
 <% options[:show_rating] = true unless options.has_key?(:show_rating) -%>
 <% options[:suffix] ||= "_new" -%>
 
-<%= f.hidden_field :episode_id -%>
+<%= f.text_field :episode_id, :class => "text" -%>
 
 <% if options[:show_rating] -%>
 <div class="align">

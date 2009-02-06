@@ -1,9 +1,30 @@
 <% options ||= {} -%>
 <% javascript_include "review_new" -%>
 
-<% form_for @review, :url => reviews_url,
-            :html => { :id => "new_review" } do |f| -%>
-  <%= render :partial => "reviews/form", :locals => {:options => options, :f => f, :podcast => @review.episode.podcast} %>
+
+<h4>Review this series</h4>
+<% form_for @review, :url => reviews_url(:podcast_slug => @podcast), :html => { :id => "new_review" } do |f| -%>
+  <%= f.hidden_field :episode_id -%>
+  <p>
+    <strong>Mark as:</strong>
+
+    <img src="../images/icons/thumbs_up.png" alt="Thumb's up"/>
+    <%= f.radio_button :positive, true, :class => 'radio', :checked => "checked", :id => "review_positive_true#{options[:suffix]}" -%>
+    <label for="review_positive_true<%= options[:suffix] -%>">Positive</label>
+
+    <img src="../images/icons/thumbs_down.png" alt="Thumb's down"/>
+    <%= f.radio_button :positive, false, :class => 'radio', :id => "review_positive_false#{options[:suffix]}" -%>
+    <label for="review_positive_false<%= options[:suffix] -%>">Negative</label>
+
+    <h6>Heading</h6>
+    <%= f.text_field :title, :class => 'text', :size => 15, :id => "review_title#{options[:suffix]}" -%>
+
+    <h6>Your review of the 1Up Show</h6>
+    <%= f.text_area :body, :rows => 2, :cols => 20, :id => "review_body#{options[:suffix]}" -%>
+  </p>
+  <button type="submit">
+    <span>Submit review</span>
+  </button>
 <% end -%>
 
-<div class="quick_signin_container after_adding_review"></div>
+<div class="quick_signin_container after_adding_review">fasdf</div>

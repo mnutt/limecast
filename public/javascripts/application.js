@@ -133,10 +133,6 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-  // Edit Podcast link
-  $('#edit_link').click(function() { $('.limecast_form').toggle(); return false; });
-  $('.limecast_form .cancel').click(function(){ $(this).parents(".limecast_form").hide(); return false; });
-
   // Subscribe button
   $("#s_options_toggle").click(function(e){
     $("#subscribe_options_container").slideDown("fast");

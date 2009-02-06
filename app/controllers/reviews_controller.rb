@@ -44,21 +44,14 @@ class ReviewsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
     @review = Review.new(review_params)
 
-    respond_to do |format|
-      if current_user
-        @review.reviewer = current_user
-
-        if @review.save
-          format.html { redirect_to :back }
-          format.js
-        else
-          format.html { render :action => "new" }
-        end
-      else
-        session[:review] = review_params
-        format.js
-      end
+    if current_user
+      @review.reviewer = current_user
+      @review.save!
+    else
+      session[:review] = review_params
     end
+
+    render :layout => false
   end
 
   def update

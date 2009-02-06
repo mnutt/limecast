@@ -390,128 +390,124 @@ span > img.inline_icon {
 #pop_recent_cont .description, #tags_review_cont .description {margin-bottom: 20px; padding: 0;}
 
 
+/**** Download button on episode pages **************/
 
 
-#zone-bar {
-
-	}
-	#zone-bar ul {
-		display: block;
-		}
-		#zone-bar ul li {
-			height: 36px;
-			padding: 5px 0px 0 0px;
-			position: relative;
-			float: left;
-			
-			
-			background: url(../imgs/zonebar-navleft.png) center left no-repeat;
-			}
-			#zone-bar ul li:hover {
-				background: url(../imgs/zonebar-navleft_o.png) center left no-repeat;
-			}
-				#zone-bar ul li a {
-					display: block;
-					float: left;
-					height: 23px;
-					position: relative;
-					top: -3px;
-					padding-left: 8px;
-					margin-right: -5px;
-					padding-right: 40px;
-					padding-bottom: 0px;
-					padding-top: 3px;
-					color: #fff;
-					font-weight: bold;
-					height: 36px;
-					font-size: 1.1em;
-					white-space: nowrap;
-					background: url(../imgs/zonebar-navright.png) top right no-repeat;
-					}
-					
-					#zone-bar ul li a:hover {
-
-			
-					}
-					
-			#zone-bar ul li a span {
-				display: block;
-				font-size: .9em;
-				font-weight: normal;
-				margin-top: -1px;
-				font-style: italic;
-			}
-					
-			#zone-bar ul li a.arrowz {
-				display: block;
-				float: left;
-				height: 23px;
-				position: relative;
-				
-				padding-top: 7px;
-				padding-right: 6px;
-				padding-left: 11px;
-				margin-left: -25px;
-
-				height: 36px;
-				text-decoration: none;
-				
-				}
-				
-				
+#zone-bar ul {
+	display: block;
+}
+#zone-bar ul li {
+	height: 36px;
+	padding: 5px 0px 0 0px;
+	position: relative;
+	float: left;
 	
-				#zone-bar ul li a.arrowz:hover {
-					background: url(../imgs/zonebar-navright_o.png) 4px 0px no-repeat;
-				}
-				
-				
+	
+	background: url(../imgs/zonebar-navleft.png) center left no-repeat;
+	}
+#zone-bar ul li:hover {
+	background: url(../imgs/zonebar-navleft_o.png) center left no-repeat;
+}
+#zone-bar ul li a {
+	display: block;
+	float: left;
+	height: 23px;
+	position: relative;
+	top: -3px;
+	padding-left: 8px;
+	margin-right: -5px;
+	padding-right: 40px;
+	padding-bottom: 0px;
+	padding-top: 3px;
+	color: #fff;
+	font-weight: bold;
+	height: 36px;
+	font-size: 1.1em;
+	white-space: nowrap;
+	background: url(../imgs/zonebar-navright.png) top right no-repeat;
+	}
+	
 
-			#zone-bar ul li div.dl_dropdown {
-				position: absolute;
-				top: 40px;
-				left: -3px;
-				width: 250px;
-				z-index: 9000000;
-				font-size: 1.2em;
-				}
-				#zone-bar ul li div a {
-					float: none;
-					background: none;
-					color: #2951a5;
-					font-weight: normal;
-					padding: 0;
-					margin: 0;
-					height: auto;
-					display: inline;
-					position: static;
-				}
-				
-				#zone-bar ul li div ul li {
-					background: none;
-					font-size: .8em;
-				}
-				#zone-bar ul li div ul li:hover {
-					background: none;margin: 0;
-				}
-				
-				#zone-bar ul li div ul.v_options_list {
-					margin-top: 20px;
-				}
-				
-				#zone-bar ul li div ul.v_options_list li {
-					float: none;
-					padding: 3px 0;
-					height: auto;
-				}
-				
-				#zone-bar ul li div ul.v_options_list li p {
-					float: left;
-					margin: 0;
-				}
-				
-				#zone-bar ul li div ul.v_options_list li span {
-					float: right;margin: 0;
-				}
+#zone-bar ul li a span {
+	display: block;
+	font-size: .9em;
+	font-weight: normal;
+	margin-top: -1px;
+	font-style: italic;
+}
+		
+#zone-bar ul li a.arrowz {
+	display: block;
+	float: left;
+	height: 23px;
+	position: relative;
+	
+	padding-top: 13px;
+	padding-right: 6px;
+	padding-left: 11px;
+	margin-left: -25px;
+
+	height: 36px;
+	text-decoration: none;
+	
+	}
+	
+	
+	
+#zone-bar ul li a.arrowz:hover {
+	background: url(../imgs/zonebar-navright_o.png) 4px 0px no-repeat;
+}
+
+
+
+#zone-bar ul li div.dl_dropdown {
+	position: absolute;
+	top: 40px;
+	left: -3px;
+	width: 250px;
+	z-index: 9000000;
+	font-size: 1.2em;
+	}
+#zone-bar ul li div a {
+	float: none;
+	background: none;
+	color: #2951a5;
+	font-weight: normal;
+	padding: 0;
+	margin: 0;
+	height: auto;
+	display: inline;
+	position: static;
+}
+
+#zone-bar ul li div ul li {
+	background: none;
+	font-size: .8em;
+}
+#zone-bar ul li div ul li:hover {
+	background: none;margin: 0;
+}
+
+#zone-bar ul li div ul.v_options_list {
+	margin-top: 20px;
+}
+
+#zone-bar ul li div ul.v_options_list li {
+	float: none;
+	padding: 3px 0;
+	height: auto;
+}
+
+#zone-bar ul li div ul.v_options_list li p {
+	float: left;
+	margin: 0;
+}
+
+#zone-bar ul li div ul.v_options_list li span {
+	float: right;margin: 0;
+}
+
+
 				
 				
 

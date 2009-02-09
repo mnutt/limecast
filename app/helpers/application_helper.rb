@@ -59,16 +59,6 @@ module ApplicationHelper
     end.join
   end  
 
-  def javascript_include(*scripts)
-    @javascript_includes ||= []
-    @javascript_includes << scripts
-  end
-
-  def stylesheet_include(*csses)
-    @css_includes ||= []
-    @css_includes << csses
-  end
-
   def comma_separated_list_items(arr)
     delimited_items(arr) do |contents, comma|
       "<li>#{contents}#{comma}</li>\n"

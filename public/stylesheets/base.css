@@ -478,6 +478,10 @@ div#edit_form span.label {
 div#edit_actions .edit_toggle {
 }
 
+div.episode div#edit_actions {
+  margin-bottom: 10px;
+}
+
 div#edit_form {
   margin-bottom: 16px;
 }

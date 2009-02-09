@@ -44,5 +44,6 @@ class EpisodesController < ApplicationController
     unauthorized unless @episode.writable_by?(current_user)
 
     @episode.destroy
+    render :layout => false, :status => 200, :text => ""
   end
 end

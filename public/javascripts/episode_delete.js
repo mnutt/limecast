@@ -1,10 +1,7 @@
 $(document).ready(function(){
-  $('li.delete, div.delete').map(function(){
-    var episode_delete = $(this);
-
-    episode_delete.find('a.delete').restfulDelete().click(function(){
-      window.location = $('#podcast_link a').attr('href');
-    })
-  });
+  opts = {
+    confirm: 'Are you SURE you want to delete this episode? It will be removed from this podcast!',
+    success: function() { window.location = $('#podcast_link a').attr('href'); }
+  };
+  $('span.delete a').restfulDelete(opts);
 });
-

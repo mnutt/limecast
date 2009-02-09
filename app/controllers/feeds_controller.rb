@@ -95,6 +95,18 @@ class FeedsController < ApplicationController
   end
 
   def hash_info
+    @sources = Source.find(:all, :conditions => ["hashed_at > ?", 3.days.ago],
+                           :limit => 40,
+                           :order => "hashed_at DESC")
+
+    @sources_count = Source.count
+    @unhashed_count = Source.count(:conditions => {:hashed_at => nil})
+    @hashed_count = @sources_count - @unhashed_count
+    @percentage = (@hashed_count.to_f / @sources_count.to_f * 100).to_i
+    @last_day = Source.count(:conditions => ["hashed_at > ?", 1.day.ago])
+
+    @probably_next_source = Source.find_by_sha1hash(nil, :limit => 1, :order => "id DESC")
+
     render :layout => false
   end
 

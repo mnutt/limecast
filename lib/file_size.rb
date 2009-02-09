@@ -7,7 +7,7 @@ class FileSize
     h = self.to_hash
 
     [:gigabytes, :megabytes, :kilobytes].map do |unit|
-      "#{format(h[unit])} #{label(unit)}" if h.has_key?(unit)
+      "#{format(h[unit])}#{label(unit)}" if h.has_key?(unit)
     end.compact.join(" ")
   end
 
@@ -49,6 +49,6 @@ class FileSize
   end
 
   def label(unit)
-    {:gigabytes => "GB", :megabytes => "MB", :kilobytes => "KB"}[unit]
+    {:gigabytes => "gb", :megabytes => "mb", :kilobytes => "kb"}[unit]
   end
 end

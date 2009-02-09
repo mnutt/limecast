@@ -195,7 +195,7 @@ div#header div#account_bar ul li.search input.text {
   top: 5px;
 }
 div#header div#account_bar ul li.search input.image_button {
-  top: 5px;
+  top: 7px;
 }
 
 /**
@@ -403,7 +403,6 @@ form input.button.active {
   color: #111;
 }
 form input.image_button {
-  border: 1px solid #212121;
   cursor: pointer;
 }
 form div.huge {

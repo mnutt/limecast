@@ -475,10 +475,13 @@ p.favorite_cont {
 	position: relative;
 	padding-bottom: 20px;
 	display: block;
-
 	float: left;
 	margin-bottom: 20px;
 } 
+
+.description h3 {
+	font-size: 1.4em;
+}
 
 .podcast.show .description {
 	background: url('../imgs/b_border.png') bottom left repeat-x;
@@ -966,18 +969,25 @@ ul.tabs-nav  {
 	margin-left: 18px;
 }
 
-#pagination ul {
+.pagination  {
 	float: right;
-	margin: 0 10px 10px 0;
-}
-
-#pagination ul li {
-	display: inline;
-}
-
-#pagination ul li a {
 	font-size: 1.4em;
-	padding: 5px 8px;
+	margin: 0 10px 10px 0;
+	overflow: visible;
+	margin-top: 15px;
+}
+
+.pagination  span.current {
+	font-weight: bold;
+}
+
+.pagination  a {
+	padding: 5px 5px;
+}
+
+.pagination  span.prev_page a, .pagination  span.next_page a, .pagination  span.disabled  {
+	padding: 5px 5px;
+
 }
 
 
@@ -1043,6 +1053,7 @@ padding:0 0 5px;
 .podcast.index .description {
 	margin: 30px 0 0 5px;
 	padding: 0;
+	min-height: 125px;
 }
 
 .podcast.index .s_desc {

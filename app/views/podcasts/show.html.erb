@@ -4,6 +4,14 @@
 <% stylesheet_link "sknd.global", "sknd.presentation", "sknd.typography", "sknd.icons", "podcast_show" -%>
 <% javascript_include "review_edit", "review_delete", "inline_edit_form", "podcasts_new", "podcast_edit", "review_ratings_new" -%>
 
+<script type="text/javascript">
+ $().ready(function() {  
+  $('.s_desc > p').jTruncate({  
+   length: 400,  
+  });  
+ });
+</script>
+
 <div class="summary">
   <%= render :partial => 'podcasts/summary' -%>
 </div>

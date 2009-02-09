@@ -106,7 +106,7 @@ class FeedsController < ApplicationController
     @last_day = Source.count(:conditions => ["hashed_at > ?", 1.day.ago])
 
     @probably_next_source = Source.find_by_sha1hash(nil, :limit => 1, :order => "id DESC")
-
+    @hashing_tail = `tail -n 40 #{RAILS_ROOT}/log/update_sources.log`
     render :layout => false
   end
 

@@ -1,52 +1,100 @@
 <% @title = h(@user.login) -%>
+<% @classes = %{podcast index show} -%>
 <% @show_ads = true if @user.reviews.count > 0 -%>
 <% javascript_include "review_edit", "review_delete", "podcast_edit", "inline_edit_form" -%>
 
-<div class="user">
+<script type="text/javascript">
+ $().ready(function() {  
+  $('.s_desc > p').jTruncate({  
+   length: 130,  
+  });  
+ });
+</script>
 
-  <%= render :partial => 'users/small_picture', :locals => { :user => @user } -%>
+ 
 
-  <% if @user == current_user -%>
-    <div id="edit_actions" class="clearfix">
-      <span class="label">This is me!</span>
-      <%= link_to_with_icon "Edit", :edit, edit_user_url(current_user), :class => 'edit_toggle' %>
-      <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
-      
-      <%= render :partial => "form" -%>
-    </div>  
-  <% end -%>
+<h1><%=h @user.login -%><%= "" unless @user.podcaster? %></h1>
 
-  <h1><%=h @user.login -%><%= " (#{@user.score})" unless @user.podcaster? %></h1>
+
+<div id="memeber_profile" class="tabify">
   
-  <% if @user.owned_podcasts.count > 0 -%>
-    <h2>Makes</h2>
-    <ul class="podcasts clearfix">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
-    </ul>
-    <% reset_cycle('row_class') %>
-  <% end -%>
+  <ul>
+    <li><a href="#profile_profile"><h4>Profile</h4></a></li>
+    <li><a href="#profile_favorites"><h4>Favorites <span>(<%= @user.favorite_podcasts.size %>)</span></h4></a></li>
+    <li><a href="#profile_found"><h4>Found <span>(<%= @user.podcasts.size %>)</span></h4></a></li>
+    <li><a href="#profile_owned"><h4>Owned</h4></a></li>
+    <li><a href="#profile_reviews"><h4>Reviews <span>(<%= @user.reviews.count %>)</span></h4></a></li>
+  </ul>
+  
 
-  <% if @user.podcasts.size > 0 -%>
-    <h2>Found (<%= @user.podcasts.size %>)</h2>
-    <ul class="podcasts clearfix">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
-    </ul>
-    <% reset_cycle('row_class') %>
-  <% end -%>
     
-  <% if @user.favorite_podcasts.size > 0 -%>
-    <h2>Favorites</h2>
-    <ul class="podcasts clearfix">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
-    </ul>
-    <% reset_cycle('row_class') %>
-  <% end -%>
-  
-  <% if @user.reviews.count > 0 -%>
-    <h2>Reviewed (<%= @user.reviews.count %>)</h2>
-    <ul class="reviews clearfix">
-      <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast => true} -%>
-    </ul>
-    <% reset_cycle('row_class') %>
-  <% end -%>
-</div>
+    
+      <div id="profile_profile" class="rounded_corners">
+        <% rounded_corners do -%>
+          <%= render :partial => 'users/small_picture', :locals => { :user => @user } -%>
+          <p>username: </p>
+          <p>email: </p>
+          <p>about:</sp>
+          <% if @user == current_user -%>
+            <div id="edit_actions" class="clearfix">
+              <span class="label">This is me!</span>
+              <%= link_to_with_icon "Edit", :edit, edit_user_url(current_user), :class => 'edit_toggle' %>
+              <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
+    
+              <%= render :partial => "form" -%>
+              
+            </div>  
+          <% end -%>
+        <% end -%>
+      </div>
+      
+      <div id="profile_owned" class="rounded_corners">
+        <% rounded_corners do -%>
+          <% if @user.owned_podcasts.count > 0 -%>
+            <ul class="podcasts clearfix">
+              <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
+            </ul>
+            <% reset_cycle('row_class') %>
+          <% end -%>
+        <% end -%>
+      </div>
+
+      <div id="profile_found" class="rounded_corners">
+        <% rounded_corners do -%>
+          <% if @user.podcasts.size > 0 -%>
+            <ul class="podcasts clearfix">
+              <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
+            </ul>
+            <% reset_cycle('row_class') %>
+          <% end -%>
+        <% end -%>
+      </div>
+      
+      <div id="profile_favorites" class="rounded_corners">
+        <% rounded_corners do -%>
+          <% if @user.favorite_podcasts.size > 0 -%>
+
+            <ul class="podcasts clearfix">
+              <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
+            </ul>
+            <% reset_cycle('row_class') %>
+          <% end -%>
+        <% end -%>
+      </div>
+      
+      
+      <div id="profile_reviews" class="rounded_corners">
+        <% rounded_corners do -%>
+          <% if @user.reviews.count > 0 -%>
+            <h2>Reviewed</h2>
+            <ul class="reviews clearfix">
+              <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast => true} -%>
+            </ul>
+            <% reset_cycle('row_class') %>
+          <% end -%>
+        <% end -%>
+      </div>
+      
+      
+
+</div> <!--/memeber_profile-->

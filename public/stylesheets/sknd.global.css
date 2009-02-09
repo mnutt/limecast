@@ -556,8 +556,12 @@ ul.tabs  {
 .tabs a, .tabs a h4 {
   display: block;
   padding: 0px 0px 0px 0px;
+}
 
-
+.tabs a h4 span {
+	position: relative;
+	top: -2px;
+	font-size: .6em;
 }
 
 .tabs a {
@@ -622,7 +626,7 @@ ul.tabs  {
   cursor: pointer;
 }
 
-.tabs-cont .i3 {
+.new .tabs-cont .i3 {
 	padding: 10px 10px 10px 10px;
 }
 

@@ -100,7 +100,7 @@ module ApplicationHelper
   end
 
   def link_to_with_icon(title, icon, url, options={})
-    link_to("" + image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + title.to_s, url, options)
+    link_to(title.to_s, url, options)
   end
 
   def messages_for(obj, col)

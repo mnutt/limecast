@@ -77,6 +77,10 @@ $.quickSignIn = {
     me.hide();
     me.find('.message').html('');
     me.find('.sign_up').hide();
+		me.find('.controls').show();
+		me.find('.controls_signup').hide();
+		me.find('.signup_heading').text('Login to LimeCast');
+		me.find('.signinbutton').text('Login');
     me.attr('action', '/session');
     me.find('input.signin_button').show();
     me[0].reset(); // the actual DOM function for resetting a form
@@ -120,6 +124,10 @@ $.quickSignIn = {
     // Show signup form if hidden
     if(!me.find('.sign_up:visible').length) {
       me.find('.sign_up').show();
+			me.find('.signup_heading').text('Sign up with LimeCast');
+			me.find('.signinbutton').text('Sign up');
+			me.find('.controls').hide();
+			me.find('.controls_signup').show();
       me.find('input.signin_button').hide();
       me.attr('action', '/users'); // Set the forms action to /users to call UsersController#create
 
@@ -128,6 +136,8 @@ $.quickSignIn = {
         me.find('input.login').val("");
       }
     }
+
+
 
     me.find('input.login').focus();
 

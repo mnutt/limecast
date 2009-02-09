@@ -16,6 +16,14 @@ body {text-align: center;}
 form#quick_signin {
   padding: 0;
   color: #171717;
+	z-index: 900000000000000000000000000000000000000000000000000;
+	position: relative;
+}
+
+form#quick_signin .rounded_corners  {
+	background: url('../imgs/signin_arrow.png') 93% 0% no-repeat;
+	padding-top: 5px;
+
 }
 
 form#quick_signin .titlebar {
@@ -23,16 +31,22 @@ form#quick_signin .titlebar {
   top: -10px;
   right: -10px;
 }
-form#quick_signin a.close {
-  display: none;
+form#quick_signin div.field {
+	display: block;
+  overflow: hidden;
+	width: 275px;
+	margin-bottom: 10px;
 }
-form#quick_signin .message {
-  text-indent: 90px;
-  padding: 1em 0;
-}
-form#quick_signin input.text,
-form#quick_signin .response_container {
-  width: 200px;
+
+form#quick_signin input.text {
+  float: right;
+	border: 1px solid #171717;
+	-moz-border-radius: 3px;
+	width: 175px;
+	height: 20px;
+	font-size: 1.8em;
+	padding: 5px;
+	display: block;
 }
 form#quick_signin .response_container {
   padding: 5px;
@@ -41,30 +55,91 @@ form#quick_signin .response_container {
 form#quick_signin .response_container p {
   font-size: 1em;
 }
+form#quick_signin label {
+	position: relative;
+	top: 21px;
+	text-align: right;
+	font-weight: bold;
+}
 form#quick_signin .response_container a {
   color: #a9a9a9;
 }
 
-.quick_signin_container.from_top_bar {
+.quick_signin_container {
   position: absolute;
-  top: 18px;
+  top: 15px;
   right: 0;
-  background-color: #2B2D2F;
+
   z-index: 10;
 }
-.quick_signin_container.from_top_bar form#quick_signin a.close {
-  background: url("../images/icons/close.png") no-repeat center;
-  display: block;
-  text-indent: -5000px;
-  width: 16px;
-  height: 16px;
-  margin: 5px 5px 0 0;
-  overflow: hidden;
-  float: right;
+form#quick_signin a.close {
+
+	background: none;
+	margin-top: 13px;
+	color: #2952a6;
+  float: left;
 }
-.quick_signin_container.after_favoriting form#quick_signin .message {
-  position: relative;
-  top: -10px;
+
+form#quick_signin .message {
+  padding: 0;
+}
+
+form#quick_signin h5 {
+	margin: 0 0 0 0px;
+	font-size: 1.4em;
+}
+.quick_signin_container.after_favoriting {
+  position: absolute;
+  top: 20px;
+	font-size: 1.2em;
+}
+
+.quick_signin_container.after_rating {
+  position: absolute;
+  top: 100px;
+	right: 50px;
+	font-size: 1.3em;
+}
+
+form#quick_signin button {
+	margin-left: 85px;
+	float: left;
+}
+
+form#quick_signin .controls, form#quick_signin .controls_signup {
+	display: block;
+	overflow: hidden;
+	width: auto;
+	float: right;
+	margin-top: 15px; 
+}
+
+#utility_nav form#quick_signin .callout ul {
+	position: relative;
+	font-size: .9em;
+	height: 20px; width: auto;
+}
+
+form#quick_signin .callout ul {
+	position: relative;
+	font-size: .7em;
+	height: 20px; width: auto;
+}
+
+#utility_nav form#quick_signin div.callout {
+	display: inline; float: right;
+	margin: -18px 5px 0 0;
+}
+
+form#quick_signin div.callout {
+	display: inline; float: right;
+	margin: -15px 5px 0 0;
+}
+
+form#quick_signin a.forgot {
+	display: inline; 
+	float: left;
+	padding-right: 2px;
 }
 
 
@@ -90,7 +165,7 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 }
 
 /**** Header **************/
-#utility_nav ul a {color: #fff;}
+
 #utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}
 #utility_nav ul li {display: inline; margin-left: 2px;}
 
@@ -153,17 +228,12 @@ a#add_podcast span, a#logo span {
 	width: 945px;
 	margin: 0px 0 0 -3px;
 	background: url('../imgs/bg_mission.png') bottom left no-repeat;
-	z-index: 100000000000000000;
+
 }
 
-#mission_hidden {
-	position: absolute;
-	top: 0px;
-	left: 17px;
-	z-index: 1;
-}
 
-#mission h1, #mission_hidden h1 {
+
+#mission h1 {
 	padding: 15px 0 0 25px;
 	font-size: 1.8em;
 }

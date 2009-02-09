@@ -87,7 +87,7 @@ input.radio {
 	left:-10px;
 	width:10px;
 	height:10px;
-	background:url(../imgs/box.png) no-repeat 0 0;
+	background:url('../imgs/box.png') no-repeat 0 0;
 	font-size:0;
 	line-height:0;
 }
@@ -96,14 +96,14 @@ input.radio {
 .bb {
 	height:10px;
 	margin:0 0 0 10px;
-	background:url(../imgs/box.png) no-repeat 100% 100%;
+	background:url('../imgs/box.png') no-repeat 100% 100%;
 }
 .bb div {
 	position:relative;
 	left:-10px;
 	width:10px;
 	height:10px;
-	background:url(../imgs/box.png) no-repeat 0 100%;
+	background:url('../imgs/box.png') no-repeat 0 100%;
 	font-size:0;
 	line-height:0;
 }
@@ -111,12 +111,13 @@ input.radio {
 	/* Left border */
 .i1 {
 	padding:0 0 0 10px;
-	background:url(../imgs/border.png) repeat-y 2px 0;
+	background:url('../imgs/border.png') repeat-y 2px 0;
 }
 	/* Right border */
 .i2 {
+	
 	padding:0 10px 0 0;
-	background:url(../imgs/border.png) repeat-y 100% 0;
+	background:url('../imgs/border.png') repeat-y 100% 0;
 }
 	/* Wrapper for the content. Use it to set the background colour and insert some padding between the borders and the content. */
 .i3 {
@@ -150,7 +151,7 @@ input.radio {
 	position: absolute;
 	visibility: hidden;
 	left: -5px;
-	z-index: 0;
+
 }
 .dropdown.open div.dropdown_wrap {
 	visibility: visible;
@@ -163,7 +164,7 @@ input.radio {
 .dropdown .focuser {
 	cursor: pointer;
 	position: relative;
-	z-index: 100;
+
 	white-space: nowrap;
 	height: 100%;
 	padding: 0px;
@@ -624,6 +625,9 @@ ul.tabs  {
 .tabs-cont .i3 {
 	padding: 10px 10px 10px 10px;
 }
+
+
+
 
 				
 				

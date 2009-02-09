@@ -14,15 +14,15 @@
 <script type="text/javascript">
     $(function() {
       var open = true;
-      $('a.close').click(function() {
+      $('a.homeclose').click(function() {
         if(open){
-         $(this).removeClass('close');
+         $(this).removeClass('homeclose');
          $(this).addClass('openarrow');
          $(this).text('Show intro');
           open = false;
         } else {
           $(this).removeClass('openarrow');
-          $(this).addClass('close');
+          $(this).addClass('homeclose');
           $(this).html('Hide intro');
           open = true;
         }
@@ -48,7 +48,7 @@
 
   
   <div id="close_misson">
-    <a href="#" class="close">Hide intro</a>
+    <a href="#" class="homeclose">Hide intro</a>
   </div>
   
   

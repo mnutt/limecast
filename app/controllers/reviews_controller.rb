@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_filter :login_required, :only => [:new, :update]
 
   def index
-    @filter = params[:filter] || "all"
+    @filter = params[:filter] || ""
     @podcast = Podcast.find_by_clean_url(params[:podcast])
     @feeds   = @podcast.feeds
 

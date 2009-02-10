@@ -10,7 +10,7 @@
 
 class Tagging < ActiveRecord::Base
   belongs_to :podcast
-  belongs_to :tag
+  belongs_to :tag, :counter_cache => true
 
   has_many :user_taggings, :dependent => :destroy
   has_many :users, :through => :user_taggings

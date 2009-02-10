@@ -5,6 +5,8 @@ class HomeController < ApplicationController
     
     @reviews = Review.all(:order => "created_at DESC")
     @review = @reviews.first
+
+    @popular_tags = Tag.all #(:order => "taggings_count DESC")
   end
 
   def stats

@@ -57,22 +57,30 @@ input.radio {
 }
 
 
+/**** Tag Cloud **************/
+.tag_cloud li { 
+  display: inline;
+  padding: 0 5px;
+}
+
+.tag_cloud .size_1 { font-size: 5pt; }
+.tag_cloud .size_2 { font-size: 6pt; }
+.tag_cloud .size_3 { font-size: 7pt; }
+.tag_cloud .size_4 { font-size: 8pt; }
+.tag_cloud .size_5 { font-size: 9pt; }
+.tag_cloud .size_6 { font-size: 10pt; }
+.tag_cloud .size_7 { font-size: 11pt; }
+.tag_cloud .size_8 { font-size: 12pt; }
+.tag_cloud .size_9 { font-size: 13pt; }
+.tag_cloud .size_10 { font-size: 14pt; }
+
+
 
 /**** Rounded Action Corner Box **************/
 
 /* Basic styling, used when JavaScript is unsupported */
-/*.cbb {
-	margin:0em;
-	padding:0 10px;
-	border:1px solid #dddddd;
-	background:#fff;
-}
-.cbb h1 {
-	margin:0 -10px;
-	padding:0.3em 10px;
-	background:#efece6;
-	font:bold 1.2em/1 Arial, Helvetica, sans-serif;
-}
+/*.cbb { margin:0em; padding:0 10px; border:1px solid #dddddd; background:#fff; }
+.cbb h1 { margin:0 -10px; padding:0.3em 10px; background:#efece6; font:bold 1.2em/1 Arial, Helvetica, sans-serif; }
 */
 /* Normal styling */
 .rounded_corners {margin:0.0em 0;}

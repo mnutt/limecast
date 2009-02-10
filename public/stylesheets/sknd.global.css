@@ -677,4 +677,25 @@ ul.tabs  {
 
 
 				
-				
+
+
+
+.googleads {
+	overflow: hidden;
+	background-color: #f1f1f1; 
+	width: 250px;
+	float: right;
+	margin-bottom: 20px;
+}
+
+.googleads iframe {
+	margin-bottom: 20px;
+}
+
+#series_page_goog  {
+	margin-top: 57px;
+}
+
+#profile_goog  {
+	margin-top: 49px;
+}

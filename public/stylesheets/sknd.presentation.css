@@ -258,7 +258,7 @@ form#quick_signin a.forgot {
 
 /* Show specific */
 .show .summary { overflow: visible;}
-.show .supplemental {overflow: hidden; position:  relative; margin: 20px 0; width: 640px;}
+.show .supplemental {float: left; overflow: hidden; position:  relative; margin: 20px 0; width: 660px;}
 
 
 
@@ -791,7 +791,7 @@ li.review {
 	position: absolute;
 	top: 0px;
 	right: -10px;
-	width: 295px;
+	width: 275px;
 	height: 67px;
 	z-index: 3;
 }
@@ -841,7 +841,7 @@ li.review {
 /* Subscribe dropdown **/
 
 #subscribe_options_container {
-	width: 283px;
+	width: 263px;
 	height: 200px;
 	position: absolute;
 	top: 48px;
@@ -901,13 +901,13 @@ li.review {
 
 ul.tabs-nav  {
   margin: -10px 0 0 -12px;
-  width: 282px;
+  width: 262px;
 }
 
 .tabs-nav li {
   float: left;
   margin: 0px;
-  min-width: 65px; /* be nice to Opera */
+  min-width: 45px; /* be nice to Opera */
 	border-right: 1px solid #a9a9a9;
 }
 
@@ -925,7 +925,7 @@ ul.tabs-nav  {
   position: relative;
   top: 1px;
   z-index: 2;
-  padding-left: 18px;
+  padding-left: 11px;
   font-size: 12px;
   font-weight: bold;
   line-height: 1.2em;
@@ -1088,7 +1088,9 @@ display: inline;
 
 .podcast.index #browse {
 	position: relative;
-	width: 700px;
+	width: 670px;
+	float: left;
+	margin-bottom: 20px;
 }
 
 .podcast.index #sort {
@@ -1109,7 +1111,7 @@ display: inline;
 
 .podcast.index .s_desc {
 	position: relative;
-	width: 540px;
+	width: 510px;
 	padding: 0;
 }
 
@@ -1164,7 +1166,12 @@ display: inline;
 /**** Profile page **************/
 
 #memeber_profile {
-	width: 700px;
+	float: left;
+	width: 670px;
+}
+
+#memeber_profile h4 {
+	font-size: 1.2em;
 }
 
 #profile_profile .picture img {

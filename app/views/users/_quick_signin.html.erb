@@ -39,14 +39,14 @@
   <div class="titlebar">
     <a href="#" class="close">Cancel</a>
   </div>
-  
+  <%#= submit_tag "Sign In", :id => "signin", :class => "button signin_button" %>
 
   <div class="controls">
     <%= link_to "I forgot my password", forgot_password_path, :class => "forgot" -%> |
     <div class="callout"><ul><li>
       <%= link_to "Sign up", signup_url, :id => "signup", :class => "button signup_button" %>
     </li></ul></div>
-    <%#= submit_tag "Sign In", :id => "signin", :class => "button signin_button" %>
+    
   </div>
   
   <div class="controls_signup" style="display: none;">

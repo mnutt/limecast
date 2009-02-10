@@ -1,7 +1,7 @@
 <% episode = video_player -%>
 <%- if episode.sources.first.screenshot? -%>
   <div class="container">
-    <%= image_tag(episode.sources.first.screenshot.url, :rel => episode.sources.first.preview.url, :alt => "#{episode.title} cover art",  :width => 340, :height => 253) -%>
+    <%= image_tag(episode.sources.first.screenshot.url, :rel => episode.sources.first.preview.url, :alt => "#{episode.title} cover art",  :width => 460, :height => 342) -%>
   </div>
 <%- else -%>
   <%= image_tag('/imgs/video_placeholder.png', :alt => "#{episode.title} cover art is missing", :width => 340) -%>

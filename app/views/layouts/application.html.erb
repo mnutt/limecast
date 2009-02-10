@@ -60,6 +60,19 @@ $(document).ready(function(){
   });
 
 });
+
+// Toggle search prompt
+$(document).ready(function(){
+  $search_box = $('#q');
+  $search_box.focus(function(){
+  	if ($search_box.val() == 'Search LimeCast')
+  		$search_box.val('');
+  });
+  $search_box.blur(function(){
+  	if ($search_box.val() == '')
+  	  	$search_box.val('Search LimeCast');
+  });
+});
 </script>
 
 </head>
@@ -130,7 +143,7 @@ $(document).ready(function(){
 
             <div class="about section">
 
-              <h4>About</h4>
+              
 
 
               <ul>
@@ -154,7 +167,7 @@ $(document).ready(function(){
             <div class="legal section">
 
 
-              <h4>Legal</h4>
+              <!--<h4>Legal</h4>
 
               <ul>
                 <li class="refund">
@@ -168,13 +181,13 @@ $(document).ready(function(){
                   <a href="http://deuce.limewire.com/beta.limewire.com/legal/safety" title="Using P2P Safely">Using P2P Safely</a>        </li>
               </ul>
 
-            </div>
+            </div>-->
 
             
 
             <div class="info cf">
-              <!--<span class="cc_notice">Portions of this web site are available under a Creative Commons license, where noted.</span>-->
-              <span class="copyright">&copy; 2000 - 2009 Lime Wire LLC.</span>
+              <!--<span class="cc_notice">Portions of this web site are available under a Creative Commons license, where noted.</span>
+              <span class="copyright">&copy; 2000 - 2009 Lime Wire LLC.</span>-->
             </div>
 
 

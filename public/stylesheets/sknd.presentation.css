@@ -114,33 +114,6 @@ form#quick_signin .controls, form#quick_signin .controls_signup {
 	margin-top: 15px; 
 }
 
-#utility_nav form#quick_signin .callout ul {
-	position: relative;
-	font-size: .9em;
-	height: 20px; width: auto;
-}
-
-form#quick_signin .callout ul {
-	position: relative;
-	font-size: .7em;
-	height: 20px; width: auto;
-}
-
-#utility_nav form#quick_signin div.callout {
-	display: inline; float: right;
-	margin: -18px 5px 0 0;
-}
-
-form#quick_signin div.callout {
-	display: inline; float: right;
-	margin: -15px 5px 0 0;
-}
-
-form#quick_signin a.forgot {
-	display: inline; 
-	float: left;
-	padding-right: 2px;
-}
 
 
 
@@ -166,17 +139,17 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 /**** Header **************/
 
-#utility_nav ul {font-size: 1.2em; position: absolute; top: 8px; right: 195px;}
+#utility_nav ul {font-size: 1.2em; position: absolute; top: 9px; right: 195px;}
 #utility_nav ul li {display: inline; margin-left: 2px; padding: 0 3px;}
 
 
-#global_nav {float: left; margin: 0; position: absolute; top: 6px; left: 0;  width: 500px;}
+#global_nav {float: left; margin: 0; position: absolute; top: 4px; left: 0;  width: 500px;}
 #global_nav {
 	font-size: 1.5em;
 }
 #global_nav a {outline: none;}
 #global_nav ul { display: block; margin: 1px 0 0 5px;}
-#global_nav ul li {display: inline; float: left; padding: 0 7px; margin-top: 5px;}
+#global_nav ul li {display: inline; float: left; padding: 0 10px; margin-top: 5px;}
 
 a#logo {
 	float: left;
@@ -244,6 +217,43 @@ a#add_podcast:hover {
 a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop span {
 	margin-left: -5000px;
 }
+
+
+
+
+
+#utility_nav form#quick_signin .callout ul {
+	position: relative;
+	font-size: 1.4em;
+	height: 20px; 
+	width: auto;
+	right: 0;
+	top: 0px;
+
+}
+
+#utility_nav form#quick_signin .callout ul li {
+	padding-left: 10px;
+}
+
+
+#utility_nav form#quick_signin div.callout {
+	display: inline; float: right;
+
+}
+
+form#quick_signin div.callout {
+	display: inline; float: right;
+	font-size: .6em;
+	margin: -15px 5px 0 0;
+}
+
+form#quick_signin a.forgot {
+	display: inline; 
+	float: left;
+	padding-right: 2px;
+}
+
 
 
 /* Show specific */
@@ -365,6 +375,8 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 }
 
 
+
+
 #tags_review_cont li.review .summary {
 	width: 250px;
 }
@@ -407,7 +419,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 }
 .podcast.show .summary .preview,
 .podcast.show .summary .preview img { width: 160px; }
-.episode.show .summary .preview { width: 340px; }
+.episode.show .summary .preview { width: 460px; }
   
 .episode.show .summary .preview .previous {
   display: block;
@@ -525,7 +537,7 @@ p.favorite_cont {
 }
   
 .episode.show .description {
-	width: 580px;
+	width: 460px;
 }
 
 
@@ -1049,7 +1061,7 @@ ul.tabs-nav  {
 	color:#fff;
 }
 
-div.foot_wrapper {
+div.foot_wrapper {height: 70px;
 	background: #313131 url('../imgs/bg_footer.png') top left repeat-x;
 }
 
@@ -1060,13 +1072,15 @@ width:305px;
 }
 
 div#footer div.info {
-border-top:1px solid #262626;
+
 clear:both;
 padding:20px 0 0;
 }
 
 div#footer div.section ul li {
-padding:0 0 5px;
+padding:0 10px;
+font-size: 1.2em;
+display: inline;
 }
 
 

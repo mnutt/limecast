@@ -41,6 +41,8 @@ class Podcast < ActiveRecord::Base
   has_many :tags, :through => :taggings, :order => 'name ASC'
   has_many :badges, :source => :tag, :through => :taggings, :conditions => {:badge => true}, :order => 'name ASC'
 
+  accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? }
+
   has_attached_file :logo,
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],
@@ -61,9 +63,10 @@ class Podcast < ActiveRecord::Base
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
 
   attr_accessor :has_episodes
+  attr_accessor_with_default :messages, HashWithIndifferentAccess.new
 
   before_save :attempt_to_find_owner
-  before_save :sanitize_title
+  before_save :sanitize_titles
   before_save :sanitize_url
   before_save :cache_custom_title
 
@@ -172,46 +175,60 @@ class Podcast < ActiveRecord::Base
   end
 
   protected
-
-  def sanitize_title
+  def add_message(col, msg)
+    # TODO this could probably be a one-liner
+    self.messages[col] ||= []
+    self.messages[col] << msg
+    self.messages[col].uniq!
+  end
+  
+  def sanitize_titles
     return if self.title.nil?
-
-    # Remove anything in parentheses
-    self.title.gsub!(/\(.*\)/, "")
-    # Remove leading dashes
-    self.title.sub!(/^[\s]*-/, "")
-    # Remove leading and trailing space
-    self.title.strip!
-
-    conflict = Podcast.find_by_title(self.title)
-    self.title = "#{self.title} 2" if conflict and conflict != self
-
-    i = 2 # Number to attach to the end of the title to make it unique
-    while(Podcast.find_by_title(self.title) and conflict != self)
-      i += 1
-      self.title.chop!
-      self.title = "#{self.title}#{i.to_s}"
+  
+    # First, sanitiaze "title"
+    self.title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
+    self.title.sub!(/^[\s]*-/, "") # Remove leading dashes
+    self.title.strip! # Remove leading and trailing space
+  
+    i = 1 # Number to attach to the end of the title to make it unique
+    while(Podcast.exists?(["title = ? AND id != ?", title, id]))
+      self.title.chop!.chop! unless i == 1
+      self.title = "#{title} #{i += 1}"
     end
-
-    self.title
+    add_message :title, "There was another podcast with the same title, so we have suggested a new title." if title_changed?
+  
+    return title if new_record? # pass custom_title on to cache_custom_title() if this is a new record
+  
+    # Second, sanitize "custom_title"
+    self.custom_title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
+    self.custom_title.sub!(/^[\s]*-/, "") # Remove leading dashes
+    self.custom_title.strip! # Remove leading and trailing space
+  
+    i = 1 # Number to attach to the end of the title to make it unique
+    while(Podcast.exists?(["custom_title = ? AND id != ?", custom_title, id]))
+      self.custom_title.chop!.chop! unless i == 1
+      self.custom_title = "#{custom_title} #{i += 1}"
+    end
+    add_message :custom_title, "There was another podcast with the same title, so we have suggested a new title." if custom_title_changed?
+  
+    return title
   end
-
-  def sanitize_url
-    return if self.title.nil?
-
-    # Remove leading and trailing spaces
-    self.clean_url = self.title.clone.strip
-
-    # Remove all non-alphanumeric non-space characters
-    self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")
-
-    # Condense spaces and turn them into dashes
-    self.clean_url.gsub!(/[\s]+/, '-')
-    self.clean_url
-  end
-
+  
   def cache_custom_title
     self.custom_title = custom_title.blank? ? title : custom_title
+  end
+  
+  def sanitize_url
+    if !self.title.nil? && (custom_title.blank? || custom_title_changed?)
+  
+      self.clean_url = self.custom_title.clone.strip # Remove leading and trailing spaces
+      self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")     # Remove all non-alphanumeric non-space characters
+      self.clean_url.gsub!(/[\s]+/, '-')             # Condense spaces and turn them into dashes
+  
+      add_message :url, "The podcast url has changed." if clean_url_changed?
+  
+      self.clean_url
+    end
   end
 
   def attempt_to_find_owner

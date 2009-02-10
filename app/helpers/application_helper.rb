@@ -98,20 +98,20 @@ module ApplicationHelper
     label = item.class == Source ? item.file_name : item.format
 
     if item.class == Feed
-      in_parens = [item.formatted_bitrate, item.apparent_format].compact
+      in_parens = [item.apparent_format, item.formatted_bitrate].compact
     else item.class == Source
       label = item.format if label.length > 12
       bitrate = item.feed.formatted_bitrate if item.feed
       file_size = item.size.to_file_size.to_s
 
-      in_parens = [file_size, item.format].compact
+      in_parens = [bitrate, file_size].compact
     end
 
     in_parens = unless in_parens.empty?
-      "#{in_parens.compact.join(' ')}"
+      "(#{in_parens.compact.join(', ')})"
     end
 
-    in_parens
+    [label, in_parens].join(" ")
   end
 
   def smart_truncate(string, length)
@@ -121,6 +121,35 @@ module ApplicationHelper
 
   def format_with_paragraph_entity(text)
     text.strip.gsub(/\r\n?/, "\n").gsub(/\n+/, "&#182;")
+  end
+
+  def messages_for(obj, col)
+    "<p style=\"padding: 1px; color: black; border: solid 4px lemonchiffon; background: white;\" class=\"message\">
+      #{obj.messages[col].join(', ')}
+    </p>" unless obj.messages[col].blank? || obj.messages[col].empty?
+  end
+  
+  def span_with_icon(title, icon, options={})
+    content_tag(:span, image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + " #{title}" , options)
+  end
+  
+  def limecast_form_for record_or_name_or_array, *args, &proc #@podcast, } do |podcast_form|
+    options = args.extract_options!
+    (options[:html] ||= {})
+    options[:html][:class] = "#{options[:html][:class]} limecast_form clearfix"
+    options[:html][:style] = "display: none; #{options[:html][:style]}"
+  
+    form_for(record_or_name_or_array, *(args << options)) do |form_builder|
+      concat('<div class="top"><!-- //--></div>')
+      concat('<div class="middle">')
+      yield form_builder
+      concat('</div>')
+      concat('<div class="bottom controls">')
+      concat form_builder.submit("Save", :class => "button")
+      concat form_builder.submit("Cancel", :class => "button cancel")
+      # concat link_to_with_icon("Delete", :delete, "/podcasts/#{@podcast.id}", :method => "delete", :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!")
+      concat('</div>')
+    end
   end
 
 end

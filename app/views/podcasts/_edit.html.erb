@@ -5,7 +5,9 @@
     <span class="label">This is mine!</span>
   <% end -%>
 
-  <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast), :class => 'edit_toggle' %>
+  <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast), :id => "edit_link" %>
+  
+  <% limecast_form_for @podcast do |podcast_form| -%>
+    <%= render :partial => "podcasts/form", :locals => {:podcast_form => podcast_form} -%>
+  <% end -%>
 </div>
-
-<%= render :partial => "form" -%>

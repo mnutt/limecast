@@ -1,0 +1,109 @@
+--- !ruby/object:Gem::Specification 
+name: gchart
+version: !ruby/object:Gem::Version 
+  version: 0.5.0
+platform: ruby
+authors: 
+- John Barnette
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-05-11 00:00:00 -04:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: hoe
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.5.1
+    version: 
+description: "== PROBLEMS/TODO  * Add grid lines, linear stripes, shape markers, gradient fills * Make venn data specification friendlier * Make documentation more digestible  There are lots of missing features. Until they're implemented, you can directly specify query parameters using the :extras key, e.g.,  # provides a legend for each data set g = GChart.line(:data => [[1, 2], [3, 4]], :extras => { \"chdl\" => \"First|Second\"})"
+email: jbarnette@rubyforge.org
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- CHANGELOG.txt
+- Manifest.txt
+- README.txt
+files: 
+- CHANGELOG.txt
+- Manifest.txt
+- README.txt
+- Rakefile
+- lib/gchart.rb
+- lib/gchart/axis.rb
+- lib/gchart/axis/bottom_axis.rb
+- lib/gchart/axis/horizontal_axis.rb
+- lib/gchart/axis/left_axis.rb
+- lib/gchart/axis/right_axis.rb
+- lib/gchart/axis/top_axis.rb
+- lib/gchart/axis/vertical_axis.rb
+- lib/gchart/bar.rb
+- lib/gchart/base.rb
+- lib/gchart/colors.rb
+- lib/gchart/line.rb
+- lib/gchart/map.rb
+- lib/gchart/meter.rb
+- lib/gchart/pie.rb
+- lib/gchart/pie_3d.rb
+- lib/gchart/scatter.rb
+- lib/gchart/sparkline.rb
+- lib/gchart/venn.rb
+- lib/gchart/xy_line.rb
+- lib/version.rb
+- spec/gchart/axis/bottom_axis_spec.rb
+- spec/gchart/axis/left_axis_spec.rb
+- spec/gchart/axis/right_axis_spec.rb
+- spec/gchart/axis/top_axis_spec.rb
+- spec/gchart/axis_spec.rb
+- spec/gchart/bar_spec.rb
+- spec/gchart/base_spec.rb
+- spec/gchart/colors_spec.rb
+- spec/gchart/line_spec.rb
+- spec/gchart/map_spec.rb
+- spec/gchart/meter_spec.rb
+- spec/gchart/pie_3d_spec.rb
+- spec/gchart/pie_spec.rb
+- spec/gchart/scatter_spec.rb
+- spec/gchart/sparkline_spec.rb
+- spec/gchart/venn_spec.rb
+- spec/gchart/xy_line_spec.rb
+- spec/gchart_spec.rb
+- spec/helper.rb
+- spec/spec.opts
+has_rdoc: true
+homepage: http://gchart.rubyforge.org
+post_install_message: 
+rdoc_options: 
+- --main
+- README.txt
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: gchart
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 2
+summary: GChart uses the Google Chart API to create pretty pictures.
+test_files: []
+

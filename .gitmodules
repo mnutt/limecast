@@ -7,9 +7,6 @@
 [submodule "vendor/plugins/thinking-sphinx"]
 	path = vendor/plugins/thinking-sphinx
 	url = git://github.com/freelancing-god/thinking-sphinx.git
-[submodule "vendor/gems/factory_girl"]
-	path = vendor/gems/factory_girl
-	url = git://github.com/thoughtbot/factory_girl.git
 [submodule "vendor/plugins/acts_as_state_machine"]
 	path = vendor/plugins/acts_as_state_machine
 	url = git://github.com/mnutt/acts_as_state_machine.git
@@ -19,9 +16,6 @@
 [submodule "vendor/plugins/delayed_job"]
 	path = vendor/plugins/delayed_job
 	url = git://github.com/tobi/delayed_job.git
-[submodule "vendor/gems/gchart"]
-	path = vendor/gems/gchart
-	url = git://github.com/abhay/gchart.git
 [submodule "vendor/gems/curb"]
 	path = vendor/gems/curb
 	url = git://github.com/taf2/curb.git

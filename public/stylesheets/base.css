@@ -510,3 +510,33 @@ div#primary span#notice {
   padding: 10px;
   display: block;
 }
+
+
+/* LimeCast form */
+.limecast_form {
+	position: relative;
+	padding: 5px;
+	min-width: 400px;
+}
+.limecast_form .top {
+	height: 30px;
+	border: dashed #BBB;
+	border-width: 2px 2px 0 2px;
+}
+.limecast_form .middle {
+	margin: -20px 0;
+	padding: 0px 10px;
+}
+.limecast_form .bottom {
+	height: 15px;
+	border: dashed #BBB;
+	border-width: 0 2px 2px 2px;
+	padding: 20px 0 20px 0;
+	text-align: center;
+}
+.limecast_form fieldset {
+	margin: 10px 0 0 10px;
+}
+.limecast_form .field {
+	margin-bottom: 5px;
+}

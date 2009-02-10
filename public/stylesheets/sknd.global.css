@@ -7,14 +7,48 @@
 
 
 /**** Form elements **************/
-form#search {text-align: right; margin: 3px 0 0 0px; display: block;}
-form#search input.text {
-	background: url('../imgs/text_box.png') top left repeat-x;
-	width: 152px;
-	height: 19px;
+form#search {
+
+	width: 180px; 
+	margin: 0px; 
+	display: block; 
+	position: absolute; 
+	top: 5px;
+	right: 0px;
+
+}
+
+form#search input {
+	background: url('../imgs/search_input.png') top left repeat-x;
+	width: 175px;
+	height: 24px;
 	border: 0;
-	padding: 5px 0 0 5px;
+	padding: 0px;
 	color: #a9a9a9;
+	position: relative;
+	font-size: 1.2em;
+	position: relative;
+	padding: 5px 0 0 5px;
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
+form#search input {padding: 0px 0 0 5px;}
+}
+
+form#search button {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 30px;
+	background: url('../imgs/search_button.png') no-repeat right;
+}
+
+form#search button span {
+
+	margin-left: -5000px;
+
+	width: 30px;
 
 }
 

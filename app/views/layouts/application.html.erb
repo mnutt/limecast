@@ -68,9 +68,10 @@ $(document).ready(function(){
 
     <div id="wrapper">
       <div id="header">
+        
         <div id="utility_nav">
           <ul>
-            <li><a href="#"><strong>Join now!</strong></a> | </li>
+            <li><a href="#"><strong>Join now!</strong></a>  </li>|
           <% if current_user %>
             <li><%= link_to_profile current_user -%></li>
           <% else %>
@@ -78,30 +79,28 @@ $(document).ready(function(){
             <div class="quick_signin_container from_top_bar"></div>
           <% end -%>
           </ul>
-        </div>
+        </div> <!-- /utility_nav -->
 
 
         <div id="global_nav">
           <a href="/" id="logo"><span>LimeCast</span></a>
-          <!--
+          
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Browse</a></li>
-            <li><a href="#">Popular</a></li>
-            <li><a href="#" id="add_podcast">Add podcast</a><li>
+            <li><a href="/" id="nav_home"><span>Home</span></a></li>
+            <li><a href="#" id="nav_browse"><span>Browse</span></a></li>
+            <li><a href="/all" id="nav_pop"><span>Popular</span></a></li>
+            <li><a href="/add" id="add_podcast"><span>Add podcast</span></a><li>
           </ul>
-          -->
-          <a href="/add" id="add_podcast"><span>Add podcast</span></a>
-
-          <form action="/search" method="get" id="search">            
-            <input class="text search" id="q" name="q" size="15" type="text" />
-            <button type="submit">
-              <span>Search</span>
-            </button>
-          </form>
-
 
         </div> <!-- /global_nav -->
+        
+        <form action="/search" method="get" id="search">            
+          <input class="text search" id="q" name="q" size="15" type="text" value="Search LimeCast" />
+          <button type="submit">
+            <span>Search</span>
+          </button>
+        </form>
+        
       </div> <!-- /header -->
   
       <!-- HACK Use content wrapper so we can use margin on #content div. -->

@@ -13,10 +13,9 @@
           <%= link_to_with_icon "Delete", :delete, "/episodes/#{@episode.id}", :class => 'delete' %>
         </span>
       </div>
+    <% end -%>
 
     <p id="podcast_link"><%= link_to(h(@episode.podcast.custom_title), @episode.podcast) %></p>
-
-    <% end -%>
 
     <h1 class="heading"><%= unescape_entities(escape_once(@episode.title)) %></h1>
 

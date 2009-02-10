@@ -29,11 +29,12 @@ class Tag < ActiveRecord::Base
 
   # Instance Methods
   def rating
-    min    = Tag.minimum('taggings_count')
-    max    = Tag.maximum('taggings_count')
+    min    = Tag.minimum('taggings_count') || 0
+    max    = Tag.maximum('taggings_count') || 1
     spread = max - min
-
-    rating = case (((taggings_count - min).to_f / max) * 100).to_i
+    norm = ((taggings_count || 0) - min).abs 
+    
+    rating = case ((norm.to_f / max) * 100).to_i
                when 0..10  then "1"
                when 11..20 then "2"
                when 21..30 then "3"

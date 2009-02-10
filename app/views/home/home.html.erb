@@ -375,7 +375,7 @@
             <li class="size_10"><a href="">Size 10 Tag Cloud</a></li> //-->
 
             <% @popular_tags.each do |tag| -%>
-            <li class="size_<%= tag.rating %>"><%= link_to tag.name, tag_url(:tag => tag.name) %></li>
+            <li class="size_<%= tag.rating %>"><%= link_to tag.name, tag_url(:tag => tag.name), :title => "#{tag.taggings_count} Podcast" %></li>
             <% end -%>
           </ul>
 

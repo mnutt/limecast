@@ -1,6 +1,6 @@
 <div class="episode">
   <% if episode.sources.first.screenshot? %>
-  <%= link_to(image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95), "#", :title => "#{episode.title} cover art") %>
+  <%= image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95) %>
   <div>
   <% else %>
   <div class="no_screenshot">

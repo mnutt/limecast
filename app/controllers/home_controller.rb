@@ -27,13 +27,19 @@ class HomeController < ApplicationController
     else
       @release = "(not deployed)"
     end
+    
+#		begin
+      if File.exist?("#{RAILS_ROOT}/.git")
+		    head = File.read("#{RAILS_ROOT}/.git/HEAD").split(": ").last.strip
+				@branch = head.split('/').last rescue nil
+	  		master_info = "#{RAILS_ROOT}/.git/#{head}"
+        @commit = File.read(master_info) # if File.exist?(master_info)
+        commit_msg = "#{RAILS_ROOT}/.git/COMMIT_EDITMSG"
+        @message = File.read(commit_msg) if File.exist?(commit_msg)
+      end
+#	  rescue
+#		end
 
-    if File.exist?("#{RAILS_ROOT}/.git")
-      master_info = "#{RAILS_ROOT}/.git/refs/heads/master"
-      @commit = File.read(master_info) if File.exist?(master_info)
-      commit_msg = "#{RAILS_ROOT}/.git/COMMIT_EDITMSG"
-      @message = File.read(commit_msg) if File.exist?(commit_msg)
-    end
     render :layout => false
   end
 end

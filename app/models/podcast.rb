@@ -87,18 +87,24 @@ class Podcast < ActiveRecord::Base
     file = PaperClipFile.new
     file.original_filename = File.basename(link)
 
-    open(link) do |f|
-      return unless f.content_type =~ /^image/
-
-      file.content_type = f.content_type
-      file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
-        tmp.write(f.read)
-        tmp.rewind
-        tmp
+    begin
+      Timeout::timeout(5) do
+        OpenURI::open_uri(link, "User-Agent" => "LimeCast/0.1") do |f|
+          return unless f.content_type =~ /^image/
+          
+          file.content_type = f.content_type
+          file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
+            tmp.write(f.read)
+            tmp.rewind
+            tmp
+          end
+        end
       end
+    rescue
+      file = nil
     end
 
-    self.attachment_for(:logo).assign(file)
+    self.attachment_for(:logo).assign(file) unless file.nil?
   end
 
   def average_time_between_episodes

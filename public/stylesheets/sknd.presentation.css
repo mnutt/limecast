@@ -154,7 +154,7 @@ ul li {display: inline;}
 body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 #wrapper {position: relative; margin: auto;}
-#header {position: relative; margin: 0; height: 54px;}
+#header {position: relative; margin: 0; height: 35px;}
 #content_wrapper {
 	position: relative;
 	overflow: hidden;
@@ -166,46 +166,82 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 /**** Header **************/
 
-#utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}
-#utility_nav ul li {display: inline; margin-left: 2px;}
+#utility_nav ul {font-size: 1.2em; position: absolute; top: 8px; right: 195px;}
+#utility_nav ul li {display: inline; margin-left: 2px; padding: 0 3px;}
 
 
-#global_nav {margin: 0; position: absolute; top: 22px; left: 0; height: 30px; width: 100%;}
+#global_nav {float: left; margin: 0; position: absolute; top: 6px; left: 0;  width: 500px;}
 #global_nav {
 	font-size: 1.5em;
 }
-#global_nav a {}
-#global_nav ul { display: inline; padding: 0 0 10px 0;}
-#global_nav ul li {display: inline;}
+#global_nav a {outline: none;}
+#global_nav ul { display: block; margin: 1px 0 0 5px;}
+#global_nav ul li {display: inline; float: left; padding: 0 7px; margin-top: 5px;}
 
 a#logo {
-	margin-top: 3px; 
 	float: left;
 	background: url('../imgs/logo.png') top left no-repeat;
 	width: 111px;
 	height: 24px;
 	display: block;
+	margin-right: 10px;
 }
 
 a#logo:hover {
 	background: url('../imgs/logo_over.png') top left no-repeat;
 }
 
-a#add_podcast {
+a#nav_home {
+	background: url('../imgs/home.png') top left no-repeat;
+	width: 43px;
+	height: 15px;
+	display: block;
 	float: left;
+}
+
+a#nav_browse {
+	background: url('../imgs/browse.png') top left no-repeat;
+	width: 57px;
+	height: 15px;
+	display: block;
+	float: left;
+}
+
+a#nav_pop {
+	background: url('../imgs/popular.png') top left no-repeat;
+	width: 59px;
+	height: 15px;
+	display: block;
+	float: left;
+}
+
+a#add_podcast {
 	background: url('../imgs/add_podcast.png') top left no-repeat;
-	width: 128px;
+	width: 134px;
 	height: 19px;
 	display: block;
-	margin: 5px 0 0 15px;
-	padding: 5px 0 5px 20px;
+	float: left;
+	margin-top: -3px;
+}
+
+a#nav_home:hover {
+	background: url('../imgs/home_o.png') top left no-repeat;
+}
+
+a#nav_browse:hover {
+	background: url('../imgs/browse_o.png') top left no-repeat;
+}
+
+a#nav_pop:hover {
+	background: url('../imgs/popular_o.png') top left no-repeat;
 }
 
 a#add_podcast:hover {
 	background: url('../imgs/add_podcast_over.png') top left no-repeat;
 }
 
-a#add_podcast span, a#logo span {
+
+a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop span {
 	margin-left: -5000px;
 }
 
@@ -627,6 +663,7 @@ li.review {
 
 .show #r_view {
 	text-align: right;
+	margin-bottom: 10px;
 }
 
 
@@ -655,7 +692,7 @@ li.review {
 .show li.review .info {
 	width: 163px;
 	float: left;
-	margin: 10px 0;
+	margin: 0px 0;
 	font-size: 1.2em;
 }
 

@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     else
       respond_to do |format|
         format.html { render :action => 'new' }
-        format.js
+        format.js { render :layout => false }
       end
     end
   end

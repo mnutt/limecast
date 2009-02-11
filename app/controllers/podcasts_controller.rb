@@ -69,17 +69,28 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
-    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, 
+    if params[:podcast] && params[:podcast][:_delete]
+      @podcast.destroy
+      flash[:notice] = "#{@podcast.title} has been removed."
+      redirect_to(podcasts_url) and return false
+    end
+
+    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews,
                                                           :feeds_attributes, :custom_title, :primary_feed_id])
     respond_to do |format|
       if @podcast.save
         format.html do
           flash[:notice] = 'Podcast was successfully updated.'
+          flash[:notice] << " #{@podcast.messages.join(' ')}"
           redirect_to(@podcast)
         end
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }
       else
-        format.html { render :action => "edit" }
+        format.html { 
+          @reviews = @podcast.reviews
+          @review  = Review.new(:episode => @podcast.episodes.newest.first)
+          render :action => 'show'
+        }
         format.js { head(:failure) }
       end
     end

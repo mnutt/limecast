@@ -124,20 +124,26 @@ module ApplicationHelper
   end
 
   def messages_for(obj, col)
-    "<p style=\"padding: 1px; color: black; border: solid 4px lemonchiffon; background: white;\" class=\"message\">
-      #{obj.messages[col].join(', ')}
-    </p>" unless obj.messages[col].blank? || obj.messages[col].empty?
+    "<p style=\"padding: 1px; color: black; display: inline; border: solid 4px lemonchiffon; background: white;\" class=\"message\">
+      #{obj.messages[col.to_s].join(', ')}
+    </p>" unless obj.messages[col.to_s].blank? || obj.messages[col.to_s].empty?
+  end
+
+  def errors_for(obj, col)
+    "<p style=\"padding: 1px; color: red; display: inline; border: solid 4px pink; background: white;\" class=\"error\">
+      #{obj.errors.on(col)}
+    </p>" unless obj.errors.on(col).blank?
   end
   
   def span_with_icon(title, icon, options={})
     content_tag(:span, image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + " #{title}" , options)
   end
   
-  def limecast_form_for record_or_name_or_array, *args, &proc #@podcast, } do |podcast_form|
+  def limecast_form_for record_or_name_or_array, *args, &proc
     options = args.extract_options!
     (options[:html] ||= {})
     options[:html][:class] = "#{options[:html][:class]} limecast_form clearfix"
-    options[:html][:style] = "display: none; #{options[:html][:style]}"
+    options[:html][:style] = "display: none; #{options[:html][:style]}" unless options[:show]
   
     form_for(record_or_name_or_array, *(args << options)) do |form_builder|
       concat('<div class="top"><!-- //--></div>')

@@ -12,8 +12,8 @@
 
   <div class="urls inline clearfix">
     <%= link_to h(@podcast.clean_site), h(@podcast.site) %>
-    <%= link_to_with_icon "RSS", :rss, @podcast.primary_feed.url %>
-    <% unless @podcast.primary_feed.itunes_link.blank? -%>
+    <%= link_to_with_icon "RSS", :rss, @podcast.primary_feed.url unless @podcast.primary_feed.nil? %>
+    <% unless @podcast.primary_feed.blank? || @podcast.primary_feed.itunes_link.blank? -%>
       <%= link_to_with_icon "iTunes", :itunes, "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.primary_feed.itunes_link}" %>
     <% end -%>
   </div>

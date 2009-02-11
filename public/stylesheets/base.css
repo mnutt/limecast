@@ -516,7 +516,7 @@ div#primary span#notice {
 .limecast_form {
 	position: relative;
 	padding: 5px;
-	min-width: 400px;
+  width: 700px;
 }
 .limecast_form .top {
 	height: 30px;
@@ -538,5 +538,13 @@ div#primary span#notice {
 	margin: 10px 0 0 10px;
 }
 .limecast_form .field {
+  clear: left;
 	margin-bottom: 5px;
+}
+.limecast_form .field label {
+  width: 150px;
+  float: none;
+}
+.limecast_form .field input {
+  display: inline !important;;
 }

@@ -63,12 +63,14 @@ class Podcast < ActiveRecord::Base
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
 
   attr_accessor :has_episodes
-  attr_accessor_with_default :messages, HashWithIndifferentAccess.new
+  attr_accessor_with_default :messages, []
 
   before_save :attempt_to_find_owner
   before_save :sanitize_titles
   before_save :sanitize_url
   before_save :cache_custom_title
+
+  validates_presence_of :custom_title, :clean_url
 
   # Search
   define_index do
@@ -181,16 +183,15 @@ class Podcast < ActiveRecord::Base
   end
 
   protected
-  def add_message(col, msg)
+  def add_message(msg)
     # TODO this could probably be a one-liner
-    self.messages[col] ||= []
-    self.messages[col] << msg
-    self.messages[col].uniq!
+    self.messages << msg
   end
   
   def sanitize_titles
     return if self.title.nil?
   
+    desired_title = title
     # First, sanitiaze "title"
     self.title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
     self.title.sub!(/^[\s]*-/, "") # Remove leading dashes
@@ -201,10 +202,11 @@ class Podcast < ActiveRecord::Base
       self.title.chop!.chop! unless i == 1
       self.title = "#{title} #{i += 1}"
     end
-    add_message :title, "There was another podcast with the same title, so we have suggested a new title." if title_changed?
+    add_message "There was another podcast with the same title, so we have suggested a new title." if title != desired_title
   
     return title if new_record? # pass custom_title on to cache_custom_title() if this is a new record
   
+    desired_custom_title = custom_title
     # Second, sanitize "custom_title"
     self.custom_title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
     self.custom_title.sub!(/^[\s]*-/, "") # Remove leading dashes
@@ -215,8 +217,9 @@ class Podcast < ActiveRecord::Base
       self.custom_title.chop!.chop! unless i == 1
       self.custom_title = "#{custom_title} #{i += 1}"
     end
-    add_message :custom_title, "There was another podcast with the same title, so we have suggested a new title." if custom_title_changed?
-  
+
+    add_message "There was another podcast with the same title, so we have suggested a new title." if custom_title != desired_custom_title
+
     return title
   end
   
@@ -231,7 +234,7 @@ class Podcast < ActiveRecord::Base
       self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")     # Remove all non-alphanumeric non-space characters
       self.clean_url.gsub!(/[\s]+/, '-')             # Condense spaces and turn them into dashes
   
-      add_message :url, "The podcast url has changed." if clean_url_changed?
+      add_message "The podcast url has changed." if clean_url_changed?
   
       self.clean_url
     end

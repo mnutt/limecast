@@ -7,6 +7,10 @@ $.quickSignIn = {
 
     // Makes the form use AJAX
     me.submit(function(event){
+      if(!me.find('.sign_up:visible').length) 
+        me.find('.signin_button').click();
+      else
+        me.find('.signup_button').click();
       return false; // this will all be handled through specific Form Element events
     });
 

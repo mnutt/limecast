@@ -247,7 +247,7 @@ module ApplicationHelper
     options = args.extract_options!
     (options[:html] ||= {})
     options[:html][:class] = "#{options[:html][:class]} limecast_form clearfix"
-    options[:html][:style] = "display: none; #{options[:html][:style]}"
+    options[:html][:style] = "display: none; #{options[:html][:style]}" unless options[:show]
 
     form_for(record_or_name_or_array, *(args << options)) do |form_builder|
       concat('<div class="top"><!-- //--></div>')

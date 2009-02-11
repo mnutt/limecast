@@ -5,6 +5,10 @@
 
 .tm {padding-top: 1em;} /*Top Margin*/
 
+.disabled {
+	display: none;
+}
+
 
 /**** Form elements **************/
 form#search {
@@ -424,8 +428,9 @@ span > img.inline_icon {
 	font-size: .8em; 
 	width: auto;
 	overflow: visible;
-	margin-right: 2px;
-	margin-top: -42px;
+	display: block;
+	float: none;
+	margin: -42px 5px 0 0;
 }
 
 .sm_social h3, .sm_social h3 a {

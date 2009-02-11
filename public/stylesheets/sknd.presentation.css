@@ -1,5 +1,13 @@
-body {text-align: center;}
-#wrapper {width: 980px; margin: 0 auto; text-align: left; overflow: auto;}
+body {text-align: center;height: 100%;}
+
+#wrapper {
+	width: 980px; 
+	margin: 0 auto;
+	text-align: left; 
+	overflow: auto;
+}
+
+.push {height: 70px;}
 
 #notice { 
 	color: red;
@@ -337,10 +345,12 @@ form#quick_signin a.forgot {
 
 #pop_recent_cont {
 	float: left;
+	position: relative;
 }
 
 #tags_review_cont {
 	float: right;
+	position: relative;
 }
 
 
@@ -351,7 +361,7 @@ form#quick_signin a.forgot {
 
 #pop_recent_cont .description .s_desc, #tags_review_cont .description .s_desc {
 	background: none;
-	width: 315px;
+	width: 340px;
 }
 
 #pop_recent_cont , #tags_review_cont {
@@ -372,7 +382,9 @@ form#quick_signin a.forgot {
 
 
 #pop_recent_cont .callout, #tags_review_cont .callout {
-	float: right;
+	position: absolute;
+	bottom: 35px;
+	right: 20px;
 }
 
 
@@ -1063,7 +1075,9 @@ ul.tabs-nav  {
 	color:#fff;
 }
 
-div.foot_wrapper {height: 70px;
+div.foot_wrapper {
+	width: 100%;
+	min-height: 70px;
 	background: #313131 url('../imgs/bg_footer.png') top left repeat-x;
 }
 
@@ -1100,7 +1114,7 @@ display: inline;
 }
 
 .podcast.index .preview img {
-	width: 100px;
+	width: 110px;
 	float: left;
 	border: 1px solid #aeaba1;
 }
@@ -1113,7 +1127,8 @@ display: inline;
 
 .podcast.index .s_desc {
 	position: relative;
-	width: 510px;
+	width: 500px;
+	margin-top: -4px;
 	padding: 0;
 }
 

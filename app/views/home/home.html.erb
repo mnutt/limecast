@@ -233,7 +233,7 @@
             </div> <!-- /s_desc -->
           </div> <!-- /description -->
           
-          <div class="callout"><ul><li><%= link_to "View all popular", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
+          <div class="callout"><ul><li><%= link_to "View all popular", "/all" -%></li></ul></div>
           
           
           
@@ -379,7 +379,7 @@
             <% end -%>
           </ul>
 
-          <div class="callout"><ul><li><%= link_to "View all popular", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
+          <div class="callout"><ul><li><%= link_to "Browse tags", "/tags" -%></li></ul></div>
          <% end -%>
       </div> <!-- /rounded_corners -->
     

@@ -4,5 +4,5 @@
     <%= image_tag(episode.sources.first.screenshot.url, :rel => episode.sources.first.preview.url, :alt => "#{episode.title} cover art",  :width => 460, :height => 342) -%>
   </div>
 <%- else -%>
-  <%= image_tag('/imgs/video_placeholder.png', :alt => "#{episode.title} cover art is missing", :width => 340) -%>
+  <%= image_tag('/imgs/video_placeholder.png', :alt => "#{episode.title} cover art is missing", :width => 460) -%>
 <%- end -%>

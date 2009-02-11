@@ -80,7 +80,10 @@ $(document).ready(function(){
   });
 });
 
+
 </script>
+
+
 
 </head>
 
@@ -108,7 +111,7 @@ $(document).ready(function(){
           
           <ul>
             <li><a href="/" id="nav_home"><span>Home</span></a></li>
-            <li><a href="#" id="nav_browse"><span>Browse</span></a></li>
+            <li><a href="/tags" id="nav_browse"><span>Browse</span></a></li>
             <li><a href="/all" id="nav_pop"><span>Popular</span></a></li>
             <li><a href="/add" id="add_podcast"><span>Add podcast</span></a><li>
           </ul>
@@ -139,12 +142,12 @@ $(document).ready(function(){
         <% end -%>
 
         <%= yield %>
-
+        
         </div> <!-- /content -->
-      </div> <!-- /content -->
+      </div> <!-- /content_wrapper -->
     </div> <!-- /wrapper -->
   
-
+    
         
         <div class="foot_wrapper">
           <div id="footer">
@@ -199,9 +202,10 @@ $(document).ready(function(){
             </div>
 
 
-      </div>
-    </div>
+      </div> <!-- /footer -->
+    </div> <!-- /foot_wrapper -->
 
+  
     <%= @tracker -%>
 
     <%= render :partial => 'users/quick_signin', :locals => { }  -%>

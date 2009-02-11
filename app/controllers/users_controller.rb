@@ -18,6 +18,10 @@ class UsersController < ApplicationController
     # uncomment at your own risk
     # reset_session
     if self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
+      respond_to do |format|
+        format.html { redirect_back_or_default('/') }
+        format.js { render :layout => false }
+      end
       return
     end
 

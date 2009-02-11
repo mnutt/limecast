@@ -57,10 +57,11 @@ form#quick_signin input.text {
 	display: block;
 }
 form#quick_signin .response_container {
-  padding: 5px;
-  color: red !important;
+ 
+  
 }
 form#quick_signin .response_container p {
+	color: #a9a9a9;
   font-size: 1em;
 }
 form#quick_signin label {
@@ -69,9 +70,7 @@ form#quick_signin label {
 	text-align: right;
 	font-weight: bold;
 }
-form#quick_signin .response_container a {
-  color: #a9a9a9;
-}
+
 
 .quick_signin_container {
   position: absolute;

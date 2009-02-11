@@ -66,11 +66,11 @@ class Podcast < ActiveRecord::Base
   attr_accessor_with_default :messages, []
 
   before_save :attempt_to_find_owner
-  before_save :sanitize_titles
+  before_save :sanitize_title
+  before_save :sanitize_custom_title
   before_save :sanitize_url
-  before_save :cache_custom_title
 
-  validates_presence_of :custom_title, :clean_url
+  #validates_presence_of :custom_title, :clean_url
 
   # Search
   define_index do
@@ -188,7 +188,7 @@ class Podcast < ActiveRecord::Base
     self.messages << msg
   end
   
-  def sanitize_titles
+  def sanitize_title
     return if self.title.nil?
   
     desired_title = title
@@ -203,9 +203,13 @@ class Podcast < ActiveRecord::Base
       self.title = "#{title} #{i += 1}"
     end
     add_message "There was another podcast with the same title, so we have suggested a new title." if title != desired_title
-  
-    return title if new_record? # pass custom_title on to cache_custom_title() if this is a new record
-  
+
+    return title
+  end
+
+  def sanitize_custom_title
+    self.custom_title = custom_title.blank? ? title : custom_title
+    
     desired_custom_title = custom_title
     # Second, sanitize "custom_title"
     self.custom_title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
@@ -220,17 +224,13 @@ class Podcast < ActiveRecord::Base
 
     add_message "There was another podcast with the same title, so we have suggested a new title." if custom_title != desired_custom_title
 
-    return title
-  end
-  
-  def cache_custom_title
-    self.custom_title = custom_title.blank? ? title : custom_title
+    return custom_title
   end
   
   def sanitize_url
     if !self.title.nil? && (custom_title.blank? || custom_title_changed?)
   
-      self.clean_url = self.custom_title.clone.strip # Remove leading and trailing spaces
+      self.clean_url = self.custom_title.to_s.clone.strip # Remove leading and trailing spaces
       self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")     # Remove all non-alphanumeric non-space characters
       self.clean_url.gsub!(/[\s]+/, '-')             # Condense spaces and turn them into dashes
   

@@ -505,6 +505,7 @@ div#edit_form input.text {
 /**
  Notices
 **/
+div#full_width span#notice,
 div#primary span#notice {
   background-color: #555;
   padding: 10px;

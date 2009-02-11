@@ -127,10 +127,11 @@ ul li {display: inline;}
 body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 #wrapper {position: relative; margin: auto;}
-#header {position: relative; margin: 0; height: 35px;}
+#header {position: relative; margin: 0; height: 35px;overflow: ;}
 #content_wrapper {
 	position: relative;
 	overflow: hidden;
+	height: 1%;
 	background: #f1f1f1 url('../imgs/bg_content.png') top left repeat-x;
 }
 #content {
@@ -331,7 +332,7 @@ form#quick_signin a.forgot {
 .new #featured .social {
 	font-size: .7em;
 	position: absolute;
-	bottom: -34px;
+	bottom: -74px;
 }
 
 #pop_recent_cont {
@@ -806,6 +807,7 @@ li.review {
 .show #subscribe h2 {
 	margin: 0;
 	color: #fff;
+	width: auto;
 }
 
 .show #subscribe p {
@@ -1105,7 +1107,7 @@ display: inline;
 
 .podcast.index .description {
 	margin: 30px 0 0 5px;
-	padding: 0;
+	padding: 0; 
 	min-height: 125px;
 }
 
@@ -1118,7 +1120,7 @@ display: inline;
 .podcast.index .social {
 	font-size: .7em;
 	width: auto;
-	margin-top: 10px;
+	margin-top: -32px;
 }
 .podcast.index .addit {
 	float: right;

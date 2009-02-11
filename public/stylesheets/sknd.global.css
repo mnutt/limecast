@@ -117,7 +117,7 @@ input.radio {
 .cbb h1 { margin:0 -10px; padding:0.3em 10px; background:#efece6; font:bold 1.2em/1 Arial, Helvetica, sans-serif; }
 */
 /* Normal styling */
-.rounded_corners {margin:0.0em 0;}
+.rounded_corners {margin:0 0 20px 0;}
 	/* Top corners and border */
 .bt {
 	height:5px;
@@ -369,15 +369,15 @@ span > img.inline_icon {
 .social {
   float:left;
   width:100%;
-
+	position: relative;
+	bottom: -40px;
+	margin-bottom: 60px;
   }
 .social ul {
   margin:0;
   padding:0;
   list-style:none;
-	position: relative;
-	bottom: -40px;
-	margin-bottom: 60px;
+
 	left: 0;
   }
 .social li {
@@ -425,6 +425,7 @@ span > img.inline_icon {
 	width: auto;
 	overflow: visible;
 	margin-right: 2px;
+	margin-top: -42px;
 }
 
 .sm_social h3, .sm_social h3 a {
@@ -682,7 +683,6 @@ ul.tabs  {
 
 .googleads {
 	overflow: hidden;
-	background-color: #f1f1f1; 
 	width: 250px;
 	float: right;
 	margin-bottom: 20px;

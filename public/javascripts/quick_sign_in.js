@@ -8,25 +8,32 @@ $.quickSignIn = {
     // Makes the form use AJAX
     me.submit(function(event){
       if(!me.find('.sign_up:visible').length) 
-        me.find('.signin_button').click();
+        me.find('.signin_signup_button').click();
       else
-        me.find('.signup_button').click();
+        me.find('.signin_signup_button').click();
       return false; // this will all be handled through specific Form Element events
     });
-
+    
+    me.find('.signin_signup_button').click(function(event){
+      if(!me.find('.sign_up:visible').length) { // if signup hasn't happened yet, just show full signup form
+        $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
+      } else {
+        $.post(me.attr('action'), me.serialize(), $.quickSignIn.signupSubmitCallback, 'json');
+      }
+    });
+    
     // Show the full signup form on clicking the 'Sign Up' button
     me.find('.signup_button').click(function(event){
       if(!me.find('.sign_up:visible').length) { // if signup hasn't happened yet, just show full signup form
         $.quickSignIn.showSignUp();
-      } else {
-        $.post(me.attr('action'), me.serialize(), $.quickSignIn.signupSubmitCallback, 'json'); // if (me.find('input.signin_button:visible').length > 0 && event.detail > 0 ) {}  // event.detail = # of mouse clicks
       }
-
       return false;
     });
 
     me.find('.signin_button').click(function(event){
-      $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
+      if(me.find('.sign_up:visible').length) { // if signup hasn't happened yet, just show full signup form
+        $.quickSignIn.showSignIn();
+      }
       return false;
     });
     
@@ -84,9 +91,8 @@ $.quickSignIn = {
 		me.find('.controls').show();
 		me.find('.controls_signup').hide();
 		me.find('.signup_heading').text('Login to LimeCast');
-		me.find('.signin_button').text('Login');
+		me.find('.signin_signup_button span').text('Login');
     me.attr('action', '/session');
-    me.find('input.signin_button').show();
     me[0].reset(); // the actual DOM function for resetting a form
     me.find('div.response_container').html('');
   },
@@ -129,10 +135,9 @@ $.quickSignIn = {
     if(!me.find('.sign_up:visible').length) {
       me.find('.sign_up').show();
 			me.find('.signup_heading').text('Sign up with LimeCast');
-			me.find('.signin_button').text('Sign up');
 			me.find('.controls').hide();
 			me.find('.controls_signup').show();
-      me.find('input.signin_button').hide();
+      me.find('.signin_signup_button span').text('Signup');
       me.attr('action', '/users'); // Set the forms action to /users to call UsersController#create
 
       if(me.find('input.login').val().match(/[^ ]+@[^ ]+/)) {
@@ -140,9 +145,26 @@ $.quickSignIn = {
         me.find('input.login').val("");
       }
     }
+    me.find('input.login').focus();
 
+    return false;
+  },
 
+  showSignIn: function(event) {
+    me = $("#quick_signin");
 
+    // Show default message if they click the inline signup link
+    if(event && event.target.className=='inline_signup_button') me.find('div.response_container').html("<p>Choose your new user name.</p>");
+
+    // Show signup form if hidden
+    if(me.find('.sign_up:visible').length) {
+      me.find('.sign_up').hide();
+			me.find('.signup_heading').text('Login to LimeCast');
+			me.find('.controls').show();
+			me.find('.controls_signup').hide();
+      me.find('.signin_signup_button span').text('Login');
+      me.attr('action', '/session'); // Set the forms action to /users to call UsersController#create
+    }
     me.find('input.login').focus();
 
     return false;

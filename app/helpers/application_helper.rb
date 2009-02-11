@@ -103,9 +103,15 @@ module ApplicationHelper
   end
 
   def messages_for(obj, col)
-    "<p style=\"padding: 1px; color: black; border: solid 4px lemonchiffon; background: white;\" class=\"message\">
-      #{obj.messages[col].join(', ')}
-    </p>" unless obj.messages[col].blank? || obj.messages[col].empty?
+    "<p style=\"padding: 1px; color: black; display: inline; border: solid 4px lemonchiffon; background: white;\" class=\"message\">
+      #{obj.messages[col.to_s].join(', ')}
+    </p>" unless obj.messages[col.to_s].blank? || obj.messages[col.to_s].empty?
+  end
+
+  def errors_for(obj, col)
+    "<p style=\"padding: 1px; color: red; display: inline; border: solid 4px pink; background: white;\" class=\"error\">
+      #{obj.errors.on(col)}
+    </p>" unless obj.errors.on(col).blank?
   end
 
   def span_with_icon(title, icon, options={})

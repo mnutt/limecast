@@ -35,6 +35,8 @@ class Feed < ActiveRecord::Base
   before_create :sanitize
   after_save :remove_empty_podcast
   after_destroy { |f| f.finder.calculate_score! if f.finder }
+  after_destroy :add_podcast_message
+  after_destroy :set_podcast_primary_feed
 
   validates_presence_of   :url
   validates_uniqueness_of :url
@@ -211,6 +213,18 @@ class Feed < ActiveRecord::Base
   end
 
   protected
+  def set_podcast_primary_feed
+    puts "Setting primary fed"
+    if podcast.primary_feed.nil?
+      podcast.primary_feed = podcast.feeds(true).first
+      podcast.save!
+    end
+    puts "Updating primary feed to #{podcast.primary_feed_id}"
+  end
+  
+  def add_podcast_message
+    podcast.send(:add_message, "The #{apparent_format} feed has been removed.")
+  end
 
   def log_failed(exception)
     stored_exception = { :feed => self.url,

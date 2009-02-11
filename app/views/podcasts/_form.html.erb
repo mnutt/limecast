@@ -1,15 +1,13 @@
 <div class="field">
-  <%= messages_for podcast_form.object, :custom_title %>
   <%= podcast_form.label :custom_title, "Title" -%>
   <%= podcast_form.text_field :custom_title, :class => "text" -%>
+  <%= errors_for podcast_form.object, :custom_title %>
 </div>  
 <div class="field">
-  <%= messages_for podcast_form.object, :has_previews %>
   <%= podcast_form.check_box :has_previews %>
   <%= podcast_form.label :has_previews, "Preview episodes" %>
 </div>
 <div class="field">
-  <%= messages_for podcast_form.object, :has_p2p_acceleration %>
   <%= podcast_form.check_box :has_p2p_acceleration %>
   <%= podcast_form.label :has_p2p_acceleration, "Enable P2P acceleration" %>
 </div>

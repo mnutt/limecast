@@ -12,7 +12,7 @@ $.quickSignIn = {
 
     // Show the full signup form on clicking the 'Sign Up' button
     me.find('.signup_button').click(function(event){
-      if(me.find('input.login').val().match(/^\s*$/)) { // if blank, don't bother w/AJAX call
+      if(!me.find('.sign_up:visible').length) { // if signup hasn't happened yet, just show full signup form
         $.quickSignIn.showSignUp();
       } else {
         $.post(me.attr('action'), me.serialize(), $.quickSignIn.signupSubmitCallback, 'json'); // if (me.find('input.signin_button:visible').length > 0 && event.detail > 0 ) {}  // event.detail = # of mouse clicks

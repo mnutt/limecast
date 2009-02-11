@@ -21,6 +21,7 @@ $.quickSignIn = {
       return false;
     });
 
+    // Try to login if 'login' on clicking the 'Sign In' button
     me.find('.signin_button').click(function(event){
       $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
       return false;

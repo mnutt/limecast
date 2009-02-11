@@ -121,7 +121,7 @@ input.radio {
 .cbb h1 { margin:0 -10px; padding:0.3em 10px; background:#efece6; font:bold 1.2em/1 Arial, Helvetica, sans-serif; }
 */
 /* Normal styling */
-.rounded_corners {margin:0 0 20px 0;}
+.rounded_corners {margin:0 0 20px 0; position: relative;}
 	/* Top corners and border */
 .bt {
 	height:5px;
@@ -323,6 +323,47 @@ span > img.inline_icon {
   color:#fff;
   }
 .addit li:hover a, .addit li:hover a span {
+  background-position:100% -17px;
+}
+
+
+
+/**** remove button **************/
+
+
+
+.removeit li {
+	float:left;
+	display:block;
+  background:url("../imgs/remove_left.png") no-repeat left top;
+  margin-right: -5px;
+  padding:0 3px 0 15px;
+	line-height: 13px;
+}
+
+.removeit a {
+	float:left;
+  display:block;
+  background: url("../imgs/add_right.png") no-repeat right top;
+  padding:1px 8px 3px 2px;
+	line-height: 13px;
+  text-decoration:none;
+	font-size: .7em;
+  color:#fff;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+.removeit a {float:none;}
+/* End IE5-Mac hack */
+#removeit a:hover {
+  color:#333;
+  }
+
+.removeit li:hover {
+  background-position:0% -17px;
+  color:#fff;
+  }
+.removeit li:hover a, .removeit li:hover a span {
   background-position:100% -17px;
 }
 

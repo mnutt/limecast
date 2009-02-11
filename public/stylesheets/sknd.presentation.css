@@ -61,7 +61,7 @@ form#quick_signin .response_container {
   
 }
 form#quick_signin .response_container p {
-	color: #a9a9a9;
+	color: red;
   font-size: 1em;
 }
 form#quick_signin label {
@@ -514,9 +514,9 @@ form#quick_signin a.forgot {
 	display: inline;
 }
 
-p.favorite_cont {
-	font-size: 1.2em;
-	padding: 8px 0 5px 0;
+.favorite_cont {
+	font-size: .8em;
+	padding: 4px 0 5px 0;
 	float: right;
 }
 
@@ -590,7 +590,7 @@ p.favorite_cont {
 div#sort {
 	position: absolute;
 	right: 20px;
-	top: 72px;
+	top: 35px;
 }
 
 div#sort .dropdown div.dropdown_wrap {
@@ -1190,12 +1190,32 @@ display: inline;
 	font-size: 1.2em;
 }
 
+#profile_profile .i3 {
+	padding-top: 10px;
+}
+
 #profile_profile .picture img {
-	width: 100px;
+	float: left;
+	width: 110px;
+	margin: 0 20px 20px 0;
+}
+
+#profile_profile p {
+	margin: 10px 0;
+}
+
+#profile_profile p span {
+	color: #a9a9a9;
 }
 
 #memeber_profile .description {
 	background: none;
+}
+
+#profile_profile .edit_toggle {
+	position: absolute;
+	top: 20px;
+	right: 20px;
 }
 
 

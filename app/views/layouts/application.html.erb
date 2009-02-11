@@ -95,9 +95,14 @@ $(document).ready(function(){
         
         <div id="utility_nav">
           <ul>
-            <li><a href="#"><strong>Join now!</strong></a>  </li>|
+            <% if current_user %>
+              <li><strong><%= link_to_profile current_user -%></strong> </li>|
+            <% else %>
+              <li><a href="#"><strong>Join now!</strong></a>  </li>|
+            <% end -%>
           <% if current_user %>
-            <li><%= link_to_profile current_user -%></li>
+            <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
+            
           <% else %>
             <li class="signin"><%= link_to_with_icon "Sign in", :user, new_session_url -%></li>
             <div class="quick_signin_container from_top_bar"></div>

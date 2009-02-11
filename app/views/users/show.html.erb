@@ -6,7 +6,7 @@
 <script type="text/javascript">
  $().ready(function() {  
   $('.s_desc > p').jTruncate({  
-   length: 130,  
+   length: 120,  
   });  
  });
 </script>
@@ -20,10 +20,18 @@
   
   <ul>
     <li><a href="#profile_profile"><h4>Profile</h4></a></li>
-    <li><a href="#profile_favorites"><h4>Favorites <span>(<%= @user.favorite_podcasts.size %>)</span></h4></a></li>
-    <li><a href="#profile_found"><h4>Found <span>(<%= @user.podcasts.size %>)</span></h4></a></li>
-    <li><a href="#profile_owned"><h4>Owned</h4></a></li>
-    <li><a href="#profile_reviews"><h4>Reviews <span>(<%= @user.reviews.count %>)</span></h4></a></li>
+    <% if @user.favorite_podcasts.size > 0 -%>
+      <li><a href="#profile_favorites"><h4>Favorites <span>(<%= @user.favorite_podcasts.size %>)</span></h4></a></li>
+    <% end -%>
+    <% if @user.podcasts.size > 0 -%>
+      <li><a href="#profile_found"><h4>Found <span>(<%= @user.podcasts.size %>)</span></h4></a></li>
+    <% end -%>
+    <% if @user.owned_podcasts.count > 0 -%>
+      <li><a href="#profile_owned"><h4>Owned</h4></a></li>
+    <% end -%>
+    <% if @user.reviews.count > 0 -%>
+      <li><a href="#profile_reviews"><h4>Reviews <span>(<%= @user.reviews.count %>)</span></h4></a></li>
+    <% end -%>
   </ul>
   
 
@@ -31,15 +39,35 @@
     
       <div id="profile_profile" class="rounded_corners">
         <% rounded_corners do -%>
+          <h4>Personal information</h4>
           <%= render :partial => 'users/small_picture', :locals => { :user => @user } -%>
-          <p>username: </p>
-          <p>email: </p>
-          <p>about:</sp>
+          <p><span>username:</span> <strong><%=h @user.login -%><%= "" unless @user.podcaster? %></strong></p>
+          
+          <p><span>email:</span> 
+            <% if @user == current_user -%>
+              <%=h @user.email -%>
+                <select name="mydropdown">
+                <option value="private">Set to private</option>
+                <option value="public">Set to public</option>
+                </select>
+            <% else -%>
+              <%=h @user.email -%> or Set to private
+            <% end -%>
+          </p>
+          
+          <p><span>about:</span> 
+            <% if @user == current_user -%>
+              You have not told everyone about yourself. <a href="#"><strong>Do it now</strong></a>.
+            <% else -%>
+              <%=h @user.login -%> has not written about themselves yet.
+            <% end -%>
+          </p>
+          
+          
           <% if @user == current_user -%>
-            <div id="edit_actions" class="clearfix">
-              <span class="label">This is me!</span>
-              <%= link_to_with_icon "Edit", :edit, edit_user_url(current_user), :class => 'edit_toggle' %>
-              <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
+            <div id="edit_actions">
+              <%= link_to_with_icon "Edit your profile", :edit, edit_user_url(current_user), :class => 'edit_toggle' %>
+              
     
               <%= render :partial => "form" -%>
               
@@ -58,17 +86,6 @@
           <% end -%>
         <% end -%>
       </div>
-
-      <div id="profile_found" class="rounded_corners">
-        <% rounded_corners do -%>
-          <% if @user.podcasts.size > 0 -%>
-            <ul class="podcasts clearfix">
-              <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
-            </ul>
-            <% reset_cycle('row_class') %>
-          <% end -%>
-        <% end -%>
-      </div>
       
       <div id="profile_favorites" class="rounded_corners">
         <% rounded_corners do -%>
@@ -82,6 +99,16 @@
         <% end -%>
       </div>
       
+      <div id="profile_found" class="rounded_corners">
+        <% rounded_corners do -%>
+          <% if @user.podcasts.size > 0 -%>
+            <ul class="podcasts clearfix">
+              <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
+            </ul>
+            <% reset_cycle('row_class') %>
+          <% end -%>
+        <% end -%>
+      </div>
       
       <div id="profile_reviews" class="rounded_corners">
         <% rounded_corners do -%>

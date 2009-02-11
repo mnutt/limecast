@@ -339,7 +339,7 @@ form#quick_signin a.forgot {
 .new #featured .social {
 	font-size: .7em;
 	position: absolute;
-	bottom: -74px;
+	bottom: -94px;
 }
 
 #pop_recent_cont {
@@ -516,8 +516,12 @@ form#quick_signin a.forgot {
 
 .favorite_cont {
 	font-size: .8em;
-	padding: 4px 0 5px 0;
+	margin: 4px 0 5px 0;
 	float: right;
+}
+
+.podcast.index .favorite_cont {
+	margin: 14px 0 5px 0;
 }
 
 .s_desc p {

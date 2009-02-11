@@ -344,7 +344,7 @@ span > img.inline_icon {
 .removeit a {
 	float:left;
   display:block;
-  background: url("../imgs/add_right.png") no-repeat right top;
+  background: url("../imgs/remove_right.png") no-repeat right top;
   padding:1px 8px 3px 2px;
 	line-height: 13px;
   text-decoration:none;

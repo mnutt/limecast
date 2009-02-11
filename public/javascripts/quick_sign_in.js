@@ -21,7 +21,6 @@ $.quickSignIn = {
       return false;
     });
 
-    // Try to login if 'login' on clicking the 'Sign In' button
     me.find('.signin_button').click(function(event){
       $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
       return false;
@@ -85,7 +84,7 @@ $.quickSignIn = {
     me.attr('action', '/session');
     me.find('input.signin_button').show();
     me[0].reset(); // the actual DOM function for resetting a form
-    me.find('div.response_container').html('<a href="/forgot">I forgot my password</a>');
+    me.find('div.response_container').html('');
   },
 
   // Attaches the Quick Signin form to a container

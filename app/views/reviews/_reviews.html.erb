@@ -19,7 +19,7 @@
       </p>
     </div>
     <ul class="reviews">
-      <%= render :partial => 'reviews/review', :collection => reviews -%>
+      <%= render :partial => 'reviews/review', :collection => reviews.reverse -%>
     </ul>
     <div id="review_login" style="display: none;">
       <h4>Login or register to add a comment</h4>

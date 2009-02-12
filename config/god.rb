@@ -4,6 +4,7 @@ RAILS_ENV  = ENV['RAILS_ENV'] || 'production'
 # Dear God, Please watch over our long running scripts. Amen.
 
 def default_conditions(w)
+  w.log         = File.join(RAILS_ROOT, "log/god.log")
   w.interval    = 30.seconds
   w.start_grace = 1.minute
   w.start_if do |start|

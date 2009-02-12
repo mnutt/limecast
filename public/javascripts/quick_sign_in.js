@@ -57,6 +57,12 @@ $.quickSignIn = {
     } else { // no success
       $.quickSignIn.updateResponse(resp.html);
 
+      // If the user tried to signin with unknown creds
+      if(/Please type your email address/.test(resp.html)) {
+        $.quickSignIn.showSignUp();
+        me.find('input.email').focus();
+      }
+
       // attach event to 'Are you trying to Sign Up?' link
       me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
     }
@@ -145,7 +151,7 @@ $.quickSignIn = {
         me.find('input.login').val("");
       }
     }
-    me.find('input.login').focus();
+    me.find('input.login').focus();    
 
     return false;
   },

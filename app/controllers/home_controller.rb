@@ -7,6 +7,8 @@ class HomeController < ApplicationController
     @reviews = Review.all(:order => "created_at DESC")
     @review = @reviews.first
 
+    @recent_reviews = Review.newest(2).with_episode
+    @recent_episodes = Episode.newest(3)
     @popular_tags = Tag.all #(:order => "taggings_count DESC")
   end
 

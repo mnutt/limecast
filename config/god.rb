@@ -25,8 +25,8 @@ God.watch do |w|
   script = File.join(RAILS_ROOT, "script/update_sources_control")
 
   w.name     = "update_sources"
-  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} sudo -u limecast #{script} start")
-  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} sudo -u limecast #{script} stop")
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} #{script} start")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} #{script} stop")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/update_sources.pid")
   
   w.behavior(:clean_pid_file)
@@ -38,8 +38,8 @@ God.watch do |w|
   default_conditions(w)
 
   w.name     = "delayed_job"
-  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} sudo -u limecast rake -f #{rakefile} jobs:start")
-  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} sudo -u limecast rake -f #{rakefile} jobs:stop")
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:start")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} jobs:stop")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/dj.pid")
   
   w.behavior(:clean_pid_file)
@@ -49,8 +49,8 @@ God.watch do |w|
   default_conditions(w)
 
   w.name     = "sphinx"
-  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} sudo -u limecast rake -f #{rakefile} ts:start > /tmp/thinking_sphinx_error.log 2>&1")
-  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} sudo -u limecast rake -f #{rakefile} ts:stop  > /tmp/thinking_sphinx_error.log 2>&1")
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:start > /tmp/thinking_sphinx_error.log 2>&1")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} rake -f #{rakefile} ts:stop  > /tmp/thinking_sphinx_error.log 2>&1")
   w.pid_file = File.join(RAILS_ROOT, "tmp/pids/searchd.pid")
 
   w.behavior(:clean_pid_file)

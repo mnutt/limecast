@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       false
     end
 
-    rescue_from CGI::Session::CookieStore::TamperedWithCookie, :with => :tampered_cookie
+    # rescue_from ActionController::Session::CookieStore::TamperedWithCookie, :with => :tampered_cookie
     rescue_from ThinkingSphinx::ConnectionError,
                 Riddle::ResponseError,                         :with => :sphinx_error
     rescue_from Forbidden,                                     :with => :redirect_with_forbidden

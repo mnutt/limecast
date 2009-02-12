@@ -1,0 +1,20 @@
+<div id="recent_reviews" class="rounded_corners">
+  <% rounded_corners do -%>
+    <ul class="reviews">
+      <li id="<%=h dom_id(@recent_review) -%>" class="review <%= @recent_review.positive? ? "positive" : "negative" %> clearfix">
+        <div class="info">
+          <cite><%= link_to_profile @recent_review.reviewer -%></cite>
+          <span class="created_at light"><%= time_ago_in_words @recent_review.created_at %> ago</span>
+        </div>
+
+        <div class="summary">
+          <span class="title"><%= @recent_review.title -%></span>
+          <span class="body"><%= unescape_entities(@recent_review.body) -%></span>
+          <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
+        </div>
+      </li>
+    </ul>
+    
+    <div class="callout"><ul><li><%= link_to "View all recent episodes", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
+  <% end -%>
+</div> <!-- /rounded_corners -->

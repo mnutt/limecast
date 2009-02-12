@@ -5,6 +5,10 @@ class HomeController < ApplicationController
   
     @reviews = @podcast.reviews
     @review = @reviews.first
+
+
+    @recent_review = Review.last
+    @recent_episodes = Episode.newest(3)
   end
 
   def stats

@@ -93,6 +93,16 @@
     <% if @full_width %>
 
       <div id="full_width">
+        <% if flash[:notice] -%>
+          <span id="notice">
+            <% if Array === flash[:notice] -%>
+              <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+            <% else -%>
+              <%= flash[:notice] -%>
+            <% end -%>
+          </span>
+        <% end -%>
+
         <%= yield -%>
       </div>
 

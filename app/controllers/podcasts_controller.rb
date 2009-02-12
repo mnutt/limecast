@@ -69,7 +69,9 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
-    if params[:podcast] && params[:podcast][:_delete]
+    # The "_delete" attr is taken from Nested Association Attributes, but AR doesn't support
+    # it on a regular model, so we're going to use the same convention when deleting the Podcast.
+    if params[:podcast] && params[:podcast][:_delete] == '1'
       @podcast.destroy
       flash[:notice] = "#{@podcast.title} has been removed."
       redirect_to(podcasts_url) and return false

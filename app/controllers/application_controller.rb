@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
       false
     end
 
-#  rescue_from ActionController::Session::CookieStore::TamperedWithCookie, :with => :tampered_cookie
     rescue_from ThinkingSphinx::ConnectionError,
                 Riddle::ResponseError,                         :with => :sphinx_error
     rescue_from Forbidden,                                     :with => :redirect_with_forbidden
@@ -116,7 +115,7 @@ class ApplicationController < ActionController::Base
         c.save
       end
 
-      session.data.delete(:favorite)
+      session.delete(:favorite)
     end
 
     def claim_rating
@@ -125,7 +124,7 @@ class ApplicationController < ActionController::Base
       session[:rating][:user_id] = current_user.id
       ReviewRating.create(session[:rating])
 
-      session.data.delete(:rating)
+      session.delete(:rating)
     end
 
     def claim_review
@@ -137,17 +136,17 @@ class ApplicationController < ActionController::Base
         c.save
       end
 
-      session.data.delete(:review)
+      session.delete(:review)
     end
 
     def claim_feeds
-      return if session.data[:feeds].nil?
+      return if session[:feeds].nil?
 
-      Feed.find_all_by_id(session.data[:feeds]).each do |feed|
+      Feed.find_all_by_id(session[:feeds]).each do |feed|
         feed.update_attribute(:finder_id, @user.id) if feed.finder.nil?
         feed.podcast.update_attribute(:owner_id, @user.id) if feed.podcast && feed.podcast.owner.nil? and feed.podcast.owner_email == @user.email
       end
 
-      session.data.delete(:feeds)
+      session.delete(:feeds)
     end
 end

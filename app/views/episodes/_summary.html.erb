@@ -30,68 +30,77 @@
       
       
       <script type="text/javascript">
-    		$(document).ready(function(){
-    		   $("#zone-bar li em").click(function() {
-    		   		var hidden = $(this).parents("li").children("div").is(":hidden");
+        $(document).ready(function(){
+          function downloadUrl(delivery, base_url) {
+            if(delivery == "magnet") {
+              return "magnet:?xs=" + base_url;
+            }
+            return base_url;
+          };
 
-    				$("#zone-bar>ul>li>div").hide()        
-    			   	$("#zone-bar>ul>li>a").removeClass();
+          $("#zone-bar li a").click(function(e) {
+            e.preventDefault();
+            window.location = downloadUrl($('input[type=radio]:checked').attr('value'), $(this).attr('href'));
+          });
+                      
+          $("#zone-bar li em").click(function() {
+            var hidden = $(this).parents("li").children("div").is(":hidden");
 
-    			   	if (hidden) {
-    			   		$(this)
-    				   		.parents("li").children("div").toggle()
-    				   		.parents("li").children("a").addClass("zoneCur");
-    				   	} 
-    				   	return false;
-    			   });
-
-    		});
-
+            $("#zone-bar > ul > li > div").hide()        
+            $("#zone-bar > ul > li > a").removeClass();
+            
+            if (hidden) {
+              $(this)
+                .parents("li").children("div").toggle()
+                .parents("li").children("a").addClass("zoneCur");
+            }
+            return false;
+          });
+        });
     	</script>
       
       <div id="zone-bar">
   			<ul>
   				<li>
+
   					<span>
   						<a href="wxample.com">Download full version<span>Web | Flash - small</span></a>
   						<em class="opener-technology">
   							<a href="#" class="arrowz"><img src="../imgs/zonebar-downarrow.png" alt="dropdown" /></a>
   						</em>
   					</span>
+
   					<div class="dl_dropdown rounded_corners" style="display: none;">
   					  <% rounded_corners do -%>
   					  	<form action="http://limecast.com/search" method="get">            
                   Choose:
-                  <input class="radio" id="w" name="q" type="radio" align="BOTTOM" /><label for="w">Web</label>
-                  <input class="radio" id="m" name="q" type="radio" /><label for="m">LimeWire</label>
-                 
-                  
+                  <input class="radio" id="w" name="download" type="radio" value="web" checked="checked" /><label for="w">Web</label>
+                  <input class="radio" id="m" name="download" type="radio" value="magnet" /><label for="m">LimeWire</label>
                 </form>
                 <div style="display: block;">
+
                   <ul class="v_options_list">
-                    <li>
-                      <p>Quicktime</p>
-                      <span class="v_options">
-                        <a href="#" class="primary" title="bitrate: 2.2 mbps">HD</a>          |                  
-                        <a href="#" class="circle"  title="bitrate: 1.1 mbps">Large</a>                  
-                      </span>
-                    </li>
-                    <li>
-                      <p>MP3</p>
-                      <span class="v_options">
-                        <a class="" href="#" title="bitrate: 128 kbps">Small</a>                  
-                      </span>
-                    </li>
+                    <% @episode.sources.group_by(&:format).each do |format| -%>
+                      <li>
+                        <p><%= feeds_label_from_format(format[0]) -%></p>
+                        <span class="v_options">
+                          <% delimited_items(format[1], "|") do |source, delimiter| -%>
+                            <%= link_to default_bitrate_label(source.feed.bitrate), source.url,
+                                  :id    => "source_#{source.id}_#{type}",
+                                  :title => [source.resolution, "bitrate: #{source.feed.formatted_bitrate}"].compact.join(" | "),
+                                  :class => (source.primary? ? "primary" : nil)-%>
+                            <%= delimiter -%>
+                          <% end %>
+                        </span>
+                      </li>
+                    <% end %>
                   </ul>
+
                 </div>
-                
-  
   						<% end -%>
   					</div>
+
   				</li>
-  				
-  		
-  			
   			</ul>
   		</div>
   

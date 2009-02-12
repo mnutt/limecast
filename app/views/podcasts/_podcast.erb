@@ -17,13 +17,15 @@
     
     <%= render :partial => "podcasts/social", :locals => {:podcast => podcast} -%>
     
+    <!--
     <div class="favorite_cont">
-        <% if podcast.is_favorite_of?(current_user) -%>
-          <div class="removeit"><ul><li><%= link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li></ul></div>
-        <% else -%>
-          <div class="addit"><ul><li><%= link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li></ul></div>
-        <% end -%>
-      </div>
+      <% if podcast.is_favorite_of?(current_user) -%>
+        <div class="removeit"><ul><li><%= link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li></ul></div>
+      <% else -%>
+        <div class="addit"><ul><li><%= link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li></ul></div>
+      <% end -%>
+    </div>
+    -->
    
   </div>
 

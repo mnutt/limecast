@@ -17,7 +17,7 @@ class PodcastsController < ApplicationController
     @feeds    = @podcast.feeds.all
     @podcast.feeds.build if logged_in? # build a new one so we can include a new Feed in our form
     @episodes = @podcast.episodes.
-      paginate(:order => "published_at DESC", :page => (params[:page] || 1), :per_page => params[:limit] || 5)
+      paginate(:order => ["published_at ", params[:order] =~ /asc|desc/ ? params[:order] : "asc"], :page => (params[:page] || 1), :per_page => params[:limit] || 5)
 
     @reviews = @podcast.reviews
     @review  = Review.new(:episode => @podcast.episodes.newest.first)
@@ -109,6 +109,10 @@ class PodcastsController < ApplicationController
         format.html { redirect_to :back }
         format.js { render :json => {:logged_in => true} }
       else
+        format.html { 
+          flash[:notice] = "Signup or sign in first to save your favorite."
+          redirect_to new_session_path
+        }
         format.js { render :json => {:logged_in => false, :message => "Sign up or sign in to save your favorite:"} }
       end
     end

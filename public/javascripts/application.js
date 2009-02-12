@@ -6,7 +6,12 @@ $(document).ready(function() {
   // Edit Podcast link
   $('#edit_link').click(function() { $('.limecast_form').toggle(); return false; });
   $('.limecast_form .cancel').click(function(){ $(this).parents(".limecast_form").hide(); return false; });
+
+
+  $('#q').inputDefaultText();
 });
+
+
 // ---------------------------------
 // END STUFF MOVED OVER FROM SKND
 // ---------------------------------
@@ -201,16 +206,17 @@ $(document).ready(function() {
   //       <ul>
   //         <li>
   //           <a>
-  $('.dropdown ul li a').click(function(){
-    if($(this).hasClass('selected')) {
-      event.stopPropagation();
-    } else {
-      $(this).parents(".dropdown").find("ul li").removeClass('selected');
-      $(this).parent().addClass('selected');
-      $(this).parents(".dropdown").toggleClass('open').find('a.focuser').html($(this).html());
-    }
-    return false;
-  });
+
+  //$('.dropdown ul li a').click(function(){
+  //  if($(this).hasClass('selected')) {
+  //    event.stopPropagation();
+  //  } else {
+  //    $(this).parents(".dropdown").find("ul li").removeClass('selected');
+  //    $(this).parent().addClass('selected');
+  //    $(this).parents(".dropdown").toggleClass('open').find('.focuser').html($(this).html());
+  //  }
+  //  return false;
+  //});
 
   $('.dropdown .focuser').click(function(){
     $(this).parents(".dropdown").toggleClass('open');

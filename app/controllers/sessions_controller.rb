@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       format.html do
         if logged_in?
           flash[:notice] = "Successful sign in"
-          redirect_to :back
+          redirect_back_or_default('/')
         else
           flash.now[:notice] = "There was a problem logging in"
           render :action => 'new'

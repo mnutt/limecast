@@ -11,7 +11,7 @@
     per page
   </p>
   <div id="sort">
-    <p>Sort by: <%= dropdown [["Most recent","recent"], ["First to last","oldest"]], nil, {} %></p>
+		<p>Sort by: <%= dropdown([ link_to("Most recent", :order => "asc"), link_to("First to last", :order => "desc")], {"desc" => 1, "asc" => 0}[params[:order]]) %></p>
   </div>
 </div>
 

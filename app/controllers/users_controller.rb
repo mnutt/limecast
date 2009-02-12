@@ -26,9 +26,10 @@ class UsersController < ApplicationController
     end
 
     @user = User.new(params[:user].keep_keys([:email, :password, :login]))
-    @user.state = 'passive'
     @user.register! if @user.valid?
+
     if @user.errors.empty?
+      flash[:notice] = "Please check your email for an activation code."
       self.current_user = @user
 
       claim_all
@@ -51,8 +52,9 @@ class UsersController < ApplicationController
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.active?
       current_user.activate!
+      flash[:notice] = "Thanks! Your account has been activated."
     end
-    redirect_back_or_default('/')
+    redirect_to user_url(:user => current_user)
   end
 
   def suspend

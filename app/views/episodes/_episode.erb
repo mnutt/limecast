@@ -1,6 +1,6 @@
 <div class="episode">
   <% if episode.sources.first.screenshot? %>
-  <%= link_to(image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95), "#", :title => "#{episode.title} cover art") %>
+  <%= image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95) %>
   <div>
   <% else %>
   <div class="no_screenshot">
@@ -8,10 +8,10 @@
     <h3><%= link_to episode.title, episode_url(:podcast_slug => @podcast, :episode => episode) -%></h3>
     <p>
       <span class="details"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></span>
-      <%= sanitize_summary episode.summary -%>
+      <%= sanitize_condensed_summary(episode.summary) -%>
     </p>
     <p class="links">
-    <%= link_to "View 5 min video preview", episode_url(:episode => episode, :podcast_slug => @podcast, :play => true) -%>
+    <%#= link_to "View 5 min video preview", episode_url(:episode => episode, :podcast_slug => @podcast, :play => true) -%>
     </p>
     <%= render :partial => 'episodes/audio_player', :object => episode if episode.audio_source %>
   </div>

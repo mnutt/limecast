@@ -4,21 +4,22 @@
 <% form_for :user, :url => session_path,
             :html => {:id => "quick_signin",
             :style => "display: none;"} do |f| -%>
-
-  <div class="titlebar">
-    <a href="#" class="close">Exit</a> <!-- only show this on the top bar //-->
-  </div>
-
+            
+<div class="rounded_corners">
+  <% rounded_corners do -%>
+  
+  <h5 class="signup_heading">Login to LimeCast</h5>
   <div class="message"></div>
+  <div class="response_container"><!-- this is used for error messages, etc. //--></div>
 
   <div class="field">
-    <%= label :quicksignin, :login, "User" %>
+    <%= label :quicksignin, :login, "User name" %>
     <div>
       <input type="text" id="quicksignin_login" class="text login" name="user[login]" />
     </div>
   </div>
   <div class="field">
-    <%= label :quicksignin, :password, "Pass" %>
+    <%= label :quicksignin, :password, "Password" %>
     <div>
       <input type="password" id="quicksignin_password" class='text password' name="user[password]" />
     </div>
@@ -30,12 +31,35 @@
     </div>
   </div>
 
-  <div class="response_container">
-    <%= link_to "I forgot my password", forgot_password_path -%>
+
+  <button type="submit" class="signin_signup_button">
+    <span>Login</span>
+  </button>
+  
+  <input type="submit" value="Submit" style="display: none;" title="to force WebKit to submit on enter" />
+  
+  <div class="titlebar">
+    <a href="#" class="close">Cancel</a>
   </div>
 
   <div class="controls">
-    <%= submit_tag "Sign Up", :id => "signup", :class => "button signup_button" %>
-    <%= submit_tag "Sign In", :id => "signin", :class => "button signin_button" %>
+    <%= link_to "I forgot my password", forgot_password_path, :class => "forgot" -%> |
+    <div class="callout"><ul><li>
+      <%= link_to "Sign up", signup_url, :id => "signup", :class => "button signup_button" %>
+    </li></ul></div>
+    
   </div>
+  
+  <div class="controls_signup" style="display: none;">
+    <span class="forgot">Already a member?</span>
+    <div class="callout"><ul><li>
+      <%= link_to "Login", signup_url, :id => "login", :class => "button signin_button gotologin" %>
+    </li></ul></div>
+  </div>
+  
+  
+  
+  
+<% end -%>
+</div>
 <% end -%>

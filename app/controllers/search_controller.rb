@@ -37,6 +37,8 @@ class SearchController < ApplicationController
     #       searched; might get out of hand later with more podcasts.
     @podcasts = (@tags ? Podcast.tagged_with(@tags) : Podcast).
       paginate(:conditions => {:id => @podcast_groups.keys}, :page => (params[:page]||1), :per_page => 3).compact #.sorted
+  rescue => e
+    throw e.inspect
   end
 
   def google

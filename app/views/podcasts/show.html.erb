@@ -1,8 +1,16 @@
 <% @classes = %{podcast show} -%>
 <% @title = h(@podcast.custom_title) -%>
 <% @show_ads = true -%>
-<% stylesheet_include "sknd.global", "sknd.presentation", "sknd.typography", "sknd.icons", "podcast_show" -%>
+<% stylesheet_link "sknd.global", "sknd.presentation", "sknd.typography", "sknd.icons", "podcast_show" -%>
 <% javascript_include "review_edit", "review_delete", "inline_edit_form", "podcasts_new", "podcast_edit", "review_ratings_new" -%>
+
+<script type="text/javascript">
+ $().ready(function() {  
+  $('.s_desc > p').jTruncate({  
+   length: 400,  
+  });  
+ });
+</script>
 
 <div class="summary">
   <%= render :partial => 'podcasts/summary' -%>
@@ -40,4 +48,10 @@
 
   <%#= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => { :podcast => @podcast } -%>
   
+</div>
+<div id="series_page_goog">
+  <div class="googleads">
+    <%= @ads -%>
+    <%= @ads -%>
+  </div>
 </div>

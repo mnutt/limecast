@@ -1,15 +1,15 @@
-<% @title = "All Podcasts" -%>
+<% @title = "Popular Podcasts" -%>
 <% @full_width = true -%>
 <% @classes = %{podcast index} -%>
 <div class="summary">
 
-    <h1>Browse podcasts</h1>
+    <h1>Popular podcasts</h1>
     
     
     <script type="text/javascript">
      $().ready(function() {  
-      $('.s_desc > p').jTruncate({  
-       length: 130,  
+      $('.s_desc>p').jTruncate({  
+       length: 120,  
       });  
      });
     </script>
@@ -29,7 +29,7 @@
         per page
       </p>
       <div id="sort">
-        <p>Sort by: <%= dropdown [["Most recent","recent"], ["Popular","oldest"]], nil, {} %></p>
+        <p>Sort by: <%= dropdown [["Popular","oldest"], ["Recently added","recent"]], nil, {} %></p>
       </div>
     </div>
     
@@ -42,5 +42,10 @@
       :outer_window   => 1 -%>
       <% end -%>
   </div>
+  
 </div>
 
+  <div class="googleads">
+    <%= @ads -%>
+    <%= @ads -%>
+  </div>

@@ -14,15 +14,15 @@
 <script type="text/javascript">
     $(function() {
       var open = true;
-      $('a.close').click(function() {
+      $('a.homeclose').click(function() {
         if(open){
-         $(this).removeClass('close');
+         $(this).removeClass('homeclose');
          $(this).addClass('openarrow');
          $(this).text('Show intro');
           open = false;
         } else {
           $(this).removeClass('openarrow');
-          $(this).addClass('close');
+          $(this).addClass('homeclose');
           $(this).html('Hide intro');
           open = true;
         }
@@ -48,7 +48,7 @@
 
   
   <div id="close_misson">
-    <a href="#" class="close">Hide intro</a>
+    <a href="#" class="homeclose">Hide intro</a>
   </div>
   
   
@@ -58,22 +58,10 @@
     
       <%= render :partial => "home/description", :object => Podcast.find_by_clean_url("The-1UP-Show"), :locals => {:is_first => true} -%>
       <%= render :partial => "home/description", :object => Podcast.find_by_clean_url("Diggnation") -%>
-  
     </div> <!-- /featured -->
   </div> <!-- /featured_cont -->
   
-  <script type="text/javascript">
-  $(function() {
-    $tabs = $('.tabify').tabs({
-      navClass: 'tabs',
-      containerClass: 'tabs-cont',
-    });
-  });
-  </script>
-  
-  
   <div id="pop_recent_cont" class="tabify">
-    
     <ul>
       <!-- <li><a href="#popular"><h4>Popular series</h4></a></li> -->
       <li><a href="#recent_epsiodes"><h4>Recent episodes</h4></a></li>
@@ -89,7 +77,7 @@
       <!-- <li><a href="#tags_hp"><h4>Polular tags</h4></a></li> -->
       <li><a href="#recent_reviews"><h4>Recent reviews</h4></a></li>
     </ul>
-
+  
     <%#= render :partial => 'popular_tags' -%>
     <%= render :partial => 'recent_reviews' -%>
   </div> <!-- /pop_recent_cont -->

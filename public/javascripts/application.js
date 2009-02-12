@@ -262,3 +262,14 @@ $.fn.extend({
     return me;
   }
 }); */
+
+
+$(function() {
+  $tabs = $('.tabify').tabs({
+    navClass: 'tabs',
+    containerClass: 'tabs-cont',
+  });
+});
+
+
+

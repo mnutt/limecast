@@ -1,5 +1,13 @@
-body {text-align: center;}
-#wrapper {width: 980px; margin: 0 auto; text-align: left; overflow: auto;}
+body {text-align: center;height: 100%;}
+
+#wrapper {
+	width: 980px; 
+	margin: 0 auto;
+	text-align: left; 
+	overflow: auto;
+}
+
+.push {height: 70px;}
 
 #notice { 
 	color: red;
@@ -16,6 +24,14 @@ body {text-align: center;}
 form#quick_signin {
   padding: 0;
   color: #171717;
+	z-index: 900000000000000000000000000000000000000000000000000;
+	position: relative;
+}
+
+form#quick_signin .rounded_corners  {
+	background: url('../imgs/signin_arrow.png') 93% 0% no-repeat;
+	padding-top: 5px;
+
 }
 
 form#quick_signin .titlebar {
@@ -23,51 +39,92 @@ form#quick_signin .titlebar {
   top: -10px;
   right: -10px;
 }
-form#quick_signin a.close {
-  display: none;
+form#quick_signin div.field {
+	display: block;
+  overflow: hidden;
+	width: 275px;
+	margin-bottom: 10px;
 }
-form#quick_signin .message {
-  text-indent: 90px;
-  padding: 1em 0;
+
+form#quick_signin input.text {
+  float: right;
+	border: 1px solid #171717;
+	-moz-border-radius: 3px;
+	width: 175px;
+	height: 20px;
+	font-size: 1.4em;
+	padding: 5px;
+	display: block;
 }
-form#quick_signin input.text,
 form#quick_signin .response_container {
-  width: 200px;
-}
-form#quick_signin .response_container {
-  padding: 5px;
-  color: red !important;
+ 
+  
 }
 form#quick_signin .response_container p {
+	color: red;
   font-size: 1em;
 }
-form#quick_signin .response_container a {
-  color: #a9a9a9;
+form#quick_signin label {
+	position: relative;
+	top: 21px;
+	text-align: right;
+	font-weight: bold;
 }
 
-.quick_signin_container.from_top_bar {
+
+.quick_signin_container {
   position: absolute;
-  top: 18px;
+  top: 15px;
   right: 0;
-  background-color: #2B2D2F;
+
   z-index: 10;
 }
-.quick_signin_container.from_top_bar form#quick_signin a.close {
-  background: url("../images/icons/close.png") no-repeat center;
-  display: block;
-  text-indent: -5000px;
-  width: 16px;
-  height: 16px;
-  margin: 5px 5px 0 0;
-  overflow: hidden;
-  float: right;
+form#quick_signin a.close {
+
+	background: none;
+	margin-top: 13px;
+	color: #2952a6;
+  float: left;
 }
-.quick_signin_container.after_favoriting form#quick_signin .message {
-  position: relative;
-  top: -10px;
+
+form#quick_signin .message {
+  padding: 0;
+}
+
+form#quick_signin h5 {
+	margin: 0 0 0 0px;
+	font-size: 1.4em;
+}
+.quick_signin_container.after_favoriting {
+  position: absolute;
+  top: 20px;
+	font-size: 1.2em;
+}
+
+.quick_signin_container.after_rating {
+  position: absolute;
+  top: 100px;
+	right: 50px;
+	font-size: 1.3em;
+}
+
+form#quick_signin button {
+	margin-left: 85px;
+	float: left;
+}
+
+form#quick_signin .controls, form#quick_signin .controls_signup {
+	display: block;
+	overflow: hidden;
+	width: auto;
+	float: right;
+	margin-top: 15px; 
 }
 
 
+.podcast.index h1 {
+	margin-left: 15px;
+}
 
 
 
@@ -79,10 +136,11 @@ ul li {display: inline;}
 body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 #wrapper {position: relative; margin: auto;}
-#header {position: relative; margin: 0; height: 54px;}
+#header {position: relative; margin: 0; height: 35px;overflow: ;}
 #content_wrapper {
 	position: relative;
 	overflow: hidden;
+	height: 1%;
 	background: #f1f1f1 url('../imgs/bg_content.png') top left repeat-x;
 }
 #content {
@@ -90,54 +148,127 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 }
 
 /**** Header **************/
-#utility_nav ul a {color: #fff;}
-#utility_nav ul {font-size: 1.2em; color: #fff; position: absolute; top: 3px; right: 0px;}
-#utility_nav ul li {display: inline; margin-left: 2px;}
+
+#utility_nav ul {font-size: 1.2em; position: absolute; top: 9px; right: 195px;}
+#utility_nav ul li {display: inline; margin-left: 2px; padding: 0 3px;}
 
 
-#global_nav {margin: 0; position: absolute; top: 22px; left: 0; height: 30px; width: 100%;}
+#global_nav {float: left; margin: 0; position: absolute; top: 4px; left: 0;  width: 500px;}
 #global_nav {
 	font-size: 1.5em;
 }
-#global_nav a {}
-#global_nav ul { display: inline; padding: 0 0 10px 0;}
-#global_nav ul li {display: inline;}
+#global_nav a {outline: none;}
+#global_nav ul { display: block; margin: 1px 0 0 5px;}
+#global_nav ul li {display: inline; float: left; padding: 0 10px; margin-top: 5px;}
 
 a#logo {
-	margin-top: 3px; 
 	float: left;
 	background: url('../imgs/logo.png') top left no-repeat;
 	width: 111px;
 	height: 24px;
 	display: block;
+	margin-right: 10px;
 }
 
 a#logo:hover {
 	background: url('../imgs/logo_over.png') top left no-repeat;
 }
 
-a#add_podcast {
+a#nav_home {
+	background: url('../imgs/home.png') top left no-repeat;
+	width: 43px;
+	height: 15px;
+	display: block;
 	float: left;
+}
+
+a#nav_browse {
+	background: url('../imgs/browse.png') top left no-repeat;
+	width: 57px;
+	height: 15px;
+	display: block;
+	float: left;
+}
+
+a#nav_pop {
+	background: url('../imgs/popular.png') top left no-repeat;
+	width: 59px;
+	height: 15px;
+	display: block;
+	float: left;
+}
+
+a#add_podcast {
 	background: url('../imgs/add_podcast.png') top left no-repeat;
-	width: 128px;
+	width: 134px;
 	height: 19px;
 	display: block;
-	margin: 5px 0 0 15px;
-	padding: 5px 0 5px 20px;
+	float: left;
+	margin-top: -3px;
+}
+
+a#nav_home:hover {
+	background: url('../imgs/home_o.png') top left no-repeat;
+}
+
+a#nav_browse:hover {
+	background: url('../imgs/browse_o.png') top left no-repeat;
+}
+
+a#nav_pop:hover {
+	background: url('../imgs/popular_o.png') top left no-repeat;
 }
 
 a#add_podcast:hover {
 	background: url('../imgs/add_podcast_over.png') top left no-repeat;
 }
 
-a#add_podcast span, a#logo span {
+
+a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop span {
 	margin-left: -5000px;
 }
 
 
+
+
+
+#utility_nav form#quick_signin .callout ul {
+	position: relative;
+	font-size: 1.4em;
+	height: 20px; 
+	width: auto;
+	right: 0;
+	top: 0px;
+
+}
+
+#utility_nav form#quick_signin .callout ul li {
+	padding-left: 10px;
+}
+
+
+#utility_nav form#quick_signin div.callout {
+	display: inline; float: right;
+
+}
+
+form#quick_signin div.callout {
+	display: inline; float: right;
+	font-size: .6em;
+	margin: -15px 5px 0 0;
+}
+
+form#quick_signin a.forgot {
+	display: inline; 
+	float: left;
+	padding-right: 2px;
+}
+
+
+
 /* Show specific */
 .show .summary { overflow: visible;}
-.show .supplemental {overflow: hidden; position:  relative; margin: 20px 0; width: 640px;}
+.show .supplemental {float: left; overflow: hidden; position:  relative; margin: 20px 0; width: 660px;}
 
 
 
@@ -153,17 +284,12 @@ a#add_podcast span, a#logo span {
 	width: 945px;
 	margin: 0px 0 0 -3px;
 	background: url('../imgs/bg_mission.png') bottom left no-repeat;
-	z-index: 100000000000000000;
+
 }
 
-#mission_hidden {
-	position: absolute;
-	top: 0px;
-	left: 17px;
-	z-index: 1;
-}
 
-#mission h1, #mission_hidden h1 {
+
+#mission h1 {
 	padding: 15px 0 0 25px;
 	font-size: 1.8em;
 }
@@ -197,6 +323,10 @@ a#add_podcast span, a#logo span {
 	color: #171717;
 }
 
+#featured h3 {
+	margin-top: -4px;
+}
+
 #first_featured {
 	margin-right: 40px;
 }
@@ -215,15 +345,17 @@ a#add_podcast span, a#logo span {
 .new #featured .social {
 	font-size: .7em;
 	position: absolute;
-	bottom: -34px;
+	bottom: -94px;
 }
 
 #pop_recent_cont {
 	float: left;
+	position: relative;
 }
 
 #tags_review_cont {
 	float: right;
+	position: relative;
 }
 
 
@@ -234,7 +366,7 @@ a#add_podcast span, a#logo span {
 
 #pop_recent_cont .description .s_desc, #tags_review_cont .description .s_desc {
 	background: none;
-	width: 315px;
+	width: 340px;
 }
 
 #pop_recent_cont , #tags_review_cont {
@@ -255,8 +387,18 @@ a#add_podcast span, a#logo span {
 
 
 #pop_recent_cont .callout, #tags_review_cont .callout {
-	float: right;
+	position: absolute;
+	bottom: 35px;
+	right: 20px;
 }
+
+
+
+
+#tags_review_cont li.review .summary {
+	width: 250px;
+}
+
 
 #hp_tower, #hp_open {
 	margin: 20px 0;
@@ -289,13 +431,13 @@ a#add_podcast span, a#logo span {
 
 
 /**** Summary **************/
-.summary .preview {	
+.summary .preview, #memeber_profile .preview {	
 	float: left;
 	margin-right: 20px;
 }
 .podcast.show .summary .preview,
 .podcast.show .summary .preview img { width: 160px; }
-.episode.show .summary .preview { width: 340px; }
+.episode.show .summary .preview { width: 460px; }
   
 .episode.show .summary .preview .previous {
   display: block;
@@ -378,10 +520,14 @@ a#add_podcast span, a#logo span {
 	display: inline;
 }
 
-p.favorite_cont {
-	font-size: 1.2em;
-	padding: 8px 0 5px 0;
+.favorite_cont {
+	font-size: .8em;
+	margin: 4px 0 5px 0;
 	float: right;
+}
+
+.podcast.index .favorite_cont {
+	margin: 14px 0 5px 0;
 }
 
 .s_desc p {
@@ -399,10 +545,13 @@ p.favorite_cont {
 	position: relative;
 	padding-bottom: 20px;
 	display: block;
-
 	float: left;
 	margin-bottom: 20px;
 } 
+
+.description h3 {
+	font-size: 1.4em;
+}
 
 .podcast.show .description {
 	background: url('../imgs/b_border.png') bottom left repeat-x;
@@ -410,7 +559,7 @@ p.favorite_cont {
 }
   
 .episode.show .description {
-	width: 580px;
+	width: 460px;
 }
 
 
@@ -451,7 +600,7 @@ p.favorite_cont {
 div#sort {
 	position: absolute;
 	right: 20px;
-	top: 72px;
+	top: 35px;
 }
 
 div#sort .dropdown div.dropdown_wrap {
@@ -548,6 +697,7 @@ li.review {
 
 .show #r_view {
 	text-align: right;
+	margin-bottom: 10px;
 }
 
 
@@ -576,7 +726,7 @@ li.review {
 .show li.review .info {
 	width: 163px;
 	float: left;
-	margin: 10px 0;
+	margin: 0px 0;
 	font-size: 1.2em;
 }
 
@@ -663,7 +813,7 @@ li.review {
 	position: absolute;
 	top: 0px;
 	right: -10px;
-	width: 295px;
+	width: 275px;
 	height: 67px;
 	z-index: 3;
 }
@@ -678,6 +828,7 @@ li.review {
 .show #subscribe h2 {
 	margin: 0;
 	color: #fff;
+	width: auto;
 }
 
 .show #subscribe p {
@@ -713,7 +864,7 @@ li.review {
 /* Subscribe dropdown **/
 
 #subscribe_options_container {
-	width: 283px;
+	width: 263px;
 	height: 200px;
 	position: absolute;
 	top: 48px;
@@ -773,13 +924,13 @@ li.review {
 
 ul.tabs-nav  {
   margin: -10px 0 0 -12px;
-  width: 282px;
+  width: 262px;
 }
 
 .tabs-nav li {
   float: left;
   margin: 0px;
-  min-width: 65px; /* be nice to Opera */
+  min-width: 45px; /* be nice to Opera */
 	border-right: 1px solid #a9a9a9;
 }
 
@@ -797,7 +948,7 @@ ul.tabs-nav  {
   position: relative;
   top: 1px;
   z-index: 2;
-  padding-left: 18px;
+  padding-left: 11px;
   font-size: 12px;
   font-weight: bold;
   line-height: 1.2em;
@@ -890,18 +1041,25 @@ ul.tabs-nav  {
 	margin-left: 18px;
 }
 
-#pagination ul {
+.pagination  {
 	float: right;
-	margin: 0 10px 10px 0;
-}
-
-#pagination ul li {
-	display: inline;
-}
-
-#pagination ul li a {
 	font-size: 1.4em;
-	padding: 5px 8px;
+	margin: 0 10px 10px 0;
+	overflow: visible;
+	margin-top: 15px;
+}
+
+.pagination  span.current {
+	font-weight: bold;
+}
+
+.pagination  a {
+	padding: 5px 5px;
+}
+
+.pagination  span.prev_page a, .pagination  span.next_page a, .pagination  span.disabled  {
+	padding: 5px 5px;
+
 }
 
 
@@ -927,6 +1085,8 @@ ul.tabs-nav  {
 }
 
 div.foot_wrapper {
+	width: 100%;
+	min-height: 70px;
 	background: #313131 url('../imgs/bg_footer.png') top left repeat-x;
 }
 
@@ -937,13 +1097,15 @@ width:305px;
 }
 
 div#footer div.info {
-border-top:1px solid #262626;
+
 clear:both;
 padding:20px 0 0;
 }
 
 div#footer div.section ul li {
-padding:0 0 5px;
+padding:0 10px;
+font-size: 1.2em;
+display: inline;
 }
 
 
@@ -951,7 +1113,9 @@ padding:0 0 5px;
 
 .podcast.index #browse {
 	position: relative;
-	width: 700px;
+	width: 670px;
+	float: left;
+	margin-bottom: 20px;
 }
 
 .podcast.index #sort {
@@ -959,30 +1123,32 @@ padding:0 0 5px;
 }
 
 .podcast.index .preview img {
-	width: 100px;
+	width: 110px;
 	float: left;
 	border: 1px solid #aeaba1;
 }
 
 .podcast.index .description {
-	margin: 20px 0 0 5px;
-	padding: 0;
+	margin: 30px 0 0 5px;
+	padding: 0; 
+	min-height: 125px;
 }
 
 .podcast.index .s_desc {
 	position: relative;
-	width: 540px;
+	width: 500px;
+	margin-top: -4px;
 	padding: 0;
 }
 
 .podcast.index .social {
 	font-size: .7em;
 	width: auto;
-	margin-top: 10px;
+	margin-top: -32px;
 }
 .podcast.index .addit {
 	float: right;
-	margin: 14px 5px 0px 0;
+	margin: 1px 5px 0px 0;
 }
 
 
@@ -1022,4 +1188,69 @@ padding:0 0 5px;
 	border: 1px solid #a9a9a9;
 	padding: 0px 4px;
 }
+
+/**** Profile page **************/
+
+#memeber_profile {
+	float: left;
+	width: 670px;
+}
+
+#memeber_profile h4 {
+	font-size: 1.2em;
+}
+
+#profile_profile .i3 {
+	padding-top: 10px;
+}
+
+#profile_profile .picture img {
+	float: left;
+	width: 110px;
+	margin: 0 20px 20px 0;
+}
+
+#profile_profile p {
+	margin: 10px 0;
+}
+
+#profile_profile p span {
+	color: #a9a9a9;
+}
+
+#memeber_profile .description {
+	background: none;
+}
+
+#profile_profile .edit_toggle {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

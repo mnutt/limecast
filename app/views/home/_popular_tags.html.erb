@@ -1,100 +1,49 @@
 <div id="tags_hp" class="rounded_corners">
   <% rounded_corners do -%>
-    <div class="description sm_social">
-      <div class="preview">
-        <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
-      </div>
 
+    <ul class="tag_cloud">
+      <!--<li class="size_1"><a href="">Size 1 Tag Cloud</a></li>
+      <li class="size_2"><a href="">Size 2 Tag Cloud</a></li>
+      <li class="size_3"><a href="">Size 3 Tag Cloud</a></li>
+      <li class="size_4"><a href="">Size 4 Tag Cloud</a></li>
+      <li class="size_5"><a href="">Size 5 Tag Cloud</a></li>
+      <li class="size_6"><a href="">Size 6 Tag Cloud</a></li>
+      <li class="size_7"><a href="">Size 7 Tag Cloud</a></li>
+      <li class="size_8"><a href="">Size 8 Tag Cloud</a></li>
+      <li class="size_9"><a href="">Size 9 Tag Cloud</a></li>
+      <li class="size_10"><a href="">Size 10 Tag Cloud</a></li> //-->
 
-      <div class="s_desc">
-        <%= render :partial => "podcasts/social_single", :locals => {:podcast => @podcast} -%>
-        <h3><%= link_to @podcast.title, podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></h3>
-        
-        <div class="clear"></div>
-        <h6>Tags:</h6>
-        <ul>
-          <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
-        </ul>
-        
-        
+      <% @popular_tags.each do |tag| -%>
+      <li class="size_<%= tag.rating %>"><%= link_to tag.name, tag_url(:tag => tag.name), :title => "#{tag.taggings_count} Podcast" %></li>
+      <% end -%>
+    </ul>
 
-
-        <p class="favorite_cont">
-            <% if @podcast.is_favorite_of?(current_user) -%>
-              <a href="#" class="is favorite">Marked as favorite</a>
-            <% else -%>
-
-            <% end -%>
-        </p>
-
-      </div> <!-- /s_desc -->
-    </div> <!-- /description -->
-    
-    
-    <div class="description sm_social">
-      <div class="preview">
-        <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
-      </div>
-
-
-      <div class="s_desc">
-        <%= render :partial => "podcasts/social_single", :locals => {:podcast => @podcast} -%>
-        <h3><%= link_to @podcast.title, podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></h3>
-        
-        <div class="clear"></div>
-        <h6>Tags:</h6>
-        <ul>
-          <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
-        </ul>
-        
-        
-
-
-        <p class="favorite_cont">
-            <% if @podcast.is_favorite_of?(current_user) -%>
-              <a href="#" class="is favorite">Marked as favorite</a>
-            <% else -%>
-
-            <% end -%>
-        </p>
-
-      </div> <!-- /s_desc -->
-    </div> <!-- /description -->
-    
-    
-    <div class="description sm_social">
-      <div class="preview">
-        <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
-      </div>
-
-
-      <div class="s_desc">
-        <%= render :partial => "podcasts/social_single", :locals => {:podcast => @podcast} -%>
-        <h3><%= link_to @podcast.title, podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></h3>
-        
-        <div class="clear"></div>
-        <h6>Tags:</h6>
-        <ul>
-          <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
-        </ul>
-        
-        
-
-
-        <p class="favorite_cont">
-            <% if @podcast.is_favorite_of?(current_user) -%>
-              <a href="#" class="is favorite">Marked as favorite</a>
-            <% else -%>
-
-            <% end -%>
-        </p>
-
-      </div> <!-- /s_desc -->
-    </div> <!-- /description -->
-    
-    <div class="callout"><ul><li><%= link_to "View all popular", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
-    
-    
-    
+    <div class="callout"><ul><li><%= link_to "Browse tags", "/tags" -%></li></ul></div>
    <% end -%>
 </div> <!-- /rounded_corners -->
+
+<div id="recent_reviews" class="rounded_corners">
+  <% rounded_corners do -%>
+  
+  <ul class="reviews">
+  <% @reviews.each do |review| -%>
+    <li id="<%=h dom_id(@review) -%>" class="review <%= @review.positive? ? "positive" : "negative" %> clearfix">
+      <div class="info">
+        <cite><%= link_to_profile @review.reviewer -%></cite>
+        <span class="created_at light"><%= time_ago_in_words @review.created_at %> ago</span>
+        <!--<a href="#" class="allreviews">See all my reviews</a>-->
+      </div>
+
+      <div class="summary">
+        <span class="title"><%= @review.title -%></span>
+        <span class="body"><%= unescape_entities(@review.body) -%></span>
+        <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
+      </div>
+    </li>
+  <% end -%>
+  </ul>
+  <div class="callout"><ul><li><%= link_to "View all recent episodes", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
+    
+ <% end -%>
+</div> <!-- /rounded_corners -->
+

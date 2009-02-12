@@ -5,16 +5,54 @@
 
 .tm {padding-top: 1em;} /*Top Margin*/
 
+.disabled {
+	display: none;
+}
+
 
 /**** Form elements **************/
-form#search {text-align: right; margin: 3px 0 0 0px; display: block;}
-form#search input.text {
-	background: url('../imgs/text_box.png') top left repeat-x;
-	width: 152px;
-	height: 19px;
+form#search {
+
+	width: 180px; 
+	margin: 0px; 
+	display: block; 
+	position: absolute; 
+	top: 5px;
+	right: 0px;
+
+}
+
+form#search input {
+	background: url('../imgs/search_input.png') top left repeat-x;
+	width: 175px;
+	height: 24px;
 	border: 0;
-	padding: 5px 0 0 5px;
+	padding: 0px;
 	color: #a9a9a9;
+	position: relative;
+	font-size: 1.2em;
+	position: relative;
+	padding: 5px 0 0 5px;
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
+form#search input {padding: 0px 0 0 5px;}
+}
+
+form#search button {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 30px;
+	background: url('../imgs/search_button.png') no-repeat right;
+}
+
+form#search button span {
+
+	margin-left: -5000px;
+
+	width: 30px;
 
 }
 
@@ -57,25 +95,33 @@ input.radio {
 }
 
 
+/**** Tag Cloud **************/
+.tag_cloud li { 
+  display: inline;
+  padding: 0 5px;
+}
+
+.tag_cloud .size_1 { font-size: 5pt; }
+.tag_cloud .size_2 { font-size: 6pt; }
+.tag_cloud .size_3 { font-size: 7pt; }
+.tag_cloud .size_4 { font-size: 8pt; }
+.tag_cloud .size_5 { font-size: 9pt; }
+.tag_cloud .size_6 { font-size: 10pt; }
+.tag_cloud .size_7 { font-size: 11pt; }
+.tag_cloud .size_8 { font-size: 12pt; }
+.tag_cloud .size_9 { font-size: 13pt; }
+.tag_cloud .size_10 { font-size: 14pt; }
+
+
 
 /**** Rounded Action Corner Box **************/
 
 /* Basic styling, used when JavaScript is unsupported */
-/*.cbb {
-	margin:0em;
-	padding:0 10px;
-	border:1px solid #dddddd;
-	background:#fff;
-}
-.cbb h1 {
-	margin:0 -10px;
-	padding:0.3em 10px;
-	background:#efece6;
-	font:bold 1.2em/1 Arial, Helvetica, sans-serif;
-}
+/*.cbb { margin:0em; padding:0 10px; border:1px solid #dddddd; background:#fff; }
+.cbb h1 { margin:0 -10px; padding:0.3em 10px; background:#efece6; font:bold 1.2em/1 Arial, Helvetica, sans-serif; }
 */
 /* Normal styling */
-.rounded_corners {margin:0.0em 0;}
+.rounded_corners {margin:0 0 20px 0; position: relative;}
 	/* Top corners and border */
 .bt {
 	height:5px;
@@ -87,7 +133,7 @@ input.radio {
 	left:-10px;
 	width:10px;
 	height:10px;
-	background:url(../imgs/box.png) no-repeat 0 0;
+	background:url('../imgs/box.png') no-repeat 0 0;
 	font-size:0;
 	line-height:0;
 }
@@ -96,14 +142,14 @@ input.radio {
 .bb {
 	height:10px;
 	margin:0 0 0 10px;
-	background:url(../imgs/box.png) no-repeat 100% 100%;
+	background:url('../imgs/box.png') no-repeat 100% 100%;
 }
 .bb div {
 	position:relative;
 	left:-10px;
 	width:10px;
 	height:10px;
-	background:url(../imgs/box.png) no-repeat 0 100%;
+	background:url('../imgs/box.png') no-repeat 0 100%;
 	font-size:0;
 	line-height:0;
 }
@@ -111,12 +157,13 @@ input.radio {
 	/* Left border */
 .i1 {
 	padding:0 0 0 10px;
-	background:url(../imgs/border.png) repeat-y 2px 0;
+	background:url('../imgs/border.png') repeat-y 2px 0;
 }
 	/* Right border */
 .i2 {
+	
 	padding:0 10px 0 0;
-	background:url(../imgs/border.png) repeat-y 100% 0;
+	background:url('../imgs/border.png') repeat-y 100% 0;
 }
 	/* Wrapper for the content. Use it to set the background colour and insert some padding between the borders and the content. */
 .i3 {
@@ -150,7 +197,7 @@ input.radio {
 	position: absolute;
 	visibility: hidden;
 	left: -5px;
-	z-index: 0;
+
 }
 .dropdown.open div.dropdown_wrap {
 	visibility: visible;
@@ -163,7 +210,7 @@ input.radio {
 .dropdown .focuser {
 	cursor: pointer;
 	position: relative;
-	z-index: 100;
+
 	white-space: nowrap;
 	height: 100%;
 	padding: 0px;
@@ -242,8 +289,6 @@ span > img.inline_icon {
 
 /**** ADD button **************/
 
-
-
 .addit li {
 	float:left;
 	display:block;
@@ -281,6 +326,47 @@ span > img.inline_icon {
 
 
 
+/**** remove button **************/
+
+
+
+.removeit li {
+	float:left;
+	display:block;
+  background:url("../imgs/remove_left.png") no-repeat left top;
+  margin-right: -5px;
+  padding:0 3px 0 15px;
+	line-height: 13px;
+}
+
+.removeit a {
+	float:left;
+  display:block;
+  background: url("../imgs/remove_right.png") no-repeat right top;
+  padding:1px 8px 3px 2px;
+	line-height: 13px;
+  text-decoration:none;
+	font-size: .7em;
+  color:#fff;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+.removeit a {float:none;}
+/* End IE5-Mac hack */
+#removeit a:hover {
+  color:#333;
+  }
+
+.removeit li:hover {
+  background-position:0% -17px;
+  color:#fff;
+  }
+.removeit li:hover a, .removeit li:hover a span {
+  background-position:100% -17px;
+}
+
+
+
 /**** call out links (with arrow) **************/
 
 
@@ -301,7 +387,7 @@ span > img.inline_icon {
   padding:0px 23px 3px 0px;
 	line-height: 14px;
   text-decoration:none;
-	font-size: 1em;
+	font-size: 1.4em;
   color:#fff;
 }
 
@@ -321,20 +407,43 @@ span > img.inline_icon {
 }
 
 
+
+
+
+
+a.calloutlight  {
+	float:left;
+  display:block;
+  background: url("../imgs/callout_light.png") no-repeat 100% 2px;
+  padding:0px 16px 1px 0px;
+	line-height: 14px;
+  text-decoration:none;
+	font-size: 1.4em;
+
+}
+
+
+
+a.calloutlight:hover {
+  background-position:100% -12px;
+
+  }
+
+
 /**** Social links **************/
 
 .social {
   float:left;
   width:100%;
-
+	position: relative;
+	bottom: -40px;
+	margin-bottom: 60px;
   }
 .social ul {
   margin:0;
   padding:0;
   list-style:none;
-	position: relative;
-	bottom: -40px;
-	margin-bottom: 60px;
+
 	left: 0;
   }
 .social li {
@@ -377,141 +486,141 @@ span > img.inline_icon {
 }
 
 .sm_social .social {
-	float: left; 
+	float: none; 
 	font-size: .8em; 
-	width: auto;
-	overflow: visible;
-	margin-right: 2px;
+
+	display: block;
+
+	margin: -42px 0px 0 0;
 }
 
 .sm_social h3, .sm_social h3 a {
 	float: left;
+	width: 305px;
 }
+
+
 #pop_recent_cont .description, #tags_review_cont .description {margin-bottom: 20px; padding: 0;}
 
 
+/**** Download button on episode pages **************/
 
 
-#zone-bar {
-
-	}
-	#zone-bar ul {
-		display: block;
-		}
-		#zone-bar ul li {
-			height: 36px;
-			padding: 5px 0px 0 0px;
-			position: relative;
-			float: left;
-			
-			
-			background: url(../imgs/zonebar-navleft.png) center left no-repeat;
-			}
-			#zone-bar ul li:hover {
-				background: url(../imgs/zonebar-navleft_o.png) center left no-repeat;
-			}
-				#zone-bar ul li a {
-					display: block;
-					float: left;
-					height: 23px;
-					position: relative;
-					top: -3px;
-					padding-left: 8px;
-					margin-right: -5px;
-					padding-right: 40px;
-					padding-bottom: 0px;
-					padding-top: 3px;
-					color: #fff;
-					font-weight: bold;
-					height: 36px;
-					font-size: 1.1em;
-					white-space: nowrap;
-					background: url(../imgs/zonebar-navright.png) top right no-repeat;
-					}
-					
-					#zone-bar ul li a:hover {
-
-			
-					}
-					
-			#zone-bar ul li a span {
-				display: block;
-				font-size: .9em;
-				font-weight: normal;
-				margin-top: -1px;
-				font-style: italic;
-			}
-					
-			#zone-bar ul li a.arrowz {
-				display: block;
-				float: left;
-				height: 23px;
-				position: relative;
-				
-				padding-top: 7px;
-				padding-right: 6px;
-				padding-left: 11px;
-				margin-left: -25px;
-
-				height: 36px;
-				text-decoration: none;
-				
-				}
-				
-				
+#zone-bar ul {
+	display: block;
+}
+#zone-bar ul li {
+	height: 36px;
+	padding: 5px 0px 0 0px;
+	position: relative;
+	float: left;
 	
-				#zone-bar ul li a.arrowz:hover {
-					background: url(../imgs/zonebar-navright_o.png) 4px 0px no-repeat;
-				}
-				
-				
+	
+	background: url(../imgs/zonebar-navleft.png) center left no-repeat;
+	}
+#zone-bar ul li:hover {
+	background: url(../imgs/zonebar-navleft_o.png) center left no-repeat;
+}
+#zone-bar ul li a {
+	display: block;
+	float: left;
+	height: 23px;
+	position: relative;
+	top: -3px;
+	padding-left: 8px;
+	margin-right: -5px;
+	padding-right: 40px;
+	padding-bottom: 0px;
+	padding-top: 3px;
+	color: #fff;
+	font-weight: bold;
+	height: 36px;
+	font-size: 1.1em;
+	white-space: nowrap;
+	background: url(../imgs/zonebar-navright.png) top right no-repeat;
+	}
+	
 
-			#zone-bar ul li div.dl_dropdown {
-				position: absolute;
-				top: 40px;
-				left: -3px;
-				width: 250px;
-				z-index: 9000000;
-				font-size: 1.2em;
-				}
-				#zone-bar ul li div a {
-					float: none;
-					background: none;
-					color: #2951a5;
-					font-weight: normal;
-					padding: 0;
-					margin: 0;
-					height: auto;
-					display: inline;
-					position: static;
-				}
-				
-				#zone-bar ul li div ul li {
-					background: none;
-					font-size: .8em;
-				}
-				#zone-bar ul li div ul li:hover {
-					background: none;margin: 0;
-				}
-				
-				#zone-bar ul li div ul.v_options_list {
-					margin-top: 20px;
-				}
-				
-				#zone-bar ul li div ul.v_options_list li {
-					float: none;
-					padding: 3px 0;
-					height: auto;
-				}
-				
-				#zone-bar ul li div ul.v_options_list li p {
-					float: left;
-					margin: 0;
-				}
-				
-				#zone-bar ul li div ul.v_options_list li span {
-					float: right;margin: 0;
-				}
+#zone-bar ul li a span {
+	display: block;
+	font-size: .9em;
+	font-weight: normal;
+	margin-top: -1px;
+	font-style: italic;
+}
+		
+#zone-bar ul li a.arrowz {
+	display: block;
+	float: left;
+	height: 23px;
+	position: relative;
+	
+	padding-top: 13px;
+	padding-right: 6px;
+	padding-left: 11px;
+	margin-left: -25px;
+
+	height: 36px;
+	text-decoration: none;
+	
+	}
+	
+	
+	
+#zone-bar ul li a.arrowz:hover {
+	background: url(../imgs/zonebar-navright_o.png) 4px 0px no-repeat;
+}
+
+
+
+#zone-bar ul li div.dl_dropdown {
+	position: absolute;
+	top: 40px;
+	left: -3px;
+	width: 250px;
+	z-index: 9000000;
+	font-size: 1.2em;
+	}
+#zone-bar ul li div a {
+	float: none;
+	background: none;
+	color: #2951a5;
+	font-weight: normal;
+	padding: 0;
+	margin: 0;
+	height: auto;
+	display: inline;
+	position: static;
+}
+
+#zone-bar ul li div ul li {
+	background: none;
+	font-size: .8em;
+}
+#zone-bar ul li div ul li:hover {
+	background: none;margin: 0;
+}
+
+#zone-bar ul li div ul.v_options_list {
+	margin-top: 20px;
+}
+
+#zone-bar ul li div ul.v_options_list li {
+	float: none;
+	padding: 3px 0;
+	height: auto;
+}
+
+#zone-bar ul li div ul.v_options_list li p {
+	float: left;
+	margin: 0;
+}
+
+#zone-bar ul li div ul.v_options_list li span {
+	float: right;margin: 0;
+}
+
+
 				
 				
 
@@ -559,8 +668,13 @@ ul.tabs  {
 .tabs a, .tabs a h4 {
   display: block;
   padding: 0px 0px 0px 0px;
+}
 
-
+.tabs a h4 span {
+	position: relative;
+	top: -2px;
+	left: -3px;
+	font-size: .6em;
 }
 
 .tabs a {
@@ -625,9 +739,32 @@ ul.tabs  {
   cursor: pointer;
 }
 
-.tabs-cont .i3 {
+.new .tabs-cont .i3 {
 	padding: 10px 10px 10px 10px;
 }
 
+
+
+
 				
-				
+
+
+
+.googleads {
+	overflow: hidden;
+	width: 250px;
+	float: right;
+	margin-bottom: 20px;
+}
+
+.googleads iframe {
+	margin-bottom: 20px;
+}
+
+#series_page_goog  {
+	margin-top: 57px;
+}
+
+#profile_goog  {
+	margin-top: 57px;
+}

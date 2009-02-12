@@ -2,13 +2,14 @@ class HomeController < ApplicationController
   def home
     @podcasts = Podcast.parsed.sorted
     @podcast = @podcasts.first
-  
-    @reviews = @podcast.reviews
+    
+    
+    @reviews = Review.all(:order => "created_at DESC")
     @review = @reviews.first
-
 
     @recent_review = Review.last
     @recent_episodes = Episode.newest(3)
+    @popular_tags = Tag.all #(:order => "taggings_count DESC")
   end
 
   def stats

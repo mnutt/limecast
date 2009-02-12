@@ -122,7 +122,9 @@ form#quick_signin .controls, form#quick_signin .controls_signup {
 }
 
 
-
+.podcast.index h1 {
+	margin-left: 15px;
+}
 
 
 
@@ -321,6 +323,10 @@ form#quick_signin a.forgot {
 	color: #171717;
 }
 
+#featured h3 {
+	margin-top: -4px;
+}
+
 #first_featured {
 	margin-right: 40px;
 }
@@ -384,6 +390,7 @@ form#quick_signin a.forgot {
 	position: absolute;
 	bottom: 35px;
 	right: 20px;
+	font-size: .8em;
 }
 
 
@@ -635,6 +642,8 @@ div#sort .dropdown label {
 }
 
 .show .supplemental .linkable a {margin-left: 40px; margin-right: 6px;}
+
+
 
 .episode .supplemental  {
 	margin-top: 20px;
@@ -1142,7 +1151,7 @@ display: inline;
 }
 .podcast.index .addit {
 	float: right;
-	margin: 14px 5px 0px 0;
+	margin: 1px 5px 0px 0;
 }
 
 

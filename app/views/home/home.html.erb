@@ -74,16 +74,10 @@
             <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
           </ul>
           -->
-          <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
+          <%= render :partial => "podcasts/social_favs", :locals => {:podcast => @podcast} -%>
 
 
-          <p class="favorite_cont">
-              <% if @podcast.is_favorite_of?(current_user) -%>
-                <a href="#" class="is favorite">Marked as favorite</a>
-              <% else -%>
-              
-              <% end -%>
-          </p>
+         
 
         </div> <!-- /s_desc -->
       </div> <!-- /description -->
@@ -107,17 +101,10 @@
             <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
           </ul>
           -->
-          <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
+          <%= render :partial => "podcasts/social_favs", :locals => {:podcast => @podcast} -%>
 
 
-          <p class="favorite_cont">
-              <% if @podcast.is_favorite_of?(current_user) -%>
-                <a href="#" class="is favorite">Marked as favorite</a>
-              <% else -%>
-              
-              <% end -%>
-          </p>
-
+         
         </div> <!-- /s_desc -->
       </div> <!-- /description -->
   
@@ -152,6 +139,7 @@
               <h3><%= link_to @podcast.title, podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></h3>
               
               <div class="clear"></div>
+              
               <h6>Tags:</h6>
               <ul>
                 <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
@@ -160,13 +148,7 @@
               
 
 
-              <p class="favorite_cont">
-                  <% if @podcast.is_favorite_of?(current_user) -%>
-                    <a href="#" class="is favorite">Marked as favorite</a>
-                  <% else -%>
-
-                  <% end -%>
-              </p>
+              
 
             </div> <!-- /s_desc -->
           </div> <!-- /description -->
@@ -191,13 +173,7 @@
               
 
 
-              <p class="favorite_cont">
-                  <% if @podcast.is_favorite_of?(current_user) -%>
-                    <a href="#" class="is favorite">Marked as favorite</a>
-                  <% else -%>
-
-                  <% end -%>
-              </p>
+              
 
             </div> <!-- /s_desc -->
           </div> <!-- /description -->
@@ -222,13 +198,7 @@
               
 
 
-              <p class="favorite_cont">
-                  <% if @podcast.is_favorite_of?(current_user) -%>
-                    <a href="#" class="is favorite">Marked as favorite</a>
-                  <% else -%>
-
-                  <% end -%>
-              </p>
+              
 
             </div> <!-- /s_desc -->
           </div> <!-- /description -->
@@ -261,13 +231,7 @@
               
 
 
-              <p class="favorite_cont">
-                  <% if @podcast.is_favorite_of?(current_user) -%>
-                    <a href="#" class="is favorite">Marked as favorite</a>
-                  <% else -%>
-
-                  <% end -%>
-              </p>
+              
 
             </div> <!-- /s_desc -->
           </div> <!-- /description -->
@@ -292,13 +256,7 @@
               
 
 
-              <p class="favorite_cont">
-                  <% if @podcast.is_favorite_of?(current_user) -%>
-                    <a href="#" class="is favorite">Marked as favorite</a>
-                  <% else -%>
-
-                  <% end -%>
-              </p>
+              
 
             </div> <!-- /s_desc -->
           </div> <!-- /description -->
@@ -323,13 +281,7 @@
               
 
 
-              <p class="favorite_cont">
-                  <% if @podcast.is_favorite_of?(current_user) -%>
-                    <a href="#" class="is favorite">Marked as favorite</a>
-                  <% else -%>
-
-                  <% end -%>
-              </p>
+              
 
             </div> <!-- /s_desc -->
           </div> <!-- /description -->

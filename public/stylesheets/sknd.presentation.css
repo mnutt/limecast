@@ -585,7 +585,7 @@ form#quick_signin a.forgot {
 
 .episode .callout  {
 	float: left;
-
+  font-size: .7em;
 	margin: 16px 0 0 10px;
 
 	margin: 5px 0 0 10px;
@@ -670,14 +670,16 @@ li.review {
 	position: relative;
 	border-bottom: solid 1px #D4F0AA;
 	display: block;
+	margin-top: 10px;
+	padding-bottom: 0px;
 }
 
 
 .review .helpfulness {
 	color: #a9a9a9;
 	font-size: 1.2em;
-	margin-top: 9px;
-	margin-right: 135px;
+	margin-top: 15px;
+	margin-right: 105px;
 	text-align: right;
 }
 
@@ -1039,7 +1041,7 @@ ul.tabs-nav  {
 
 .show .info .created_at {
 	display: block;
-	margin-left: 18px;
+
 }
 
 .pagination  {
@@ -1215,6 +1217,10 @@ display: inline;
 	margin: 10px 0;
 }
 
+#profile_profile button {
+  margin: -3px 3px 0 3px;
+}
+
 #profile_profile p span {
 	color: #a9a9a9;
 }
@@ -1229,12 +1235,43 @@ display: inline;
 	right: 20px;
 }
 
+#recent_episodes p {
+  color: #a9a9a9;
+  float: left;
+  font-size: 1.2em;
+  margin-top: -5px;
+}
+
+
+#recent_episodes .description {
+  min-height: 60px;
+}
+
+#recent_reviews ul.reviews {
+  margin-top: -10px;
+}
+
+#recent_reviews h3 {
+  color: #a9a9a9;
+}
+
+#recent_reviews .review {
+  min-height: 120px;
+}
 
 
 
+#edit_form label {
+  float: left;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 5px;
+  padding-top: 2px;
+}
 
-
-
+#edit_form div , form#edit_form  input {
+  float: left; display: inline;
+}
 
 
 

@@ -11,10 +11,9 @@
   <div class="s_desc">
      <div class="favorite_cont">
       <% if @podcast.is_favorite_of?(current_user) -%>
-        
-        <a href="/user/ari#profile_favorites" class="calloutlight" title="Go to your favorites">Marked as favorite</a>
+        <%= link_to "Marked as favorite", user_url(current_user, :anchor => "profile_favorites"), :class => "calloutlight", :title => "Go to your favorites" %>
       <% else -%>
-        <div class="addit"><ul><li><%= link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => @podcast.clean_url) -%></li></ul></div>
+        <div class="addit"><ul><li><%= link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => @podcast.clean_url), :class => "favorite_link" -%></li></ul></div>
       <% end -%>
       <% unless current_user -%><div class="quick_signin_container after_favoriting"></div><% end -%>
     </div>

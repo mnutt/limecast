@@ -1,9 +1,18 @@
+<script type="text/javascript">
+ $().ready(function() {  
+  $('span.body').jTruncate({  
+   length: 110, 
+   moreText: "" 
+  });  
+ });
+</script>
+
 <div id="recent_reviews" class="rounded_corners">
   <% rounded_corners do -%>
     <ul class="reviews">
       <%- @recent_reviews.each do |r| -%>
         <li id="<%=h dom_id(r) -%>" class="review <%= r.positive? ? "positive" : "negative" %> clearfix">
-          <%= link_to r.episode.podcast.title, podcast_url(:podcast_slug => r.episode.podcast) -%>
+          <h3>Left for <%= link_to r.episode.podcast.title, podcast_url(:podcast_slug => r.episode.podcast) -%></h3>
           <div class="info">
             <cite><%= link_to_profile r.reviewer -%></cite>
             <span class="created_at light"><%= time_ago_in_words r.created_at %> ago</span>
@@ -18,6 +27,6 @@
       <%- end -%>
     </ul>
     
-    <div class="callout"><ul><li><%= link_to "View all recent episodes", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
+
   <% end -%>
 </div> <!-- /rounded_corners -->

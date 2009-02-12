@@ -28,9 +28,6 @@
         <% end -%>
         per page
       </p>
-      <div id="sort">
-        <p>Sort by: <%= dropdown [["Popular","oldest"], ["Recently added","recent"]], nil, {} %></p>
-      </div>
     </div>
     
     <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>

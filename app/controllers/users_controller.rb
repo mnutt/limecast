@@ -96,7 +96,10 @@ class UsersController < ApplicationController
   end
 
   def send_password
-    @user = User.find_by_email(params[:email]) unless params[:email].blank?
+    unless params[:email].blank?
+      @user = User.find_by_email(params[:email]) || User.find_by_login(params[:email])
+      flash[:notice] = "We could not find that email."
+    end
 
     if @user
       if @user.reset_password_sent_at and @user.reset_password_sent_at > 10.minutes.ago then

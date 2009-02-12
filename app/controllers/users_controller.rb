@@ -75,6 +75,9 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def forgot_password
+    render
+  end
 
   def reset_password
     @code = params[:code] or unauthorized
@@ -97,14 +100,16 @@ class UsersController < ApplicationController
 
     if @user
       if @user.reset_password_sent_at and @user.reset_password_sent_at > 10.minutes.ago then
+        flash[:notice] = "We have already sent you a note. Please check your email."
       else
         @user.generate_reset_password_code
         @user.save
-        UserMailer.deliver_reset_password(@user, request.host_with_port)
+        UserMailer.deliver_reset_password(@user)
+        flash[:notice] = "Please check your email for a note from us."
       end
       redirect_to new_session_path
     else
-      redirect_to forgot_password_path
+      render :action => 'forgot_password'
     end
   end
 

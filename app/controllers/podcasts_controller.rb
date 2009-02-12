@@ -49,8 +49,8 @@ class PodcastsController < ApplicationController
     @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
 
     if current_user.nil?
-      session.data[:feeds] ||= []
-      session.data[:feeds] << @feed.id
+      session[:feeds] ||= []
+      session[:feeds] << @feed.id
     end
 
     render :nothing => true

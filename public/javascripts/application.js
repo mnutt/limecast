@@ -6,7 +6,12 @@ $(document).ready(function() {
   // Edit Podcast link
   $('#edit_link').click(function() { $('.limecast_form').toggle(); return false; });
   $('.limecast_form .cancel').click(function(){ $(this).parents(".limecast_form").hide(); return false; });
+
+
+  $('#q').inputDefaultText();
 });
+
+
 // ---------------------------------
 // END STUFF MOVED OVER FROM SKND
 // ---------------------------------

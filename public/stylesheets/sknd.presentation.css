@@ -390,6 +390,7 @@ form#quick_signin a.forgot {
 	position: absolute;
 	bottom: 35px;
 	right: 20px;
+	font-size: .8em;
 }
 
 
@@ -641,6 +642,8 @@ div#sort .dropdown label {
 }
 
 .show .supplemental .linkable a {margin-left: 40px; margin-right: 6px;}
+
+
 
 .episode .supplemental  {
 	margin-top: 20px;

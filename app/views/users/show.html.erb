@@ -13,13 +13,13 @@
 
  
 
-<h1><%=h @user.login -%><%= "" unless @user.podcaster? %></h1>
+<h1><%=h @user.login -%><%= "" unless @user.podcaster? %>'s profile</h1>
 
 
 <div id="memeber_profile" class="tabify">
   
   <ul>
-    <li><a href="#profile_profile"><h4>Profile</h4></a></li>
+    <!--<li><a href="#profile_profile"><h4>Profile</h4></a></li>-->
     <% if @user.favorite_podcasts.size > 0 -%>
       <li><a href="#profile_favorites"><h4>Favorites <span>(<%= @user.favorite_podcasts.size %>)</span></h4></a></li>
     <% end -%>

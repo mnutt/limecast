@@ -2,34 +2,22 @@
   <% rounded_corners do -%>
     <%- @recent_episodes.each do |ep| -%>
       <div class="description sm_social">
-        <div class="preview">
-          <%= image_tag(ep.podcast.logo.url(:small), :alt => "#{ep.podcast.custom_title} cover art", :class => "logo") -%>
-        </div>
-  
-        <div class="s_desc">
-          
-          <h3><%= link_to ep.podcast.title, podcast_url(:podcast_slug => ep.podcast), :title => "Subscribe to the series & view the episode list" -%></h3>
-          
-          <div class="clear"></div>
-          <h6>Tags:</h6>
-          <ul>
-            <%= comma_separated_list_items(ep.podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
-          </ul>
-          
-          
-  
-  
-          <p class="favorite_cont">
-              <% if ep.podcast.is_favorite_of?(current_user) -%>
-                <a href="#" class="is favorite">Marked as favorite</a>
-              <% else -%>
-  
-              <% end -%>
-          </p>
-  
-        </div> <!-- /s_desc -->
-      </div> <!-- /description -->
+        <% if ep.sources.first.screenshot? %>
+          <div class="preview">
+            <%= image_tag(ep.sources.first.screenshot(:square).to_s, :height => 95, :width => 95) %>
+          </div>
+          <div>
+        <% else %>
+          <div class="no_screenshot">
+        <% end %>
+
+        <h3><%= link_to ep.title, episode_url(:podcast_slug => ep.podcast, :episode => ep) -%></h3>
+        <p>
+          <%= ep.published_at.to_date -%> - <%= time_to_words(ep.duration) -%>
+        </p>
+      </div>
+    </div>
     <%- end -%>
-   <% end -%>
+  <% end -%>
 </div> <!-- /rounded_corners -->
 

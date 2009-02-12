@@ -3,13 +3,19 @@
 
 <div class="social">
   <ul>
-    <%- if show_finder && podcast.found_by -%>
-      <li><%= link_to "First found by <span>#{podcast.found_by.login}</span>", user_url(podcast.found_by) -%></li>
-    <%- end -%>
-    <%- if show_owner && podcast.owned_by -%>
-      <li><%= link_to "Owned by <span>#{podcast.owned_by.login}</span>", user_url(podcast.owned_by) -%></li>
-    <%- end -%>
+  <%- if show_finder && podcast.found_by -%>
+    <li><%= link_to "First found by <span>#{podcast.found_by.login}</span>", user_url(podcast.found_by) -%></li>
+  <%- end -%>
+
+  <%- if show_owner && podcast.owned_by -%>
+    <li><%= link_to "Owned by <span>#{podcast.owned_by.login}</span>", user_url(podcast.owned_by) -%></li>
+  <%- end -%>
+
     <li><a href="#">Marked as favorite by <span><%= pluralize(podcast.favorites.count, "person") -%></span></a></li>
+
+  <% if podcast.is_favorite_of?(current_user) -%>
+    <li><%= link_to 'Unfavorite', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li>
+  <% end -%>
   </ul>
 </div>
 

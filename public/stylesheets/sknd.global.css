@@ -289,8 +289,6 @@ span > img.inline_icon {
 
 /**** ADD button **************/
 
-
-
 .addit li {
 	float:left;
 	display:block;
@@ -389,7 +387,7 @@ span > img.inline_icon {
   padding:0px 23px 3px 0px;
 	line-height: 14px;
   text-decoration:none;
-	font-size: 1em;
+	font-size: 1.4em;
   color:#fff;
 }
 
@@ -407,6 +405,29 @@ span > img.inline_icon {
 .callout li:hover a, .callout li:hover a span {
   background-position:100% -17px;
 }
+
+
+
+
+
+
+a.calloutlight  {
+	float:left;
+  display:block;
+  background: url("../imgs/callout_light.png") no-repeat 100% 2px;
+  padding:0px 16px 1px 0px;
+	line-height: 14px;
+  text-decoration:none;
+	font-size: 1.4em;
+
+}
+
+
+
+a.calloutlight:hover {
+  background-position:100% -12px;
+
+  }
 
 
 /**** Social links **************/
@@ -465,18 +486,20 @@ span > img.inline_icon {
 }
 
 .sm_social .social {
-	float: left; 
+	float: none; 
 	font-size: .8em; 
-	width: auto;
-	overflow: visible;
+
 	display: block;
-	float: none;
-	margin: -42px 5px 0 0;
+
+	margin: -42px 0px 0 0;
 }
 
 .sm_social h3, .sm_social h3 a {
 	float: left;
+	width: 305px;
 }
+
+
 #pop_recent_cont .description, #tags_review_cont .description {margin-bottom: 20px; padding: 0;}
 
 

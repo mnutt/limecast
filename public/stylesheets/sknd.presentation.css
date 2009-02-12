@@ -122,7 +122,9 @@ form#quick_signin .controls, form#quick_signin .controls_signup {
 }
 
 
-
+.podcast.index h1 {
+	margin-left: 15px;
+}
 
 
 
@@ -319,6 +321,10 @@ form#quick_signin a.forgot {
 #featured h2 {
 	margin-top: 10px;
 	color: #171717;
+}
+
+#featured h3 {
+	margin-top: -4px;
 }
 
 #first_featured {
@@ -1142,7 +1148,7 @@ display: inline;
 }
 .podcast.index .addit {
 	float: right;
-	margin: 14px 5px 0px 0;
+	margin: 1px 5px 0px 0;
 }
 
 

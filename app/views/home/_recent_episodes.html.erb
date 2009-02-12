@@ -12,6 +12,7 @@
         <% end %>
 
         <h3><%= link_to ep.title, episode_url(:podcast_slug => ep.podcast, :episode => ep) -%></h3>
+        <div class="clear"></div>
         <p>
           <%= ep.published_at.to_date -%> - <%= time_to_words(ep.duration) -%>
         </p>

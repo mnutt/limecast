@@ -31,6 +31,8 @@ class Review < ActiveRecord::Base
   named_scope :for_podcast, lambda {|podcast| {:conditions => {:episode_id => podcast.episodes.map(&:id)}} }
   named_scope :that_are_positive, :conditions => {:positive => true}
   named_scope :that_are_negative, :conditions => {:positive => false}
+  named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "created_at DESC"} }
+  named_scope :with_episode, :conditions => "reviews.episode_id IS NOT null"
 
   define_index do
     indexes :title, :body

@@ -108,7 +108,7 @@ $.quickSignIn = {
   // options is a JSON object that can include these key/values:
   //   * message: the message for the titlebar of the Quick Signin form
   //   * reloadPage: boolean; if false, won't reload page on success
-  //   * noToggle: boolean; if true, the signin won't toggle (hide/show) when it's already attached
+  //   * toggle: boolean; if true, the signin will toggle (hide/show) when it's already attached
   //
   attach: function(container, options) {
     var me = $("#quick_signin");
@@ -116,10 +116,10 @@ $.quickSignIn = {
     me.attr('reloadPage', options.reloadPage);
 
     if(me.parent()[0] == container[0]) { // if it's already attached
-      if(options.noToggle) me.hide().fadeIn();
-      else me.toggle();
+      if(options.toggle) me.toggle();
+      else me.show();
       
-      if($.quickSignIn.isHidden()) $.quickSignIn.reset();
+      if(me.css('display')=='none') $.quickSignIn.reset();
       else me.find('input.login')[0].focus();
     } else {
       $.quickSignIn.reset();

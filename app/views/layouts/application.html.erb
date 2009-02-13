@@ -57,19 +57,6 @@
 
 <%= javascript_include_tag 'application' -%>
 
-<script type="text/javascript">
-$(document).ready(function(){
-
-  // Attach the global quick signup in the top-bar
-  $('#utility_nav .signin a').click(function(){
-    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {});
-  });
-
-});
-</script>
-
-
-
 </head>
 
 <body class="<%= @classes -%><%= " status_#@error" if @error %>">

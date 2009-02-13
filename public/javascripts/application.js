@@ -20,9 +20,9 @@ $(document).ready(function() {
 
 if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
 
-/**************************************************************
-* Hover/Focus Behaviors
-**************************************************************/
+//*************************************************************
+// Hover/Focus Behaviors
+//**************************************************************/
 $.fn.extend({
   hoverAndFocusBehavior: function() {
     $(this).mouseover(function() { $(this).addClass('hover'); })
@@ -37,11 +37,10 @@ $(document).ready(function() {
   $('input:not([type=hidden]), textarea, button').hoverAndFocusBehavior();
 });
 
-/**************************************************************
-* Sign In
-**************************************************************/
+//*************************************************************
+// Sign In
+//************************************************************/
 $(document).ready(function(){
-
   // Attach the global quick signup in the top-bar
   $('#utility_nav .signin a').click(function(){
     return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {toggle:false});
@@ -50,9 +49,9 @@ $(document).ready(function(){
 });
 
 
-/**************************************************************
-* Toggle
-**************************************************************/
+//*************************************************************
+// Toggle
+//************************************************************/
 $(document).ready(function(){
   $('li.expandable').map(function(){
     var expandable_li = $(this);
@@ -99,18 +98,18 @@ $(document).ready(function(){
   }
 });
 
-/**************************************************************
-* Reflection
-**************************************************************/
+//*************************************************************
+// Reflection
+//************************************************************/
 
 // No ready() function because: http://groups.google.com/group/jquery-en/browse_thread/thread/0f8380107f9acdc7/29edd211094770e5
 $(window).bind("load", function() {
   $('img.reflect').reflect({height: 0.3, opacity: 0.3});
 });
 
-/**************************************************************
-* Video Preview
-**************************************************************/
+//*************************************************************
+// Video Preview
+//************************************************************/
 $(document).ready(function() {
   var preview = $(".preview .container img");
   var url = window.location.href
@@ -229,54 +228,50 @@ $(document).ready(function() {
   });
 });
 
-/*
-$.fn.extend({
-  dropdown: function(opts){
-    var me = $(this);
-		opts.click = opts.click || function(){};
-
-    var update_text = function(){
-      me.find('> a').text( selected_text() );
-    };
-
-		var selected_text = function(){
-      return me.find('ul li.selected a').text();
-    };
-
-		var selected_data = function(){
-		  var data = me.find('ul li.selected span').text();
-
-			if(data != "")
-			  return data;
-  		else
-				return selected_text();
-		};
-
-    me.find('ul li a').click(function(){
-      me.find('ul li').removeClass('selected');
-      $(this).parent().addClass('selected');
-      update_text();
-
-			opts.click( selected_data() );
-    });
-
-    me.find('> a').click(function(){
-      me.find("div").toggle();
-    });
-
-    update_text();
-
-    return me;
-  }
-}); */
+// $.fn.extend({
+//   dropdown: function(opts){
+//     var me = $(this);
+//    opts.click = opts.click || function(){};
+// 
+//     var update_text = function(){
+//       me.find('> a').text( selected_text() );
+//     };
+// 
+//    var selected_text = function(){
+//       return me.find('ul li.selected a').text();
+//     };
+// 
+//    var selected_data = function(){
+//      var data = me.find('ul li.selected span').text();
+// 
+//      if(data != "")
+//        return data;
+//      else
+//        return selected_text();
+//    };
+// 
+//     me.find('ul li a').click(function(){
+//       me.find('ul li').removeClass('selected');
+//       $(this).parent().addClass('selected');
+//       update_text();
+// 
+//      opts.click( selected_data() );
+//     });
+// 
+//     me.find('> a').click(function(){
+//       me.find("div").toggle();
+//     });
+// 
+//     update_text();
+// 
+//     return me;
+//   }
+// });
 
 
 $(function() {
   $tabs = $('.tabify').tabs({
     navClass: 'tabs',
-    containerClass: 'tabs-cont',
+    containerClass: 'tabs-cont'
   });
 });
-
-
-

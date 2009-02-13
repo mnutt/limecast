@@ -12,10 +12,12 @@
   <%- end -%>
 
     <li><a href="#">Marked as favorite by <span><%= pluralize(podcast.favorites.count, "person") -%></span></a></li>
-
-  <% if podcast.is_favorite_of?(current_user) -%>
-    <li><%= link_to 'Unfavorite', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li>
-  <% end -%>
+    
   </ul>
 </div>
+  <% if podcast.is_favorite_of?(current_user) -%>
+    <div class="removeit"><ul><li><%= link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li></ul></div>
+  <% end -%>
+  
+
 

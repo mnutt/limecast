@@ -357,6 +357,10 @@ span > img.inline_icon {
 
 /**** remove button **************/
 
+.removeit {
+  float: right;
+  margin-top: 12px;
+}
 
 
 .removeit li {

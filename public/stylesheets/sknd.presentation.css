@@ -578,6 +578,7 @@ form#quick_signin a.forgot {
 .podcast.show .description {
 	background: url('../imgs/b_border.png') bottom left repeat-x;
   width: 760px;
+  margin-top: -4px;
 }
   
 .episode.show .description {
@@ -804,7 +805,7 @@ li.review {
 	margin-top: 1.5em;
 }
 
-.show .reviews.list #review_doit input {
+.show .reviews.list #review_doit input.text {
 	border: none;
 	background: url('../imgs/input_heading.png') top left no-repeat;
 	width: 343px;
@@ -817,7 +818,7 @@ li.review {
 	border: none;
 	background: url('../imgs/textarea.png') top left no-repeat;
 	width: 393px;
-	height: 125px;
+	height: 118px;
 	font-size: 1.8em;
 	padding: 5px;
 	display: block;
@@ -1142,6 +1143,18 @@ display: inline;
 	width: 670px;
 	float: left;
 	margin-bottom: 20px;
+}
+
+#browse .calloutlight {
+  font-size: 1em;
+  float: right;
+  margin-top: 12px;
+}
+
+#browse .addit {
+
+
+  margin-top: 12px;
 }
 
 .podcast.index #sort {

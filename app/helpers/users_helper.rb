@@ -5,7 +5,7 @@ module UsersHelper
     if user.errors[:login]
       return 'Choose your new user name.'                                if user.errors[:login].include?("is invalid") or user.errors[:login].include?("cannot be blank")
       return 'User name must be 3 characters or longer.'                if user.errors[:login].include?("is too short (minimum is 3 characters)")
-      return "Sorry, this user name is taken.  Please pick another one. <br>#{forgot_password}" if user.errors[:login].include?("has already been taken")
+      return "Sorry, this user name is taken.  Please pick another one." if user.errors[:login].include?("has already been taken")
     elsif user.errors[:password]
       return 'Please choose a password.'                                 if user.errors[:password].include?("can't be blank")
       return 'Password must be 4 characters or longer.'                  if user.errors[:password].include?("is too short (minimum is 4 characters)")

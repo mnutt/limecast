@@ -512,7 +512,8 @@ form#quick_signin a.forgot {
 	margin-top: 3px;
 }
 
-.description .s_desc {
+.description .s_desc,
+.description_simple .s_desc {
 	position: relative;
 	float: left;
 	width: 460px;
@@ -554,6 +555,14 @@ form#quick_signin a.forgot {
 	float: left;
 	margin-bottom: 20px;
 } 
+
+.description_simple {
+  overflow: visible;
+  position: relative;
+  padding: 5px 0;
+  display: block;
+  float: left;
+}
 
 .description h3 {
 	font-size: 1.4em;
@@ -1142,6 +1151,10 @@ display: inline;
 	margin: 30px 0 0 5px;
 	padding: 0; 
 	min-height: 125px;
+}
+
+.podcast.index .description_simple img {
+  width: auto;
 }
 
 .podcast.index .s_desc {

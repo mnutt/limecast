@@ -551,7 +551,7 @@ a.calloutlight:hover {
 #zone-bar ul li:hover {
 	background: url(../imgs/zonebar-navleft_o.png) center left no-repeat;
 }
-#zone-bar ul li a {
+#zone-bar ul li #download a {
 	display: block;
 	float: left;
 	height: 23px;
@@ -571,7 +571,7 @@ a.calloutlight:hover {
 	}
 	
 
-#zone-bar ul li a span {
+#zone-bar ul li #download a span {
 	display: block;
 	font-size: .9em;
 	font-weight: normal;
@@ -579,7 +579,7 @@ a.calloutlight:hover {
 	font-style: italic;
 }
 		
-#zone-bar ul li a.arrowz {
+#zone-bar ul li #download a.arrowz {
 	display: block;
 	float: left;
 	height: 23px;
@@ -592,15 +592,13 @@ a.calloutlight:hover {
 
 	height: 36px;
 	text-decoration: none;
-	
-	}
-	
+}
 	
 	
-#zone-bar ul li a.arrowz:hover {
+	
+#zone-bar ul li #download a.arrowz:hover {
 	background: url(../imgs/zonebar-navright_o.png) 4px 0px no-repeat;
 }
-
 
 
 #zone-bar ul li div.dl_dropdown {
@@ -610,25 +608,16 @@ a.calloutlight:hover {
 	width: 250px;
 	z-index: 9000000;
 	font-size: 1.2em;
-	}
-#zone-bar ul li div a {
-	float: none;
-	background: none;
-	color: #2951a5;
-	font-weight: normal;
-	padding: 0;
-	margin: 0;
-	height: auto;
-	display: inline;
-	position: static;
 }
 
 #zone-bar ul li div ul li {
 	background: none;
 	font-size: .8em;
 }
+
 #zone-bar ul li div ul li:hover {
-	background: none;margin: 0;
+	background: none;
+  margin: 0;
 }
 
 #zone-bar ul li div ul.v_options_list {

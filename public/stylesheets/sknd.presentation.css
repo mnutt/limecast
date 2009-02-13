@@ -81,9 +81,6 @@ form#quick_signin label {
 
 .quick_signin_container {
   position: absolute;
-  top: 15px;
-  right: 0;
-
   z-index: 10;
 }
 form#quick_signin a.close {
@@ -102,8 +99,14 @@ form#quick_signin h5 {
 	margin: 0 0 0 0px;
 	font-size: 1.4em;
 }
+.quick_signin_container.from_top_bar {
+  position: absolute;
+  top: 15px;
+  right: 0;
+}
 .quick_signin_container.after_favoriting {
   position: absolute;
+	right: 0;
   top: 20px;
 	font-size: 1.2em;
 }
@@ -114,6 +117,11 @@ form#quick_signin h5 {
 	right: 50px;
 	font-size: 1.3em;
 }
+.quick_signin_container.after_adding_review {
+  top: default;
+	right: default;
+	bottom: 10px;
+}
 
 form#quick_signin button {
 	margin-left: 95px;
@@ -122,7 +130,6 @@ form#quick_signin button {
 
 form#quick_signin .controls, form#quick_signin .controls_signup {
 	display: block;
-	overflow: hidden;
 	width: auto;
 	float: right;
 	margin-top: 15px; 

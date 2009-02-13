@@ -9,6 +9,7 @@ $(document).ready(function() {
 
   $('#feed_url').inputDefaultText();
   $('#q').inputDefaultText();
+  $('#accounts_forgot_password #email').inputDefaultText();
 });
 
 
@@ -42,8 +43,8 @@ $(document).ready(function() {
 $(document).ready(function(){
 
   // Attach the global quick signup in the top-bar
-  $('#account_bar .signup a').click(function(){
-    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {});
+  $('#utility_nav .signin a').click(function(){
+    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {toggle:false});
   });
 
 });

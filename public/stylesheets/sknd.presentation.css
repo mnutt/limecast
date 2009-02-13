@@ -1146,6 +1146,18 @@ display: inline;
 	margin-bottom: 20px;
 }
 
+#browse .calloutlight {
+  font-size: 1em;
+  float: right;
+  margin-top: 12px;
+}
+
+#browse .addit {
+
+
+  margin-top: 12px;
+}
+
 .podcast.index #sort {
 	top: 12px;
 }

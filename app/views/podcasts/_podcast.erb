@@ -1,4 +1,5 @@
 <%- show_remove_favorite = true if show_remove_favorite.nil? -%>
+<%- show_marked_as_favorite = true if show_marked_as_favorite.nil? -%>
 
 <div class="description">
   <div class="preview">
@@ -16,7 +17,7 @@
       <%= comma_separated_list_items(podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
     </ul>
     
-    <%= render :partial => "podcasts/social", :locals => {:podcast => podcast, :show_remove_favorite => show_remove_favorite} -%>
+    <%= render :partial => "podcasts/social", :locals => {:podcast => podcast, :show_remove_favorite => show_remove_favorite, :show_marked_as_favorite => show_marked_as_favorite} -%>
   </div>
 
 

@@ -30,7 +30,7 @@
   </div>
 
   <%= render :partial => "podcasts/subscribe" -%>
-  <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
+  <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast, :show_remove_favorite => false} -%>
 
 </div>
 

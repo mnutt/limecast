@@ -28,7 +28,7 @@ body.addpage .summary {
 form#quick_signin {
   padding: 0;
   color: #171717;
-	z-index: 900000000000000000000000000000000000000000000000000;
+	z-index: 90000000000;
 	position: relative;
 }
 
@@ -37,7 +37,7 @@ form#quick_signin {
 form#quick_signin .rounded_corners  {
 	background: url('../imgs/signin_arrow.png') 93% 0% no-repeat;
 	padding-top: 13px;
-
+	z-index: 9000000000000000000000000000000000000000000000000000000000;
 }
 
 form#quick_signin .titlebar {
@@ -116,7 +116,7 @@ form#quick_signin h5 {
 }
 
 form#quick_signin button {
-	margin-left: 85px;
+	margin-left: 95px;
 	float: left;
 }
 
@@ -207,10 +207,11 @@ a#nav_pop {
 
 a#add_podcast {
 	background: url('../imgs/add_podcast.png') top left no-repeat;
-	width: 114px;
+	width: 112px;
 	height: 15px;
 	display: block;
   float: left;
+  margin-left: -5px;
 }
 
 a#nav_home:hover {
@@ -438,7 +439,7 @@ form#quick_signin a.forgot {
 
 
 /**** Summary **************/
-.summary .preview, #memeber_profile .preview {	
+.summary .preview, #member_profile .preview {	
 	float: left;
 	margin-right: 20px;
 }
@@ -1214,12 +1215,12 @@ display: inline;
 
 /**** Profile page **************/
 
-#memeber_profile {
+#member_profile {
 	float: left;
 	width: 670px;
 }
 
-#memeber_profile h4 {
+#member_profile h4 {
 	font-size: 1.2em;
 }
 
@@ -1245,7 +1246,7 @@ display: inline;
 	color: #a9a9a9;
 }
 
-#memeber_profile .description {
+#member_profile .description {
 	background: none;
 }
 

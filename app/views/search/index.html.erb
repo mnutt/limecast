@@ -1,0 +1,69 @@
+<% @title = "Search" -%>
+
+<p>
+  '<%= h @q -%>' appears in <%= link_to pluralize(@podcasts.size, 'podcast title'), search_url(:q => "#{h @parsed_q} only:podcasts") %>, 
+                            <%= link_to pluralize(@feeds.size , "feed address"), search_url(:q => "#{h @parsed_q} only:feeds") %>,
+                            <%= link_to pluralize(@episodes.size, "episodes"), search_url(:q => "#{h @parsed_q} only:episodes") %>, and
+                            <%= link_to pluralize(@reviews.size, "reviews"), search_url(:q => "#{h @parsed_q} only:reviews") %>.
+</p>
+
+<div class="search tabify">
+
+  <ul>
+    <% if @podcasts.size > 0 -%><li><a href="#podcast_results"><h4>Podcasts</h4></a></li><% end -%>
+    <% if @feeds.size > 0 -%><li><a href="#feed_results"><h4>Feeds</h4></a></li><% end -%>
+    <% if @episodes.size > 0 -%><li><a href="#episode_results"><h4>Episodes</h4></a></li><% end -%>
+    <% if @reviews.size > 0 -%><li><a href="#review_results"><h4>Reviews</h4></a></li><% end -%>
+  </ul>
+
+  <div class="rounded_corners">
+    <% rounded_corners do -%>
+  
+      <div class="rounded_corners" class="podcast_results">
+        <% rounded_corners do -%>
+          <% if @podcasts.size > 0 -%>
+            <ul class="podcasts clearfix">
+              <%= render :partial => 'search/podcast', :collection => @podcasts -%>
+            </ul>
+            <% reset_cycle('row_class') %>
+          <% end -%>
+        <% end -%>
+      </div>
+
+      <div class="rounded_corners" class="feed_results">
+        <% rounded_corners do -%>
+          <% if @feeds.size > 0 -%>
+            <ul class="feeds clearfix">
+              <%= render :partial => 'search/feed', :collection => @feeds -%>
+            </ul>
+            <% reset_cycle('row_class') %>
+          <% end -%>
+        <% end -%>
+      </div>
+
+      <div class="rounded_corners" class="episodes_results">
+        <% rounded_corners do -%>
+          <% if @episodes.size > 0 -%>
+            <ul class="episodes clearfix">
+              <%= render :partial => 'search/episode', :collection => @episodes -%>
+            </ul>
+            <% reset_cycle('row_class') %>
+          <% end -%>
+        <% end -%>
+      </div>
+
+      <div class="rounded_corners" class="reviews_results">
+        <% rounded_corners do -%>
+          <% if @reviews.size > 0 -%>
+            <ul class="reviews clearfix">
+              <%= render :partial => 'search/review', :collection => @reviews -%>
+            </ul>
+            <% reset_cycle('row_class') %>
+          <% end -%>
+        <% end -%>
+      </div>
+  
+    <% end -%>
+  </div>
+
+</div>

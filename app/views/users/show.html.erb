@@ -4,11 +4,11 @@
 <% javascript_include "review_edit", "review_delete", "podcast_edit", "inline_edit_form" -%>
 
 <script type="text/javascript">
- $().ready(function() {  
-  $('.s_desc > p').jTruncate({  
-   length: 120,  
-  });  
- });
+  $().ready(function() {  
+    $('.s_desc > p').jTruncate({  
+      length: 120,  
+    });  
+  });
 </script>
 
  
@@ -17,7 +17,6 @@
 
 
 <div id="member_profile" class="tabify">
-  
   <ul>
     <% if @user.favorite_podcasts.size > 0 -%>
       <li><a href="#profile_favorites"><h4>Favorites <span>(<%= @user.favorite_podcasts.size %>)</span></h4></a></li>
@@ -35,98 +34,78 @@
       <li><a href="#profile_profile"><h4>Edit profile</h4></a></li>
     <% end -%>
   </ul>
+
+  <div id="profile_favorites" class="rounded_corners">
+    <% rounded_corners do -%>
+      <% if @user.favorite_podcasts.size > 0 -%>
+        <ul class="podcasts clearfix">
+          <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
+        </ul>
+      <% end -%>
+    <% end -%>
+  </div>
   
-
-    
-    
+  <div id="profile_found" class="rounded_corners">
+    <% rounded_corners do -%>
+      <% if @user.podcasts.size > 0 -%>
+        <ul class="podcasts clearfix">
+          <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
+        </ul>
+      <% end -%>
+    <% end -%>
+  </div>
+  
+  <div id="profile_owned" class="rounded_corners">
+    <% rounded_corners do -%>
+      <% if @user.owned_podcasts.count > 0 -%>
+        <ul class="podcasts clearfix">
+          <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
+        </ul>
+      <% end -%>
+    <% end -%>
+  </div>
+  
+  <div id="profile_reviews" class="rounded_corners">
+    <% rounded_corners do -%>
+      <% if @user.reviews.count > 0 -%>
+        <h2>Reviewed</h2>
+        <ul class="reviews clearfix">
+          <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast_reference => true} -%>
+        </ul>
+      <% end -%>
+    <% end -%>
+  </div>
+  
+  <div id="profile_profile" class="rounded_corners">
+    <% rounded_corners do -%>
+      <h4>Personal information</h4>
+      <%= render :partial => 'users/small_picture', :locals => { :user => @user } -%>
+      <p><span>username:</span> <strong><%=h @user.login -%><%= "" unless @user.podcaster? %></strong></p>
       
-      
-     
-      
-      <div id="profile_favorites" class="rounded_corners">
-        <% rounded_corners do -%>
-          <% if @user.favorite_podcasts.size > 0 -%>
-
-            <ul class="podcasts clearfix">
-              <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
-            </ul>
-            <% reset_cycle('row_class') %>
-          <% end -%>
-        <% end -%>
-      </div>
-      
-      <div id="profile_found" class="rounded_corners">
-        <% rounded_corners do -%>
-          <% if @user.podcasts.size > 0 -%>
-            <ul class="podcasts clearfix">
-              <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
-            </ul>
-            <% reset_cycle('row_class') %>
-          <% end -%>
-        <% end -%>
-      </div>
-      
-       <div id="profile_owned" class="rounded_corners">
-          <% rounded_corners do -%>
-            <% if @user.owned_podcasts.count > 0 -%>
-              <ul class="podcasts clearfix">
-                <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
-              </ul>
-              <% reset_cycle('row_class') %>
-            <% end -%>
-          <% end -%>
-        </div>
-      
-      <div id="profile_reviews" class="rounded_corners">
-        <% rounded_corners do -%>
-          <% if @user.reviews.count > 0 -%>
-            <h2>Reviewed</h2>
-            <ul class="reviews clearfix">
-              <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast_reference => true} -%>
-            </ul>
-            <% reset_cycle('row_class') %>
-          <% end -%>
-        <% end -%>
-      </div>
-      
-      <div id="profile_profile" class="rounded_corners">
-        <% rounded_corners do -%>
-          <h4>Personal information</h4>
-          <%= render :partial => 'users/small_picture', :locals => { :user => @user } -%>
-          <p><span>username:</span> <strong><%=h @user.login -%><%= "" unless @user.podcaster? %></strong></p>
-          
-          <div id="edit_form">
-            <% form_for :user_attr, current_user do |f| -%>
-              <div class="field">
-                <%= f.label :email, "Email" -%>
-            
-                  <%= f.text_field :email, :class => "text" -%>
-         
-              </div>
-
-              <div class="controls">
-                <button type="submit">
-                  <span>Update email</span>
-                </button>
-                <%#= submit_tag "Update email", :class => "button" -%>
-                <%= link_to "Cancel", :class => "button cancel" -%>
-              </div>
-            <% end -%>
+      <div id="edit_form">
+        <% form_for :user_attr, current_user do |f| -%>
+          <div class="field">
+            <%= f.label :email, "Email" -%>
+            <%= f.text_field :email, :class => "text" -%>
           </div>
-         
-          
-          
-          
-        
+
+          <div class="controls">
+            <button type="submit">
+              <span>Update email</span>
+            </button>
+
+            <%= link_to "Cancel", :class => "button cancel" -%>
+          </div>
         <% end -%>
       </div>
-      
-      
-
+    <% end -%>
+  </div>
 </div> <!--/memeber_profile-->
+
 <div id="profile_goog">
   <div class="googleads">
     <%= @ads -%>
     <%= @ads -%>
   </div>
 </div>
+

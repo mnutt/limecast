@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090203191845) do
+ActiveRecord::Schema.define(:version => 20090210180824) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(:version => 20090203191845) do
     t.integer  "feed_id"
     t.string   "sha1hash",                :limit => 24
     t.string   "screenshot_file_name"
-    t.string   "screenshot_content_type"
-    t.string   "screenshot_file_size"
+    t.string   "stringshot_content_type"
+    t.string   "stringshot_file_size"
     t.string   "preview_file_name"
     t.string   "preview_content_type"
     t.string   "preview_file_size"
@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(:version => 20090203191845) do
     t.boolean "badge"
     t.boolean "blacklisted"
     t.integer "map_to_id"
+    t.integer "taggings_count"
   end
 
   create_table "user_taggings", :force => true do |t|

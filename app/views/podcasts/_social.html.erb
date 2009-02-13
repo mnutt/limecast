@@ -23,7 +23,7 @@
 <% else -%>
   <% if show_marked_as_favorite && podcast.is_favorite_of?(current_user) -%>
     <%= link_to "Marked as favorite", user_url(current_user, :anchor => "profile_favorites"), :class => "calloutlight", :title => "Go to your favorites" %>
-  <% else -%>
+  <% elsif !podcast.is_favorite_of?(current_user) -%>
     <div class="addit"><ul><li><%= link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url), :class => "favorite_link" -%></li></ul></div>
   <% end -%>
 <% end -%>

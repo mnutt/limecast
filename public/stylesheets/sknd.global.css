@@ -767,7 +767,9 @@ ul.tabs  {
 }
 
 
-
+a.truncate_more_link {
+  outline: none;
+}
 
 				
 

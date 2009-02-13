@@ -3,7 +3,7 @@ class PodcastsController < ApplicationController
 
   def index
     @podcasts = Podcast.sorted.
-      paginate(:page => (params[:page] || 1), :per_page => params[:limit] || 5)
+      paginate(:page => (params[:page] || 1), :per_page => params[:limit] || 10)
   end
 
   def recs
@@ -17,7 +17,7 @@ class PodcastsController < ApplicationController
     @feeds    = @podcast.feeds.all
     @podcast.feeds.build if logged_in? # build a new one so we can include a new Feed in our form
     @episodes = @podcast.episodes.
-      paginate(:order => ["published_at ", params[:order] =~ /asc|desc/ ? params[:order] : "asc"], :page => (params[:page] || 1), :per_page => params[:limit] || 5)
+      paginate(:order => ["published_at ", params[:order] =~ /asc|desc/ ? params[:order] : "asc"], :page => (params[:page] || 1), :per_page => params[:limit] || 10)
 
     @reviews = @podcast.reviews
     @review  = Review.new(:episode => @podcast.episodes.newest.first)

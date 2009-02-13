@@ -18,7 +18,7 @@ $(function(){
   function update_subscribe_button(link){
     var url  = link.attr('href');
     var type = link.parents('div').attr('id');
-    var info = link.parents('li').find('p').text() + " - " + link.text();
+    var info = link.parents('li:first').find('p').text() + " - " + link.text();
 
     $("#subscribe a").attr("href", url);
     $("#subscribe p").html(type + " <span>(" + info + ")</span>");
@@ -51,8 +51,6 @@ $(function(){
     select_tab("miro");
   } else if(name.match(/rss/)) {
     select_tab("rss");
-    //$('#subscribe_options').triggerTab(3);
-    //$('#subscribe_options').tabs('select', 2);
   }
 
   $("#subscribe_options .pane a").click(function(e){

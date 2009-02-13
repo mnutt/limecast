@@ -4,38 +4,40 @@
 <% @classes = %{show addpage} -%>
 <div class="summary">
   <div class="page_head">
-    <h1>Feed me</h1>
+    <h1>Add new podcasts to LimeCast</h1>
+    <p>Know the address of a podcast <a href="#" title="Really Simple Syndication">RSS</a> feed? Add it to LimeCast:</p>
   </div>
-  <p>Know the address of a podcast <a href="#" title="Really Simple Syndication">RSS</a> feed? Add it to LimeCast:</p>
+  
 
   <div id="added_podcast_list"></div>
+  
 
   <form method="post" id="new_podcast" action="/podcasts">
     <% if protect_against_forgery? -%>
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token -%>" />
     <% end -%>
-    <div class="field huge">
-      <label>Feed</label>
+ 
+      
       <div>
-        <label for="feed_url" class="default" style="display:none;">http://example.com/rss.xml</label>
-        <input type="text" class="text" id="feed_url" name="feed[url]" />
-        <button type="submit">
-          <span>Add</span>
+        <label for="feed[url]">http://example.com/rss.xml</label>
+        <input type="text" class="text" id="feed_url" name="feed[url]" value="http://example.com/rss.xml" />
+        <button type="submit" class="addme">
+          <span>Feed me!</span>
         </button>
  
       </div>
-    </div>
+
   </form>
 
   <div id="added_podcast" style="display: none;">
     <form>
-      <div class="field huge">
-        <label>Feed</label>
+
+      
         <div>
-          <input type="text"   class="text"   readonly="readonly" style="background: #777; color: #444" />
-          <input type="submit" class="button" readonly="readonly" style="background: #666" value="Add" />
+          <input type="text"   class="text add_disabled"   readonly="readonly" />
+          <input type="submit" class="button" readonly="readonly" value="Feed me?" />
         </div>
-      </div>
+
     </form>
     <div class="status">
       <%= render :partial => 'feeds/status_loading' -%>

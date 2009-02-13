@@ -49,3 +49,9 @@ a.homeclose:hover {background: url('../imgs/icons/close_o.png') center right no-
 
 .openarrow {float: right; padding-right: 18px; background: url('../imgs/icons/openarrow.png') center right no-repeat; outline: none;}
 a.openarrow:hover {background: url('../imgs/icons/openarrow_o.png') center right no-repeat;}
+
+
+span.arrow_down {
+background:transparent url('../imgs/icons/arrow_down.png') no-repeat 100% 3px;
+padding:0 19px 0 0;
+}

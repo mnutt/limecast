@@ -82,7 +82,7 @@
           <% if @user.reviews.count > 0 -%>
             <h2>Reviewed</h2>
             <ul class="reviews clearfix">
-              <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast => true} -%>
+              <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast_reference => true} -%>
             </ul>
             <% reset_cycle('row_class') %>
           <% end -%>

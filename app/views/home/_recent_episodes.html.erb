@@ -2,7 +2,7 @@
   <% rounded_corners do -%>
     <%- @recent_episodes.each do |ep| -%>
       <div class="description sm_social">
-        <% if ep.sources.first.screenshot? %>
+        <% if ep.sources.first && ep.sources.first.screenshot? %>
           <div class="preview">
             <%= image_tag(ep.sources.first.screenshot(:square).to_s, :height => 95, :width => 95) %>
           </div>

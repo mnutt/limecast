@@ -482,7 +482,7 @@ form#quick_signin a.forgot {
 	margin-bottom: 15px;
 }
 .podcast.show .summary h1 {
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 }
 
 .show .summary h6#page_type {
@@ -492,13 +492,13 @@ form#quick_signin a.forgot {
 }
 
 .podcast.show h6#page_type {
-	margin-top: -50px;
+	margin-top: -15px;
 	padding: 10px 30px 10px 0;
 	background: url('../imgs/icons/series.png') center right no-repeat;
 }
 
 .episode.show h6#page_type {
-	margin-top: -57px;
+	margin-top: -20px;
 	padding: 17px 30px 10px 0;
 	background: url('../imgs/icons/episode.png') center right no-repeat;
 }

@@ -30,7 +30,7 @@
       </p>
     </div>
     
-    <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
+    <%= render :partial => 'podcasts/podcast', :collection => @podcasts, :locals => {:show_remove_favorite => false} -%>
 
     <%= will_paginate @podcasts,
       :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Newer episodes" />',

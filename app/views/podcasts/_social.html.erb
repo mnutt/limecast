@@ -1,5 +1,6 @@
-<%- show_finder = true if show_finder.nil? -%>
-<%- show_owner  = true if show_owner.nil? -%>
+<%- show_finder          = true if show_finder.nil? -%>
+<%- show_owner           = true if show_owner.nil? -%>
+<%- show_remove_favorite = true if show_remove_favorite.nil? -%>
 
 <div class="social">
   <ul>
@@ -15,9 +16,10 @@
     
   </ul>
 </div>
-  <% if podcast.is_favorite_of?(current_user) -%>
-    <div class="removeit"><ul><li><%= link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li></ul></div>
-  <% end -%>
+
+<% if show_remove_favorite && podcast.is_favorite_of?(current_user) -%>
+  <div class="removeit"><ul><li><%= link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li></ul></div>
+<% end -%>
   
 
 

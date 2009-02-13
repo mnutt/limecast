@@ -19,8 +19,8 @@
     </div>
     <h4>Series description</h4>
     <p>
-    <%= link_to h(@podcast.clean_site), h(@podcast.site) %> <%= (" - " + link_to("iTunes", "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.primary_feed.itunes_link}", :class => "itunes", :title => "View #{@podcast.title} in iTunes")) if @podcast.primary_feed && @podcast.primary_feed.itunes_link -%>
-    - <%= unescape_entities h(@podcast.description) -%>
+      <%= link_to h(@podcast.clean_site), h(@podcast.site) %> <%= (" - " + link_to("iTunes", "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.primary_feed.itunes_link}", :class => "itunes", :title => "View #{@podcast.title} in iTunes")) if @podcast.primary_feed && @podcast.primary_feed.itunes_link -%>
+      - <%= unescape_entities h(@podcast.description) -%>
     </p>
     <h6>Tags:</h6>
     <ul>

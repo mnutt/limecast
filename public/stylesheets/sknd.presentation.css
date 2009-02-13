@@ -17,6 +17,10 @@ body {text-align: center;height: 100%;}
 }
 
 
+body.addpage .summary {
+  min-height: 500px;
+}
+
 /**
 * Quick Signin/up
 **/
@@ -28,9 +32,11 @@ form#quick_signin {
 	position: relative;
 }
 
+
+
 form#quick_signin .rounded_corners  {
 	background: url('../imgs/signin_arrow.png') 93% 0% no-repeat;
-	padding-top: 5px;
+	padding-top: 13px;
 
 }
 
@@ -48,13 +54,14 @@ form#quick_signin div.field {
 
 form#quick_signin input.text {
   float: right;
-	border: 1px solid #171717;
-	-moz-border-radius: 3px;
-	width: 175px;
-	height: 20px;
+	border: none;
+	background: url('../imgs/input.png') top left no-repeat;
+	width: 168px;
+	height: 24px;
 	font-size: 1.4em;
 	padding: 5px;
 	display: block;
+	outline: none;
 }
 form#quick_signin .response_container {
  
@@ -122,7 +129,7 @@ form#quick_signin .controls, form#quick_signin .controls_signup {
 }
 
 
-.podcast.index h1 {
+.podcast.index h1, .index.search h1 {
 	margin-left: 15px;
 }
 
@@ -149,7 +156,7 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 /**** Header **************/
 
-#utility_nav ul {font-size: 1.2em; position: absolute; top: 9px; right: 195px;}
+#utility_nav ul {font-size: 1.2em; position: absolute; top: 9px; right: 200px;}
 #utility_nav ul li {display: inline; margin-left: 2px; padding: 0 3px;}
 
 
@@ -200,11 +207,10 @@ a#nav_pop {
 
 a#add_podcast {
 	background: url('../imgs/add_podcast.png') top left no-repeat;
-	width: 134px;
-	height: 19px;
+	width: 114px;
+	height: 15px;
 	display: block;
-	float: left;
-	margin-top: -3px;
+  float: left;
 }
 
 a#nav_home:hover {
@@ -254,7 +260,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 
 form#quick_signin div.callout {
 	display: inline; float: right;
-	font-size: .6em;
+	font-size: .4em;
 	margin: -15px 5px 0 0;
 }
 
@@ -792,17 +798,18 @@ li.review {
 }
 
 .show .reviews.list #review_doit input {
-	border: 1px solid #171717;
-	-moz-border-radius: 3px;
-	height: 25px;
+	border: none;
+	background: url('../imgs/input_heading.png') top left no-repeat;
+	width: 343px;
+	height: 28px;
 	font-size: 1.4em;
-	padding: 5px 0 0 5px;
+	padding: 5px 5px 0 5px;
 }
 
 .show .reviews.list #review_doit textarea {
-	border: 1px solid #171717;
-	-moz-border-radius: 3px;
-	width: 400px;
+	border: none;
+	background: url('../imgs/textarea.png') top left no-repeat;
+	width: 393px;
 	height: 125px;
 	font-size: 1.8em;
 	padding: 5px;
@@ -1286,9 +1293,56 @@ display: inline;
   float: left; display: inline;
 }
 
+#new_podcast {
+  margin: 10px 0;
+}
 
+#new_podcast label {
+  display: none;
+}
 
+#added_podcast_list form {
+  margin: 10px 0 20px 0;
+}
 
+#added_podcast_list .add_disabled {
+  width: 824px;
+  height: 22px;
+  font-size: 1.6em;
+  padding: 6px 8px 5px 8px;
+  margin-right: 5px;
+  background: #a9a9a9; 
+  color: #444
+}
+
+#added_podcast_list input.button {
+  background: #a9a9a9; 
+  height: 35px; width: 75px; 
+  border: none;
+  position: relative;
+  top: -2px;
+}
+
+#new_podcast button.addme {
+  position: relative;
+  top: -3px;
+
+}
+
+#new_podcast input#feed_url {
+  border: none;
+	background: url('../imgs/feed_input.png') top left no-repeat;
+	padding: 6px 8px 5px 8px;
+	width: 830px;
+	height: 22px;
+	font-size: 1.6em;
+	color: #a9a9a9;
+	margin: -5px 0 20px 0;
+}
+
+.addpage .page_head p {
+  margin-bottom: 20px;
+}
 
 
 

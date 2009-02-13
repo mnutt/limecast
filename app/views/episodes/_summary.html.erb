@@ -30,26 +30,16 @@
       
       
       <script type="text/javascript">
-        $(document).ready(function(){
-          function downloadUrl(delivery, base_url) {
-            if(delivery == "magnet") {
-              return "magnet:?xs=" + base_url;
-            }
-            return base_url;
-          };
+        PODCAST_ID = <%= @episode.podcast_id -%>;
 
-          $("#zone-bar li a").click(function(e) {
-            e.preventDefault();
-            window.location = downloadUrl($('input[type=radio]:checked').attr('value'), $(this).attr('href'));
-          });
-                      
-          $("#zone-bar li em").click(function() {
+        $(document).ready(function(){
+          $("#zone-bar em a, #zone-bar .dl_dropdown a").click(function() {
             var hidden = $(this).parents("li").children("div").is(":hidden");
 
             $("#zone-bar > ul > li > div").hide()        
             $("#zone-bar > ul > li > a").removeClass();
             
-            if (hidden) {
+            if(hidden) {
               $(this)
                 .parents("li").children("div").toggle()
                 .parents("li").children("a").addClass("zoneCur");
@@ -57,14 +47,85 @@
             return false;
           });
         });
+
+        $(function(){
+          function read_cookie(){
+            var id = $.cookie('podcast_' + PODCAST_ID + '_download');
+            return id;
+          }
+        
+          function update_cookie(id){
+            $.cookie('podcast_' + PODCAST_ID + '_download', id);
+          }
+
+          function downloadUrl(delivery, base_url) {
+            if(delivery == "LimeWire") {
+              return "magnet:?xs=" + base_url;
+            }
+            return base_url;
+          };
+        
+          function update_download_button(link, type){
+            var url  = link.attr('href');
+            var info = link.parents('li:first').find('p').text() + " - " + link.text();
+        
+            $("#download a.download").attr("href", downloadUrl(type, url));
+            $("#download a.download span").text(type + " | " + info);
+          }
+        
+          function update_selected_link(link){
+            $("#zone-bar .dl_dropdown a").removeClass("circle");
+            link.addClass("circle");
+          }
+        
+          function update_selected_type(type){
+            $("input[type=radio][value=" + type + "]").attr("checked", "checked");
+          }
+        
+          var default_link = "a.primary";
+          var default_type = "web";
+          var cookie = read_cookie();
+        
+          // Sets the default download link on the page
+          var name = default_link;
+          if(cookie) {
+            name = cookie.split(',')[0];
+          }
+          var link = $(name);
+          if(link.length != 1) {
+            link = $(default_link);
+          }
+        
+          // Sets the download type on the page
+          var type = default_type;
+          if(cookie) {
+            type = cookie.split(',')[1];
+          }
+        
+          update_download_button(link, type);
+          update_selected_link(link);
+          update_selected_type(type);
+        
+          $("#zone-bar .dl_dropdown li a").click(function(e) {
+            var type = $("input[type=radio]:checked").attr('value');
+            update_download_button($(this), type);
+            update_selected_link($(this));
+        
+            // XXX: %23 is # ... Doesnt seem to be working in firefox. Bug with encoding? should be able to take '#' out.
+            update_cookie("#" + $(this).attr('id') + "," + type);
+        
+            //return false;
+          });
+        
+        });
     	</script>
       
       <div id="zone-bar">
   			<ul>
   				<li>
 
-  					<span>
-  						<a href="wxample.com">Download full version<span>Web | Flash - small</span></a>
+  					<span id="download">
+  						<a class="download" href="wxample.com">Download full version<span>Web | Flash - small</span></a>
   						<em class="opener-technology">
   							<a href="#" class="arrowz"><img src="../imgs/zonebar-downarrow.png" alt="dropdown" /></a>
   						</em>
@@ -75,7 +136,7 @@
   					  	<form action="http://limecast.com/search" method="get">            
                   Choose:
                   <input class="radio" id="w" name="download" type="radio" value="web" checked="checked" /><label for="w">Web</label>
-                  <input class="radio" id="m" name="download" type="radio" value="magnet" /><label for="m">LimeWire</label>
+                  <input class="radio" id="m" name="download" type="radio" value="LimeWire" /><label for="m">LimeWire</label>
                 </form>
                 <div style="display: block;">
 
@@ -86,7 +147,7 @@
                         <span class="v_options">
                           <% delimited_items(format[1], "|") do |source, delimiter| -%>
                             <%= link_to default_bitrate_label(source.feed.bitrate), source.url,
-                                  :id    => "source_#{source.id}_#{type}",
+                                  :id    => "feed_#{source.feed.id}",
                                   :title => [source.resolution, "bitrate: #{source.feed.formatted_bitrate}"].compact.join(" | "),
                                   :class => (source.primary? ? "primary" : nil)-%>
                             <%= delimiter -%>

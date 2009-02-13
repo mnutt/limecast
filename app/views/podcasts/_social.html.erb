@@ -1,32 +1,15 @@
-<%- show_finder             = true if show_finder.nil? -%>
-<%- show_owner              = true if show_owner.nil? -%>
-<%- show_remove_favorite    = true if show_remove_favorite.nil? -%>
-<%- show_marked_as_favorite = true if show_marked_as_favorite.nil? -%>
+<%- show_finder = true if show_finder.nil? -%>
+<%- show_owner  = true if show_owner.nil? -%>
 
 <div class="social">
   <ul>
-  <%- if show_finder && podcast.found_by -%>
-    <li><%= link_to "First found by <span>#{podcast.found_by.login}</span>", user_url(podcast.found_by) -%></li>
-  <%- end -%>
-
-  <%- if show_owner && podcast.owned_by -%>
-    <li><%= link_to "Owned by <span>#{podcast.owned_by.login}</span>", user_url(podcast.owned_by) -%></li>
-  <%- end -%>
-
+    <%- if show_finder && podcast.found_by -%>
+      <li><%= link_to "First found by <span>#{podcast.found_by.login}</span>", user_url(podcast.found_by) -%></li>
+    <%- end -%>
+    <%- if show_owner && podcast.owned_by -%>
+      <li><%= link_to "Owned by <span>#{podcast.owned_by.login}</span>", user_url(podcast.owned_by) -%></li>
+    <%- end -%>
     <li><a href="#">Marked as favorite by <span><%= pluralize(podcast.favorites.count, "person") -%></span></a></li>
-    
   </ul>
 </div>
-
-<% if show_remove_favorite && podcast.is_favorite_of?(current_user) -%>
-  <div class="removeit"><ul><li><%= link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li></ul></div>
-<% else -%>
-  <% if show_marked_as_favorite && podcast.is_favorite_of?(current_user) -%>
-    <%= link_to "Marked as favorite", user_url(current_user, :anchor => "profile_favorites"), :class => "calloutlight", :title => "Go to your favorites" %>
-  <% elsif !podcast.is_favorite_of?(current_user) -%>
-    <div class="addit"><ul><li><%= link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url), :class => "favorite_link" -%></li></ul></div>
-  <% end -%>
-<% end -%>
-  
-
 

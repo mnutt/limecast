@@ -9,6 +9,7 @@ $(document).ready(function() {
 
 
   $('#q').inputDefaultText();
+  $('#accounts_forgot_password #email').inputDefaultText();
 });
 
 

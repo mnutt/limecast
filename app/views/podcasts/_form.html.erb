@@ -26,8 +26,8 @@
   <fieldset>
   <% if feed.new_record? -%>
     <div class="field">
-      <%= feed_form.label :url, "Add the RSS feed of this podcast in another format..." %>
-      <%= feed_form.text_field :url %>
+      <%= feed_form.label :url, "Add the RSS feed of this podcast in another format...", :class => "default" %>
+      <%= feed_form.text_field :url, :size => 40 %>
     </div>
   <% else -%>
     <div class="feed_details">

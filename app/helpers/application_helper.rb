@@ -111,7 +111,7 @@ module ApplicationHelper
       "(#{in_parens.compact.join(' ')})"
     end
 
-    in_parens
+    in_parens || ""
   end
 
   def smart_truncate(string, length)

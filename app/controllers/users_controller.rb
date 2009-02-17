@@ -60,7 +60,7 @@ class UsersController < ApplicationController
       current_user.activate!
       flash[:notice] = "Thanks! Your account has been activated."
     end
-    redirect_to user_url(:user => current_user)
+    redirect_to user_url(:user_slug => current_user)
   end
 
   def suspend
@@ -125,23 +125,47 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_login(params[:user])
+    @user = User.find_by_login(params[:user_slug]) || User.find_by_login(params[:id])
   end
 
   def update
-    @user = User.find_by_login(params[:user])
+    @user = User.find_by_login(params[:user_slug])
     @user == current_user || unauthorized
 
-    if @user.update_attributes!(params[:user_attr].keep_keys([:email]))
-      reconfirm_email(@user)
+    # The "_delete" attr is taken from Nested Association Attributes, but AR doesn't support
+    # it on a regular model, so we're going to use the same convention when deleting the Podcast.
+    if params[:user] && params[:user][:_delete] == '1'
+      @user.delete!
+      if @user == current_user
+        self.current_user.forget_me if logged_in?
+        cookies.delete :auth_token
+        reset_session
+      end
+      flash[:notice] = "#{@user.login} has been removed."
+      redirect_to(podcasts_url) and return false
     end
 
-    redirect_to user_url(:user => @user)
+    @user.attributes = params[:user].keep_keys([:email, :login, :password])
+
+    if @user.save
+      flash[:notice] = 'User was successfully updated.'
+      flash[:notice] << " #{@user.messages.join(' ')}"
+
+      if @user.email_changed?
+        reconfirm_email(@user) 
+        flash[:notice] << "Please reconfirm your email address."
+      end
+
+      redirect_to(:user_slug => @user)
+    else
+      flash[:notice] = @user.errors.full_messages.join('. ')
+      render :action => 'show'
+    end
   end
 
   def info
     raise Unauthenticated unless current_user && current_user.admin?
-    @user = User.find_by_login(params[:user])
+    @user = User.find_by_login(params[:user_slug])
     render :layout => false
   end
 

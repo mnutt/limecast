@@ -34,8 +34,8 @@ class User < ActiveRecord::Base
   has_many :user_taggings, :dependent => :destroy
   has_many :taggings, :through => :user_taggings
 
-  # Virtual attribute for the unencrypted password
-  attr_accessor :password
+  attr_accessor :password # Virtual attribute for the unencrypted password
+  attr_accessor_with_default :messages, []
 
   validates_presence_of     :login, :email
   validates_presence_of     :password,                   :if => :password_required?

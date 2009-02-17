@@ -1,0 +1,14 @@
+<div id="edit_actions" class="clearfix">
+  <% if current_user == @user -%>
+    <span class="label">This is mine!</span>
+  <% elsif current_user.admin? -%>
+    <span class="label">I can do anything!</span>
+  <% end -%>
+  <%= link_to_with_icon "Edit", :edit, edit_user_url(@user), :id => "edit_link", 
+                                :style => (editing?(@user) ? "display: none;" : "") %>
+  
+</div>
+
+<% limecast_form_for @user, :show => editing?(@user) do |user_form| -%>
+  <%= render :partial => "users/form", :locals => {:user_form => user_form} -%>
+<% end -%>

@@ -1,3 +1,4 @@
 <li class="user">
-  <%= link_to_profile user -%>
+  <h4><%= link_to_profile user -%> <span><%= user.favorites.count -%> favorites</h4>
+  Joined <%= user.created_at.to_date -%>
 </li>

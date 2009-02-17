@@ -87,6 +87,23 @@ task :console, :roles => :app do
 end
 
 namespace :limecast do
+  desc "Prompts for the repository tag, branch of trunk to deploy from"
+  task :prompt_for_repository, :roles => :app do
+    branches = `git branch -l`.split("\n").map{|b| b.strip} rescue []
+    tags = `git tag -l`.split("\n").map{|b| b.strip} rescue []
+    puts '=' * 80
+    puts "Branches:  #{branches.join('   ')}"
+    puts "Tags:      #{tags.join('   ')}"
+    puts '=' * 80
+    version = Capistrano::CLI.ui.ask("Deploy from which branch/tag/revision? ", String) do |question|
+      question.validate = /^(.+)$/
+      question.responses[:not_valid] = "Please provide a tag (20090210), a branch (master), or revision (85b64ba3f18) "
+    end
+
+    set :branch, version
+    abort unless Capistrano::CLI.ui.agree("Deploy from #{fetch(:branch)} ? ")
+  end
+
   # Tasks to run after deploy
   namespace :deploy do
     desc 'Populate database with initial users and groups'
@@ -299,6 +316,9 @@ end
 # EVENTS
 # =============================================================================
 after 'deploy:setup', 'limecast:setup'
+
+# Ask which branch to deploy from
+before 'deploy:update_code', 'limecast:prompt_for_repository'
 
 # Run after update_code, not update since some other targets run the former.
 after 'deploy:update_code', 'limecast:update'

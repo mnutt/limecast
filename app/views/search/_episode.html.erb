@@ -1,5 +1,22 @@
-<li>
-  <%= link_to episode.date_title, episode_url(episode.podcast, episode) -%>
-  <%= search_excerpt(episode.title, @parsed_q) %>
-  <%= search_excerpt(episode.summary, @parsed_q) %>
+<li><div class="episode">
+
+  <div class="no_screenshot">
+
+    <h3><%= link_to episode.title, episode_url(episode.podcast, episode) -%></h3>
+    <p>
+      <span class="details"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></span>
+      <%=  search_excerpt(sanitize_condensed_summary(episode.summary), @parsed_q) -%>
+    </p>
+    
+    <div class="preview">
+      <%= image_tag(episode.podcast.logo.url(:icon), :alt => "#{episode.podcast.custom_title} cover art") -%>
+    </div>
+
+      <h5>From the <%= link_to episode.podcast.title, podcast_url(:podcast_slug => episode.podcast), :title => "Subscribe to the series & view the episode list" -%> podcast series</h5>
+    
+    
+
+  </div>
+</div>
+
 </li>

@@ -1,5 +1,6 @@
 <div class="social">
   <ul>
+		<li><%= link_to "<span>#{podcast.favorites.count}</span>", favoriters_url(:podcast_slug => podcast) -%></li>
     <li><a href="#"><span><%= podcast.favorites.count -%></span></a></li>
   </ul>
 </div>

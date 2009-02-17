@@ -11,6 +11,12 @@ class UsersController < ApplicationController
     @users = User.all(:order => :login)
   end
 
+  def favoriters
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+
+    @users = @podcast.favoriters
+  end
+
   def create
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with

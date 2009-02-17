@@ -482,7 +482,7 @@ form#quick_signin a.forgot {
 	margin-bottom: 15px;
 }
 .podcast.show .summary h1 {
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 }
 
 .show .summary h6#page_type {
@@ -492,13 +492,13 @@ form#quick_signin a.forgot {
 }
 
 .podcast.show h6#page_type {
-	margin-top: -50px;
+	margin-top: -15px;
 	padding: 10px 30px 10px 0;
 	background: url('../imgs/icons/series.png') center right no-repeat;
 }
 
 .episode.show h6#page_type {
-	margin-top: -57px;
+	margin-top: -20px;
 	padding: 17px 30px 10px 0;
 	background: url('../imgs/icons/episode.png') center right no-repeat;
 }
@@ -1371,6 +1371,15 @@ display: inline;
 }
 
 
+#search_results {
+  min-height: 500px;
+  width: 670px;
+  float: left;
+}
+
+.googleads.searchads {
+  margin-top: 48px;
+}
 
 
 
@@ -1379,7 +1388,95 @@ display: inline;
 
 
 
+/* Episode */
+.podcast form#dl_option a {
+	font-size: 1em;
+}
 
+.podcast .episodes.list {
+	margin-top: -5px;	
+	margin-bottom: 20px;
+}
+
+.podcast .episodes.list p {
+	margin: 0 0px;
+}
+
+.podcast #e_info {
+	font-size: .9em;
+	padding-bottom: 4px;
+	border-bottom: 1px solid #ddd;
+	margin: 0 5px;
+}
+
+.podcast #episode_cont {
+	margin: 20px 0px 20px 0px;
+}
+
+.podcast .episode {
+	margin: 20px 5px 20px 5px;
+	overflow: auto;
+}
+
+
+
+
+.podcast .episode > div {
+	float: left;
+	width: 480px;
+}
+
+.podcast .episode > div.no_screenshot {
+	float: left;
+	width: 595px;
+}
+
+.podcast .episode h3  {
+	margin: 0;
+	font-size: 1.3em;
+}
+
+.podcast .episode span.details {
+	font-size: .85em;
+	font-style: italic;
+	display: block;
+	line-height: 1.4em;
+}
+
+.podcast #search_results .episode  img, .podcast #search_results .episode .preview  {
+  float: left;
+  width: 25px !important;
+
+  margin: 0px 0 0 0;
+}
+
+.podcast .episode  h5 {
+  float: left;
+  color: #a9a9a9;
+  margin: 0px 0 0 8px;
+  padding-top: 5px;
+}
+
+.podcast #search_results  .preview, .podcast #search_results  .preview img {
+  width: 110px;
+}
+
+.podcast #search_results .description {background: none;}
+
+ul.users li h4 {
+  color: #a9a9a9;
+  margin: 0;
+}
+ul.users li {
+  color: #a9a9a9;
+  border-bottom: 1px dotted #ddd;
+  padding: 5px 0;
+}
+
+#favoriters {
+  float: left;
+  width: 670px;
+}
 
 
 

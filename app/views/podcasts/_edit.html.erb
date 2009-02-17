@@ -4,11 +4,11 @@
   <% else -%>
     <span class="label">This is mine!</span>
   <% end -%>
-  
   <%= link_to_with_icon "Edit", :edit, edit_podcast_url(@podcast), :id => "edit_link", 
                                 :style => (editing?(@podcast) ? "display: none;" : "") %>
   
-  <% limecast_form_for @podcast, :show => editing?(@podcast) do |podcast_form| -%>
-    <%= render :partial => "podcasts/form", :locals => {:podcast_form => podcast_form} -%>
-  <% end -%>
 </div>
+
+<% limecast_form_for @podcast, :show => editing?(@podcast) do |podcast_form| -%>
+  <%= render :partial => "podcasts/form", :locals => {:podcast_form => podcast_form} -%>
+<% end -%>

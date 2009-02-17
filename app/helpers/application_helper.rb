@@ -129,7 +129,7 @@ module ApplicationHelper
   def search_excerpt(text, query='')
     text      = strip_tags(format_with_paragraph_entity(text))
     escaped   = unescape_entities(text)
-    excerpted = excerpt(escaped, query.split.first, :radius => 50)
+    excerpted = excerpt(escaped, query.split.first, :radius => 120)
     highlight(excerpted, query.split, :highlighter => '<span class="search_term">\1</span>')
   end
 

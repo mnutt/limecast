@@ -1454,7 +1454,6 @@ display: inline;
   float: left;
   color: #a9a9a9;
   margin: 0px 0 0 8px;
-
   padding-top: 5px;
 }
 
@@ -1464,8 +1463,20 @@ display: inline;
 
 .podcast #search_results .description {background: none;}
 
+ul.users li h4 {
+  color: #a9a9a9;
+  margin: 0;
+}
+ul.users li {
+  color: #a9a9a9;
+  border-bottom: 1px dotted #ddd;
+  padding: 5px 0;
+}
 
-
+#favoriters {
+  float: left;
+  width: 670px;
+}
 
 
 

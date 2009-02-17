@@ -70,7 +70,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options :controller => 'podcasts' do |p|
     p.add_podcast '/add',                    :action => 'new'
-    p.all         '/all',                    :action => 'index'
+    p.all         '/popular',                :action => 'index'
     p.cover            '/:podcast_slug/cover',    :action => 'cover'
     p.recs             '/:podcast_slug/recs',     :action => 'recs'
     p.favorite_podcast '/:podcast_slug/favorite', :action => 'favorite'

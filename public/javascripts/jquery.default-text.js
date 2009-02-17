@@ -6,9 +6,8 @@ jQuery.fn.inputDefaultText = function(value, options) {
         focusColor: "#171717"
     }, options);
 
-    var label = this.parent().find("label[for='" + this.attr("name") + "']");
+    var label = this.parent().find("label[for='" + this.attr("id") + "']");
     var defaultTxt = label.text();
-    
     label.hide();
     
     this.val(defaultTxt).css("color", options.blurColor);

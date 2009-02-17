@@ -16,7 +16,7 @@ describe ReviewsController do
     end
 
     def do_get(podcast, query='')
-      get :search, :podcast => podcast, :q => query
+      get :search, :podcast_slug => podcast, :q => query
     end
 
     it "should be successful" do
@@ -45,7 +45,7 @@ describe ReviewsController do
 
   describe "handling POST /:podcast/reviews/1" do
     def do_post(review)
-      put :update, :podcast => @podcast.clean_url, :id => review.id, :review => { :title => 'newish' }
+      put :update, :podcast_slug => @podcast.clean_url, :id => review.id, :review => { :title => 'newish' }
     end
 
     it "should update the review" do
@@ -57,7 +57,7 @@ describe ReviewsController do
 
   describe "handling DESTROY /:podcast/reviews/1" do
     def do_destroy(review)
-      delete :destroy, :podcast => @podcast.clean_url, :id => review.id
+      delete :destroy, :podcast_slug => @podcast.clean_url, :id => review.id
     end
 
     it "should be successful" do
@@ -78,7 +78,7 @@ describe ReviewsController do
 
     def do_get(review, rating)
       request.env['HTTP_REFERER'] = ""
-      get :rate, :podcast => @podcast.clean_url, :id => review.id, :rating => rating
+      get :rate, :podcast_slug => @podcast.clean_url, :id => review.id, :rating => rating
     end
 
     it 'should only be able to be reviewed one by a user' do

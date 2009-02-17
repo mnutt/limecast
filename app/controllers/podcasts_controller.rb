@@ -15,7 +15,6 @@ class PodcastsController < ApplicationController
     raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
     @feeds    = @podcast.feeds.all
-    @podcast.feeds.build if logged_in? # build a new one so we can include a new Feed in our form
     @episodes = @podcast.episodes.
       paginate(:order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"], :page => (params[:page] || 1), :per_page => params[:limit] || 10)
 

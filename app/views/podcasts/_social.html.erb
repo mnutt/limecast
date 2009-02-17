@@ -9,7 +9,7 @@
     <%- if show_owner && podcast.owned_by -%>
       <li><%= link_to "Owned by <span>#{podcast.owned_by.login}</span>", user_url(podcast.owned_by) -%></li>
     <%- end -%>
-    <li><a href="#">Marked as favorite by <span><%= pluralize(podcast.favorites.count, "person") -%></span></a></li>
+		<li><%= link_to "Marked as favorite by <span>#{pluralize(podcast.favorites.count, "person")}</span>", favoriters_url(:podcast_slug => podcast) -%></li>
   </ul>
 </div>
 

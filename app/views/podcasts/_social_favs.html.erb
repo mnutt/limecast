@@ -1,0 +1,6 @@
+<div class="social">
+  <ul>
+		<li><%= link_to "Marked as favorite by <span>#{pluralize(podcast.favorites.count, "person")}</span>", favoriters_url(:podcast_slug => podcast) -%></li>
+  </ul>
+</div>
+

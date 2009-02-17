@@ -22,7 +22,7 @@ describe "Adding WineLibrary rss feed to LimeCast.com" do
     notify("Navigating to the WineLibraryTV page", "should allow you to download the episode")
     sleep(4)
 
-    browser.go("/all")
+    browser.go("/popular")
     sleep(1)
 
     browser.link(:text, "Wine Library TV").click
@@ -57,7 +57,7 @@ describe "Adding WineLibrary rss feed to LimeCast.com" do
     notify("New user on site", "should be able to rate a comment")
     sleep(8)
 
-    browser.go("/all")
+    browser.go("/popular")
     browser.link(:text, "Wine Library TV").click
     sleep(2)
 

@@ -158,4 +158,9 @@ module ApplicationHelper
     end
   end
 
+  # Should we show this object's edit form?
+  def editing?(obj)
+    !obj.valid? || !obj.messages.empty?
+  end
+
 end

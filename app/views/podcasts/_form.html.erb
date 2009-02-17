@@ -1,3 +1,5 @@
+<% @podcast.feeds.build # build a new one so we can include a new Feed in our form %>
+
 <div class="field">
   <%= podcast_form.label :custom_title, "Title" -%>
   <%= podcast_form.text_field :custom_title, :class => "text" -%>
@@ -51,3 +53,4 @@
   </fieldset>
 <% end -%>
 
+<% @podcast.feeds.reject { |f| f.new_record? } # and destroy the new feed we used as a dummy -%>

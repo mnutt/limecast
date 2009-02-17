@@ -14,9 +14,12 @@ $(document).ready(function(){
         input.val(default_label.text());
     };
   
+    input.parents('form').submit(set_to_blank);  
     input.focus(set_to_blank);
     input.blur(set_to_label_text);
-  
+    
+    
+    
     set_to_label_text();
   });
 });

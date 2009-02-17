@@ -28,6 +28,11 @@
     <pre><%= h(@source.xml) -%></pre>
   </dd>
 
+  <dt>Size XML:</dt>
+  <dd>
+    <pre><%=h @size_xml.blank? ? "unknown" : @size_xml -%></pre>
+  </dd>
+
   <dt>Curl Errors:</dt>
   <dd><%= h(@source.curl_info.blank? ? "No errors." : @source.curl_info) -%></dd>
 

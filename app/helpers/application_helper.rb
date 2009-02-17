@@ -111,7 +111,7 @@ module ApplicationHelper
       "(#{in_parens.compact.join(' ')})"
     end
 
-    in_parens
+    in_parens || ""
   end
 
   def smart_truncate(string, length)
@@ -156,6 +156,11 @@ module ApplicationHelper
       # concat link_to_with_icon("Delete", :delete, "/podcasts/#{@podcast.id}", :method => "delete", :confirm => "Are you SURE you want to delete this podcast? It will be removed from this directory!")
       concat('</div>')
     end
+  end
+
+  # Should we show this object's edit form?
+  def editing?(obj)
+    !obj.valid? || !obj.messages.empty?
   end
 
 end

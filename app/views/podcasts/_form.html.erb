@@ -1,3 +1,5 @@
+<% @podcast.feeds.build # build a new one so we can include a new Feed in our form %>
+
 <div class="field">
   <%= podcast_form.label :custom_title, "Title" -%>
   <%= podcast_form.text_field :custom_title, :class => "text" -%>
@@ -24,8 +26,8 @@
   <fieldset>
   <% if feed.new_record? -%>
     <div class="field">
-      <%= feed_form.label :url, "Add the RSS feed of this podcast in another format..." %>
-      <%= feed_form.text_field :url %>
+      <%= feed_form.label :url, "Add the RSS feed of this podcast in another format...", :class => "default" %>
+      <%= feed_form.text_field :url, :size => 40 %>
     </div>
   <% else -%>
     <div class="feed_details">
@@ -51,3 +53,4 @@
   </fieldset>
 <% end -%>
 
+<% @podcast.feeds.reject { |f| f.new_record? } # and destroy the new feed we used as a dummy -%>

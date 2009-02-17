@@ -549,3 +549,6 @@ div#primary span#notice {
 .limecast_form .field input {
   display: inline !important;;
 }
+.limecast_form .field label.default {
+  display: none;
+}

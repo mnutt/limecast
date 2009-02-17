@@ -12,10 +12,10 @@
 </ul>
 
 <h2>Podcasts</h2>
-<ul>
+<ol>
   <% @podcasts.each do |podcast| -%>
     <li>
       <%= link_to podcast.title, info_podcast_url(podcast) -%> - <%=h podcast.clean_url -%>
     </li>
   <% end -%>
-</ul>
+</ol>

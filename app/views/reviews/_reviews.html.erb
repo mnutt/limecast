@@ -3,9 +3,9 @@
 
 <h2>Reviews</h2>
 <% unless hide_totals -%><p>
-  <%= link_to_with_icon "Positive (#{podcast.reviews.that_are_positive.count})", :thumbs_up, positive_reviews_url(:podcast => podcast) unless podcast.reviews.that_are_positive.count.zero? %>
-  <%= link_to_with_icon "Negative (#{podcast.reviews.that_are_negative.count})", :thumbs_down, negative_reviews_url(:podcast => podcast) unless podcast.reviews.that_are_negative.count.zero? %>
-  <%= link_to "All (#{podcast.reviews.count})", reviews_url(:podcast => podcast) unless podcast.reviews.count.zero? %>
+  <%= link_to_with_icon "Positive (#{podcast.reviews.that_are_positive.count})", :thumbs_up, positive_reviews_url(:podcast_slug => podcast) unless podcast.reviews.that_are_positive.count.zero? %>
+  <%= link_to_with_icon "Negative (#{podcast.reviews.that_are_negative.count})", :thumbs_down, negative_reviews_url(:podcast_slug => podcast) unless podcast.reviews.that_are_negative.count.zero? %>
+  <%= link_to "All (#{podcast.reviews.count})", reviews_url(:podcast_slug => podcast) unless podcast.reviews.count.zero? %>
 </p><% end -%>
 
 <ul class="reviews">

@@ -4,8 +4,8 @@
 $(document).ready(function() {
 
   // Edit Podcast link
-  $('#edit_link').click(function() { $('.limecast_form').toggle(); return false; });
-  $('.limecast_form .cancel').click(function(){ $(this).parents(".limecast_form").hide(); return false; });
+  $('#edit_link').click(function() { $('.limecast_form').toggle(); $(this).hide(); return false; });
+  $('.limecast_form .cancel').click(function(){ $('#edit_link').show(); $(this).parents(".limecast_form").hide(); return false; });
 });
 // ---------------------------------
 // END STUFF MOVED OVER FROM SKND

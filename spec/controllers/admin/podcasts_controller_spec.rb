@@ -203,7 +203,7 @@
 #
 #       def do_post
 #         @podcast.should_receive(:save).and_return(true)
-#         post :create, :podcast => {}
+#         post :create, :podcast_slug => {}
 #       end
 #
 #       it "should create a new podcast" do
@@ -222,7 +222,7 @@
 #
 #       def do_post
 #         @podcast.should_receive(:save).and_return(false)
-#         post :create, :podcast => {}
+#         post :create, :podcast_slug => {}
 #       end
 #
 #       it "should re-render 'new'" do

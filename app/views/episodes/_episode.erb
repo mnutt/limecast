@@ -2,7 +2,7 @@
   <span class="expand">Expand</span>
 
   <div class="summary">
-    <span class="date"><%= link_to episode.published_at.to_date, episode_url(:episode => episode.clean_url, :podcast => episode.podcast) -%></span>
+    <span class="date"><%= link_to episode.published_at.to_date, episode_url(:episode => episode.clean_url, :podcast_slug => episode.podcast) -%></span>
     <span class="title"><%= @q ? search_excerpt(episode.title, @q) : episode.title -%></span>
     <% if episode.duration and episode.duration > 0 -%>
       <span class="duration">(<%= time_to_words(episode.duration) -%>)</span>
@@ -12,10 +12,12 @@
   <div class="full">
     <p class="description searched"><%= @q ? search_excerpt(episode.summary, @q) : sanitize_condensed_summary(episode.summary) -%></p>
 
+    <% if episode.podcast.has_previews? -%>
     <div class="preview">
       <%= render :partial => 'episodes/video_player', :object => episode if episode.sources.first.preview.exists? -%>
     </div>
     <%= render :partial => 'episodes/audio_player', :object => episode if episode.audio_source -%>
     <%= render :partial => 'episodes/super_button', :locals => {:sources => episode.sources} -%>
+    <% end -%>
   </div>
 </li>

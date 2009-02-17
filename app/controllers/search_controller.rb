@@ -3,7 +3,7 @@ class SearchController < ApplicationController
 
   def index
     params[:q] += " podcast:#{params[:podcast_slug]}" if params[:podcast]
-    @parsed_q = (@q = params[:q].strip).dup
+    @parsed_q = (@q = params[:q]).dup
 
     extract_podcast!
     extract_tags!

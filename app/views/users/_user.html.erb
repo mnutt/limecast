@@ -1,3 +1,5 @@
 <li class="user">
   <%= link_to_profile user -%>
+  Date joined: <%= user.created_at.to_date -%>
+  # of favorites: <%= user.favorites.count -%>
 </li>

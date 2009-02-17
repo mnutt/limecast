@@ -45,6 +45,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.with_options :controller => 'users' do |u|
+		u.favoriters       '/:podcast_slug/favoriters', :action => "favoriters"
     u.signup  '/signup',        :controller => 'users',    :action => 'new'
     u.activate  '/activate/:activation_code', :action => 'activate'
     u.reset_password '/reset_password/:code', :action => 'reset_password', :code => nil

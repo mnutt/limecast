@@ -1,0 +1,12 @@
+<% @title = "Favoriters" -%>
+<% @full_width = true   -%>
+
+<div class="page_head">
+  <h1>Favoriters</h1>
+</div>
+
+<div class="multicolumn">
+  <ul class="users">
+    <%= render :partial => 'users/user', :collection => @users -%>
+  </ul>
+</div>

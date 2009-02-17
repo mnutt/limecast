@@ -21,22 +21,16 @@ class SearchController < ApplicationController
     @reviews  = (@podcast ? Review.for_podcast(@podcast) : Review).search(@parsed_q).compact.uniq  unless @only && @only != :reviews
     @podcasts = @podcast ? [@podcast] : Podcast.search(@parsed_q).compact.uniq unless @only && @only != :podcasts
 
-    @podcast_groups = Hash.new { |h, k| h[k] = [] } # hash where the keys are the unique podcast ids,
-                                                    # and the values are arrays of their search results
-    def @podcast_groups.add(obj, podcast_id); self[podcast_id] << obj; end
-    def @podcast_groups.count(klass); inject(0) { |count, p| count + p[1].select { |o| o.is_a?(klass) }.size }; end
-
-    # Group all the podcast-related search results by podcast-id
-    @feeds.each    { |f| @podcast_groups.add(f, f.podcast.id) unless f.podcast.nil? } if @feeds
-    @episodes.each { |e| @podcast_groups.add(e, e.podcast.id) unless e.podcast.nil? } if @episodes
-    @reviews.each  { |r| @podcast_groups.add(r, r.episode.podcast.id) unless r.episode.nil? || r.episode.podcast.nil? } if @reviews
-    @podcasts.each { |p| @podcast_groups.add(p, p.id) } if @podcasts
-
-    # rewrites @podcasts to have all the podcasts we need
-    # FIXME Added pagination, but now we're merely skipping all the results from the other podcasts we
-    #       searched; might get out of hand later with more podcasts.
-    @podcasts = (@tags ? Podcast.tagged_with(@tags) : Podcast).
-      paginate(:conditions => {:id => @podcast_groups.keys}, :page => (params[:page]||1), :per_page => 10).compact #.sorted
+    # @podcast_groups = Hash.new { |h, k| h[k] = [] } # hash where the keys are the unique podcast ids,
+    #                                                 # and the values are arrays of their search results
+    # def @podcast_groups.add(obj, podcast_id); self[podcast_id] << obj; end
+    # def @podcast_groups.count(klass); inject(0) { |count, p| count + p[1].select { |o| o.is_a?(klass) }.size }; end
+    # 
+    # # Group all the podcast-related search results by podcast-id
+    # @feeds.each    { |f| @podcast_groups.add(f, f.podcast.id) unless f.podcast.nil? } if @feeds
+    # @episodes.each { |e| @podcast_groups.add(e, e.podcast.id) unless e.podcast.nil? } if @episodes
+    # @reviews.each  { |r| @podcast_groups.add(r, r.episode.podcast.id) unless r.episode.nil? || r.episode.podcast.nil? } if @reviews
+    # @podcasts.each { |p| @podcast_groups.add(p, p.id) } if @podcasts
   rescue => e
     throw e.inspect
   end

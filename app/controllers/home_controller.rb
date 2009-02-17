@@ -20,7 +20,7 @@ class HomeController < ApplicationController
   end
 
   def info
-    @podcasts = Podcast.all
+    @podcasts = Podcast.parsed.sorted
     
     if File.exist?(File.join(RAILS_ROOT, '..', '..', 'current'))
       @release = Time.parse(RAILS_ROOT.split("/").last) rescue nil
@@ -28,17 +28,18 @@ class HomeController < ApplicationController
       @release = "(not deployed)"
     end
     
-#		begin
+    begin
       if File.exist?("#{RAILS_ROOT}/.git")
-		    head = File.read("#{RAILS_ROOT}/.git/HEAD").split(": ").last.strip
-				@branch = head.split('/').last rescue nil
-	  		master_info = "#{RAILS_ROOT}/.git/#{head}"
-        @commit = File.read(master_info) # if File.exist?(master_info)
+        head = File.read("#{RAILS_ROOT}/.git/HEAD").split(": ").last.strip
+        @branch = head.split('/').last rescue nil
+        master_info = "#{RAILS_ROOT}/.git/#{head}"
+
+        @commit = File.read(master_info) if File.exist?(master_info)
         commit_msg = "#{RAILS_ROOT}/.git/COMMIT_EDITMSG"
         @message = File.read(commit_msg) if File.exist?(commit_msg)
       end
-#	  rescue
-#		end
+    rescue
+    end
 
     render :layout => false
   end

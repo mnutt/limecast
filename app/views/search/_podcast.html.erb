@@ -5,7 +5,7 @@
   <div class="s_desc">
     <h3><%= link_to podcast.title, podcast_url(:podcast_slug => podcast), :title => "Subscribe to the series & view the episode list" -%></h3>
     <p>
-      <%= search_excerpt(podcast.description, @parsed_q) -%>
+      <%= search_excerpt(podcast.description || "", @parsed_q) -%>
     </p>
     <h6>Tags:</h6>
     <ul>

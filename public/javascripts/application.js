@@ -18,6 +18,24 @@ $(document).ready(function() {
 // END STUFF MOVED OVER FROM SKND
 // ---------------------------------
 
+$(document).ready(function(){
+  $('a.favorite_link').click(function() {
+    favorite_link = $(this);
+    favorite_url = favorite_link.attr('href');
+  
+    $.post(favorite_url, {}, function(resp) {
+      if(resp.logged_in) {
+        favorite_link.replaceWith('<span><img src="/images/icons/favorite.png" class="inline_icon" alt="" />My Favorite</span>');
+      } else {
+        return $.quickSignIn.attach(favorite_link.parents('.description').find('.quick_signin_container.after_favoriting'), 
+          {message:'Sign up or sign in to save your favorite.'});
+      }
+    }, 'json');
+    
+    return false;
+  });
+});
+
 
 if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
 

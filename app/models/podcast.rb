@@ -252,8 +252,20 @@ class Podcast < ActiveRecord::Base
   end
 
   def find_or_create_owner
-    self.owner = User.find_by_email(owner_email)
-    self.owner = User.create!(:state => 'passive', :email => owner_email, :login => owner_email) if owner.nil?
+    unless self.owner = User.find_by_email(owner_email)
+      owner = User.new(:state => 'passive')
+      owner.email = owner_email
+      owner.password = User.generate_code("The Passive User's Password")
+      owner.login = owner_email.gsub(/[^A-Za-z0-9\s]/, "")
+      while User.exists?(:login => owner.login) do
+        i ||= 1
+        owner.login.chop! unless i == 1
+        owner.login = "#{owner.login}#{i += 1}"
+      end
+      owner.save!
+      self.owner = owner
+    end
+    
     true
   end
 end

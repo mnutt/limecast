@@ -8,9 +8,9 @@
     
     <script type="text/javascript">
      $().ready(function() {  
-      $('.description>p').jTruncate({  
-       length: 120,  
-      });  
+       $('.description>p').jTruncate({
+         length: 120,
+       });
      });
     </script>
 
@@ -19,8 +19,10 @@
     <div id="view_options">
       <p>
         View:
+        <!--
         <a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a>
         <a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a>
+        -->
       </p>
       <p class="per_page">
         <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>

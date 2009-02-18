@@ -1,6 +1,4 @@
 $(document).ready(function(){
-  console.log("hey");
-
   $('form#new_review').submit(function(){
     var new_review_form = $(this);
     $.ajax({

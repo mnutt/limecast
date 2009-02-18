@@ -8,6 +8,7 @@
                                 :style => (editing?(@podcast) ? "display: none;" : "") %>
   
 </div>
+<br />
 
 <% limecast_form_for @podcast, :show => editing?(@podcast) do |podcast_form| -%>
   <%= render :partial => "podcasts/form", :locals => {:podcast_form => podcast_form} -%>

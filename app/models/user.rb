@@ -46,6 +46,8 @@ class User < ActiveRecord::Base
   validates_format_of       :email, :with => %r{^(?:[_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
   validates_format_of       :login, :with => /^[A-Za-z0-9\-\_\.]+$/
   before_save :encrypt_password
+  
+  before_update :reconfirm_email?
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
@@ -211,5 +213,12 @@ class User < ActiveRecord::Base
       @activated = true
       self.activated_at = Time.now.utc
       self.deleted_at = self.activation_code = nil
+    end
+
+    def reconfirm_email?
+      if active? && email_changed?
+        change_email!
+        UserMailer.deliver_signup_notification(self)
+      end
     end
 end

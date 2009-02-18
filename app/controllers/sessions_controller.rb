@@ -33,9 +33,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    self.current_user.forget_me if logged_in?
-    cookies.delete :auth_token
-    reset_session
+    logout
     redirect_back_or_default('/')
   end
 

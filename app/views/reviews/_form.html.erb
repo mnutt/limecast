@@ -22,7 +22,7 @@
 </div>
 
 <div class="field">
-  <label for="review_body<%= options[:suffix] -%>" class="default">My review of <%= @podcast.custom_title %>&hellip;</label>
+  <label for="review_body<%= options[:suffix] -%>" class="default">My review of <%= podcast.custom_title %>&hellip;</label>
   <div>
     <%= f.text_area :body, :class => "text#{ ' full' if options[:width] == 'full' }", :rows => '10', :id => "review_body#{options[:suffix]}" -%>
   </div>

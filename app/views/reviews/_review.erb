@@ -29,6 +29,6 @@
 
 
   <% form_for review, :url => review_url(:podcast_slug => review.episode.podcast, :id => review.id), :method => :post, :html => {:class => 'edit', :style => 'display: none;'} do |f| -%>
-    <%= render :partial => 'reviews/form', :locals => {:f => f, :podcast_slug => review.episode.podcast, :options => { :suffix => "_#{review.id}" }} -%>
+    <%= render :partial => 'reviews/form', :locals => {:f => f, :podcast => review.episode.podcast, :options => { :suffix => "_#{review.id}" }} -%>
   <% end -%>
 </li>

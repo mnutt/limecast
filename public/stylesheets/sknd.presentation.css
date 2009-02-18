@@ -1174,12 +1174,7 @@ display: inline;
 
 /* Brwose page **/
 
-.podcast.index #browse {
-	position: relative;
-	width: 670px;
-	float: left;
-	margin-bottom: 20px;
-}
+
 
 #browse .calloutlight {
   font-size: 1em;
@@ -1268,10 +1263,7 @@ display: inline;
 
 /**** Profile page **************/
 
-#member_profile {
-	float: left;
-	width: 670px;
-}
+
 
 #member_profile .addit {
 	margin-top: 12px;
@@ -1400,13 +1392,6 @@ display: inline;
 
 .addpage .page_head p {
   margin-bottom: 20px;
-}
-
-
-#search_results {
-  min-height: 500px;
-  width: 670px;
-  float: left;
 }
 
 .googleads.searchads {

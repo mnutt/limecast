@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090210180824) do
+ActiveRecord::Schema.define(:version => 20090218165959) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20090210180824) do
   add_index "feeds", ["podcast_id"], :name => "index_feeds_on_podcast_id"
 
   create_table "podcasts", :force => true do |t|
-    t.string   "title"
+    t.string   "original_title"
     t.string   "site"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
@@ -86,10 +86,10 @@ ActiveRecord::Schema.define(:version => 20090210180824) do
     t.integer  "owner_id"
     t.string   "owner_email"
     t.string   "owner_name"
-    t.string   "custom_title"
+    t.string   "title"
     t.integer  "primary_feed_id"
-    t.boolean  "has_previews"
-    t.boolean  "has_p2p_acceleration"
+    t.boolean  "has_previews",         :default => true
+    t.boolean  "has_p2p_acceleration", :default => true
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(:version => 20090210180824) do
     t.integer  "feed_id"
     t.string   "sha1hash",                :limit => 24
     t.string   "screenshot_file_name"
-    t.string   "stringshot_content_type"
-    t.string   "stringshot_file_size"
+    t.string   "screenshot_content_type"
+    t.string   "screenshot_file_size"
     t.string   "preview_file_name"
     t.string   "preview_content_type"
     t.string   "preview_file_size"

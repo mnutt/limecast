@@ -72,6 +72,8 @@ class Podcast < ActiveRecord::Base
   before_save :sanitize_title
   before_save :sanitize_url
 
+  validates_presence_of :title, :unless => Proc.new { |podcast| podcast.new_record? }
+
   # Search
   define_index do
     indexes :title, :site, :description, :owner_name, :owner_email

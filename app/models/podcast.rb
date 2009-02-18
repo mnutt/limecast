@@ -73,6 +73,7 @@ class Podcast < ActiveRecord::Base
   before_save :sanitize_url
 
   validates_presence_of :title, :unless => Proc.new { |podcast| podcast.new_record? }
+  validates_format_of   :title, :with => /[A-Za-z0-9]+/, :message => "must include at least 1 letter (a-z, A-Z)"
 
   # Search
   define_index do

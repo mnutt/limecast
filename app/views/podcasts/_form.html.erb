@@ -1,9 +1,9 @@
 <% @podcast.feeds.build # build a new one so we can include a new Feed in our form %>
 
 <div class="field">
-  <%= podcast_form.label :custom_title, "Title" -%>
-  <%= podcast_form.text_field :custom_title, :class => "text" -%>
-  <%= errors_for podcast_form.object, :custom_title %>
+  <%= podcast_form.label :title, "Title" -%>
+  <%= podcast_form.text_field :title, :class => "text" -%>
+  <%= errors_for podcast_form.object, :title %>
 </div>  
 <div class="field">
   <%= podcast_form.check_box :has_previews %>

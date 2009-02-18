@@ -74,7 +74,7 @@ class PodcastsController < ApplicationController
     end
     
     @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, 
-                                                      :feeds_attributes, :custom_title, :primary_feed_id])
+                                                      :feeds_attributes, :title, :primary_feed_id])
 
 
     respond_to do |format|

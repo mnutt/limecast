@@ -1,10 +1,10 @@
 <%= render :partial => 'podcasts/edit' if current_user %>
 
-<h1><%=h @podcast.custom_title %></h1>
+<h1><%=h @podcast.title %></h1>
 <h6 id="page_type">VIDEO PODCAST SERIES</h6>
 
 <div class="preview">
-  <%= image_tag(cover_art(@podcast), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
+  <%= image_tag(cover_art(@podcast), :alt => "#{@podcast.title} cover art", :class => "logo") -%>
 </div>
 
 <div class="podcast_block">

@@ -1,4 +1,4 @@
-<% @title = "#{h(@review.reviewer.login)} reviews #{h(@podcast.custom_title)}" -%>
+<% @title = "#{h(@review.reviewer.login)} reviews #{h(@podcast.title)}" -%>
 <% @show_ads = true -%>
 <% javascript_include "review_edit", "review_delete" -%>
 <% with_podcast ||= false -%>
@@ -11,7 +11,7 @@
   
     <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
-    <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
+    <p><%= link_to(h(@podcast.title), @podcast) %></p>
 
     <% form_for @review, :url => review_url(:podcast_slug => @podcast, :id => @review.id), :method => :post, :html => {:class => 'edit'} do |f| -%>
       <%= render :partial => 'form', :locals => {:f => f, :podcast => @review.episode.podcast} -%>

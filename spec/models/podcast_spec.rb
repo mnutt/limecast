@@ -21,13 +21,13 @@ describe Podcast do
     @podcast.clean_url.should == "Podcast"
   end
 
-  it 'should use the custom_title if set' do
+  it 'should use the title if set' do
+    @podcast.original_title.should == "Podcast"
+    @podcast.title = "My Podcast"
+    @podcast.title.should == "My Podcast"
+    @podcast.title = nil
+    @podcast.send(:cache_title)
     @podcast.title.should == "Podcast"
-    @podcast.custom_title = "My Podcast"
-    @podcast.custom_title.should == "My Podcast"
-    @podcast.custom_title = nil
-    @podcast.send(:cache_custom_title)
-    @podcast.custom_title.should == "Podcast"
   end
 end
 

@@ -50,7 +50,7 @@ module ApplicationHelper
   end
 
   def link_to_podcast(podcast)
-    link_to "<span class=\"searched\">#{h(podcast.custom_title)}</span>", podcast_url(podcast)
+    link_to "<span class=\"searched\">#{h(podcast.title)}</span>", podcast_url(podcast)
   end
 
   def link_to_episode_date(episode)
@@ -58,7 +58,7 @@ module ApplicationHelper
   end
 
   def link_to_episode(episode)
-    link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')} <span class=\"searched\">#{h(episode.podcast.custom_title)} &mdash; #{h(episode.date_title)}</span>", episode_url(episode.podcast, episode), :class => 'inline_icon'
+    link_to "#{image_tag(episode.podcast.logo.url(:icon), :class => 'inline_icon')} <span class=\"searched\">#{h(episode.podcast.title)} &mdash; #{h(episode.date_title)}</span>", episode_url(episode.podcast, episode), :class => 'inline_icon'
   end
 
   def link_to_with_icon(title, icon, url, options={})

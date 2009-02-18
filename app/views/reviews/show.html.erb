@@ -1,4 +1,4 @@
-<% @title = "#{h(@review.reviewer.login)} reviews #{unescape_entities(h(@podcast.custom_title))}" -%>
+<% @title = "#{h(@review.reviewer.login)} reviews #{unescape_entities(h(@podcast.title))}" -%>
 <% @show_ads = true -%>
 <% javascript_include "review_edit", "review_delete" -%>
 <% with_podcast ||= false -%>
@@ -9,7 +9,7 @@
 
     <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
-    <p><%= link_to(h(@podcast.custom_title), @podcast) %></p>
+    <p><%= link_to(h(@podcast.title), @podcast) %></p>
 
     <h2 class="title"><%=h unescape_entities(@review.title) %></h2>
     <p class="rating"><%= review_rating(@review, true) -%></p>

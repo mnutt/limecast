@@ -4,7 +4,7 @@
 <div class="podcast_block" <%= 'id="first_featured"' if is_first %>>
 
   <div class="preview">
-    <%= image_tag(podcast.logo.url(:small), :alt => "#{podcast.custom_title} cover art", :class => "logo") -%>
+    <%= image_tag(podcast.logo.url(:small), :alt => "#{podcast.title} cover art", :class => "logo") -%>
   </div>
   
   <div class="description">

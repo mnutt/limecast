@@ -24,7 +24,7 @@ class PodcastMailer < ActionMailer::Base
     @from       = "LimeCast <podcasts@limewire.com>"
     @sent_on    = Time.now
 
-    subject "[LimeCast] Added podcast: #{podcast.custom_title}"
+    subject "[LimeCast] Added podcast: #{podcast.title}"
     body    :podcast => podcast, :host => FROM_HOST
   end
 end

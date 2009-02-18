@@ -191,7 +191,7 @@ describe PodcastsController do
   describe "handling POST /:podcast" do
     describe "when user is the podcast owner" do
 
-      def do_post(options={:custom_title => "Custom Title"})
+      def do_post(options={:title => "Custom Title"})
         post :update, :podcast => @podcast.clean_url, :podcast_attr => options
       end
 
@@ -211,7 +211,7 @@ describe PodcastsController do
 
       it "should update the found podcast" do
         do_post
-        assigns(:podcast).reload.custom_title.should == "Custom Title"
+        assigns(:podcast).reload.title.should == "Custom Title"
       end
 
       it "should redirect to the podcasts list" do
@@ -243,7 +243,7 @@ describe PodcastsController do
 
       it "should redirect to the podcasts list" do
         lambda {
-          post :update, :podcast => @podcast.clean_url, :podcast_attr => {:custom_title => "Custom Title"}
+          post :update, :podcast => @podcast.clean_url, :podcast_attr => {:title => "Custom Title"}
         }.should raise_error(Forbidden)
       end
     end

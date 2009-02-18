@@ -89,6 +89,7 @@ def get_video_info(source)
   @logger.info "FFmpeg'ing"
 
   info = parse_ffmpeg_info(`ffmpeg -i #{tmp_file(source)} 2>&1`, source)
+  info[:file_size] = `ls -l #{tmp_file(source)} | awk '{print $5}'`.strip.to_i
 
   @logger.info "Got: #{info.inspect}"
 
@@ -165,7 +166,8 @@ def save_info(source, info)
     :format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
     :sha1hash => info[:sha1hash],
     :height   => info[:resolution][1],
-    :width    => info[:resolution][0]
+    :width    => info[:resolution][0],
+    :size     => info[:file_size]
   )
 end
 

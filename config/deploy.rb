@@ -101,7 +101,10 @@ namespace :limecast do
     end
 
     set :branch, version
-    abort unless Capistrano::CLI.ui.agree("Deploy from #{fetch(:branch)} ? ")
+    abort unless Capistrano::CLI.ui.ask("Deploy from #{fetch(:branch)} ? ", String) do |question|
+      question.validate = /^fo sho|sho nuff$/
+      question.responses[:not_valid] = "Please type \"fo sho\" or \"sho nuff\" to accept "
+    end
   end
 
   # Tasks to run after deploy

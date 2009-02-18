@@ -37,16 +37,17 @@ class User < ActiveRecord::Base
   attr_accessor :password # Virtual attribute for the unencrypted password
   attr_accessor_with_default :messages, []
 
-  validates_presence_of     :login, :email
+  validates_presence_of     :login, :unless => Proc.new { |u| u.passive? }
+  validates_presence_of     :email
   validates_presence_of     :password,                   :if => :password_required?
   validates_length_of       :password, :within => 4..40, :if => :password_required?
-  validates_length_of       :login,    :within => 3..40
+  validates_length_of       :login,    :within => 3..40, :unless => Proc.new { |u| u.passive? }
   validates_length_of       :email,    :within => 3..100
-  validates_uniqueness_of   :login, :email, :case_sensitive => false
+  validates_uniqueness_of   :login, :unless => Proc.new { |u| u.passive? }
+  validates_uniqueness_of   :email, :case_sensitive => false
   validates_format_of       :email, :with => %r{^(?:[_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
-  validates_format_of       :login, :with => /^[A-Za-z0-9\-\_\.]+$/
+  validates_format_of       :login, :with => /^[A-Za-z0-9\-\_\.]+$/, :unless => Proc.new { |u| u.passive? }
   before_save :encrypt_password
-  before_save Proc.new { logger.info "\n\n->Saving here" }
   before_update :reconfirm_email?
 
   # prevents a user from submitting a crafted form that bypasses activation
@@ -197,7 +198,7 @@ class User < ActiveRecord::Base
     end
 
     def password_required?
-      crypted_password.blank? || !password.blank?
+      (crypted_password.blank? || !password.blank?) && state != 'passive'
     end
 
     def make_activation_code

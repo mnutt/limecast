@@ -31,7 +31,7 @@ class Podcast < ActiveRecord::Base
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites
 
-  has_many :feeds, :dependent => :destroy, :include => :first_source,
+  has_many :feeds, :include => :first_source,
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_many :episodes, :dependent => :destroy
   has_many :reviews, :through => :episodes
@@ -150,7 +150,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    return false unless user and user.active?
+    return false unless user
     return true if user.admin?
     user_is_owner?(user) or (owner.nil? && user_is_finder?(user))
   end

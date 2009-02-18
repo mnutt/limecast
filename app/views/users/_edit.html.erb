@@ -8,6 +8,7 @@
                                 :style => (editing?(@user) ? "display: none;" : "") %>
   
 </div>
+<br />
 
 <% limecast_form_for @user, :show => editing?(@user) do |user_form| -%>
   <%= render :partial => "users/form", :locals => {:user_form => user_form} -%>

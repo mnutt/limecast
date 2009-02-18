@@ -94,6 +94,12 @@ class ApplicationController < ActionController::Base
       flash[:notice] = message
       redirect_to "/"
     end
+    
+    def logout
+      self.current_user.forget_me if logged_in?
+      cookies.delete :auth_token
+      reset_session
+    end
 
     def claim_all
       if logged_in?

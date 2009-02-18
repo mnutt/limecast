@@ -31,10 +31,10 @@ ActionController::Routing::Routes.draw do |map|
     info.info_user    'user/:user_slug', :controller => 'users', :action => 'info'
     info.info_tags    'tags', :controller => 'tags', :action => 'info_index'
     info.info_tag     'tag/:tag', :controller => 'tags', :action => 'info'
-    info.info_feed    ':podcast/feed/:id', :controller => 'feeds', :action => 'info'
-    info.info_episode ':podcast/:episode', :controller => 'episodes', :action => 'info'
-    info.info_source  ':podcast/:episode/:id', :controller => 'sources', :action => 'info'
-    info.info_podcast ':podcast', :controller => 'podcasts', :action => 'info'
+    info.info_feed    ':podcast_slug/feed/:id', :controller => 'feeds', :action => 'info'
+    info.info_episode ':podcast_slug/:episode', :controller => 'episodes', :action => 'info'
+    info.info_source  ':podcast_slug/:episode/:id', :controller => 'sources', :action => 'info'
+    info.info_podcast ':podcast_slug', :controller => 'podcasts', :action => 'info'
   end
 
   map.with_options :controller => 'tags' do |t|
@@ -74,6 +74,7 @@ ActionController::Routing::Routes.draw do |map|
     p.cover            '/:podcast_slug/cover',    :action => 'cover'
     p.recs             '/:podcast_slug/recs',     :action => 'recs'
     p.favorite_podcast '/:podcast_slug/favorite', :action => 'favorite'
+    p.podcast          '/:podcast_slug/info',     :action => 'info'
     p.podcast          '/:podcast_slug',          :action => 'show',   :conditions => {:method => :get}
     p.podcast          '/:podcast_slug',          :action => 'update', :conditions => {:method => :put}
   end

@@ -1,4 +1,4 @@
-<%= render :partial => 'podcasts/edit' if current_user %>
+<%= render :partial => 'podcasts/edit' if current_user && @podcast.writable_by?(current_user) %>
 
 <h1><%=h @podcast.title %></h1>
 <h6 id="page_type">VIDEO PODCAST SERIES</h6>

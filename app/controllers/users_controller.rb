@@ -146,7 +146,6 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = 'User was successfully updated.'
       flash[:notice] << " #{@user.messages.join(' ')}"
-      flash[:notice] << "Please reconfirm your email address." if @user.email_changed?
 
       redirect_to(:user_slug => @user)
     else

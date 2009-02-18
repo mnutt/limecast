@@ -1,6 +1,6 @@
 <div class="podcast_block">
   <div class="preview">
-    <%= image_tag(podcast.logo.url(:small), :alt => "#{podcast.custom_title} cover art", :class => "logo") -%>
+    <%= image_tag(podcast.logo.url(:small), :alt => "#{podcast.title} cover art", :class => "logo") -%>
   </div>
   <div class="description">
     <h3><%= link_to podcast.title, podcast_url(:podcast_slug => podcast), :title => "Subscribe to the series & view the episode list" -%></h3>

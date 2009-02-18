@@ -1,7 +1,19 @@
+/**** =Global use ***************/
 .clear {
 	clear: both;
 	height: 1%;
 }
+
+/* fixes float height problem */ 
+.clearfix:after {
+   content: ".";
+   display: block;
+   height: 0;
+   clear: both;
+   visibility: hidden;
+   }
+
+.clearfix {display: inline-block;}  /* for IE/Mac */
 
 .tm {padding-top: 1em;} /*Top Margin*/
 
@@ -9,62 +21,9 @@
 	display: none;
 }
 
-/**** JQuery Dropdown ***************/
-#overlay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/**** Form elements **************/
-form#search {
-	width: 180px; 
-	margin: 0px; 
-	display: block; 
-	position: absolute; 
-	top: 5px;
-	right: 0px;
-}
-
-form#search label {
-  display: none;
-}
-
-form#search input {
-	background: url('../imgs/search_input.png') top left repeat-x;
-	width: 161px;
-	height: 24px;
-	border: 0;
-	padding: 0px;
-	color: #a9a9a9;
-	position: relative;
-	right: 14px;
-	font-size: 1.2em;
-	position: relative;
-	padding: 5px 0 0 5px;
-	outline: none;
-}
 
 
-@media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
-form#search input {padding: 0px 0 0 5px;}
-}
-
-form#search button {
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	width: 30px;
-	background: url('../imgs/search_button.png') no-repeat right;
-}
-
-form#search button span {
-	margin-left: -5000px;
-	width: 30px;
-}
-
+/**** =Global submit button ***************/
 /*
 	Setting general button styles.
 	Background position can't be set to "top",
@@ -213,7 +172,14 @@ input.radio {
 .i3 {display:block;}
 
 
-
+/**** =JQuery Dropdown ***************/
+#overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
 
 /**** global dropdown ***************/
 .dropdown {
@@ -302,16 +268,7 @@ span > img.inline_icon {
   top: 3px;
 }
 
-/* fixes float height problem */ 
-.clearfix:after {
-   content: ".";
-   display: block;
-   height: 0;
-   clear: both;
-   visibility: hidden;
-   }
 
-.clearfix {display: inline-block;}  /* for IE/Mac */
 
 
 
@@ -526,7 +483,7 @@ a.calloutlight:hover {
 }
 
 
-#pop_recent_cont .description, #tags_review_cont .description {margin-bottom: 20px; padding: 0;}
+#pop_recent_cont .podcast_block, #tags_review_cont .podcast_block {margin-bottom: 20px; padding: 0;}
 
 
 /**** Download button on episode pages **************/
@@ -540,12 +497,10 @@ a.calloutlight:hover {
 	padding: 5px 0px 0 0px;
 	position: relative;
 	float: left;
-	
-	
-	background: url(../imgs/zonebar-navleft.png) center left no-repeat;
+	background: url('../imgs/zonebar-navleft.png') center left no-repeat;
 	}
 #zone-bar ul li:hover {
-	background: url(../imgs/zonebar-navleft_o.png) center left no-repeat;
+	background: url('../imgs/zonebar-navleft_o.png') center left no-repeat;
 }
 #zone-bar ul li #download a {
 	display: block;
@@ -563,7 +518,7 @@ a.calloutlight:hover {
 	height: 36px;
 	font-size: 1.1em;
 	white-space: nowrap;
-	background: url(../imgs/zonebar-navright.png) top right no-repeat;
+	background: url('../imgs/zonebar-navright.png') top right no-repeat;
 	}
 	
 
@@ -580,22 +535,17 @@ a.calloutlight:hover {
 	float: left;
 	height: 23px;
 	position: relative;
-	
 	padding-top: 13px;
 	padding-right: 6px;
 	padding-left: 11px;
 	margin-left: -25px;
-
 	height: 36px;
 	text-decoration: none;
 }
 	
-	
-	
 #zone-bar ul li #download a.arrowz:hover {
-	background: url(../imgs/zonebar-navright_o.png) 4px 0px no-repeat;
+	background: url('../imgs/zonebar-navright_o.png') 4px 0px no-repeat;
 }
-
 
 #zone-bar ul li div.dl_dropdown {
 	position: absolute;
@@ -730,17 +680,13 @@ ul.tabs  {
 	text-decoration: none;
 }
 
-
-
 .tabs a h4 {
   width: 64px; /* IE 6 treats width as min-width */
   min-width: 64px;
   height: 18px; /* IE 6 treats height as min-height */
   min-height: 28px;
   padding: 10px 20px 0px 0px;
-
 	color: #2951a5;
-
 }
 *>.tabs a h4 { /* hide from IE 6 */
   width: auto;
@@ -757,7 +703,6 @@ ul.tabs  {
 .new .tabs-cont .i3 {
 	padding: 10px 10px 10px 10px;
 }
-
 
 a.truncate_more_link {
   outline: none;

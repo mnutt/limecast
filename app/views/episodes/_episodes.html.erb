@@ -7,7 +7,7 @@
     <div id="latest_episode" class="preview">
       <h4>Latest episode</h4>
     
-      <h3><%= link_to @most_recent_episode.title -%></h3>
+      <h3><%= link_to @most_recent_episode.title, episode_url(:podcast_slug => @most_recent_episode.podcast, :episode => @most_recent_episode) -%></h3>
       <div><%= render :partial => 'episodes/video_player', :object => @most_recent_episode -%></div>
     </div>
     

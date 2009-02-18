@@ -17,7 +17,7 @@
 <h1><%=h @user.login -%><%= "" unless @user.podcaster? %>'s profile</h1>
 
 
-<div id="member_profile" class="tabify">
+<div id="member_profile" class="tabify main">
   <ul>
     <% if @user.favorite_podcasts.size > 0 -%>
       <li><a href="#profile_favorites"><h4>Favorites <span>(<%= @user.favorite_podcasts.size %>)</span></h4></a></li>

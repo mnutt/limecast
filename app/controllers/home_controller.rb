@@ -28,7 +28,7 @@ class HomeController < ApplicationController
   end
 
   def info
-    @podcasts = Podcast.all
+    @podcasts = Podcast.sorted
     
     if File.exist?(File.join(RAILS_ROOT, '..', '..', 'current'))
       @release = Time.parse(RAILS_ROOT.split("/").last) rescue nil

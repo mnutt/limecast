@@ -67,12 +67,13 @@ class Podcast < ActiveRecord::Base
   attr_accessor :has_episodes
   attr_accessor_with_default :messages, []
 
-  before_save :attempt_to_find_owner
+  before_save :find_or_create_owner
   before_save :sanitize_original_title
-  before_save :sanitize_title
+  before_validation :sanitize_title
   before_save :sanitize_url
 
   validates_presence_of :title, :unless => Proc.new { |podcast| podcast.new_record? }
+  validates_format_of   :title, :with => /[A-Za-z0-9]+/, :message => "must include at least 1 letter (a-z, A-Z)"
 
   # Search
   define_index do
@@ -250,8 +251,9 @@ class Podcast < ActiveRecord::Base
     end
   end
 
-  def attempt_to_find_owner
-    self.owner = User.find_by_email(self.owner_email)
+  def find_or_create_owner
+    self.owner = User.find_by_email(owner_email)
+    self.owner = User.create!(:state => 'passive', :email => owner_email, :login => owner_email) if owner.nil?
     true
   end
 end

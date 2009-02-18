@@ -157,12 +157,13 @@
 
 
 .podcast.show .episode {
-	margin: 20px 5px 20px 5px;
-	overflow: auto;
+	margin: 0px 5px 30px 5px;
+	overflow: hidden;
 }
 
 .podcast.show .episode  img {
 	float: left;
+	overflow: hidden;
 	border: 1px solid #171717;
 	margin-right: 20px;
 }
@@ -171,7 +172,13 @@
 
 .podcast.show .episode > div {
 	float: left;
-	width: 480px;
+	width: 510px;
+	margin-top: -4px;
+}
+
+.podcast.show .episode > div.audio_player {
+	float: left;
+	width: 100%;
 }
 
 .podcast.show .episode > div.no_screenshot {
@@ -184,7 +191,7 @@
 	font-size: 1.3em;
 }
 
-.podcast.show .episode p {
+.podcast.show .episode span.details {
 	color: #a9a9a9;
 }
 
@@ -202,6 +209,7 @@
 .podcast.show div.audio_player {
 	padding: 5px 0;
 	margin-top: 5px;
+	margin-bottom: 10px;
 	font-size: 1.2em;
 	border-top: 1px dotted #a9a9a9;
 	border-bottom: 1px dotted #a9a9a9;

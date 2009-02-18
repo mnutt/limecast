@@ -1,7 +1,7 @@
 class AddResolutionToSource < ActiveRecord::Migration
   def self.up
-    #add_column :sources, :height, :integer
-    #add_column :sources, :width, :integer
+    add_column :sources, :height, :integer
+    add_column :sources, :width, :integer
   end
 
   def self.down

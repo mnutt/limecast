@@ -377,6 +377,21 @@ span > img.inline_icon {
 }
 
 
+.sm_social .social {
+	float: left; 
+	font-size: .8em; 
+	width: auto;
+	overflow: visible;
+	margin-right: 2px;
+}
+
+.sm_social h3, .sm_social h3 a {
+	float: left;
+}
+#pop_recent_cont .description, #tags_review_cont .description {margin-bottom: 20px; padding: 0;}
+
+
+
 
 /**** Download button on episode pages **************/
 
@@ -539,3 +554,123 @@ span > img.inline_icon {
 	border: 1px solid #a9a9a9;
 	padding: 0px 4px;
 }
+
+
+
+
+
+/**** Standard tabs **************/
+
+
+/* Caution! Ensure accessibility in print and other media types... */
+@media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
+    .tabs-hide {
+        display: none;
+    }
+}
+
+/* Hide useless elements in print layouts... */
+@media print {
+    .tabs-nav {
+        display: none;
+    }
+}
+
+/* Skin */
+.tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 0px;
+}
+
+.tabs:after { /* clearing without presentational markup, IE gets extra treatment */
+    display: block;
+    clear: both;
+    content: " ";
+}
+
+ul.tabs  {
+  margin: 10px 0 -8px 20px;
+  width: auto;overflow: hidden;
+}
+
+.tabs li {
+  float: left;
+  margin: 0px;
+  min-width: 55px; /* be nice to Opera */
+}
+
+.tabs a, .tabs a h4 {
+  display: block;
+  padding: 0px 0px 0px 0px;
+
+	
+}
+
+.tabs a {
+  position: relative;
+  top: 1px;
+  z-index: 2;
+  padding-left: 15px;
+	padding-bottom: 0px;
+	margin-right: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 1.2em;
+  text-align: center;
+  white-space: nowrap; /* required in IE 6 */    
+}
+
+.tabs .tabs-selected a {
+	text-decoration: none;
+	background: url('../imgs/tab_left.png') no-repeat;
+}
+
+.tabs .tabs-selected a, .tabs a:hover, .tabs a:focus, .tabs a:active {
+	background-position: 0% 0px;
+  outline: 0; /* prevent dotted border in Firefox */
+}
+
+.tabs .tabs-selected a h4 {
+	
+	color: #171717;
+	margin-right: -20px;
+	padding: 10px 40px 00px 0;
+	background: url('../imgs/tab_right.png') no-repeat;
+}
+
+
+.tabs .tabs-selected a h4, .tabs a:hover h4, .tabs a:focus h4, .tabs a:active h4 {
+  background-position: bottom right;
+	text-decoration: none;
+}
+
+
+
+.tabs a h4 {
+  width: 64px; /* IE 6 treats width as min-width */
+  min-width: 64px;
+  height: 18px; /* IE 6 treats height as min-height */
+  min-height: 28px;
+  padding: 10px 20px 0px 0px;
+
+	color: #2951a5;
+
+}
+*>.tabs a h4 { /* hide from IE 6 */
+  width: auto;
+  height: auto;
+}
+
+.tabs .tabs-selected a:link, .tabs .tabs-selected a:visited, .tabs .tabs-disabled a:link, .tabs .tabs-disabled a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
+  cursor: text;
+}
+.tabs a:hover, .tabs a:focus, .tabs a:active { /* @ Opera, we need to be explicit again here now... */
+  cursor: pointer;
+}
+
+.tabs-cont .i3 {
+	padding: 10px 10px 10px 10px;
+}
+
+

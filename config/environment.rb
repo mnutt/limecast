@@ -70,8 +70,7 @@ Rails::Initializer.run do |config|
     File.directory?(lib = "#{dir}/lib") ? lib : dir
   end
   
-  config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
-  config.gem "gchart", :lib => "gchart"
+  #config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
 end
 
 # Load /lib files

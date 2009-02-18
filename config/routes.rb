@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
     info.info_icons   'icons', :controller => 'home', :action => 'icons'
     info.info_hash    'hash', :controller => 'feeds', :action => 'hash_info'
     info.info_add     'add', :controller => 'feeds', :action => 'add_info'
-    info.info_user    'user/:user', :controller => 'users', :action => 'info'
+    info.info_user    'user/:user_slug', :controller => 'users', :action => 'info'
     info.info_tags    'tags', :controller => 'tags', :action => 'info_index'
     info.info_tag     'tag/:tag', :controller => 'tags', :action => 'info'
     info.info_feed    ':podcast/feed/:id', :controller => 'feeds', :action => 'info'
@@ -53,10 +53,10 @@ ActionController::Routing::Routes.draw do |map|
     u.forgot_password '/forgot',              :action => 'forgot_password'
   end
 
-  map.status      '/status',      :controller => 'feeds',    :action => 'status'
-  map.all_users   '/user',        :controller => 'users',    :action => 'index'
-  map.user        '/user/:user',  :controller => 'users',    :action => 'show', :conditions => {:method => :get}
-  map.user        '/user/:user',  :controller => 'users',    :action => 'update', :conditions => {:method => :post}
+  map.status      '/status',      :controller => 'feeds',      :action => 'status'
+  map.all_users   '/user',        :controller => 'users',      :action => 'index'
+  map.user        '/user/:user_slug',  :controller => 'users', :action => 'show', :conditions => {:method => :get}
+  map.user        '/user/:user_slug',  :controller => 'users', :action => 'update', :conditions => {:method => :put}
 
   map.with_options :controller => 'home' do |h|
     h.root                        :action => 'home'

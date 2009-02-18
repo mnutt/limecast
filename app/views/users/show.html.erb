@@ -1,7 +1,7 @@
 <% @title = h(@user.login) -%>
 <% @classes = %{podcast index show} -%>
 <% @show_ads = true if @user.reviews.count > 0 -%>
-<% javascript_include "review_edit", "review_delete", "podcast_edit", "inline_edit_form" -%>
+<% javascript_include "review_edit", "review_delete", "podcast_edit" -%>
 
 <script type="text/javascript">
   $().ready(function() {  
@@ -12,6 +12,7 @@
 </script>
 
  
+<%= render :partial => 'users/edit' if current_user && (current_user == @user || current_user.admin?) %>
 
 <h1><%=h @user.login -%><%= "" unless @user.podcaster? %>'s profile</h1>
 
@@ -29,9 +30,6 @@
     <% end -%>
     <% if @user.reviews.count > 0 -%>
       <li><a href="#profile_reviews"><h4>Reviews <span>(<%= @user.reviews.count %>)</span></h4></a></li>
-    <% end -%>
-    <% if @user == current_user -%>
-      <li><a href="#profile_profile"><h4>Edit profile</h4></a></li>
     <% end -%>
   </ul>
 
@@ -75,31 +73,7 @@
       <% end -%>
     <% end -%>
   </div>
-  
-  <div id="profile_profile" class="rounded_corners">
-    <% rounded_corners do -%>
-      <h4>Personal information</h4>
-      <%= render :partial => 'users/small_picture', :locals => { :user => @user } -%>
-      <p><span>username:</span> <strong><%=h @user.login -%><%= "" unless @user.podcaster? %></strong></p>
-      
-      <div id="edit_form">
-        <% form_for :user_attr, current_user do |f| -%>
-          <div class="field">
-            <%= f.label :email, "Email" -%>
-            <%= f.text_field :email, :class => "text" -%>
-          </div>
 
-          <div class="controls">
-            <button type="submit">
-              <span>Update email</span>
-            </button>
-
-            <%= link_to "Cancel", :class => "button cancel" -%>
-          </div>
-        <% end -%>
-      </div>
-    <% end -%>
-  </div>
 </div> <!--/memeber_profile-->
 
 <div id="profile_goog">

@@ -4,7 +4,7 @@
 <h6 id="page_type">VIDEO PODCAST SERIES</h6>
 
 <div class="preview">
-  <%= image_tag(@podcast.logo.url(:small), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
+  <%= image_tag(cover_art(@podcast), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
 </div>
 
 <div class="podcast_block">

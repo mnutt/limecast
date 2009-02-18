@@ -227,10 +227,11 @@ input.radio {
 	position: relative;
 	padding: 5px;
 	min-width: 400px;
+	clear: left;
 }
 .limecast_form .top {
 	height: 30px;
-	border: dashed #BBB;
+	border: dashed #000;
 	border-width: 2px 2px 0 2px;
 }
 .limecast_form .middle {
@@ -239,10 +240,10 @@ input.radio {
 }
 .limecast_form .bottom {
 	height: 15px;
-	border: dashed #BBB;
+	border: dashed #000;
 	border-width: 0 2px 2px 2px;
-	padding: 20px 0 10px 0;
-	text-align: center;
+	padding: 20px 10px 10px 10px;
+	text-align: left;
 }
 .limecast_form fieldset {
 	margin: 10px 0 0 10px;

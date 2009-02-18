@@ -7,8 +7,8 @@
     <div id="latest_episode" class="preview">
       <h4>Latest episode</h4>
     
-      <h3><%= link_to episodes.first.title -%></h3>
-      <div><%= render :partial => 'episodes/video_player', :object => episodes.first -%></div>
+      <h3><%= link_to @most_recent_episode.title -%></h3>
+      <div><%= render :partial => 'episodes/video_player', :object => @most_recent_episode -%></div>
     </div>
     
     <div id="episode_cont"><%= render :partial => "episodes/episode", :collection => episodes -%></div>

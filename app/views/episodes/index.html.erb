@@ -1,11 +1,11 @@
-<% @title = "#{h(@podcast.custom_title)} Episodes" -%>
+<% @title = "#{h(@podcast.title)} Episodes" -%>
 <% @show_ads = true -%>
 
 <div class="podcast">
 
   <%= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
 
-  <p class="heading podcast_link"><%= link_to h(@podcast.custom_title), @podcast -%><%= " episodes that match '#@q'" if @q %></p>
+  <p class="heading podcast_link"><%= link_to h(@podcast.title), @podcast -%><%= " episodes that match '#@q'" if @q %></p>
   <h1 class="heading">Episodes</h1>
 
   <!-- Stats and Misc //-->

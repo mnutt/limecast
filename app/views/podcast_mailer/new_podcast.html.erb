@@ -1,6 +1,6 @@
-A new podcast has been created: "<%=h @podcast.custom_title %>"
+A new podcast has been created: "<%=h @podcast.title %>"
 
-It is located at <%= podcast_url(@podcast, :host => @host) %>
+It is located at <%= podcast_url(:podcast_slug => @podcast, :host => @host) %>
 
 Thanks,
 LimeCast

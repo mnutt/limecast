@@ -135,12 +135,8 @@ class UsersController < ApplicationController
     # The "_delete" attr is taken from Nested Association Attributes, but AR doesn't support
     # it on a regular model, so we're going to use the same convention when deleting the Podcast.
     if params[:user] && params[:user][:_delete] == '1'
-      @user.delete!
-      if @user == current_user
-        self.current_user.forget_me if logged_in?
-        cookies.delete :auth_token
-        reset_session
-      end
+      @user.destroy
+      logout if @user == current_user
       flash[:notice] = "#{@user.login} has been removed."
       redirect_to(podcasts_url) and return false
     end
@@ -150,11 +146,6 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = 'User was successfully updated.'
       flash[:notice] << " #{@user.messages.join(' ')}"
-
-      if @user.email_changed?
-        reconfirm_email(@user) 
-        flash[:notice] << "Please reconfirm your email address."
-      end
 
       redirect_to(:user_slug => @user)
     else
@@ -173,10 +164,4 @@ protected
   def find_user
     @user = User.find(params[:id])
   end
-
-  def reconfirm_email(user)
-    user.change_email!
-    UserMailer.deliver_signup_notification(user)
-  end
-
 end

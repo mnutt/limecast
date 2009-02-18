@@ -2,22 +2,20 @@
   <% rounded_corners do -%>
     <%- @recent_episodes.each do |ep| -%>
       <div class="podcast_block sm_social">
-        <% if ep.sources.first && ep.sources.first.screenshot? %>
-          <div class="preview">
-            <%= image_tag(ep.sources.first.screenshot(:square).to_s, :height => 95, :width => 95) %>
-          </div>
-          <div>
-        <% else %>
-          <div class="no_screenshot">
-        <% end %>
-
-        <h3><%= link_to ep.title, episode_url(:podcast_slug => ep.podcast, :episode => ep) -%></h3>
-        <div class="clear"></div>
-        <p>
-          <%= ep.published_at.to_date -%> - <%= time_to_words(ep.duration) -%>
-        </p>
+        <div class="preview">
+          <% if ep.sources.first && ep.sources.first.screenshot? %>
+            <%= image_tag(ep.sources.first.screenshot(:square).to_s, :height => 55, :width => 55) %>
+          <% else %>
+            <%= image_tag(cover_art(ep.podcast, :square), :height => 55, :width => 55) %>
+          <% end %>
+        </div>
+        <div>
+          <h3><%= link_to ep.title, episode_url(:podcast_slug => ep.podcast, :episode => ep) -%></h3>
+          <p>
+            <%= ep.published_at.to_date -%> - <%= time_to_words(ep.duration) -%>
+          </p>
+        </div>
       </div>
-    </div>
     <%- end -%>
   <% end -%>
 </div> <!-- /rounded_corners -->

@@ -18,7 +18,7 @@
 #  owner_id          :integer(4)    
 #  owner_email       :string(255)   
 #  owner_name        :string(255)   
-#  custom_title      :string(255)   
+#  title      :string(255)   
 #  primary_feed_id   :integer(4)    
 #
 
@@ -31,7 +31,7 @@ class Podcast < ActiveRecord::Base
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites
 
-  has_many :feeds, :dependent => :destroy, :include => :first_source,
+  has_many :feeds, :include => :first_source,
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_many :episodes, :dependent => :destroy
   has_many :reviews, :through => :episodes
@@ -68,9 +68,11 @@ class Podcast < ActiveRecord::Base
   attr_accessor_with_default :messages, []
 
   before_save :attempt_to_find_owner
+  before_save :sanitize_original_title
   before_save :sanitize_title
-  before_save :sanitize_custom_title
   before_save :sanitize_url
+
+  validates_presence_of :title, :unless => Proc.new { |podcast| podcast.new_record? }
 
   # Search
   define_index do
@@ -150,7 +152,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    return false unless user and user.active?
+    return false unless user
     return true if user.admin?
     user_is_owner?(user) or (owner.nil? && user_is_finder?(user))
   end
@@ -196,11 +198,30 @@ class Podcast < ActiveRecord::Base
     self.messages << msg
   end
   
-  def sanitize_title
-    return if self.title.nil?
+  def sanitize_original_title
+    return if self.original_title.nil?
   
-    desired_title = title
+    desired_original_title = original_title
     # First, sanitiaze "title"
+    self.original_title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
+    self.original_title.sub!(/^[\s]*-/, "") # Remove leading dashes
+    self.original_title.strip! # Remove leading and trailing space
+  
+    i = 1 # Number to attach to the end of the original_title to make it unique
+    while(Podcast.exists?(["original_title = ? AND id != ?", original_title, id]))
+      self.original_title.chop!.chop! unless i == 1
+      self.original_title = "#{original_title} #{i += 1}"
+    end
+    add_message "There was another podcast with the same title, so we have suggested a new title." if original_title != desired_original_title
+
+    return original_title
+  end
+
+  def sanitize_title
+    self.title = title.blank? ? original_title : title
+    
+    desired_title = title
+    # Second, sanitize "title"
     self.title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
     self.title.sub!(/^[\s]*-/, "") # Remove leading dashes
     self.title.strip! # Remove leading and trailing space
@@ -210,35 +231,16 @@ class Podcast < ActiveRecord::Base
       self.title.chop!.chop! unless i == 1
       self.title = "#{title} #{i += 1}"
     end
+
     add_message "There was another podcast with the same title, so we have suggested a new title." if title != desired_title
 
     return title
   end
-
-  def sanitize_custom_title
-    self.custom_title = custom_title.blank? ? title : custom_title
-    
-    desired_custom_title = custom_title
-    # Second, sanitize "custom_title"
-    self.custom_title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
-    self.custom_title.sub!(/^[\s]*-/, "") # Remove leading dashes
-    self.custom_title.strip! # Remove leading and trailing space
-  
-    i = 1 # Number to attach to the end of the title to make it unique
-    while(Podcast.exists?(["custom_title = ? AND id != ?", custom_title, id]))
-      self.custom_title.chop!.chop! unless i == 1
-      self.custom_title = "#{custom_title} #{i += 1}"
-    end
-
-    add_message "There was another podcast with the same title, so we have suggested a new title." if custom_title != desired_custom_title
-
-    return custom_title
-  end
   
   def sanitize_url
-    if !self.title.nil? && (custom_title.blank? || custom_title_changed?)
+    if !self.original_title.nil? && (title.blank? || title_changed?)
   
-      self.clean_url = self.custom_title.to_s.clone.strip # Remove leading and trailing spaces
+      self.clean_url = self.title.to_s.clone.strip # Remove leading and trailing spaces
       self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")     # Remove all non-alphanumeric non-space characters
       self.clean_url.gsub!(/[\s]+/, '-')             # Condense spaces and turn them into dashes
   

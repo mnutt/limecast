@@ -148,12 +148,12 @@ class Feed < ActiveRecord::Base
 
     self.podcast.download_logo(@feed.image) unless @feed.image.nil?
     self.podcast.update_attributes!(
-      :title       => @feed.title,
-      :description => @feed.summary,
-      :language    => @feed.language,
-      :owner_email => @feed.owner_email,
-      :owner_name  => @feed.owner_name,
-      :site        => @feed.link
+      :original_title => @feed.title,
+      :description    => @feed.summary,
+      :language       => @feed.language,
+      :owner_email    => @feed.owner_email,
+      :owner_name     => @feed.owner_name,
+      :site           => @feed.link
     )
     PodcastMailer.deliver_new_podcast(podcast) if new_podcast
   rescue RPodcast::NoEnclosureError
@@ -215,15 +215,15 @@ class Feed < ActiveRecord::Base
   protected
   def set_podcast_primary_feed
     puts "Setting primary fed"
-    if podcast.primary_feed.nil?
+    if podcast && podcast.primary_feed.nil?
       podcast.primary_feed = podcast.feeds(true).first
       podcast.save!
     end
-    puts "Updating primary feed to #{podcast.primary_feed_id}"
+    puts "Updating primary feed to #{podcast.primary_feed_id}" if podcast
   end
   
   def add_podcast_message
-    podcast.send(:add_message, "The #{apparent_format} feed has been removed.")
+    podcast.send(:add_message, "The #{apparent_format} feed has been removed.") if podcast
   end
 
   def log_failed(exception)

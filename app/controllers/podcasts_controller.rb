@@ -15,8 +15,12 @@ class PodcastsController < ApplicationController
     raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
     @feeds    = @podcast.feeds.all
-    @episodes = @podcast.episodes.
-      paginate(:order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"], :page => (params[:page] || 1), :per_page => params[:limit] || 10)
+		@most_recent_episode = @podcast.episodes.newest.first
+    @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
+			:order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
+			:page => (params[:page] || 1),
+			:per_page => params[:limit] || 10
+		)
 
     @reviews = @podcast.reviews
     @review  = Review.new(:episode => @podcast.episodes.newest.first)
@@ -70,7 +74,7 @@ class PodcastsController < ApplicationController
     end
     
     @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, 
-                                                      :feeds_attributes, :custom_title, :primary_feed_id])
+                                                      :feeds_attributes, :title, :primary_feed_id])
 
 
     respond_to do |format|
@@ -83,6 +87,12 @@ class PodcastsController < ApplicationController
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }
       else
         format.html { 
+      		@most_recent_episode = @podcast.episodes.newest.first
+          @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
+      			:order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
+      			:page => (params[:page] || 1),
+      			:per_page => params[:limit] || 10
+      		)
           @reviews = @podcast.reviews
           @review  = Review.new(:episode => @podcast.episodes.newest.first)
           render :action => 'show'

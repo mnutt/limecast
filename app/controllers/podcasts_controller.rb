@@ -87,6 +87,12 @@ class PodcastsController < ApplicationController
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }
       else
         format.html { 
+      		@most_recent_episode = @podcast.episodes.newest.first
+          @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
+      			:order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
+      			:page => (params[:page] || 1),
+      			:per_page => params[:limit] || 10
+      		)
           @reviews = @podcast.reviews
           @review  = Review.new(:episode => @podcast.episodes.newest.first)
           render :action => 'show'

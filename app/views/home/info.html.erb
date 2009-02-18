@@ -15,7 +15,7 @@
 <ul>
   <% @podcasts.each do |podcast| -%>
     <li>
-      <%= link_to podcast.title, info_podcast_url(podcast) -%>
+      <%= link_to podcast.title, info_podcast_url(podcast) -%> <%= podcast.clean_url %>
     </li>
   <% end -%>
 </ul>

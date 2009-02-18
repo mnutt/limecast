@@ -104,13 +104,17 @@ def screenshot_time(duration)
   [h,m,s].join(":")
 end
 
-def take_screen_shot(source, info)
-  @logger.info "Screenshoting"
-
+def resized_size_of_video(info)
   # Use fancy mathematics to keep videos from being stretched into 320x240
   width  = 320
   height = width.to_f/info[:resolution][0] * info[:resolution][1]
   size   = [width, height].join("x")
+end
+
+def take_screen_shot(source, info)
+  @logger.info "Screenshoting"
+
+  size = resized_size_of_video(info)
 
   t = screenshot_time(info[:duration])
   `ffmpeg -y -i #{tmp_file(source)} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{screenshot_tmp_file(source)}`
@@ -130,10 +134,7 @@ def encode_video(source, info)
   video_frame_rate  = 20
   audio_sample_rate = 44100
 
-  # Use fancy mathematics to keep videos from being stretched into 320x240
-  width  = 320
-  height = width.to_f/info[:resolution][0] * info[:resolution][1]
-  size   = [width, height].join("x")
+  size = resized_size_of_video(info)
 
   options = {
     :i  => tmp_file(source),  :f  => :flv,
@@ -162,7 +163,9 @@ def save_info(source, info)
   )
   source.update_attributes(
     :format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
-    :sha1hash => info[:sha1hash]
+    :sha1hash => info[:sha1hash],
+    :height   => info[:resolution][1],
+    :width    => info[:resolution][0]
   )
 end
 

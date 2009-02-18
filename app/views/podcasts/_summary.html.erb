@@ -7,8 +7,8 @@
   <%= image_tag(cover_art(@podcast), :alt => "#{@podcast.custom_title} cover art", :class => "logo") -%>
 </div>
 
-<div class="description">
-  <div class="s_desc">
+<div class="podcast_block">
+  <div class="description">
      <div class="favorite_cont">
       <% if @podcast.is_favorite_of?(current_user) -%>
         <%= link_to "Marked as favorite", user_url(current_user, :anchor => "profile_favorites"), :class => "calloutlight", :title => "Go to your favorites" %>

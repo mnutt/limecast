@@ -21,6 +21,53 @@ body.addpage .summary {
   min-height: 500px;
 }
 
+/**** =Search form **************/
+form#search {
+	width: 180px; 
+	margin: 0px; 
+	display: block; 
+	position: absolute; 
+	top: 5px;
+	right: 0px;
+}
+
+form#search label {
+  display: none;
+}
+
+form#search input {
+	background: url('../imgs/search_input.png') top left repeat-x;
+	width: 161px;
+	height: 24px;
+	border: 0;
+	padding: 0px;
+	color: #a9a9a9;
+	position: relative;
+	right: 14px;
+	font-size: 1.2em;
+	position: relative;
+	padding: 5px 0 0 5px;
+	outline: none;
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
+form#search input {padding: 0px 0 0 5px;}
+}
+
+form#search button {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 30px;
+	background: url('../imgs/search_button.png') no-repeat right;
+}
+
+form#search button span {
+	margin-left: -5000px;
+	width: 30px;
+}
+
 /**
 * Quick Signin/up
 **/
@@ -31,7 +78,6 @@ form#quick_signin {
 	z-index: 100;
 	position: relative;
 }
-
 
 
 form#quick_signin .rounded_corners  {
@@ -63,10 +109,7 @@ form#quick_signin input.text {
 	display: block;
 	outline: none;
 }
-form#quick_signin .response_container {
- 
-  
-}
+
 form#quick_signin .response_container p {
 	color: red;
   font-size: 1em;
@@ -84,7 +127,6 @@ form#quick_signin label {
   z-index: 10;
 }
 form#quick_signin a.close {
-
 	background: none;
 	margin-top: 13px;
 	color: #2952a6;
@@ -162,14 +204,12 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 /**** Header **************/
 
-#utility_nav ul {font-size: 1.2em; position: absolute; top: 9px; right: 200px;}
+#utility_nav ul {font-size: 1.2em; position: absolute; top: 9px; right: 203px;}
 #utility_nav ul li {display: inline; margin-left: 2px; padding: 0 3px;}
 
 
 #global_nav {float: left; margin: 0; position: absolute; top: 4px; left: 0;  width: 500px;}
-#global_nav {
-	font-size: 1.5em;
-}
+#global_nav {font-size: 1.5em;}
 #global_nav a {outline: none;}
 #global_nav ul { display: block; margin: 1px 0 0 5px;}
 #global_nav ul li {display: inline; float: left; padding: 0 10px; margin-top: 5px;}
@@ -241,10 +281,6 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 	margin-left: -5000px;
 }
 
-
-
-
-
 #utility_nav form#quick_signin .callout ul {
 	position: relative;
 	font-size: 1.4em;
@@ -281,7 +317,7 @@ form#quick_signin a.forgot {
 
 /* Show specific */
 .show .summary { overflow: visible;}
-.show .supplemental {float: left; overflow: hidden; position:  relative; margin: 20px 0; width: 660px;}
+.show .supplemental {float: left; overflow: hidden; position:  relative; margin: 20px 0; width: 670px;}
 
 
 
@@ -344,13 +380,13 @@ form#quick_signin a.forgot {
 	margin-right: 40px;
 }
 
-.new #featured .description {
+.new #featured .podcast_block {
 	background: none;
 	float: left;
 	width: 440px;
 }
 
-.new #featured .s_desc {
+.new #featured .description {
 
 	width: 255px;
 }
@@ -372,12 +408,12 @@ form#quick_signin a.forgot {
 }
 
 
-#pop_recent_cont .description, #tags_review_cont .description {
+#pop_recent_cont .podcast_block, #tags_review_cont .podcast_block {
 	background: none;
 	width: 440px;
 }
 
-#pop_recent_cont .description .s_desc, #tags_review_cont .description .s_desc {
+#pop_recent_cont .podcast_block .description, #tags_review_cont .podcast_block .description {
 	background: none;
 	width: 340px;
 }
@@ -394,7 +430,7 @@ form#quick_signin a.forgot {
 	width: 55px;
 }
 
-#pop_recent_cont h6, #pop_recent_cont .s_desc ul, #tags_review_cont h6, #tags_review_cont .s_dec ul {
+#pop_recent_cont h6, #pop_recent_cont .description ul, #tags_review_cont h6, #tags_review_cont .s_dec ul {
 	font-size: 1.2em;
 }
 
@@ -519,15 +555,15 @@ form#quick_signin a.forgot {
 	margin-top: 3px;
 }
 
-.description .s_desc,
-.description_simple .s_desc {
+.podcast_block .description,
+.description_simple .description {
 	position: relative;
 	float: left;
-	width: 460px;
+	width: 470px;
 	
 }
 
-.s_desc h6 {
+.description h6 {
 	color: #a9a9a9;
 	font-size: 1.4em;
 	font-weight: normal;
@@ -544,17 +580,17 @@ form#quick_signin a.forgot {
 	margin: 14px 0 5px 0;
 }
 
-.s_desc p {
+.description p {
 	margin: -5px 0 5px 0;
 }
 
-.s_desc ul, .s_desc ul li {
+.description ul, .description ul li {
 	display: inline;
 	font-size: 1.2em;
 	color: #a9a9a9;
 }
 
-.description {
+.podcast_block {
 	overflow: visible;
 	position: relative;
 	padding-bottom: 20px;
@@ -571,34 +607,34 @@ form#quick_signin a.forgot {
   float: left;
 }
 
-.description h3 {
+.podcast_block h3 {
 	font-size: 1.4em;
 }
 
-.podcast.show .description {
+.podcast.show .podcast_block {
 	background: url('../imgs/b_border.png') bottom left repeat-x;
   width: 760px;
   margin-top: -4px;
 }
   
-.episode.show .description {
+.episode.show .podcast_block {
 	width: 460px;
 }
 
 
-.show .description h2 a {
+.show .podcast_block h2 a {
 	font-size: 0.7em;
 	font-weight: normal;
 }
 
 
 
-.episode .description h2 {
+.episode .podcast_block h2 {
 	margin: 0;
 	width: 300px;
 }
 
-.episode .description h3 {
+.episode .podcast_block h3 {
 	color: #a9a9a9;
 }
 
@@ -1167,7 +1203,7 @@ display: inline;
 	border: 1px solid #aeaba1;
 }
 
-.podcast.index .description {
+.podcast.index .podcast_block {
 	margin: 30px 0 0 5px;
 	padding: 0; 
 	min-height: 125px;
@@ -1177,7 +1213,7 @@ display: inline;
   width: auto;
 }
 
-.podcast.index .s_desc {
+.podcast.index .description {
 	position: relative;
 	width: 500px;
 	margin-top: -4px;
@@ -1198,7 +1234,7 @@ display: inline;
 
 #view_options {
 	font-size: .9em;
-	padding: 2px 0 6px 0;
+	padding: 6px 0 6px 0;
 	border-bottom: 1px solid #ddd;
 	margin: 0 5px;
 }
@@ -1222,8 +1258,6 @@ display: inline;
 }
 
 #view_options .per_page {
-	border-left: 1px solid #a9a9a9;
-	padding-left: 7px;
 	display: inline;
 }
 
@@ -1244,9 +1278,7 @@ display: inline;
 }
 
 #member_profile h4 {
-	fo
-	
-	nt-size: 1.2em;
+	font-size: 1.2em;
 }
 
 #profile_profile .i3 {
@@ -1271,7 +1303,7 @@ display: inline;
 	color: #a9a9a9;
 }
 
-#member_profile .description {
+#member_profile .podcast_block {
 	background: none;
 }
 
@@ -1289,7 +1321,7 @@ display: inline;
 }
 
 
-#recent_episodes .description {
+#recent_episodes .podcast_block {
   min-height: 60px;
 }
 
@@ -1461,7 +1493,7 @@ display: inline;
   width: 110px;
 }
 
-.podcast #search_results .description {background: none;}
+.podcast #search_results .podcast_block {background: none;}
 
 ul.users li h4 {
   color: #a9a9a9;

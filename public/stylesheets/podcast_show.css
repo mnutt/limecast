@@ -138,6 +138,24 @@
 	margin: 20px 0px 20px 0px;
 }
 
+#latest_episode {
+  height: 411px;
+  background: url('../imgs/bg_latest.png') top left repeat-x;
+  margin: 5px -12px 10px -11px;
+  padding: 20px;
+}
+
+#latest_episode h4 {
+  color: #666;
+  margin: 0;
+}
+
+#latest_episode div {
+  width: 100%;
+  text-align: center;
+}
+
+
 .podcast.show .episode {
 	margin: 20px 5px 20px 5px;
 	overflow: auto;

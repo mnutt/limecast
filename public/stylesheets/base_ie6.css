@@ -48,7 +48,7 @@
 	}
 
 
-	.podcast.show .description {
+	.podcast.show .podcast_block {
 		background: url('../imgs/b_border.png') bottom left repeat-x;
 	  width: 760px;display: block; height: 1%;
 	}

@@ -6,7 +6,7 @@
           <% if ep.sources.first && ep.sources.first.screenshot? %>
             <%= image_tag(ep.sources.first.screenshot(:square).to_s, :height => 55, :width => 55) %>
           <% else %>
-            <%= image_tag(ep.podcast.logo(:square).to_s, :height => 55, :width => 55) %>
+            <%= image_tag(cover_art(ep.podcast, :square), :height => 55, :width => 55) %>
           <% end %>
         </div>
         <div>

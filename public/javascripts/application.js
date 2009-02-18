@@ -25,14 +25,14 @@ $(document).ready(function(){
   
     $.post(favorite_url, {}, function(resp) {
       if(resp.logged_in) {
-        favorite_link.replaceWith('<span><img src="/images/icons/favorite.png" class="inline_icon" alt="" />My Favorite</span>');
+        window.location = window.location;
       } else {
-        return $.quickSignIn.attach(favorite_link.parents('.description').find('.quick_signin_container.after_favoriting'), 
-          {message:'Sign up or sign in to save your favorite.'});
+        return $.quickSignIn.attach(
+          favorite_link.parents('.description').find('.quick_signin_container.after_favoriting'), 
+          {message:'Sign up or sign in to save your favorite.'}
+        );
       }
     }, 'json');
-    
-    return false;
   });
 });
 

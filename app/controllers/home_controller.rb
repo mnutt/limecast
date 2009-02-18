@@ -1,8 +1,6 @@
 class HomeController < ApplicationController
   def home
     @podcasts = Podcast.parsed.sorted
-    @podcast = @podcasts.first
-    
     
     @reviews = Review.all(:order => "created_at DESC")
     @review = @reviews.first

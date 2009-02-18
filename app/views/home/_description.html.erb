@@ -12,7 +12,7 @@
     <p>
       <%= unescape_entities h(podcast.description) -%>
     </p>
-    <%= render :partial => "podcasts/social_favs", :locals => {:podcast => @podcast} -%>
+    <%= render :partial => "podcasts/social_favs", :locals => {:podcast => podcast} -%>
 
 
   </div> <!-- /description -->

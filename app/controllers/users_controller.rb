@@ -156,7 +156,7 @@ class UsersController < ApplicationController
   def info
     raise Unauthenticated unless current_user && current_user.admin?
     @user = User.find_by_login(params[:user_slug])
-    render :layout => false
+    render :layout => 'info'
   end
 
 protected

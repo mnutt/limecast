@@ -11,10 +11,10 @@
   <dd><pre><%= @user.state -%></pre></dd>
 
   <dt>Created on</dt>
-  <dd><pre><%= @user.created_at.to_s(:long_ordinal) -%></pre></dd>
+  <dd><pre><%= @user.created_at.to_s(:long_ordinal) rescue "error" -%></pre></dd>
 
   <dt>Confirmed on</dt>
-  <dd><pre><%= @user.active? ? @user.activated_at.to_s(:long_ordinal) : "Not yet." -%></pre></dd>
+  <dd><pre><%= @user.active? ? @user.activated_at.to_s(:long_ordinal) : "Not yet." rescue "error" -%></pre></dd>
 
   <dt>Admin?</dt>
   <dd><pre><%= @user.admin? ? "Yes" : "No" -%></pre></dd>

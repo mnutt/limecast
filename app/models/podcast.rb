@@ -136,7 +136,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def primary_feed_with_default
-    update_attribute(:primary_feed_id, feeds.first.id) if primary_feed_id.nil?
+    update_attribute(:primary_feed_id, feeds.first.id) if primary_feed_id.nil? && feeds.first
     primary_feed_without_default
   end
   alias_method_chain :primary_feed, :default
@@ -238,7 +238,7 @@ class Podcast < ActiveRecord::Base
   end
   
   def sanitize_url
-    if !self.original_title.nil? && (title.blank? || title_changed?)
+    if (title.blank? || title_changed?)
   
       self.clean_url = self.title.to_s.clone.strip # Remove leading and trailing spaces
       self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")     # Remove all non-alphanumeric non-space characters
@@ -259,7 +259,7 @@ class Podcast < ActiveRecord::Base
       owner = User.new(:state => 'passive')
       owner.email = owner_email
       owner.password = User.generate_code("The Passive User's Password")
-      owner.login = owner_email.gsub(/[^A-Za-z0-9\s]/, "")
+      owner.login = owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")
       while User.exists?(:login => owner.login) do
         i ||= 1
         owner.login.chop! unless i == 1

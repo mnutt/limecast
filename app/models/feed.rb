@@ -220,12 +220,10 @@ class Feed < ActiveRecord::Base
 
   protected
   def set_podcast_primary_feed
-    puts "Setting primary fed"
     if podcast && podcast.primary_feed.nil?
       podcast.primary_feed = podcast.feeds(true).first
       podcast.save!
     end
-    puts "Updating primary feed to #{podcast.primary_feed_id}" if podcast
   end
   
   def add_podcast_message

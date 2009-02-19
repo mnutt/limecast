@@ -8,6 +8,7 @@ class TagsController < ApplicationController
     raise ActiveRecord::RecordNotFound if @tag.nil?
 
     @podcasts = @tag.podcasts
+    @podcasts = @tag.podcasts.paginate(:page => (params[:page] || 1), :per_page => params[:limit] || 10)
   end
 
   def search

@@ -21,7 +21,7 @@ body.addpage .summary {
   min-height: 500px;
 }
 
-/**** =Search form **************/
+/**** Search form **************/
 form#search {
 	width: 180px; 
 	margin: 0px; 
@@ -31,39 +31,55 @@ form#search {
 	right: 0px;
 }
 
-form#search label {
-  display: none;
+form#search input {
+  width: 161px;
+	position: relative;
 }
 
-form#search input {
+form#podcast_search {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  display: block;
+}
+
+form#podcast_search input {
+  width: 125px;
+}
+
+form.search input {
 	background: url('../imgs/search_input.png') top left repeat-x;
-	width: 161px;
 	height: 24px;
 	border: 0;
-	padding: 0px;
 	color: #a9a9a9;
-	position: relative;
 	right: 14px;
 	font-size: 1.2em;
-	position: relative;
 	padding: 5px 0 0 5px;
 	outline: none;
 }
-
 
 @media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
 form#search input {padding: 0px 0 0 5px;}
 }
 
-form#search button {
-	position: absolute;
-	top: 0px;
-	right: 0px;
+form.search button {
 	width: 30px;
 	background: url('../imgs/search_button.png') no-repeat right;
 }
 
-form#search button span {
+form#search button {
+  position: absolute;
+	top: 0px;
+  right: 0px;
+}
+
+form#podcast_search button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+form.search button span {
 	margin-left: -5000px;
 	width: 30px;
 }

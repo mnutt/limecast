@@ -5,6 +5,14 @@
 
 <div class="preview">
   <%= image_tag(cover_art(@podcast), :alt => "#{@podcast.title} cover art", :class => "logo") -%>
+  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search", :id => "podcast_search"} do |form| -%>
+    <%= hidden_field_tag :podcast, @podcast.clean_url %>
+    <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
+    <%= text_field_tag "q", params[:q], :id => "search_podcast_q" %>
+    <button type="submit">
+      <span>Search</span>
+    </button>
+  <% end -%>
 </div>
 
 <div class="podcast_block">

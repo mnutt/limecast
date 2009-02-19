@@ -3,10 +3,15 @@ class DefaultP2PAndPreviewsToTrue < ActiveRecord::Migration
     change_column :podcasts, :has_previews, :bool, :default => true
     change_column :podcasts, :has_p2p_acceleration, :bool, :default => true
 
-    Podcast.all.each { |p| 
-      p.update_attribute(:has_previews, true) if p.has_previews.nil?
-      p.update_attribute(:has_p2p_acceleration, true) if p.has_p2p_acceleration.nil?
-    }
+    update <<-EOS
+      UPDATE podcasts SET has_previews = 1
+      WHERE has_previews = NULL
+    EOS
+
+    update <<-EOS
+      UPDATE podcasts SET has_p2p_acceleration = 1
+      WHERE has_p2p_acceleration = NULL
+    EOS
   end
 
   def self.down

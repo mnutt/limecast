@@ -40,6 +40,7 @@ class Feed < ActiveRecord::Base
 
   validates_presence_of   :url
   validates_uniqueness_of :url
+  validate :is_similar_to_podcast
 
   named_scope :with_itunes_link, :conditions => 'feeds.itunes_link IS NOT NULL and feeds.itunes_link <> ""'
   named_scope :parsed, :conditions => {:state => 'parsed'}
@@ -248,5 +249,11 @@ class Feed < ActiveRecord::Base
 
   def remove_empty_podcast
     self.podcast.delete if self.failed? && !self.podcast.nil? && self.podcast.failed?
+  end
+
+  def is_similar_to_podcast
+    if new_record? && podcast && URI::parse(url).host != URI::parse(podcast.site).host
+      errors.add('url', "doesn't seem to match the podcast.")
+    end
   end
 end

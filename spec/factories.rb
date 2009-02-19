@@ -18,7 +18,7 @@ Factory.define :feed do |f|
 end
 
 Factory.define :podcast do |p|
-  p.title 'Podcast'
+  p.original_title 'Podcast'
   p.site  { Factory.next :site }
   p.feeds { [Factory.create(:feed, :content => nil)] }
   p.clean_url { Factory.next :title }

@@ -26,8 +26,14 @@ describe Podcast do
     @podcast.title = "My Podcast"
     @podcast.title.should == "My Podcast"
     @podcast.title = nil
-    @podcast.send(:cache_title)
+    @podcast.send(:sanitize_title)
     @podcast.title.should == "Podcast"
+  end
+  
+  it "should not be valid with no alphanumeric chars" do
+    @podcast.title = "?????"
+    @podcast.should_not be_valid
+    @podcast.errors.on(:title).should be("must include at least 1 letter (a-z, A-Z)")
   end
 end
 
@@ -268,9 +274,14 @@ describe Podcast, "permissions" do
       @podcast.writable_by?(@user).should == true
     end
 
-    it 'should not have write access if owner is unconfirmed' do
+    it 'should have write access if owner is unconfirmed' do
       @user.state = "pending"
-      @podcast.writable_by?(@user).should == false
+      @podcast.should be_writable_by(@user)
+    end
+
+    it 'should create the owner User if not found' do
+      create_podcast = lambda { Podcast.create(:owner_email => 'foobar@baz.com', :original_title => 'foobar podcast') }
+      create_podcast.should change { User.count }.by(1)
     end
   end
 
@@ -325,3 +336,4 @@ describe Podcast, "primary feed" do
     @feed2.should be_primary
   end
 end
+

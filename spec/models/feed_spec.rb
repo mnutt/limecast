@@ -139,6 +139,15 @@ describe Feed, "being created" do
     end
   end
 
+  describe "when it is added to a podcast that it does not belong to" do
+    it "should add an error to the feed" do
+      @feed = @podcast.feeds.new(:url => 'http://badmatch.com/')
+      
+      @feed.should_not be_valid
+      @feed.errors.on(:url).should be("doesn't seem to match the podcast..")
+    end
+  end
+
   describe "but failing to be parsed" do
     it "should delete the Podcast" do
       @feed.update_attributes(:state => 'failed')

@@ -101,7 +101,7 @@ class FeedsController < ApplicationController
   protected
 
     def feed_in_session?(feed)
-      (session.data[:feeds] and session.data[:feeds].include?(feed.id))
+      (session[:feeds] and session[:feeds].include?(feed.id))
     end
 
     def feed_created_by_user?(feed)

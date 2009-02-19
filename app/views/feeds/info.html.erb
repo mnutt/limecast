@@ -2,50 +2,75 @@
 
 <p>from <%= link_to @feed.podcast.title, info_podcast_url(@feed.podcast) -%></p>
 
-<dl>
-  <dt>Updated</dt>
-  <dd><%= @feed.updated_at.to_s -%></dd>
+<table>
+  <tr>
+    <td>Updated</td>
+    <td><%= @feed.updated_at.to_s -%></td>
+  </tr>
 
-  <dt>Name</dt>
-  <dd><%= @feed.formatted_bitrate -%> .<%= @feed.apparent_format -%></dd>
+  <tr>
+    <td>Name</td>
+    <td><%= @feed.formatted_bitrate -%> .<%= @feed.apparent_format -%></td>
+  </tr>
 
-  <dt>Podcast</dt>
-  <dd><%= link_to_podcast @feed.podcast -%></dd>
+  <tr>
+    <td>Podcast</td>
+    <td><%= link_to_podcast @feed.podcast -%></td>
+  </tr>
 
-  <dt>Primary?</dt>
-  <dd><%= @feed.primary? ? "true" : "false" -%></dd>
+  <tr>
+    <td>Primary?</td>
+    <td><%= @feed.primary? ? "true" : "false" -%></td>
+  </tr>
 
-  <dt>Found by</dt>
-  <dd><%= link_to @feed.finder.login, info_user_url(@feed.finder) if @feed.finder -%></dd>
+  <tr>
+    <td>Found by</td>
+    <td><%= link_to @feed.finder.login, info_user_url(@feed.finder) if @feed.finder -%></td>
+  </tr>
 
-  <dt>Sources</dt>
-  <dd>
-    <ul>
-      <% @feed.sources.each do |s| -%>
-        <li><%= link_to s.episode.date_title, info_source_url(@feed.podcast, s.episode, s) -%></li>
-      <% end -%>
-    </ul>
-  </dd>
+  <tr>
+    <td>Link</td>
+    <td><%= link_to @feed.podcast.site -%></td>
+  </tr>
 
-  <dt>XML</dt>
-  <dd><pre><%=h @feed.xml -%></pre></dd>
+  <tr>
+    <td>Link page</td>
+    <td><%= link_to @feed.podcast.clean_site -%></td>
+  </tr>
 
-  <dt>Link</dt>
-  <dd><%= link_to @feed.podcast.site -%></dd>
+  <tr>
+    <td>RSS</td>
+    <td><%= link_to @feed.url -%></td>
+    </tr>
 
-  <dt>Link page</dt>
-  <dd><%= link_to @feed.podcast.clean_site -%></dd>
+  <tr>
+    <td>iTunes link</td>
+    <td><%= link_to @feed.itunes_link -%></td>
+  </tr>
 
-  <dt>RSS</dt>
-  <dd><%= link_to @feed.url -%></dd>
-  
-  <dt>iTunes link</dt>
-  <dd><%= link_to @feed.itunes_link -%></dd>
+  <tr>
+    <td>Description HTML</td>
+    <td><%=h @feed.podcast.description -%></td>
+  </tr>
 
-  <dt>Description HTML</dt>
-  <dd><%=h @feed.podcast.description -%></dd>
+  <tr>
+    <td>Description scrubbed</td>
+    <td><%=h sanitize_summary(@feed.podcast.description) -%></td>
+  </tr>
 
-  <dt>Description scrubbed</dt>
-  <dd><%=h sanitize_summary(@feed.podcast.description) -%></dd>
+  <tr>
+    <td>Description scrubbed, condensed</td>
+    <td><%=h sanitize_condensed_summary(@feed.podcast.description) -%></td>
 
-</dl>
+</table>
+
+<h2>Sources</h2>
+<ul>
+  <% @feed.sources.each do |s| -%>
+    <li><%= link_to s.episode.date_title, info_source_url(@feed.podcast, s.episode, s) -%></li>
+  <% end -%>
+</ul>
+
+<h2>XML</h2>
+<pre><%=h @feed.xml -%></pre>
+

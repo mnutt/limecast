@@ -24,7 +24,7 @@ class HomeController < ApplicationController
   end
 
   def icons
-    render :layout => false
+    render :layout => 'info'
   end
 
   def info
@@ -42,6 +42,6 @@ class HomeController < ApplicationController
       commit_msg = "#{RAILS_ROOT}/.git/COMMIT_EDITMSG"
       @message = File.read(commit_msg) if File.exist?(commit_msg)
     end
-    render :layout => false
+    render :layout => 'info'
   end
 end

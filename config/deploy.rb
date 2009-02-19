@@ -261,12 +261,12 @@ namespace :limecast do
   namespace :god do
     desc 'Stops god'
     task :stop do
-      run "function t { sudo -p 'sudo password: ' god quit; return 0; }; t"
+      run "function t { god quit; return 0; }; t"
     end
 
     desc 'Starts god (which should start all other processes)'
     task :start do
-      sudo "god -c #{latest_release}/config/god.rb"
+      run "god -c #{latest_release}/config/god.rb"
     end
   end
 end

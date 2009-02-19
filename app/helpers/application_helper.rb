@@ -204,7 +204,7 @@ module ApplicationHelper
 
   # Should we show this object's edit form?
   def editing?(obj)
-    !obj.valid? || !obj.messages.empty?
+    !obj.valid? || !obj.messages.empty? || flash[:has_messages]
   end
   
 end

@@ -1,4 +1,4 @@
-<% @podcast.feeds.build # build a new one so we can include a new Feed in our form %>
+<% @podcast.feeds.build if controller.action_name != 'update' # build a new one so we can include a new Feed in our form %>
 
 <div class="field">
   <%= podcast_form.label :title, "Title" -%>
@@ -29,6 +29,7 @@
     <div class="field">
       <%= feed_form.label :url, "Add the RSS feed of this podcast in another format..." %>
       <%= feed_form.text_field :url, :class => "new_podcast_feed_url", :size => 40 %>
+      <%= errors_for feed_form.object, :url %>
     </div>
   <% else -%>
     <div class="feed_details">
@@ -40,7 +41,7 @@
       <%= feed_form.label :itunes_link, "iTunes ID" -%>
       <%= feed_form.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
     </div>
-   <% unless podcast_form.object.feeds.count < 2 -%>
+    <% unless podcast_form.object.feeds.count < 2 -%>
     <div class="field">
       <%= podcast_form.radio_button :primary_feed_id, feed.id %>
       <%= podcast_form.label "primary_feed_id_#{feed.id}", "Primary" %>
@@ -49,9 +50,9 @@
       <%= feed_form.check_box :_delete %>
       <%= feed_form.label :_delete, 'Remove' %>
     </div>
-  <% end -%>
+    <% end -%>
   <% end -%>
   </fieldset>
 <% end -%>
 
-<% @podcast.feeds.reject { |f| f.new_record? } # and destroy the new feed we used as a dummy -%>
+<% @podcast.feeds.reject { |f| f.new_record? } if controller.action_name != 'update' # and destroy the new feed we used as a dummy -%>

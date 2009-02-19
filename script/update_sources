@@ -80,18 +80,13 @@ def download_file(source)
   source.update_attributes(:downloaded_at => Time.now, :curl_info => @curl_info)
 end
 
-def hash_file(source)
-  @logger.info "Hashing"
-
-  `sha1 #{tmp_file} | cut -f1 -d" "`.strip
-end
-
 def get_video_info(source)
   @logger.info "FFmpeg'ing"
 
   info = parse_ffmpeg_info(`ffmpeg -i #{tmp_file} 2>&1`, source)
   info[:file_size] = `ls -l #{tmp_file} | awk '{print $5}'`.strip.to_i
   info[:file_name] = @tmp_file
+  info[:sha1hash]  = `sha1 #{tmp_file} | cut -f1 -d" "`.strip
 
   @logger.info "Got: #{info.inspect}"
 
@@ -167,6 +162,7 @@ def save_info(source, info)
   source.update_attributes(
     :format    => info[:file_format] || info[:video_codec] || info[:audio_codec],
     :sha1hash  => info[:sha1hash],
+    :hashed_at => Time.now,
     :height    => info[:resolution][1],
     :width     => info[:resolution][0],
     :size      => info[:file_size],
@@ -185,9 +181,6 @@ while true
 
     # Get info about file
     info = get_video_info(source)
-
-    info[:sha1hash] = hash_file(source)
-    source.update_attribute(:hashed_at, Time.now)
 
     unless info[:video_codec].nil? || info[:duration].nil?
       # Get a screen shot

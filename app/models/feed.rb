@@ -67,6 +67,11 @@ class Feed < ActiveRecord::Base
     PodcastMailer.deliver_failed_feed(self, exception)
     self.update_attributes(:state => 'failed', :error => exception.class.to_s)
   end
+  
+  def url=(val)
+    val.strip!
+    write_attribute(:url, val)
+  end
 
   def url
     url = self.read_attribute(:url)
@@ -83,7 +88,7 @@ class Feed < ActiveRecord::Base
     raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
     raise BannedFeedException if Blacklist.find_by_domain($2)
 
-    Timeout::timeout(5) do
+    Timeout::timeout(15) do
       OpenURI::open_uri(self.url, "User-Agent" => "LimeCast/0.1") do |f|
         @content = f.read
       end

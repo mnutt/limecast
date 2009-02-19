@@ -67,7 +67,7 @@ class Podcast < ActiveRecord::Base
   attr_accessor :has_episodes
   attr_accessor_with_default :messages, []
 
-  before_create :cache_original_title
+  before_validation_on_create :cache_original_title
   before_save :find_or_create_owner
   before_save :sanitize_original_title
   after_validation :sanitize_title

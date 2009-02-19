@@ -477,8 +477,20 @@ form#quick_signin a.forgot {
 }
 
 
+/**** All Podcasts **************/
+#all_podcasts {
+  margin-left: 10px;
+}
 
+#all_podcasts li.podcast {
+  margin: 5px;
+  font-size: 1.2em;
+}
 
+#all_podcasts li.podcast img {
+  width: 16px;
+  height: 16px;
+}
 
 /**** Summary **************/
 .summary .preview, #member_profile .preview {	

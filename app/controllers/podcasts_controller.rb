@@ -2,7 +2,11 @@ class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
 
   def index
-    @podcasts = Podcast.sorted.
+    @podcasts = Podcast.parsed.sorted
+  end
+
+  def popular
+    @podcasts = Podcast.parsed.sorted.
       paginate(:page => (params[:page] || 1), :per_page => params[:limit] || 10)
   end
 

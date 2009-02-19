@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090218165959) do
+ActiveRecord::Schema.define(:version => 20090219182742) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(:version => 20090218165959) do
     t.datetime "hashed_at"
     t.text     "curl_info"
     t.text     "ffmpeg_info"
+    t.string   "file_name"
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

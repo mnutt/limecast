@@ -54,27 +54,28 @@ rescue
   nil
 end
 
-def tmp_file(source)
-  "/tmp/source"
+def tmp_file
+  "/tmp/source/#{@tmp_file}"
 end
 
-def screenshot_tmp_file(source)
-  "#{tmp_file(source)}_screenshot.png"
+def screenshot_tmp_file
+  "#{tmp_file}_screenshot.png"
 end
 
-def encoded_tmp_file(source)
-  "#{tmp_file(source)}_encoded"
+def encoded_tmp_file
+  "#{tmp_file}_encoded"
 end
 
 def remove_tmp_files
   @logger.info "Rm'ing\n"
-  `rm /tmp/source*`
+  `rm -rf /tmp/source`
 end
 
 def download_file(source)
   @logger.info "Downloading"
 
-  @curl_info = `curl -L '#{source.url.gsub("'", "")}' > #{tmp_file(source)}`
+  @curl_info = `mkdir /tmp/source && cd /tmp/source && curl -L -O '#{source.url.gsub("'", "")}'`
+  @tmp_file  = `cd /tmp/source && ls -l | tail -n 1 | awk '{print $9}'`.strip
 
   source.update_attributes(:downloaded_at => Time.now, :curl_info => @curl_info)
 end
@@ -82,14 +83,15 @@ end
 def hash_file(source)
   @logger.info "Hashing"
 
-  `sha1 #{tmp_file(source)} | cut -f1 -d" "`.strip
+  `sha1 #{tmp_file} | cut -f1 -d" "`.strip
 end
 
 def get_video_info(source)
   @logger.info "FFmpeg'ing"
 
-  info = parse_ffmpeg_info(`ffmpeg -i #{tmp_file(source)} 2>&1`, source)
-  info[:file_size] = `ls -l #{tmp_file(source)} | awk '{print $5}'`.strip.to_i
+  info = parse_ffmpeg_info(`ffmpeg -i #{tmp_file} 2>&1`, source)
+  info[:file_size] = `ls -l #{tmp_file} | awk '{print $5}'`.strip.to_i
+  info[:file_name] = @tmp_file
 
   @logger.info "Got: #{info.inspect}"
 
@@ -118,7 +120,7 @@ def take_screen_shot(source, info)
   size = resized_size_of_video(info)
 
   t = screenshot_time(info[:duration])
-  `ffmpeg -y -i #{tmp_file(source)} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{screenshot_tmp_file(source)}`
+  `ffmpeg -y -i #{tmp_file} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{screenshot_tmp_file(source)}`
 
   if File.exists?(screenshot_tmp_file(source))
     source.attachment_for(:screenshot).assign(File.open(screenshot_tmp_file(source)))
@@ -138,7 +140,7 @@ def encode_video(source, info)
   size = resized_size_of_video(info)
 
   options = {
-    :i  => tmp_file(source),  :f  => :flv,
+    :i  => tmp_file,  :f  => :flv,
     :ac => 1,                 :b  => video_bitrate,
     :r  => video_frame_rate,  :ab => audio_bitrate,
     :ar => audio_sample_rate, :t  => length,
@@ -163,11 +165,12 @@ def save_info(source, info)
     :bitrate  => info[:bitrate]
   )
   source.update_attributes(
-    :format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
-    :sha1hash => info[:sha1hash],
-    :height   => info[:resolution][1],
-    :width    => info[:resolution][0],
-    :size     => info[:file_size]
+    :format    => info[:file_format] || info[:video_codec] || info[:audio_codec],
+    :sha1hash  => info[:sha1hash],
+    :height    => info[:resolution][1],
+    :width     => info[:resolution][0],
+    :size      => info[:file_size],
+    :file_name => info[:file_name]
   )
 end
 
@@ -176,7 +179,9 @@ while true
     # Sleep 30 minutes until a source is found
     sleep 30.minutes.to_i until source = Source.find_by_sha1hash(nil, :order => "id DESC")
 
+    t0 = Time.now
     download_file(source)
+    @logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
 
     # Get info about file
     info = get_video_info(source)

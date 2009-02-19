@@ -1,6 +1,6 @@
 <div class="episode">
   <% if episode.sources.first.screenshot? %>
-  <%= image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95) %>
+  <%= image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95, :class => 'preview') %>
   <div>
   <% else %>
   <div class="no_screenshot">

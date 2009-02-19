@@ -72,8 +72,8 @@ module ApplicationHelper
   end
 
   def errors_for(obj, col)
-    "<p style=\"padding: 1px; color: red; display: inline; border: solid 4px pink; background: white;\" class=\"error\">
-      #{obj.errors.on(col)}
+    "<p style=\"padding: 1px; color: red; display: inline; border: solid 2px pink; background: white;\" class=\"error\">
+      #{obj.errors.on(col).is_a?(String) ? obj.errors.on(col) : obj.errors.on(col).to_sentence}
     </p>" unless obj.errors.on(col).blank?
   end
 

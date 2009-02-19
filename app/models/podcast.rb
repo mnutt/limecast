@@ -67,9 +67,10 @@ class Podcast < ActiveRecord::Base
   attr_accessor :has_episodes
   attr_accessor_with_default :messages, []
 
+  before_create :cache_original_title
   before_save :find_or_create_owner
   before_save :sanitize_original_title
-  before_validation :sanitize_title
+  after_validation :sanitize_title
   before_save :sanitize_url
 
   validates_presence_of :title, :unless => Proc.new { |podcast| podcast.new_record? }
@@ -219,8 +220,6 @@ class Podcast < ActiveRecord::Base
   end
 
   def sanitize_title
-    self.title = title.blank? ? original_title : title
-    
     desired_title = title
     # Second, sanitize "title"
     self.title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
@@ -249,6 +248,10 @@ class Podcast < ActiveRecord::Base
   
       self.clean_url
     end
+  end
+
+  def cache_original_title
+    self.title = original_title if title.blank?
   end
 
   def find_or_create_owner

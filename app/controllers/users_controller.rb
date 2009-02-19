@@ -35,7 +35,6 @@ class UsersController < ApplicationController
     @user.register! if @user.valid?
 
     if @user.errors.empty?
-      flash[:notice] = "Please check your email for an activation code."
       self.current_user = @user
 
       claim_all

@@ -26,6 +26,12 @@
   </tr>
 </table>
 
+<h2>Finders</h2>
+<ul>
+  <% @podcast.feeds.each do |f| -%>
+    <%= content_tag :li, link_to(f.finder.login, user_url(f.finder)) unless f.finder.nil? %>
+  <% end -%>
+</ul>
 
 <h2>Logos</h2>
 <ul>

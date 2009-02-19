@@ -11,19 +11,19 @@ jQuery.fn.inputDefaultText = function(value, options) {
     var defaultTxt = label.text();
     label.hide();
     
-    // If form is submitted, make sure we don't submit default text
-    var form = input.parents('form').submit(function(){
-      if(input.val() == defaultTxt) input.val('');
-    });
-    
-    input.val(defaultTxt).css("color", options.blurColor);
+    if(input.val() == '') input.val(defaultTxt).css("color", options.blurColor);
     input.focus(function(){
+      if(input.val() == defaultTxt) {
         jQuery(input).val("").css("color", options.focusColor);
+      }
     });
     input.blur(function(){
         if (jQuery(input).val() == "") {
-            jQuery(input).val(defaultTxt).css("color", options.blurColor);
+          jQuery(input).val(defaultTxt).css("color", options.blurColor);
         }
+    });
+    input.parents('form').submit(function(){
+      if(input.val() == defaultTxt) input.val('');
     });
     return(input);
 };

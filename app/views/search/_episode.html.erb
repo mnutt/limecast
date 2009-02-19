@@ -9,7 +9,7 @@
     </p>
     
     <div class="preview">
-      <%= image_tag(episode.podcast.logo.url(:icon), :alt => "#{episode.podcast.custom_title} cover art") -%>
+      <%= image_tag(episode.podcast.logo.url(:icon), :alt => "#{episode.podcast.title} cover art") -%>
     </div>
 
       <h5>From the <%= link_to episode.podcast.title, podcast_url(:podcast_slug => episode.podcast), :title => "Subscribe to the series & view the episode list" -%> podcast series</h5>

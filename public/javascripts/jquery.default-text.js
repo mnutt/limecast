@@ -6,18 +6,24 @@ jQuery.fn.inputDefaultText = function(value, options) {
         focusColor: "#171717"
     }, options);
 
-    var label = this.parent().find("label[for='" + this.attr("id") + "']");
+    var input = this;
+    var label = input.parent().find("label[for='" + input.attr("id") + "']");
     var defaultTxt = label.text();
     label.hide();
     
-    this.val(defaultTxt).css("color", options.blurColor);
-    this.focus(function(){
-        jQuery(this).val("").css("color", options.focusColor);
+    // If form is submitted, make sure we don't submit default text
+    var form = input.parents('form').submit(function(){
+      if(input.val() == defaultTxt) input.val('');
     });
-    this.blur(function(){
-        if (jQuery(this).val() == "") {
-            jQuery(this).val(defaultTxt).css("color", options.blurColor);
+    
+    input.val(defaultTxt).css("color", options.blurColor);
+    input.focus(function(){
+        jQuery(input).val("").css("color", options.focusColor);
+    });
+    input.blur(function(){
+        if (jQuery(input).val() == "") {
+            jQuery(input).val(defaultTxt).css("color", options.blurColor);
         }
     });
-    return(this);
+    return(input);
 };

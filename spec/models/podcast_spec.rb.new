@@ -2,8 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Podcast do
   before do
+    @podcast = Podcast.new(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
     @user    = Factory.create(:user)
-    @podcast = Factory.create(:podcast, :original_title => "My Podcast")
   end
 
   it "should be valid" do
@@ -17,11 +17,13 @@ describe Podcast do
   end
 
   it 'should have a param with the name in it' do
-    @podcast.clean_url.should == "My-Podcast"
+    @podcast.save
+    @podcast.clean_url.should == "A-Podcast"
   end
 
-  it 'should use the original_title if set' do
-    @podcast.title.should == "My Podcast"
+  it 'should use the original_title for title if set' do
+    @podcast.save
+    @podcast.title.should == 'A Podcast'
   end
   
   it "should not be valid with no alphanumeric chars" do
@@ -33,7 +35,7 @@ end
 
 describe Podcast, "getting the average time between episodes" do
   before do
-    @podcast = Factory.create(:podcast)
+    @podcast = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
     @first = Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 4.days.ago)
   end
 
@@ -49,27 +51,27 @@ describe Podcast, "getting the average time between episodes" do
   end
 
   it 'should be zero for podcasts with no episodes' do
-      f = Factory.create(:podcast)
-      f.average_time_between_episodes.should == 0
+    p = Podcast.new
+    p.average_time_between_episodes.should == 0
   end
 end
 
 describe Podcast, 'sorting' do
   before do
     @podcasts = ["S Podcast", "O Podcast", "The Podcast", "A Podcast", "Z Podcast"].map {|name| 
-      @podcast = Factory.create(:podcast, :title => name)
+      @podcast = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => name, :site => 'somewhere.com')
     }
   end
 
   it 'should not sort on the word "The"' do
-    titles = Podcast.sorted.map &:title
-    titles.should == ["A Podcast", "O Podcast", "The Podcast", "S Podcast", "Z Podcast"]
+    original_titles = Podcast.sorted.map &:original_title
+    original_titles.should == ["A Podcast", "O Podcast", "The Podcast", "S Podcast", "Z Podcast"]
   end
 end
 
 describe Podcast, "cleaning up the site url" do
   before do
-    @podcast = Factory.create(:podcast)
+    @podcast = Podcast.new(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
   end
 
   it 'should remove a leading http://' do
@@ -115,7 +117,7 @@ end
 
 describe Podcast, "cleaning up the title" do
   before do
-    @podcast = Factory.create(:podcast)
+    @podcast = Podcast.new(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
   end
 
   it 'should remove things in parentheses' do
@@ -136,7 +138,7 @@ end
 
 describe Podcast, "generating the clean url" do
   before do
-    @podcast = Factory.create(:parsed_podcast)
+    @podcast = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
   end
 
   it 'should remove leading and trailing whitespaces' do
@@ -157,7 +159,7 @@ end
 
 describe Podcast, "being saved with tag_string" do
   before do
-    @podcast = Factory.create(:podcast)
+    @podcast = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
   end
 
   it 'should create tags' do
@@ -171,7 +173,7 @@ describe Podcast, "being saved with tag_string from users" do
   before do
     @user = Factory.create(:user)
     @user2 = Factory.create(:user)
-    @podcast = Factory.create(:podcast)
+    @podcast = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
   end
 
   it 'should create tags and the user taggings' do
@@ -179,7 +181,6 @@ describe Podcast, "being saved with tag_string from users" do
       @podcast.update_attributes(:tag_string => ["tag1 tag2 tag3", @user])
     }.should change(Tag, :count).by(3)
 
-    tagging = Tagging.find_by_podcast_id_and_tag_id(@podcast.id, @user.id)
     @user.user_taggings.reload.map { |ut| ut.tag.name }.should == %w(tag1 tag2 tag3)
     @user.user_taggings.reload.map { |ut| ut.podcast.id }.should == [@podcast.id, @podcast.id, @podcast.id]
   end
@@ -187,10 +188,10 @@ describe Podcast, "being saved with tag_string from users" do
   it 'should create a tag from multiple users' do
     lambda {
       @podcast.update_attributes(:tag_string => ["tag1", @user])
-    }.should change(Tag, :count).by(1)
+    }.should change(UserTagging, :count).by(1)
     lambda {
       @podcast.update_attributes(:tag_string => ["tag1", @user2])
-    }.should change(Tag, :count).by(0)
+    }.should change(UserTagging, :count).by(1)
     
     tag = Tag.find_by_name('tag1')
     tag.taggings.find_by_podcast_id(@podcast.id).user_taggings.map(&:user_id).should == [@user.id, @user2.id]
@@ -199,8 +200,8 @@ end
 
 describe Podcast, "with associated tags" do
   before do
-    @podcast1 = Factory.create(:podcast)
-    @podcast2 = Factory.create(:podcast)
+    @podcast1 = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
+    @podcast2 = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast 2', :site => 'somewhere.com')
 
     @podcast1.tag_string = "tag1 commontag"
     @podcast2.tag_string = "tag2 commontag"
@@ -227,7 +228,7 @@ describe Podcast, "permissions" do
   describe "an admin" do
     before do
       @user = Factory.create(:admin_user)
-      @podcast = Factory.create(:parsed_podcast)
+      @podcast = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
     end
 
     it 'should have write access' do
@@ -238,8 +239,8 @@ describe Podcast, "permissions" do
   describe "the finder" do
     before do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:parsed_podcast, :feeds => [])
-      @feed = Factory.create(:feed, :finder_id => @user.id, :podcast => @podcast, :url => "#{@podcast.site}/feed.xml")
+      @podcast = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
+      @feed = @podcast.feeds.create(:finder_id => @user.id, :url => "#{@podcast.site}/feed.xml")
       @podcast.reload
     end
 
@@ -261,8 +262,8 @@ describe Podcast, "permissions" do
 
   describe "the owner" do
     before do
-      @podcast = Factory.create(:podcast)
-      @user = @podcast.owner
+      @user = Factory.create(:user)
+      @podcast = Podcast.create(:owner_email => @user.email, :original_title => 'A Podcast', :site => 'somewhere.com')
     end
 
     it 'should have write access' do
@@ -285,7 +286,7 @@ describe Podcast, "permissions" do
   describe "another user" do
     before do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:parsed_podcast)
+      @podcast = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
     end
 
     it 'should not have write access' do
@@ -296,9 +297,10 @@ end
 
 describe Podcast, "with associated feeds" do
   before do
-    @podcast = Factory.create(:parsed_podcast)
-    @podcast2 = Factory.create(:failed_podcast)
     @feed = Factory.create(:feed, :state => "parsed")
+    @failed_feed = Factory.create(:feed, :url => "somewhere/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read, :state => 'parsed')
+    @podcast = Podcast.create(:owner_email => 'some_email@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com')
+    @podcast2 = Podcast.create(:owner_email => 'some_email2@somewhere.com', :original_title => 'A Podcast', :site => 'somewhere.com', :feeds => [@failed_feed])
   end
 
   it 'should not be failed? if has all parsed feeds' do

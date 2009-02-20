@@ -68,12 +68,10 @@ class Podcast < ActiveRecord::Base
   attr_accessor :has_episodes
   attr_accessor_with_default :messages, []
 
-  before_validation_on_create :cache_original_title
+  before_validation_on_create :sanitize_title
   before_save :find_or_create_owner
-  before_save :sanitize_original_title
-  after_validation :sanitize_title
   before_save :sanitize_url
-  after_create :set_primary_feed
+  before_save :set_primary_feed
 
   validates_presence_of :title, :unless => Proc.new { |podcast| podcast.new_record? }
   validates_format_of   :title, :with => /[A-Za-z0-9]+/, :message => "must include at least 1 letter (a-z, A-Z)"
@@ -186,8 +184,8 @@ class Podcast < ActiveRecord::Base
       self.tags << t unless self.tags.include?(t)
 
       if user && user.is_a?(User)
-        tagging = taggings.find_by_tag_id(t.id)
-        tagging.users << user rescue nil
+        tagging = taggings(true).find_by_tag_id(t.id)
+        tagging.users << user
       end
     end
   end
@@ -201,27 +199,10 @@ class Podcast < ActiveRecord::Base
     # TODO this could probably be a one-liner
     self.messages << msg
   end
-  
-  def sanitize_original_title
-    return if self.original_title.nil?
-  
-    desired_original_title = original_title
-    # First, sanitiaze "title"
-    self.original_title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
-    self.original_title.sub!(/^[\s]*-/, "") # Remove leading dashes
-    self.original_title.strip! # Remove leading and trailing space
-  
-    i = 1 # Number to attach to the end of the original_title to make it unique
-    while(Podcast.exists?(["original_title = ? AND id != ?", original_title, id]))
-      self.original_title.chop!.chop! unless i == 1
-      self.original_title = "#{original_title} #{i += 1}"
-    end
-    add_message "There was another podcast with the same title, so we have suggested a new title." if original_title != desired_original_title
-
-    return original_title
-  end
 
   def sanitize_title
+    self.title = original_title if title.blank?
+
     desired_title = title
     # Second, sanitize "title"
     self.title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
@@ -241,43 +222,41 @@ class Podcast < ActiveRecord::Base
   
   def sanitize_url
     if (title.blank? || title_changed?)
-  
       self.clean_url = self.title.to_s.clone.strip # Remove leading and trailing spaces
       self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")     # Remove all non-alphanumeric non-space characters
       self.clean_url.gsub!(/[\s]+/, '-')             # Condense spaces and turn them into dashes
   
       add_message "The podcast url has changed." if clean_url_changed?
-  
-      self.clean_url
     end
-  end
 
-  def cache_original_title
-    self.title = original_title if title.blank?
+    return clean_url
   end
 
   def find_or_create_owner
+    return true unless owner.nil?
+
     unless self.owner = User.find_by_email(owner_email)
-      owner = User.new(:state => 'passive')
-      owner.email = owner_email
-      owner.password = User.generate_code("The Passive User's Password")
-      owner.login = owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")
-      while User.exists?(:login => owner.login) do
+      owner_login = owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")
+      while User.exists?(:login => owner_login) do
         i ||= 1
-        owner.login.chop! unless i == 1
-        owner.login = "#{owner.login}#{i += 1}"
+        owner_login.chop! unless i == 1
+        owner_login = "#{owner.login}#{i += 1}"
       end
-      owner.save!
-      self.owner = owner
+
+      create_owner(:state => 'passive', :email => owner_email, :login => owner_login,
+                  :password =>  User.generate_code("The Passive User's Password"))
+
     end
+    save!
     
     true
   end
 
   # Making obj anonymous because this can be callback'ed for Podcast and Feed (from the association)
   def set_primary_feed(obj=nil)
-    if primary_feed_id.blank?
-      update_attribute :primary_feed_id, feeds.first.id if feeds.first
+    if primary_feed_id.blank? && feeds.size > 0
+      self.primary_feed_id = feeds.first.id
+      save! unless new_record?
     end
   end
 end

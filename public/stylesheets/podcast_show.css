@@ -139,10 +139,10 @@
 }
 
 #latest_episode {
-  height: 411px;
+  height: 421px;
   background: url('../imgs/bg_latest.png') top left repeat-x;
   margin: 5px -12px 10px -11px;
-  padding: 20px;
+  padding: 10px;
 }
 
 #latest_episode h4 {

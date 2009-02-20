@@ -1260,7 +1260,7 @@ display: inline;
 }
 
 .podcast.index .podcast_block {
-	margin: 0px 0 30px 5px;
+	margin: 10px 0 20px 5px;
 	padding: 0; 
 	min-height: 125px;
 }

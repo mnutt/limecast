@@ -38,15 +38,39 @@ form#search input {
 
 form#podcast_search {
   position: absolute;
-  top: 6px;
-  right: 15px;
-  width: 160px;
+  top: 17px;
+  right: 2px;
+  width: 180px;
   margin: 0;
   display: block;
 }
 
+#view_options {
+	font-size: .9em;
+	padding: 6px 0 0px 0;
+	margin: 0 5px;
+	overflow: hidden;
+}
+
+.per_page {
+  text-align: center;
+  font-size: 1em;
+}
+
+
+.per_page a.pp_current {
+border:1px solid #ccc;
+padding:3px;
+}
+
+#podcast_paginate {
+  position: absolute;
+  top: 0px;
+  right: 0;
+}
+
 form#podcast_search input {
-  width: 125px;
+
 }
 
 form.search input {
@@ -595,7 +619,7 @@ form#quick_signin a.forgot {
 	position: relative;
 	float: left;
 	width: 470px;
-	
+	margin-top: 3px;
 }
 
 .description h6 {
@@ -694,7 +718,7 @@ form#quick_signin a.forgot {
 div#sort {
 	position: absolute;
 	right: 20px;
-	top: 41px;
+	top: 11px;
 }
 
 div#sort .dropdown div.dropdown_wrap {
@@ -1145,6 +1169,7 @@ ul.tabs-nav  {
 	margin: 0 10px 10px 0;
 	overflow: visible;
 	margin-top: 15px;
+	display: block;
 }
 
 .pagination  span.current {
@@ -1261,39 +1286,9 @@ display: inline;
 
 
 
-#view_options {
-	font-size: .9em;
-	padding: 6px 0 6px 0;
-	border-bottom: 1px solid #ddd;
-	margin: 0 5px;
-}
-
-#e_info p span, .podcast.show #view_options p {
-	color: #a9a9a9;
-}
-
-#view_options p {
-	display: inline;
-}
 
 
 
-#view_options img {
-	padding: 2px;
-	margin-right: 1px;
-	position: relative;
-	top: 4px;
-	left: 0px;
-}
-
-#view_options .per_page {
-	display: inline;
-}
-
-#view_options .per_page a.pp_current {
-	border: 1px solid #a9a9a9;
-	padding: 0px 4px;
-}
 
 /**** Profile page **************/
 

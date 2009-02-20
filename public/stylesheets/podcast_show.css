@@ -179,7 +179,6 @@
 .podcast.show .episode > div {
 	float: left;
 	width: 510px;
-	margin-top: -4px;
 }
 
 .podcast.show .episode > div.audio_player {
@@ -189,7 +188,7 @@
 
 .podcast.show .episode > div.no_screenshot {
 	float: left;
-	width: 595px;
+	width: 625px;
 }
 
 .podcast.show .episode h3  {
@@ -279,5 +278,10 @@
 
 .podcast.show form#dl_option a {
 	font-size: 1em;
+}
+
+.related {
+  width: 250px;
+  float: right;
 }
 

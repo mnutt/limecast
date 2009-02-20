@@ -54,3 +54,16 @@
     <%= @ads -%>
   </div>
 </div>
+
+<div class="related rounded_corners">
+  <% rounded_corners do -%>
+  <h3>Related PodCasts</h3>
+  <ul id="all_podcasts">
+    <% @related.each do |podcast| -%>
+     <li id="<%=h dom_id(podcast) -%>" class="podcast">
+       <%= image_tag podcast.logo.url(:icon) %> <%= link_to podcast.title, podcast_url(:podcast_slug => podcast) -%>
+     </li>
+    <% end -%>
+  </ul>
+  <% end -%>
+</div>

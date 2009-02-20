@@ -493,18 +493,26 @@ form#quick_signin a.forgot {
 
 
 /**** All Podcasts **************/
-#all_podcasts {
-  margin-left: 10px;
+.related h3 {
+  padding-top: 5px;
 }
 
 #all_podcasts li.podcast {
-  margin: 5px;
+  margin: 5px 0;
   font-size: 1.2em;
+  overflow: auto;
 }
 
 #all_podcasts li.podcast img {
-  width: 16px;
-  height: 16px;
+  float: left;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+}
+
+#all_podcasts li.podcast a {
+  display: block;
+  margin-left: 35px;
 }
 
 /**** Summary **************/

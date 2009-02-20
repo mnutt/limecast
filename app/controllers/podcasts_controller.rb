@@ -83,7 +83,7 @@ class PodcastsController < ApplicationController
       if @podcast.save
         format.html do
           flash[:notice] = "#{@podcast.messages.join(' ')}"
-          flash[:has_messages] = true
+          flash[:has_messages] = true unless @podcast.messages.empty?
           redirect_to @podcast
         end
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }

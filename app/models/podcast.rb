@@ -32,6 +32,7 @@ class Podcast < ActiveRecord::Base
   has_many :favoriters, :source => :user, :through => :favorites
 
   has_many :feeds, :include => :first_source,
+           :after_add => :set_primary_feed, :after_remove => :set_primary_feed,
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_many :episodes, :dependent => :destroy
   has_many :reviews, :through => :episodes
@@ -72,6 +73,7 @@ class Podcast < ActiveRecord::Base
   before_save :sanitize_original_title
   after_validation :sanitize_title
   before_save :sanitize_url
+  after_create :set_primary_feed
 
   validates_presence_of :title, :unless => Proc.new { |podcast| podcast.new_record? }
   validates_format_of   :title, :with => /[A-Za-z0-9]+/, :message => "must include at least 1 letter (a-z, A-Z)"
@@ -136,7 +138,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def primary_feed_with_default
-    update_attribute(:primary_feed_id, feeds.first.id) if primary_feed_id.nil? && feeds.first
+    set_primary_feed if primary_feed_id.blank?
     primary_feed_without_default
   end
   alias_method_chain :primary_feed, :default
@@ -270,5 +272,12 @@ class Podcast < ActiveRecord::Base
     end
     
     true
+  end
+
+  # Making obj anonymous because this can be callback'ed for Podcast and Feed (from the association)
+  def set_primary_feed(obj=nil)
+    if primary_feed_id.blank?
+      update_attribute :primary_feed_id, feeds.first.id if feeds.first
+    end
   end
 end

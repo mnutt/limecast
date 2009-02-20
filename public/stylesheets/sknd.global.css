@@ -271,7 +271,8 @@ a img.inline_icon {
   overflow: hidden;
   display: inline-table;
 }
-span > img.inline_icon {
+span > img.inline_icon,
+abbr > img.inline_icon {
   margin: -4px 4px 0 0;
   position: relative;
   top: 3px;

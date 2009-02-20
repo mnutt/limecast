@@ -1,30 +1,243 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <title>We're sorry, but something went wrong (500)</title>
-	<style type="text/css">
-		body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-		div.dialog {
-			width: 25em;
-			padding: 0 4em;
-			margin: 4em auto 0 auto;
-			border: 1px solid #ccc;
-			border-right-color: #999;
-			border-bottom-color: #999;
-		}
-		h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-	</style>
+<title>
+  Popular Podcasts -  LimeCast
+</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="description" content="Coming 2009 March"/>
+
+
+
+
+<link href="/stylesheets/reset.css?1235062221" media="screen" rel="stylesheet" type="text/css" /><link href="/stylesheets/sknd.global.css?1235169626" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/sknd.typography.css?1235155593" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/sknd.icons.css?1235062221" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/sknd.presentation.css?1235169997" media="screen" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+  <link href="/stylesheets/base_ie6.css?1235062852" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/application_ie6.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if IE 7]>
+<link href="/stylesheets/base_ie7.css?1235062221" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/application_ie7.css?1234204429" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+
+
+<script src="/javascripts/jquery.js?1222207210" type="text/javascript"></script><script src="/javascripts/jquery-ui.js?1235062221" type="text/javascript"></script><script src="/javascripts/jquery-periodic.js?1226512880" type="text/javascript"></script><script src="/javascripts/jquery.truncate.js?1235062221" type="text/javascript"></script><script src="/javascripts/jquery.reflect.js?1227126449" type="text/javascript"></script><script src="/javascripts/jquery.tabs.js?1235062221" type="text/javascript"></script><script src="/javascripts/jquery.cookie.js?1235062221" type="text/javascript"></script><script src="/javascripts/jquery.flash.js?1231184910" type="text/javascript"></script><script src="/javascripts/jquery.dropdown.js?1235062221" type="text/javascript"></script><script src="/javascripts/jquery.default-text.js?1235081578" type="text/javascript"></script><script src="/javascripts/test_helpers.js?1226956187" type="text/javascript"></script><script type="text/javascript">
+  $.ajaxSetup({
+    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+  })
+
+    AUTH_TOKEN = "WA7ld3PAChCtEkVb5xy7MoBcCcxIFfEtPPNG32rTf08=";
+    LOGGED_IN  = false;
+</script>
+
+<script src="/javascripts/quick_sign_in.js?1235062221" type="text/javascript"></script>
+<script src="/javascripts/restful_delete.js?1235062221" type="text/javascript"></script>
+<script src="/javascripts/super_button.js?1228845384" type="text/javascript"></script>
+
+<script src="/javascripts/application.js?1235155593" type="text/javascript"></script>
 </head>
 
-<body>
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
-    <p>We've been notified about this issue and we'll take a look at it shortly.</p>
+<body class="podcast index">
+  
+
+    <div id="wrapper">
+      <div id="header">
+        
+        <div id="utility_nav">
+          <ul>
+            
+              <li><a href="#"><strong>Join now!</strong></a>  </li>|
+                      
+            <li class="signin"><a href="http://limecast.local/session/new">Sign in</a></li>
+            <div class="quick_signin_container from_top_bar"></div>
+                    </ul>
+        </div> <!-- /utility_nav -->
+
+
+        <div id="global_nav">
+          <a href="/" id="logo"><span>LimeCast</span></a>
+          
+          <ul>
+            <li><a href="/" id="nav_home"><span>Home</span></a></li>
+            <!-- <li><a href="/tags" id="nav_browse"><span>Browse</span></a></li> -->
+            <li><a href="/popular" id="nav_pop"><span>Popular</span></a></li>
+            <li><a href="/add" id="add_podcast"><span>Add podcast</span></a><li>
+          </ul>
+
+        </div> <!-- /global_nav -->
+        
+        <form action="/search" method="get" id="search" class="search">            
+          <label for="q">Search LimeCast</label>
+          <input class="text search" id="q" name="q" size="15" type="text" value="Search LimeCast" />
+          <button type="submit">
+            <span>Search</span>
+          </button>
+        </form>
+        
+      </div> <!-- /header -->
+  
+      <!-- HACK Use content wrapper so we can use margin on #content div. -->
+      <div id="content_wrapper">
+        <div id="content">
+
+        
+        <div class="summary">
+
+    <h1>Site issues</h1>
+
+  <div id="browse" class="main rounded_corners">
+        <div class="bt"><div></div></div><div class="i1"><div class="i2"><div class="i3"> 
+	      <p>There was a problem with the site.  We've been notified about it, and will fix it as soon as possible.</p>
+	</div></div>
+</div>
+<div class="bb"><div></div></div>
+</div></div>
+
+  <div class="googleads">
+    <script type="text/javascript"><!--
+google_ad_client = "pub-8704257533678712";
+/* series page */
+google_ad_slot = "3125004138";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>  </div>
+
+        
+        </div> <!-- /content -->
+      </div> <!-- /content_wrapper -->
+    </div> <!-- /wrapper -->
+  
+    
+        
+        <div class="foot_wrapper">
+          <div id="footer">
+
+            <div class="about section">
+
+              
+
+
+              <ul>
+                <li class="blog">
+                  <a href="http://limecast.limespot.com/"><span>Blog</span></a>
+                </li>
+                <li class="use">
+                  <a href="http://limecast.com/use"><span>Terms of use</span></a>
+
+                </li>
+                <li class="privacy">
+                  <a href="/privacy"><span>Privacy</span></a>
+                </li>
+                <li class="opensource">
+                  <a href="http://wiki.limewire.org/index.php?title=LimeCast"><span>Open source</span></a>
+                </li>
+              </ul>
+
+            </div>
+
+            <div class="legal section">
+
+
+              <!--<h4>Legal</h4>
+
+              <ul>
+                <li class="refund">
+                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/refund" title="Refund Policy">Refund Policy</a>        </li>
+                <li class="refund">
+                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/privacy" title="Privacy Policy">Privacy Policy</a>        </li>
+
+                <li class="refund">
+                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/copyright" title="Copyright Information">Copyright Information</a>        </li>
+                <li class="refund">
+                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/safety" title="Using P2P Safely">Using P2P Safely</a>        </li>
+              </ul>
+
+            </div>-->
+
+            
+
+            <div class="info cf">
+              <!--<span class="cc_notice">Portions of this web site are available under a Creative Commons license, where noted.</span>
+              <span class="copyright">&copy; 2000 - 2009 Lime Wire LLC.</span>-->
+            </div>
+
+
+      </div> <!-- /footer -->
+    </div> <!-- /foot_wrapper -->
+
+  
+    <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-5285875-1");
+pageTracker._trackPageview();
+</script>
+
+    
+<form action="/session" id="quick_signin" method="post" style="display: none;"><div style="margin:0;padding:0"><input name="authenticity_token" type="hidden" value="WA7ld3PAChCtEkVb5xy7MoBcCcxIFfEtPPNG32rTf08=" /></div>            
+<div class="rounded_corners">
+      <div class="bt"><div></div></div><div class="i1"><div class="i2"><div class="i3">  
+  <h5 class="signup_heading">Login to LimeCast</h5>
+  <div class="message"></div>
+  <div class="response_container"><!-- this is used for error messages, etc. //--></div>
+
+  <div class="field">
+    <label for="quicksignin_login">User name</label>
+    <div>
+      <input type="text" id="quicksignin_login" class="text login" name="user[login]" maxlength="255" />
+    </div>
   </div>
+  <div class="field">
+    <label for="quicksignin_password">Password</label>
+    <div>
+      <input type="password" id="quicksignin_password" class='text password' name="user[password]" maxlength="255" />
+    </div>
+  </div>
+  <div class="field sign_up" style="display: none;">
+    <label for="quicksignin_email">Email</label>
+    <div>
+      <input type="text" id="quicksignin_email" class='text email' name="user[email]" maxlength="255" />
+    </div>
+  </div>
+
+
+  <button type="submit" class="signin_signup_button">
+    <span>Login</span>
+  </button>
+  
+  <input type="submit" value="Submit" style="display: none;" title="to force WebKit to submit on enter" />
+  
+  <div class="titlebar">
+    <a href="#" class="close">Cancel</a>
+  </div>
+
+  <div class="controls">
+    <a href="/forgot" class="forgot">I forgot my password</a> |
+    <div class="callout"><ul><li>
+      <a href="http://limecast.local/signup" class="button signup_button" id="signup">Sign up</a>
+    </li></ul></div>
+    
+  </div>
+  
+  <div class="controls_signup" style="display: none;">
+    <span class="forgot">Already a member?</span>
+    <div class="callout"><ul><li>
+      <a href="http://limecast.local/signup" class="button signin_button gotologin" id="login">Login</a>
+    </li></ul></div>
+  </div>
+  
+  
+  
+  
+</div></div></div><div class="bb"><div></div></div>
+</div>
+</form>
 </body>
 </html>

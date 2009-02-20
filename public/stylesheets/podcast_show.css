@@ -131,7 +131,11 @@
 	font-size: .9em;
 	padding-bottom: 4px;
 	border-bottom: 1px solid #ddd;
-	margin: 0 5px;
+	height: 25px;
+}
+
+.podcast.show #e_info p {
+	line-height: 25px;
 }
 
 .podcast.show #episode_cont {
@@ -175,7 +179,6 @@
 .podcast.show .episode > div {
 	float: left;
 	width: 510px;
-	margin-top: -4px;
 }
 
 .podcast.show .episode > div.audio_player {
@@ -185,7 +188,7 @@
 
 .podcast.show .episode > div.no_screenshot {
 	float: left;
-	width: 595px;
+	width: 625px;
 }
 
 .podcast.show .episode h3  {
@@ -275,5 +278,10 @@
 
 .podcast.show form#dl_option a {
 	font-size: 1em;
+}
+
+.related {
+  width: 250px;
+  float: right;
 }
 

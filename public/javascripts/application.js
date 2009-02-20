@@ -21,19 +21,20 @@ $(document).ready(function() {
 
 $(document).ready(function(){
   $('a.favorite_link').click(function() {
-    favorite_link = $(this);
-    favorite_url = favorite_link.attr('href');
+    var favorite_link = $(this);
+    var favorite_url = favorite_link.attr('href');
   
     $.post(favorite_url, {}, function(resp) {
       if(resp.logged_in) {
         window.location = window.location;
       } else {
-        return $.quickSignIn.attach(
+        $.quickSignIn.attach(
           favorite_link.parents('.description').find('.quick_signin_container.after_favoriting'), 
           {message:'Sign up or sign in to save your favorite.'}
         );
       }
     }, 'json');
+    return false;
   });
 });
 

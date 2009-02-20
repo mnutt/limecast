@@ -85,12 +85,13 @@ class PodcastsController < ApplicationController
       if @podcast.save
         format.html do
           flash[:notice] = "#{@podcast.messages.join(' ')}"
-          flash[:has_messages] = true
+          flash[:has_messages] = true unless @podcast.messages.empty?
           redirect_to @podcast
         end
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }
       else
         format.html { 
+          # Set all ivars from show()
           @most_recent_episode = @podcast.episodes.newest.first
           @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
             :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
@@ -99,6 +100,8 @@ class PodcastsController < ApplicationController
           )
           @reviews = @podcast.reviews
           @review  = Review.new(:episode => @podcast.episodes.newest.first)
+          @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
+          
           render :action => 'show'
         }
         format.js { head(:failure) }

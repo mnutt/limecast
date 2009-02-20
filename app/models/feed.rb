@@ -36,7 +36,6 @@ class Feed < ActiveRecord::Base
   after_save :remove_empty_podcast
   after_destroy { |f| f.finder.calculate_score! if f.finder }
   after_destroy :add_podcast_message
-  after_destroy :set_podcast_primary_feed
 
   validates_presence_of   :url
   validates_uniqueness_of :url
@@ -219,13 +218,6 @@ class Feed < ActiveRecord::Base
   end
 
   protected
-  def set_podcast_primary_feed
-    if podcast && podcast.primary_feed.nil?
-      podcast.primary_feed = podcast.feeds(true).first
-      podcast.save!
-    end
-  end
-  
   def add_podcast_message
     podcast.send(:add_message, "The #{apparent_format} feed has been removed.") if podcast
   end
@@ -250,7 +242,7 @@ class Feed < ActiveRecord::Base
   end
 
   def is_similar_to_podcast
-    if new_record? && podcast && URI::parse(url).host != URI::parse(podcast.site).host
+    if new_record? && url && podcast && URI::parse(url).host != URI::parse(podcast.site).host
       errors.add('url', "doesn't seem to match the podcast.")
     end
   end

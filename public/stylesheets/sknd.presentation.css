@@ -241,7 +241,6 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 	overflow: hidden;
 	height: 1%;
 	background: #f1f1f1 url('../imgs/bg_content.png') top left repeat-x;
-
 }
 #content {
 	margin: 20px;

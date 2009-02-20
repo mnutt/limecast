@@ -3,5 +3,13 @@
     <%= pluralize(podcast.episodes.count, 'episode') -%>
     <span>since <%= podcast.episodes.first.published_at.to_date -%> every <%= podcast.average_time_between_episodes.to_i.to_duration -%></span>
   </p>
+  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search", :id => "podcast_search"} do |form| -%>
+     <%= hidden_field_tag :podcast, @podcast.clean_url %>
+     <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
+     <%= text_field_tag "q", params[:q], :id => "search_podcast_q" %>
+     <button type="submit">
+       <span>Search</span>
+     </button>
+   <% end -%>
 </div>
 

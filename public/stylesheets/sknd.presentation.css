@@ -32,13 +32,15 @@ form#search {
 }
 
 form#search input {
-  width: 161px;
+  width: 160px;
 	position: relative;
 }
 
 form#podcast_search {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  top: 6px;
+  right: 15px;
+  width: 160px;
   margin: 0;
   display: block;
 }
@@ -213,6 +215,7 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 	overflow: hidden;
 	height: 1%;
 	background: #f1f1f1 url('../imgs/bg_content.png') top left repeat-x;
+
 }
 #content {
 	margin: 20px;
@@ -224,7 +227,7 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 #utility_nav ul li {display: inline; margin-left: 2px; padding: 0 3px;}
 
 
-#global_nav {float: left; margin: 0; position: absolute; top: 4px; left: 0;  width: 500px;}
+#global_nav {float: left; margin: 0; position: absolute; top: 5px; left: 0;  width: 500px;}
 #global_nav {font-size: 1.5em;}
 #global_nav a {outline: none;}
 #global_nav ul { display: block; margin: 1px 0 0 5px;}
@@ -388,10 +391,6 @@ form#quick_signin a.forgot {
 	color: #171717;
 }
 
-#featured h3 {
-	margin-top: -4px;
-}
-
 #first_featured {
 	margin-right: 40px;
 }
@@ -467,7 +466,7 @@ form#quick_signin a.forgot {
 
 
 #hp_tower, #hp_open {
-	margin: 20px 0;
+	margin: 10px 0 20px 0;
 	width: 464px;
 	height: 95px;
 }
@@ -556,8 +555,8 @@ form#quick_signin a.forgot {
 }
 
 .podcast.show h6#page_type {
-	margin-top: -15px;
-	padding: 10px 30px 10px 0;
+	margin-top: -25px;
+	padding: 17px 32px 13px 0;
 	background: url('../imgs/icons/series.png') center right no-repeat;
 }
 
@@ -687,7 +686,7 @@ form#quick_signin a.forgot {
 div#sort {
 	position: absolute;
 	right: 20px;
-	top: 35px;
+	top: 41px;
 }
 
 div#sort .dropdown div.dropdown_wrap {
@@ -1238,7 +1237,7 @@ display: inline;
 .podcast.index .description {
 	position: relative;
 	width: 500px;
-	margin-top: -4px;
+
 	padding: 0;
 }
 

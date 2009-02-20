@@ -233,6 +233,11 @@ namespace :limecast do
       run "function t { cd #{latest_release} && RAILS_ENV=production rake ts:stop; return 0; }; t"
     end
 
+		desc 'Starts the Sphinx server'
+		task :start, :roles => :app do
+			run "cd #{latest_release} && RAILS_ENV=production rake ts:start"
+		end
+
     desc 'Configures the Sphinx server'
     task :configure, :roles => :app do
       run "cd #{latest_release} && RAILS_ENV=production rake ts:config"

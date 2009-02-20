@@ -17,38 +17,38 @@
 </div>
 <div class="clear"></div>
 
-<div class="supplemental">
+<div class="tabify main">
+  
+  <ul>
+      <li><a href="#podcast_episodes"><h4>Episodes <span>(<%= @podcast.episodes.count -%>)</span></h4></a></li>
+      <li><a href="#podcast_reviews"><h4>Reviews <span>(<%= @podcast.reviews.count %>)</span></h4></a></li>
+  </ul>
+  
+  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search", :id => "podcast_search"} do |form| -%>
+     <%= hidden_field_tag :podcast, @podcast.clean_url %>
+     <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
+     <%= text_field_tag "q", params[:q], :id => "search_podcast_q" %>
+     <button type="submit">
+       <span>Search</span>
+     </button>
+   <% end -%>
 
-  <h2 class="linkable<%= " current" if params[:controller] == 'podcasts' %>">
-    <span>Episodes</span>
-    <a href="#">Episodes</a>
-  </h2>
-  <h2 class="linkable<%= " current" if params[:controller] == 'reviews' %>">
-    <span>Series reviews (<%= @podcast.reviews.count %>)</span>
-    <a href="#" id="series_reviews">Series reviews (<%= @podcast.reviews.count %>)</a>
-  </h2>
+  
+  
+      
 
-  <div class="wrapper"<%= " style=\"display: none;\"" if params[:controller] == 'reviews' %>>
+  <div id="podcast_episodes">
     <%= render :partial => 'episodes/episodes', :object => @episodes, :locals => {:podcast => @podcast} %>
   </div>
-    
-  <div class="wrapper"<%= " style=\"display: none;\"" unless params[:controller] == 'reviews' %>>
+  
+  <div id="podcast_reviews">
     <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => {:podcast => @podcast} %>
   </div>
 
+
+
 </div>
 
-
-
-<div class="podcast">
-
-  <%#= render :partial => 'edit', :locals => {:podcast => @podcast} if current_user && @podcast.writable_by?(current_user) %>
-
-  <%#= render :partial => 'badges' %>
-
-  <%#= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => { :podcast => @podcast } -%>
-  
-</div>
 <div id="series_page_goog">
   <div class="googleads">
     <%= @ads -%>
@@ -57,7 +57,7 @@
 
 <div class="related rounded_corners">
   <% rounded_corners do -%>
-  <h3>Related PodCasts</h3>
+  <h3>Related podcasts</h3>
   <ul id="all_podcasts">
     <% @related.each do |podcast| -%>
      <li id="<%=h dom_id(podcast) -%>" class="podcast">

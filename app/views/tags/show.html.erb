@@ -13,24 +13,15 @@
 <h1>Tag: <%= h @tag.name -%></h1>
 <div class="main rounded_corners" id="browse">
   <% rounded_corners do -%>
-  <div id="view_options">
-    <p>
-      View:
-      <!--
-      <a href="#"><img src="/imgs/columns_on.png" alt="Columns view" /></a>
-      <a href="#"><img src="/imgs/grid_off.png" alt="Grid view" /></a>
-      -->
-    </p>
-    <p class="per_page">
-      <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
-        <%= link_to count, { :limit => count}, {:class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil} -%><%= comma -%>
-      <% end -%>
-      per page
-    </p>
-  </div>
-<ul class="podcasts">
-  <%= render :partial => 'podcasts/podcast', :collection => @podcasts, :locals => {:show_remove_favorite => false} -%>
-</ul>
+  <%= will_paginate @podcasts,
+    :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Previous page" />',
+    :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Next page" />',
+    :inner_window   => 1,
+    :outer_window   => 1 -%>
+  
+  <ul class="podcasts">
+    <%= render :partial => 'podcasts/podcast', :collection => @podcasts, :locals => {:show_remove_favorite => false} -%>
+  </ul>
     <%= will_paginate @podcasts,
       :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Previous page" />',
       :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Next page" />',
@@ -38,9 +29,14 @@
       :outer_window   => 1 -%>
 
     <% end -%>
+    <p class="per_page">
+      View: <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
+        <%= link_to count, { :limit => count}, {:class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil} -%><%= comma -%>
+      <% end -%>
+      per page
+    </p>
 </div>
 </div>
 <div class="googleads">
-  <%= @ads -%>
   <%= @ads -%>
 </div>

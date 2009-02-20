@@ -86,22 +86,22 @@ class FeedsController < ApplicationController
 
   def info
     @feed = Feed.find(params[:id])
-    render :layout => false
+    render :layout => 'info'
   end
 
   def add_info
     @exception = YAML.load_file("#{RAILS_ROOT}/log/last_add_failed.yml")
-    render :layout => false
+    render :layout => 'info'
   end
 
   def hash_info
-    render :layout => false
+    render :layout => 'info'
   end
 
   protected
 
     def feed_in_session?(feed)
-      (session.data[:feeds] and session.data[:feeds].include?(feed.id))
+      (session[:feeds] and session[:feeds].include?(feed.id))
     end
 
     def feed_created_by_user?(feed)

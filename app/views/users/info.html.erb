@@ -2,11 +2,20 @@
 
 <dl>
   <dt>Name</dt>
-  <dd><%= @user.login -%></dd>
+  <dd><pre><%= @user.login -%></pre></dd>
 
   <dt>Email</dt>
-  <dd><%= @user.email -%></dd>
+  <dd><pre><%= @user.email -%></pre></dd>
 
   <dt>Confirmation state</dt>
-  <dd><%= @user.state -%></dd>
+  <dd><pre><%= @user.state -%></pre></dd>
+
+  <dt>Created on</dt>
+  <dd><pre><%= @user.created_at.to_s(:long_ordinal) rescue "error" -%></pre></dd>
+
+  <dt>Confirmed on</dt>
+  <dd><pre><%= @user.active? ? @user.activated_at.to_s(:long_ordinal) : "Not yet." rescue "error" -%></pre></dd>
+
+  <dt>Admin?</dt>
+  <dd><pre><%= @user.admin? ? "Yes" : "No" -%></pre></dd>
 </dl>

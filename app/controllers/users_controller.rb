@@ -35,7 +35,6 @@ class UsersController < ApplicationController
     @user.register! if @user.valid?
 
     if @user.errors.empty?
-      flash[:notice] = "Please check your email for an activation code."
       self.current_user = @user
 
       claim_all
@@ -157,7 +156,7 @@ class UsersController < ApplicationController
   def info
     raise Unauthenticated unless current_user && current_user.admin?
     @user = User.find_by_login(params[:user_slug])
-    render :layout => false
+    render :layout => 'info'
   end
 
 protected

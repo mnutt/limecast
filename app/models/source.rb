@@ -28,8 +28,22 @@ class Source < ActiveRecord::Base
   has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] }
   has_attached_file :preview
 
+  def file_name?
+    !!read_attribute('file_name')
+  end
+
   def file_name
-    File.basename(self.url)
+    read_attribute('file_name') || File.basename(self.url)
+  end
+
+  def magnet_url
+   params = [
+     ("xt=urn:sha1:#{self.sha1hash}" if self.sha1hash),
+     ("dn=#{self.file_name}" if self.file_name?),
+     "xs=#{self.url}"
+   ].compact.join("&")
+
+   "magnet:?#{params}"
   end
 
   def resolution

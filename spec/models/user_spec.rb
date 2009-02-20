@@ -24,6 +24,7 @@ describe User do
         @feed = Factory.create(:feed,
                                :finder => @user,
                                :state => 'parsed',
+                               :url => "#{@podcast.site}/feed.xml",
                                :podcast_id => @podcast.id)
         @feed.update_finder_score
       end.should change { @user.score }.by(1)

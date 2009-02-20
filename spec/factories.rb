@@ -18,13 +18,15 @@ Factory.define :feed do |f|
 end
 
 Factory.define :podcast do |p|
-  p.title 'Podcast'
+  p.owner_email { Factory.next :email }
+  p.original_title 'Podcast'
   p.site  { Factory.next :site }
   p.feeds { [Factory.create(:feed, :content => nil)] }
   p.clean_url { Factory.next :title }
 end
 
 Factory.define :parsed_podcast, :class => Podcast do |p|
+  p.owner_email { Factory.next :email }
   p.title 'Podcast'
   p.site  { Factory.next :site }
   p.feeds {|a| [Factory.create(:feed, :url => "#{a.site}/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read, :state => 'parsed')] }
@@ -33,6 +35,7 @@ Factory.define :parsed_podcast, :class => Podcast do |p|
 end
 
 Factory.define :failed_podcast, :class => Podcast do |p|
+  p.owner_email { Factory.next :email }
   p.title 'Podcast'
   p.site  { Factory.next :site }
   p.feeds { [Factory.create(:feed, :state => 'failed')] }

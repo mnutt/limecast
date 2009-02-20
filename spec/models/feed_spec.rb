@@ -129,13 +129,23 @@ describe Feed, "being created" do
 
   describe "when it is associated with a podcast that it does not belong to" do
     it "should save the error that the feed is mismatched" do
-      @feed = Factory.create(:feed, :podcast_id => @podcast.id, :url => "http://badmatch.com/")
+      @feed = Factory.create(:feed, :url => "http://badmatch.com/")
+      @feed.podcast = @podcast
 
       @feed.extend(StopFetch)
       @feed.podcast.extend(StopDownloadLogo)
       @feed.refresh
 
       @feed.error.should == "Feed::FeedDoesNotMatchPodcast"
+    end
+  end
+
+  describe "when it is added to a podcast that it does not belong to" do
+    it "should add an error to the feed" do
+      @feed = @podcast.feeds.new(:url => 'http://badmatch.com/')
+      
+      @feed.should_not be_valid
+      @feed.errors.on(:url).should include("doesn't seem to match the podcast.")
     end
   end
 

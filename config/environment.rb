@@ -43,7 +43,12 @@ Rails::Initializer.run do |config|
   # no regular words or you'll be exposed to dictionary attacks.
 
   key_file = "#{RAILS_ROOT}/private/encryption_key.txt"
-  key = File.read(key_file).chomp if File.exist?(key_file)
+  if File.exist?(key_file)
+    key = File.read(key_file).chomp
+  else
+    puts "You need to run 'rake limecast:generate_encryption_key' to generate a secure key."
+    key = 'NO' * 20
+  end
 
   config.action_controller.session = {
     :session_key => '_limecast_session',

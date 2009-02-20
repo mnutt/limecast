@@ -1,37 +1,46 @@
 <h1><%=h @source.file_name -%></h1>
 
-<dl>
-  <dt>Screenshot:</dt>
-  <dd>
-    <%= link_to(@source.screenshot.url, @source.screenshot.url) -%>
-    (<%= FileSize.new(@source.screenshot_file_size.to_i || 0) -%>)
-  </dd>
+<table>
+  <tr>
+    <td>Screenshot:</td>
+    <td>
+      <%= link_to(@source.screenshot.url, @source.screenshot.url) -%>
+      (<%= FileSize.new(@source.screenshot_file_size.to_i || 0) -%>)
+    </td>
+  </tr>
+  
+  <tr>
+    <td>Preview:</td>
+    <td>
+      <%= link_to(@source.preview.url, @source.preview.url) -%>
+      (<%= FileSize.new(@source.preview_file_size.to_i || 0) -%>)
+    </td>
+  </tr>
+  
+  <tr>
+    <td>URL:</td>
+    <td>
+      <%= link_to(h(@source.url), @source.url) -%>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>SHA1 Hash:</td>
+    <td>
+      <%=h @source.sha1hash -%>
+    </td>
+  </tr>
 
-  <dt>Preview:</dt>
-  <dd>
-    <%= link_to(@source.preview.url, @source.preview.url) -%>
-    (<%= FileSize.new(@source.preview_file_size.to_i || 0) -%>)
-  </dd>
+  <tr>
+    <td>Curl Errors:</td>
+    <td><%= h(@source.curl_info.blank? ? "No errors." : @source.curl_info) -%></td>
+  </tr>
 
-  <dt>URL:</dt>
-  <dd>
-    <%= link_to(h(@source.url), @source.url) -%>
-  </dd>
+  <tr>
+    <td>FFmpeg output:</td>
+    <td><pre><%= h(@source.ffmpeg_info) -%></pre></td>
+  </tr>
+</table>
 
-  <dt>SHA1 Hash:</dt>
-  <dd>
-    <%=h @source.sha1hash -%>
-  </dd>
-
-  <dt>XML:</dt>
-  <dd>
-    <pre><%= h(@source.xml) -%></pre>
-  </dd>
-
-  <dt>Curl Errors:</dt>
-  <dd><%= h(@source.curl_info.blank? ? "No errors." : @source.curl_info) -%></dd>
-
-  <dt>FFmpeg output:</dt>
-  <dd><pre><%= h(@source.ffmpeg_info) -%></pre></dd>
-
-</dl>
+<h2>XML:</h2>
+<pre><%= h(@source.xml) -%></pre>

@@ -6,18 +6,24 @@ jQuery.fn.inputDefaultText = function(value, options) {
         focusColor: "#171717"
     }, options);
 
-    var label = this.parent().find("label[for='" + this.attr("id") + "']");
+    var input = this;
+    var label = input.parent().find("label[for='" + input.attr("id") + "']");
     var defaultTxt = label.text();
     label.hide();
     
-    this.val(defaultTxt).css("color", options.blurColor);
-    this.focus(function(){
-        jQuery(this).val("").css("color", options.focusColor);
+    if(input.val() == '') input.val(defaultTxt).css("color", options.blurColor);
+    input.focus(function(){
+      if(input.val() == defaultTxt) {
+        jQuery(input).val("").css("color", options.focusColor);
+      }
     });
-    this.blur(function(){
-        if (jQuery(this).val() == "") {
-            jQuery(this).val(defaultTxt).css("color", options.blurColor);
+    input.blur(function(){
+        if (jQuery(input).val() == "") {
+          jQuery(input).val(defaultTxt).css("color", options.blurColor);
         }
     });
-    return(this);
+    input.parents('form').submit(function(){
+      if(input.val() == defaultTxt) input.val('');
+    });
+    return(input);
 };

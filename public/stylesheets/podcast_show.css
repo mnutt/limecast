@@ -139,10 +139,14 @@
 }
 
 #latest_episode {
-  height: 421px;
   background: url('../imgs/bg_latest.png') top left repeat-x;
+  background-color: #696969;
   margin: 5px -12px 10px -11px;
   padding: 10px;
+}
+
+#latest_episode .video_player {
+  margin: 10px;
 }
 
 #latest_episode h4 {
@@ -161,14 +165,12 @@
 	overflow: hidden;
 }
 
-.podcast.show .episode  img {
+.podcast.show .episode  img.preview {
 	float: left;
 	overflow: hidden;
 	border: 1px solid #171717;
 	margin-right: 20px;
 }
-
-
 
 .podcast.show .episode > div {
 	float: left;

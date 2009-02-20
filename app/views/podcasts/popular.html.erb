@@ -1,0 +1,50 @@
+<% @title = "Popular Podcasts" -%>
+<% @full_width = true -%>
+<% @classes = %{podcast index} -%>
+<div class="summary">
+
+    <h1>Popular podcasts</h1>
+    
+    
+    <script type="text/javascript">
+     $().ready(function() {  
+       $('.description>p').jTruncate({
+         length: 120,
+       });
+     });
+    </script>
+
+  <div id="browse" class="main rounded_corners">
+    <% rounded_corners do -%>
+    <div id="view_options">
+      <p>
+        View:
+        <!--
+        <a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a>
+        <a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a>
+        -->
+      </p>
+      <p class="per_page">
+        <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
+          <%= link_to count, all_url(:limit => count), :class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil -%><%= comma -%>
+        <% end -%>
+        per page
+      </p>
+    </div>
+    
+    <%= render :partial => 'podcasts/podcast', :collection => @podcasts, :locals => {:show_remove_favorite => false} -%>
+
+    <%= will_paginate @podcasts,
+      :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Newer episodes" />',
+      :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Older episodes" />',
+      :inner_window   => 1,
+      :outer_window   => 1 -%>
+      <% end -%>
+  </div>
+  
+</div>
+
+  <div class="googleads">
+    <%= @ads -%>
+    <%= @ads -%>
+  </div>

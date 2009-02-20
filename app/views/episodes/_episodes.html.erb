@@ -7,8 +7,14 @@
     <div id="latest_episode" class="preview">
       <h4>Latest episode</h4>
     
-      <h3><%= link_to @most_recent_episode.title -%></h3>
-      <div><%= render :partial => 'episodes/video_player', :object => @most_recent_episode -%></div>
+      <h3><%= link_to @most_recent_episode.title, episode_url(:podcast_slxug => @most_recent_episode.podcast, :episode => @most_recent_episode) -%></h3>
+      <p>
+	<span class="details"><%= @most_recent_episode.published_at.to_date -%> - <%= time_to_words(@most_recent_episode.duration) -%></span>
+	<%= sanitize_condensed_summary(@most_recent_episode.summary) -%>
+      </p>
+      <div class="video_player">
+	<%= render :partial => 'episodes/video_player', :object => @most_recent_episode, :locals => {:options => {:hide_broken_previews => true}} -%>
+      </div>
     </div>
     
     <div id="episode_cont"><%= render :partial => "episodes/episode", :collection => episodes -%></div>

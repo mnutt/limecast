@@ -8,6 +8,7 @@ class TagsController < ApplicationController
     raise ActiveRecord::RecordNotFound if @tag.nil?
 
     @podcasts = @tag.podcasts
+    @podcasts = @tag.podcasts.paginate(:page => (params[:page] || 1), :per_page => params[:limit] || 10)
   end
 
   def search
@@ -24,12 +25,12 @@ class TagsController < ApplicationController
 
   def info
     @tag = Tag.find_by_name(params[:tag]) or raise ActiveRecord::RecordNotFound
-    render :layout => false
+    render :layout => 'info'
   end
 
   def info_index
     @tags = Tag.find(:all)
-    render :layout => false
+    render :layout => 'info'
   end
 
 end

@@ -58,18 +58,18 @@
             $.cookie('podcast_' + PODCAST_ID + '_download', id);
           }
 
-          function downloadUrl(delivery, base_url) {
+          function downloadUrl(delivery, id) {
             if(delivery == "LimeWire") {
-              return "magnet:?xs=" + base_url;
+              return $('#' + id + '_magnet').attr('href');
             }
-            return base_url;
+            return $('#' + id).attr('href');
           };
         
           function update_download_button(link, type){
             var url  = link.attr('href');
             var info = link.parents('li:first').find('p').text() + " - " + link.text();
         
-            $("#download a.download").attr("href", downloadUrl(type, url));
+            $("#download a.download").attr("href", downloadUrl(type, link.attr('id')));
             $("#download a.download span").text(type + " | " + info);
           }
         
@@ -150,6 +150,7 @@
                                   :id    => "feed_#{source.feed.id}",
                                   :title => [source.resolution, "bitrate: #{source.feed.formatted_bitrate}"].compact.join(" | "),
                                   :class => (source.primary? ? "primary" : nil)-%>
+                            <%= link_to source.magnet_url, source.magnet_url, :id => "feed_#{source.feed.id}_magnet", :style => "display:none;" -%>
                             <%= delimiter -%>
                           <% end %>
                         </span>

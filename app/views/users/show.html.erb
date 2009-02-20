@@ -33,46 +33,46 @@
     <% end -%>
   </ul>
 
-  <div id="profile_favorites" class="rounded_corners">
-    <% rounded_corners do -%>
-      <% if @user.favorite_podcasts.size > 0 -%>
+  <% if @user.favorite_podcasts.size > 0 -%>
+    <div id="profile_favorites" class="rounded_corners">
+      <% rounded_corners do -%>
         <ul class="podcasts clearfix">
           <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
         </ul>
       <% end -%>
-    <% end -%>
-  </div>
+    </div>
+  <% end -%>
   
-  <div id="profile_found" class="rounded_corners">
-    <% rounded_corners do -%>
-      <% if @user.podcasts.size > 0 -%>
+  <% if @user.podcasts.size > 0 -%>
+    <div id="profile_found" class="rounded_corners">
+      <% rounded_corners do -%>
         <ul class="podcasts clearfix">
           <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
         </ul>
       <% end -%>
-    <% end -%>
-  </div>
+    </div>
+  <% end -%>
   
-  <div id="profile_owned" class="rounded_corners">
-    <% rounded_corners do -%>
-      <% if @user.owned_podcasts.count > 0 -%>
+  <% if @user.owned_podcasts.count > 0 -%>
+    <div id="profile_owned" class="rounded_corners">
+      <% rounded_corners do -%>
         <ul class="podcasts clearfix">
           <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
         </ul>
       <% end -%>
-    <% end -%>
-  </div>
+    </div>
+  <% end -%>
   
-  <div id="profile_reviews" class="rounded_corners">
-    <% rounded_corners do -%>
-      <% if @user.reviews.count > 0 -%>
+  <% if @user.reviews.count > 0 -%>
+    <div id="profile_reviews" class="rounded_corners">
+      <% rounded_corners do -%>
         <h2>Reviewed</h2>
         <ul class="reviews clearfix">
           <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast_reference => true} -%>
         </ul>
       <% end -%>
-    <% end -%>
-  </div>
+    </div>
+  <% end -%>
 
 </div> <!--/memeber_profile-->
 

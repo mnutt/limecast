@@ -27,6 +27,7 @@
 	float: left;
 	margin-bottom: 20px;
 	min-height: 350px;
+	overflow: hidden;
 }
 
 

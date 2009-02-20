@@ -73,30 +73,28 @@ class PodcastsController < ApplicationController
     # it on a regular model, so we're going to use the same convention when deleting the Podcast.
     if params[:podcast] && params[:podcast][:_delete] == '1'
       @podcast.destroy
-      flash[:notice] = "#{@podcast.title} has been removed."
       redirect_to(podcasts_url) and return false
     end
     
     @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, 
                                                       :feeds_attributes, :title, :primary_feed_id])
 
-
     respond_to do |format|
       if @podcast.save
         format.html do
-          flash[:notice] = 'Podcast was successfully updated.'
-          flash[:notice] << " #{@podcast.messages.join(' ')}"
-          redirect_to(@podcast)
+          flash[:notice] = "#{@podcast.messages.join(' ')}"
+          flash[:has_messages] = true
+          redirect_to @podcast
         end
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }
       else
         format.html { 
-      		@most_recent_episode = @podcast.episodes.newest.first
+          @most_recent_episode = @podcast.episodes.newest.first
           @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
-      			:order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
-      			:page => (params[:page] || 1),
-      			:per_page => params[:limit] || 10
-      		)
+            :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
+            :page => (params[:page] || 1),
+            :per_page => params[:limit] || 10
+          )
           @reviews = @podcast.reviews
           @review  = Review.new(:episode => @podcast.episodes.newest.first)
           render :action => 'show'

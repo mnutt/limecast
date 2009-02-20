@@ -40,6 +40,7 @@ class Feed < ActiveRecord::Base
 
   validates_presence_of   :url
   validates_uniqueness_of :url
+  validate :is_similar_to_podcast
 
   named_scope :with_itunes_link, :conditions => 'feeds.itunes_link IS NOT NULL and feeds.itunes_link <> ""'
   named_scope :parsed, :conditions => {:state => 'parsed'}
@@ -67,6 +68,11 @@ class Feed < ActiveRecord::Base
     PodcastMailer.deliver_failed_feed(self, exception)
     self.update_attributes(:state => 'failed', :error => exception.class.to_s)
   end
+  
+  def url=(val)
+    val.strip!
+    write_attribute(:url, val)
+  end
 
   def url
     url = self.read_attribute(:url)
@@ -83,7 +89,7 @@ class Feed < ActiveRecord::Base
     raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
     raise BannedFeedException if Blacklist.find_by_domain($2)
 
-    Timeout::timeout(5) do
+    Timeout::timeout(15) do
       OpenURI::open_uri(self.url, "User-Agent" => "LimeCast/0.1") do |f|
         @content = f.read
       end
@@ -214,12 +220,10 @@ class Feed < ActiveRecord::Base
 
   protected
   def set_podcast_primary_feed
-    puts "Setting primary fed"
     if podcast && podcast.primary_feed.nil?
       podcast.primary_feed = podcast.feeds(true).first
       podcast.save!
     end
-    puts "Updating primary feed to #{podcast.primary_feed_id}" if podcast
   end
   
   def add_podcast_message
@@ -243,5 +247,11 @@ class Feed < ActiveRecord::Base
 
   def remove_empty_podcast
     self.podcast.delete if self.failed? && !self.podcast.nil? && self.podcast.failed?
+  end
+
+  def is_similar_to_podcast
+    if new_record? && podcast && URI::parse(url).host != URI::parse(podcast.site).host
+      errors.add('url', "doesn't seem to match the podcast.")
+    end
   end
 end

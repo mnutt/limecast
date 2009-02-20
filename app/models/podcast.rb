@@ -67,9 +67,10 @@ class Podcast < ActiveRecord::Base
   attr_accessor :has_episodes
   attr_accessor_with_default :messages, []
 
+  before_validation_on_create :cache_original_title
   before_save :find_or_create_owner
   before_save :sanitize_original_title
-  before_validation :sanitize_title
+  after_validation :sanitize_title
   before_save :sanitize_url
 
   validates_presence_of :title, :unless => Proc.new { |podcast| podcast.new_record? }
@@ -135,7 +136,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def primary_feed_with_default
-    update_attribute(:primary_feed_id, feeds.first.id) if primary_feed_id.nil?
+    update_attribute(:primary_feed_id, feeds.first.id) if primary_feed_id.nil? && feeds.first
     primary_feed_without_default
   end
   alias_method_chain :primary_feed, :default
@@ -219,8 +220,6 @@ class Podcast < ActiveRecord::Base
   end
 
   def sanitize_title
-    self.title = title.blank? ? original_title : title
-    
     desired_title = title
     # Second, sanitize "title"
     self.title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
@@ -239,7 +238,7 @@ class Podcast < ActiveRecord::Base
   end
   
   def sanitize_url
-    if !self.original_title.nil? && (title.blank? || title_changed?)
+    if (title.blank? || title_changed?)
   
       self.clean_url = self.title.to_s.clone.strip # Remove leading and trailing spaces
       self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")     # Remove all non-alphanumeric non-space characters
@@ -251,12 +250,16 @@ class Podcast < ActiveRecord::Base
     end
   end
 
+  def cache_original_title
+    self.title = original_title if title.blank?
+  end
+
   def find_or_create_owner
     unless self.owner = User.find_by_email(owner_email)
       owner = User.new(:state => 'passive')
       owner.email = owner_email
       owner.password = User.generate_code("The Passive User's Password")
-      owner.login = owner_email.gsub(/[^A-Za-z0-9\s]/, "")
+      owner.login = owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")
       while User.exists?(:login => owner.login) do
         i ||= 1
         owner.login.chop! unless i == 1

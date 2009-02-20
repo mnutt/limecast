@@ -22,12 +22,20 @@ describe Podcast do
   end
 
   it 'should use the title if set' do
-    @podcast.original_title.should == "Podcast"
-    @podcast.title = "My Podcast"
-    @podcast.title.should == "My Podcast"
-    @podcast.title = nil
-    @podcast.send(:cache_title)
-    @podcast.title.should == "Podcast"
+    p = Factory.create(:podcast, :original_title => 'A Podcast')
+    p.title.should == 'A Podcast'
+    # @podcast.original_title.should == "Podcast"
+    # @podcast.title = "My Podcast"
+    # @podcast.title.should == "My Podcast"
+    # @podcast.title = nil
+    # @podcast.send(:sanitize_title)
+    # @podcast.title.should == "Podcast"
+  end
+  
+  it "should not be valid with no alphanumeric chars" do
+    @podcast.title = "?????"
+    @podcast.should_not be_valid
+    @podcast.errors.on(:title).should include("must include at least 1 letter (a-z, A-Z)")
   end
 end
 
@@ -49,7 +57,8 @@ describe Podcast, "getting the average time between episodes" do
   end
 
   it 'should be zero for podcasts with no episodes' do
-    Factory.create(:podcast).average_time_between_episodes.should == 0
+      f = Factory.create(:podcast)
+      f.average_time_between_episodes.should == 0
   end
 end
 
@@ -236,7 +245,7 @@ describe Podcast, "permissions" do
     before do
       @user = Factory.create(:user)
       @podcast = Factory.create(:parsed_podcast, :feeds => [])
-      @feed = Factory.create(:feed, :finder_id => @user.id, :podcast => @podcast)
+      @feed = Factory.create(:feed, :finder_id => @user.id, :podcast => @podcast, :url => "#{@podcast.site}/feed.xml")
       @podcast.reload
     end
 
@@ -244,15 +253,15 @@ describe Podcast, "permissions" do
       @podcast.writable_by?(@user).should == true
     end
 
-    it 'should not have write access if finder is unconfirmed' do
+    it 'should have write access even if finder is unconfirmed' do
       @user.state = "pending"
-      @podcast.writable_by?(@user).should == false
+      @podcast.writable_by?(@user).should == true
     end
 
-    it 'should not have write access if there is an owner set' do
+    it 'should have write access even if there is an owner set' do
       @owner = Factory.create(:user)
       @podcast.update_attribute(:owner_email, @owner.email)
-      @podcast.writable_by?(@user).should == false
+      @podcast.writable_by?(@user).should == true
     end
   end
 
@@ -268,9 +277,14 @@ describe Podcast, "permissions" do
       @podcast.writable_by?(@user).should == true
     end
 
-    it 'should not have write access if owner is unconfirmed' do
+    it 'should have write access if owner is unconfirmed' do
       @user.state = "pending"
-      @podcast.writable_by?(@user).should == false
+      @podcast.should be_writable_by(@user)
+    end
+
+    it 'should create the owner User if not found' do
+      create_podcast = lambda { Podcast.create(:owner_email => 'foobar@baz.com', :original_title => 'foobar podcast') }
+      create_podcast.should change { User.count }.by(1)
     end
   end
 
@@ -325,3 +339,4 @@ describe Podcast, "primary feed" do
     @feed2.should be_primary
   end
 end
+

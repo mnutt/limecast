@@ -472,10 +472,12 @@ a.calloutlight:hover {
 .social li:hover, .header li:hover a {
   background-position:0% -23px;
   color:#fff;
+  text-decoration:none;
   }
 .social li:hover a, .social li:hover a span {
   background-position:100% -23px;
 	color:#fff;
+	text-decoration:none;
 }
 
 .sm_social .social {

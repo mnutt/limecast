@@ -142,7 +142,7 @@
   background: url('../imgs/bg_latest.png') top left repeat-x;
   background-color: #696969;
   margin: 5px -12px 10px -11px;
-  padding: 20px;
+  padding: 10px;
 }
 
 #latest_episode .video_player {

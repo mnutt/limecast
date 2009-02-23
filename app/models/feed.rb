@@ -55,6 +55,46 @@ class Feed < ActiveRecord::Base
     has :created_at, :podcast_id
   end
 
+  # XXX: I'm dirty... clean me.
+  def remixed_as_magnet
+    h = Hpricot(self.xml)
+    (h / :item).each do |item|
+      if e = (item % :enclosure)
+        s = self.sources.find_by_url(e[:url])
+        e[:url]    = s.magnet_url
+        e[:length] = s.size
+      end
+
+      if e = (item % "media:content")
+        s = self.sources.find_by_url(e[:url])
+        e[:url]      = s.magnet_url
+        e[:filesize] = s.size
+      end
+    end
+  end
+
+  # XXX: I'm dirty, too!... clean me.
+  def remixed_as_torrent
+    h = Hpricot(self.xml)
+    (h / :item).each do |item|
+      if e = (item % :enclosure)
+        s = self.sources.find_by_url(e[:url])
+        if s.torrent?
+          e[:url]    = s.torrent_url
+          e[:length] = s.torrent_file_size
+        end
+      end
+
+      if e = (item % "media:content")
+        s = self.sources.find_by_url(e[:url])
+        if s.torrent?
+          e[:url]      = s.torrent_url
+          e[:filesize] = s.torrent_file_size
+        end
+      end
+    end
+  end
+
   def refresh
     fetch
     parse

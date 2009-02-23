@@ -5,9 +5,17 @@ class FeedsController < ApplicationController
   def new
     @feed = Feed.new
   end
-
+  
+  
   def create
-    @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
+    # TODO: refactor with FeedsController#create
+    if @feed = Feed.find_by_url(params[:feed][:url])
+      @feed.update_attribute(:state, "pending") if @feed.state == "failed"
+      @feed.send_later(:refresh)
+    else
+      @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
+      @feed.finder = current_user
+    end
 
     if current_user.nil?
       session[:feeds] ||= []

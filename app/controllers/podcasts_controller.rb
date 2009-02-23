@@ -50,27 +50,6 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
   end
 
-  def new
-  end
-
-  def create
-    # TODO: refactor with FeedsController#create
-    if @feed = Feed.find_by_url(params[:feed][:url])
-      @feed.update_attribute(:state, "pending") if @feed.state == "failed"
-      @feed.send_later(:refresh)
-    else
-      @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
-      @feed.finder = current_user
-    end
-
-    if current_user.nil?
-      session[:feeds] ||= []
-      session[:feeds] << @feed.id
-    end
-
-    render :nothing => true
-  end
-
   def update
     raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound

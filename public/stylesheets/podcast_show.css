@@ -146,7 +146,7 @@
   background: url('../imgs/bg_latest.png') top left repeat-x;
   background-color: #696969;
   margin: 5px -12px 10px -11px;
-  padding: 10px;
+  padding: 15px 20px 10px 20px;
 }
 
 #latest_episode .video_player {
@@ -193,7 +193,7 @@
 
 .podcast.show .episode h3  {
 	margin: 0;
-	font-size: 1.3em;
+	font-size: 1.4em;
 }
 
 .podcast.show .episode span.details {
@@ -285,3 +285,10 @@
   float: right;
 }
 
+.review_nag {
+  text-align: center;
+}
+
+.description {
+	margin-top: 3px;
+}

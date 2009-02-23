@@ -125,6 +125,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by_login(params[:user_slug]) || User.find_by_login(params[:id])
+    raise ActiveRecord::RecordNotFound if @user.nil?
   end
 
   def update

@@ -1,19 +1,27 @@
+	
 <div id="view_options">
-	<!--
+<!--
   <p>
     
     <a href="#"><img src="imgs/columns_on.png" alt="Columns view" /></a>
     <a href="#"><img src="imgs/grid_off.png" alt="Grid view" /></a>
   </p>
 	-->
-  <p class="per_page">
-    View:<% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
-      <%= link_to count, {:limit => count}, :class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil -%><%= comma -%>
-    <% end -%>
-    per page
-  </p>
+	<% form_for :search, :url => search_url, :html => {:method => :get, :class => "search", :id => "podcast_search"} do |form| -%>
+     <%= hidden_field_tag :podcast, @podcast.clean_url %>
+     <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
+     <%= text_field_tag "q", params[:q], :id => "search_podcast_q" %>
+     <button type="submit">
+       <span>Search</span>
+     </button>
+   <% end -%>
+	
+  
+  <!--
   <div id="sort">
+    
 		<p>Sort by: <%= dropdown([ link_to("Most recent", :order => "desc"), link_to("First to last", :order => "asc")], {"desc" => 0, "asc" => 1}[params[:order]]) %></p>
   </div>
+ -->
 </div>
-
+   

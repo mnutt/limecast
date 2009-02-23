@@ -52,11 +52,13 @@ class ApplicationController < ActionController::Base
       render_exception(500, "Search Error")
     end
 
-    def redirect_with_unauthenticated
+    def redirect_with_unauthenticated(exception)
+      logger.info "Rescuing from: #{exception}"
       redirect_to_home "Sorry, you need to be logged in to access that page."
     end
 
-    def redirect_with_forbidden
+    def redirect_with_forbidden(exception)
+      logger.info "Rescuing from: #{exception}"
       redirect_to_home "Sorry, you are not allowed to access that page."
     end
 

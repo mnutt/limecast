@@ -38,7 +38,7 @@ describe PodcastsController do
     end
 
     def do_get
-      get :show, :podcast => @podcast.clean_url
+      get :show, :podcast_slug => @podcast.clean_url
     end
 
     it "should be successful" do
@@ -53,14 +53,14 @@ describe PodcastsController do
 
     it "should assign the found podcast for the view" do
       do_get
-      assigns[:podcast].id.should equal(@podcast.id)
+      assigns(:podcast).id.should equal(@podcast.id)
     end
   end
 
   describe "handling GET /:podcast/cover" do
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)
-      get :cover, :podcast => @podcast.clean_url
+      get :cover, :podcast_slug => @podcast.clean_url
     end
 
     it 'should assign the podcast' do
@@ -72,90 +72,23 @@ describe PodcastsController do
     end
   end
 
-  describe "handling GET /add" do
-
-    before(:each) do
-      @podcast = Podcast.new
-    end
-
-    def do_get
-      get :new
-    end
-
-    it "should be successful" do
-      do_get
-      response.should be_success
-    end
-
-    it "should render new template" do
-      do_get
-      response.should render_template('new')
-    end
-
-    it "should not save the new podcast" do
-      @podcast.should_not_receive(:save)
-      do_get
-    end
-  end
-
-  describe "handling POST /podcasts when not logged in" do
-    before(:each) do
-      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
-    end
-
-    it 'should save a feed' do
-      assigns(:feed).should be_kind_of(Feed)
-      assigns(:feed).should_not be_new_record
-    end
-
-    it 'should add the feed to the session' do
-      session.data[:feeds].should include(assigns(:feed).id)
-    end
-
-    it 'should not associate the feed with a user' do
-      assigns(:feed).finder.should be_nil
-    end
-  end
-
-  describe "handling POST /podcasts when logged in" do
-    before(:each) do
-      @user = Factory.create(:user)
-      login(@user)
-      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
-    end
-
-    it 'should save the podcast' do
-      assigns(:feed).should be_kind_of(Feed)
-      assigns(:feed).should_not be_new_record
-    end
-
-    it 'should associate the podcast with the user' do
-      assigns(:feed).finder.should == @user
-    end
-
-    it 'should create a feed' do
-      assigns(:feed).should be_kind_of(Feed)
-      assigns(:feed).url.should == "http://mypodcast/feed.xml"
-    end
-  end
-
-  describe "handling DELETE /podcasts/1" do
+  describe "handling DELETE /mypodcast" do
     describe "when user is the podcast owner" do
 
       before(:each) do
         @user = mock_model(User)
         @podcast = mock_model(Podcast, :destroy => true)
-        Podcast.stub!(:find).and_return(@podcast)
+        Podcast.stub!(:find_by_clean_url).and_return(@podcast)
         @podcast.should_receive(:writable_by?).and_return(true)
         login(@user)
       end
 
       def do_delete
-        delete :destroy, :id => "1"
+        delete :destroy, :podcast_slug => 'mypodcast'
       end
 
       it "should find the podcast requested" do
-        Podcast.should_receive(:find).with("1").and_return(@podcast)
+        Podcast.should_receive(:find_by_clean_url).with("mypodcast").and_return(@podcast)
         do_delete
       end
 
@@ -173,17 +106,17 @@ describe PodcastsController do
     describe "when user is not authorized" do
 
       before(:each) do
-        @user = mock_model(User)
-        @podcast = mock_model(Podcast, :destroy => true)
+        @user = Factory.create(:user) #mock_model(User)
+        @podcast = Factory.create(:podcast) #mock_model(Podcast, :destroy => true)
         Podcast.stub!(:find).and_return(@podcast)
         @podcast.should_receive(:writable_by?).and_return(false)
         login(@user)
       end
 
       it "should redirect to the podcasts list" do
-        lambda {
-          delete :destroy, :id => "1"
-        }.should raise_error(Forbidden)
+        delete :destroy, :podcast_slug => 'mypodcast'
+        response.should redirect_to('/')
+        flash[:notice].should == 'Sorry, you are not allowed to access that page.'
       end
     end
   end
@@ -192,7 +125,7 @@ describe PodcastsController do
     describe "when user is the podcast owner" do
 
       def do_post(options={:title => "Custom Title"})
-        post :update, :podcast => @podcast.clean_url, :podcast_attr => options
+        post :update, :podcast_slug => @podcast.clean_url, :podcast => options
       end
 
       before(:each) do
@@ -216,7 +149,7 @@ describe PodcastsController do
 
       it "should redirect to the podcasts list" do
         do_post
-        response.should redirect_to(podcast_url(:podcast => @podcast))
+        response.should redirect_to(podcast_url(:podcast_slug => @podcast))
       end
 
       it "should make a feed the primary feed" do
@@ -227,6 +160,8 @@ describe PodcastsController do
       it "should add a user tagging for tag 'good'" do
         do_post(:tag_string => "good")
         @podcast.reload.tag_string.should == "good"
+        puts "\n\nThe podcast tags here are #{@podcast.tags.last.user_taggings.inspect}"
+        puts "The podcast tag_string here is #{@podcast.tag_string}\n\n"
         @podcast.tags.last.user_taggings.last.user.should == @user
       end
     end
@@ -242,9 +177,9 @@ describe PodcastsController do
       end
 
       it "should redirect to the podcasts list" do
-        lambda {
-          post :update, :podcast => @podcast.clean_url, :podcast_attr => {:title => "Custom Title"}
-        }.should raise_error(Forbidden)
+        post :update, :podcast_slug => @podcast.clean_url, :podcast => {:title => "Custom Title"}
+        response.should redirect_to('/')
+        flash[:notice].should == 'Sorry, you are not allowed to access that page.'
       end
     end
 
@@ -255,7 +190,7 @@ describe PodcastsController do
         @podcast = Factory.create(:podcast, :feeds => [Factory.create(:feed, :finder => @user)], :owner_email => "test@example.com")
         login(@user)
 
-        post :update, :podcast => @podcast.clean_url, :podcast_attr => {:owner_email => "malicious@example.com"}
+        post :update, :podcast_slug => @podcast.clean_url, :podcast => {:owner_email => "malicious@example.com"}
       end
 
       it "should not change the params" do
@@ -273,7 +208,7 @@ describe PodcastsController do
     end
 
     def do_post(podcast)
-      xhr :post, :favorite, :podcast => podcast.clean_url
+      xhr :post, :favorite, :podcast_slug => podcast.clean_url
     end
 
     it "should be successful" do

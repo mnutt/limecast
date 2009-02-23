@@ -1,5 +1,5 @@
 <% @title = "Add Podcast" -%>
-<% javascript_include "podcasts_new" -%>
+<% javascript_include "feeds_new" -%>
 <% @full_width = true -%>
 <% @classes = %{show addpage} -%>
 <div class="summary">
@@ -12,7 +12,7 @@
   <div id="added_podcast_list"></div>
   
 
-  <form method="post" id="new_podcast" action="/podcasts">
+  <form method="post" id="new_feed" action="/feeds">
     <% if protect_against_forgery? -%>
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token -%>" />
     <% end -%>

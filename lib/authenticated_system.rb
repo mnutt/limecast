@@ -73,8 +73,7 @@ module AuthenticatedSystem
     end
 
     def authorize_write(thing)
-      raise Forbidden unless thing.respond_to?(:writable_by?)
-      thing.writable_by?(current_user) || unauthorized
+      unauthorized unless thing.respond_to?(:writable_by?) && thing.writable_by?(current_user)
     end
 
     # Store the URI of the current request in the session.

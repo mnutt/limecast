@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090219182742) do
+ActiveRecord::Schema.define(:version => 20090220213950) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -151,6 +151,9 @@ ActiveRecord::Schema.define(:version => 20090219182742) do
     t.text     "curl_info"
     t.text     "ffmpeg_info"
     t.string   "file_name"
+    t.string   "torrent_file_name"
+    t.string   "torrent_content_type"
+    t.string   "torrent_file_size"
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

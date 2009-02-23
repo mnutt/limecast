@@ -199,22 +199,19 @@ namespace :limecast do
 
     desc 'Creates symlinks for shared resources'
     task :symlink_shared, :roles => :app do
-      run <<-CMD
-        rm -rf #{latest_release}/sphinx;
-        rm -rf #{latest_release}/config/database.yml;
-        rm -rf #{latest_release}/public/logos;
-        rm -rf #{latest_release}/public/screenshots;
-        rm -rf #{latest_release}/public/previews;
-        rm -rf #{latest_release}/public/torrents;
-        rm -rf #{latest_release}/private;
-        ln -s #{shared_path}/sphinx    #{latest_release}/sphinx &&
-        ln -s #{shared_path}/database.yml   #{latest_release}/config/database.yml &&
-        ln -s #{shared_path}/logos #{latest_release}/public/logos &&
-        ln -s #{shared_path}/screenshots #{latest_release}/public/screenshots &&
-        ln -s #{shared_path}/previews #{latest_release}/public/previews &&
-        ln -s #{shared_path}/torrents #{latest_release}/public/torrents &&
-        ln -s #{shared_path}/private #{latest_release}/private
-      CMD
+      # Symlink    from shared_path => to current
+      symlinks = { 'sphinx'         => 'sphinx',
+                   'database.yml'   => 'config/database.yml',
+                   'logos'          => 'public/logos',
+                   'screenshots'    => 'public/screenshots',
+                   'previews'       => 'public/previews',
+                   'torrents'       => 'public/torrents',
+                   'private'        => 'private' }
+
+      symlinks.each do |shared, current|
+        run "rm -rf #{latest_release}/#{current}"
+        run "ln -s #{shared_path}/#{shared} #{latest_release}/#{current}"
+      end
     end
 
     # Sphinx runs after :update, not :setup, because it depends upon the

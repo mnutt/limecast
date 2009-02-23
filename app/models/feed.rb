@@ -39,6 +39,7 @@ class Feed < ActiveRecord::Base
 
   validates_presence_of   :url
   validates_uniqueness_of :url
+  validates_length_of     :url, :maximum => 1024
   validate :is_similar_to_podcast
 
   named_scope :with_itunes_link, :conditions => 'feeds.itunes_link IS NOT NULL and feeds.itunes_link <> ""'

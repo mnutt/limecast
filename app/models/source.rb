@@ -47,6 +47,15 @@ class Source < ActiveRecord::Base
    "magnet:?#{params}"
   end
 
+  def torrent_url
+    podcast_name = self.episode.podcast.clean_url
+    episode_date = self.episode.clean_url
+    bitrate      = self.feed.bitrate.to_bitrate.to_s
+    format       = read_attribute('format')
+
+    "http://limecast.com/#{podcast_name}/#{episode_date}/#{podcast_name}-#{episode_date}-#{bitrate}-#{format}.torrent"
+  end
+
   def resolution
     [self.width, self.height].join("x") if self.width && self.height
   end

@@ -27,6 +27,7 @@ class Source < ActiveRecord::Base
 
   has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] }
   has_attached_file :preview
+  has_attached_file :torrent
 
   def file_name?
     !!read_attribute('file_name')

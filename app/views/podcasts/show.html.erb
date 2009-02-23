@@ -9,8 +9,10 @@
     $('.description > p').jTruncate({  
       length: 400,  
     });  
+    <% if params[:controller] == 'reviews' -%>$(".tabify a[href='#podcast_reviews']").click();<% end -%>
   });
 </script>
+
 
 <div class="summary">
   <%= render :partial => 'podcasts/summary' -%>

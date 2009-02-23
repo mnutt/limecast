@@ -40,7 +40,7 @@
   <div id="mission">
     <h1>Welcome to LimeCast, <a href="http://www.limewire.com">LimeWire's</a> new <a href="/all">Podcast Directory</a>.</h1>
       <ul>
-        <li>Join others to <strong><em>discover & share</em></strong> new podcasts every day!</li>
+        <li>Join others to <strong><em>discover &amp; share</em></strong> new podcasts every day!</li>
         <li>We're building software tools to let everyone <a href="http://wiki.limewire.org/index.php?title=LimeCast">get involved</a>.</li>
       </ul>
   </div>
@@ -56,8 +56,8 @@
     <div id="featured">
       <h2>Featured PodCasts</h2>
     
-      <%= render :partial => "home/description", :object => Podcast.find_by_clean_url("The-1UP-Show"), :locals => {:is_first => true} -%>
-      <%= render :partial => "home/description", :object => Podcast.find_by_clean_url("Diggnation") -%>
+      <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("The-1UP-Show") || Podcast.all[0]), :locals => {:is_first => true} -%>
+      <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("Diggnation") || Podcast.all[1]) -%>
     </div> <!-- /featured -->
   </div> <!-- /featured_cont -->
   

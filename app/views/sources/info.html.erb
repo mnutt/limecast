@@ -18,6 +18,14 @@
   </tr>
   
   <tr>
+    <td>Torrent:</td>
+    <td>
+      <%= link_to(@source.torrent.url, @source.torrent.url) -%>
+      (<%= FileSize.new(@source.torrent_file_size.to_i || 0) -%>)
+    </td>
+  </tr>
+  
+  <tr>
     <td>URL:</td>
     <td>
       <%= link_to(h(@source.url), @source.url) -%>

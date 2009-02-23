@@ -45,14 +45,15 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.with_options :controller => 'users' do |u|
-		u.favoriters       '/:podcast_slug/favoriters', :action => "favoriters"
-    u.signup  '/signup',        :controller => 'users',    :action => 'new'
-    u.activate  '/activate/:activation_code', :action => 'activate'
-    u.reset_password '/reset_password/:code', :action => 'reset_password', :code => nil
-    u.send_password  '/send_password',        :action => 'send_password',  :code => nil
-    u.forgot_password '/forgot',              :action => 'forgot_password'
+    u.favoriters     '/:podcast_slug/favoriters',  :action => "favoriters"
+    u.signup         '/signup',                    :controller => 'users',    :action => 'new'
+    u.activate       '/activate/:activation_code', :action => 'activate'
+    u.reset_password '/reset_password/:code',      :action => 'reset_password', :code => nil
+    u.send_password  '/send_password',             :action => 'send_password',  :code => nil
+    u.forgot_password '/forgot',                   :action => 'forgot_password'
   end
 
+  map.add_feed    '/add',         :controller => 'feeds',      :action => 'new'
   map.status      '/status',      :controller => 'feeds',      :action => 'status'
   map.all_users   '/user',        :controller => 'users',      :action => 'index'
   map.user        '/user/:user_slug',  :controller => 'users', :action => 'show', :conditions => {:method => :get}
@@ -80,14 +81,8 @@ ActionController::Routing::Routes.draw do |map|
     p.cover            '/:podcast_slug/cover',    :action => 'cover'
     p.recs             '/:podcast_slug/recs',     :action => 'recs'
     p.podcast_info     '/:podcast_slug/info',     :action => 'info'
-    
-    # We'll move these over to FeedsController#create
-    # p.podcasts          '/:podcast_slug',          :action => 'create', :conditions => {:method => :post}
-    # p.add_podcast     '/add',                     :action => 'new'
 
     # GET    /podcasts(.:format)                       {:controller=>"podcasts", :action=>"index"}
-    # POST   /podcasts(.:format)                       {:controller=>"podcasts", :action=>"create"}
-    # GET    /podcasts/new(.:format)                   {:controller=>"podcasts", :action=>"new"}
     # GET    /podcasts/:id/edit(.:format)              {:controller=>"podcasts", :action=>"edit"}
     # GET    /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"show"}
     # PUT    /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"update"}

@@ -1373,11 +1373,11 @@ display: inline;
   float: left; display: inline;
 }
 
-#new_podcast {
+#new_feed {
   margin: 10px 0;
 }
 
-#new_podcast label {
+#new_feed label {
   display: none;
 }
 
@@ -1403,13 +1403,13 @@ display: inline;
   top: -2px;
 }
 
-#new_podcast button.addme {
+#new_feed button.addme {
   position: relative;
   top: -3px;
 
 }
 
-#new_podcast input#feed_url {
+#new_feed input#feed_url {
   border: none;
 	background: url('../imgs/feed_input.png') top left no-repeat;
 	padding: 6px 8px 5px 8px;

@@ -68,7 +68,7 @@ class Podcast < ActiveRecord::Base
   attr_accessor :has_episodes
   attr_accessor_with_default :messages, []
 
-  before_validation_on_create :sanitize_title
+  before_validation :sanitize_title
   before_save :find_or_create_owner
   before_save :sanitize_url
   before_save :set_primary_feed
@@ -203,7 +203,9 @@ class Podcast < ActiveRecord::Base
   end
 
   def sanitize_title
-    self.title = original_title if title.blank?
+    if new_record?
+      self.title = original_title if title.blank? # cache the original_title on create
+    end
 
     desired_title = title
     # Second, sanitize "title"

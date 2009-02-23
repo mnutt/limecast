@@ -1,0 +1,4 @@
+#Move this to private/exception_notified_emails.yml
+--- 
+- someone@example.com
+- someoneelse@example.com

@@ -8,7 +8,6 @@ class FeedsController < ApplicationController
   
   
   def create
-    # TODO: refactor with FeedsController#create
     if @feed = Feed.find_by_url(params[:feed][:url])
       @feed.update_attribute(:state, "pending") if @feed.state == "failed"
       @feed.send_later(:refresh)

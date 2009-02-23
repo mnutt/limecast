@@ -102,8 +102,8 @@ namespace :limecast do
 
     set :branch, version
     abort unless Capistrano::CLI.ui.ask("Deploy from #{fetch(:branch)} ? ", String) do |question|
-      question.validate = /^fo sho|sho nuff$/
-      question.responses[:not_valid] = "Please type \"fo sho\" or \"sho nuff\" to accept "
+      question.validate = /^fo sho|yes|sho nuff$/
+      question.responses[:not_valid] = "Please type \"yes\" to accept "
     end
   end
 
@@ -138,15 +138,18 @@ namespace :limecast do
     desc 'Populate a new database.yml in shared'
     task :database_config, :roles => :app do
       require 'yaml'
+
+      set :production_database_name, Capistrano::CLI.ui.ask('Set database name: ')
+      set :production_database_user, Capistrano::CLI.ui.ask('Set database user: ')
       set :production_database_password do
-        Capistrano::CLI.password_prompt 'Production database password: '
+        Capistrano::CLI.password_prompt 'Set database password: '
       end
 
       database_config = {
         'production' => {
           'adapter'  => 'mysql',
-          'database' => 'limecast',
-          'username' => 'limecast',
+          'database' => production_database_name,
+          'username' => production_database_user,
           'password' => production_database_password,
           'host'     => 'localhost',
           'encoding' => 'utf8'

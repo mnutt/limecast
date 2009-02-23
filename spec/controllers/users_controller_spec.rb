@@ -23,7 +23,7 @@ describe UsersController do
 
   it 'requires password on signup' do
     lambda do
-      create_user(:password => nil)
+      create_user(:password => nil, :state => 'pending')
       assigns[:user].errors.on(:password).should_not be_nil
       response.should be_success
     end.should_not change(User, :count)
@@ -160,7 +160,7 @@ describe UsersController, "handling POST /user/:user" do
       @user = Factory.create(:user)
       login(@user)
 
-      post :update, :user => @user.login, :user_attr => {:email => "newemail@example.com"}
+      post :update, :user_slug => @user.login, :user => {:email => "newemail@example.com"}
     end
 
     it "should find the user requested" do
@@ -192,7 +192,7 @@ describe UsersController, "handling POST /user/:user" do
 
     it "should be forbidden" do
       lambda {
-        post :update, :user => @user.login, :user_attr => {:email => "newemail@example.com"}
+        post :update, :user_slug => @user.login, :user => {:email => "newemail@example.com"}
       }.should raise_error(Forbidden)
     end
   end
@@ -203,7 +203,7 @@ describe UsersController, "handling POST /user/:user" do
       @user = Factory.create(:user)
       login(@user)
 
-      post :update, :user => @user.login, :user_attr => {:score => "584"}
+      post :update, :user_slug => @user.login, :user => {:score => "584"}
     end
 
     it "should redirect to the podcasts list" do

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $('form#new_podcast').submit(function(){
+  $('form#new_feed').submit(function(){
 
     var poll_for_status = function(response) {
       var feed_url = $('#feed_url').attr('value');
@@ -11,7 +11,7 @@ $(document).ready(function(){
 
       $('#feed_url').val("");
       $('#added_podcast_list').append(form_clone);
-      $("#new_podcast").find('label.default').text(''); // only first input should have the example url
+      $("#new_feed").find('label.default').text(''); // only first input should have the example url
 
 
       // FIX
@@ -42,7 +42,7 @@ $(document).ready(function(){
       data:     $(this).serialize(),
       dataType: 'script',
       type:     'post',
-      url:      '/podcasts',
+      url:      '/feeds',
       success:  poll_for_status
     });
     // Keep form from submitting

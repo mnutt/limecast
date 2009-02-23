@@ -1,28 +1,72 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe FeedsController do
-  describe "POST 'create'" do
+
+  describe "handling GET /add" do
+  
+    before(:each) do
+    end
+  
+    def do_get
+      get :new
+    end
+  
+    it "should be successful" do
+      do_get
+      response.should be_success
+    end
+  
+    it "should render new template" do
+      do_get
+      response.should render_template('new')
+    end
+  
+    it "should assign the new feed" do
+      do_get
+      assigns[:feed].should be_new_record
+    end
+  end
+  
+  describe "handling POST /feeds when not logged in" do
+    before(:each) do
+      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
+    end
+  
+    it 'should save a feed' do
+      assigns[:feed].should be_kind_of(Feed)
+      assigns[:feed].should_not be_new_record
+    end
+  
+    it 'should add the feed to the session' do
+      session.data[:feeds].should include(assigns(:feed).id)
+    end
+  
+    it 'should not associate the feed with a user' do
+      assigns[:feed].finder.should be_nil
+    end
+  end
+  
+  describe "handling POST /feeds when logged in" do
     before(:each) do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:podcast)
       login(@user)
-      post :create, :feed => {:podcast_id => @podcast.id, :url => "http://mysite.com/feed.xml" }
+      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
     end
-
-    it "should create the feed" do
+  
+    it 'should save the feed' do
       assigns(:feed).should be_kind_of(Feed)
       assigns(:feed).should_not be_new_record
     end
-
-    it "should add the feed to the podcast" do
-      assigns(:feed).podcast.should == @podcast
-    end
-
-    it "should associate the feed with the user" do
+  
+    it 'should associate the feed with the user' do
       assigns(:feed).finder.should == @user
     end
+  
+    it 'should create a feed' do
+      assigns(:feed).should be_kind_of(Feed)
+      assigns(:feed).url.should == "http://mypodcast/feed.xml"
+    end
   end
-
 
   describe "POST /status" do
     describe "for a podcast that has not yet been parsed" do
@@ -32,7 +76,7 @@ describe FeedsController do
       end
 
       it 'should render the loading template' do
-        response.should render_template('feeds/_status_loading.erb')
+        response.should render_template('feeds/_status_loading')
       end
     end
 
@@ -45,7 +89,7 @@ describe FeedsController do
       end
 
       it 'should render the added template' do
-        response.should render_template('feeds/_status_added.erb')
+        response.should render_template('feeds/_status_added')
       end
     end
 
@@ -57,7 +101,7 @@ describe FeedsController do
         end
 
         it 'should render the error template' do
-          response.should render_template('feeds/_status_failed.erb')
+          response.should render_template('feeds/_status_failed')
         end
       end
 
@@ -100,9 +144,9 @@ describe FeedsController do
     describe "when the user is unauthorized" do
       it "should not update the feed" do
         @feed = Factory.create(:feed, :format => "ipod")
-        lambda {
-          put 'update', :id => @feed.id, :feed => {:format => "quicktime hd"}
-        }.should raise_error(Forbidden)
+        put 'update', :id => @feed.id, :feed => {:format => "quicktime hd"}
+        flash[:notice].should == 'Sorry, you are not allowed to access that page.'
+        response.should redirect_to('/')
         @feed.reload.format.should == "ipod"
       end
     end
@@ -132,9 +176,9 @@ describe FeedsController do
     describe "when user is unauthorized" do
       it 'should not delete the feed' do
         @feed = Factory.create(:feed)
-        lambda {
-          delete 'destroy', :id => @feed.id
-        }.should raise_error(Forbidden)
+        delete 'destroy', :id => @feed.id
+        flash[:notice].should == 'Sorry, you are not allowed to access that page.'
+        response.should redirect_to('/')
         Feed.count.should == 1
       end
     end

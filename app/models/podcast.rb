@@ -68,13 +68,13 @@ class Podcast < ActiveRecord::Base
   attr_accessor :has_episodes
   attr_accessor_with_default :messages, []
 
-  before_validation_on_create :sanitize_title
+  before_validation :sanitize_title
+  before_validation :sanitize_url
   before_save :find_or_create_owner
-  before_save :sanitize_url
   before_save :set_primary_feed
 
-  validates_presence_of :title, :unless => Proc.new { |podcast| podcast.new_record? }
-  validates_format_of   :title, :with => /[A-Za-z0-9]+/, :message => "must include at least 1 letter (a-z, A-Z)"
+  validates_presence_of   :title, :unless => Proc.new { |podcast| podcast.new_record? }
+  validates_format_of     :title, :with => /[A-Za-z0-9]+/, :message => "must include at least 1 letter (a-z, A-Z)"
 
   # Search
   define_index do
@@ -175,6 +175,8 @@ class Podcast < ActiveRecord::Base
   # Takes a string of space-delimited tags and tries to add them to the podcast's taggings.
   # Also takes an additional user argument, which will add a UserTagging to join the Tagging 
   # with a User (to see which users added which tags).
+  # Ex: podcast.tag_string = "funny, hilarious"
+  # Ex: podcast.tag_string = "animated, kids", current_user
   def tag_string=(*args)
     args.flatten!
     v, user = args
@@ -201,7 +203,9 @@ class Podcast < ActiveRecord::Base
   end
 
   def sanitize_title
-    self.title = original_title if title.blank?
+    if new_record?
+      self.title = original_title if title.blank? # cache the original_title on create
+    end
 
     desired_title = title
     # Second, sanitize "title"
@@ -225,6 +229,12 @@ class Podcast < ActiveRecord::Base
       self.clean_url = self.title.to_s.clone.strip # Remove leading and trailing spaces
       self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")     # Remove all non-alphanumeric non-space characters
       self.clean_url.gsub!(/[\s]+/, '-')             # Condense spaces and turn them into dashes
+
+      i = 1 # Number to attach to the end of the title to make it unique
+      while(Podcast.exists?(["clean_url = ? AND id != ?", clean_url, id]))
+        self.clean_url.chop!.chop! unless i == 1
+        self.clean_url = "#{clean_url}-#{i += 1}"
+      end
   
       add_message "The podcast url has changed." if clean_url_changed?
     end
@@ -259,4 +269,5 @@ class Podcast < ActiveRecord::Base
       save! unless new_record?
     end
   end
+
 end

@@ -2,28 +2,26 @@ class FeedsController < ApplicationController
   before_filter :replace_feed_protocol, :only => [:create, :status, :update]
   skip_before_filter :verify_authenticity_token, :only => :status
 
+  def new
+    @feed = Feed.new
+  end
+  
+  
   def create
     if @feed = Feed.find_by_url(params[:feed][:url])
       @feed.update_attribute(:state, "pending") if @feed.state == "failed"
       @feed.send_later(:refresh)
     else
-      @feed = Feed.new(params[:feed])
+      @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
       @feed.finder = current_user
     end
 
-    respond_to do |format|
-      format.js do
-        if @feed.save
-          render :nothing => true, :status => 200
-        else
-          render :nothing => true, :status => 500
-        end
-      end
-      format.html do
-        @feed.save
-        redirect_to podcast_url(@feed.podcast)
-      end
+    if current_user.nil?
+      session[:feeds] ||= []
+      session[:feeds] << @feed.id
     end
+
+    render :nothing => true
   end
 
   def status

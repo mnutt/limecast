@@ -48,28 +48,6 @@ class PodcastsController < ApplicationController
 
   def cover
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
-    @feeds   = @podcast.feeds.all
-  end
-
-  def new
-  end
-
-  def create
-    # TODO: refactor with FeedsController#create
-    if @feed = Feed.find_by_url(params[:feed][:url])
-      @feed.update_attribute(:state, "pending") if @feed.state == "failed"
-      @feed.send_later(:refresh)
-    else
-      @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
-      @feed.finder = current_user
-    end
-
-    if current_user.nil?
-      session[:feeds] ||= []
-      session[:feeds] << @feed.id
-    end
-
-    render :nothing => true
   end
 
   def update
@@ -84,7 +62,8 @@ class PodcastsController < ApplicationController
       redirect_to(podcasts_url) and return false
     end
     
-    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, 
+    params[:podcast][:tag_string] = [params[:podcast][:tag_string], current_user] if params[:podcast][:tag_string]
+    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, :tag_string,
                                                       :feeds_attributes, :title, :primary_feed_id])
 
     respond_to do |format|
@@ -142,7 +121,8 @@ class PodcastsController < ApplicationController
   end
 
   def destroy
-    @podcast = Podcast.find(params[:id])
+    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
     @podcast.destroy

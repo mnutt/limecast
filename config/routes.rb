@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   # Resources
   map.resources :categories
   map.resources :reviews
-  map.resources :podcasts
+#  map.resources :podcasts
   map.resources :episodes
   map.resources :feeds
   
@@ -45,14 +45,15 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.with_options :controller => 'users' do |u|
-		u.favoriters       '/:podcast_slug/favoriters', :action => "favoriters"
-    u.signup  '/signup',        :controller => 'users',    :action => 'new'
-    u.activate  '/activate/:activation_code', :action => 'activate'
-    u.reset_password '/reset_password/:code', :action => 'reset_password', :code => nil
-    u.send_password  '/send_password',        :action => 'send_password',  :code => nil
-    u.forgot_password '/forgot',              :action => 'forgot_password'
+    u.favoriters     '/:podcast_slug/favoriters',  :action => "favoriters"
+    u.signup         '/signup',                    :controller => 'users',    :action => 'new'
+    u.activate       '/activate/:activation_code', :action => 'activate'
+    u.reset_password '/reset_password/:code',      :action => 'reset_password', :code => nil
+    u.send_password  '/send_password',             :action => 'send_password',  :code => nil
+    u.forgot_password '/forgot',                   :action => 'forgot_password'
   end
 
+  map.add_feed    '/add',         :controller => 'feeds',      :action => 'new'
   map.status      '/status',      :controller => 'feeds',      :action => 'status'
   map.all_users   '/user',        :controller => 'users',      :action => 'index'
   map.user        '/user/:user_slug',  :controller => 'users', :action => 'show', :conditions => {:method => :get}
@@ -69,15 +70,25 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.with_options :controller => 'podcasts' do |p|
-    p.add_podcast '/add',                    :action => 'new'
-    p.all         '/all',                    :action => 'index'
-    p.all         '/popular',                :action => 'popular'
+    p.podcasts         '/all',                    :action => 'index'
+    p.all              '/all',                    :action => 'index'
+    p.popular          '/popular',                :action => 'popular'
+    p.podcast          '/:podcast_slug',          :action => 'destroy', :conditions => {:method => :delete}
+    p.podcast          '/:podcast_slug',          :action => 'show',    :conditions => {:method => :get}
+    p.podcast          '/:podcast_slug',          :action => 'update',  :conditions => {:method => :put}
+    p.edit_podcast     '/:podcast_slug/edit',     :action => 'edit',    :conditions => {:method => :get}
+    p.favorite_podcast '/:podcast_slug/favorite', :action => 'favorite'
     p.cover            '/:podcast_slug/cover',    :action => 'cover'
     p.recs             '/:podcast_slug/recs',     :action => 'recs'
-    p.favorite_podcast '/:podcast_slug/favorite', :action => 'favorite'
     p.podcast_info     '/:podcast_slug/info',     :action => 'info'
-    p.podcast          '/:podcast_slug',          :action => 'show',   :conditions => {:method => :get}
-    p.podcast          '/:podcast_slug',          :action => 'update', :conditions => {:method => :put}
+
+    # GET    /podcasts(.:format)                       {:controller=>"podcasts", :action=>"index"}
+    # GET    /podcasts/:id/edit(.:format)              {:controller=>"podcasts", :action=>"edit"}
+    # GET    /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"show"}
+    # PUT    /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"update"}
+    # DELETE /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"destroy"}
+
+
   end
 
   map.positive_reviews '/:podcast_slug/reviews/positive', :controller => 'reviews', :filter => 'positive'

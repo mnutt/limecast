@@ -32,7 +32,7 @@ class Episode < ActiveRecord::Base
   before_create :generate_url
 
   named_scope :with_same_title_as, lambda {|who| {:conditions => {:podcast_id => who.podcast.id, :clean_url => who.clean_url}} }
-  named_scope :without, lambda {|who| who.id.nil? ? {} : {:conditions => ["episodes.id NOT IN (?)", who.id]} }
+  named_scope :without, lambda {|who| (who.nil?||who.id.nil?) ? {} : {:conditions => ["episodes.id NOT IN (?)", who.id]} }
   named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at DESC"} }
   named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at ASC"} }
   named_scope :after,  lambda {|other| {:conditions => ["published_at > ?", other.published_at]} }

@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   # Resources
   map.resources :categories
   map.resources :reviews
-  map.resources :podcasts
+#  map.resources :podcasts
   map.resources :episodes
   map.resources :feeds
   
@@ -69,15 +69,31 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.with_options :controller => 'podcasts' do |p|
-    p.add_podcast '/add',                    :action => 'new'
-    p.all         '/all',                    :action => 'index'
-    p.all         '/popular',                :action => 'popular'
+    p.podcasts         '/all',                    :action => 'index'
+    p.all              '/all',                    :action => 'index'
+    p.popular          '/popular',                :action => 'popular'
+    p.podcast          '/:podcast_slug',          :action => 'destroy', :conditions => {:method => :delete}
+    p.podcast          '/:podcast_slug',          :action => 'show',    :conditions => {:method => :get}
+    p.podcast          '/:podcast_slug',          :action => 'update',  :conditions => {:method => :put}
+    p.edit_podcast     '/:podcast_slug/edit',     :action => 'edit',    :conditions => {:method => :get}
+    p.favorite_podcast '/:podcast_slug/favorite', :action => 'favorite'
     p.cover            '/:podcast_slug/cover',    :action => 'cover'
     p.recs             '/:podcast_slug/recs',     :action => 'recs'
-    p.favorite_podcast '/:podcast_slug/favorite', :action => 'favorite'
     p.podcast_info     '/:podcast_slug/info',     :action => 'info'
-    p.podcast          '/:podcast_slug',          :action => 'show',   :conditions => {:method => :get}
-    p.podcast          '/:podcast_slug',          :action => 'update', :conditions => {:method => :put}
+    
+    # We'll move these over to FeedsController#create
+    # p.podcasts          '/:podcast_slug',          :action => 'create', :conditions => {:method => :post}
+    # p.add_podcast     '/add',                     :action => 'new'
+
+    # GET    /podcasts(.:format)                       {:controller=>"podcasts", :action=>"index"}
+    # POST   /podcasts(.:format)                       {:controller=>"podcasts", :action=>"create"}
+    # GET    /podcasts/new(.:format)                   {:controller=>"podcasts", :action=>"new"}
+    # GET    /podcasts/:id/edit(.:format)              {:controller=>"podcasts", :action=>"edit"}
+    # GET    /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"show"}
+    # PUT    /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"update"}
+    # DELETE /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"destroy"}
+
+
   end
 
   map.positive_reviews '/:podcast_slug/reviews/positive', :controller => 'reviews', :filter => 'positive'

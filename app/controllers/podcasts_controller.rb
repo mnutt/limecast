@@ -48,7 +48,6 @@ class PodcastsController < ApplicationController
 
   def cover
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
-    @feeds   = @podcast.feeds.all
   end
 
   def new
@@ -78,7 +77,8 @@ class PodcastsController < ApplicationController
       redirect_to(podcasts_url) and return false
     end
     
-    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, 
+    params[:podcast][:tag_string] = [params[:podcast][:tag_string], current_user] if params[:podcast][:tag_string]
+    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, :tag_string,
                                                       :feeds_attributes, :title, :primary_feed_id])
 
     respond_to do |format|
@@ -136,7 +136,8 @@ class PodcastsController < ApplicationController
   end
 
   def destroy
-    @podcast = Podcast.find(params[:id])
+    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
     authorize_write @podcast
 
     @podcast.destroy

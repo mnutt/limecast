@@ -175,6 +175,8 @@ class Podcast < ActiveRecord::Base
   # Takes a string of space-delimited tags and tries to add them to the podcast's taggings.
   # Also takes an additional user argument, which will add a UserTagging to join the Tagging 
   # with a User (to see which users added which tags).
+  # Ex: podcast.tag_string = "funny, hilarious"
+  # Ex: podcast.tag_string = "animated, kids", current_user
   def tag_string=(*args)
     args.flatten!
     v, user = args

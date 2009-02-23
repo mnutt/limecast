@@ -58,6 +58,10 @@ def tmp_file
   "/tmp/source/#{@tmp_file}"
 end
 
+def torrent_tmp_file
+  "#{tmp_file}.torrent"
+end
+
 def screenshot_tmp_file
   "#{tmp_file}_screenshot.png"
 end
@@ -115,10 +119,10 @@ def take_screen_shot(source, info)
   size = resized_size_of_video(info)
 
   t = screenshot_time(info[:duration])
-  `ffmpeg -y -i #{tmp_file} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{screenshot_tmp_file(source)}`
+  `ffmpeg -y -i #{tmp_file} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{screenshot_tmp_file}`
 
-  if File.exists?(screenshot_tmp_file(source))
-    source.attachment_for(:screenshot).assign(File.open(screenshot_tmp_file(source)))
+  if File.exists?(screenshot_tmp_file)
+    source.attachment_for(:screenshot).assign(File.open(screenshot_tmp_file))
     source.save!
   end
 end
@@ -142,10 +146,10 @@ def encode_video(source, info)
     :s  => size
   }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
 
-  `ffmpeg #{options} #{encoded_tmp_file(source)}`
+  `ffmpeg #{options} #{encoded_tmp_file}`
 
-  if File.exists?(encoded_tmp_file(source))
-    source.attachment_for(:preview).assign(File.open(encoded_tmp_file(source)))
+  if File.exists?(encoded_tmp_file)
+    source.attachment_for(:preview).assign(File.open(encoded_tmp_file))
     source.save!
   end
 end
@@ -170,6 +174,15 @@ def save_info(source, info)
   )
 end
 
+def generate_torrent(source)
+  `mktorrent -a http://tracker.limecast.com/announce -o #{torrent_tmp_file} -w #{source.url} #{tmp_file}`
+
+  if File.exists?(torrent_tmp_file)
+    source.attachment_for(:torrent).assign(File.open(torrent_tmp_file))
+    source.save!
+  end
+end
+
 while true
   begin
     # Sleep 30 minutes until a source is found
@@ -181,6 +194,8 @@ while true
 
     # Get info about file
     info = get_video_info(source)
+
+    generate_torrent(source)
 
     unless info[:video_codec].nil? || info[:duration].nil?
       # Get a screen shot

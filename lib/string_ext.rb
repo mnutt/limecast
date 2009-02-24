@@ -8,7 +8,7 @@ class String
       sub(%r{/$}, "")             # Removes trailing slash
 
     parts = url.split('/')
-    parts.first.downcase!
+    parts.first.downcase! if parts.first
     parts.join('/')
   end
 end

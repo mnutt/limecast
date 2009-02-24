@@ -111,6 +111,11 @@ describe Podcast, "cleaning up the site url" do
     @podcast.site = "test.host"
     @podcast.clean_site.should == "test.host"
   end
+  
+  it 'should return blank for an empty site' do
+    @podcast.site = nil
+    @podcast.clean_site.should == ""
+  end
 end
 
 describe Podcast, "cleaning up the title" do

@@ -1,8 +1,9 @@
 <% options ||= {} -%>
 <% episode = video_player -%>
-<%- if episode.sources.first && episode.sources.first.screenshot? -%>
+<% source  = episode.sources.first -%>
+<%- if source && source.screenshot? -%>
   <div class="container">
-    <%= image_tag(episode.sources.first.screenshot.url, :rel => episode.sources.first.preview.url, :alt => "#{episode.title} cover art",  :width => 460, :height => 342) -%>
+    <%= image_tag(source.screenshot.url, {:rel => source.preview.url, :alt => "#{episode.title} cover art"}.merge(scaled_resolution(:width => source.width, :height => source.height))) -%>
   </div>
 <%- else -%>
   <% unless options[:hide_broken_previews] -%>

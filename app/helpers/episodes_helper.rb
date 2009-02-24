@@ -4,6 +4,6 @@ module EpisodesHelper
 
     height = ((scale_to_width / res[:width].to_f) * res[:height]) rescue nil
 
-    { :height => height, :width => scale_to_width }
+    { :height => height || 362, :width => scale_to_width }
   end
 end

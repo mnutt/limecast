@@ -115,7 +115,7 @@ describe User do
   end
 
   describe 'send an email' do
-    before do
+    before(:each) do
       ActionMailer::Base.delivery_method = :test
       ActionMailer::Base.perform_deliveries = true
       ActionMailer::Base.deliveries = []
@@ -130,8 +130,18 @@ describe User do
       ActionMailer::Base.deliveries.first.body.should =~ /Your LimeCast account has been created/
       ActionMailer::Base.deliveries.first.body.should =~ /Visit this url to activate your account/
     end
+    
+    it 'to confirm email after email is changed' do
+      user = Factory.create(:user)
+      change_email = lambda { user.update_attribute(:email, 'my.new.email.address@foobar.com') }
+      change_email.should change { ActionMailer::Base.deliveries.size }.by(1)
+      user.should be_pending
+      ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == 'my.new.email.address@foobar.com'
+      ActionMailer::Base.deliveries.first.subject.should == 'Please reconfirm your email address'
+      ActionMailer::Base.deliveries.first.body.should =~ /Visit this url to reconfirm your email/
+    end
 
-    after do
+    after(:each) do
       ActionMailer::Base.deliveries.clear
     end
   end

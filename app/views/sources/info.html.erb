@@ -26,6 +26,13 @@
   </tr>
   
   <tr>
+    <td>Resolution:</td>
+    <td>
+      <%= h @source.resolution.inspect -%>
+    </td>
+  </tr>
+  
+  <tr>
     <td>URL:</td>
     <td>
       <%= link_to(h(@source.url), @source.url) -%>

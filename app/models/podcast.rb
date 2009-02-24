@@ -128,7 +128,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def clean_site
-    self.site.to_url
+    self.site ? self.site.to_url : ''
   end
 
   def failed?

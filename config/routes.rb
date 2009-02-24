@@ -81,14 +81,6 @@ ActionController::Routing::Routes.draw do |map|
     p.cover            '/:podcast_slug/cover',    :action => 'cover'
     p.recs             '/:podcast_slug/recs',     :action => 'recs'
     p.podcast_info     '/:podcast_slug/info',     :action => 'info'
-
-    # GET    /podcasts(.:format)                       {:controller=>"podcasts", :action=>"index"}
-    # GET    /podcasts/:id/edit(.:format)              {:controller=>"podcasts", :action=>"edit"}
-    # GET    /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"show"}
-    # PUT    /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"update"}
-    # DELETE /podcasts/:id(.:format)                   {:controller=>"podcasts", :action=>"destroy"}
-
-
   end
 
   map.positive_reviews '/:podcast_slug/reviews/positive', :controller => 'reviews', :filter => 'positive'

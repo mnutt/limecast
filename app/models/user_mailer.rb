@@ -8,6 +8,13 @@ class UserMailer < ActionMailer::Base
     body :user => user, :host => FROM_HOST
   end
 
+  def reconfirm_notification(user)
+    setup_email(user)
+    subject     'Please reconfirm your email address'
+    
+    body :user => user, :host => FROM_HOST
+  end
+
   def activation(user)
     setup_email(user)
     subject       'Your account has been activated!'

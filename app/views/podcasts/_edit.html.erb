@@ -1,4 +1,4 @@
-<div id="edit_actions" class="clearfix">
+<div id="edit_actions" class="clearfix" style="display: none;">
   <% if current_user.admin? && !@podcast.user_is_finder?(current_user) && !@podcast.user_is_owner?(current_user) -%>
     <span class="label">I can do anything!</span>
   <% else -%>

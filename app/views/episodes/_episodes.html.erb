@@ -16,7 +16,7 @@
     <div id="latest_episode" class="preview">
       <h4>Latest episode</h4>
     
-      <h3><%= link_to @most_recent_episode.title, episode_url(:podcast_slxug => @most_recent_episode.podcast, :episode => @most_recent_episode) -%></h3>
+      <h3><%= link_to @most_recent_episode.title, episode_url(:podcast_slug => @most_recent_episode.podcast, :episode => @most_recent_episode) -%></h3>
       <p>
 	<span class="details"><em><%= @most_recent_episode.published_at.to_date -%></em> - <%= time_to_words(@most_recent_episode.duration) -%></span>
 	<%= sanitize_condensed_summary(@most_recent_episode.summary) -%>

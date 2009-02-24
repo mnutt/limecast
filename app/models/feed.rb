@@ -22,6 +22,7 @@ require 'timeout'
 
 class Feed < ActiveRecord::Base
   class BannedFeedException     < Exception; def message; "This feed site is not allowed." end end
+  class InvalidFeedException    < Exception; def message; "This feed is not supported." end end
   class InvalidAddressException < Exception; def message; "That's not a web address." end end
   class NoEnclosureException    < Exception; def message; "That's a text RSS feed, not an audio or video podcast." end end
   class DuplicateFeedExeption   < Exception; def message; "This feed has already been added to the system." end end
@@ -141,6 +142,8 @@ class Feed < ActiveRecord::Base
   def parse
     begin
       @feed = RPodcast::Feed.new(@content)
+
+      raise InvalidFeedException if @feed.episodes.empty?
     rescue RPodcast::NoEnclosureError
       raise NoEnclosureException
     end

@@ -85,6 +85,15 @@ Factory.define :user do |u|
   u.state    'active'
 end
 
+Factory.define :pending_user, :class => User do |u|
+  u.login    { Factory.next :login }
+  u.email    { Factory.next :email }
+  u.password 'password'
+  u.salt     'NaCl'
+  u.state    'pending'
+  u.activation_code { Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join ) }
+end
+
 Factory.define :admin_user, :class => User do |u|
   u.login    'admin'
   u.email    'admin@podcasts.example.com'

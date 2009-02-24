@@ -114,14 +114,14 @@ describe User do
     @user.remember_token_expires_at.between?(before, after).should be_true
   end
 
-  describe 'send an email' do
+  describe 'email notifications' do
     before(:each) do
       ActionMailer::Base.delivery_method = :test
       ActionMailer::Base.perform_deliveries = true
       ActionMailer::Base.deliveries = []
     end
 
-    it 'to welcome after a pending user is created' do
+    it 'should send welcome email after a pending user is created' do
       user = Factory.build(:user, :login => 'mylogin', :state => 'passive')
       user.register!
       user.save
@@ -130,8 +130,18 @@ describe User do
       ActionMailer::Base.deliveries.first.body.should =~ /Your LimeCast account has been created/
       ActionMailer::Base.deliveries.first.body.should =~ /Visit this url to activate your account/
     end
+
+    it 'should NOT send welcome email after a passive user is created' do
+      Factory.create(:user, :login => 'mylogin', :state => 'passive')
+      ActionMailer::Base.deliveries.size.should == 0
+    end
+
+    it 'should NOT send welcome email after an active user is created' do
+      Factory.create(:user, :login => 'mylogin', :state => 'active')
+      ActionMailer::Base.deliveries.size.should == 0
+    end
     
-    it 'to confirm email after email is changed' do
+    it 'should send reconfirm email and change state to passive after active email is changed ' do
       user = Factory.create(:user)
       change_email = lambda { user.update_attribute(:email, 'my.new.email.address@foobar.com') }
       change_email.should change { ActionMailer::Base.deliveries.size }.by(1)
@@ -139,6 +149,18 @@ describe User do
       ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == 'my.new.email.address@foobar.com'
       ActionMailer::Base.deliveries.first.subject.should == 'Please reconfirm your email address'
       ActionMailer::Base.deliveries.first.body.should =~ /Visit this url to reconfirm your email/
+    end
+
+    it 'should NOT send reconfirm email and change state to passive after pending email is changed' do
+      user = Factory.create(:pending_user)
+      change_email = lambda { user.update_attribute(:email, 'my.new.email.addresssss@foobar.com') }
+      change_email.should_not change { ActionMailer::Base.deliveries.size }
+    end
+
+    it 'should NOT send reconfirm email and change state to passive after pending email is changed' do
+      user = Factory.create(:user, :state => 'passive')
+      change_email = lambda { user.update_attribute(:email, 'my.new.email.addresssss@foobar.com') }
+      change_email.should_not change { ActionMailer::Base.deliveries.size }
     end
 
     after(:each) do

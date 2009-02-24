@@ -1,6 +1,6 @@
 <% options ||= {} -%>
 <% episode = video_player -%>
-<%- if episode.sources.first.screenshot? -%>
+<%- if episode.sources.first && episode.sources.first.screenshot? -%>
   <div class="container">
     <%= image_tag(episode.sources.first.screenshot.url, :rel => episode.sources.first.preview.url, :alt => "#{episode.title} cover art",  :width => 460, :height => 342) -%>
   </div>

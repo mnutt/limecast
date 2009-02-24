@@ -159,7 +159,7 @@ def encode_preview_video(source, info)
 end
 
 def encode_random_video(source, info)
-  start_offset = duration - 5.minutes
+  start_offset = info[:duration] - 5.minutes
 
   if start_offset > 0
     i = info.merge(:start_offset => rand(start_offset))

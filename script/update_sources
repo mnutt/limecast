@@ -213,7 +213,7 @@ while true
 
     generate_torrent(source)
 
-    unless info[:resolution].blank? || info[:video_codec].nil? || info[:duration].nil?
+    unless info[:resolution].compact.blank? || info[:video_codec].nil? || info[:duration].nil?
       # Get a screen shot
       take_screen_shot(source, info)
 

@@ -113,5 +113,27 @@ describe User do
     @user.remember_token_expires_at.should_not be_nil
     @user.remember_token_expires_at.between?(before, after).should be_true
   end
+
+  describe 'send an email' do
+    before do
+      ActionMailer::Base.delivery_method = :test
+      ActionMailer::Base.perform_deliveries = true
+      ActionMailer::Base.deliveries = []
+    end
+
+    it 'to welcome after a pending user is created' do
+      user = Factory.build(:user, :login => 'mylogin', :state => 'passive')
+      user.register!
+      user.save
+      ActionMailer::Base.deliveries.size.should == 1
+      ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == user.email
+      ActionMailer::Base.deliveries.first.body.should =~ /Your LimeCast account has been created/
+      ActionMailer::Base.deliveries.first.body.should =~ /Visit this url to activate your account/
+    end
+
+    after do
+      ActionMailer::Base.deliveries.clear
+    end
+  end
 end
 

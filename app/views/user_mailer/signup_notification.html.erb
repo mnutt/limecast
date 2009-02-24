@@ -1,7 +1,11 @@
-Your account has been created.
+Your LimeCast account has been created.
 
   Username: <%= @user.login %>
 
 Visit this url to activate your account:
 
   <%= activate_url(:activation_code => @user.activation_code, :host => @host) %>
+
+
+Thanks,
+The LimeCast Team

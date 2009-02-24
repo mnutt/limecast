@@ -205,6 +205,7 @@ module ApplicationHelper
   # Should we show this object's edit form?
   def editing?(obj)
     logger.info "\napphelper:207: #{!obj.valid?} || #{!obj.messages.empty?} || #{!flash[:has_messages].blank?}\n"
+    logger.info "\nthe flash is #{flash.inspect}\n"
     !obj.valid? || !obj.messages.empty? || !flash[:has_messages].blank?
   end
   

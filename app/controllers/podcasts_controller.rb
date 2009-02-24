@@ -50,6 +50,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
   end
 
+  # TODO we should refactor/DRY up this method
   def update
     raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
@@ -62,7 +63,12 @@ class PodcastsController < ApplicationController
       redirect_to(podcasts_url) and return false
     end
     
+    # Set user-specific Podcast attributes if necessary
     params[:podcast][:tag_string] = [params[:podcast][:tag_string], current_user] if params[:podcast][:tag_string]
+    params[:podcast][:feeds_attributes].each {|key,value| 
+      params[:podcast][:feeds_attributes][key][:finder_id] = current_user.id if key.to_s =~ /^new\_/
+    } if params[:podcast][:feeds_attributes].respond_to?(:each)
+
     @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, :tag_string,
                                                       :feeds_attributes, :title, :primary_feed_id])
 

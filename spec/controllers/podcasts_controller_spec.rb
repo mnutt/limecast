@@ -121,11 +121,11 @@ describe PodcastsController do
     end
   end
 
-  describe "handling POST /:podcast" do
+  describe "handling PUT /:podcast" do
     describe "when user is the podcast owner" do
 
-      def do_post(options={:title => "Custom Title"})
-        post :update, :podcast_slug => @podcast.clean_url, :podcast => options
+      def do_put(options={:title => "Custom Title"})
+        put :update, :podcast_slug => @podcast.clean_url, :podcast => options
       end
 
       before(:each) do
@@ -136,32 +136,46 @@ describe PodcastsController do
         @podcast.should_receive(:writable_by?).and_return(true)
         login(@user)
       end
+      
+      it "should add a new feed (via nested form attributes)" do
+        podcast_with_nested_attrs = {'feeds_attributes' => {'new_1' => {"url" => "http://#{@podcast.clean_site}/newfeed.xml"}}}
+        lambda { do_put(podcast_with_nested_attrs) }.should change{ @podcast.reload.feeds.size }.by(1)
+        @podcast.feeds.all(:order => "created_at ASC").first.finder.should == @user
+      end
+
+      it "should delete a feed (via nested form attributes)" do
+        podcast_with_nested_attrs = {'feeds_attributes' => {@podcast.feeds.first.id.to_s => {"_delete" => "1"}}}
+        lambda { do_put(podcast_with_nested_attrs) }.should change{ @podcast.reload.feeds.size }.by(-1)
+      end
+      
+      it "should delete a podcast (via nested form attributes)" do
+        podcast_with_nested_attrs = {'_delete' => '1' }
+        lambda { do_put(podcast_with_nested_attrs) }.should change{ Podcast.count }.by(-1)
+      end
 
       it "should find the podcast requested" do
-        do_post
+        do_put
         assigns(:podcast).id.should == @podcast.id
       end
 
       it "should update the found podcast" do
-        do_post
+        do_put
         assigns(:podcast).reload.title.should == "Custom Title"
       end
 
       it "should redirect to the podcasts list" do
-        do_post
+        do_put
         response.should redirect_to(podcast_url(:podcast_slug => @podcast))
       end
 
       it "should make a feed the primary feed" do
-        do_post(:primary_feed_id => @feed.id)
+        do_put(:primary_feed_id => @feed.id)
         @podcast.reload.primary_feed.should == @feed
       end
       
       it "should add a user tagging for tag 'good'" do
-        do_post(:tag_string => "good")
+        do_put(:tag_string => "good")
         @podcast.reload.tag_string.should == "good"
-        puts "\n\nThe podcast tags here are #{@podcast.tags.last.user_taggings.inspect}"
-        puts "The podcast tag_string here is #{@podcast.tag_string}\n\n"
         @podcast.tags.last.user_taggings.last.user.should == @user
       end
     end
@@ -177,7 +191,7 @@ describe PodcastsController do
       end
 
       it "should redirect to the podcasts list" do
-        post :update, :podcast_slug => @podcast.clean_url, :podcast => {:title => "Custom Title"}
+        put :update, :podcast_slug => @podcast.clean_url, :podcast => {:title => "Custom Title"}
         response.should redirect_to('/')
         flash[:notice].should == 'Sorry, you are not allowed to access that page.'
       end
@@ -190,7 +204,7 @@ describe PodcastsController do
         @podcast = Factory.create(:podcast, :feeds => [Factory.create(:feed, :finder => @user)], :owner_email => "test@example.com")
         login(@user)
 
-        post :update, :podcast_slug => @podcast.clean_url, :podcast => {:owner_email => "malicious@example.com"}
+        put :update, :podcast_slug => @podcast.clean_url, :podcast => {:owner_email => "malicious@example.com"}
       end
 
       it "should not change the params" do

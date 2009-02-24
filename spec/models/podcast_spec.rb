@@ -338,4 +338,3 @@ describe Podcast, "primary feed" do
     @feed2.should be_primary
   end
 end
-

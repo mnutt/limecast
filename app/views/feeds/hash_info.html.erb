@@ -1,1 +1,33 @@
 <h1>Hashing</h1>
+
+<p><%=h @percentage -%>%, <%=h @unhashed_count -%> of <%=h @sources_count -%> sources to do</p>
+<p><%=h @last_day -%> done in the last 24 hours</p>
+
+<p>
+  Probably working on:
+  <% begin -%>
+    <%= link_to h(@probably_next_source.episode.podcast.title), info_podcast_url(@probably_next_source.episode.podcast) -%> &raquo;
+    <%= link_to h(@probably_next_source.episode.date_title), info_feed_url(@probably_next_source.episode) -%> &raquo;
+    <%= link_to "#{@probably_next_source.feed.formatted_bitrate} #{h @probably_next_source.feed.apparent_format}", info_source_url(@probably_next_source.episode.podcast, @probably_next_source.episode, @probably_next_source) -%>
+  <% rescue -%> 
+    Not quite sure
+  <% end -%>
+</p>
+
+<p>Most recent done:</p>
+<ul>
+  <% @sources.each do |source| -%>
+    <% next if source.feed.podcast.nil? rescue next -%>
+    <li>
+      <%= link_to h(source.episode.podcast.title), info_podcast_url(source.episode.podcast) -%> &raquo;
+      <%= link_to h(source.episode.date_title), info_feed_url(source.episode) -%> &raquo;
+      <%= link_to "#{source.feed.formatted_bitrate} #{h source.feed.apparent_format}", info_source_url(source.episode.podcast, source.episode, source), :title => h(source.sha1hash) -%>
+      <%= time_ago_in_words(source.hashed_at) -%> ago
+    </li>
+  <% end -%>
+</ul>
+
+<h2>Log:</h2>
+<pre>
+  <%= h(@hashing_tail) -%>
+</pre>

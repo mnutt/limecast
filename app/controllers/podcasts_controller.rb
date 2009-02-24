@@ -18,18 +18,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
     raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
-    @feeds    = @podcast.feeds.all
-    @most_recent_episode = @podcast.episodes.newest.first
-    @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
-      :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
-      :page => (params[:page] || 1),
-      :per_page => params[:limit] || 10
-    )
-    
-    @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
-
-    @reviews = @podcast.reviews
-    @review  = Review.new(:episode => @podcast.episodes.newest.first)
+    setup_ivars_for_show
   end
 
   def info
@@ -82,17 +71,7 @@ class PodcastsController < ApplicationController
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }
       else
         format.html { 
-          # Set all ivars from show()
-          @most_recent_episode = @podcast.episodes.newest.first
-          @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
-            :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
-            :page => (params[:page] || 1),
-            :per_page => params[:limit] || 10
-          )
-          @reviews = @podcast.reviews
-          @review  = Review.new(:episode => @podcast.episodes.newest.first)
-          @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
-          
+          setup_ivars_for_show
           render :action => 'show'
         }
         format.js { head(:failure) }
@@ -134,5 +113,21 @@ class PodcastsController < ApplicationController
     @podcast.destroy
 
     redirect_to(podcasts_url)
+  end
+
+  protected
+  def setup_ivars_for_show
+    @feeds    = @podcast.feeds.all
+    @most_recent_episode = @podcast.episodes.newest.first
+    @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
+      :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
+      :page => (params[:page] || 1),
+      :per_page => params[:limit] || 10
+    )
+    
+    @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
+
+    @reviews = @podcast.reviews
+    @review  = Review.new(:episode => @podcast.episodes.newest.first)
   end
 end

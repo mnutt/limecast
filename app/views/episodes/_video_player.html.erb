@@ -3,7 +3,7 @@
 <% source  = episode.sources.first -%>
 <%- if source && source.screenshot? -%>
   <div class="container">
-    <%= image_tag(source.screenshot.url, :rel => sources.preview.url, :alt => "#{episode.title} cover art", scaled_resolution(:width => source.width, :height => source.height)) -%>
+    <%= image_tag(source.screenshot.url, {:rel => sources.preview.url, :alt => "#{episode.title} cover art"}.merge(scaled_resolution(:width => source.width, :height => source.height))) -%>
   </div>
 <%- else -%>
   <% unless options[:hide_broken_previews] -%>

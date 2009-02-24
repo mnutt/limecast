@@ -177,6 +177,7 @@ def save_info(source, info)
     :bitrate  => info[:bitrate]
   )
   source.update_attributes(
+    :ability   => Source::ABILITY,
     :format    => info[:file_format] || info[:video_codec] || info[:audio_codec],
     :sha1hash  => info[:sha1hash],
     :hashed_at => Time.now,
@@ -199,7 +200,7 @@ end
 while true
   begin
     # Sleep 30 minutes until a source is found
-    sleep 30.minutes.to_i until source = Source.find_by_sha1hash(nil, :order => "id DESC")
+    sleep 30.minutes.to_i until source = Source.stale.find(:first, :order => "id DESC")
 
     t0 = Time.now
     download_file(source)

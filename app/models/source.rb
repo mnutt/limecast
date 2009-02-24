@@ -22,8 +22,11 @@
 #
 
 class Source < ActiveRecord::Base
+  ABILITY = 1
   belongs_to :feed
   belongs_to :episode
+
+  named_scope :stale, :conditions => ["sources.ability < ?", ABILITY]
 
   has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] }
   has_attached_file :preview

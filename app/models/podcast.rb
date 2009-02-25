@@ -171,6 +171,11 @@ class Podcast < ActiveRecord::Base
   def finders
     self.feeds.map(&:finder).compact
   end
+  
+  # An array of users that may edit this podcast
+  def editors
+    (User.admins.all + finders + [owner]).flatten.compact.uniq
+  end
 
   # Takes a string of space-delimited tags and tries to add them to the podcast's taggings.
   # Also takes an additional user argument, which will add a UserTagging to join the Tagging 

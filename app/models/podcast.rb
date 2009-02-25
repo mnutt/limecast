@@ -25,6 +25,7 @@
 require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
+  
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
   belongs_to :primary_feed, :class_name => 'Feed'
@@ -173,7 +174,7 @@ class Podcast < ActiveRecord::Base
   
   # An array of users that may edit this podcast
   def editors
-    (User.admins.all + finders + [owner]).flatten.compact.uniq
+    @editors ||= (User.admins.all + finders + [owner]).flatten.compact.uniq.reject { |u| u.passive? }
   end
 
   # Takes a string of space-delimited tags and tries to add them to the podcast's taggings.

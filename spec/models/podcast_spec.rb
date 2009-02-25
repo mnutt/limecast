@@ -297,6 +297,24 @@ describe Podcast, "permissions" do
       @podcast.writable_by?(@user).should == false
     end
   end
+
+  describe "all editors" do
+    before do
+      @owner = Factory.create(:user, :login => "owner")
+      @finder = Factory.create(:user, :login => "finder")
+      @admin = Factory.create(:admin_user)
+      @podcast = Factory.create(:podcast, :owner_id => @owner.id)
+      @podcast.feeds.first.update_attribute(:finder_id, @finder.id)
+    end
+
+    it "should include the finders using finders()" do
+      @podcast.finders.should == [@finder]
+    end
+
+    it "should be returned by editors()" do
+      @podcast.editors.should == [@admin, @finder, @owner]
+    end
+  end
 end
 
 describe Podcast, "with associated feeds" do
@@ -336,5 +354,45 @@ describe Podcast, "primary feed" do
     @podcast.update_attribute(:primary_feed_id, @feed2.id)
     @podcast.primary_feed.should == @feed2
     @feed2.should be_primary
+  end
+end
+
+describe Podcast, "finding or creating owner" do
+  before do
+    @podcast = Factory.build(:podcast)
+    @save_podcast = lambda { @podcast.save }
+  end
+
+  it "should set and create the passive owner if the owner doesn't exist" do
+    @save_podcast.should change { User.all.size }.by(1)
+    @podcast.owner.should == User.last
+    @podcast.owner.should be_passive
+  end
+
+  it "should find and set the owner if owner exists" do
+    @podcast.owner = user = Factory.create(:user, :email => 'john.doe@example.com')
+    @save_podcast.should_not change { User.all.size }
+    @podcast.owner.should == user
+  end
+  
+  describe 'email notifications' do
+    # Sending all to Kevin until launch
+    it 'should send podcast notification if owner already existed' do
+      setup_actionmailer
+      user = Factory.create(:user, :email => 'john.doe@example.com')
+      @podcast.owner_email = user.email
+      @save_podcast.should change { ActionMailer::Base.deliveries.size }.by(1)
+      @podcast.owner.should == user
+      ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == 'kfaaborg@limewire.com' # @podcast.owner.email
+      ActionMailer::Base.deliveries.first.body.should =~ /Someone added your podcast to LimeCast/
+      reset_actionmailer
+    end
+    
+    it 'should NOT send podcast notification if owner did not already exist or was passive' do
+      setup_actionmailer
+      User.exists?(:email => @podcast.owner_email).should be(false)
+      @save_podcast.should_not change { ActionMailer::Base.deliveries.size }
+      reset_actionmailer
+    end
   end
 end

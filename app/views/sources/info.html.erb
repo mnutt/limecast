@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <td>Screenshot:</td>
+    <td class="key">Screenshot:</td>
     <td>
       <%= link_to(@source.screenshot.url, @source.screenshot.url) -%>
       (<%= FileSize.new(@source.screenshot_file_size.to_i || 0) -%>)
@@ -10,7 +10,7 @@
   </tr>
   
   <tr>
-    <td>Preview:</td>
+    <td class="key">Preview:</td>
     <td>
       <%= link_to(@source.preview.url, @source.preview.url) -%>
       (<%= FileSize.new(@source.preview_file_size.to_i || 0) -%>)
@@ -18,7 +18,7 @@
   </tr>
   
   <tr>
-    <td>Torrent:</td>
+    <td class="key">Torrent:</td>
     <td>
       <%= link_to(@source.torrent.url, @source.torrent.url) -%>
       (<%= FileSize.new(@source.torrent_file_size.to_i || 0) -%>)
@@ -26,36 +26,36 @@
   </tr>
   
   <tr>
-    <td>Resolution:</td>
+    <td class="key">Resolution:</td>
     <td>
-      <%= h @source.resolution.inspect -%>
+      <%= @source.resolution.blank? ? unknown : h(@source.resolution.inspect) -%>
     </td>
   </tr>
   
   <tr>
-    <td>URL:</td>
+    <td class="key">URL:</td>
     <td>
       <%= link_to(h(@source.url), @source.url) -%>
     </td>
   </tr>
   
   <tr>
-    <td>SHA1 Hash:</td>
+    <td class="key">SHA1 Hash:</td>
     <td>
-      <%=h @source.sha1hash -%>
+      <%= @source.sha1hash.blank? ? unknown : h(@source.sha1hash)  -%>
     </td>
   </tr>
 
   <tr>
-    <td>Curl Errors:</td>
-    <td><%= h(@source.curl_info.blank? ? "No errors." : @source.curl_info) -%></td>
+    <td class="key">Curl Errors:</td>
+    <td><%= @source.curl_info.blank? ? "No errors." : h(@source.curl_info) -%></td>
   </tr>
 
   <tr>
-    <td>FFmpeg output:</td>
-    <td><pre><%= h(@source.ffmpeg_info) -%></pre></td>
+    <td class="key">FFmpeg output:</td>
+    <td><%= @source.ffmpeg_info.blank? ? unknown : h('<pre>'+@source.ffmpeg_info+'</pre>') -%></td>
   </tr>
 </table>
 
 <h2>XML:</h2>
-<pre><%= h(@source.xml) -%></pre>
+<pre class="formatted-xml"><%= @source.xml -%></pre>

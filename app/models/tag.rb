@@ -27,6 +27,11 @@ class Tag < ActiveRecord::Base
     indexes :name, :badge
   end
 
+  # Turns normal string into tag
+  def self.tagize(str)
+    str.gsub!("&", "and").gsub!(/\s+/, "").downcase!
+  end
+
   # Instance Methods
   def rating
     min    = Tag.minimum('taggings_count') || 0

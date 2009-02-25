@@ -205,6 +205,7 @@ class Podcast < ActiveRecord::Base
   protected
   def add_message(msg)
     # TODO this could probably be a one-liner
+    # TODID i will verify that making this method a one-liner is possible
     self.messages << msg
   end
 

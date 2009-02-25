@@ -43,13 +43,13 @@ rescue
 end
 
 def parse_video_codec(raw_info)
-  $1 if raw_info =~ /Video: ([^,]*)/
+  $1 if raw_info =~ /Video: ([^\n,]*)/
 rescue
   nil
 end
 
 def parse_audio_codec(raw_info)
-  $1 if raw_info =~ /Audio: ([^,]*)/
+  $1 if raw_info =~ /Audio: ([^\n,]*)/
 rescue
   nil
 end
@@ -111,6 +111,8 @@ def resized_size_of_video(info)
   width  = 320
   height = width.to_f/info[:resolution][0] * info[:resolution][1]
   size   = [width, height].join("x")
+rescue
+  "320x240"
 end
 
 def take_screen_shot(source, info)
@@ -211,7 +213,7 @@ while true
 
     generate_torrent(source)
 
-    unless info[:video_codec].nil? || info[:duration].nil?
+    unless info[:resolution].compact.blank? || info[:video_codec].nil? || info[:duration].nil?
       # Get a screen shot
       take_screen_shot(source, info)
 

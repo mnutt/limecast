@@ -216,6 +216,8 @@ class Feed < ActiveRecord::Base
     self.podcast.tag_string = "audio" if @feed.audio?
     self.podcast.tag_string = "explicit" if @feed.explicit?
     self.podcast.tag_string = "torrent" if @feed.torrent?
+
+    self.podcast.tag_string = @feed.categories.map {|t| Tag.tagize(t) }.join(" ")
   end
 
   def writable_by?(user)

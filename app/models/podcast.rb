@@ -90,8 +90,6 @@ class Podcast < ActiveRecord::Base
     has :created_at
   end
 
-  attr_accessor :has_previews, :has_p2p_acceleration
-
   def found_by
     feeds.first.finder rescue nil
   end

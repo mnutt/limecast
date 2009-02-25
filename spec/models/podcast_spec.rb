@@ -297,6 +297,24 @@ describe Podcast, "permissions" do
       @podcast.writable_by?(@user).should == false
     end
   end
+
+  describe "all editors" do
+    before do
+      @owner = Factory.create(:user, :login => "owner")
+      @finder = Factory.create(:user, :login => "finder")
+      @admin = Factory.create(:admin_user)
+      @podcast = Factory.create(:podcast, :owner_id => @owner.id)
+      @podcast.feeds.first.update_attribute(:finder_id, @finder.id)
+    end
+
+    it "should include the finders using finders()" do
+      @podcast.finders.should == [@finder]
+    end
+
+    it "should be returned by editors()" do
+      @podcast.editors.should == [@admin, @finder, @owner]
+    end
+  end
 end
 
 describe Podcast, "with associated feeds" do
@@ -338,4 +356,3 @@ describe Podcast, "primary feed" do
     @feed2.should be_primary
   end
 end
-

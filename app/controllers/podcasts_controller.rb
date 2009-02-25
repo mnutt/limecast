@@ -18,18 +18,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
     raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
-    @feeds    = @podcast.feeds.all
-    @most_recent_episode = @podcast.episodes.newest.first
-    @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
-      :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
-      :page => (params[:page] || 1),
-      :per_page => params[:limit] || 10
-    )
-    
-    @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
-
-    @reviews = @podcast.reviews
-    @review  = Review.new(:episode => @podcast.episodes.newest.first)
+    setup_ivars_for_show
   end
 
   def info
@@ -50,6 +39,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
   end
 
+  # TODO we should refactor/DRY up this method
   def update
     raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
@@ -62,12 +52,19 @@ class PodcastsController < ApplicationController
       redirect_to(podcasts_url) and return false
     end
     
+    # Set user-specific Podcast attributes if necessary
     params[:podcast][:tag_string] = [params[:podcast][:tag_string], current_user] if params[:podcast][:tag_string]
+    params[:podcast][:feeds_attributes].each {|key,value| 
+      params[:podcast][:feeds_attributes][key][:finder_id] = current_user.id if key.to_s =~ /^new\_/
+    } if params[:podcast][:feeds_attributes].respond_to?(:each)
+
     @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, :tag_string,
                                                       :feeds_attributes, :title, :primary_feed_id])
 
     respond_to do |format|
       if @podcast.save
+        PodcastMailer.deliver_updated_podcast(@podcast)
+        
         format.html do
           flash[:notice] = "#{@podcast.messages.join(' ')}"
           flash[:has_messages] = true unless @podcast.messages.empty?
@@ -76,17 +73,7 @@ class PodcastsController < ApplicationController
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }
       else
         format.html { 
-          # Set all ivars from show()
-          @most_recent_episode = @podcast.episodes.newest.first
-          @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
-            :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
-            :page => (params[:page] || 1),
-            :per_page => params[:limit] || 10
-          )
-          @reviews = @podcast.reviews
-          @review  = Review.new(:episode => @podcast.episodes.newest.first)
-          @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
-          
+          setup_ivars_for_show
           render :action => 'show'
         }
         format.js { head(:failure) }
@@ -128,5 +115,21 @@ class PodcastsController < ApplicationController
     @podcast.destroy
 
     redirect_to(podcasts_url)
+  end
+
+  protected
+  def setup_ivars_for_show
+    @feeds    = @podcast.feeds.all
+    @most_recent_episode = @podcast.episodes.newest.first
+    @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
+      :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
+      :page => (params[:page] || 1),
+      :per_page => params[:limit] || 10
+    )
+    
+    @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
+
+    @reviews = @podcast.reviews
+    @review  = Review.new(:episode => @podcast.episodes.newest.first)
   end
 end

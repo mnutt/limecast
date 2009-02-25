@@ -27,4 +27,13 @@ class PodcastMailer < ActionMailer::Base
     subject "[LimeCast] Added podcast: #{podcast.title}"
     body    :podcast => podcast, :host => FROM_HOST
   end
+  
+  def updated_podcast(podcast)
+    @recipients = podcast.editors.map &:email
+    @from       = "LimeCast <podcasts@limewire.com>"
+    @sent_on    = Time.now
+    
+    subject "A podcast you can edit was changed."
+    body    :podcast => podcast, :host => FROM_HOST
+  end
 end

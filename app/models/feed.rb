@@ -63,6 +63,7 @@ class Feed < ActiveRecord::Base
     (h / :item).each do |item|
       if e = (item % :enclosure)
         s = self.sources.find_by_url(e[:url])
+        next if s.nil?
         e[:url]    = s.magnet_url
         e[:length] = s.size
       end
@@ -81,6 +82,7 @@ class Feed < ActiveRecord::Base
     (h / :item).each do |item|
       if e = (item % :enclosure)
         s = self.sources.find_by_url(e[:url])
+        next if s.nil?
         if s.torrent?
           e[:url]    = s.torrent_url
           e[:length] = s.torrent_file_size

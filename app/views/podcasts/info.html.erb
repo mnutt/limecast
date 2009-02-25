@@ -1,27 +1,80 @@
 <h1><%=h @podcast.title %></h1>
 
 <table cellpadding="0" cellspacing="0" border="0">
-<%- @podcast.attributes.sort.each do |k,v| -%>
-  <% next if ["id", "title", "original_title", "clean_url"].include?(k) || k.to_s =~ /_id/ %>
   <tr>
-    <td><%= k %></td>
-    <td><code><%= v %></code></td>
+    <td class="key">Description</td>
+    <td>
+      <%= @podcast.description -%>
+    </td>
   </tr>
-<%- end -%>
+  <tr>
+    <td class="key">Has P2P Acceleration</td>
+    <td>
+      <%= @podcast.has_p2p_acceleration ? "true" : "false" -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Has Previews</td>
+    <td>
+      <%= @podcast.has_previews ? "true" : "false" -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Language</td>
+    <td>
+      <%= @podcast.language -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Logo</td>
+    <td>
+      <%= link_to @podcast.logo.url, @podcast.logo.url -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Owner Email</td>
+    <td>
+      <%= @podcast.owner_email -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Owner Name</td>
+    <td>
+      <%= @podcast.owner_name -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Site</td>
+    <td>
+      <%= @podcast.site -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Updated At</td>
+    <td>
+      <%= @podcast.updated_at -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Created at</td>
+    <td>
+      <%= @podcast.created_at -%>
+    </td>
+  </tr>
 </table>
 
 <h2>Titles</h2>
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td>Original Title</td>
+    <td class="key">Original Title</td>
     <td><code><%= @podcast.original_title %></code></td>
   </tr>
   <tr>
-    <td>Title (as show on site)</td>
+    <td class="key">Title (as shown on site)</td>
     <td><code><%= @podcast.title %></code></td>
   </tr>
   <tr>
-    <td>URL Slug</td>
+    <td class="key">URL Slug</td>
     <td><code><%= @podcast.clean_url %></code></td>
   </tr>
 </table>

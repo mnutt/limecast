@@ -208,5 +208,10 @@ module ApplicationHelper
     logger.info "\nthe flash is #{flash.inspect}\n"
     !obj.valid? || !obj.messages.empty? || !flash[:has_messages].blank?
   end
+
+  # Question mark on info pages
+  def unknown
+    "<span class='unknown'>?</span>"
+  end
   
 end

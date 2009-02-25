@@ -251,7 +251,7 @@ class Podcast < ActiveRecord::Base
     return true unless owner.nil?
 
     if self.owner = User.find_by_email(owner_email)
-      PodcastMailer.deliver_added_your_podcast(self)
+      PodcastMailer.deliver_added_your_podcast(self) unless owner.passive?
     else
       owner_login = owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")
       while User.exists?(:login => owner_login) do

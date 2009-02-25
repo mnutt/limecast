@@ -252,7 +252,9 @@ class Podcast < ActiveRecord::Base
   def find_or_create_owner
     return true unless owner.nil?
 
-    unless self.owner = User.find_by_email(owner_email)
+    if self.owner = User.find_by_email(owner_email)
+      PodcastMailer.deliver_added_your_podcast(self)
+    else
       owner_login = owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")
       while User.exists?(:login => owner_login) do
         i ||= 1
@@ -260,9 +262,8 @@ class Podcast < ActiveRecord::Base
         owner_login = "#{owner.login}#{i += 1}"
       end
 
-      build_owner(:state => 'passive', :email => owner_email, :login => owner_login,
+      create_owner(:state => 'passive', :email => owner_email, :login => owner_login,
                   :password =>  User.generate_code("The Passive User's Password"))
-
     end
     
     true

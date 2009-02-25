@@ -54,6 +54,16 @@ def http_auth(name='foo', password='bar')
   @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64.encode64("#{name}:#{password}")}"
 end
 
+def setup_actionmailer
+  ActionMailer::Base.delivery_method = :test
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.deliveries = []
+end
+
+def reset_actionmailer
+  ActionMailer::Base.deliveries.clear
+end
+
 # Starts sphinx, runs block, stops sphinx (this takes a while to execute!)
 def with_sphinx &blk
   system "rake ts:config RAILS_ENV=test > /dev/null"

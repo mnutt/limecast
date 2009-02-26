@@ -116,9 +116,7 @@ describe User do
 
   describe 'email notifications' do
     before(:each) do
-      ActionMailer::Base.delivery_method = :test
-      ActionMailer::Base.perform_deliveries = true
-      ActionMailer::Base.deliveries = []
+      setup_actionmailer
     end
 
     it 'should send welcome email after a pending user is created' do
@@ -141,7 +139,7 @@ describe User do
       ActionMailer::Base.deliveries.size.should == 0
     end
     
-    it 'should send reconfirm email and change state to passive after active email is changed ' do
+    it 'should send reconfirm email and change state to passive after active email is changed' do
       user = Factory.create(:user)
       change_email = lambda { user.update_attribute(:email, 'my.new.email.address@foobar.com') }
       change_email.should change { ActionMailer::Base.deliveries.size }.by(1)
@@ -164,7 +162,7 @@ describe User do
     end
 
     after(:each) do
-      ActionMailer::Base.deliveries.clear
+      reset_actionmailer
     end
   end
 end

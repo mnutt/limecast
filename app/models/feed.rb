@@ -63,6 +63,7 @@ class Feed < ActiveRecord::Base
     (h / :item).each do |item|
       if e = (item % :enclosure)
         s = self.sources.find_by_url(e[:url])
+        next if s.nil?
         e[:url]    = s.magnet_url
         e[:length] = s.size
       end
@@ -81,6 +82,7 @@ class Feed < ActiveRecord::Base
     (h / :item).each do |item|
       if e = (item % :enclosure)
         s = self.sources.find_by_url(e[:url])
+        next if s.nil?
         if s.torrent?
           e[:url]    = s.torrent_url
           e[:length] = s.torrent_file_size
@@ -216,6 +218,8 @@ class Feed < ActiveRecord::Base
     self.podcast.tag_string = "audio" if @feed.audio?
     self.podcast.tag_string = "explicit" if @feed.explicit?
     self.podcast.tag_string = "torrent" if @feed.torrent?
+
+    self.podcast.tag_string = @feed.categories.map {|t| Tag.tagize(t) }.join(" ")
   end
 
   def writable_by?(user)

@@ -63,6 +63,8 @@ class PodcastsController < ApplicationController
 
     respond_to do |format|
       if @podcast.save
+        PodcastMailer.deliver_updated_podcast(@podcast)
+        
         format.html do
           flash[:notice] = "#{@podcast.messages.join(' ')}"
           flash[:has_messages] = true unless @podcast.messages.empty?

@@ -65,13 +65,14 @@ class Podcast < ActiveRecord::Base
   }
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
 
-  attr_accessor :has_episodes
+  attr_accessor :has_episodes, :last_changes
   attr_accessor_with_default :messages, []
 
   before_validation :sanitize_title
   before_validation :sanitize_url
   before_save :find_or_create_owner
   before_save :set_primary_feed
+  before_save :store_last_changes
 
   validates_presence_of   :title, :unless => Proc.new { |podcast| podcast.new_record? }
   validates_format_of     :title, :with => /[A-Za-z0-9]+/, :message => "must include at least 1 letter (a-z, A-Z)"
@@ -88,8 +89,6 @@ class Podcast < ActiveRecord::Base
     has taggings.tag_id, :as => :tagged_ids
     has :created_at
   end
-
-  attr_accessor :has_previews, :has_p2p_acceleration
 
   def found_by
     feeds.first.finder rescue nil
@@ -171,6 +170,11 @@ class Podcast < ActiveRecord::Base
   def finders
     self.feeds.map(&:finder).compact
   end
+  
+  # An array of users that may edit this podcast
+  def editors
+    (User.admins.all + finders + [owner]).flatten.compact.uniq
+  end
 
   # Takes a string of space-delimited tags and tries to add them to the podcast's taggings.
   # Also takes an additional user argument, which will add a UserTagging to join the Tagging 
@@ -246,7 +250,9 @@ class Podcast < ActiveRecord::Base
   def find_or_create_owner
     return true unless owner.nil?
 
-    unless self.owner = User.find_by_email(owner_email)
+    if self.owner = User.find_by_email(owner_email)
+      PodcastMailer.deliver_added_your_podcast(self)
+    else
       owner_login = owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")
       while User.exists?(:login => owner_login) do
         i ||= 1
@@ -256,9 +262,7 @@ class Podcast < ActiveRecord::Base
 
       create_owner(:state => 'passive', :email => owner_email, :login => owner_login,
                   :password =>  User.generate_code("The Passive User's Password"))
-
     end
-    save!
     
     true
   end
@@ -267,8 +271,12 @@ class Podcast < ActiveRecord::Base
   def set_primary_feed(obj=nil)
     if primary_feed_id.blank? && feeds.size > 0
       self.primary_feed_id = feeds.first.id
-      save! unless new_record?
     end
+  end
+
+  # Rails dirty objects stores the current changes only until the object is saved
+  def store_last_changes
+    @last_changes = changes
   end
 
 end

@@ -125,8 +125,8 @@ describe User do
       user.save
       ActionMailer::Base.deliveries.size.should == 1
       ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == user.email
-      ActionMailer::Base.deliveries.first.body.should =~ /Your LimeCast account has been created/
-      ActionMailer::Base.deliveries.first.body.should =~ /Visit this url to activate your account/
+      ActionMailer::Base.deliveries.first.body.should =~ /You've joined LimeCast, the web's open podcast directory and archive./
+      ActionMailer::Base.deliveries.first.body.should =~ /Click to confirm your email/
     end
 
     it 'should NOT send welcome email after a passive user is created' do

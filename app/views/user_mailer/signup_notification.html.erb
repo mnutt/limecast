@@ -1,11 +1,6 @@
-Your LimeCast account has been created.
+You've joined LimeCast, the web's open podcast directory and archive.
+Click to confirm your email:
 
-  Username: <%= @user.login %>
+<%= activate_url(:activation_code => @user.activation_code, :host => @host) %>
 
-Visit this url to activate your account:
-
-  <%= activate_url(:activation_code => @user.activation_code, :host => @host) %>
-
-
-Thanks,
-The LimeCast Team
+Thanks!

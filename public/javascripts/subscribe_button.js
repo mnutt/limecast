@@ -8,11 +8,12 @@ $(function() {
 $(function(){
   function read_cookie(){
     var id = $.cookie('podcast_' + PODCAST_ID + '_subscription');
-    return id;
+    return "#" + id;
   }
 
   function update_cookie(id){
     $.cookie('podcast_' + PODCAST_ID + '_subscription', id);
+    alert(id);
   }
 
   function update_subscribe_button(link){
@@ -26,7 +27,7 @@ $(function(){
   }
 
   function update_selected_link(link){
-    $("#subscribe_options .pane a").removeClass("circle");
+    $("#subscribe_options .pane ul a").removeClass("circle");
     link.addClass("circle");
   }
 
@@ -53,12 +54,16 @@ $(function(){
     select_tab("rss");
   }
 
-  $("#subscribe_options .pane a").click(function(e){
+  $("#subscribe_options .change").click(function(e){
+    $("#subscribe_options").hide();
+    $("#delivery_options").show();
+  });
+
+  $("#subscribe_options .pane ul a").click(function(e){
     update_subscribe_button($(this));
     update_selected_link($(this));
 
-    // XXX: %23 is # ... Doesnt seem to be working in firefox. Bug with encoding? should be able to take '#' out.
-    update_cookie("#" + $(this).attr('id'));
+    update_cookie($(this).attr('id'));
 
     $("#subscribe_options_container").slideUp("fast");
 

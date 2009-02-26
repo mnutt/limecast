@@ -14,31 +14,41 @@
 
 <div id="subscribe_options_container" class="rounded_corners clearfix" style="display: none">
   <% rounded_corners do -%>
-  <script type="text/javascript">
-    PODCAST_ID = <%= @podcast.id -%>;
-  </script>  
-  
+    <script type="text/javascript">
+      PODCAST_ID = <%= @podcast.id -%>;
+    </script>  
 
-  <div id="subscribe_options">
+    <div id="subscribe_options">
       <ul>
         <li><a href="#itunes" class="itunes"><span>iTunes</span></a></li>
         <li><a href="#miro" class="miro"><span>miro</span></a></li>
         <li><a href="#rss" class="rss"><span>RSS</span></a></li>
       </ul>
-    
+
       <div id="itunes" class="pane">
-        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| "http://www.itunes.com/podcast?id=#{f.itunes_link}" } } -%>
+        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| f.podcast_url } } -%>
       </div>
-    
+
       <div id="miro" class="pane">
-        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "miro", :url => lambda {|f| "http://subscribe.getmiro.com/?url1=#{f.url}" } } -%>
+        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "miro", :url => lambda {|f| f.miro_url } } -%>
       </div>
-    
+
       <div id="rss" class="pane">
         <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "rss", :url => lambda {|f| f.url } } -%>
       </div>
-  </div>
+    </div>
 
+    <div id="delivery_options">
+      <p>Choose how you would like for it to be delivered:</p>
+      <span class="delivery_method">
+        <input class="radio" id="w" name="download" type="radio" value="Web" checked="checked" /><label for="w">Web</label>
+        <input class="radio" id="t" name="download" type="radio" value="Torrent" checked="checked" /><label for="t">Torrent</label>
+        <input class="radio" id="m" name="download" type="radio" value="Miro" /><label for="m">Miro</label>
+      </span>
+      <button>
+        Subscribe
+      </button>
+    </div>
   <% end -%>
   
 

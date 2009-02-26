@@ -1,7 +1,7 @@
 $(function(){
   function read_cookie(){
     var id = $.cookie('podcast_' + PODCAST_ID + '_download');
-    return id;
+    return "#" + id;
   }
 
   function update_cookie(id){
@@ -34,7 +34,7 @@ $(function(){
 
   var default_link = "a.primary";
   var default_type = "Web";
-  var cookie = "#" + read_cookie();
+  var cookie = read_cookie();
 
   // Sets the default download link on the page
   var name = default_link;

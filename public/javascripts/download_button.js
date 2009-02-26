@@ -34,7 +34,7 @@ $(function(){
 
   var default_link = "a.primary";
   var default_type = "Web";
-  var cookie = read_cookie();
+  var cookie = "#" + read_cookie();
 
   // Sets the default download link on the page
   var name = default_link;
@@ -62,7 +62,7 @@ $(function(){
     update_selected_link($(this));
 
     // XXX: %23 is # ... Doesnt seem to be working in firefox. Bug with encoding? should be able to take '#' out.
-    update_cookie("#" + $(this).attr('id') + "," + type);
+    update_cookie($(this).attr('id') + "," + type);
 
     //return false;
   });

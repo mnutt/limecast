@@ -249,7 +249,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def find_or_create_owner
-    return true unless owner.nil?
+    return true if !owner_id.blank?
 
     if self.owner = User.find_by_email(owner_email)
       PodcastMailer.deliver_added_your_podcast(self) unless owner.passive?

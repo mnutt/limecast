@@ -130,7 +130,7 @@ describe PodcastsController do
 
       before(:each) do
         @user = Factory.create(:user)
-        @podcast = Factory.create(:parsed_podcast)
+        @podcast = Factory.create(:parsed_podcast, :owner_email => @user.email, :owner_id => @user.id)
         @feed = Factory.create(:feed, :state => 'parsed')
         Podcast.stub!(:find_by_clean_url).and_return(@podcast)
         @podcast.should_receive(:writable_by?).and_return(true)
@@ -155,7 +155,6 @@ describe PodcastsController do
       
       it "should send notifications to admins/finders/owners after a podcast is updated" do
         ActionMailer::Base.deliveries = []
-        @podcast.update_attribute(:owner_id, @user.id)
         lambda { do_put(:title => "Foobarbaz") }.should change { ActionMailer::Base.deliveries.size }.by(@podcast.editors.size)
         @podcast.reload.title.should == "Foobarbaz"
         ActionMailer::Base.deliveries.last.body.should =~ /Title was changed to 'Foobarbaz'/

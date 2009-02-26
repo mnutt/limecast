@@ -6,6 +6,7 @@ require 'classifier'
 lsi = Classifier::LSI.new :auto_rebuild => false
 eps = Episode.find(:all)
 podcast_lookup = {}
+# LOL. {} syntax for multiline block and do;end for one line;
 eps.each{|ep|
   podcast_lookup[ep.id] = ep.podcast.id
   lsi.add_item(ep.id) do; ep.summary || ""; end

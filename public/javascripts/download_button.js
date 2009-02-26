@@ -1,14 +1,3 @@
-$(document).ready(function(){
-  $("#download_button a.opener, #download_dropdown a").click(function() {
-    $("#download_dropdown")
-      .toggle()
-      .find('a')
-        .removeClass();
-
-    return false;
-  });
-});
-
 $(function(){
   function read_cookie(){
     var id = $.cookie('podcast_' + PODCAST_ID + '_download');
@@ -35,8 +24,10 @@ $(function(){
   }
 
   function update_selected_link(link){
+    console.log(link);
     $("#download_dropdown a").removeClass("circle");
     link.addClass("circle");
+    console.log("done");
   }
 
   function update_selected_type(type){
@@ -78,4 +69,9 @@ $(function(){
     //return false;
   });
 
+  $("#download_button a.opener, #download_dropdown a").click(function() {
+    $("#download_dropdown").toggle()
+    return false;
+  });
 });
+

@@ -24,10 +24,8 @@ $(function(){
   }
 
   function update_selected_link(link){
-    console.log(link);
     $("#download_dropdown a").removeClass("circle");
     link.addClass("circle");
-    console.log("done");
   }
 
   function update_selected_type(type){

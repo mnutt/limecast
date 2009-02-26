@@ -6,10 +6,11 @@ require 'classifier'
 lsi = Classifier::LSI.new :auto_rebuild => false
 eps = Episode.find(:all)
 podcast_lookup = {}
-eps.each{|ep|
+# LOL: Justin thought it would be leave a sassy comment instead of fix the code :(
+eps.each do |ep|
   podcast_lookup[ep.id] = ep.podcast.id
-  lsi.add_item(ep.id) do; ep.summary || ""; end
-}
+  lsi.add_item(ep.id) { ep.summary || ""}
+end
 
 lsi.build_index
 

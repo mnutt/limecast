@@ -1,0 +1,50 @@
+
+<span class="delivery_method">
+  Choose how you would like for it to be delivered:
+  <input class="radio" id="web" name="download" type="radio" value="Web" checked="checked" /><label for="web">Web</label>
+  <input class="radio" id="torrent" name="download" type="radio" value="Torrent" /><label for="torrent">Torrent</label>
+  <input class="radio" id="magnet" name="download" type="radio" value="Magnet" /><label for="magnet">Magnet</label>
+</span>
+
+<ul class="v_options_list web">
+  <% feeds.group_by(&:format).each do |format| -%>
+    <li>
+      <p><%= feeds_label_from_format(format[0]) -%></p>
+      <span class="v_options">
+        <% delimited_items(format[1], "|") do |feed, delimiter| -%>
+          <%= link_to_feed_size(feed, "rss") {|f| f.url } -%>
+          <%= delimiter -%>
+        <% end %>
+      </span>
+    </li>
+  <% end %>
+</ul>
+
+<ul class="v_options_list torrent">
+  <% feeds.group_by(&:format).each do |format| -%>
+    <li>
+      <p><%= feeds_label_from_format(format[0]) -%></p>
+      <span class="v_options">
+        <% delimited_items(format[1], "|") do |feed, delimiter| -%>
+          <%= link_to_feed_size(feed, "rss_torrent") {|f| f.url } -%>
+          <%= delimiter -%>
+        <% end %>
+      </span>
+    </li>
+  <% end %>
+</ul>
+
+<ul class="v_options_list magnet">
+  <% feeds.group_by(&:format).each do |format| -%>
+    <li>
+      <p><%= feeds_label_from_format(format[0]) -%></p>
+      <span class="v_options">
+        <% delimited_items(format[1], "|") do |feed, delimiter| -%>
+          <%= link_to_feed_size(feed, "rss_magnet") {|f| f.url } -%>
+          <%= delimiter -%>
+        <% end %>
+      </span>
+    </li>
+  <% end %>
+</ul>
+

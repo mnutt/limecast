@@ -34,20 +34,8 @@
       </div>
 
       <div id="rss" class="pane">
-        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "rss", :url => lambda {|f| f.url } } -%>
+        <%= render :partial => "podcasts/subscribe_rss", :locals => {:feeds => @podcast.feeds} -%>
       </div>
-    </div>
-
-    <div id="delivery_options">
-      <p>Choose how you would like for it to be delivered:</p>
-      <span class="delivery_method">
-        <input class="radio" id="w" name="download" type="radio" value="Web" checked="checked" /><label for="w">Web</label>
-        <input class="radio" id="t" name="download" type="radio" value="Torrent" checked="checked" /><label for="t">Torrent</label>
-        <input class="radio" id="m" name="download" type="radio" value="Miro" /><label for="m">Miro</label>
-      </span>
-      <button>
-        Subscribe
-      </button>
     </div>
   <% end -%>
   

@@ -1,3 +1,13 @@
+
+<%- if type == "rss" -%>
+<span class="delivery_method">
+  Choose how you would like for it to be delivered:
+  <input class="radio" id="w" name="download" type="radio" value="Web" checked="checked" /><label for="w">Web</label>
+  <input class="radio" id="t" name="download" type="radio" value="Torrent" /><label for="t">Torrent</label>
+  <input class="radio" id="m" name="download" type="radio" value="Magnet" /><label for="m">Magnet</label>
+</span>
+<% end %>
+
 <ul class="v_options_list">
   <% feeds.group_by(&:format).each do |format| -%>
     <li>
@@ -11,6 +21,4 @@
     </li>
   <% end %>
 </ul>
-
-<p>delivery method set to 'web' | <%= link_to "change", "#", :class => "change" -%></p>
 

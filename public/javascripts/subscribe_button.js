@@ -13,7 +13,6 @@ $(function(){
 
   function update_cookie(id){
     $.cookie('podcast_' + PODCAST_ID + '_subscription', id);
-    alert(id);
   }
 
   function update_subscribe_button(link){
@@ -38,7 +37,15 @@ $(function(){
     $('#subscribe_options .tabs-container#' + name).removeClass("tabs-hide").css("display", "block");
   }
 
-  var default_link = "#rss a.primary";
+  function select_delivery(name) {
+    $('#subscribe_options ul.v_options_list').hide();
+    $('#subscribe_options ul.v_options_list.' + name).show();
+
+    $('.delivery_method input').attr('checked', '');
+    $('.delivery_method input#'+name).attr('checked', 'checked');
+  }
+
+  var default_link = "#rss .rss a.primary";
   var name = read_cookie() || default_link;
   var link = $(name);
   if( link.length != 1 ) {
@@ -52,11 +59,16 @@ $(function(){
     select_tab("miro");
   } else if(name.match(/rss/)) {
     select_tab("rss");
+
+    if(name.match(/torrent/)) {
+      select_delivery("torrent");
+    } else if(name.match(/magnet/)) {
+      select_delivery("magnet");
+    }
   }
 
-  $("#subscribe_options .change").click(function(e){
-    $("#subscribe_options").hide();
-    $("#delivery_options").show();
+  $('#subscribe_options input').click(function(){
+    select_delivery($(this).attr('id'));
   });
 
   $("#subscribe_options .pane ul a").click(function(e){

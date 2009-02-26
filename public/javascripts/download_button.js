@@ -1,7 +1,9 @@
 $(document).ready(function(){
   $("#download_button a.opener, #download_dropdown a").click(function() {
-    $("#download_dropdown a").removeClass();
-    $("#download_dropdown").toggle()
+    $("#download_dropdown")
+      .toggle()
+      .find('a')
+        .removeClass();
 
     return false;
   });
@@ -33,7 +35,7 @@ $(function(){
   }
 
   function update_selected_link(link){
-    $("#download_button .dl_dropdown a").removeClass("circle");
+    $("#download_dropdown a").removeClass("circle");
     link.addClass("circle");
   }
 

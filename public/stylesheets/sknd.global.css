@@ -516,8 +516,6 @@ a.calloutlight:hover {
 	font-size: 1.1em;
 	font-weight: bold;
 }
-#download_button a.download:hover {
-}
 
 #download_button a.download span {
 	display: block;
@@ -540,7 +538,6 @@ a.calloutlight:hover {
 #download_button a.opener:hover {
 	background: url('../imgs/zonebar-navright_o.png') -7px 0px no-repeat;
 }
-
 
 #download_container {
   position: relative;
@@ -591,15 +588,6 @@ a.calloutlight:hover {
 	float: left;
 }
 
-#download_dropdown ul li .selected_vid {
-	padding-right: 12px;
-	font-weight: bold;
-	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
-}
-
-
-				
-				
 
 /**** Standard tabs **************/
 

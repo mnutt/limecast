@@ -502,101 +502,99 @@ a.calloutlight:hover {
 
 /**** Download button on episode pages **************/
 
-
-#zone-bar ul {
+#download_button a.download {
 	display: block;
-}
-#zone-bar ul li {
-	height: 36px;
-	padding: 5px 0px 0 0px;
-	position: relative;
 	float: left;
 	background: url('../imgs/zonebar-navleft.png') center left no-repeat;
-	}
-#zone-bar ul li:hover {
-	background: url('../imgs/zonebar-navleft_o.png') center left no-repeat;
-}
-#zone-bar ul li #download a {
-	display: block;
-	float: left;
-	height: 23px;
-	position: relative;
-	top: -3px;
-	padding-left: 8px;
-	margin-right: -5px;
-	padding-right: 40px;
-	padding-bottom: 0px;
-	padding-top: 3px;
 	color: #fff;
-	font-weight: bold;
-	height: 36px;
-	font-size: 1.1em;
 	white-space: nowrap;
-	background: url('../imgs/zonebar-navright.png') top right no-repeat;
-	}
-	
 
-#zone-bar ul li #download a span {
+	margin-right: -5px;
+	padding: 3px 40px 0 8px;
+	height: 36px;
+
+	font-size: 1.1em;
+	font-weight: bold;
+}
+#download_button a.download:hover {
+}
+
+#download_button a.download span {
 	display: block;
 	font-size: .9em;
 	font-weight: normal;
 	margin-top: -1px;
 	font-style: italic;
 }
-		
-#zone-bar ul li #download a.arrowz {
+
+#download_button a.opener {
 	display: block;
 	float: left;
-	height: 23px;
-	position: relative;
-	padding-top: 13px;
-	padding-right: 6px;
-	padding-left: 11px;
-	margin-left: -25px;
-	height: 36px;
-	text-decoration: none;
+	height: 21px;
+  margin-top: 2px;
+  padding: 15px 7px 0 0;
+
+	background: url('../imgs/zonebar-navright.png') top right no-repeat;
 }
 	
-#zone-bar ul li #download a.arrowz:hover {
-	background: url('../imgs/zonebar-navright_o.png') 4px 0px no-repeat;
+#download_button a.opener:hover {
+	background: url('../imgs/zonebar-navright_o.png') -7px 0px no-repeat;
 }
 
-#zone-bar ul li div.dl_dropdown {
+
+#download_container {
+  position: relative;
+}
+
+#download_dropdown {
 	position: absolute;
-	top: 40px;
+  display: none;
+	top: 36px;
 	left: -3px;
 	width: 250px;
 	z-index: 9000000;
+}
+
+#download_dropdown .delivery_method {
 	font-size: 1.2em;
 }
 
-#zone-bar ul li div ul li {
-	background: none;
-	font-size: .8em;
-}
 
-#zone-bar ul li div ul li:hover {
-	background: none;
-  margin: 0;
-}
-
-#zone-bar ul li div ul.v_options_list {
+#download_dropdown ul {
 	margin-top: 20px;
 }
 
-#zone-bar ul li div ul.v_options_list li {
+#download_dropdown ul li {
 	float: none;
 	padding: 3px 0;
 	height: auto;
 }
 
-#zone-bar ul li div ul.v_options_list li p {
+#download_dropdown ul li p {
 	float: left;
 	margin: 0;
 }
 
-#zone-bar ul li div ul.v_options_list li span {
-	float: right;margin: 0;
+#download_dropdown ul li span {
+	float: right;
+  margin: 0;
+}
+
+#download_dropdown ul li  {
+	display: block;
+	padding: 3px 0;
+	border-bottom: 1px dotted #ddd;
+	overflow: hidden;
+}
+
+#download_dropdown ul li p {
+	float: left;
+}
+
+#download_dropdown ul li .selected_vid {
+	padding-right: 12px;
+	font-weight: bold;
+	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
 }
 
 

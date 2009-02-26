@@ -215,6 +215,7 @@ class Feed < ActiveRecord::Base
       :site           => @feed.link
     )
     PodcastMailer.deliver_new_podcast(podcast) if new_podcast
+    PodcastMailer.deliver_updated_podcast_from_feed(podcast) if !new_podcast && !podcast.last_changes.blank?
   rescue RPodcast::NoEnclosureError
     raise NoEnclosureException
   end

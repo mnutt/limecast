@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   acts_as_state_machine :initial => :passive
   state :passive
-  state :pending, :enter => :make_activation_code
+  state :pending, :enter => :make_pending
   state :active,  :enter => :do_activate
   state :suspended
   state :deleted, :enter => :do_delete
@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
     transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
   end
 
-  event :change_email do
+  event :pending do
     transitions :from => [:pending, :active, :passive], :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
   end
 
@@ -204,6 +204,19 @@ class User < ActiveRecord::Base
     def make_activation_code
       self.deleted_at = nil
       self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+    end
+
+    def make_pending
+      self.state = 'pending'
+      make_activation_code
+      if new_record?
+        UserMailer.deliver_signup_notification(self)
+      else
+        if email_changed?
+          self.messages << "Please check your email for a note from us."
+          UserMailer.deliver_reconfirm_notification(self)
+        end
+      end
     end
 
     def do_delete

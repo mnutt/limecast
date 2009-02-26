@@ -314,6 +314,11 @@ describe Podcast, "permissions" do
     it "should be returned by editors()" do
       @podcast.editors.should == [@admin, @finder, @owner]
     end
+    
+    it "should not include passive users" do
+      @podcast.owner.update_attribute(:state, :passive)
+      @podcast.editors.should_not include(@podcast.owner)
+    end
   end
 end
 

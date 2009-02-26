@@ -25,6 +25,7 @@
 require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
+  
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
   belongs_to :primary_feed, :class_name => 'Feed'
@@ -173,7 +174,7 @@ class Podcast < ActiveRecord::Base
   
   # An array of users that may edit this podcast
   def editors
-    (User.admins.all + finders + [owner]).flatten.compact.uniq
+    @editors ||= (User.admins.all + finders + [owner]).flatten.compact.uniq.reject { |u| u.passive? }
   end
 
   # Takes a string of space-delimited tags and tries to add them to the podcast's taggings.
@@ -248,10 +249,10 @@ class Podcast < ActiveRecord::Base
   end
 
   def find_or_create_owner
-    return true unless owner.nil?
+    return true if !owner_id.blank?
 
     if self.owner = User.find_by_email(owner_email)
-      PodcastMailer.deliver_added_your_podcast(self)
+      PodcastMailer.deliver_added_your_podcast(self) unless owner.passive?
     else
       owner_login = owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")
       while User.exists?(:login => owner_login) do

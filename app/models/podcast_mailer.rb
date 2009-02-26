@@ -28,15 +28,6 @@ class PodcastMailer < ActionMailer::Base
     body    :podcast => podcast, :host => FROM_HOST
   end
   
-  def updated_podcast(podcast)
-    @recipients = podcast.editors.map &:email
-    @from       = "LimeCast <podcasts@limewire.com>"
-    @sent_on    = Time.now
-    
-    subject "A podcast you can edit was changed."
-    body    :podcast => podcast, :host => FROM_HOST
-  end
-
   def added_your_podcast(podcast)
     # NOTE: uncomment the recipient when we launch
     @recipients = 'kfaaborg@limewire.com' # podcast.owner.email
@@ -45,5 +36,25 @@ class PodcastMailer < ActionMailer::Base
     
     subject "Your podcast was added to LimeCast."
     body     :podcast => podcast, :host => FROM_HOST
+  end
+
+  # A user edited your podcast on the site
+  def updated_podcast_from_site(podcast)
+    @recipients = podcast.editors.map &:email
+    @from       = "LimeCast <podcasts@limewire.com>"
+    @sent_on    = Time.now
+    
+    subject "A podcast you can edit was changed."
+    body    :podcast => podcast, :host => FROM_HOST
+  end
+
+  # A feed for your podcast changed and the podcast was updated
+  def updated_podcast_from_feed(podcast)
+    @recipients = podcast.editors.map &:email
+    @from       = "LimeCast <podcasts@limewire.com>"
+    @sent_on    = Time.now
+    
+    subject "A podcast you can edit was changed."
+    body    :podcast => podcast, :host => FROM_HOST
   end
 end

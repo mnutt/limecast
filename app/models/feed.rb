@@ -74,6 +74,8 @@ class Feed < ActiveRecord::Base
         e[:filesize] = s.size
       end
     end
+
+    h.to_s
   end
 
   # XXX: I'm dirty, too!... clean me.
@@ -97,6 +99,8 @@ class Feed < ActiveRecord::Base
         end
       end
     end
+
+    h.to_s
   end
 
 	def itunes_url

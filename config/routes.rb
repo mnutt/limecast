@@ -90,6 +90,12 @@ ActionController::Routing::Routes.draw do |map|
     r.resources :reviews, :path_prefix => '/:podcast_slug', :collection => {:search => :get}
   end
 
+  map.with_options :controller => 'feeds' do |f|
+    f.magnet_feed  '/:podcast_slug/plain/:id.xml',   :action => 'show', :type => :plain
+    f.magnet_feed  '/:podcast_slug/magnet/:id.xml',  :action => 'show', :type => :magnet
+    f.torrent_feed '/:podcast_slug/torrent/:id.xml', :action => 'show', :type => :torrent
+  end
+
   map.with_options :controller => 'episodes' do |e|
     e.podcast_episodes '/:podcast_slug/episodes',         :action => 'index'
     e.episode          '/:podcast_slug/:episode',         :action => 'show'

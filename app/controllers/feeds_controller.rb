@@ -6,6 +6,19 @@ class FeedsController < ApplicationController
     @feed = Feed.new
   end
   
+  def show
+    @feed = Feed.find params[:id]
+    @type = params[:type]
+
+    case @type
+    when :torrent
+      render :xml => @feed.remixed_as_torrent
+    when :magnet
+      render :xml => @feed.remixed_as_magnet
+    else
+      render :xml => @feed.xml
+    end
+  end
   
   def create
     if @feed = Feed.find_by_url(params[:feed][:url])

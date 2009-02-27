@@ -20,9 +20,9 @@ $(function(){
     var type = link.parents('div').attr('id');
     var info = link.parents('li:first').find('p').text() + " - " + link.text();
 
+    $("#subscribe").attr("class", type + "_feed");
     $("#subscribe a").attr("href", url);
     $("#subscribe p").html(type + " <span>(" + info + ")</span>");
-    $("#subscribe").attr("class", type + "_feed");
   }
 
   function update_selected_link(link){

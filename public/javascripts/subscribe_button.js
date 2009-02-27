@@ -38,8 +38,8 @@ $(function(){
   }
 
   function select_delivery(name) {
-    $('#subscribe_options ul.v_options_list').hide();
-    $('#subscribe_options ul.v_options_list.' + name).show();
+    $('#subscribe_options #rss ul.v_options_list').hide();
+    $('#subscribe_options #rss ul.v_options_list.' + name).show();
 
     $('.delivery_method input').attr('checked', '');
     $('.delivery_method input#'+name).attr('checked', 'checked');
@@ -55,7 +55,6 @@ $(function(){
   update_selected_link(link);
  
   if(name.match(/miro/)) {
-    //$('#subscribe_options').triggerTab(2);
     select_tab("miro");
   } else if(name.match(/rss/)) {
     select_tab("rss");

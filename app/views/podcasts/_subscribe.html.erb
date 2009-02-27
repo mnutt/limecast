@@ -7,7 +7,6 @@
       <p>iTunes <span>(Qt - small)</span></p>
     </a>
   </div>
- 
 </div>
 
 <a href="#" class="options" id="s_options_toggle">Change subscription options</a>
@@ -26,7 +25,7 @@
       </ul>
 
       <div id="itunes" class="pane">
-        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| f.podcast_url } } -%>
+        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| f.itunes_url } } -%>
       </div>
 
       <div id="miro" class="pane">

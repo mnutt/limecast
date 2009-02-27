@@ -6,6 +6,9 @@ $(function() {
 });
 
 $(function(){
+  var button   = $('#subscribe');
+  var dropdown = $('#subscribe_options_container');
+
   function read_cookie(){
     var id = $.cookie('podcast_' + PODCAST_ID + '_subscription');
     return "#" + id;
@@ -20,26 +23,26 @@ $(function(){
     var type = link.parents('div').attr('id');
     var info = link.parents('li:first').find('p').text() + " - " + link.text();
 
-    $("#subscribe").attr("class", type + "_feed");
-    $("#subscribe a").attr("href", url);
-    $("#subscribe p").html(type + " <span>(" + info + ")</span>");
+    button.attr("class", type + "_feed");
+    button.find("a").attr("href", url);
+    button.find("p").html(type + " <span>(" + info + ")</span>");
   }
 
   function update_selected_link(link){
-    $("#subscribe_options .pane ul a").removeClass("circle");
+    dropdown.find(".pane ul a").removeClass("circle");
     link.addClass("circle");
   }
 
   function select_tab(name) {
-    $('#subscribe_options .tabs-nav li').removeClass("tabs-selected");
-    $('#subscribe_options a.' + name).parents("li").addClass("tabs-selected");
-    $('#subscribe_options .tabs-container').addClass("tabs-hide").attr("style", "");
-    $('#subscribe_options .tabs-container#' + name).removeClass("tabs-hide").css("display", "block");
+    dropdown.find(".tabs-nav li").removeClass("tabs-selected");
+    dropdown.find("a." + name).parents("li").addClass("tabs-selected");
+    dropdown.find(".tabs-container").addClass("tabs-hide").attr("style", "");
+    dropdown.find(".tabs-container#" + name).removeClass("tabs-hide").css("display", "block");
   }
 
   function select_delivery(name) {
-    $('#subscribe_options #rss ul.v_options_list').hide();
-    $('#subscribe_options #rss ul.v_options_list.' + name).show();
+    dropdown.find("#rss ul.v_options_list").hide();
+    dropdown.find("#rss ul.v_options_list." + name).show();
 
     $('.delivery_method input').attr('checked', '');
     $('.delivery_method input#'+name).attr('checked', 'checked');
@@ -68,17 +71,17 @@ $(function(){
     }
   }
 
-  $('#subscribe_options input').click(function(){
+  dropdown.find("input").click(function(){
     select_delivery($(this).attr('id'));
   });
 
-  $("#subscribe_options .pane ul a").click(function(e){
+  dropdown.find(".pane ul a").click(function(e){
     update_subscribe_button($(this));
     update_selected_link($(this));
 
     update_cookie($(this).attr('id'));
 
-    $("#subscribe_options_container").slideUp("fast");
+    dropdown.slideUp("fast");
 
     e.preventDefault();
   });

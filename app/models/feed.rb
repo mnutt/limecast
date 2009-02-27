@@ -99,12 +99,12 @@ class Feed < ActiveRecord::Base
     end
   end
 
-	def podcast_url
-    "http://subscribe.getmiro.com/?url1=#{self.url}"
+	def itunes_url
+    "http://www.itunes.com/podcast?id=#{self.itunes_link}"
 	end
 
 	def miro_url
-    "http://www.itunes.com/podcast?id=#{self.itunes_link}"
+    "http://subscribe.getmiro.com/?url1=#{self.url}"
 	end
 
   def refresh

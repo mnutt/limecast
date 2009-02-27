@@ -38,11 +38,8 @@ $(function(){
   }
 
   function select_delivery(name) {
-    console.log(name);
-    console.log(1);
     $('#subscribe_options ul.v_options_list').hide();
     $('#subscribe_options ul.v_options_list.' + name).show();
-    console.log(2);
 
     $('.delivery_method input').attr('checked', '');
     $('.delivery_method input#'+name).attr('checked', 'checked');

@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
 
   def reconfirm_notification(user)
     setup_email(user)
-    subject     'Please reconfirm your email address'
+    subject     'Confirm new email'
     
     body :user => user, :host => FROM_HOST
   end
@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
 
   def reset_password(user)
     setup_email(user)
-    subject    "LimeCast Reset Password"
+    subject    "Password reset link"
 
     body :user => user, :host => FROM_HOST
   end

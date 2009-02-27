@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.active?
       current_user.activate!
-      flash[:notice] = "Thanks! Your account has been activated."
+      flash[:notice] = "Your email is confirmed. Thanks again for joining LimeCast!"
     end
     redirect_to user_url(:user_slug => current_user)
   end
@@ -115,7 +115,7 @@ class UsersController < ApplicationController
         @user.generate_reset_password_code
         @user.save
         UserMailer.deliver_reset_password(@user)
-        flash[:notice] = "Please check your email for a note from us."
+        flash[:notice] = "Got it. Check your email for a link to reset your password."
       end
       redirect_to new_session_path
     else

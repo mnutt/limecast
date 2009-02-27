@@ -1,11 +1,6 @@
-Your LimeCast email address has changed:
+You've changed your email address in LimeCast.
+Click to confirm your new email:
 
-  Email: <%= @user.email %>
+<%= activate_url(:activation_code => @user.activation_code, :host => @host) %>
 
-Visit this url to reconfirm your email:
-
-  <%= activate_url(:activation_code => @user.activation_code, :host => @host) %>
-
-
-Thanks,
-The LimeCast Team
+Thanks!

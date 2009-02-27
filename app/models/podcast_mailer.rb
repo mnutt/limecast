@@ -40,7 +40,7 @@ class PodcastMailer < ActionMailer::Base
 
   # A user edited your podcast on the site
   def updated_podcast_from_site(podcast)
-    @recipients = podcast.editors.map &:email
+    @recipients = podcast.editors.reject {|e| e.email !~ /\@limewire\.com$/ }.map(&:email)
     @from       = "LimeCast <podcasts@limewire.com>"
     @sent_on    = Time.now
     
@@ -50,7 +50,7 @@ class PodcastMailer < ActionMailer::Base
 
   # A feed for your podcast changed and the podcast was updated
   def updated_podcast_from_feed(podcast)
-    @recipients = podcast.editors.map &:email
+    @recipients = podcast.editors.reject {|e| e.email !~ /\@limewire\.com$/ }.map(&:email)
     @from       = "LimeCast <podcasts@limewire.com>"
     @sent_on    = Time.now
     

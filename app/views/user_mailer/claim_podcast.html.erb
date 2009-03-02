@@ -1,0 +1,16 @@
+<%= @podcast.found_by.nil? ? "A LimeCast user" : "LimeCast user #{h @podcast.found_by.login}" -%> added your podcast, <%= h @podcast.title %>, to LimeCast.
+Check it out:
+
+<%= podcast_url(:podcast_slug => @podcast, :host => @host) %>
+
+LimeCast is the web's open podcast directory and archive.
+Claim your account to manage your podcasts there:
+
+
+<%= set_password_url(:host => @host, :code => @user.reset_password_code) %>
+
+Thanks!
+
+Real Name
+flastname@limewire.com
+212 555 1000

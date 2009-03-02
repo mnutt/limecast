@@ -2,14 +2,17 @@
 <% @title = h(@podcast.title) -%>
 <% @show_ads = true -%>
 <% stylesheet_link "sknd.global", "sknd.presentation", "sknd.typography", "sknd.icons", "podcast_show" -%>
-<% javascript_include "review_edit", "review_delete", "podcast_edit", "review_ratings_new" -%>
+<% javascript_include "review_edit", "review_delete", "podcast_edit", "review_ratings_new", "jquery.dataTables.min" -%>
 
 <script type="text/javascript">
   $().ready(function() {
     $('.description > p').jTruncate({  
-      length: 400,  
+      length: 225,  
     });  
-    <% if params[:controller] == 'reviews' -%>$(".tabify a[href='#podcast_reviews']").click();<% end -%>
+   $('#podcast_episodes').dataTable(
+     {
+     		"aaSorting": [[ 2, "desc" ]]
+     	});
   });
 </script>
 
@@ -19,29 +22,33 @@
 </div>
 <div class="clear"></div>
 
-<div class="tabify main">
+<div id="podcast_content">
   
-  <ul>
-      <li><a href="#podcast_episodes"><h4>Episodes <span>(<%= @podcast.episodes.count -%>)</span></h4></a></li>
-      <li><a href="#podcast_reviews"><h4>Reviews <span>(<%= @podcast.reviews.count %>)</span></h4></a></li>
-  </ul>
+  <h2>Latest episode preview</h2>
   
-  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search", :id => "podcast_search"} do |form| -%>
-     <%= hidden_field_tag :podcast, @podcast.clean_url %>
-     <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
-     <%= text_field_tag "q", params[:q], :id => "search_podcast_q" %>
-     <button type="submit">
-       <span>Search</span>
-     </button>
-   <% end -%>
+  <div id="latest_episode" class="preview">
+    <h3><%= link_to @most_recent_episode.title, episode_url(:podcast_slug => @most_recent_episode.podcast, :episode => @most_recent_episode) -%></h3>
+    <p class="details"><em><%= @most_recent_episode.published_at.to_date -%> - <%= time_to_words(@most_recent_episode.duration) -%></em></p>
+    <p><%= sanitize_condensed_summary(@most_recent_episode.summary) -%></p>
+    <div class="video_player">
+      <%= render :partial => 'episodes/video_player', :object => @most_recent_episode, :locals => {:options => {:hide_broken_previews => true}} -%>
+    </div> <!-- /video_player -->
+  </div> <!-- /latest_episode -->
+  
+  
+  
+  
+  <h2>Episode list <span>(<%= @podcast.episodes.count -%>)</span></h2>
 
-  
-  
-      
-
-  <div id="podcast_episodes">
+  <div id="episode_list">
     <%= render :partial => 'episodes/episodes', :object => @episodes, :locals => {:podcast => @podcast} %>
   </div>
+  
+  
+  
+  
+  
+  <h2>Reviews <span>(<%= @podcast.reviews.count %>)</span></h2>
   
   <div id="podcast_reviews">
     <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => {:podcast => @podcast} %>
@@ -49,7 +56,7 @@
 
 
 
-</div>
+</div> <!-- /podcast_content -->
 
 <div id="series_page_goog">
   <div class="googleads">

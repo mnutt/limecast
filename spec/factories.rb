@@ -29,6 +29,7 @@ Factory.define :parsed_podcast, :class => Podcast do |p|
   p.original_title { Factory.next :title }
   p.site  { Factory.next :site }
   p.feeds {|a| [Factory.create(:feed, :url => "#{a.site}/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read, :state => 'parsed')] }
+  p.owner_email { Factory.next :email }
 
   p.clean_url { Factory.next :title }
 end
@@ -83,6 +84,15 @@ Factory.define :user do |u|
   u.password 'password'
   u.salt     'NaCl'
   u.state    'active'
+end
+
+Factory.define :passive_user, :class => User do |u|
+  u.login    'notjoinedyet'
+  u.email    'pass@podcasts.example.com'
+  u.salt     'NaCl'
+  u.state    'passive'
+
+  u.admin true
 end
 
 Factory.define :pending_user, :class => User do |u|

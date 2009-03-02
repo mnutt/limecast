@@ -1,0 +1,21 @@
+<div id="claim_form" class="layout_signup clearfix">
+  <h1 class="heading">Claim your Podcasts</h1>
+  
+  <% form_for :user, @user, :url => claim_url, :method => 'post' do |f| -%>
+    <%= hidden_field_tag 'code', @code %>
+    <div class="innerbox">
+      <p class="instructions">
+        Fill out the form below with the email that is listed on your podcast(s).
+      </p>
+      <div class="form_field last">
+        <div class="form_label"><label for="email">Email</label></div>
+        <div class="form_input_wrapper"><%= text_field_tag :email, params[:email], :class => "form_input" -%></div>
+      </div>
+    </div>
+    <div class="form_controls">
+      <div class="form_control_submit">
+        <%= submit_tag 'Claim', :class => 'form_button' %>
+      </div>
+    </div>
+  <% end -%>
+</div>

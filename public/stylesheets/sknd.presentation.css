@@ -36,14 +36,6 @@ form#search input {
 	position: relative;
 }
 
-form#podcast_search {
-  position: absolute;
-  top: 17px;
-  right: 2px;
-  width: 180px;
-  margin: 0;
-  display: block;
-}
 
 #view_options {
 	font-size: .9em;
@@ -239,6 +231,7 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 #header {position: relative; margin: 0; height: 35px;overflow: ;}
 #content_wrapper {
 	overflow: hidden;
+	position: relative;
 	height: 1%;
 	background: #f1f1f1 url('../imgs/bg_content.png') top left repeat-x;
 }
@@ -470,25 +463,15 @@ form#quick_signin a.forgot {
 	color: #171717;
 }
 
-#first_featured {
+.new #featured .podcast_block {
+	width: 440px;
+	float: left;
 	margin-right: 20px;
 }
 
-.new #featured .podcast_block {
-	background: none;
-	float: left;
-	width: 440px;
-}
-
-.new #featured .description {
-
-	width: 255px;
-}
 
 .new #featured .social {
-	font-size: .7em;
-	position: absolute;
-	bottom: -94px;
+	margin-top: 33px;
 }
 
 #pop_recent_cont {
@@ -503,12 +486,10 @@ form#quick_signin a.forgot {
 
 
 #pop_recent_cont .podcast_block, #tags_review_cont .podcast_block {
-	background: none;
 	width: 440px;
 }
 
 #pop_recent_cont .podcast_block .description, #tags_review_cont .podcast_block .description {
-	background: none;
 	width: 340px;
 }
 
@@ -599,8 +580,8 @@ form#quick_signin a.forgot {
 	float: left;
 	margin-right: 20px;
 }
-.podcast.show .summary .preview,
-.podcast.show .summary .preview img { width: 160px; }
+
+.podcast.new .summary .preview img { width: 160px; }
 .episode.show .summary .preview { width: 460px; }
   
 .episode.show .summary .preview .previous {
@@ -637,7 +618,7 @@ form#quick_signin a.forgot {
 
 .show .summary h6#page_type {
 	position: absolute;
-	top: 67px;
+	top: 33px;
 	right: 20px;
 }
 
@@ -669,12 +650,7 @@ form#quick_signin a.forgot {
 	margin-top: 3px;
 }
 
-.podcast_block .description,
-.description_simple .description {
-	position: relative;
-	float: left;
-	width: 470px;
-}
+
 
 .description h6 {
 	color: #a9a9a9;
@@ -684,18 +660,8 @@ form#quick_signin a.forgot {
 	display: inline;
 }
 
-.favorite_cont {
-	font-size: .8em;
-	float: right;
-}
 
-.podcast.index .favorite_cont {
-	margin: 14px 0 5px 0;
-}
 
-.description p {
-	margin: -5px 0 5px 0;
-}
 
 .description ul, .description ul li {
 	display: inline;
@@ -703,14 +669,7 @@ form#quick_signin a.forgot {
 	color: #a9a9a9;
 }
 
-.podcast_block {
-	overflow: visible;
-	position: relative;
-	padding-bottom: 20px;
-	display: block;
-	float: left;
-	margin-bottom: 20px;
-} 
+
 
 .description_simple {
   overflow: visible;
@@ -720,36 +679,11 @@ form#quick_signin a.forgot {
   float: left;
 }
 
-.podcast_block h3 {
-	font-size: 1.4em;
-}
 
-.podcast.show .podcast_block {
-	background: url('../imgs/b_border.png') bottom left repeat-x;
-  width: 760px;
-  margin-top: -4px;
-}
-  
-.episode.show .podcast_block {
+.episode.show .podcast_block { /*episode page*/
 	width: 460px;
 }
 
-
-.show .podcast_block h2 a {
-	font-size: 0.7em;
-	font-weight: normal;
-}
-
-
-
-.episode .podcast_block h2 {
-	margin: 0;
-	width: 300px;
-}
-
-.episode .podcast_block h3 {
-	color: #a9a9a9;
-}
 
 .episode .summary h1 {float: left; width: auto;}
 .episode .summary h2 {float: left; width: auto;}
@@ -759,34 +693,12 @@ form#quick_signin a.forgot {
 	float: left;
   font-size: .7em;
 	margin: 16px 0 0 10px;
-
 	margin: 5px 0 0 10px;
 
 }
 
 
-
-
-
-/**** episodes/reveiws **************/
-div#sort {
-	position: absolute;
-	right: 20px;
-	top: 11px;
-}
-
-div#sort .dropdown div.dropdown_wrap {
-	left: -35px;
-}
-
-div#sort .dropdown {
-	display: inline;
-}
-div#sort .dropdown li,
-div#sort .dropdown label {
-	line-height: 1.5em;
-}
-
+/**** used for reviews **************/
 .show .supplemental h2 a {
 	font-size: 1em;
 }
@@ -840,7 +752,7 @@ div#sort .dropdown label {
 
 li.review {
 	position: relative;
-	border-bottom: solid 1px #D4F0AA;
+	border-bottom: dotted 1px #7b7b7b;
 	display: block;
 	margin-top: 10px;
 	padding-bottom: 0px;
@@ -900,26 +812,24 @@ li.review {
 }
 
 .show li.review .info {
-	width: 163px;
-	float: left;
-	margin: 0px 0;
+  display: block;
+	margin: 0px 0 0 18px;
 	font-size: 1.2em;
 }
 
-.show li.review .info cite {
-	display: block;
-}
+
 
 .show li.review .summary {
 	margin: -3px 0 10px 0;
-	width: 440px;
-	float: left;
+	overflow: auto;
+
 }
 
 .show li.review .summary .title {
 	display: block;
 	font-weight: bold;
 	margin: 0;
+	font-size: 1.4em;
 }
 
 .show li.review .summary .title a {
@@ -930,6 +840,8 @@ li.review {
 
 .show li.review .summary .body {
 	font-size: 1.4em;
+	margin: 0px 0 0 18px;
+	display: block;
 }
 
 .show .reviews.list #review_login {
@@ -987,11 +899,12 @@ li.review {
 
 .show #subscribe {
 	position: absolute;
-	top: 0px;
-	right: -10px;
+	top: 60px;
+	right: 10px;
 	width: 275px;
 	height: 67px;
 	z-index: 3;
+
 }
 
 .show #subscribe div {
@@ -1031,8 +944,8 @@ li.review {
 
 .show #s_options_toggle { 
 	position: absolute;
-	top: 63px;
-	right: 5px;
+	top: 123px;
+	right: 25px;
 	font-size: 1.2em;
 	z-index: 1;
 }
@@ -1043,8 +956,8 @@ li.review {
 	width: 263px;
 	height: 200px;
 	position: absolute;
-	top: 48px;
-	right: -4px;
+	top: 110px;
+	right: 16px;
 	z-index: 2;
 }
 
@@ -1311,34 +1224,13 @@ display: inline;
 	top: 12px;
 }
 
-.podcast.index .preview img {
-	width: 110px;
-	float: left;
-	border: 1px solid #aeaba1;
-}
 
-.podcast.index .podcast_block {
-	margin: 10px 0 20px 5px;
-	padding: 0; 
-	min-height: 125px;
-}
 
-.podcast.index .description_simple img {
-  width: auto;
-}
-
-.podcast.index .description {
-	position: relative;
-	width: 500px;
-
-	padding: 0;
-}
 
 .podcast.index .social {
-	font-size: .7em;
-	width: auto;
-	margin-top: -32px;
+  margin-top: 8px;
 }
+
 .podcast.index .addit {
 	float: right;
 	margin: 1px 5px 0px 0;
@@ -1385,9 +1277,7 @@ display: inline;
 	color: #a9a9a9;
 }
 
-#member_profile .podcast_block {
-	background: none;
-}
+
 
 #profile_profile .edit_toggle {
 	position: absolute;
@@ -1490,86 +1380,36 @@ display: inline;
 
 
 
+/* search_results */
 
 
-
-
-
-/* Episode */
-.podcast form#dl_option a {
-	font-size: 1em;
-}
-
-.podcast .episodes.list {
-	margin-top: -5px;	
-	margin-bottom: 20px;
-}
-
-.podcast .episodes.list p {
-	margin: 0 0px;
-}
-
-.podcast #e_info {
-	font-size: .9em;
-	padding-bottom: 4px;
-	border-bottom: 1px solid #ddd;
-	margin: 0 5px;
-}
-
-.podcast #episode_cont {
-	margin: 20px 0px 20px 0px;
-}
-
-.podcast .episode {
-	margin: 20px 5px 20px 5px;
-	overflow: auto;
-}
-
-
-
-
-.podcast .episode > div {
-	float: left;
-	width: 480px;
-}
-
-.podcast .episode > div.no_screenshot {
-	float: left;
-	width: 595px;
-}
-
-.podcast .episode h3  {
-	margin: 0;
-	font-size: 1.3em;
-}
-
-.podcast .episode span.details {
-	font-size: .85em;
-	font-style: italic;
-	display: block;
-	line-height: 1.4em;
-}
-
-.podcast #search_results .episode  img, .podcast #search_results .episode .preview  {
+#search_results .episode  img, #search_results .episode .preview  {
   float: left;
   width: 25px !important;
-
   margin: 0px 0 0 0;
 }
 
-.podcast .episode  h5 {
+#search_results .podcast .episode  h5 {
   float: left;
   color: #a9a9a9;
   margin: 0px 0 0 8px;
   padding-top: 5px;
 }
 
-.podcast #search_results  .preview, .podcast #search_results  .preview img {
-  width: 110px;
+
+#search_results .podcast_block .description {
+	position: relative;
+  float: left;
+  width: 500px;
+	padding: 0;
 }
 
-.podcast #search_results .podcast_block {background: none;}
+#search_results .episode {
+	margin: 20px 5px 20px 5px;
+	overflow: auto;
+}
 
+/* favoriters page */
 ul.users li h4 {
   color: #a9a9a9;
   margin: 0;
@@ -1579,13 +1419,5 @@ ul.users li {
   border-bottom: 1px dotted #ddd;
   padding: 5px 0;
 }
-
-#favoriters {
-  float: left;
-  width: 670px;
-}
-
-
-
 
 

@@ -30,6 +30,37 @@
 	overflow: hidden;
 }
 
+/**** =Main podcast block ***************/
+.podcast_block {
+	overflow: visible;
+	position: relative;
+	float: left;
+	display: block;
+	margin-bottom: 40px;
+}
+
+.podcast_block .preview img {
+	width: 110px;
+	float: left;
+	border: 1px solid #aeaba1;
+}
+
+
+.podcast_block .description {
+	position: relative;
+  overflow: auto;
+	padding: 0;
+
+}
+
+.podcast_block  p.details {
+  color: #a9a9a9;
+	font-size: 1em;
+	font-style: italic;
+	display: block;
+	line-height: 1.4em;
+}
+
 
 
 /**** =Global submit button ***************/
@@ -436,10 +467,8 @@ a.calloutlight:hover {
 
 .social {
   float:left;
-  width:100%;
-	position: relative;
-	bottom: -40px;
-	margin-bottom: 60px;
+  margin-top: 35px;
+  width: auto;
   }
 .social ul {
   margin:0;
@@ -462,8 +491,9 @@ a.calloutlight:hover {
   padding:0px 9px 0px 0px;
 	line-height: 22px;
   text-decoration:none;
-	font-size: 1em;
+	font-size: .7em;
   color:#a9a9a9;
+  outline: none;
   }
 
 .social a span {
@@ -617,7 +647,7 @@ a.calloutlight:hover {
 }
 
 ul.tabs  {
-  margin: 10px 0 -8px 20px;
+  margin: 10px 0 -1px 20px;
   width: auto;overflow: hidden;
 }
 
@@ -721,7 +751,7 @@ a.truncate_more_link {
 }
 
 #series_page_goog  {
-	margin-top: 50px;
+	margin-top: 75px;
 }
 
 #profile_goog  {

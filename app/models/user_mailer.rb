@@ -32,6 +32,23 @@ class UserMailer < ActionMailer::Base
     body :user => user, :host => FROM_HOST
   end
 
+  # After passive user is created from a podcast, we send this to them
+  def claim_podcast(user, podcast)
+    setup_email(user)
+    @recipients = "kfaaborg@limewire.com" # temporarily until launch
+    subject    "#{podcast.title} added to LimeCast"
+
+    body :user => user, :podcast => podcast, :host => FROM_HOST
+  end
+
+  # Essentially same as Forgot Password, but with different wording
+  def claim_account(user)
+    setup_email(user)
+    subject    "Claim your podcasts on LimeCast"
+
+    body :user => user, :host => FROM_HOST
+  end
+
   protected
     def setup_email(user)
       @recipients  = "#{user.email}"

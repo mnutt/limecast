@@ -26,7 +26,7 @@
       <p><%= feeds_label_from_format(format[0]) -%></p>
       <span class="v_options">
         <% delimited_items(format[1], "|") do |feed, delimiter| -%>
-          <%= link_to_feed_size(feed, "rss_torrent") {|f| f.url } -%>
+          <%= link_to_feed_size(feed, "rss_torrent") {|f| torrent_feed_url(:podcast_slug => f.podcast, :id => f) } -%>
           <%= delimiter -%>
         <% end %>
       </span>
@@ -40,7 +40,7 @@
       <p><%= feeds_label_from_format(format[0]) -%></p>
       <span class="v_options">
         <% delimited_items(format[1], "|") do |feed, delimiter| -%>
-          <%= link_to_feed_size(feed, "rss_magnet") {|f| f.url } -%>
+          <%= link_to_feed_size(feed, "rss_magnet") {|f| magnet_feed_url(:podcast_slug => f.podcast, :id => f) } -%>
           <%= delimiter -%>
         <% end %>
       </span>

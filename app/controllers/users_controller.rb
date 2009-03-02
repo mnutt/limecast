@@ -32,6 +32,7 @@ class UsersController < ApplicationController
     end
 
     @user = User.new(params[:user].keep_keys([:email, :password, :login]))
+    @user.state = 'pending'
     @user.register! if @user.valid?
 
     if @user.errors.empty?
@@ -40,15 +41,13 @@ class UsersController < ApplicationController
       claim_all
 
       respond_to do |format|
-        format.html do
-          redirect_back_or_default('/')
-        end
-        format.js { render :layout => false }
+        format.js
+        format.html { redirect_back_or_default('/') }
       end
     else
       respond_to do |format|
+        format.js { render }
         format.html { render :action => 'new' }
-        format.js { render :layout => false }
       end
     end
   end
@@ -84,6 +83,51 @@ class UsersController < ApplicationController
 
   def forgot_password
     render
+  end
+  
+  # GET /claim
+  # POST /claim?email=...
+  def claim
+    unless params[:email].blank?
+      @user = User.passive.find_by_email(params[:email])
+      flash[:notice] = "We could not find that email."
+    end
+    
+    if @user
+      if @user.reset_password_sent_at and @user.reset_password_sent_at > 10.minutes.ago then
+        flash[:notice] = "We have already sent you a note. Please check your email."
+      else
+        @user.generate_reset_password_code
+        @user.save
+        UserMailer.deliver_claim_account(@user)
+        flash[:notice] = "Got it. Check your email for a link to set your password."
+      end
+      redirect_to new_session_path
+    else
+      render
+    end
+  end
+  
+  # GET /claim/:code
+  # POST /claim/:code
+  def set_password
+    @code = params[:code] or unauthorized
+    @user = User.find_by_reset_password_code(@code) or unauthorized
+    @user.activate! unless @user.active?
+
+    if request.post?
+      if @user.update_attributes(params[:user])
+        @user.reset_password_code = nil
+        @user.reset_password_sent_at = nil
+        @user.activate!
+
+        self.current_user = @user
+        redirect_to user_url(@user)
+      else
+        flash[:notice] = @user.errors.full_messages.to_sentence
+        render
+      end
+    end
   end
 
   def reset_password
@@ -147,7 +191,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'User was successfully updated.'
       flash[:notice] << " #{@user.messages.join(' ')}"
 
-      redirect_to(:user_slug => @user)
+      redirect_to @user
     else
       flash[:notice] = @user.errors.full_messages.join('. ')
       render :action => 'show'

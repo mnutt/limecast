@@ -45,19 +45,21 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.with_options :controller => 'users' do |u|
-    u.favoriters     '/:podcast_slug/favoriters',  :action => "favoriters"
-    u.signup         '/signup',                    :controller => 'users',    :action => 'new'
-    u.activate       '/activate/:activation_code', :action => 'activate'
-    u.reset_password '/reset_password/:code',      :action => 'reset_password', :code => nil
-    u.send_password  '/send_password',             :action => 'send_password',  :code => nil
-    u.forgot_password '/forgot',                   :action => 'forgot_password'
+    u.favoriters      '/:podcast_slug/favoriters',  :action => "favoriters"
+    u.signup          '/signup',                    :action => 'new'
+    u.activate        '/activate/:activation_code', :action => 'activate'
+    u.send_password   '/send_password',             :action => 'send_password'
+    u.reset_password  '/reset_password/:code',      :action => 'reset_password', :code => nil
+    u.claim           '/claim',                     :action => 'claim'                       # claim & set_password are like send_password
+    u.set_password    '/claim/:code',               :action => 'set_password', :code => nil  # & reset_password, but with different wording
+    u.forgot_password '/forgot',                    :action => 'forgot_password'
+    u.all_users       '/user',                      :action => 'index'
+    u.user            '/user/:user_slug',           :action => 'show', :conditions => {:method => :get}
+    u.user            '/user/:user_slug',           :action => 'update', :conditions => {:method => :put}
   end
 
   map.add_feed    '/add',         :controller => 'feeds',      :action => 'new'
   map.status      '/status',      :controller => 'feeds',      :action => 'status'
-  map.all_users   '/user',        :controller => 'users',      :action => 'index'
-  map.user        '/user/:user_slug',  :controller => 'users', :action => 'show', :conditions => {:method => :get}
-  map.user        '/user/:user_slug',  :controller => 'users', :action => 'update', :conditions => {:method => :put}
 
   map.with_options :controller => 'home' do |h|
     h.root                        :action => 'home'

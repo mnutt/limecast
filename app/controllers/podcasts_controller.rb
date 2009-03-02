@@ -63,7 +63,7 @@ class PodcastsController < ApplicationController
 
     respond_to do |format|
       if @podcast.save
-        PodcastMailer.deliver_updated_podcast(@podcast)
+        PodcastMailer.deliver_updated_podcast_from_site(@podcast)
         
         format.html do
           flash[:notice] = "#{@podcast.messages.join(' ')}"

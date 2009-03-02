@@ -1,29 +1,33 @@
 class UserMailer < ActionMailer::Base
   FROM_HOST = "limecast.com"
 
+  # The Welcome email
   def signup_notification(user)
     setup_email(user)
-    subject     'Please activate your new account'
+    subject     'Welcome to LimeCast!'
 
     body :user => user, :host => FROM_HOST
   end
 
+  # The Change Email email
   def reconfirm_notification(user)
     setup_email(user)
-    subject     'Please reconfirm your email address'
+    subject     'Confirm new email'
     
     body :user => user, :host => FROM_HOST
   end
 
+  # Successful Activation email
   def activation(user)
     setup_email(user)
     subject       'Your account has been activated!'
     body :user => user, :host => FROM_HOST
   end
 
+  # The Forgot Password email
   def reset_password(user)
     setup_email(user)
-    subject    "LimeCast Reset Password"
+    subject    "Password reset link"
 
     body :user => user, :host => FROM_HOST
   end

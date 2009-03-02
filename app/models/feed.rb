@@ -208,6 +208,7 @@ class Feed < ActiveRecord::Base
       :site           => @feed.link
     )
     PodcastMailer.deliver_new_podcast(podcast) if new_podcast
+    PodcastMailer.deliver_updated_podcast_from_feed(podcast) if !new_podcast && !podcast.last_changes.blank?
   rescue RPodcast::NoEnclosureError
     raise NoEnclosureException
   end
@@ -219,6 +220,8 @@ class Feed < ActiveRecord::Base
     self.podcast.tag_string = "audio" if @feed.audio?
     self.podcast.tag_string = "explicit" if @feed.explicit?
     self.podcast.tag_string = "torrent" if @feed.torrent?
+
+    self.podcast.tag_string = @feed.categories.map {|t| Tag.tagize(t) }.join(" ")
   end
 
   def writable_by?(user)

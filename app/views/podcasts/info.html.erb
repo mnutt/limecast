@@ -3,6 +3,23 @@
 
 <%= render :partial => 'feeds/info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
 
+<p class="episode_info">
+  New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.newest.first) -%> <%= relative_time(@podcast.episodes.newest.first.published_at, false) -%><br />
+  
+  <%= @podcast.episodes.count -%> episodes
+  since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.oldest.first) -%>
+  every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><br/>
+  Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
+</p>
+
+<table class="episodes">
+  <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes -%>
+</table>
+
+<table class="feeds">
+  <%= render :partial => 'feeds/info_line', :collection => @podcast.feeds -%>
+</table>
+
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key">Description</td>

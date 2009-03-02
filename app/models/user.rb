@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   end
 
   event :activate do
-    transitions :from => :pending, :to => :active
+    transitions :from => [:passive, :pending], :to => :active
   end
 
   event :suspend do

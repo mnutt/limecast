@@ -85,6 +85,15 @@ Factory.define :user do |u|
   u.state    'active'
 end
 
+Factory.define :passive_user, :class => User do |u|
+  u.login    'notjoinedyet'
+  u.email    'pass@podcasts.example.com'
+  u.salt     'NaCl'
+  u.state    'passive'
+
+  u.admin true
+end
+
 Factory.define :pending_user, :class => User do |u|
   u.login    { Factory.next :login }
   u.email    { Factory.next :email }

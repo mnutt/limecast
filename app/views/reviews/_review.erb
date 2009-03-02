@@ -5,14 +5,11 @@
     <h3>Left for <%= link_to review.episode.podcast.title, podcast_url(:podcast_slug => review.episode.podcast) -%></h3>
   <%- end -%>
 
-  <div class="info">
-    <cite><%= link_to_profile review.reviewer -%></cite>
-    <span class="created_at light"><%= time_ago_in_words review.created_at %> ago</span>
-    <!--<a href="#" class="allreviews">See all my reviews</a>-->
-  </div>
+
 
   <div class="summary">
     <span class="title"><%= review.title -%></span>
+    <span class="info light">Written by <%= link_to_profile review.reviewer -%>,<%= time_ago_in_words review.created_at %> ago</span>
     <span class="body"><%= unescape_entities(review.body) -%></span>
     <div class="helpfulness">Did you find this review helpful?
       <div class="social">

@@ -122,6 +122,7 @@ class UsersController < ApplicationController
         @user.activate!
 
         self.current_user = @user
+        flash[:notice] = nil
         redirect_to user_url(@user)
       else
         flash[:notice] = @user.errors.full_messages.to_sentence

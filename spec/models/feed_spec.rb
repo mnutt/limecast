@@ -206,9 +206,10 @@ end
 
 describe Feed, "being updated" do
   before do
-    @podcast = Factory.create(:parsed_podcast, :feeds => [])
-    @feed = Factory.create(:feed, :podcast => @podcast, :url => "#{@podcast.site}/feed.xml")
-    @podcast.update_attributes :site => "http://www.example.com", :original_title => "The Whatever Podcast"
+    @user = Factory.create(:user, :email => 'somefinder@limewire.com')
+    @podcast = Factory.create(:parsed_podcast, :feeds => [], :site => "http://www.example.com", :owner_email => @user.email)
+    @feed = Factory.create(:feed, :podcast_id => @podcast.id, :url => "#{@podcast.site}/feed.xml")
+    @podcast.update_attributes :original_title => "The Whatever Podcast"
     @podcast.reload
   end
   
@@ -217,9 +218,9 @@ describe Feed, "being updated" do
     @feed.content = File.open("#{RAILS_ROOT}/spec/data/example.xml").read
     @feed.parse
     lambda { @feed.update_from_feed }.should change { ActionMailer::Base.deliveries.size }.by(1)
-    ActionMailer::Base.deliveries.first.to_addrs.to_s.should == @podcast.editors.map(&:email).join(',')
-    ActionMailer::Base.deliveries.first.body.should =~ /A podcast that you can edit has been updated because one of its feeds was changed/
-    ActionMailer::Base.deliveries.first.body.should =~ /riginal Title was changed to 'All About Everything'/
+    ActionMailer::Base.deliveries.last.to_addrs.to_s.should == @podcast.editors.map(&:email).join(',')
+    ActionMailer::Base.deliveries.last.body.should =~ /A podcast that you can edit has been updated because one of its feeds was changed/
+    ActionMailer::Base.deliveries.last.body.should =~ /riginal Title was changed to 'All About Everything'/
     reset_actionmailer
   end
 end

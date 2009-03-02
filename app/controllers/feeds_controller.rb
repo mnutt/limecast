@@ -84,6 +84,9 @@ class FeedsController < ApplicationController
 
   def info
     @feed = Feed.find(params[:id])
+    doc = Hpricot.XML(@feed.xml)
+    doc.search("item").remove
+    @feed_xml = doc.to_s.gsub(/\n\s*\n/, "\n")
     render :layout => 'info'
   end
 

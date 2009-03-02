@@ -28,16 +28,6 @@ class PodcastMailer < ActionMailer::Base
     body    :podcast => podcast, :host => FROM_HOST
   end
   
-  def added_your_podcast(podcast)
-    # NOTE: uncomment the recipient when we launch
-    @recipients = 'kfaaborg@limewire.com' # podcast.owner.email
-    @from       = "LimeCast <podcasts@limewire.com>"
-    @sent_on    = Time.now
-    
-    subject "Your podcast was added to LimeCast."
-    body     :podcast => podcast, :host => FROM_HOST
-  end
-
   # A user edited your podcast on the site
   def updated_podcast_from_site(podcast)
     @recipients = podcast.editors.reject {|e| e.email !~ /\@limewire\.com$/ }.map(&:email)

@@ -3,10 +3,10 @@
   <div class="no_screenshot">
 
     <h3><%= link_to episode.title, episode_url(episode.podcast, episode) -%></h3>
-    <p>
-      <span class="details"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></span>
-      <%=  search_excerpt(sanitize_condensed_summary(episode.summary), @parsed_q) -%>
-    </p>
+    
+    <p class="details"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></p>
+    <p><%=  search_excerpt(sanitize_condensed_summary(episode.summary), @parsed_q) -%></p>
+    
     
     <div class="preview">
       <%= image_tag(episode.podcast.logo.url(:icon), :alt => "#{episode.podcast.title} cover art") -%>

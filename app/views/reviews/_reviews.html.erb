@@ -1,7 +1,7 @@
 <% episode ||= podcast.episodes.newest.first -%>
 
-<div class="reviews list rounded_corners">
-  <% rounded_corners do -%>
+<div class="reviews list">
+
     <div id="r_view">
       <p><span id="first_linkable">View:</span>
         <span class="linkable current">
@@ -31,6 +31,6 @@
         <%= render :partial => 'reviews/add_review', :object => podcast -%>
       <% end %>
     </div> 
-  <% end -%>
+
 </div><!-- /s_reviews -->
 

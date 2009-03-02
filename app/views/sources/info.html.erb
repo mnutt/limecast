@@ -1,5 +1,7 @@
 <h1><%=h @source.file_name -%></h1>
 
+<%= render :partial => 'feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
+
 <table>
   <tr>
     <td class="key">Ability:</td>

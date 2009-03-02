@@ -1,0 +1,58 @@
+<% options ||= {} -%>
+<% podcast = options[:podcast] || 
+             (options[:feed].podcast if options[:feed]) ||
+             (options[:episode].podcast if options[:episode]) ||
+             (options[:source].feed.podcast if options[:source]) -%>
+<% feed =    options[:feed] -%>
+<% episode = options[:episode] ||
+             (options[:source].episode if options[:source])-%>
+<% source =  options[:source] -%>
+
+<table>
+  <tr>
+    <th><%= link_to podcast.title, info_podcast_url(podcast) -%></th>
+    <% podcast.feeds.each do |f| -%>
+    <th>
+      <% if f == feed -%>
+	<b>Feed <%= f.id -%></b>
+      <% else -%>
+	<%= link_to "Feed #{f.id}", info_feed_url(podcast, f) -%><br>
+      <% end -%>
+
+      <% if f.primary? -%>(Primary)<% end -%>
+    </th>
+    <% end -%>
+  </tr>
+  <% if !feed -%>
+    <% (episode ? [episode] : podcast.episodes).each do |e| -%>
+      <tr>
+	<td>
+	  <% if e == episode && !source -%>
+	    <b><%= e.date_title -%></b>
+	  <% else -%>
+            <%= link_to e.date_title, info_episode_url(podcast, e) -%>
+	  <% end -%>
+	</td>
+
+	<% podcast.feeds.each do |f| -%>
+          <td>
+            <% s = Source.find_by_feed_id_and_episode_id(f.id, e.id) -%>
+            <% if s -%>
+	      <% if s == source -%>
+		<b>
+		  <%= f.formatted_bitrate -%>
+		  <%= f.apparent_format -%>
+		</b>
+	      <% else -%>
+		<% link_to info_source_url(podcast, e, s) do -%>
+		  <%= f.formatted_bitrate -%>
+		  <%= f.apparent_format -%>
+		<% end -%>
+	      <% end -%>
+            <% end -%>
+          </td>
+	<% end -%>
+      </tr>
+    <% end -%>
+  <% end -%>
+</table>

@@ -1,6 +1,6 @@
 <h1><%=h @episode.title %></h1>
 
-<p>from <%= link_to @episode.podcast.title, info_podcast_url(@episode.podcast) -%></p>
+<%= render :partial => 'feeds/info_source_table', :locals => {:options => {:episode => @episode}} -%>
 
 <table cellpadding="0" cellspacing="0" border="0">
 <%- @episode.attributes.each do |k,v| -%>
@@ -29,4 +29,3 @@
   <li><%= link_to s.file_name, info_source_url(@episode.podcast, @episode, s) -%></li>
 <%- end -%>
 </ul>
-

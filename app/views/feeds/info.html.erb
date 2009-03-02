@@ -1,5 +1,7 @@
 <h1><%= @feed.url -%></h1>
 
+<%= render :partial => 'feeds/info_source_table', :locals => {:options => {:feed => @feed}} -%>
+
 <p>from <%= link_to @feed.podcast.title, info_podcast_url(@feed.podcast) -%></p>
 
 <table>

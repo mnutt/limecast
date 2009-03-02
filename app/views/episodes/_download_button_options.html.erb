@@ -1,0 +1,14 @@
+<%- format = download_button_options -%>
+<li>
+  <p><%= feeds_label_from_format(format[0]) -%></p>
+  <span class="v_options">
+    <% delimited_items(format[1], "|") do |source, delimiter| -%>
+      <%= link_to default_bitrate_label(source.feed.bitrate), source.url,
+            :id    => "feed_#{source.feed.id}",
+            :title => [source.resolution, "bitrate: #{source.feed.formatted_bitrate}"].compact.join(" | "),
+            :class => (source.primary? ? "primary" : nil)-%>
+      <%= link_to source.magnet_url, source.magnet_url, :id => "feed_#{source.feed.id}_magnet", :style => "display:none;" -%>
+      <%= delimiter -%>
+    <% end %>
+  </span>
+</li>

@@ -6,9 +6,12 @@ $(function() {
 });
 
 $(function(){
+  var button   = $('#subscribe');
+  var dropdown = $('#subscribe_options_container');
+
   function read_cookie(){
     var id = $.cookie('podcast_' + PODCAST_ID + '_subscription');
-    return id;
+    return "#" + id;
   }
 
   function update_cookie(id){
@@ -20,24 +23,32 @@ $(function(){
     var type = link.parents('div').attr('id');
     var info = link.parents('li:first').find('p').text() + " - " + link.text();
 
-    $("#subscribe a").attr("href", url);
-    $("#subscribe p").html(type + " <span>(" + info + ")</span>");
-    $("#subscribe").attr("class", type + "_feed");
+    button.attr("class", type + "_feed");
+    button.find("a").attr("href", url);
+    button.find("p").html(type + " <span>(" + info + ")</span>");
   }
 
   function update_selected_link(link){
-    $("#subscribe_options .pane a").removeClass("circle");
+    dropdown.find(".pane ul a").removeClass("circle");
     link.addClass("circle");
   }
 
   function select_tab(name) {
-    $('#subscribe_options .tabs-nav li').removeClass("tabs-selected");
-    $('#subscribe_options a.' + name).parents("li").addClass("tabs-selected");
-    $('#subscribe_options .tabs-container').addClass("tabs-hide").attr("style", "");
-    $('#subscribe_options .tabs-container#' + name).removeClass("tabs-hide").css("display", "block");
+    dropdown.find(".tabs-nav li").removeClass("tabs-selected");
+    dropdown.find("a." + name).parents("li").addClass("tabs-selected");
+    dropdown.find(".tabs-container").addClass("tabs-hide").attr("style", "");
+    dropdown.find(".tabs-container#" + name).removeClass("tabs-hide").css("display", "block");
   }
 
-  var default_link = "#rss a.primary";
+  function select_delivery(name) {
+    dropdown.find("#rss ul.v_options_list").hide();
+    dropdown.find("#rss ul.v_options_list." + name).show();
+
+    $('.delivery_method input').attr('checked', '');
+    $('.delivery_method input#'+name).attr('checked', 'checked');
+  }
+
+  var default_link = "#rss .rss a.primary";
   var name = read_cookie() || default_link;
   var link = $(name);
   if( link.length != 1 ) {
@@ -47,20 +58,30 @@ $(function(){
   update_selected_link(link);
  
   if(name.match(/miro/)) {
-    //$('#subscribe_options').triggerTab(2);
     select_tab("miro");
   } else if(name.match(/rss/)) {
     select_tab("rss");
+
+    if(name.match(/torrent/)) {
+      select_delivery("torrent");
+    } else if(name.match(/magnet/)) {
+      select_delivery("magnet");
+    } else {
+      select_delivery("web");
+    }
   }
 
-  $("#subscribe_options .pane a").click(function(e){
+  dropdown.find("input").click(function(){
+    select_delivery($(this).attr('id'));
+  });
+
+  dropdown.find(".pane ul a").click(function(e){
     update_subscribe_button($(this));
     update_selected_link($(this));
 
-    // XXX: %23 is # ... Doesnt seem to be working in firefox. Bug with encoding? should be able to take '#' out.
-    update_cookie("#" + $(this).attr('id'));
+    update_cookie($(this).attr('id'));
 
-    $("#subscribe_options_container").slideUp("fast");
+    dropdown.slideUp("fast");
 
     e.preventDefault();
   });

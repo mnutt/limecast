@@ -18,5 +18,17 @@ module FeedsHelper
       "Small"
     end
   end
+
+  def subscribe_title(feed)
+    [feed.apparent_resolution, "bitrate: #{feed.formatted_bitrate}"].compact.join(" | ")
+  end
+
+  def link_to_feed_size(feed, type, &url)
+    link_to default_bitrate_label(feed.bitrate),
+      url.call(feed),
+      :id    => "feed_#{feed.id}_#{type}",
+      :title => subscribe_title(feed),
+      :class => (feed.primary? ? "primary" : nil)
+  end
 end
 

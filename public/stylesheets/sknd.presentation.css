@@ -1048,6 +1048,10 @@ li.review {
 	z-index: 2;
 }
 
+#subscribe_options_container #delivery_options {
+  display: none;
+}
+
 .pane p.info {
   display: none;
 }

@@ -57,50 +57,38 @@ class Feed < ActiveRecord::Base
     has :created_at, :podcast_id
   end
 
-  # XXX: I'm dirty... clean me.
-  def remixed_as_magnet
-    h = Hpricot(self.xml)
-    (h / :item).each do |item|
-      if e = (item % :enclosure)
-        s = self.sources.find_by_url(e[:url])
-        next if s.nil?
-        e[:url]    = s.magnet_url
-        e[:length] = s.size
-      end
+  def remix_feed
+    xml = self.xml.dup
 
-      if e = (item % "media:content")
-        s = self.sources.find_by_url(e[:url])
-        e[:url]      = s.magnet_url
-        e[:filesize] = s.size
+    h = Hpricot(self.xml)
+    (h / 'item').each do |item|
+      enclosure     = (item % 'enclosure') || {}
+      media_content = (item % 'media:content') || {}
+
+      urls = [enclosure['url'], media_content['url']].compact.uniq
+      urls.each do |url|
+        s = self.sources.find_by_url(url)
+
+        unless s.nil?
+          new_url = yield s
+          xml.gsub!(url, new_url) unless new_url.nil?
+        end
       end
     end
 
-    h.to_s
+    xml
   end
 
-  # XXX: I'm dirty, too!... clean me.
   def remixed_as_torrent
-    h = Hpricot(self.xml)
-    (h / :item).each do |item|
-      if e = (item % :enclosure)
-        s = self.sources.find_by_url(e[:url])
-        next if s.nil?
-        if s.torrent?
-          e[:url]    = s.torrent_url
-          e[:length] = s.torrent_file_size
-        end
-      end
-
-      if e = (item % "media:content")
-        s = self.sources.find_by_url(e[:url])
-        if s.torrent?
-          e[:url]      = s.torrent_url
-          e[:filesize] = s.torrent_file_size
-        end
-      end
+    remix_feed do |s|
+      s.torrent_url if s.torrent?
     end
+  end
 
-    h.to_s
+  def remixed_as_magnet
+    remix_feed do |s|
+      s.magnet_url
+    end
   end
 
 	def itunes_url

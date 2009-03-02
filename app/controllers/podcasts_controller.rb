@@ -73,7 +73,8 @@ class PodcastsController < ApplicationController
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }
       else
         format.html { 
-          setup_ivars_for_show
+          
+          
           render :action => 'show'
         }
         format.js { head(:failure) }
@@ -121,10 +122,8 @@ class PodcastsController < ApplicationController
   def setup_ivars_for_show
     @feeds    = @podcast.feeds.all
     @most_recent_episode = @podcast.episodes.newest.first
-    @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
-      :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
-      :page => (params[:page] || 1),
-      :per_page => params[:limit] || 10
+    @episodes = @podcast.episodes.all(
+      :order => ["published_at ", "desc"]
     )
     
     @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)

@@ -20,11 +20,8 @@ class PodcastsController < ApplicationController
 
     @feeds = @podcast.feeds.all
     @most_recent_episode = @podcast.episodes.newest.first
-    @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
-      :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
-      :page => (params[:page] || 1),
-      :per_page => params[:limit] || 10
-    )
+    @episodes = @podcast.episodes
+   
     
     @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
 

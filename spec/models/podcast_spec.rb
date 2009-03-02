@@ -141,6 +141,7 @@ end
 
 describe Podcast, "generating the clean url" do
   before do
+    puts "\n\nFailing spec here:\n\n"
     @podcast = Factory.create(:parsed_podcast)
   end
 
@@ -271,7 +272,6 @@ describe Podcast, "permissions" do
     end
 
     it 'should have write access' do
-      @podcast.reload
       @podcast.user_is_owner?(@user).should == true
       @podcast.writable_by?(@user).should == true
     end
@@ -381,23 +381,27 @@ describe Podcast, "finding or creating owner" do
   end
   
   describe 'email notifications' do
-    # Sending all to Kevin until launch
-    it 'should send podcast notification if owner already existed' do
+    before(:each) do
       setup_actionmailer
-      user = Factory.create(:user, :email => 'john.doe@example.com')
-      @podcast.owner_email = user.email
-      @save_podcast.should change { ActionMailer::Base.deliveries.size }.by(1)
-      @podcast.owner.should == user
-      ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == 'kfaaborg@limewire.com' # @podcast.owner.email
-      ActionMailer::Base.deliveries.first.body.should =~ /Someone added your podcast to LimeCast/
+    end
+
+    after(:each) do
       reset_actionmailer
     end
-    
-    it 'should NOT send podcast notification if owner did not already exist or was passive' do
-      setup_actionmailer
-      User.exists?(:email => @podcast.owner_email).should be(false)
+
+    # Sending all to Kevin until launch
+    it 'should not send podcast notification if owner already existed' do
+      user = Factory.create(:user, :email => 'john.doe@example.com')
+      @podcast.owner_email = user.email
       @save_podcast.should_not change { ActionMailer::Base.deliveries.size }
-      reset_actionmailer
+      @podcast.owner.should == user
+    end
+    
+    it 'should send claim podcast email if owner didn\'t already exist' do
+      podcast = Factory.build(:podcast, :owner_email => 'some.podcast.maker@me.com')
+      lambda { podcast.save }.should change { User.passive.count }.by(1)
+      ActionMailer::Base.deliveries.last.to_addrs[0].to_s.should == 'kfaaborg@limewire.com' # podcast.owner.email
+      ActionMailer::Base.deliveries.last.subject.should == "#{podcast.title} added to LimeCast"
     end
   end
 end

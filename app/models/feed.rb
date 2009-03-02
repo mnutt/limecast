@@ -156,7 +156,8 @@ class Feed < ActiveRecord::Base
     update_badges!
     update_episodes!
 
-    self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64), 
+    self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64),
+                           :ability => ABILITY,
                            :state => 'parsed', 
                            :xml => @content)
   end

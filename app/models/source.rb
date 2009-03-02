@@ -22,7 +22,6 @@
 #
 
 class Source < ActiveRecord::Base
-  ABILITY = 1
   belongs_to :feed
   belongs_to :episode
 

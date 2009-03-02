@@ -2,6 +2,13 @@
 
 <table>
   <tr>
+    <td class="key">Ability:</td>
+    <td>
+      <%= @source.ability -%>
+    </td>
+  </tr>
+
+  <tr>
     <td class="key">Screenshot:</td>
     <td>
       <%= link_to(@source.screenshot.url, @source.screenshot.url) -%>

@@ -78,6 +78,8 @@ Rails::Initializer.run do |config|
   config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
 end
 
+ABILITY = 1
+
 # Load /lib files
 %w{file_size duration convenience array_ext object_ext date_ext
    hash_ext string_ext integer_ext numeric_ext}.each do |lib|

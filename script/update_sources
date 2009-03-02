@@ -179,7 +179,7 @@ def save_info(source, info)
     :bitrate  => info[:bitrate]
   )
   source.update_attributes(
-    :ability   => Source::ABILITY,
+    :ability   => ABILITY,
     :format    => info[:file_format] || info[:video_codec] || info[:audio_codec],
     :sha1hash  => info[:sha1hash],
     :hashed_at => Time.now,

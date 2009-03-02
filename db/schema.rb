@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090224183245) do
+ActiveRecord::Schema.define(:version => 20090225191452) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20090224183245) do
     t.integer  "finder_id"
     t.string   "format"
     t.text     "xml",         :limit => 16777215
+    t.integer  "ability",                         :default => 0
   end
 
   add_index "feeds", ["finder_id"], :name => "index_feeds_on_finder_id"

@@ -12,7 +12,6 @@ require 'scenarios'
 require 'factory_girl'
 require 'thinking_sphinx'
 
-
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false

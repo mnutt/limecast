@@ -1,47 +1,12 @@
-<div class="episodes list rounded_corners">
-
-  
-
-  <% rounded_corners do -%>
-  <%= will_paginate episodes,
-    :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Newer episodes" />',
-    :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Older episodes" />',
-    :inner_window   => 1,
-    :outer_window   => 1 -%>
-    <div class="clear"></div>
-    <%#= render :partial => "podcasts/info", :locals => {:podcast => podcast} -%>
-    <%#= render :partial => "podcasts/view_options" -%>
-    <%#= render :partial => "podcasts/download_options" -%>
-    
-    <div id="latest_episode" class="preview">
-      <h4>Latest episode</h4>
-    
-      <h3><%= link_to @most_recent_episode.title, episode_url(:podcast_slug => @most_recent_episode.podcast, :episode => @most_recent_episode) -%></h3>
-      <p>
-	<span class="details"><em><%= @most_recent_episode.published_at.to_date -%></em> - <%= time_to_words(@most_recent_episode.duration) -%></span>
-	<%= sanitize_condensed_summary(@most_recent_episode.summary) -%>
-      </p>
-      <div class="video_player">
-	<%= render :partial => 'episodes/video_player', :object => @most_recent_episode, :locals => {:options => {:hide_broken_previews => true}} -%>
-      </div>
-    </div>
-    
-    <div id="episode_cont"><%= render :partial => "episodes/episode", :collection => episodes -%></div>
-    
-    <h3 class="review_nag"><a href="#">View all X reviews</a> or <a href="#">leave your own</a></h3>
-    <!--<h3 class="review_nag">Be the first to review this podcast!</h3>-->
-    
-    <%= will_paginate episodes,
-      :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Newer episodes" />',
-      :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Older episodes" />',
-      :inner_window   => 1,
-      :outer_window   => 1 -%>
-  <% end -%>
-</div>
-
-<p class="per_page">
-  View:<% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
-    <%= link_to count, {:limit => count}, :class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil -%><%= comma -%>
-  <% end -%>
-  per page
-</p>
+<table id="podcast_episodes" class="display">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Runtime</th>
+      <th>Date released</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => "episodes/episode", :collection => episodes -%>
+  </tbody>
+</table>

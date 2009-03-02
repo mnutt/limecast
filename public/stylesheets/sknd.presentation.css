@@ -971,6 +971,8 @@ li.review {
 .selected.pane p.info {
   display: block;
 }
+
+.delivery_method p {font-size: 1em;color: #a9a9a9;}
 	
 
 

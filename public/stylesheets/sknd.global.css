@@ -538,11 +538,9 @@ a.calloutlight:hover {
 	background: url('../imgs/zonebar-navleft.png') center left no-repeat;
 	color: #fff;
 	white-space: nowrap;
-
 	margin-right: -5px;
-	padding: 3px 40px 0 8px;
+	padding: 5px 40px 0 8px;
 	height: 36px;
-
 	font-size: 1.1em;
 	font-weight: bold;
 }
@@ -560,13 +558,12 @@ a.calloutlight:hover {
 	float: left;
 	height: 21px;
   margin-top: 2px;
-  padding: 15px 7px 0 0;
-
+  padding: 15px 7px 0 8px;
 	background: url('../imgs/zonebar-navright.png') top right no-repeat;
 }
 	
 #download_button a.opener:hover {
-	background: url('../imgs/zonebar-navright_o.png') -7px 0px no-repeat;
+	background: url('../imgs/zonebar-navright_o.png') 4px 0px no-repeat;
 }
 
 #download_container {

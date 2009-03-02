@@ -32,6 +32,14 @@ class UserMailer < ActionMailer::Base
     body :user => user, :host => FROM_HOST
   end
 
+  # Essentially same as Forgot Password, but with different wording
+  def claim_account(user)
+    setup_email(user)
+    subject    "Claim your podcasts on LimeCast"
+
+    body :user => user, :host => FROM_HOST
+  end
+
   protected
     def setup_email(user)
       @recipients  = "#{user.email}"

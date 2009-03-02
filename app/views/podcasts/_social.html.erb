@@ -4,7 +4,7 @@
 <div class="social">
   <ul>
     <%- if show_finder && podcast.found_by -%>
-      <li><%= link_to "First found by <span>#{podcast.found_by.login}</span>", user_url(podcast.found_by) -%></li>
+      <li><%= link_to "Found by <span>#{podcast.found_by.login}</span>", user_url(podcast.found_by) -%></li>
     <%- end -%>
     <%- if show_owner && podcast.owned_by -%>
       <li><%= link_to "Made by <span>#{podcast.owned_by.login}</span>", user_url(podcast.owned_by) -%></li>

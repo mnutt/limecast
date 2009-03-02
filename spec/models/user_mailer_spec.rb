@@ -20,6 +20,15 @@ describe UserMailer do
     ActionMailer::Base.deliveries.first.body.should =~ /LimeCast received a request to reset your password./
   end
 
+  it 'should send a claim account email' do
+    user = Factory.create(:passive_user)
+    user.generate_reset_password_code
+    lambda { UserMailer.deliver_claim_account(user) }.should change { ActionMailer::Base.deliveries.size }.by(1)
+    ActionMailer::Base.deliveries.first.to_addrs.map { |to| to.to_s }.should == [user.email]
+    ActionMailer::Base.deliveries.first.subject.should == 'Claim your podcasts on LimeCast'
+    ActionMailer::Base.deliveries.first.body.should =~ /LimeCast is the web's open podcast directory and archive./
+  end
+
   it 'should send activation email' do
     lambda { UserMailer.deliver_activation(@user) }.should change { ActionMailer::Base.deliveries.size }.by(1)
     ActionMailer::Base.deliveries.first.to_addrs.map { |to| to.to_s }.should == [@user.email]

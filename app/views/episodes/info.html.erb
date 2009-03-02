@@ -7,7 +7,7 @@
   <% next if %w{id duration}.include?(k) || k.to_s =~ /_id/ %>
   <tr>
     <td><%= k %></td>
-    <td><%=h v %></td>
+    <td><%= non_blank v %></td>
   </tr>
 <%- end -%>
   <tr>

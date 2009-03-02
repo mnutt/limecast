@@ -16,7 +16,7 @@
       <% if f == feed -%>
 	<b>Feed <%= f.id -%></b>
       <% else -%>
-	<%= link_to "Feed #{f.id}", info_feed_url(podcast, f) -%><br>
+	<%= info_feed_link(f) -%><br>
       <% end -%>
 
       <% if f.primary? -%>(Primary)<% end -%>
@@ -44,10 +44,7 @@
 		  <%= f.apparent_format -%>
 		</b>
 	      <% else -%>
-		<% link_to info_source_url(podcast, e, s) do -%>
-		  <%= f.formatted_bitrate -%>
-		  <%= f.apparent_format -%>
-		<% end -%>
+		<%= info_source_link(s) -%>
 	      <% end -%>
             <% end -%>
           </td>

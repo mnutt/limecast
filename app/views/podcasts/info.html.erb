@@ -7,7 +7,7 @@
   <tr>
     <td class="key">Description</td>
     <td>
-      <%= @podcast.description -%>
+      <%= non_blank @podcast.description -%>
     </td>
   </tr>
   <tr>
@@ -25,7 +25,7 @@
   <tr>
     <td class="key">Language</td>
     <td>
-      <%= @podcast.language -%>
+      <%= non_blank @podcast.language -%>
     </td>
   </tr>
   <tr>
@@ -37,19 +37,19 @@
   <tr>
     <td class="key">Owner Email</td>
     <td>
-      <%= @podcast.owner_email -%>
+      <%= non_blank @podcast.owner_email -%>
     </td>
   </tr>
   <tr>
     <td class="key">Owner Name</td>
     <td>
-      <%= @podcast.owner_name -%>
+      <%= non_blank @podcast.owner_name -%>
     </td>
   </tr>
   <tr>
     <td class="key">Site</td>
     <td>
-      <%= @podcast.site -%>
+      <%= non_blank @podcast.site -%>
     </td>
   </tr>
   <tr>
@@ -59,7 +59,7 @@
     </td>
   </tr>
   <tr>
-    <td class="key">Created at</td>
+    <td class="key">Age</td>
     <td>
       <%= @podcast.created_at -%>
     </td>

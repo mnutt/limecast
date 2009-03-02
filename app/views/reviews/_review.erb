@@ -1,6 +1,6 @@
 <% with_podcast_reference ||= false -%>
 
-<li id="<%=h dom_id(review) -%>" class="review <%= review.positive? ? "positive" : "negative" %> clearfix">
+<li id="<%=h dom_id(review) -%>" class="<%= cycle "odd", "even" -%> review <%= review.positive? ? "positive" : "negative" %> clearfix">
   <%- if with_podcast_reference -%>
     <h3>Left for <%= link_to review.episode.podcast.title, podcast_url(:podcast_slug => review.episode.podcast) -%></h3>
   <%- end -%>
@@ -11,14 +11,14 @@
     <span class="title"><%= review.title -%></span>
     <span class="info light">Written by <%= link_to_profile review.reviewer -%> <%= time_ago_in_words review.created_at %> ago</span>
     <span class="body"><%= unescape_entities(review.body) -%></span>
-    <div class="helpfulness">Did you find this review helpful?
+    <div class="helpfulness">Did you find this review helpful?</div>
       <div class="social">
         <ul>
           <li><%= link_to "<span>Yes</span> (#{review.insightful})", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'insightful'), :class => 'rate insightful', :rel => review.id -%></li>
           <li><%= link_to "<span>No</span> (#{review.not_insightful})", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'not_insightful'), :class => 'rate not_insightful', :rel => review.id -%></li>
         </ul>
       </div>
-    </div>
+    
 
     <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
   </div>

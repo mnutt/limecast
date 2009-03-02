@@ -520,9 +520,6 @@ form#quick_signin a.forgot {
 
 
 
-#tags_review_cont li.review .summary {
-	width: 250px;
-}
 
 
 #hp_tower, #hp_open {
@@ -742,7 +739,7 @@ form#quick_signin a.forgot {
 
 
 /* Reviews list */
-
+.reviews.list {position: relative;}
 .reviews.list img {margin: 0 -7px 0 20px;}
 
 .show .wrapper {
@@ -754,33 +751,36 @@ li.review {
 	position: relative;
 	border-bottom: dotted 1px #7b7b7b;
 	display: block;
-	margin-top: 10px;
-	padding-bottom: 0px;
+	padding: 20px 10px 40px 10px;
+}
+
+.new li.review { /*homepage*/
+	padding: 10px 0px;
 }
 
 
 .review .helpfulness {
 	color: #a9a9a9;
 	font-size: 1.2em;
-	margin-top: 15px;
-	margin-right: 105px;
-	text-align: right;
+	position: absolute;
+	right: 127px;
+	bottom: 13px;
 }
 
 .review div.social {
 	position: absolute;
 	bottom: 10px;
-	right: -5px;
+	right: 10px;
 	width: auto;
 	margin: 0;
 	padding: 0;
-
+  font-size: 1.4em;
 }
 
-.show #r_info, .show #r_view {
-	padding: 5px 0;
-	border-bottom: 1px solid #ddd;
-	margin: 0px;
+.show #r_view {
+	position: absolute;
+	top: -40px;
+	right: 0;
 }
 
 .show #r_view {
@@ -813,8 +813,12 @@ li.review {
 
 .show li.review .info {
   display: block;
-	margin: 0px 0 0 18px;
+	margin: -3px 0 3px 18px;
 	font-size: 1.2em;
+}
+
+.show li.even {
+  background: #ebebeb;
 }
 
 
@@ -1204,7 +1208,6 @@ display: inline;
 
 
 #browse .calloutlight {
-  font-size: 1em;
   float: right;
   margin-top: 12px;
 }

@@ -938,7 +938,7 @@ li.review {
 
 .show #subscribe div a {
 	color: #fff;
-	padding-top: 6px;
+	padding-top: 10px;
 	padding-left: 70px;
 	display: block;
 	width: 225px;
@@ -960,7 +960,7 @@ li.review {
 	width: 263px;
 	height: 200px;
 	position: absolute;
-	top: 110px;
+	top: 100px;
 	right: 16px;
 	z-index: 2;
 }

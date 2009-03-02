@@ -11,7 +11,7 @@
     <% end -%>
   </td>
   <td><%= link_to nil, feed.url -%></td>
-  <td><!-- magnet --></td>
-  <td><!-- torrent --></td>
-  <td><!-- itunes --></td>
+  <td><%= link_to "magnet", magnet_feed_url(feed.podcast, feed) -%></td>
+  <td><%= link_to "torrent", torrent_feed_url(feed.podcast, feed) -%></td>
+  <td><%= link_to "itunes", feed.itunes_link -%></td>
 </tr>

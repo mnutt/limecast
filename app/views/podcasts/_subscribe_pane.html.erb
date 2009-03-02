@@ -1,13 +1,20 @@
+
+<%- if type == "rss" -%>
+<span class="delivery_method">
+  Choose how you would like for it to be delivered:
+  <input class="radio" id="w" name="download" type="radio" value="Web" checked="checked" /><label for="w">Web</label>
+  <input class="radio" id="t" name="download" type="radio" value="Torrent" /><label for="t">Torrent</label>
+  <input class="radio" id="m" name="download" type="radio" value="Magnet" /><label for="m">Magnet</label>
+</span>
+<% end %>
+
 <ul class="v_options_list">
   <% feeds.group_by(&:format).each do |format| -%>
     <li>
       <p><%= feeds_label_from_format(format[0]) -%></p>
       <span class="v_options">
         <% delimited_items(format[1], "|") do |feed, delimiter| -%>
-          <%= link_to default_bitrate_label(feed.bitrate), url.call(feed),
-                :id    => "feed_#{feed.id}_#{type}",
-                :title => [feed.apparent_resolution, "bitrate: #{feed.formatted_bitrate}"].compact.join(" | "),
-                :class => (feed.primary? ? "primary" : nil)-%>
+          <%= link_to_feed_size feed, type, &url -%>
           <%= delimiter -%>
         <% end %>
       </span>

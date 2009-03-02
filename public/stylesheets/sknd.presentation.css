@@ -965,12 +965,18 @@ li.review {
 	z-index: 2;
 }
 
+#subscribe_options_container #delivery_options {
+  display: none;
+}
+
 .pane p.info {
   display: none;
 }
 .selected.pane p.info {
   display: block;
 }
+
+.delivery_method p {font-size: 1em;color: #a9a9a9;}
 	
 
 

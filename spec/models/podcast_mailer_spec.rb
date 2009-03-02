@@ -18,12 +18,6 @@ describe PodcastMailer do
     setup_actionmailer
   end
 
-  it 'should send an "added your podcast" email' do
-    lambda { PodcastMailer.deliver_added_your_podcast(@podcast) }.should change { ActionMailer::Base.deliveries.size }.by(1)
-    ActionMailer::Base.deliveries.last.to_addrs.map { |to| to.to_s }.should == ['kfaaborg@limewire.com'] # [@owner.email]
-    ActionMailer::Base.deliveries.last.subject.should == 'Your podcast was added to LimeCast.'
-    ActionMailer::Base.deliveries.last.body.should =~ /Dear #{@owner.login},\n\nSomeone added your podcast to LimeCast/
-  end
 
   it 'should send an "updated podcast from site" email' do
     lambda { PodcastMailer.deliver_updated_podcast_from_site(@podcast) }.should change { ActionMailer::Base.deliveries.size }.by(1)

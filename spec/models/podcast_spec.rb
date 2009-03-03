@@ -141,7 +141,6 @@ end
 
 describe Podcast, "generating the clean url" do
   before do
-    puts "\n\nFailing spec here:\n\n"
     @podcast = Factory.create(:parsed_podcast)
   end
 
@@ -403,5 +402,32 @@ describe Podcast, "finding or creating owner" do
       ActionMailer::Base.deliveries.last.to_addrs[0].to_s.should == 'kfaaborg@limewire.com' # podcast.owner.email
       ActionMailer::Base.deliveries.last.subject.should == "#{podcast.title} added to LimeCast"
     end
+  end
+end
+
+describe Podcast, "additional badges" do
+  before(:each) do
+    @podcast = Factory.create(:parsed_podcast, :language => 'es')
+  end
+
+  it "should include language" do
+    @podcast.additional_badges.should include 'es'
+    @podcast.language = 'jp'
+    @podcast.additional_badges(true).should include 'jp'
+  end
+
+  it "should include 'current'" do
+    Episode.create(:published_at => 29.day.ago, :podcast_id => @podcast.id)
+    @podcast.reload.additional_badges.should include "current"
+  end
+
+  it "should include 'stale'" do
+    Episode.create(:published_at => 31.day.ago, :podcast_id => @podcast.id)
+    @podcast.reload.additional_badges.should include "stale"
+  end
+
+  it "should include 'archive'" do
+    Episode.create(:published_at => 91.day.ago, :podcast_id => @podcast.id)
+    @podcast.reload.additional_badges.should include "archive"
   end
 end

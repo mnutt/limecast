@@ -6,12 +6,10 @@ class PodcastsController < ApplicationController
   end
 
   def popular
-    @podcasts = Podcast.parsed.sorted.
-      paginate(:page => (params[:page] || 1), :per_page => params[:limit] || 10)
-  end
-
-  def recs
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcasts = Podcast.parsed.sorted.paginate(
+			:page => (params[:page] || 1),
+			:per_page => params[:limit] || 10
+		)
   end
 
   def show
@@ -22,15 +20,16 @@ class PodcastsController < ApplicationController
     @most_recent_episode = @podcast.episodes.newest.first
     @episodes = @podcast.episodes
 
-
     @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
 
     @reviews = @podcast.reviews
-    @review  = Review.new(:episode => @podcast.episodes.newest.first)
+    @review  = Review.new(:episode => @most_recent_episode)
   end
 
   def info
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
+
     render :layout => "info"
   end
 
@@ -43,14 +42,11 @@ class PodcastsController < ApplicationController
     end
   end
 
-  def cover
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
-  end
-
   # TODO we should refactor/DRY up this method
   def update
-    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
+
     authorize_write @podcast
 
     # The "_delete" attr is taken from Nested Association Attributes, but AR doesn't support

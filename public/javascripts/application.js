@@ -24,15 +24,20 @@ $(document).ready(function() {
   $('#search_podcast_q').inputDefaultText();
 
 
-  $('.podcast.index .description > p').jTruncate({
-    length: 120,
-  });
-  $('.podcast.show .description > p').jTruncate({
-    length: 225,
-  });
-  $('.podcast.show #podcast_episodes').dataTable({
-    "aaSorting": [[ 2, "desc" ]]
-  });
+  if($('.podcast.index').size()) {
+    $('.podcast.index .description > p').jTruncate({
+      length: 120,
+    });
+  }
+
+  if($('.podcast.show').size()) {
+    $('.podcast.show .description > p').jTruncate({
+      length: 225,
+    });
+    $('.podcast.show #podcast_episodes').dataTable({
+      "aaSorting": [[ 2, "desc" ]]
+    });
+  }
 });
 
 

@@ -53,6 +53,7 @@ class Podcast < ActiveRecord::Base
                                  :large  => ["300x300>", :png],
                                  :icon   => ["25x25#", :png] }
 
+  named_scope :approved, :conditions => {:approved => true}
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
   named_scope :parsed, lambda {
     { :conditions => { :id => Feed.parsed.map(&:podcast_id).uniq } }

@@ -100,7 +100,7 @@ class Podcast < ActiveRecord::Base
     owner
   end
 
-  def is_favorite_of?(user)
+  def favorite_of?(user)
     user && user.favorite_podcasts.include?(self)
   end
 

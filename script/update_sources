@@ -148,7 +148,7 @@ def encode_video(source, info, field)
     :s  => size,              :ss => screenshot_time(info[:start_offset] || 0)
   }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
 
-  `ffmpeg #{options} #{encoded_tmp_file}`
+  `ffmpeg -y #{options} #{encoded_tmp_file}`
 
   if File.exists?(encoded_tmp_file)
     source.attachment_for(field).assign(File.open(encoded_tmp_file))

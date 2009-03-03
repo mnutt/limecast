@@ -66,5 +66,12 @@
   </tr>
 </table>
 
+<h2>Badges:</h2>
+<ul>
+<%- @source.feed.podcast.tags.badges.each do |t| -%>
+  <li><%= t.name %></li>
+<%- end -%>
+</ul>
+
 <h2>XML:</h2>
 <pre class="formatted-xml"><%= @source.xml -%></pre>

@@ -79,6 +79,11 @@
     <td>Creative Commons?</td>
     <td><%=h @feed.podcast.tags.map(&:name).include?('creativecommons') -%></td>
   </tr>
+  
+  <tr>
+    <td>Language</td>
+    <td><%=h @feed.podcast.language %></td>
+  </tr>
 
 </table>
 

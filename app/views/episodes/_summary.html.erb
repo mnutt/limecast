@@ -7,6 +7,7 @@
     <div class="clear"></div>
     <h6 id="page_type">PODCAST EPISODE</h6>
   </div>
+
   <div class="preview">
     <%= render :partial => 'video_player', :object => @episode -%>
     <%= link_to "Older episode", episode_url(:podcast_slug => @podcast, :episode => @episode.previous_episode), :class => "previous" if @episode.previous_episode -%>

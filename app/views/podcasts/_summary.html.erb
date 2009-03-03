@@ -24,7 +24,7 @@
     <ul>
       <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
     </ul>
-    	<%= render :partial => "podcasts/favorite", :locals => {:podcast => @podcast, :show_add_favorite => false, :show_remove_favorite => false, :show_marked_as_favorite => false} -%>
+            <%= render :partial => "podcasts/favorite", :locals => {:podcast => @podcast, :show_add_favorite => false, :show_remove_favorite => false, :show_marked_as_favorite => false} -%>
    <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
   </div>
 
@@ -32,9 +32,9 @@
   
   <div id="podcast_block_bottom">
   </div>
-	
-	
-	
+        
+        
+        
 
 </div>
 

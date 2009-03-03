@@ -4,10 +4,10 @@
 # Table name: tags
 #
 #  id          :integer(4)    not null, primary key
-#  name        :string(255)   
-#  badge       :boolean(1)    
-#  blacklisted :boolean(1)    
-#  map_to_id   :integer(4)    
+#  name        :string(255)
+#  badge       :boolean(1)
+#  blacklisted :boolean(1)
+#  map_to_id   :integer(4)
 #
 
 class Tag < ActiveRecord::Base
@@ -40,8 +40,8 @@ class Tag < ActiveRecord::Base
     min    = Tag.minimum('taggings_count') || 0
     max    = Tag.maximum('taggings_count') || 1
     spread = max - min
-    norm = ((taggings_count || 0) - min).abs 
-    
+    norm = ((taggings_count || 0) - min).abs
+
     rating = (norm.to_f / max * 10).ceil.to_s
   end
 

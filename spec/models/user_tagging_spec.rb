@@ -18,7 +18,7 @@ describe UserTagging, "being created" do
 
   it 'should keep track of users who add a tagging' do
     @tagging.users.should == []
-    
+
     lambda { UserTagging.create!(:tagging => @tagging, :user => @user1) }.should change(UserTagging, :count).by(1)
     lambda { UserTagging.create!(:tagging => @tagging, :user => @user2) }.should change(UserTagging, :count).by(1)
 

@@ -136,7 +136,7 @@ describe PodcastsController do
         @podcast.should_receive(:writable_by?).and_return(true)
         login(@user)
       end
-      
+
       it "should add a new feed (via nested form attributes)" do
         podcast_with_nested_attrs = {'feeds_attributes' => {'new_1' => {"url" => "http://#{@podcast.clean_site}/newfeed.xml"}}}
         lambda { do_put(podcast_with_nested_attrs) }.should change{ @podcast.reload.feeds.size }.by(1)
@@ -147,12 +147,12 @@ describe PodcastsController do
         podcast_with_nested_attrs = {'feeds_attributes' => {@podcast.feeds.first.id.to_s => {"_delete" => "1"}}}
         lambda { do_put(podcast_with_nested_attrs) }.should change{ @podcast.reload.feeds.size }.by(-1)
       end
-      
+
       it "should delete a podcast (via nested form attributes)" do
         podcast_with_nested_attrs = {'_delete' => '1' }
         lambda { do_put(podcast_with_nested_attrs) }.should change{ Podcast.count }.by(-1)
       end
-      
+
       it "should send notifications to admins/finders/owners after a podcast is updated" do
         ActionMailer::Base.deliveries = []
         lambda { do_put(:title => "Foobarbaz") }.should change { ActionMailer::Base.deliveries.size }.by(@podcast.editors.size)
@@ -179,7 +179,7 @@ describe PodcastsController do
         do_put(:primary_feed_id => @feed.id)
         @podcast.reload.primary_feed.should == @feed
       end
-      
+
       it "should add a user tagging for tag 'good'" do
         do_put(:tag_string => "good")
         @podcast.reload.tag_string.should == "good"

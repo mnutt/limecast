@@ -57,21 +57,6 @@ describe PodcastsController do
     end
   end
 
-  describe "handling GET /:podcast/cover" do
-    before(:each) do
-      @podcast = Factory.create(:parsed_podcast)
-      get :cover, :podcast_slug => @podcast.clean_url
-    end
-
-    it 'should assign the podcast' do
-      assigns(:podcast).should == @podcast
-    end
-
-    it 'should render the cover template' do
-      response.should render_template('podcasts/cover')
-    end
-  end
-
   describe "handling DELETE /mypodcast" do
     describe "when user is the podcast owner" do
 

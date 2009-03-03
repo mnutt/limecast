@@ -215,11 +215,11 @@ class Feed < ActiveRecord::Base
 
   def update_badges!
     self.podcast.tag_string = "hd" if @feed.hd?
-    self.podcast.tag_string = "creativecommons" if @feed.creative_commons?
     self.podcast.tag_string = "video" if @feed.video?
     self.podcast.tag_string = "audio" if @feed.audio?
-    self.podcast.tag_string = "explicit" if @feed.explicit?
     self.podcast.tag_string = "torrent" if @feed.torrent?
+    self.podcast.tag_string = "creativecommons" if @feed.creative_commons?
+    self.podcast.tag_string = "explicit" if @feed.explicit?
 
     self.podcast.tag_string = @feed.categories.map {|t| Tag.tagize(t) }.join(" ")
   end

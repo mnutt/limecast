@@ -201,6 +201,21 @@ class Podcast < ActiveRecord::Base
     self.tags.map(&:name).join(" ")
   end
 
+  # These are additional badges that we don't keep as Tag/Taggings
+  def additional_badges(reload=false)
+    return @additional_badges if @additional_badges && !reload
+
+    @additional_badges = returning [] do |ab|
+      ab << language unless language.blank?
+
+      if e = episodes.newest[0]
+        ab << 'current' if e.published_at > 30.days.ago
+        ab << 'stale'   if e.published_at <= 30.days.ago && e.published_at > 90.days.ago
+        ab << 'archive' if e.published_at <= 90.days.ago
+      end
+    end
+  end
+
   protected
   def add_message(msg)
     # TODO this could probably be a one-liner

@@ -21,6 +21,7 @@ class Tag < ActiveRecord::Base
   validates_uniqueness_of :name
 
   named_scope :badges, :conditions => {:badge => true}
+  named_scope :without_badges, :conditions => "`tags`.`badge` IS NULL OR `tags`.`badge` = 0" # mysql, you scoundrel!
 
   # Search
   define_index do

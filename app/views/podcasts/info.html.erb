@@ -124,9 +124,19 @@
   <% end -%>
 </table>
 
+<h2>Badges</h2>
+<ul>
+<%- @podcast.tags.badges.each do |t| -%>
+  <li><%= t.name %></li>
+<%- end -%>
+<%- @podcast.additional_badges.each do |t| -%>
+  <li><%= t %></li>
+<%- end -%>
+</ul>
+
 <h2>Tags</h2>
 <ul>
-<%- @podcast.tags.each do |t| -%>
+<%- @podcast.tags.without_badges.all.each do |t| -%>
   <li><%= t.name %></li>
 <%- end -%>
 </ul>

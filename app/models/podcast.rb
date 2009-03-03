@@ -250,7 +250,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def find_or_create_owner
-    return true if !owner_id.blank?
+    return true if !self.owner_id.blank? || self.owner_email.blank?
 
     if self.owner = User.find_by_email(owner_email)
       # don't do anything

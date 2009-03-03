@@ -1,14 +1,9 @@
-<h1>Listing podcasts</h1>
+<h1>Podcasts</h1>
 
 <table>
-  <tr>
-    <th>Title</th>
-    <th>Approved</th>
-  </tr>
-
 <% @podcasts.each do |p| %>
   <tr>
-    <td><%=h p.title %></td>
+    <td><%= link_to p.title, podcast_url(:podcast_slug => p) %></td>
     <% if p.approved? %>
       <td>approved</td>
     <% else %>

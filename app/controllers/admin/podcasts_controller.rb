@@ -1,4 +1,6 @@
 class Admin::PodcastsController < AdminController
+  layout "info"
+
   def index
     @podcasts = Podcast.find(:all)
   end

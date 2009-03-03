@@ -23,7 +23,7 @@ class PodcastsController < ApplicationController
     @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
 
     @reviews = @podcast.reviews
-    @review  = Review.new(:episode => @most_recent_episode)
+    @review  = Review.new(:episode => @podcast.episodes.newest.first)
   end
 
   def info

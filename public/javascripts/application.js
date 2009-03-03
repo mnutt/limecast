@@ -30,7 +30,7 @@ $(document).ready(function() {
     });
   }
 
-  if($('.podcast.show').size()) {
+  if($('.podcast.show').size() && !$('.podcast.new.show').size()) {
     $('.podcast.show .description > p').jTruncate({
       length: 225,
     });

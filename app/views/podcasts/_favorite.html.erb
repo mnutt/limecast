@@ -2,12 +2,12 @@
 <%- show_remove_favorite    = true if show_remove_favorite.nil? -%>
 <%- show_marked_as_favorite = true if show_marked_as_favorite.nil? -%>
 
-<% if show_remove_favorite && podcast.is_favorite_of?(current_user) -%>
+<% if show_remove_favorite && podcast.favorite_of?(current_user) -%>
   <div class="removeit"><ul><li><%= link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url) -%></li></ul></div>
 <% else -%>
-  <% if show_marked_as_favorite && podcast.is_favorite_of?(current_user) -%>
+  <% if show_marked_as_favorite && podcast.favorite_of?(current_user) -%>
     <%= link_to "Marked as favorite", user_url(current_user, :anchor => "profile_favorites"), :class => "calloutlight", :title => "Go to your favorites" %>
-  <% elsif show_add_favorite && !podcast.is_favorite_of?(current_user) -%>
+  <% elsif show_add_favorite && !podcast.favorite_of?(current_user) -%>
     <div class="addit"><ul><li><%= link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url), :class => "favorite_link" -%></li></ul></div>
   <% end -%>
 <% end -%>

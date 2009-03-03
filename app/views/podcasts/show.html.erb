@@ -4,19 +4,6 @@
 <% stylesheet_link "sknd.global", "sknd.presentation", "sknd.typography", "sknd.icons", "podcast_show" -%>
 <% javascript_include "review_edit", "review_delete", "podcast_edit", "review_ratings_new", "jquery.dataTables.min" -%>
 
-<script type="text/javascript">
-  $().ready(function() {
-    $('.description > p').jTruncate({  
-      length: 225,  
-    });  
-   $('#podcast_episodes').dataTable(
-     {
-                     "aaSorting": [[ 2, "desc" ]]
-             });
-  });
-</script>
-
-
 <div class="summary">
   <%= render :partial => 'podcasts/summary' -%>
 </div>
@@ -36,25 +23,18 @@
   </div> <!-- /latest_episode -->
   
   
-  
-  
   <h2>Episode list <span>(<%= @podcast.episodes.count -%>)</span></h2>
 
   <div id="episode_list">
     <%= render :partial => 'episodes/episodes', :object => @episodes, :locals => {:podcast => @podcast} %>
   </div>
   
-  
-  
-  
-  
+
   <h2>Reviews <span>(<%= @podcast.reviews.count %>)</span></h2>
   
   <div id="podcast_reviews">
     <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => {:podcast => @podcast} %>
   </div>
-
-
 
 </div> <!-- /podcast_content -->
 
@@ -69,7 +49,7 @@
   <h3>Related podcasts</h3>
   <ul id="all_podcasts">
     <% @related.each do |podcast| -%>
-     <li id="<%=h dom_id(podcast) -%>" class="podcast">
+     <li class="podcast">
        <%= image_tag podcast.logo.url(:icon) %> <%= link_to podcast.title, podcast_url(:podcast_slug => podcast) -%>
      </li>
     <% end -%>

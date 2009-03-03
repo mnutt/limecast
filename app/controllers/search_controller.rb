@@ -25,7 +25,7 @@ class SearchController < ApplicationController
     #                                                 # and the values are arrays of their search results
     # def @podcast_groups.add(obj, podcast_id); self[podcast_id] << obj; end
     # def @podcast_groups.count(klass); inject(0) { |count, p| count + p[1].select { |o| o.is_a?(klass) }.size }; end
-    # 
+    #
     # # Group all the podcast-related search results by podcast-id
     # @feeds.each    { |f| @podcast_groups.add(f, f.podcast.id) unless f.podcast.nil? } if @feeds
     # @episodes.each { |e| @podcast_groups.add(e, e.podcast.id) unless e.podcast.nil? } if @episodes

@@ -84,7 +84,7 @@ class UsersController < ApplicationController
   def forgot_password
     render
   end
-  
+
   # GET /claim
   # POST /claim?email=...
   def claim
@@ -92,7 +92,7 @@ class UsersController < ApplicationController
       @user = User.passive.find_by_email(params[:email])
       flash[:notice] = "We could not find that email."
     end
-    
+
     if @user
       if @user.reset_password_sent_at and @user.reset_password_sent_at > 10.minutes.ago then
         flash[:notice] = "We have already sent you a note. Please check your email."
@@ -107,7 +107,7 @@ class UsersController < ApplicationController
       render
     end
   end
-  
+
   # GET /claim/:code
   # POST /claim/:code
   def set_password

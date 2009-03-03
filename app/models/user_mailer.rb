@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
   def reconfirm_notification(user)
     setup_email(user)
     subject     'Confirm new email'
-    
+
     body :user => user, :host => FROM_HOST
   end
 

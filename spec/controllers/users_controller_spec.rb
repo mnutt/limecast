@@ -251,7 +251,7 @@ describe UsersController, "handling GET /claim" do
   it 'should succeed' do
     response.should be_success
   end
-  
+
   it 'should render the /claim template' do
     response.should render_template('users/claim')
   end
@@ -271,13 +271,13 @@ describe UsersController, "handling POST /claim" do
     response.should redirect_to(new_session_path)
     flash[:notice].should == "Got it. Check your email for a link to set your password."
   end
-  
+
   it 'should fail if passive email is not found' do
     do_post('jabberwocky@me.com')
     response.should render_template('claim')
     flash[:notice].should == "We could not find that email."
   end
-  
+
   it 'should fail if passive email is found but claimed twice in 10 minutes' do
     do_post(@user.email) and do_post(@user.email)
     flash[:notice].should == "We have already sent you a note. Please check your email."
@@ -309,12 +309,12 @@ describe UsersController, "handling GET /claim/:code" do
   def do_get(code)
     get :set_password, :code => code
   end
-  
+
   it 'should not succeed with incorrect code' do
     do_get('jabberwocky')
     response.should be_redirect
   end
-  
+
   it 'should succeed' do
     do_get(@user.reset_password_code)
     response.should be_success
@@ -327,24 +327,24 @@ describe UsersController, "handling POST /claim/:code" do
     @user.generate_reset_password_code
     @user.save
   end
-  
+
   def do_post(code)
     post :set_password, :code => code, :user => {:password => '1234abcd'}
   end
-  
+
   it 'should not succeed with incorrect code' do
     lambda { do_post('jabberwocky') }.should_not change { @user.crypted_password }
     response.should be_redirect
   end
-  
+
   it 'should succceed with correct code' do
     do_post(@user.reset_password_code)
     response.should redirect_to(user_url(@user))
   end
-  
+
   it 'should update the user\'s email' do
     lambda { do_post(@user.reset_password_code) }.should change { @user.reload.crypted_password }
   end
-  
-  
+
+
 end

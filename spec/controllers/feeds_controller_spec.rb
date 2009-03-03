@@ -3,65 +3,65 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe FeedsController do
 
   describe "handling GET /add" do
-  
+
     before(:each) do
     end
-  
+
     def do_get
       get :new
     end
-  
+
     it "should be successful" do
       do_get
       response.should be_success
     end
-  
+
     it "should render new template" do
       do_get
       response.should render_template('new')
     end
-  
+
     it "should assign the new feed" do
       do_get
       assigns[:feed].should be_new_record
     end
   end
-  
+
   describe "handling POST /feeds when not logged in" do
     before(:each) do
       post :create, :feed => {:url => "http://mypodcast/feed.xml"}
     end
-  
+
     it 'should save a feed' do
       assigns[:feed].should be_kind_of(Feed)
       assigns[:feed].should_not be_new_record
     end
-  
+
     it 'should add the feed to the session' do
       session.data[:feeds].should include(assigns(:feed).id)
     end
-  
+
     it 'should not associate the feed with a user' do
       assigns[:feed].finder.should be_nil
     end
   end
-  
+
   describe "handling POST /feeds when logged in" do
     before(:each) do
       @user = Factory.create(:user)
       login(@user)
       post :create, :feed => {:url => "http://mypodcast/feed.xml"}
     end
-  
+
     it 'should save the feed' do
       assigns(:feed).should be_kind_of(Feed)
       assigns(:feed).should_not be_new_record
     end
-  
+
     it 'should associate the feed with the user' do
       assigns(:feed).finder.should == @user
     end
-  
+
     it 'should create a feed' do
       assigns(:feed).should be_kind_of(Feed)
       assigns(:feed).url.should == "http://mypodcast/feed.xml"

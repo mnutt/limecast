@@ -13,11 +13,11 @@ describe ReviewsController do
     def do_get(podcast)
       get :index, :podcast_slug => podcast
     end
-    
+
     it "should be successful" do
       do_get(@podcast.clean_url)
       response.should be_success
-    end 
+    end
   end
 
   describe "handling GET /:podcast_slug/reviews/search" do

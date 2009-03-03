@@ -4,9 +4,9 @@
 # Table name: review_ratings
 #
 #  id         :integer(4)    not null, primary key
-#  insightful :boolean(1)    
-#  review_id  :integer(4)    
-#  user_id    :integer(4)    
+#  insightful :boolean(1)
+#  review_id  :integer(4)
+#  user_id    :integer(4)
 #
 
 class ReviewRating < ActiveRecord::Base

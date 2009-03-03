@@ -23,7 +23,7 @@ describe Podcast do
   it 'should use the original_title if set' do
     @podcast.title.should == "My Podcast"
   end
-  
+
   it "should not be valid with no alphanumeric chars" do
     @podcast.title = "?????"
     @podcast.should_not be_valid
@@ -56,7 +56,7 @@ end
 
 describe Podcast, 'sorting' do
   before do
-    @podcasts = ["S Podcast", "O Podcast", "The Podcast", "A Podcast", "Z Podcast"].map {|name| 
+    @podcasts = ["S Podcast", "O Podcast", "The Podcast", "A Podcast", "Z Podcast"].map {|name|
       @podcast = Factory.create(:podcast, :title => name)
     }
   end
@@ -111,7 +111,7 @@ describe Podcast, "cleaning up the site url" do
     @podcast.site = "test.host"
     @podcast.clean_site.should == "test.host"
   end
-  
+
   it 'should return blank for an empty site' do
     @podcast.site = nil
     @podcast.clean_site.should == ""
@@ -197,7 +197,7 @@ describe Podcast, "being saved with tag_string from users" do
     lambda {
       @podcast.update_attributes(:tag_string => ["tag1", @user2])
     }.should change(Tag, :count).by(0)
-    
+
     tag = Tag.find_by_name('tag1')
     tag.taggings.find_by_podcast_id(@podcast.id).user_taggings.map(&:user_id).should == [@user.id, @user2.id]
   end
@@ -314,7 +314,7 @@ describe Podcast, "permissions" do
     it "should be returned by editors()" do
       @podcast.editors.should == [@admin, @finder, @owner]
     end
-    
+
     it "should not include passive users" do
       @podcast.owner.update_attribute(:state, :passive)
       @podcast.editors.should_not include(@podcast.owner)
@@ -379,7 +379,7 @@ describe Podcast, "finding or creating owner" do
     @save_podcast.should_not change { User.all.size }
     @podcast.owner.should == user
   end
-  
+
   describe 'email notifications' do
     before(:each) do
       setup_actionmailer
@@ -396,7 +396,7 @@ describe Podcast, "finding or creating owner" do
       @save_podcast.should_not change { ActionMailer::Base.deliveries.size }
       @podcast.owner.should == user
     end
-    
+
     it 'should send claim podcast email if owner didn\'t already exist' do
       podcast = Factory.build(:podcast, :owner_email => 'some.podcast.maker@me.com')
       lambda { podcast.save }.should change { User.passive.count }.by(1)

@@ -4,28 +4,28 @@
 # Table name: podcasts
 #
 #  id                :integer(4)    not null, primary key
-#  title             :string(255)   
-#  site              :string(255)   
-#  logo_file_name    :string(255)   
-#  logo_content_type :string(255)   
-#  logo_file_size    :string(255)   
-#  created_at        :datetime      
-#  updated_at        :datetime      
-#  description       :text          
-#  language          :string(255)   
-#  category_id       :integer(4)    
-#  clean_url         :string(255)   
-#  owner_id          :integer(4)    
-#  owner_email       :string(255)   
-#  owner_name        :string(255)   
-#  title      :string(255)   
-#  primary_feed_id   :integer(4)    
+#  title             :string(255)
+#  site              :string(255)
+#  logo_file_name    :string(255)
+#  logo_content_type :string(255)
+#  logo_file_size    :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  description       :text
+#  language          :string(255)
+#  category_id       :integer(4)
+#  clean_url         :string(255)
+#  owner_id          :integer(4)
+#  owner_email       :string(255)
+#  owner_name        :string(255)
+#  title      :string(255)
+#  primary_feed_id   :integer(4)
 #
 
 require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
-  
+
   belongs_to :owner, :class_name => 'User'
   belongs_to :category
   belongs_to :primary_feed, :class_name => 'Feed'
@@ -53,6 +53,7 @@ class Podcast < ActiveRecord::Base
                                  :large  => ["300x300>", :png],
                                  :icon   => ["25x25#", :png] }
 
+  named_scope :approved, :conditions => {:approved => true}
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
   named_scope :parsed, lambda {
     { :conditions => { :id => Feed.parsed.map(&:podcast_id).uniq } }
@@ -94,11 +95,11 @@ class Podcast < ActiveRecord::Base
   def found_by
     feeds.first.finder rescue nil
   end
-  
+
   def owned_by
     owner
   end
-  
+
   def is_favorite_of?(user)
     user && user.favorite_podcasts.include?(self)
   end
@@ -171,14 +172,14 @@ class Podcast < ActiveRecord::Base
   def finders
     self.feeds.map(&:finder).compact
   end
-  
+
   # An array of users that may edit this podcast
   def editors
     @editors ||= (User.admins.all + finders + [owner]).flatten.compact.uniq.reject { |u| u.passive? }
   end
 
   # Takes a string of space-delimited tags and tries to add them to the podcast's taggings.
-  # Also takes an additional user argument, which will add a UserTagging to join the Tagging 
+  # Also takes an additional user argument, which will add a UserTagging to join the Tagging
   # with a User (to see which users added which tags).
   # Ex: podcast.tag_string = "funny, hilarious"
   # Ex: podcast.tag_string = "animated, kids", current_user
@@ -218,7 +219,7 @@ class Podcast < ActiveRecord::Base
     self.title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
     self.title.sub!(/^[\s]*-/, "") # Remove leading dashes
     self.title.strip! # Remove leading and trailing space
-  
+
     i = 1 # Number to attach to the end of the title to make it unique
     while(Podcast.exists?(["title = ? AND id != ?", title, id]))
       self.title.chop!.chop! unless i == 1
@@ -229,7 +230,7 @@ class Podcast < ActiveRecord::Base
 
     return title
   end
-  
+
   def sanitize_url
     if (title.blank? || title_changed?)
       self.clean_url = self.title.to_s.clone.strip # Remove leading and trailing spaces
@@ -241,7 +242,7 @@ class Podcast < ActiveRecord::Base
         self.clean_url.chop!.chop! unless i == 1
         self.clean_url = "#{clean_url}-#{i += 1}"
       end
-  
+
       add_message "The podcast url has changed." if clean_url_changed?
     end
 
@@ -249,7 +250,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def find_or_create_owner
-    return true if !owner_id.blank?
+    return true if !self.owner_id.blank? || self.owner_email.blank?
 
     if self.owner = User.find_by_email(owner_email)
       # don't do anything
@@ -267,7 +268,7 @@ class Podcast < ActiveRecord::Base
 
       UserMailer.deliver_claim_podcast(owner, self)
     end
-    
+
     true
   end
 

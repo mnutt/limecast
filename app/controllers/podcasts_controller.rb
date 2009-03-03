@@ -21,8 +21,8 @@ class PodcastsController < ApplicationController
     @feeds = @podcast.feeds.all
     @most_recent_episode = @podcast.episodes.newest.first
     @episodes = @podcast.episodes
-   
-    
+
+
     @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
 
     @reviews = @podcast.reviews
@@ -59,10 +59,10 @@ class PodcastsController < ApplicationController
       @podcast.destroy
       redirect_to(podcasts_url) and return false
     end
-    
+
     # Set user-specific Podcast attributes if necessary
     params[:podcast][:tag_string] = [params[:podcast][:tag_string], current_user] if params[:podcast][:tag_string]
-    params[:podcast][:feeds_attributes].each {|key,value| 
+    params[:podcast][:feeds_attributes].each {|key,value|
       params[:podcast][:feeds_attributes][key][:finder_id] = current_user.id if key.to_s =~ /^new\_/
     } if params[:podcast][:feeds_attributes].respond_to?(:each)
 
@@ -72,7 +72,7 @@ class PodcastsController < ApplicationController
     respond_to do |format|
       if @podcast.save
         PodcastMailer.deliver_updated_podcast_from_site(@podcast)
-        
+
         format.html do
           flash[:notice] = "#{@podcast.messages.join(' ')}"
           flash[:has_messages] = true unless @podcast.messages.empty?
@@ -80,7 +80,7 @@ class PodcastsController < ApplicationController
         end
         format.js { render :text => render_to_string(:partial => 'podcasts/form') }
       else
-        format.html { 
+        format.html {
           show; render :action => 'show'
         }
         format.js { head(:failure) }
@@ -104,7 +104,7 @@ class PodcastsController < ApplicationController
         format.html { redirect_to :back }
         format.js { render :json => {:logged_in => true} }
       else
-        format.html { 
+        format.html {
           flash[:notice] = "Signup or sign in first to save your favorite."
           redirect_to new_session_path
         }

@@ -70,7 +70,7 @@
             <% if current_user %>
               <li><strong><%= link_to_profile current_user -%></strong> </li>|
             <% else %>
-              <li><a href="#"><strong>Join now!</strong></a>  </li>|
+              <li><%= link_to "Join now!", :signup %>  </li>|
             <% end -%>
           <% if current_user %>
             <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
@@ -108,19 +108,7 @@
       <!-- HACK Use content wrapper so we can use margin on #content div. -->
       <div id="content_wrapper">
         <div id="content">
-
-        <% if flash[:notice] -%>
-          <span id="notice">
-            <% if Array === flash[:notice] -%>
-              <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
-            <% else -%>
-              <%= flash[:notice] -%>
-            <% end -%>
-          </span>
-        <% end -%>
-
-        <%= yield %>
-        
+          <%= yield %>
         </div> <!-- /content -->
       </div> <!-- /content_wrapper -->
     </div> <!-- /wrapper -->

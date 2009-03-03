@@ -15,11 +15,11 @@
 
     <div class="main rounded_corners">
       <ul id="all_podcasts">
-	<% @podcasts.each do |podcast| -%>
-	  <li id="<%=h dom_id(podcast) -%>" class="podcast">
+        <% @podcasts.each do |podcast| -%>
+          <li id="<%=h dom_id(podcast) -%>" class="podcast">
             <%= image_tag podcast.logo.url(:icon) %> <%= link_to podcast.title, podcast_url(:podcast_slug => podcast) -%>
-	  </li>
-	<% end -%>
+          </li>
+        <% end -%>
       </ul>
     </div>
 

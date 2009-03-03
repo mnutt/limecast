@@ -5,7 +5,7 @@ class FeedsController < ApplicationController
   def new
     @feed = Feed.new
   end
-  
+
   def show
     @feed = Feed.find params[:id]
     @type = params[:type]
@@ -19,7 +19,7 @@ class FeedsController < ApplicationController
       render :xml => @feed.xml
     end
   end
-  
+
   def create
     if @feed = Feed.find_by_url(params[:feed][:url])
       @feed.update_attribute(:state, "pending") if @feed.state == "failed"
@@ -97,6 +97,9 @@ class FeedsController < ApplicationController
 
   def info
     @feed = Feed.find(params[:id])
+    doc = Hpricot.XML(@feed.xml)
+    doc.search("item").remove
+    @feed_xml = doc.to_s.gsub(/\n\s*\n/, "\n")
     render :layout => 'info'
   end
 

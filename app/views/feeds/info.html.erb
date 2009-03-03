@@ -1,5 +1,7 @@
 <h1><%= @feed.url -%></h1>
 
+<%= render :partial => 'feeds/info_source_table', :locals => {:options => {:feed => @feed}} -%>
+
 <p>from <%= link_to @feed.podcast.title, info_podcast_url(@feed.podcast) -%></p>
 
 <table>
@@ -78,11 +80,11 @@
 
 <h2>XML</h2>
 <pre class="formatted-xml">
-  <%= @feed.xml %>
+  <%= @feed_xml %>
 </pre>
 
-<h2>Torrent XML</h2>
-<pre><%=h @feed.remixed_as_torrent -%></pre>
+<!-- <h2>Torrent XML</h2> -->
+<!-- <pre><%=h @feed.remixed_as_torrent -%></pre> -->
 
-<h2>Magnet XML</h2>
-<pre><%=h @feed.remixed_as_magnet -%></pre>
+<!-- <h2>Magnet XML</h2> -->
+<!-- <pre><%=h @feed.remixed_as_magnet -%></pre> -->

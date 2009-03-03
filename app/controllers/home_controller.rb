@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def home
     @podcasts = Podcast.parsed.sorted
-    
+
     @reviews = Review.all(:order => "created_at DESC")
     @review = @reviews.first
 
@@ -29,7 +29,7 @@ class HomeController < ApplicationController
 
   def info
     @podcasts = Podcast.sorted
-    
+
     if File.exist?(File.join(RAILS_ROOT, '..', '..', 'current'))
       @release = Time.parse(RAILS_ROOT.split("/").last) rescue nil
     else

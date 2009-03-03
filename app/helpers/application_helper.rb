@@ -209,9 +209,18 @@ module ApplicationHelper
     !obj.valid? || !obj.messages.empty? || !flash[:has_messages].blank?
   end
 
-  # Question mark on info pages
-  def unknown
-    "<span class='unknown'>?</span>"
+  # Question mark on info pages, #non_blank also does #h
+  def non_blank(text)
+    text.blank? ? "<span class='unknown'>?</span>" : h(text)
   end
-  
+
+  def info_feed_link(feed, ability=true)
+    [link_to("Feed #{feed.id}", info_feed_url(feed.podcast, feed)), 
+     (ability ? feed.ability : nil)].join(" ")
+  end
+
+  def info_source_link(source, ability=true)
+    [link_to(non_blank(source.feed.formatted_bitrate) + " " + non_blank(source.feed.apparent_format), info_source_url(source.episode.podcast, source.episode, source)),
+     (ability ? source.ability : nil)].join(" ")
+  end
 end

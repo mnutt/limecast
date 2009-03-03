@@ -1,9 +1,38 @@
-<h1>LimeCast</h1>
-<p>Release Date: <%= @release -%></p>
-<p>Commit: <%= @commit -%></p>
-<p>Message: <%= @message -%></p>
+<% @title = "Site" -%>
+<h1>Site</h1>
 
-<h2>Info Pages</h2>
+<table>
+  <tr>
+    <td class="key">Released</td>
+    <td>
+      <%= @release -%>
+    </td>
+  </tr>
+  
+  <tr>
+    <td class="key">Commit</td>
+    <td>
+      <%= @commit -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Message</td>
+    <td>
+      <%= @message -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Ability</td>
+    <td>
+      <%= ABILITY -%>
+    </td>
+  </tr>
+</table>
+
+<p>Site time: <%= Time.now.to_s(:info) -%></p>
+
 <ul>
   <li><%= link_to "Icons", info_icons_url -%></li>
   <li><%= link_to "Add", info_add_url -%></li>

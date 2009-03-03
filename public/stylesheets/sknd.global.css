@@ -197,7 +197,7 @@ input.radio {
 .i3 {
 	display:block;
 	margin:0;
-	padding:0px 5px;
+	padding:10px 5px;
 	background:#fff;
 }
 	/* Make the content wrapper auto clearing so it will contain floats (see http://positioniseverything.net/easyclearing.html). */
@@ -317,40 +317,22 @@ abbr > img.inline_icon {
 
 /**** ADD button **************/
 
-.addit li {
-	float:left;
-	display:block;
-  background:url("../imgs/add_left.png") no-repeat left top;
-  margin-right: -5px;
-  padding:0 3px 0 15px;
-	line-height: 13px;
-}
-
 .addit a {
-	float:left;
-  display:block;
-  background: url("../imgs/add_right.png") no-repeat right top;
-  padding:1px 8px 3px 2px;
-	line-height: 13px;
-  text-decoration:none;
-	font-size: .7em;
-  color:#dfdfdf;
+
+  background:url("../imgs/icons/add.png") no-repeat left center;
+  padding: 0px 0px 0px 20px;
 }
 
-/* Commented Backslash Hack hides rule from IE5-Mac \*/
-.addit a {float:none;}
-/* End IE5-Mac hack */
-.addit a:hover {
-  color:#fff;
-  text-decoration: none;
-  }
+a#comment_link {
+  font-size: 1.2em;
+  background:url("../imgs/icons/comment.png") no-repeat left center;
+  padding:0 0px 0 20px;
+}
 
-.addit li:hover {
-  background-position:0% -17px;
-  color:#fff;
-  }
-.addit li:hover a, .addit li:hover a span {
-  background-position:100% -17px;
+a#comment_add {
+  font-size: 1.2em;
+  background:url("../imgs/icons/comment_add.png") no-repeat left center;
+  padding:0 0px 0 20px;
 }
 
 
@@ -367,7 +349,7 @@ abbr > img.inline_icon {
 	float:left;
 	display:block;
   background:url("../imgs/remove_left.png") no-repeat left top;
-  margin-right: -5px;
+
   padding:0 3px 0 15px;
 	line-height: 13px;
 }
@@ -447,18 +429,18 @@ abbr > img.inline_icon {
 a.calloutlight  {
 	float:left;
   display:block;
-  background: url("../imgs/callout_light.png") no-repeat 100% 2px;
-  padding:0px 16px 1px 0px;
+  background: url("../imgs/callout_light.png") no-repeat 0% 2px;
+  padding:0px 0px 1px 20px;
 	line-height: 14px;
   text-decoration:none;
-	font-size: 1.4em;
+	font-size: 1.2em;
 
 }
 
 
 
 a.calloutlight:hover {
-  background-position:100% -12px;
+  background-position:0% -12px;
 
   }
 

@@ -138,7 +138,7 @@ describe User do
       Factory.create(:user, :login => 'mylogin', :state => 'active', :email => 'someone@limewire.com')
       ActionMailer::Base.deliveries.size.should == 0
     end
-    
+
     it 'should send reconfirm email after active email is changed' do
       user = Factory.create(:user, :email => 'someone@limewire.com')
       change_email = lambda { user.update_attribute(:email, 'my.new.email.address@limewire.com') }

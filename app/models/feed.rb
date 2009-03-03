@@ -4,17 +4,17 @@
 # Table name: feeds
 #
 #  id          :integer(4)    not null, primary key
-#  url         :string(255)   
-#  error       :string(255)   
-#  itunes_link :string(255)   
-#  podcast_id  :integer(4)    
-#  created_at  :datetime      
-#  updated_at  :datetime      
+#  url         :string(255)
+#  error       :string(255)
+#  itunes_link :string(255)
+#  podcast_id  :integer(4)
+#  created_at  :datetime
+#  updated_at  :datetime
 #  state       :string(255)   default("pending")
-#  bitrate     :integer(4)    
-#  finder_id   :integer(4)    
-#  format      :string(255)   
-#  xml         :text          
+#  bitrate     :integer(4)
+#  finder_id   :integer(4)
+#  format      :string(255)
+#  xml         :text
 #
 
 require 'open-uri'
@@ -91,13 +91,13 @@ class Feed < ActiveRecord::Base
     end
   end
 
-	def itunes_url
+  def itunes_url
     "http://www.itunes.com/podcast?id=#{self.itunes_link}"
-	end
+  end
 
-	def miro_url
+  def miro_url
     "http://subscribe.getmiro.com/?url1=#{self.url}"
-	end
+  end
 
   def refresh
     fetch
@@ -111,7 +111,7 @@ class Feed < ActiveRecord::Base
     PodcastMailer.deliver_failed_feed(self, exception)
     self.update_attributes(:state => 'failed', :error => exception.class.to_s)
   end
-  
+
   def url=(val)
     val.strip!
     write_attribute(:url, val)
@@ -158,7 +158,7 @@ class Feed < ActiveRecord::Base
 
     self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64),
                            :ability => ABILITY,
-                           :state => 'parsed', 
+                           :state => 'parsed',
                            :xml => @content)
   end
 

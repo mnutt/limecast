@@ -22,6 +22,17 @@ $(document).ready(function() {
   $('#accounts_forgot_password #email').inputDefaultText();
   $('.limecast_form .new_podcast_feed_url').inputDefaultText();
   $('#search_podcast_q').inputDefaultText();
+
+
+  $('.podcast.index .description > p').jTruncate({
+    length: 120,
+  });
+  $('.podcast.show .description > p').jTruncate({
+    length: 225,
+  });
+  $('.podcast.show #podcast_episodes').dataTable({
+    "aaSorting": [[ 2, "desc" ]]
+  });
 });
 
 

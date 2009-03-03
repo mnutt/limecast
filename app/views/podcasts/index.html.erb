@@ -5,14 +5,6 @@
 
     <h1>All podcasts</h1>
     
-    <script type="text/javascript">
-     $().ready(function() {  
-       $('.description>p').jTruncate({
-         length: 120,
-       });
-     });
-    </script>
-
     <div class="main rounded_corners">
       <ul id="all_podcasts">
         <% @podcasts.each do |podcast| -%>

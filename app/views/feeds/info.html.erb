@@ -87,6 +87,13 @@
 
 </table>
 
+<h2>Tags</h2>
+<ul>
+<%- @feed.podcast.tags.without_badges.all.each do |t| -%>
+  <li><%= t.name %></li>
+<%- end -%>
+</ul>
+
 <h2>Sources</h2>
 <ul>
   <% @feed.sources.each do |s| -%>

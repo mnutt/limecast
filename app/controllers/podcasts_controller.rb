@@ -10,10 +10,6 @@ class PodcastsController < ApplicationController
       paginate(:page => (params[:page] || 1), :per_page => params[:limit] || 10)
   end
 
-  def recs
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-  end
-
   def show
     @podcast ||= Podcast.find_by_clean_url(params[:podcast_slug])
     raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?

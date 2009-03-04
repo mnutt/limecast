@@ -1,36 +1,14 @@
-<h1>Listing podcasts</h1>
+<h1>Podcasts</h1>
 
 <table>
+<% @podcasts.each do |p| %>
   <tr>
-    <th>Title</th>
-    <th>Site</th>
-    <th>Feed</th>
-    <th>Created at</th>
-    <th>Updated at</th>
-    <th>Feed etag</th>
-    <th>User</th>
-    <th>Description</th>
-    <th>Language</th>
-  </tr>
-
-<% for podcast in @podcasts %>
-  <tr>
-    <td><%=h podcast.title %></td>
-    <td><%=h podcast.site %></td>
-    <td><%=h podcast.feed_url %></td>
-    <td><%=h podcast.created_at %></td>
-    <td><%=h podcast.updated_at %></td>
-    <td><%=h podcast.feed_etag %></td>
-    <td><%=h podcast.user_id %></td>
-    <td><%=h podcast.description %></td>
-    <td><%=h podcast.language %></td>
-    <td><%= link_to 'Show', admin_podcast_path(podcast.id) %></td>
-    <td><%= link_to 'Edit', edit_admin_podcast_path(podcast.id) %></td>
-    <td><%= link_to 'Destroy', admin_podcast_path(podcast.id), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to p.title, podcast_url(:podcast_slug => p) %></td>
+    <% if p.approved? %>
+      <td>approved</td>
+    <% else %>
+      <td><%= link_to "approve", admin_approve_podcast_url(p) %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New podcast', new_admin_podcast_path %>

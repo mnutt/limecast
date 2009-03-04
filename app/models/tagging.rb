@@ -4,8 +4,8 @@
 # Table name: taggings
 #
 #  id         :integer(4)    not null, primary key
-#  tag_id     :integer(4)    
-#  podcast_id :integer(4)    
+#  tag_id     :integer(4)
+#  podcast_id :integer(4)
 #
 
 class Tagging < ActiveRecord::Base

@@ -18,13 +18,13 @@
     <p>
       <%= link_to(h(@podcast.clean_site), h(@podcast.site)) + " &ndash; " unless @podcast.clean_site.blank? %> 
       <%= (link_to("iTunes", "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.primary_feed.itunes_link}", :class => "itunes", :title => "View #{@podcast.title} in iTunes") + " &ndash; ") if @podcast.primary_feed && !@podcast.primary_feed.itunes_link.blank? -%>
-      <%= unescape_entities h(@podcast.description) -%>
+      <%= truncated_text unescape_entities(h(@podcast.description)), 110 -%>
     </p>
     <h6>Tags:</h6>
     <ul>
       <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
     </ul>
-    	<%= render :partial => "podcasts/favorite", :locals => {:podcast => @podcast, :show_add_favorite => false, :show_remove_favorite => false, :show_marked_as_favorite => false} -%>
+            <%= render :partial => "podcasts/favorite", :locals => {:podcast => @podcast, :show_add_favorite => false, :show_remove_favorite => false, :show_marked_as_favorite => false} -%>
    <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
   </div>
 
@@ -32,9 +32,9 @@
   
   <div id="podcast_block_bottom">
   </div>
-	
-	
-	
+        
+        
+        
 
 </div>
 
@@ -45,7 +45,7 @@
 
 <div class="favorite_cont">
   <ul>
-  <% if @podcast.is_favorite_of?(current_user) -%>
+  <% if @podcast.favorite_of?(current_user) -%>
     <li><%= link_to "Marked as favorite", user_url(current_user, :anchor => "profile_favorites"), :class => "calloutlight", :title => "Go to your favorites" %></li>
   <% else -%>
     <li><div class="addit"><%= link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => @podcast.clean_url), :class => "favorite_link" -%></div></li>

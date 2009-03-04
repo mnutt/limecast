@@ -1,5 +1,7 @@
 <h1><%= @feed.url -%></h1>
 
+<%= render :partial => 'feeds/info_source_table', :locals => {:options => {:feed => @feed}} -%>
+
 <p>from <%= link_to @feed.podcast.title, info_podcast_url(@feed.podcast) -%></p>
 
 <table>
@@ -66,8 +68,31 @@
   <tr>
     <td>Description scrubbed, condensed</td>
     <td><%=h sanitize_condensed_summary(@feed.podcast.description) -%></td>
+  </tr>
+
+  <tr>
+    <td>Explicit?</td>
+    <td><%=h @feed.podcast.tags.map(&:name).include?('explicit') -%></td>
+  </tr>
+
+  <tr>
+    <td>Creative Commons?</td>
+    <td><%=h @feed.podcast.tags.map(&:name).include?('creativecommons') -%></td>
+  </tr>
+  
+  <tr>
+    <td>Language</td>
+    <td><%=h @feed.podcast.language %></td>
+  </tr>
 
 </table>
+
+<h2>Tags</h2>
+<ul>
+<%- @feed.podcast.tags.without_badges.all.each do |t| -%>
+  <li><%= t.name %></li>
+<%- end -%>
+</ul>
 
 <h2>Sources</h2>
 <ul>
@@ -78,11 +103,11 @@
 
 <h2>XML</h2>
 <pre class="formatted-xml">
-  <%= @feed.xml %>
+  <%= @feed_xml %>
 </pre>
 
-<h2>Torrent XML</h2>
-<pre><%=h @feed.remixed_as_torrent -%></pre>
+<!-- <h2>Torrent XML</h2> -->
+<!-- <pre><%=h @feed.remixed_as_torrent -%></pre> -->
 
-<h2>Magnet XML</h2>
-<pre><%=h @feed.remixed_as_magnet -%></pre>
+<!-- <h2>Magnet XML</h2> -->
+<!-- <pre><%=h @feed.remixed_as_magnet -%></pre> -->

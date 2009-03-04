@@ -1,5 +1,7 @@
 <h1><%=h @source.file_name -%></h1>
 
+<%= render :partial => 'feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
+
 <table>
   <tr>
     <td class="key">Ability:</td>
@@ -35,7 +37,7 @@
   <tr>
     <td class="key">Resolution:</td>
     <td>
-      <%= @source.resolution.blank? ? unknown : h(@source.resolution.inspect) -%>
+      <%= non_blank @source.resolution -%>
     </td>
   </tr>
   
@@ -49,7 +51,7 @@
   <tr>
     <td class="key">SHA1 Hash:</td>
     <td>
-      <%= @source.sha1hash.blank? ? unknown : h(@source.sha1hash)  -%>
+      <%= non_blank @source.sha1hash  -%>
     </td>
   </tr>
 
@@ -60,9 +62,16 @@
 
   <tr>
     <td class="key">FFmpeg output:</td>
-    <td><%= @source.ffmpeg_info.blank? ? unknown : h('<pre>'+@source.ffmpeg_info+'</pre>') -%></td>
+    <td><%= '<pre>'+non_blank(@source.ffmpeg_info)+'</pre>' -%></td>
   </tr>
 </table>
+
+<h2>Badges:</h2>
+<ul>
+<%- @source.feed.podcast.tags.badges.each do |t| -%>
+  <li><%= t.name %></li>
+<%- end -%>
+</ul>
 
 <h2>XML:</h2>
 <pre class="formatted-xml"><%= @source.xml -%></pre>

@@ -1,0 +1,17 @@
+<tr class="feed">
+  <td><% feed = info_line -%></td>
+  <td>
+    <%= non_blank feed.formatted_bitrate -%>
+    <%= non_blank feed.apparent_format -%>
+  </td>
+  <td>
+    <%= info_feed_link(feed, false) -%>
+    <% if feed.primary? -%>
+      <br/>Primary
+    <% end -%>
+  </td>
+  <td><%= link_to nil, feed.url -%></td>
+  <td><%= link_to "magnet", magnet_feed_url(feed.podcast, feed) -%></td>
+  <td><%= link_to "torrent", torrent_feed_url(feed.podcast, feed) -%></td>
+  <td><%= link_to "itunes", feed.itunes_link -%></td>
+</tr>

@@ -11,7 +11,7 @@ $(function(){
 
   function read_cookie(){
     var id = $.cookie('podcast_' + PODCAST_ID + '_subscription');
-    return "#" + id;
+    return id;
   }
 
   function update_cookie(id){
@@ -48,8 +48,9 @@ $(function(){
     $('.delivery_method input#'+name).attr('checked', 'checked');
   }
 
-  var default_link = "#rss .rss a.primary";
-  var name = read_cookie() || default_link;
+  var default_link = "rss .web a.primary";
+  var name = "#" + (read_cookie() || default_link);
+
   var link = $(name);
   if( link.length != 1 ) {
     link = $(default_link);

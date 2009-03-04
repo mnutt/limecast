@@ -3,15 +3,6 @@
 
 
 <script type="text/javascript">
- $().ready(function() {  
-  $('.description>p').jTruncate({  
-   length: 110, 
-   moreText: "" 
-  });  
- });
-</script>
-
-<script type="text/javascript">
     $(function() {
       var open = true;
       $('a.homeclose').click(function() {
@@ -54,7 +45,7 @@
   
   <div id="featured_cont">
     <div id="featured">
-      <h2>Featured PodCasts</h2>
+      <h2>Featured Podcasts</h2>
     
       <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("The-1UP-Show") || Podcast.all[0]), :locals => {:is_first => true} -%>
       <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("Diggnation") || Podcast.all[1]) -%>

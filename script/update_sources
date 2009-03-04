@@ -148,7 +148,7 @@ def encode_video(source, info, field)
     :s  => size,              :ss => screenshot_time(info[:start_offset] || 0)
   }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
 
-  `ffmpeg #{options} #{encoded_tmp_file}`
+  `ffmpeg -y #{options} #{encoded_tmp_file}`
 
   if File.exists?(encoded_tmp_file)
     source.attachment_for(field).assign(File.open(encoded_tmp_file))
@@ -202,7 +202,7 @@ end
 while true
   begin
     # Sleep 30 minutes until a source is found
-    sleep 30.minutes.to_i until source = Source.stale.find(:first, :order => "id DESC")
+    sleep 30.minutes.to_i until source = Source.stale.approved.find(:first, :order => "id DESC")
 
     t0 = Time.now
     download_file(source)

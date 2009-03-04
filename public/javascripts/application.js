@@ -22,6 +22,28 @@ $(document).ready(function() {
   $('#accounts_forgot_password #email').inputDefaultText();
   $('.limecast_form .new_podcast_feed_url').inputDefaultText();
   $('#search_podcast_q').inputDefaultText();
+
+  // Handles truncated "more" and "less" links
+  $("a.truncated").click(function(){
+    var text = $(this).text();
+    var oppositeText = text == "less" ? "more" : "less";
+
+    $(this)
+      .text(oppositeText)
+      .parent()
+        .find(".truncated." + oppositeText)
+          .hide()
+        .end()
+        .find(".truncated." + text)
+          .show()
+        .end();
+  });
+
+  if($('.podcast.show').size() && !$('.podcast.new.show').size()) {
+    $('.podcast.show #podcast_episodes').dataTable({
+      "aaSorting": [[ 2, "desc" ]]
+    });
+  }
 });
 
 

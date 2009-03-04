@@ -9,7 +9,7 @@
   
   <div class="description">
     <h3><%= link_to podcast.title, podcast_url(:podcast_slug => podcast), :title => "Subscribe to the series & view the episode list" -%></h3>
-    <p><%= unescape_entities h(podcast.description) -%></p>
+    <p><%= truncated_text sanitize_condensed_summary(podcast.description), 100 -%></p>
     
     <%= render :partial => "podcasts/social_favs", :locals => {:podcast => podcast} -%>
 

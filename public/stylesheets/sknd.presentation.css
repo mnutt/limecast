@@ -963,6 +963,7 @@ li.review {
 	top: 100px;
 	right: 16px;
 	z-index: 2;
+  display: none;
 }
 
 #subscribe_options_container #delivery_options {
@@ -1421,6 +1422,11 @@ ul.users li {
   color: #a9a9a9;
   border-bottom: 1px dotted #ddd;
   padding: 5px 0;
+}
+
+
+span.truncated.more {
+  display: none;
 }
 
 

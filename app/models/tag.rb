@@ -4,10 +4,10 @@
 # Table name: tags
 #
 #  id          :integer(4)    not null, primary key
-#  name        :string(255)   
-#  badge       :boolean(1)    
-#  blacklisted :boolean(1)    
-#  map_to_id   :integer(4)    
+#  name        :string(255)
+#  badge       :boolean(1)
+#  blacklisted :boolean(1)
+#  map_to_id   :integer(4)
 #
 
 class Tag < ActiveRecord::Base
@@ -21,6 +21,7 @@ class Tag < ActiveRecord::Base
   validates_uniqueness_of :name
 
   named_scope :badges, :conditions => {:badge => true}
+  named_scope :without_badges, :conditions => "`tags`.`badge` IS NULL OR `tags`.`badge` = 0" # mysql, you scoundrel!
 
   # Search
   define_index do
@@ -40,8 +41,8 @@ class Tag < ActiveRecord::Base
     min    = Tag.minimum('taggings_count') || 0
     max    = Tag.maximum('taggings_count') || 1
     spread = max - min
-    norm = ((taggings_count || 0) - min).abs 
-    
+    norm = ((taggings_count || 0) - min).abs
+
     rating = (norm.to_f / max * 10).ceil.to_s
   end
 

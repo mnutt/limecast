@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
       :page => (params[:page] || 1),
       :per_page => params[:limit] || 10
     )
-    
+
     @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
 
     @reviews = @podcast.reviews

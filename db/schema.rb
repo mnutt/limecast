@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090225191452) do
+ActiveRecord::Schema.define(:version => 20090303162109) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20090225191452) do
     t.integer  "primary_feed_id"
     t.boolean  "has_previews",         :default => true
     t.boolean  "has_p2p_acceleration", :default => true
+    t.boolean  "approved",             :default => false
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true

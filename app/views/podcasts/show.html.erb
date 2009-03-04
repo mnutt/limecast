@@ -5,24 +5,6 @@
 <% javascript_include "review_edit", "review_delete", "podcast_edit", "review_ratings_new", "jquery.dataTables.min", "jquery.dimensions", "jquery.hoverIntent", "jquery.cluetip" -%>
 
 
-<script type="text/javascript">
-  $().ready(function() {
-    /* Init DataTables */
-    $('#podcast_episodes').dataTable( {
-     		"aaSorting": [[ 3, "desc" ]],
-     		"aoColumns": [ 
-        			/* Title */   { "bSortable": false },
-        			/* Description */  { "bVisible":    false },
-        			/* Runtime */ { "bSortable": false },
-        			/* Date released */  null
-        		],
-        "bStateSave": true,
-        "bProcessing": true
-     	});
-    /* tooltips */
-    $('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
-  });
-</script>
 
 <div class="summary">
   <%= render :partial => 'podcasts/summary' -%>

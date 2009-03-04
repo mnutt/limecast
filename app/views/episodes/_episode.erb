@@ -12,7 +12,6 @@
 -->
 
 <% if episode.sources.first %>
-
 <tr>
     <td>
       <h3><%= link_to episode.title, episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips"  -%></h3>
@@ -21,19 +20,4 @@
     <td><%= time_to_words(episode.duration) -%></td>
     <td><%= episode.published_at.to_date -%></td>
 </tr>
-
-<div id="<%=h dom_id(episode) -%>" class="cluetip_box">
-  <%= image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95, :class => 'preview') if episode.sources.first.screenshot? %>
-  <p><strong><%= episode.title  -%></strong></p>
-  <p class="details"><%= time_to_words(episode.duration) -%> - <%= episode.published_at.to_date -%></p>
-  <div class="clear"></div>
-  <p><%= sanitize_condensed_summary(episode.summary) -%></p>
-
-</div>
-
 <% end %>
-
-
-
-
-

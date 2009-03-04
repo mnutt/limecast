@@ -58,7 +58,7 @@ class Feed < ActiveRecord::Base
   end
 
   def remix_feed
-    xml = self.xml.dup
+    xml = self.xml.to_s.dup
 
     h = Hpricot(self.xml)
     (h / 'item').each do |item|

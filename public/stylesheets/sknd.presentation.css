@@ -1425,3 +1425,8 @@ ul.users li {
 }
 
 
+span.truncated.more {
+  display: none;
+}
+
+

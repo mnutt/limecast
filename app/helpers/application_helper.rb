@@ -166,6 +166,28 @@ module ApplicationHelper
     string[0..(length/2)] + "..." + string[-(length/2)..-1]
   end
 
+  def truncate_split(string, length)
+    indexOfFirstSpaceAfterLength = string[(length+1)..-1].index(" ")
+    first = string[0..(length+indexOfFirstSpaceAfterLength)]
+    last  = string[(length+indexOfFirstSpaceAfterLength+2)..-1]
+
+    [first, last]
+
+  rescue
+    [string, nil]
+  end
+
+  def truncated_text(string, length)
+    pieces = truncate_split(string, length)
+
+    str = pieces.first
+    unless pieces.last.nil?
+      str << %{<span class="truncated less">&hellip;</span>\n<span class="truncated more">#{pieces.last}</span>\n<a href="#" class="truncated">more</a>}
+    end
+
+    str
+  end
+
   def format_with_paragraph_entity(text)
     text.strip.gsub(/\r\n?/, "\n").gsub(/\n+/, "&#182;")
   end

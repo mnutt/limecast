@@ -23,17 +23,23 @@ $(document).ready(function() {
   $('.limecast_form .new_podcast_feed_url').inputDefaultText();
   $('#search_podcast_q').inputDefaultText();
 
+  // Handles truncated "more" and "less" links
+  $("a.truncated").click(function(){
+    var text = $(this).text();
+    var oppositeText = text == "less" ? "more" : "less";
 
-  if($('.podcast.index').size()) {
-    $('.podcast.index .description > p').jTruncate({
-      length: 120,
-    });
-  }
+    $(this)
+      .text(oppositeText)
+      .parent()
+        .find(".truncated." + oppositeText)
+          .hide()
+        .end()
+        .find(".truncated." + text)
+          .show()
+        .end();
+  });
 
   if($('.podcast.show').size() && !$('.podcast.new.show').size()) {
-    $('.podcast.show .description > p').jTruncate({
-      length: 225,
-    });
     $('.podcast.show #podcast_episodes').dataTable({
       "aaSorting": [[ 2, "desc" ]]
     });

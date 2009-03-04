@@ -6,6 +6,7 @@
 
 
 <script type="text/javascript">
+  $().ready(function() {
     /* Init DataTables */
     $('#podcast_episodes').dataTable( {
      		"aaSorting": [[ 3, "desc" ]],
@@ -18,7 +19,7 @@
         "bStateSave": true,
         "bProcessing": true
      	});
-     /* tooltips */
+    /* tooltips */
     $('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
   });
 </script>

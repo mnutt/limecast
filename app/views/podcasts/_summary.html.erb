@@ -18,7 +18,7 @@
     <p>
       <%= link_to(h(@podcast.clean_site), h(@podcast.site)) + " &ndash; " unless @podcast.clean_site.blank? %> 
       <%= (link_to("iTunes", "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{@podcast.primary_feed.itunes_link}", :class => "itunes", :title => "View #{@podcast.title} in iTunes") + " &ndash; ") if @podcast.primary_feed && !@podcast.primary_feed.itunes_link.blank? -%>
-      <%= truncated_text unescape_entities(h(@podcast.description)), 25 -%>
+      <%= truncated_text unescape_entities(h(@podcast.description)), 110 -%>
     </p>
     <h6>Tags:</h6>
     <ul>

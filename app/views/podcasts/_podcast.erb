@@ -10,7 +10,7 @@
      
     <h3><%= link_to podcast.title, podcast_url(:podcast_slug => podcast.clean_url), :title => "Subscribe to the series & view the episode list" -%></h3>
     <p>
-      <%= truncated_text unescape_entities(h(podcast.description)), 25 -%>
+      <%= truncated_text unescape_entities(h(podcast.description)), 110 -%>
     </p>
     <h6>Tags:</h6>
     <ul>

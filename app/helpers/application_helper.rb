@@ -166,6 +166,14 @@ module ApplicationHelper
     string[0..(length/2)] + "..." + string[-(length/2)..-1]
   end
 
+  def truncate_split(string, length)
+    indexOfFirstSpaceAfterLength = string[(length+1)..-1].index(" ")
+    first = string[0..(length+indexOfFirstSpaceAfterLength)]
+    last  = string[(length+indexOfFirstSpaceAfterLength+2)..-1]
+
+    [first, last]
+  end
+
   def format_with_paragraph_entity(text)
     text.strip.gsub(/\r\n?/, "\n").gsub(/\n+/, "&#182;")
   end

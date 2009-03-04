@@ -17,7 +17,7 @@ describe SearchController do
     end
 
     it "should assign expected variables" do
-      assigns(:podcast_groups).should be_a(Hash)
+      do_get
       assigns(:podcasts).should == []
       assigns(:feeds).should == []
       assigns(:episodes).should == []

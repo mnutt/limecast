@@ -142,7 +142,7 @@ describe PodcastsController do
         ActionMailer::Base.deliveries = []
         lambda { do_put(:title => "Foobarbaz") }.should change { ActionMailer::Base.deliveries.size }.by(@podcast.editors.size)
         @podcast.reload.title.should == "Foobarbaz"
-        ActionMailer::Base.deliveries.last.body.should =~ /Title was changed to 'Foobarbaz'/
+        ActionMailer::Base.deliveries.last.body.should =~ /A podcast that you can edit has been changed./
       end
 
       it "should find the podcast requested" do

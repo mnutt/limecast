@@ -1,7 +1,9 @@
 A podcast that you can edit has been updated because one of its feeds was changed.
 
 <%= "The Original Title was changed to #{@podcast.last_changes['original_title'].last}" if @podcast.last_changes['original_title'] %>
-<%= "The Description was changed to '#{@podcast.last_changes['description'].last}'" if @podcast.last_changes['original_title'] %>
+<%= "The Title was changed to #{@podcast.last_changes['title'].last}" if @podcast.last_changes['title'] %>
+<%= "The URL was changed to limecast.com/#{@podcast.last_changes['clean_url'].last}" if @podcast.last_changes['clean_url'] %>
+<%= "The Description was changed to '#{@podcast.last_changes['description'].last}'" if @podcast.last_changes['description'] %>
 <%= "Owner Email was changed to '#{@podcast.last_changes['owner_email'].last}'" if @podcast.last_changes['owner_email'] %>
 <%= "Site was changed to '#{@podcast.last_changes['site'].last}'" if @podcast.last_changes['site'] %>
 

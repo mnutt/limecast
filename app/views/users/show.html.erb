@@ -2,15 +2,6 @@
 <% @classes = %{podcast index show} -%>
 <% @show_ads = true if @user.reviews.count > 0 -%>
 <% javascript_include "review_edit", "review_delete", "podcast_edit" -%>
-
-<script type="text/javascript">
-  $().ready(function() {  
-    $('.description > p').jTruncate({  
-      length: 120,  
-    });  
-  });
-</script>
-
  
 <%= render :partial => 'users/edit' if current_user && (current_user == @user || current_user.admin?) %>
 <%= render :partial => 'users/claim' if !current_user && @user.passive? -%>
@@ -38,7 +29,7 @@
     <div id="profile_favorites" class="rounded_corners">
       <% rounded_corners do -%>
         <ul class="podcasts clearfix">
-          <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :favorite_link => true} -%>
+          <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :show_favorite => (@user == current_user)} -%>
         </ul>
       <% end -%>
     </div>

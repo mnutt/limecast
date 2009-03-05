@@ -9,11 +9,12 @@
       <%= paginate_podcasts(@podcasts) -%>
 
       <ul class="podcasts">
-        <%= render :partial => 'podcasts/podcast', :collection => @podcasts, :locals => {:show_remove_favorite => false} -%>
+        <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
       </ul>
 
       <%= paginate_podcasts(@podcasts) -%>
     <% end -%>
+
     <p class="per_page">
       View: <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
         <%= link_to count, { :limit => count}, {:class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil} -%><%= comma -%>

@@ -1,5 +1,4 @@
-<%- show_remove_favorite = true if show_remove_favorite.nil? -%>
-<%- show_marked_as_favorite = true if show_marked_as_favorite.nil? -%>
+<%- show_favorite = false if show_favorite.nil? -%>
 
 <div class="podcast_block">
   <div class="preview">
@@ -14,6 +13,6 @@
     <%= render :partial => "tags/tags", :object => podcast.tags -%>
     
     <%= render :partial => "podcasts/social", :locals => {:podcast => podcast} -%>
-    <%= render :partial => "podcasts/favorite", :locals => {:podcast => podcast, :show_remove_favorite => show_remove_favorite, :show_marked_as_favorite => show_marked_as_favorite} -%>
+    <%= render :partial => "podcasts/favorite", :locals => {:podcast => podcast} if show_favorite -%>
   </div>
 </div>

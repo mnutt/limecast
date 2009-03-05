@@ -267,6 +267,7 @@ input.radio {
 	position: relative;
 	padding: 5px;
 	min-width: 400px;
+	width: 650px;
 	clear: left;
 }
 .limecast_form .top {

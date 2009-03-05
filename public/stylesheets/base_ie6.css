@@ -70,6 +70,15 @@ ul.tabs {
 
 
 
+#download_button a.download {
+	padding: 8px 40px 0 8px;
+}
+
+
+#download_button a.opener {
+  margin-top: 4px;
+}
+
 
 
 #pop_recent_cont .preview, #pop_recent_cont .preview img, #tags_review_cont .preview, #tags_review_cont .preview img {

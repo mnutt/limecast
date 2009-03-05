@@ -21,11 +21,27 @@ form div.huge div input.text {
 	overflow: hidden;
 }
 
+.home #featured .podcast_block {
+	width: 440px;
+	float: left;
+	margin-right: 20px;
+}
+
 .home #featured .social {
 	margin-top: 38px;
 }
 
 .popular .podcast_block {width: 640px;}
+
+
+#download_button a.download {
+	padding: 8px 40px 0 8px;
+}
+
+
+#download_button a.opener {
+  margin-top: 4px;
+}
 
 	
 	.sm_social .social {

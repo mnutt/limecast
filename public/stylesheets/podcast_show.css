@@ -22,6 +22,7 @@
   position: absolute;
   display: block;
   bottom: -20px;
+  left: 0;
   width: 100%;
   height: 20px;
   background: url('../imgs/bg_podcast_bt.png') top left no-repeat;

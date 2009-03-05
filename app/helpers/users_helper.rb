@@ -15,6 +15,18 @@ module UsersHelper
       return 'Please type your email address.'                           if user.errors[:email].include?("can't be blank") or user.errors[:email].include?("is invalid")
     end
   end
+
+  def link_to_add_favorite(podcast)
+    link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url), :class => "favorite_link"
+  end
+
+  def link_to_remove_favorite(podcast)
+    link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url)
+  end
+
+  def link_to_favorites_page(user)
+    link_to "Marked as favorite", user_url(user, :anchor => "profile_favorites"), :class => "calloutlight", :title => "Go to your favorites"
+  end
 end
 
 

@@ -14,7 +14,22 @@ body {text-align: center;height: 100%;}
 	font-weight: bold;
 	background: white;
 	padding: 5px;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  background: gray;
+  color: #E1E1E1;
+  width: 650px;
+  line-height: 1em;
+  font-size: 12px;
+  text-indent: 1em;
+  text-shadow: #111 1px 1px 1px;
+  border-bottom: solid 3px #E1E1E1;
+  border-top: solid 3px #E1E1E1;
+  margin: 5px 0;
+  opacity: 0.7;
 }
+
 
 
 /**** Search form **************/
@@ -1248,4 +1263,7 @@ span.truncated.more {
   display: none;
 }
 
+#profile_reviews ul.reviews {
+  width: 100%;
+}
 

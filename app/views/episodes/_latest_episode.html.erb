@@ -1,0 +1,8 @@
+<div id="latest_episode" class="preview">
+  <h3><%= link_to_episode latest_episode -%></h3>
+  <p class="details"><em><%= latest_episode.published_at.to_date -%> - <%= time_to_words(latest_episode.duration) -%></em></p>
+  <p><%= sanitize_condensed_summary(latest_episode.summary) -%></p>
+  <div class="video_player">
+    <%= render :partial => 'episodes/video_player', :object => latest_episode, :locals => {:options => {:hide_broken_previews => true}} -%>
+  </div>
+</div>

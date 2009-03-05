@@ -167,6 +167,8 @@ class Feed < ActiveRecord::Base
   end
 
   def update_episodes!
+    self.sources.update_all :archived => true
+
     @feed.episodes.each do |e|
       # XXX: Definitely need to figure out something better for this.
       episode = self.podcast.episodes.find_by_title(e.title) || self.podcast.episodes.new
@@ -188,7 +190,8 @@ class Feed < ActiveRecord::Base
         :size       => e.enclosure.size,
         :url        => e.enclosure.url,
         :episode_id => episode.id,
-        :xml        => e.raw_xml
+        :xml        => e.raw_xml,
+        :archived   => false
       )
     end
   end

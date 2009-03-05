@@ -1,6 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def google_ads
+    %{<div class="googleads">#{@ads}</div>}
+  end
+
   # Renders a UL tag, where each LI has an A. The anchors have a +rel+ attribute
   # that can be used by JS.
   #
@@ -228,7 +232,8 @@ module ApplicationHelper
   def editing?(obj)
     logger.info "\napphelper:207: #{!obj.valid?} || #{!obj.messages.empty?} || #{!flash[:has_messages].blank?}\n"
     logger.info "\nthe flash is #{flash.inspect}\n"
-    !obj.valid? || !obj.messages.empty? || !flash[:has_messages].blank?
+    logger.info "\nthe podcast messages are #{@podcast.messages.inspect}\n" if @podcast
+    !obj.valid? || !flash[:has_messages].blank?
   end
 
   # Question mark on info pages, #non_blank also does #h

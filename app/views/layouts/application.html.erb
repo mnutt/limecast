@@ -31,12 +31,12 @@
 <%= javascript_include_tag 'jquery' -%>
 <%= javascript_include_tag 'jquery-ui' -%>
 <%= javascript_include_tag 'jquery-periodic' -%>
-<%= javascript_include_tag 'jquery.truncate' -%>
-<%= javascript_include_tag 'jquery.reflect' -%>
 <%= javascript_include_tag 'jquery.tabs' -%>
 <%= javascript_include_tag 'jquery.cookie' -%>
 <%= javascript_include_tag 'jquery.flash' -%>
 <%= javascript_include_tag 'jquery.dropdown' -%>
+<%= javascript_include_tag 'jquery.dataTables.min' -%>
+<%= javascript_include_tag 'jquery.cluetip' -%>
 <%= javascript_include_tag 'jquery.default-text' -%>
 <%= javascript_include_tag 'test_helpers' -%>
 <script type="text/javascript">
@@ -108,6 +108,17 @@
       <!-- HACK Use content wrapper so we can use margin on #content div. -->
       <div id="content_wrapper">
         <div id="content">
+
+          <% unless flash[:notice].blank? -%>
+            <div id="notice">
+              <% if Array === flash[:notice] -%>
+                <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+              <% else -%>
+                <%= flash[:notice] -%>
+              <% end -%>
+            </div>
+          <% end -%>
+          
           <%= yield %>
         </div> <!-- /content -->
       </div> <!-- /content_wrapper -->

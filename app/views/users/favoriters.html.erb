@@ -2,7 +2,7 @@
 <% @full_width = true   -%>
 
 <div class="page_head">
-        <h1><%= pluralize(@users.count, "person has", "people have") -%> favorited <%= link_to @podcast.title, podcast_url(:podcast_slug => @podcast) -%></h1>
+  <h1><%= pluralize(@users.count, "person has", "people have") -%> favorited <%= link_to @podcast.title, podcast_url(:podcast_slug => @podcast) -%></h1>
 </div>
 
 <div id="favoriters" class="main rounded_corners">
@@ -12,6 +12,5 @@
     </ul>
   <% end -%>
 </div>
-<div class="googleads">
-  <%= @ads -%>
-</div>
+
+<%= google_ads -%>

@@ -1,7 +1,7 @@
 <%- show_remove = true if show_remove.nil? -%>
 
 <% if !podcast.favorite_of?(current_user) -%>
-  <div class="addit"><ul><li><%= link_to_add_favorite(podcast) -%></li></ul></div>
+  <div class="addit"><%= link_to_add_favorite(podcast) -%></div>
   <div class="quick_signin_container after_favoriting"></div>
 <% elsif show_remove -%>
   <div class="removeit"><ul><li><%= link_to_remove_favorite(podcast) -%></li></ul></div>

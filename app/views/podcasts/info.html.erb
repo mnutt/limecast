@@ -4,7 +4,7 @@
 <%= render :partial => 'feeds/info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
 
 <p class="episode_info">
-  New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.newest.first) -%> <%= relative_time(@podcast.episodes.newest.first.published_at, false) -%><br />
+  New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.newest.first) -%> <%= relative_time(@podcast.episodes.newest.first.published_at, true) -%><br />
   
   <%= @podcast.episodes.count -%> episodes
   since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.oldest.first) -%>

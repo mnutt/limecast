@@ -36,6 +36,8 @@ $(document).ready(function() {
         .find(".truncated." + text)
           .show()
         .end();
+
+    return false;
   });
 
   if($('.podcast.show').size() && !$('.podcast.new.show').size()) {

@@ -1429,4 +1429,7 @@ span.truncated.more {
   display: none;
 }
 
+#profile_reviews ul.reviews {
+  width: 100%;
+}
 

@@ -3,10 +3,6 @@
 <h1><%=h @podcast.title %></h1>
 <h6 id="page_type">PODCAST SERIES</h6>
 
-
-
-
-
 <div class="podcast_block">
   
   <div class="preview">
@@ -23,19 +19,11 @@
     <%= render :partial => "tags/tags", :object => @podcast.tags -%>
     <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
   </div>
-
   
   <div id="podcast_block_bottom"></div>
-        
-        
-        
-
 </div>
 
 <%= render :partial => "podcasts/subscribe" -%>
-
-
-
 
 <div class="favorite_cont">
   <ul>

@@ -1,7 +1,7 @@
 <div id="recent_episodes" class="rounded_corners">
   <% rounded_corners do -%>
     <%- @recent_episodes.each do |ep| -%>
-      <div class="podcast_block sm_social">
+      <div class="podcast_block">
         <div class="preview">
           <% if ep.sources.first && ep.sources.first.screenshot? %>
             <%= image_tag(ep.sources.first.screenshot(:square).to_s, :height => 55, :width => 55) %>
@@ -9,9 +9,9 @@
             <%= image_tag(cover_art(ep.podcast, :square), :height => 55, :width => 55) %>
           <% end %>
         </div>
-        <div>
+        <div class="description">
           <h3><%= link_to ep.title, episode_url(:podcast_slug => ep.podcast, :episode => ep) -%></h3>
-          <p>
+          <p class="details">
             <%= ep.published_at.to_date -%> - <%= time_to_words(ep.duration) -%>
           </p>
         </div>

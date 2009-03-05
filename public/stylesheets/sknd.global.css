@@ -717,6 +717,144 @@ a.truncate_more_link {
   outline: none;
 }
 
+
+
+.review .helpfulness {
+	color: #a9a9a9;
+	font-size: 1.2em;
+	position: absolute;
+	right: 127px;
+	bottom: 13px;
+}
+
+.review div.social {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: auto;
+	margin: 0;
+	padding: 0;
+  font-size: 1.4em;
+}
+
+#r_view {
+	position: absolute;
+	top: -40px;
+	right: 0;
+}
+
+#r_view {
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+
+#r_view .linkable {
+	color: #171717;
+	font-weight: bold;
+}
+
+#r_view .current {
+	margin-right: 6px;
+	margin-left: 40px;
+}
+
+#r_view span#first_linkable {
+	margin-right: -40px;
+}
+
+#r_info p, #r_view p {
+	font-size: 1.2em;
+}
+
+#r_info p span, #r_view p {
+	color: #a9a9a9;
+}
+
+li.review .info {
+  display: block;
+	margin: -3px 0 3px 18px;
+	font-size: 1.2em;
+}
+
+li.even {
+  background: #ebebeb;
+}
+
+
+li.review {
+	position: relative;
+	border-bottom: dotted 1px #7b7b7b;
+	display: block;
+	padding: 20px 10px 40px 10px;
+}
+
+
+li.review  .title {
+	display: block;
+	font-weight: bold;
+	margin: 0;
+	font-size: 1.4em;
+}
+
+li.review  .title a {
+	font-size: 1.4em;
+	text-decoration: none;
+	color: #171717;
+}
+
+li.review p {
+	font-size: 1.4em;
+	margin: 0px 0 0 18px;
+	display: block;
+}
+
+.reviews.list #review_login {
+	min-height: 200px;
+	margin: 20px 0 20px 0;
+}
+
+.reviews.list #review_doit {
+	margin: 20px 0 20px 0;
+}
+
+.reviews.list #review_doit h4 {
+	font-size: 1.6em;
+}
+
+.reviews.list #review_doit p {
+	margin-top: 15px;
+}
+
+.reviews.list #review_doit h6 {
+	font-size: 1.4em;
+	margin-top: 1.5em;
+}
+
+.reviews.list #review_doit input.text {
+	border: none;
+	background: url('../imgs/input_heading.png') top left no-repeat;
+	width: 343px;
+	height: 28px;
+	font-size: 1.4em;
+	padding: 5px 5px 0 5px;
+}
+
+.reviews.list #review_doit textarea {
+	border: none;
+	background: url('../imgs/textarea.png') top left no-repeat;
+	width: 393px;
+	height: 118px;
+	font-size: 1.8em;
+	padding: 5px;
+	display: block;
+}
+
+.reviews.list #review_doit button {
+	margin: 15px 0 0 0px;
+}
+
+
 				
 
 

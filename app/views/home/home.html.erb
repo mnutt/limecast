@@ -1,29 +1,5 @@
-<% @classes = %{podcast new show} -%>
+<% @classes = %{home} -%>
 <% @full_width = true -%>
-
-
-<script type="text/javascript">
-    $(function() {
-      var open = true;
-      $('a.homeclose').click(function() {
-        if(open){
-         $(this).removeClass('homeclose');
-         $(this).addClass('openarrow');
-         $(this).text('Show intro');
-          open = false;
-        } else {
-          $(this).removeClass('openarrow');
-          $(this).addClass('homeclose');
-          $(this).html('Hide intro');
-          open = true;
-        }
-        $("#mission").toggle("blind", { direction: "vertical" }, 0300);
-        return false;
-      });
-    });
-</script>
-
-
 
 <div class="summary">
   

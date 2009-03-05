@@ -9,19 +9,22 @@ form div.huge div input.text {
   width: 99%;
 }
 
-.social {
-  float:left;
-  width:100%;
-	position: relative;
-	bottom: -5px;
-	margin-bottom: 60px;
-  }
+#featured_cont {
+	height: 229px;
+	margin: 30px 0px 20px 0px;
+	background: url('../imgs/bg_hp_featured.png') top left repeat-x;
+}
 
-	.new #featured .social {
-		font-size: .7em;
-		position: absolute;
-		bottom: -54px;
-	}
+
+#featured {
+	margin: 15px 0px 20px 20px;
+	overflow: hidden;
+}
+
+.home #featured .social {
+	margin-top: 38px;
+}
+
 	
 	.sm_social .social {
 

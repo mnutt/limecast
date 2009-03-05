@@ -7,10 +7,10 @@
 
 
 
-  <div class="summary">
+
     <span class="title"><%= review.title -%></span>
     <span class="info light">Written by <%= link_to_profile review.reviewer -%> <%= time_ago_in_words review.created_at %> ago</span>
-    <span class="body"><%= unescape_entities(review.body) -%></span>
+    <p><%= unescape_entities(review.body) -%></p>
     <div class="helpfulness">Did you find this review helpful?</div>
       <div class="social">
         <ul>
@@ -21,6 +21,6 @@
     
 
     <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
-  </div>
+  
 </li>
 

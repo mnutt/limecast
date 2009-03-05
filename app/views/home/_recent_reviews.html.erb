@@ -1,6 +1,6 @@
 <script type="text/javascript">
  $().ready(function() {  
-  $('span.body').jTruncate({  
+  $('#recent_reviews p').jTruncate({  
    length: 110, 
    moreText: "" 
   });  
@@ -18,12 +18,12 @@
             
           
   
-          <div class="summary">
+          
             <span class="title"><%= r.title -%></span>
             <span class="info light">Written by <%= link_to_profile r.reviewer -%> <%= time_ago_in_words r.created_at %> ago</span>
-            <span class="body"><%= unescape_entities(r.body) -%></span>
+            <p><%= unescape_entities(r.body) -%></p>
             <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
-          </div>
+
         </li>
       <%- end -%>
     </ul>

@@ -17,10 +17,6 @@ body {text-align: center;height: 100%;}
 }
 
 
-body.addpage .summary {
-  min-height: 500px;
-}
-
 /**** Search form **************/
 form#search {
 	width: 180px; 
@@ -214,7 +210,7 @@ form#quick_signin .controls, form#quick_signin .controls_signup {
 }
 
 
-.podcast.index h1, .index.search h1 {
+.index h1, .index.search h1 {
 	margin-left: 15px;
 }
 
@@ -353,14 +349,14 @@ form#quick_signin a.forgot {
 
 
 /* Show specific */
-.show .summary { overflow: visible;}
-.show .supplemental {float: left; overflow: hidden; position:  relative; margin: 20px 0; width: 670px;}
+.summary { overflow: visible;}
+.supplemental {float: left; overflow: hidden; position:  relative; margin: 20px 0; width: 670px;}
 
 
 
 /**** homepage **************/
 
-.new #content {
+.home #content {
 	margin: 0 20px 20px 20px;
 }
 
@@ -422,7 +418,6 @@ form#quick_signin a.forgot {
 }
 
 
-
 #mission ul {
   margin-top: 25px;
 	margin-left: 97px;
@@ -443,8 +438,6 @@ form#quick_signin a.forgot {
   text-decoration: underline;
 }
 
-.new #close_misson {margin: 3px 3px 5px 0; overflow: visible; display: block; height: 10px;}
-
 
 #featured_cont {
 	height: 229px;
@@ -463,15 +456,15 @@ form#quick_signin a.forgot {
 	color: #171717;
 }
 
-.new #featured .podcast_block {
+.home #featured .podcast_block {
 	width: 440px;
 	float: left;
 	margin-right: 20px;
 }
 
 
-.new #featured .social {
-	margin-top: 33px;
+.home #featured .social {
+	margin-top: 40px;
 }
 
 #pop_recent_cont {
@@ -485,13 +478,8 @@ form#quick_signin a.forgot {
 }
 
 
-#pop_recent_cont .podcast_block, #tags_review_cont .podcast_block {
-	width: 440px;
-}
 
-#pop_recent_cont .podcast_block .description, #tags_review_cont .podcast_block .description {
-	width: 340px;
-}
+
 
 #pop_recent_cont , #tags_review_cont {
 	width: 460px;
@@ -504,23 +492,6 @@ form#quick_signin a.forgot {
 #pop_recent_cont .preview, #pop_recent_cont .preview img, #tags_review_cont .preview, #tags_review_cont .preview img {
 	width: 55px;
 }
-
-#pop_recent_cont h6, #pop_recent_cont .description ul, #tags_review_cont h6, #tags_review_cont .s_dec ul {
-	font-size: 1.2em;
-}
-
-
-#pop_recent_cont .callout, #tags_review_cont .callout {
-	position: absolute;
-	bottom: 35px;
-	right: 20px;
-	font-size: .8em;
-}
-
-
-
-
-
 
 #hp_tower, #hp_open {
 	margin: 10px 0 20px 0;
@@ -578,17 +549,17 @@ form#quick_signin a.forgot {
 	margin-right: 20px;
 }
 
-.podcast.new .summary .preview img { width: 160px; }
-.episode.show .summary .preview { width: 460px; }
+.home .preview img { width: 160px; }
+.episode.summary .preview { width: 460px; }
   
-.episode.show .summary .preview .previous {
+.episode.summary .preview .previous {
   display: block;
   width: 40%;
 	float: left;
 	font-size: 1.2em;
 }
 
-.episode.show .summary .preview .next {
+.episode.summary .preview .next {
   display: block;
   width: 40%;
   float: right;
@@ -596,53 +567,53 @@ form#quick_signin a.forgot {
 	font-size: 1.2em;
 }
 
-.show .summary h1 {
+.summary h1 {
 	margin: 0;
 	width: 800px;
 }
-.show .summary h2 {
+.summary h2 {
 	width: 800px;
 	color: #a9a9a9;
 }
 
 
-.episode.show .summary h2 {
+.episode.summary h2 {
 	margin-bottom: 15px;
 }
-.podcast.show .summary h1 {
+.summary h1 {
 	margin-bottom: 20px;
 }
 
-.show .summary h6#page_type {
+.summary h6#page_type {
 	position: absolute;
 	top: 33px;
 	right: 20px;
 }
 
-.podcast.show h6#page_type {
+h6#page_type {
 	margin-top: -25px;
 	padding: 17px 32px 13px 0;
 	background: url('../imgs/icons/series.png') center right no-repeat;
 }
 
-.episode.show h6#page_type {
+.episode h6#page_type {
 	margin-top: -20px;
 	padding: 17px 30px 10px 0;
 	background: url('../imgs/icons/episode.png') center right no-repeat;
 }
 
-.episode.show .summary .media {
+.episode .summary .media {
 	font-size: 1.2em;
 	font-style: italic;
 	margin: 10px 0;
 }
 
-.episode.show .summary p .date {
+.episode .summary p .date {
 	font-style: italic;
 	font-size: 0.85em;
 }
 
-.podcast.show .summary .addit {
+.summary .addit {
 	float: right;
 	margin-top: 3px;
 }
@@ -677,7 +648,7 @@ form#quick_signin a.forgot {
 }
 
 
-.episode.show .podcast_block { /*episode page*/
+.episode .podcast_block { /*episode page*/
 	width: 460px;
 }
 
@@ -696,32 +667,32 @@ form#quick_signin a.forgot {
 
 
 /**** used for reviews **************/
-.show .supplemental h2 a {
+.supplemental h2 a {
 	font-size: 1em;
 }
 
-.show .supplemental h2 {
+.supplemental h2 {
 	display: inline;
 	line-height: 42px;
 }
 
-.show .supplemental h2.current {
+.supplemental h2.current {
 	margin-left: 20px;
 	margin-right: 8px;
 	padding: 10px 0 6px 10px;
 	background: url('../imgs/tab_left.png') top left no-repeat;
 }
 
-.show .supplemental h2.current span {
+.supplemental h2.current span {
 	padding: 10px 40px 7px 10px;
 	background: url('../imgs/tab_right.png') top right no-repeat;
 }
 
-.show .supplemental #series_reviews {
+.supplemental #series_reviews {
 	margin-left: -2px;
 }
 
-.show .supplemental .linkable a {margin-left: 40px; margin-right: 6px;}
+.supplemental .linkable a {margin-left: 40px; margin-right: 6px;}
 
 
 
@@ -742,156 +713,20 @@ form#quick_signin a.forgot {
 .reviews.list {position: relative;}
 .reviews.list img {margin: 0 -7px 0 20px;}
 
-.show .wrapper {
+.wrapper {
 	margin-top: -5px;
 	margin-bottom: 20px;
 }
 
-li.review {
-	position: relative;
-	border-bottom: dotted 1px #7b7b7b;
-	display: block;
-	padding: 20px 10px 40px 10px;
+.home li.review:last-child {
+	border-bottom: none;
 }
 
-.new li.review { /*homepage*/
+.home li.review { /*homepage*/
 	padding: 10px 0px;
 }
 
 
-.review .helpfulness {
-	color: #a9a9a9;
-	font-size: 1.2em;
-	position: absolute;
-	right: 127px;
-	bottom: 13px;
-}
-
-.review div.social {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	width: auto;
-	margin: 0;
-	padding: 0;
-  font-size: 1.4em;
-}
-
-.show #r_view {
-	position: absolute;
-	top: -40px;
-	right: 0;
-}
-
-.show #r_view {
-	text-align: right;
-	margin-bottom: 10px;
-}
-
-
-.show #r_view .linkable {
-	color: #171717;
-	font-weight: bold;
-}
-
-.show #r_view .current {
-	margin-right: 6px;
-	margin-left: 40px;
-}
-
-.show #r_view span#first_linkable {
-	margin-right: -40px;
-}
-
-.show #r_info p, .show #r_view p {
-	font-size: 1.2em;
-}
-
-.show #r_info p span, .show #r_view p {
-	color: #a9a9a9;
-}
-
-.show li.review .info {
-  display: block;
-	margin: -3px 0 3px 18px;
-	font-size: 1.2em;
-}
-
-.show li.even {
-  background: #ebebeb;
-}
-
-
-
-.show li.review .summary {
-	margin: -3px 0 10px 0;
-	overflow: auto;
-
-}
-
-.show li.review .summary .title {
-	display: block;
-	font-weight: bold;
-	margin: 0;
-	font-size: 1.4em;
-}
-
-.show li.review .summary .title a {
-	font-size: 1.4em;
-	text-decoration: none;
-	color: #171717;
-}
-
-.show li.review .summary .body {
-	font-size: 1.4em;
-	margin: 0px 0 0 18px;
-	display: block;
-}
-
-.show .reviews.list #review_login {
-	min-height: 200px;
-	margin: 20px 0 20px 0;
-}
-
-.show .reviews.list #review_doit {
-	margin: 20px 0 20px 0;
-}
-
-.show .reviews.list #review_doit h4 {
-	font-size: 1.6em;
-}
-
-.show .reviews.list #review_doit p {
-	margin-top: 15px;
-}
-
-.show .reviews.list #review_doit h6 {
-	font-size: 1.4em;
-	margin-top: 1.5em;
-}
-
-.show .reviews.list #review_doit input.text {
-	border: none;
-	background: url('../imgs/input_heading.png') top left no-repeat;
-	width: 343px;
-	height: 28px;
-	font-size: 1.4em;
-	padding: 5px 5px 0 5px;
-}
-
-.show .reviews.list #review_doit textarea {
-	border: none;
-	background: url('../imgs/textarea.png') top left no-repeat;
-	width: 393px;
-	height: 118px;
-	font-size: 1.8em;
-	padding: 5px;
-	display: block;
-}
-
-.show .reviews.list #review_doit button {
-	margin: 15px 0 0 0px;
-}
 
 
 #zone-bar {
@@ -901,7 +736,7 @@ li.review {
 
 /* Subscribe Button **/
 
-.show #subscribe {
+#subscribe {
 	position: absolute;
 	top: 60px;
 	right: 10px;
@@ -911,32 +746,32 @@ li.review {
 
 }
 
-.show #subscribe div {
+#subscribe div {
 	display: block;
 	background: url("../imgs/subscribe_right.png") no-repeat top right;
 	height: 67px;
 
 }
 
-.show #subscribe h2 {
+#subscribe h2 {
 	margin: 0;
 	color: #fff;
 	width: auto;
 }
 
-.show #subscribe p {
+#subscribe p {
 	margin: 0;
 	color: #fff;
 	font-size: 1.2em;
 }
 
-.show #subscribe p span {
+#subscribe p span {
 	margin: 0;
 	color: #fff;
 	font-size: .8em;
 }
 
-.show #subscribe div a {
+#subscribe div a {
 	color: #fff;
 	padding-top: 10px;
 	padding-left: 70px;
@@ -946,7 +781,7 @@ li.review {
 	outline: none;
 }
 
-.show #s_options_toggle { 
+#s_options_toggle { 
 	position: absolute;
 	top: 123px;
 	right: 25px;
@@ -1098,34 +933,34 @@ ul.tabs-nav  {
 .tabs-nav a.miro span {background:  url('../imgs/icons/miro.png') center left no-repeat;}
 .tabs-nav a.rss span {background:  url('../imgs/icons/rss.png') center left no-repeat;}
 
-.show ul.v_options_list ul  {
+ul.v_options_list ul  {
 	clear: left;
 	margin-top: 10px;
 }
 
-.show ul.v_options_list li  {
+ul.v_options_list li  {
 	display: block;
 	padding: 3px 0;
 	border-bottom: 1px dotted #ddd;
 	overflow: hidden;
 }
 
-.show ul.v_options_list li p {
+ul.v_options_list li p {
 	float: left;
 }
 
-.show span.v_options {
+span.v_options {
 	float: right;
 	font-size: 1.4em;
 }
 
-.show ul.v_options_list li .selected_vid {
+ul.v_options_list li .selected_vid {
 	padding-right: 12px;
 	font-weight: bold;
 	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
 }
 
-.show .info {
+.info {
 	color: #a9a9a9;
 	margin-top: 5px;
 }
@@ -1136,7 +971,7 @@ ul.tabs-nav  {
 	left: 18px;
 }
 
-.show .info .created_at {
+.info .created_at {
 	display: block;
 
 }
@@ -1161,13 +996,6 @@ ul.tabs-nav  {
 .pagination  span.prev_page a, .pagination  span.next_page a, .pagination  span.disabled  {
 	padding: 5px 5px;
 
-}
-
-
-
-
-.podcast.new .huge input {
-	width: 90%;
 }
 
 
@@ -1224,18 +1052,15 @@ display: inline;
   font-size: .9em;
 }
 
-.podcast.index #sort {
-	top: 12px;
-}
 
 
 
 
-.podcast.index .social {
+.index .social {
   margin-top: 8px;
 }
 
-.podcast.index .addit {
+.index .addit {
 	float: right;
 	margin: 1px 5px 0px 0;
 }
@@ -1289,12 +1114,6 @@ display: inline;
 	right: 20px;
 }
 
-#recent_episodes p {
-  color: #a9a9a9;
-  float: left;
-  font-size: 1.2em;
-  margin-top: -5px;
-}
 
 
 #recent_episodes .podcast_block {
@@ -1393,7 +1212,7 @@ display: inline;
   margin: 0px 0 0 0;
 }
 
-#search_results .podcast .episode  h5 {
+#search_results .episode  h5 {
   float: left;
   color: #a9a9a9;
   margin: 0px 0 0 8px;

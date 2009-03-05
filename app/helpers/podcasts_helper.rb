@@ -11,6 +11,10 @@ module PodcastsHelper
       :outer_window   => 1
   end
 
+  def link_to_podcast(podcast)
+    link_to podcast.title, podcast_url(:podcast_slug => podcast.clean_url), :title => "Subscribe to the series & view the episode list"
+  end
+
   def link_to_podcast_home(podcast)
     link_to h(podcast.clean_site), h(podcast.site)
   end

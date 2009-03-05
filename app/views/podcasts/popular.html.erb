@@ -7,21 +7,11 @@
 
   <div id="browse" class="main rounded_corners">
     <% rounded_corners do -%>
-      <%= will_paginate @podcasts,
-        :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Newer episodes" />',
-        :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Older episodes" />',
-        :inner_window   => 1,
-        :outer_window   => 1
-      -%>
+      <%= paginate_podcasts(@podcasts) -%>
     
       <%= render :partial => 'podcasts/podcast', :collection => @podcasts, :locals => {:show_remove_favorite => false} -%>
 
-      <%= will_paginate @podcasts,
-        :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Newer episodes" />',
-        :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Older episodes" />',
-        :inner_window   => 1,
-        :outer_window   => 1
-      -%>
+      <%= paginate_podcasts(@podcasts) -%>
     <% end -%>
       
     <p class="per_page">
@@ -33,6 +23,4 @@
   </div>
 </div>
 
-<div class="googleads">
-  <%= @ads -%>
-</div>
+<%= google_ads -%>

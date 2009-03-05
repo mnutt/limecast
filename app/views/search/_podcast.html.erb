@@ -1,5 +1,3 @@
-
-
 <div class="podcast_block">
   <div class="preview">
     <%= display_cover_art(podcast) -%>
@@ -11,7 +9,5 @@
       <%= search_excerpt(podcast.description || "", @parsed_q) -%>
     </p>
     <%= render :partial => "tags/tags", :object => podcast.tags -%>
-
   </div>
 </div>
-<div class="clear"></div>

@@ -463,6 +463,7 @@ a.calloutlight:hover {
   float:left;
   background:url("../imgs/social_left.png") no-repeat left top;
   margin-right: 5px;
+  margin-bottom: 5px;
   padding:0 0 0 9px;
 
   }

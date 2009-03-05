@@ -108,6 +108,17 @@
       <!-- HACK Use content wrapper so we can use margin on #content div. -->
       <div id="content_wrapper">
         <div id="content">
+
+          <% unless flash[:notice].blank? -%>
+            <div id="notice">
+              <% if Array === flash[:notice] -%>
+                <%= flash[:notice].map{|line| "<p>#{line}</p>"} -%>
+              <% else -%>
+                <%= flash[:notice] -%>
+              <% end -%>
+            </div>
+          <% end -%>
+          
           <%= yield %>
         </div> <!-- /content -->
       </div> <!-- /content_wrapper -->

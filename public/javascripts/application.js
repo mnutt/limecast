@@ -40,9 +40,18 @@ $(document).ready(function() {
   });
 
   if($('.podcast.show').size() && !$('.podcast.new.show').size()) {
-    $('.podcast.show #podcast_episodes').dataTable({
-      "aaSorting": [[ 2, "desc" ]]
-    });
+    $('#podcast_episodes').dataTable( {
+     		"aaSorting": [[ 3, "desc" ]],
+     		"aoColumns": [ 
+        			/* Title */   { "bSortable": false },
+        			/* Description */  { "bVisible":    false, "bSortable": false },
+        			/* Runtime */ { "bSortable": false },
+        			/* Date released */  null
+        		],
+        "bStateSave": true,
+        "bProcessing": true
+     	});
+     	$('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
   }
 });
 

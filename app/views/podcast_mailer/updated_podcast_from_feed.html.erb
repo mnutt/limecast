@@ -1,8 +1,9 @@
-A podcast that you can edit has been updated because one of its feeds was changed:
+A podcast that you can edit has been updated because one of its feeds was changed.
 
-<% @podcast.last_changes.reject { |k,v| k.to_s != 'original_title' }.each_pair do |attr, changes| -%>
-  <%= attr.titleize %> was changed to '<%= changes.last %>'
-<% end -%>
+<%= "The Original Title was changed to #{@podcast.last_changes['original_title'].last}" if @podcast.last_changes['original_title'] %>
+<%= "The Description was changed to '#{@podcast.last_changes['description'].last}'" if @podcast.last_changes['original_title'] %>
+<%= "Owner Email was changed to '#{@podcast.last_changes['owner_email'].last}'" if @podcast.last_changes['owner_email'] %>
+<%= "Site was changed to '#{@podcast.last_changes['site'].last}'" if @podcast.last_changes['site'] %>
 
 It is located at <%= podcast_url(:podcast_slug => @podcast, :host => @host) %>
 

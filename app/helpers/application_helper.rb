@@ -53,7 +53,7 @@ module ApplicationHelper
     :title => "#{user.rank.capitalize} User"
   end
 
-  def link_to_podcast(podcast)
+  def link_to_searched_podcast(podcast)
     link_to "<span class=\"searched\">#{h(podcast.title)}</span>", podcast_url(podcast)
   end
 

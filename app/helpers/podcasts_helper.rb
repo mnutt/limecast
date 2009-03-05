@@ -10,4 +10,12 @@ module PodcastsHelper
       "/imgs/no_cover.png"
     end
   end
+
+  def display_cover_art(podcast, opts = {})
+    size = opts.delete(:size) || :small
+
+    defaults = { :alt => "#{podcast.title} cover art", :class => "logo" }.merge(opts)
+
+    image_tag(cover_art(podcast, size))
+  end
 end

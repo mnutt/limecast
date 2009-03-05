@@ -228,6 +228,7 @@ module ApplicationHelper
   def editing?(obj)
     logger.info "\napphelper:207: #{!obj.valid?} || #{!obj.messages.empty?} || #{!flash[:has_messages].blank?}\n"
     logger.info "\nthe flash is #{flash.inspect}\n"
+    logger.info "\nthe podcast messages are #{@podcast.messages.inspect}\n" if @podcast
     !obj.valid? || !flash[:has_messages].blank?
   end
 

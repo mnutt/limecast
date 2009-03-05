@@ -411,23 +411,23 @@ describe Podcast, "additional badges" do
   end
 
   it "should include language" do
-    @podcast.additional_badges.should include 'es'
+    @podcast.additional_badges.should include('es')
     @podcast.language = 'jp'
-    @podcast.additional_badges(true).should include 'jp'
+    @podcast.additional_badges(true).should include('jp')
   end
 
   it "should include 'current'" do
     Episode.create(:published_at => 29.day.ago, :podcast_id => @podcast.id)
-    @podcast.reload.additional_badges.should include "current"
+    @podcast.reload.additional_badges.should include("current")
   end
 
   it "should include 'stale'" do
     Episode.create(:published_at => 31.day.ago, :podcast_id => @podcast.id)
-    @podcast.reload.additional_badges.should include "stale"
+    @podcast.reload.additional_badges.should include("stale")
   end
 
   it "should include 'archive'" do
     Episode.create(:published_at => 91.day.ago, :podcast_id => @podcast.id)
-    @podcast.reload.additional_badges.should include "archive"
+    @podcast.reload.additional_badges.should include("archive")
   end
 end

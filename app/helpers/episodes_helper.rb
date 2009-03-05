@@ -6,4 +6,8 @@ module EpisodesHelper
 
     { :height => height || 362, :width => scale_to_width }
   end
+
+  def link_to_episode(ep)
+    "<h3>#{link_to ep.title, episode_url(:podcast_slug => ep.podcast, :episode => ep)}</h3>"
+  end
 end

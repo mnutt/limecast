@@ -16,15 +16,12 @@
   <div class="description">
     <h4>About this podcast</h4>
     <p>
-      <%= link_to(h(@podcast.clean_site), h(@podcast.site)) + " &ndash; " unless @podcast.clean_site.blank? %> 
-      <%= (link_to_itunes(@podcast.primary_feed) + " &ndash; ") if @podcast.primary_feed && !@podcast.primary_feed.itunes_link.blank? -%>
+      <%= link_to_podcast_home(@podcast) + " &ndash; " unless @podcast.clean_site.blank? %> 
+      <%= link_to_itunes(@podcast.primary_feed) + " &ndash; " if @podcast.primary_feed && !@podcast.primary_feed.itunes_link.blank? -%>
       <%= truncated_text unescape_entities(h(@podcast.description)), 110 -%>
     </p>
-    <h6>Tags:</h6>
-    <ul>
-      <%= comma_separated_list_items(@podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
-    </ul>
-   <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
+    <%= render :partial => "tags/tags", :object => @podcast.tags -%>
+    <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
   </div>
 
   

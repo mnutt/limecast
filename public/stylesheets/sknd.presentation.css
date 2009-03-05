@@ -1071,8 +1071,10 @@ display: inline;
 
 
 
-.index .social {
-  margin-top: 8px;
+
+
+.popular .social, .tags .social {
+  margin-top: 12px;
 }
 
 .index .addit {

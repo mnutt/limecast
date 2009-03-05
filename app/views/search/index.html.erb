@@ -1,7 +1,7 @@
 <% @title = "Search" -%>
 <% @classes = %{podcast show index} -%>
 <div class="summary">
-<h1>Search results for '<em><%= h @parsed_q -%></em>'<%= " in podcast '#{link_to_podcast @podcast}'" if @podcast %></h1>
+<h1>Search results for '<em><%= h @parsed_q -%></em>'<%= " in podcast '#{link_to_searched_podcast @podcast}'" if @podcast %></h1>
 <!--
 <p>
   '<%= h @q -%>' appears in <%= link_to pluralize(@podcasts.size, 'podcast title'), search_url(:q => "#{h @parsed_q} only:podcasts") %>, 

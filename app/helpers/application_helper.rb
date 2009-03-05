@@ -53,7 +53,7 @@ module ApplicationHelper
     :title => "#{user.rank.capitalize} User"
   end
 
-  def link_to_podcast(podcast)
+  def link_to_searched_podcast(podcast)
     link_to "<span class=\"searched\">#{h(podcast.title)}</span>", podcast_url(podcast)
   end
 
@@ -81,9 +81,11 @@ module ApplicationHelper
     content_tag(:span, image_tag("icons/#{icon.to_s}.png", :class => "inline_icon") + " #{title}" , options)
   end
   
+  # 2009 Jan 1 1:12p (2h 5m ago)
   def relative_time(date, abbr=true)
     time_ago = Time.now - date
-    time_to_words(time_ago, abbr) + " ago"
+    timestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%Y %b %d %I:%m%p").gsub(/(\s)0([1-9])/,'\1\2')
+    "#{timestamp} (#{time_to_words(time_ago, abbr) + " ago)"}"
   end
 
   def unescape_entities(html)

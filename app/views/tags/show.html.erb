@@ -3,24 +3,16 @@
 <% @classes = %{podcast index} -%>
 
 <div class="summary">
-<h1>Tag: <%= h @tag.name -%></h1>
-<div class="main rounded_corners" id="browse">
-  <% rounded_corners do -%>
-  <%= will_paginate @podcasts,
-    :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Previous page" />',
-    :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Next page" />',
-    :inner_window   => 1,
-    :outer_window   => 1 -%>
-  
-  <ul class="podcasts">
-    <%= render :partial => 'podcasts/podcast', :collection => @podcasts, :locals => {:show_remove_favorite => false} -%>
-  </ul>
-    <%= will_paginate @podcasts,
-      :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Previous page" />',
-      :next_label     => '<img src="../imgs/icons/right-arrow.gif" title="Next page" />',
-      :inner_window   => 1,
-      :outer_window   => 1 -%>
+  <h1>Tag: <%= h @tag.name -%></h1>
+  <div class="main rounded_corners" id="browse">
+    <% rounded_corners do -%>
+      <%= paginate_podcasts(@podcasts) -%>
 
+      <ul class="podcasts">
+        <%= render :partial => 'podcasts/podcast', :collection => @podcasts, :locals => {:show_remove_favorite => false} -%>
+      </ul>
+
+      <%= paginate_podcasts(@podcasts) -%>
     <% end -%>
     <p class="per_page">
       View: <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
@@ -28,8 +20,7 @@
       <% end -%>
       per page
     </p>
+  </div>
 </div>
-</div>
-<div class="googleads">
-  <%= @ads -%>
-</div>
+
+<%= google_ads -%>

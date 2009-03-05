@@ -1,6 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def google_ads
+    %{<div class="googleads">#{@ads}</div>}
+  end
+
   # Renders a UL tag, where each LI has an A. The anchors have a +rel+ attribute
   # that can be used by JS.
   #

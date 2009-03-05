@@ -29,3 +29,8 @@
   <li><%= link_to s.file_name, info_source_url(@episode.podcast, @episode, s) -%></li>
 <%- end -%>
 </ul>
+
+<% if @episode.primary_source -%>
+  <h1>Source (Primary)</h1>
+  <iframe name="primary_source_iframe" id="primary_source_iframe" src="<%= info_source_url(:podcast_slug => @episode.podcast, :episode => @episode, :id => @episode.primary_source.id) %>" style="width: 90%; border: solid 1px #111; height: 400px; margin: 10px;">Your browser does not support iframes.</iframe>
+<% end -%>

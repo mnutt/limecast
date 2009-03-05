@@ -129,3 +129,8 @@
   <li><%= t %></li>
 <%- end -%>
 </ul>
+
+<% if @podcast.primary_feed -%>
+  <h1>Primary Feed</h1>
+  <iframe name="primary_feed_iframe" id="primary_feed_iframe" src="<%= info_feed_url(:podcast_slug => @podcast, :id => @podcast.primary_feed.id) %>" style="width: 90%; border: solid 1px #111; height: 400px; margin: 10px;">Your browser does not support iframes.</iframe>
+<% end -%>

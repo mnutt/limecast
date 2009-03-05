@@ -1,14 +1,7 @@
 <% @title = h(@tag.name) -%>
 <% @full_width = true -%>
 <% @classes = %{podcast index} -%>
- <script type="text/javascript">
-   $().ready(function() {  
-    $('.description > p').jTruncate({  
-     length: 120,  
-    });  
-   });
-  </script>
-  
+
 <div class="summary">
 <h1>Tag: <%= h @tag.name -%></h1>
 <div class="main rounded_corners" id="browse">

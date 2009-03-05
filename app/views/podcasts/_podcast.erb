@@ -12,10 +12,7 @@
     <p>
       <%= truncated_text unescape_entities(h(podcast.description)), 110 -%>
     </p>
-    <h6>Tags:</h6>
-    <ul>
-      <%= comma_separated_list_items(podcast.tags.map {|tag| link_to(tag.name, tag_url(:tag => tag.name)) }) -%>
-    </ul>
+    <%= render :partial => "tags/tags", :object => podcast.tags -%>
     
     <%= render :partial => "podcasts/social", :locals => {:podcast => podcast} -%>
     <%= render :partial => "podcasts/favorite", :locals => {:podcast => podcast, :show_remove_favorite => show_remove_favorite, :show_marked_as_favorite => show_marked_as_favorite} -%>

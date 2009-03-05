@@ -1,0 +1,5 @@
+<%- podcast = recommendation -%>
+
+<li class="podcast">
+  <%= display_cover_art(podcast, :size => :icon) %> <%= link_to podcast.title, podcast_url(:podcast_slug => podcast) -%>
+</li>

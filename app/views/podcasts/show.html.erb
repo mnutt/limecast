@@ -6,17 +6,16 @@
 
 
 
-<div class="summary">
+<div class="summary clearfix">
   <%= render :partial => 'podcasts/summary' -%>
 </div>
-<div class="clear"></div>
 
 <div id="podcast_content">
   
   <h2>Latest episode preview</h2>
   
   <div id="latest_episode" class="preview">
-    <h3><%= link_to @most_recent_episode.title, episode_url(:podcast_slug => @most_recent_episode.podcast, :episode => @most_recent_episode) -%></h3>
+    <h3><%= link_to_episode @most_recent_episode -%></h3>
     <p class="details"><em><%= @most_recent_episode.published_at.to_date -%> - <%= time_to_words(@most_recent_episode.duration) -%></em></p>
     <p><%= sanitize_condensed_summary(@most_recent_episode.summary) -%></p>
     <div class="video_player">
@@ -50,11 +49,7 @@
   <% rounded_corners do -%>
   <h3>Related podcasts</h3>
   <ul id="all_podcasts">
-    <% @related.each do |podcast| -%>
-     <li class="podcast">
-       <%= image_tag podcast.logo.url(:icon) %> <%= link_to podcast.title, podcast_url(:podcast_slug => podcast) -%>
-     </li>
-    <% end -%>
+    <%= render :partial => "recommendations/recommendation", :collection => @related -%>
   </ul>
   <% end -%>
 </div>

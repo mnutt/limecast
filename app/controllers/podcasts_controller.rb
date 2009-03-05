@@ -7,9 +7,9 @@ class PodcastsController < ApplicationController
 
   def popular
     @podcasts = Podcast.parsed.sorted.paginate(
-			:page => (params[:page] || 1),
-			:per_page => params[:limit] || 10
-		)
+      :page => (params[:page] || 1),
+      :per_page => params[:limit] || 10
+    )
   end
 
   def show

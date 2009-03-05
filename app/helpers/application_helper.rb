@@ -228,7 +228,8 @@ module ApplicationHelper
   def editing?(obj)
     logger.info "\napphelper:207: #{!obj.valid?} || #{!obj.messages.empty?} || #{!flash[:has_messages].blank?}\n"
     logger.info "\nthe flash is #{flash.inspect}\n"
-    !obj.valid? || !obj.messages.empty? || !flash[:has_messages].blank?
+    logger.info "\nthe podcast messages are #{@podcast.messages.inspect}\n" if @podcast
+    !obj.valid? || !flash[:has_messages].blank?
   end
 
   # Question mark on info pages, #non_blank also does #h

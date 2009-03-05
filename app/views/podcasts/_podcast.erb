@@ -3,11 +3,10 @@
 
 <div class="podcast_block">
   <div class="preview">
-    <%= image_tag(cover_art(podcast), :alt => "#{podcast.title} cover art", :class => "logo") -%>
+    <%= display_cover_art(podcast) -%>
   </div>
 
   <div class="description">
-     
     <h3><%= link_to podcast.title, podcast_url(:podcast_slug => podcast.clean_url), :title => "Subscribe to the series & view the episode list" -%></h3>
     <p>
       <%= truncated_text unescape_entities(h(podcast.description)), 110 -%>

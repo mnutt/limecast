@@ -1,17 +1,11 @@
-<%- show_add_favorite       = true if show_add_favorite.nil? -%>
-<%- show_remove_favorite    = true if show_remove_favorite.nil? -%>
-<%- show_marked_as_favorite = true if show_marked_as_favorite.nil? -%>
+<%- show_remove = true if show_remove.nil? -%>
 
-<% if show_remove_favorite && podcast.favorite_of?(current_user) -%>
+<% if !podcast.favorite_of?(current_user) -%>
+  <div class="addit"><%= link_to_add_favorite(podcast) -%></div>
+  <div class="quick_signin_container after_favoriting"></div>
+<% elsif show_remove -%>
   <div class="removeit"><ul><li><%= link_to_remove_favorite(podcast) -%></li></ul></div>
 <% else -%>
-  <% if show_marked_as_favorite && podcast.favorite_of?(current_user) -%>
-    <%= link_to_favorites_page(current_user) %>
-  <% elsif show_add_favorite && !podcast.favorite_of?(current_user) -%>
-    <div class="addit"><ul><li><%= link_to_add_favorite(podcast) -%></li></ul></div>
-  <% end -%>
+  <%= link_to_favorites_page(current_user) %>
 <% end -%>
-<div class="quick_signin_container after_favoriting"></div>
-  
-
 

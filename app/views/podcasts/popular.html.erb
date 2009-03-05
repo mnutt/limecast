@@ -9,7 +9,7 @@
     <% rounded_corners do -%>
       <%= paginate_podcasts(@podcasts) -%>
     
-      <%= render :partial => 'podcasts/podcast', :collection => @podcasts, :locals => {:show_remove_favorite => false} -%>
+      <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
 
       <%= paginate_podcasts(@podcasts) -%>
     <% end -%>

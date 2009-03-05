@@ -1,5 +1,16 @@
 // Jquery Dropdown
 // by: aroscoe
+//
+// CSS:
+// #overlay {
+//     position: absolute;
+//     z-index: 999;
+//     left: 0;
+//     top: 0;
+//     width: 100%;
+//     height: 100%;
+// }
+
 jQuery.fn.dropdown = function(value, options) {
     options = jQuery.extend({
         button: "span.button",
@@ -35,12 +46,3 @@ jQuery.fn.dropdown = function(value, options) {
     });
     return(this);
 };
-
-// #overlay {
-//     position: absolute;
-//     z-index: 999;
-//     left: 0;
-//     top: 0;
-//     width: 100%;
-//     height: 100%;
-// }

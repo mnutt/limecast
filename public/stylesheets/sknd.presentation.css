@@ -814,6 +814,7 @@ h6#page_type {
 	right: 16px;
 	z-index: 2;
   display: none;
+  outline: none;
 }
 
 #subscribe_options_container #delivery_options {

@@ -2,7 +2,6 @@
 // START STUFF MOVED OVER FROM SKND
 // ---------------------------------
 $(document).ready(function() {
-
   // Edit Podcast link
   $('#edit_link').click(function() { 
     $('.limecast_form').toggle(); 
@@ -183,21 +182,19 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-  // Subscribe button
+  $("#subscribe_options li a").click(function(){ return false; });
+
   $("#s_options_toggle").click(function(e){
     $("#subscribe_options_container").slideDown("fast");
-		e.preventDefault();
-  });
-});
 
+    // similar to jquery.dropdown.js
+    if($("#overlay").size() == 0) $('body').append("<div id=\"overlay\"></div>");
+    $("#overlay").click(function(){
+      $("#subscribe_options_container").slideUp("fast");
+      $(this).remove();
+    });
 
-
-
-$(document).ready(function() {
-  // Subscribe button
-  $("#s_options_toggle").click(function(e){
-    $("#subscribe_options_container").slideDown("fast");
-		e.preventDefault();
+    e.preventDefault();
   });
 
   $(".audio_player .url").map(function(){
@@ -267,4 +264,6 @@ $(function() {
     navClass: 'tabs',
     containerClass: 'tabs-cont'
   });
+
+
 });

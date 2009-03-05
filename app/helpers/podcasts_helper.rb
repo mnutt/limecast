@@ -15,6 +15,14 @@ module PodcastsHelper
     link_to h(podcast.clean_site), h(podcast.site)
   end
 
+  def link_to_found_by(podcast)
+    link_to "Found by <span>#{podcast.found_by.login}</span>", user_url(podcast.found_by)
+  end
+
+  def link_to_made_by(podcast)
+    link_to "Made by <span>#{podcast.owned_by.login}</span>", user_url(podcast.owned_by)
+  end
+
   def cover_art(podcast, size = :small)
     if podcast.logo?
       podcast.logo.url(size)

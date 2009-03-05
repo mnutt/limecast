@@ -39,14 +39,9 @@
 
 <div class="favorite_cont">
   <ul>
-  <% if @podcast.favorite_of?(current_user) -%>
-    <li><%= link_to_favorites_page(current_user) -%></li>
-  <% else -%>
-    <li><div class="addit"><%= link_to_add_favorite(@podcast) -%></div></li>
-  <% end -%>
-  <% unless current_user -%><div class="quick_signin_container after_favoriting"></div><% end -%>
-  <li><a href="#podcast_reviews" id="comment_link"><%= @podcast.reviews.count %> reviews</a></li>
-  <li><a href="#review_doit" id="comment_add">Leave a review</a></li>
+    <li><%= render :partial => "podcasts/favorite", :locals => {:podcast => @podcast, :show_remove => false} -%></li>
+    <li><a href="#podcast_reviews" id="comment_link"><%= @podcast.reviews.count %> reviews</a></li>
+    <li><a href="#review_doit" id="comment_add">Leave a review</a></li>
   </ul>
 </div>
 

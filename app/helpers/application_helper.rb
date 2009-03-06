@@ -246,6 +246,6 @@ module ApplicationHelper
 
   def info_source_link(source, ability=true)
     [link_to(non_blank(source.feed.formatted_bitrate) + " " + non_blank(source.feed.apparent_format), info_source_url(source.episode.podcast, source.episode, source)),
-     (ability ? source.ability : nil)].join(" ")
+     " ", (ability ? source.ability : nil), (source.archived? ? "a" : nil)].join
   end
 end

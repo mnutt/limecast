@@ -27,6 +27,7 @@ class Source < ActiveRecord::Base
 
   named_scope :stale,    :conditions => ["sources.ability < ?", ABILITY]
   named_scope :approved, lambda { {:conditions => ["episode_id IN (?)", Podcast.approved.map(&:episode_ids).flatten]} }
+  named_scope :sorted, {:order => "episodes.published_at DESC", :include => :episode}
 
   has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] }
   has_attached_file :preview

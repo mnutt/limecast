@@ -7,8 +7,10 @@ module EpisodesHelper
     { :height => height || 362, :width => scale_to_width }
   end
 
-  def link_to_episode(ep)
-    link_to ep.title, episode_url(:podcast_slug => ep.podcast, :episode => ep)
+  def link_to_episode(ep, opts = {})
+    text = opts[:text] || ep.title
+
+    link_to text, episode_url(:podcast_slug => ep.podcast, :episode => ep), opts
   end
 
   def display_episode_screenshot(ep)

@@ -48,6 +48,7 @@ class Podcast < ActiveRecord::Base
   accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? }
 
   has_attached_file :logo,
+                    :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension",
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],
                                  :large  => ["300x300>", :png],

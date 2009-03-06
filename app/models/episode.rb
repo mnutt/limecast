@@ -20,9 +20,12 @@
 class Episode < ActiveRecord::Base
   belongs_to :podcast
 
-  has_attached_file :thumbnail, :whiny_thumbnails => true,
-                    :styles => { :square => ["85x85#", :png],
-                                 :small  => ["170x170#", :png] }
+  has_attached_file :thumbnail, 
+    :whiny_thumbnails => true,
+    :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension",
+    :styles => { :square => ["85x85#", :png],
+                 :small  => ["170x170#", :png] }
+
   has_many :reviews, :dependent => :destroy
   has_many :reviewers, :through => :reviews
   has_many :sources, :dependent => :destroy, :include => [:feed], :order => "sources.format ASC, feeds.bitrate ASC"

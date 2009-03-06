@@ -1,0 +1,28 @@
+<table>
+  <tr>
+    <td>
+      <%= source.feed.formatted_bitrate -%> 
+      <%= source.size.to_file_size.to_s(true, false).downcase -%> 
+      <%= non_blank source.format -%> 
+      <%= non_blank source.resolution -%> 
+      <%= non_blank source.framerate -%> 
+      <%= source.episode.duration.to_duration -%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= source.sha1hash.blank? ? blankness : link_to("magnet", source.magnet_url) -%>
+      <%= source.sha1hash.blank? ? blankness : sha1hash[0..7] -%>
+      <%= source.sha1hash.blank? ? blankness : link_to(source.torrent_url.split('/').last, source.torrent_url) -%>
+    </td>
+  </tr>
+  <tr>
+    <td><%= link_to(h(source.file_name), source.url) -%></td>
+  </tr>
+  <tr>
+    <td>
+      <%= info_feed_link(source.feed, false) -%> 
+      <%= info_source_link(source, false) -%>
+    </td>
+  </tr>
+</table>

@@ -12,6 +12,12 @@
   Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
 </p>
 
+<h2>Media (for latest Primary Source):</h2>
+<% if source = @podcast.primary_feed.sources.sorted.first -%>
+  <%= render :partial => "sources/info_media", :locals => {:source => source} %>
+<% end -%>
+
+
 <h2>Episode List</h2>
 <table class="episodes">
   <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes -%>

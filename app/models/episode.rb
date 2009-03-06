@@ -38,6 +38,7 @@ class Episode < ActiveRecord::Base
   named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at ASC"} }
   named_scope :after,  lambda {|other| {:conditions => ["published_at > ?", other.published_at]} }
   named_scope :before, lambda {|other| {:conditions => ["published_at < ?", other.published_at]} }
+  named_scope :sorted, {:order => "published_at DESC"}
 
   define_index do
     indexes :title, :summary

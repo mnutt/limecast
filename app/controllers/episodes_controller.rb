@@ -35,6 +35,8 @@ class EpisodesController < ApplicationController
   def info
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
     @episode = @podcast.episodes.find_by_clean_url(params[:episode])
+    @newer   = @podcast.episodes.oldest.after(@episode).first
+    @older   = @podcast.episodes.newest.before(@episode).first
 
     render :layout => "info"
   end

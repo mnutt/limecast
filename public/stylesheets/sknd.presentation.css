@@ -256,8 +256,7 @@ body {background: #313131 url('../imgs/header.png') top left repeat-x; }
 
 /**** Header **************/
 
-#utility_nav ul {font-size: 1.2em; position: absolute; top: 9px; right: 205px;}
-#utility_nav ul li {display: inline; margin-left: 2px; padding: 0 3px;}
+#utility_nav {font-size: 1.2em; position: absolute; top: 9px; right: 205px;}
 
 
 #global_nav {float: left; margin: 0; position: absolute; top: 5px; left: 0;  width: 500px;}

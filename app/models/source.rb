@@ -45,9 +45,12 @@ class Source < ActiveRecord::Base
   named_scope :approved, lambda { {:conditions => ["episode_id IN (?)", Podcast.approved.map(&:episode_ids).flatten]} }
   named_scope :sorted, lambda {|*col| {:order => "#{col[0] || 'episodes.published_at'} DESC", :include => :episode} }
 
-  has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] }
-  has_attached_file :preview
-  has_attached_file :torrent
+  has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] },
+                    :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
+  has_attached_file :preview,
+                    :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
+  has_attached_file :torrent,
+                    :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
 
   def file_name?
     !!read_attribute('file_name')

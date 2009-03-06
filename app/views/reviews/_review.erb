@@ -1,5 +1,6 @@
 <%- with_podcast_reference = false if with_podcast_reference.nil? -%>
 <%- with_helpfulness       = true if with_helpfulness.nil? -%>
+<%- truncate_length        ||= -1 -%>
 
 <li class="<%= cycle "odd", "even" -%> review <%= review.positive? ? "positive" : "negative" %> clearfix">
   <%- if with_podcast_reference -%>
@@ -10,7 +11,7 @@
   <div class="summary">
     <span class="title"><%= review.title -%></span>
     <span class="info light"><%= review_by_line(review) -%></span>
-    <span class="body"><%= unescape_entities(review.body) -%></span>
+    <span class="body"><%= truncated_text unescape_entities(review.body), truncate_length -%></span>
 
     <%= render :partial => "reviews/helpfulness", :object => review if with_helpfulness -%>
   </div>

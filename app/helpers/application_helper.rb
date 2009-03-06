@@ -180,7 +180,7 @@ module ApplicationHelper
   end
 
   def truncated_text(string, length)
-    pieces = truncate_split(string, length)
+    pieces = (length < 0) ? [string,nil] : truncate_split(string, length)
 
     str = pieces.first
     unless pieces.last.nil?

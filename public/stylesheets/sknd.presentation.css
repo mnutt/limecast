@@ -100,7 +100,7 @@ form.search button {
 
 form#search button {
   position: absolute;
-	top: 0px;
+	top: -7px;
   right: 0px;
 }
 

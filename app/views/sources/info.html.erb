@@ -2,6 +2,12 @@
 
 <%= render :partial => 'feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
 
+<p>
+  <%= link_to "< Newer", info_source_url(@podcast, @newer.episode, @newer) if @newer %> 
+  <%= @feed.sources.sorted.index(@source) + 1 %> of <%= @feed.sources.count -%> 
+  <%= link_to "Older >", info_source_url(@podcast, @older.episode, @older) if @older %> 
+</p>
+
 <table>
   <tr>
     <td class="key">Ability:</td>

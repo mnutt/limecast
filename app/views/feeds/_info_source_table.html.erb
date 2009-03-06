@@ -10,16 +10,20 @@
 
 <table>
   <tr>
-    <th><%= link_to podcast.title, info_podcast_url(podcast) -%></th>
+    <th></th>
+  <% podcast.feeds.each do |f| -%>
+    <th><% if f.primary? -%>primary<% end -%></th>
+  <% end -%>
+  </tr>
+  <tr>
+    <th><strong><%= link_to podcast.title, info_podcast_url(podcast) -%></strong></th>
     <% podcast.feeds.each do |f| -%>
     <th>
       <% if f == feed -%>
-        <b>Feed <%= f.id -%></b>
+        <b>Feed <%= f.id -%><%= f.ability -%></b>
       <% else -%>
         <%= info_feed_link(f) -%><br>
       <% end -%>
-
-      <% if f.primary? -%>(Primary)<% end -%>
     </th>
     <% end -%>
   </tr>
@@ -42,6 +46,7 @@
                 <b>
                   <%= f.formatted_bitrate -%>
                   <%= f.apparent_format -%>
+                  <%= source.ability -%><%= "a" if source.archived? -%>
                 </b>
               <% else -%>
                 <%= info_source_link(s) -%>

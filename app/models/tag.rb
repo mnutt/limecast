@@ -33,6 +33,7 @@ class Tag < ActiveRecord::Base
     str.
       gsub("&", "and").
       gsub(/\s+/, "").
+      gsub(/[^a-z0-9]/, "").
       downcase
   end
 

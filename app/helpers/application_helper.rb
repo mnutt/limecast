@@ -236,7 +236,11 @@ module ApplicationHelper
 
   # Question mark on info pages, #non_blank also does #h
   def non_blank(text)
-    text.blank? ? "<span class='unknown'>?</span>" : h(text)
+    text.blank? ? blankness : h(text)
+  end
+  
+  def blankness
+    "<span class='unknown'>?</span>"
   end
 
   def info_feed_link(feed, ability=true)
@@ -246,6 +250,6 @@ module ApplicationHelper
 
   def info_source_link(source, ability=true)
     [link_to(non_blank(source.feed.formatted_bitrate) + " " + non_blank(source.feed.apparent_format), info_source_url(source.episode.podcast, source.episode, source)),
-     (ability ? source.ability : nil)].join(" ")
+     " ", (ability ? source.ability : nil), (source.archived? ? "a" : nil)].join
   end
 end

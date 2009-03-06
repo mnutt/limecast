@@ -50,8 +50,12 @@ $.quickSignIn = {
     me = $("#cluetip #quick_signin");
 
     if(resp.success && me.attr('reloadPage') == 'false') { // success, no reload
-      if(resp.profileLink) { $('#account_bar li.signup').removeClass('signup').addClass('user').html(resp.profileLink); }
-      $.quickSignIn.updateResponse(resp.html);
+      for(var a in resp) {
+        console.log(resp[a]);
+      }
+      if(resp.profileLink) { $('#utility_nav').html(resp.profileLink); }
+      $.quickSignIn.reset();
+
     } else if(resp.success && me.attr('reloadPage') != 'false') { // success reload
       window.location.reload(); 
     } else { // no success

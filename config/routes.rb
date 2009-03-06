@@ -65,7 +65,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options :controller => 'home' do |h|
     h.root                        :action => 'home'
-    h.admin       '/icons',       :action => 'icons'
     h.use         '/use',         :action => 'use'
     h.privacy     '/privacy',     :action => 'privacy'
     h.stats       '/stats',       :action => 'stats'

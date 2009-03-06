@@ -68,28 +68,14 @@
       <div id="header">
         
         <div id="utility_nav">
-          <ul>
-            <% if current_user %>
-              <li><strong><%= link_to_profile current_user -%></strong> </li>|
-            <% else %>
-              <li><%= link_to "Join now!", :signup %>  </li>|
-            <% end -%>
-          <% if current_user %>
-            <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
-            
-          <% else %>
-            <li><%= link_to_with_icon "Sign in", :user, new_session_url, :class => "login", :rel =>  "#login_pop" -%></li>
-          <% end -%>
-          </ul>
-        </div> <!-- /utility_nav -->
-
+					<%= render :partial => "layouts/sign_in_area" -%>
+        </div>
 
         <div id="global_nav">
           <a href="/" id="logo"><span>LimeCast</span></a>
           
           <ul>
             <li><a href="/" id="nav_home"><span>Home</span></a></li>
-            <!-- <li><a href="/tags" id="nav_browse"><span>Browse</span></a></li> -->
             <li><a href="/popular" id="nav_pop"><span>Popular</span></a></li>
             <li><a href="/add" id="add_podcast"><span>Add podcast</span></a><li>
           </ul>

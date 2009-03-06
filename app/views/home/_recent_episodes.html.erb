@@ -3,17 +3,11 @@
     <%- @recent_episodes.each do |ep| -%>
       <div class="podcast_block">
         <div class="preview">
-          <% if ep.sources.first && ep.sources.first.screenshot? %>
-            <%= image_tag(ep.sources.first.screenshot(:square).to_s, :height => 55, :width => 55) %>
-          <% else %>
-            <%= image_tag(cover_art(ep.podcast, :square), :height => 55, :width => 55) %>
-          <% end %>
+          <%= display_episode_screenshot(ep) -%>
         </div>
-        <div class="description">
-          <h3><%= link_to ep.title, episode_url(:podcast_slug => ep.podcast, :episode => ep) -%></h3>
-          <p class="details">
-            <%= ep.published_at.to_date -%> - <%= time_to_words(ep.duration) -%>
-          </p>
+        <div>
+          <h3><%= link_to_episode(ep) -%></h3>
+          <p class="details"><%= ep.published_at.to_date -%> - <%= time_to_words(ep.duration) -%></p>
         </div>
       </div>
     <%- end -%>

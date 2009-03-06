@@ -11,8 +11,10 @@ module PodcastsHelper
       :outer_window   => 1
   end
 
-  def link_to_podcast(podcast)
-    link_to podcast.title, podcast_url(:podcast_slug => podcast.clean_url), :title => "Subscribe to the series & view the episode list"
+  def link_to_podcast(podcast, opts = {})
+    text = opts[:text] || podcast.title
+
+    link_to text, podcast_url(:podcast_slug => podcast.clean_url), :title => "Subscribe to the series & view the episode list"
   end
 
   def link_to_podcast_home(podcast)

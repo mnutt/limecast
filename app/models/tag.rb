@@ -1,13 +1,14 @@
 # == Schema Information
-# Schema version: 20090201232032
+# Schema version: 20090306193031
 #
 # Table name: tags
 #
-#  id          :integer(4)    not null, primary key
-#  name        :string(255)
-#  badge       :boolean(1)
-#  blacklisted :boolean(1)
-#  map_to_id   :integer(4)
+#  id             :integer(4)    not null, primary key
+#  name           :string(255)   
+#  badge          :boolean(1)    
+#  blacklisted    :boolean(1)    
+#  map_to_id      :integer(4)    
+#  taggings_count :integer(4)    
 #
 
 class Tag < ActiveRecord::Base
@@ -33,6 +34,7 @@ class Tag < ActiveRecord::Base
     str.
       gsub("&", "and").
       gsub(/\s+/, "").
+      gsub(/[^A-Za-z0-9]/, "").
       downcase
   end
 

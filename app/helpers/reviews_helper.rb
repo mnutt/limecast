@@ -16,4 +16,8 @@ module ReviewsHelper
       with_label ? img + "Negative" : img
     end
   end
+
+  def review_by_line(review)
+    "Written by #{link_to_profile review.reviewer} #{time_ago_in_words review.created_at} ago"
+  end
 end

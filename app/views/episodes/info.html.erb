@@ -2,6 +2,17 @@
 
 <%= render :partial => 'feeds/info_source_table', :locals => {:options => {:episode => @episode}} -%>
 
+<p>
+  <%= link_to "< Newer", info_episode_url(@podcast, @newer) if @newer %> 
+  <%= @podcast.episodes.sorted.index(@episode) + 1 %> of <%= @podcast.episodes.count -%> 
+  <%= link_to "Older >", info_episode_url(@podcast, @older) if @older %> 
+</p>
+
+<h2>Media:</h2>
+<% @episode.sources.sorted('bitrate').each do |source| -%>
+  <%= render :partial => "sources/info_media", :locals => {:source => source} %>
+<% end -%>
+
 <table cellpadding="0" cellspacing="0" border="0">
 <%- @episode.attributes.each do |k,v| -%>
   <% next if %w{id duration}.include?(k) || k.to_s =~ /_id/ %>

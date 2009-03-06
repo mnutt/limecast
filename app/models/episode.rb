@@ -1,28 +1,32 @@
 # == Schema Information
-# Schema version: 20090201232032
+# Schema version: 20090306193031
 #
 # Table name: episodes
 #
 #  id                     :integer(4)    not null, primary key
-#  podcast_id             :integer(4)
-#  summary                :text
-#  published_at           :datetime
-#  created_at             :datetime
-#  updated_at             :datetime
-#  thumbnail_file_size    :integer(4)
-#  thumbnail_file_name    :string(255)
-#  thumbnail_content_type :string(255)
-#  duration               :integer(4)
-#  title                  :string(255)
-#  clean_url              :string(255)
+#  podcast_id             :integer(4)    
+#  summary                :text          
+#  published_at           :datetime      
+#  created_at             :datetime      
+#  updated_at             :datetime      
+#  thumbnail_file_size    :integer(4)    
+#  thumbnail_file_name    :string(255)   
+#  thumbnail_content_type :string(255)   
+#  duration               :integer(4)    
+#  title                  :string(255)   
+#  clean_url              :string(255)   
 #
 
 class Episode < ActiveRecord::Base
   belongs_to :podcast
 
-  has_attached_file :thumbnail, :whiny_thumbnails => true,
-                    :styles => { :square => ["85x85#", :png],
-                                 :small  => ["170x170#", :png] }
+  has_attached_file :thumbnail, 
+    :whiny_thumbnails => true,
+    :url    => "/:attachment/:id/:style/:basename.:extension",
+    :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension",
+    :styles => { :square => ["85x85#", :png],
+                 :small  => ["170x170#", :png] }
+
   has_many :reviews, :dependent => :destroy
   has_many :reviewers, :through => :reviews
   has_many :sources, :dependent => :destroy, :include => [:feed], :order => "sources.format ASC, feeds.bitrate ASC"
@@ -38,6 +42,7 @@ class Episode < ActiveRecord::Base
   named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at ASC"} }
   named_scope :after,  lambda {|other| {:conditions => ["published_at > ?", other.published_at]} }
   named_scope :before, lambda {|other| {:conditions => ["published_at < ?", other.published_at]} }
+  named_scope :sorted, {:order => "published_at DESC"}
 
   define_index do
     indexes :title, :summary

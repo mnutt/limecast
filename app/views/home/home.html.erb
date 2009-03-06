@@ -2,32 +2,23 @@
 <% @full_width = true -%>
 
 <div class="summary">
-  
-  
   <div id="mission">
     <h1><span>Welcome to LimeCast, <a href="http://www.limewire.com" id="lw_link"><i>LimeWire's</i></a> new <a href="/popular" id="pop_link"><i>Podcast Directory</i></a>.</span></h1>
-      <ul>
-        <li>Join others in discovering new podcasts every day!</li>
-        <li>We're open source, and building tools to let everyone <a href="http://wiki.limewire.org/index.php?title=LimeCast">get involved</a>.</li>
-      </ul>
+    <ul>
+      <li>Join others in discovering new podcasts every day!</li>
+      <li>We're open source, and building tools to let everyone <a href="http://wiki.limewire.org/index.php?title=LimeCast">get involved</a>.</li>
+    </ul>
   </div>
-  
 
-  <!--
-  <div id="close_misson">
-    <a href="#" class="homeclose">Hide intro</a>
-  </div>
--->
-  
   <div id="featured_cont">
     <div id="featured">
       <h2>Featured Podcasts</h2>
-    
+
       <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("The-1UP-Show") || Podcast.all[0]), :locals => {:is_first => true} -%>
       <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("Diggnation") || Podcast.all[1]) -%>
-    </div> <!-- /featured -->
-  </div> <!-- /featured_cont -->
-  
+    </div>
+  </div>
+
   <div id="pop_recent_cont" class="tabify">
     <ul>
       <!-- <li><a href="#popular"><h4>Popular series</h4></a></li> -->
@@ -38,13 +29,12 @@
     <%= render :partial => 'recent_episodes' -%>
   </div> <!-- /pop_recent_cont --> 
 
-
   <div id="tags_review_cont" class="tabify">
     <ul>
       <!-- <li><a href="#tags_hp"><h4>Polular tags</h4></a></li> -->
       <li><a href="#recent_reviews"><h4>Recent reviews</h4></a></li>
     </ul>
-  
+
     <%#= render :partial => 'popular_tags' -%>
     <%= render :partial => 'recent_reviews' -%>
   </div> <!-- /pop_recent_cont -->
@@ -58,4 +48,4 @@
     <h3><a href="#">LimeCast is open source!</a></h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
   </div>
-</div> <!-- /summary -->
+</div>

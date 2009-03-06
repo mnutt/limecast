@@ -12,6 +12,7 @@ def parse_ffmpeg_info(raw_info, source)
     :video_codec => parse_video_codec(raw_info),
     :audio_codec => parse_audio_codec(raw_info),
     :resolution  => [*parse_resolution(raw_info)],
+    :framerate   => parse_framerate(raw_info),
     :file_format => parse_file_format(raw_info),
   }
 end
@@ -23,7 +24,7 @@ def parse_duration(raw_info)
     seconds = $3.to_f
  
     duration = hours * 60 * 60 + minutes * 60 + seconds
-	end
+  end
 rescue
   nil
 end
@@ -34,6 +35,10 @@ end
 
 def parse_resolution(raw_info)
   [$1, $2].map(&:to_i) if raw_info =~ /([\d]{3,4})x([\d]{3,4})/
+end
+
+def parse_framerate(raw_info)
+  $1.strip if raw_info =~ /\b(\d+\.?\d* tb\([rc]\)|\d+\.?\d* fps\(r\))/
 end
 
 def parse_bitrate(raw_info)
@@ -175,7 +180,7 @@ def save_info(source, info)
     :duration => info[:duration]
   )
   source.feed.update_attributes(
-		:format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
+    :format   => info[:file_format] || info[:video_codec] || info[:audio_codec],
     :bitrate  => info[:bitrate]
   )
   source.update_attributes(
@@ -185,6 +190,7 @@ def save_info(source, info)
     :hashed_at => Time.now,
     :height    => info[:resolution][1],
     :width     => info[:resolution][0],
+    :framerate => info[:framerate],
     :size      => info[:file_size],
     :file_name => info[:file_name]
   )

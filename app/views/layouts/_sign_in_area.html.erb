@@ -1,0 +1,12 @@
+<% if current_user %>
+  <div>
+    <strong><%= link_to_profile current_user -%></strong> |
+    <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
+  </div>
+<% else %>
+  <div class="signin">
+    <%= link_to "Join now!", :signup %> |
+    <%= link_to_with_icon "Sign in", :user, new_session_url -%>
+  </div>
+  <div class="quick_signin_container from_top_bar"></div>
+<% end -%>

@@ -72,12 +72,13 @@
 */
 button {
 	text-align: center;
-	background: url('../imgs/button.png') no-repeat right;
+	background: url('../imgs/button_add.png') no-repeat right;
 	border: 0;
 	margin: 0;
-	padding: 0 3px 0 0;
+	padding: 3px 4px 0 0;
 	overflow: visible;
 	cursor: pointer;
+	position: relative;
 }
 /*
 	Sets the general styles for the span within the button
@@ -89,32 +90,13 @@ button span {
 	position: relative;
 	display: block;
 	white-space: nowrap;
-	height: 23px;
-	color: #fff;
-	font: bold 12px/23px Arial, Helvetica, sans-serif;
-	background: url('../imgs/button_left.png') no-repeat left top;
-	padding: 0 5px 0 12px;
-}
-button.addme span {
-	position: relative;
-	display: block;
-	white-space: nowrap;
 	height: 31px;
 	color: #fff;
-	font: bold 12px/23px Arial, Helvetica, sans-serif;
+	font: bold 12px/23px Helvetica, Arial, sans-serif;
 	background: url('../imgs/button_add_left.png') no-repeat left top;
 	padding: 3px 5px 0 12px;
 }
 
-button.addme {
-	text-align: center;
-	background: url('../imgs/button_add.png') no-repeat right;
-	border: 0;
-	margin: 0;
-	padding: 3px 3px 0 0;
-	overflow: visible;
-	cursor: pointer;
-}
 
 
 input.radio {
@@ -725,8 +707,8 @@ a.truncate_more_link {
 	color: #a9a9a9;
 	font-size: 1.2em;
 	position: absolute;
-	right: 127px;
-	bottom: 13px;
+	right: 128px;
+	bottom: 18px;
 }
 
 .review div.social {
@@ -842,14 +824,22 @@ li.review p {
 	padding: 5px 5px 0 5px;
 }
 
-.reviews.list #review_doit textarea {
+.reviews.list #review_doit .textarea {
 	border: none;
-	background: url('../imgs/textarea.png') top left no-repeat;
+	background: transparent url('../imgs/textarea.png') top left no-repeat;
 	width: 393px;
 	height: 118px;
 	font-size: 1.8em;
 	padding: 5px;
 	display: block;
+	overflow: hidden;
+}
+
+.reviews.list #review_doit textarea {
+  border: none;
+  width: 393px;
+	height: 118px;
+	background: none;
 }
 
 .reviews.list #review_doit button {
@@ -879,3 +869,261 @@ li.review p {
 #profile_goog  {
 	margin-top: 57px;
 }
+
+
+
+
+
+/* global */
+#cluetip-close img {
+  border: 0;
+}
+#cluetip-title {
+  overflow: hidden;
+}
+#cluetip-title #cluetip-close {
+  float: right;
+  position: relative;
+}
+#cluetip-waitimage {
+  width: 43px;
+  height: 11px;
+  position: absolute;
+  background-image: url(../imgs/cluetip/wait.gif);
+}
+.cluetip-arrows {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: -11px;
+  height: 22px;
+  width: 11px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+#cluetip-extra {
+  display: none;
+}
+/***************************************
+   =cluetipClass: 'default' 
+-------------------------------------- */
+
+.cluetip-default {
+  background-color: #ccc;
+  text-align: left;
+  font-size: 1.2em;
+  overflow: visible;
+}
+
+.cluetip-default p {
+  overflow: auto;
+    font-size: 1em;
+}
+
+.cluetip-default img {
+  float: left;
+  margin-right: 10px;
+  padding-bottom: 10px;
+  overflow: hidden;
+}
+.cluetip-default #cluetip-outer {
+  position: relative;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #a9a9a9;
+}
+.cluetip-default h3#cluetip-title {
+  margin: 0 0 5px;
+  padding: 8px 10px 4px;
+  font-size: 1.1em;
+  font-weight: normal;
+  background-color: #2952a6;
+  color: #fff;
+}
+.cluetip-default #cluetip-title a {
+  color: #d9d9c2;
+  font-size: 0.95em;
+}  
+.cluetip-default #cluetip-inner {
+  padding: 10px;
+}
+.cluetip-default div#cluetip-close { 
+  float: right;
+  z-index: 90000000000000000000000000000000;
+}
+
+/* default arrows */
+
+.clue-right-default .cluetip-arrows {
+  background-image: url(../imgs/cluetip/darrowleft.gif);
+  margin-left: 1px;
+}
+.clue-left-default .cluetip-arrows {
+  background-image: url(../imgs/cluetip/darrowright.gif);
+  left: 100%;
+  margin-right: -11px;
+}
+.clue-top-default .cluetip-arrows {
+  background-image: url(../imgs/cluetip/darrowdown.gif);
+  top: 100%;
+  left: 50%;
+  margin-left: -11px;
+  height: 11px;
+  width: 22px;  
+}  
+.clue-bottom-default .cluetip-arrows {
+  background-image: url(../imgs/cluetip/darrowup.gif);
+  top: -11px;
+  left: 50%;
+  margin-left: -11px;
+  height: 11px;
+  width: 22px;
+}
+
+/***************************************
+   =cluetipClass: 'jtip'
+-------------------------------------- */
+.cluetip-jtip {
+  background-color: transparent;
+}
+.cluetip-jtip #cluetip-outer {
+  border: 2px solid #ccc;
+  position: relative;
+  background-color: #fff;
+}
+
+.cluetip-jtip h3#cluetip-title {
+  margin: 0 0 5px;
+  padding: 2px 5px;
+  font-size: 16px;
+  font-weight: normal;
+  background-color: #ccc;
+  color: #333;
+}
+
+.cluetip-jtip #cluetip-inner {
+  padding: 0 5px 5px;
+  display: inline-block;
+}
+.cluetip-jtip div#cluetip-close { 
+  text-align: right;
+  margin: 0 5px 5px;
+  color: #900;
+}
+
+/* jtip arrows */
+
+.clue-right-jtip .cluetip-arrows {
+  background-image: url(../imgs/cluetip/arrowleft.gif);
+}
+.clue-left-jtip .cluetip-arrows {
+  background-image: url(../imgs/cluetip/arrowright.gif);
+  left: 100%;
+  margin-right: -11px;
+}
+.clue-top-jtip .cluetip-arrows {
+  background-image: url(../imgs/cluetip/arrowdown.gif);
+  top: 100%;
+  left: 50%;
+  margin-left: -11px;
+  height: 11px;
+  width: 22px;  
+}  
+.clue-bottom-jtip .cluetip-arrows {
+  background-image: url(../imgs/cluetip/arrowup.gif);
+  top: -11px;
+  left: 50%;
+  margin-left: -11px;
+  height: 11px;
+  width: 22px;
+}
+
+/***************************************
+   =cluetipClass: 'rounded'
+-------------------------------------- */
+
+.cluetip-rounded {
+  background: transparent url(../imgs/cluetip/bl.gif) no-repeat 0 100%;
+  margin-top: 10px;
+  margin-left: 12px;
+}
+
+.cluetip-rounded #cluetip-outer {
+  background: transparent url(../imgs/cluetip/tl.gif) no-repeat 0 0;
+  margin-top: -12px;
+}
+
+.cluetip-rounded #cluetip-title {
+  background-color: transparent;
+  padding: 12px 12px 0;
+  margin: 0 -12px 0 0;
+  position: relative;
+}
+.cluetip-rounded #cluetip-extra {
+  position: absolute;
+  display: block;
+  background: transparent url(../imgs/cluetip/tr.gif) no-repeat 100% 0;
+  top: 0;
+  right: 0;
+  width: 12px;
+  height: 30px;
+  margin: -12px -12px 0 0;
+}
+.cluetip-rounded #cluetip-inner {
+  background: url(../imgs/cluetip/br.gif) no-repeat 100% 100%;
+  padding: 5px 12px 12px;
+  margin: -18px -12px 0 0;
+  position: relative;
+}
+
+.cluetip-rounded div#cluetip-close { 
+  text-align: right;
+  margin: 0 5px 5px;
+  color: #009;
+  background: transparent;
+}
+.cluetip-rounded div#cluetip-close a {
+  color: #777;
+}
+
+/* rounded arrows */
+
+.clue-right-rounded .cluetip-arrows {
+  background-image: url(../imgs/cluetip/rarrowleft.gif);
+}
+.clue-left-rounded .cluetip-arrows {
+  background-image: url(../imgs/cluetip/rarrowright.gif);
+  left: 100%;
+  margin-left: 12px;
+}
+.clue-top-rounded .cluetip-arrows {
+  background-image: url(../imgs/cluetip/rarrowdown.gif);
+  top: 100%;
+  left: 50%;
+  margin-left: -11px;
+  height: 11px;
+  width: 22px;  
+}  
+.clue-bottom-rounded .cluetip-arrows {
+  background-image: url(../imgs/cluetip/rarrowup.gif);
+  top: -23px;
+  left: 50%;
+  margin-left: -11px;
+  height: 11px;
+  width: 22px;
+}
+
+
+
+/* stupid IE6 HasLayout hack */
+.cluetip-rounded #cluetip-title,
+.cluetip-rounded #cluetip-inner {
+  zoom: 1;
+}
+
+
+.cluetip_box {
+  display: none;
+}
+
+

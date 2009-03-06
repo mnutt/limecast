@@ -53,6 +53,22 @@ $(document).ready(function() {
         "bProcessing": true
      	});
      	$('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
+     	$('a.login').cluetip({
+     	  local: true, 
+     	  hideLocal: true, 
+     	  arrows: true, 
+     	  width: 350,  
+     	  sticky: true,
+     	  showTitle: false, 
+     	  activation: 'click', 
+     	  positionBy: 'bottomTop', 
+     	  topOffset: 25,
+     	  onShow: function(){
+     	    $("#cluetip-close").click($.quickSignIn.reset);
+          $.quickSignIn.setup();
+     	  }
+     	});
+     	
   }
 });
 
@@ -105,8 +121,8 @@ $(document).ready(function() {
 //************************************************************/
 $(document).ready(function(){
   // Attach the global quick signup in the top-bar
-  $('#utility_nav .signin a').click(function(){
-    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {toggle:false});
+  $('#utility_nav a.login').click(function(){
+    //return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {toggle:false});
   });
 
 });

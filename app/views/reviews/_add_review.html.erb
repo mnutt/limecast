@@ -1,7 +1,6 @@
 <% options ||= {} -%>
 <% javascript_include "review_new" -%>
 
-
 <h4>Review this series</h4>
 <% form_for @review, :url => reviews_url(:podcast_slug => @podcast), :html => { :id => "new_review" } do |f| -%>
   <%= f.hidden_field :episode_id -%>
@@ -20,7 +19,9 @@
     <%= f.text_field :title, :class => 'text', :size => 15, :id => "review_title#{options[:suffix]}" -%>
 
     <h6>Your review of the 1Up Show</h6>
-    <%= f.text_area :body, :rows => 2, :cols => 20, :id => "review_body#{options[:suffix]}" -%>
+    <div class="textarea">
+      <%= f.text_area :body, :rows => 2, :cols => 20, :id => "review_body#{options[:suffix]}" -%>
+    </div>
   </p>
   <button type="submit">
     <span>Submit review</span>

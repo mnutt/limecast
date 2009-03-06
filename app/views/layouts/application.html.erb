@@ -39,6 +39,8 @@
 <%= javascript_include_tag 'jquery.cluetip' -%>
 <%= javascript_include_tag 'jquery.default-text' -%>
 <%= javascript_include_tag 'test_helpers' -%>
+<% javascript_include "jquery.dimensions", "jquery.hoverIntent", "jquery.cluetip" -%>
+
 <script type="text/javascript">
   $.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -76,8 +78,7 @@
             <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
             
           <% else %>
-            <li class="signin"><%= link_to_with_icon "Sign in", :user, new_session_url -%></li>
-            <div class="quick_signin_container from_top_bar"></div>
+            <li><%= link_to_with_icon "Sign in", :user, new_session_url, :class => "login", :rel =>  "#login_pop" -%></li>
           <% end -%>
           </ul>
         </div> <!-- /utility_nav -->
@@ -152,39 +153,16 @@
 
             </div>
 
-            <div class="legal section">
-
-
-              <!--<h4>Legal</h4>
-
-              <ul>
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/refund" title="Refund Policy">Refund Policy</a>        </li>
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/privacy" title="Privacy Policy">Privacy Policy</a>        </li>
-
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/copyright" title="Copyright Information">Copyright Information</a>        </li>
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/safety" title="Using P2P Safely">Using P2P Safely</a>        </li>
-              </ul>
-
-            </div>-->
-
-            
-
-            <div class="info cf">
-              <!--<span class="cc_notice">Portions of this web site are available under a Creative Commons license, where noted.</span>
-              <span class="copyright">&copy; 2000 - 2009 Lime Wire LLC.</span>-->
-            </div>
 
 
       </div> <!-- /footer -->
     </div> <!-- /foot_wrapper -->
 
     <%= @tracker -%>
-
+    
     <%= render :partial => 'users/quick_signin', :locals => { }  -%>
 
+    
+    
 </body>
 </html>

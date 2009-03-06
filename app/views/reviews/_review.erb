@@ -14,13 +14,12 @@
     <div class="helpfulness">Did you find this review helpful?</div>
       <div class="social">
         <ul>
-          <li><%= link_to "<span>Yes</span> (#{review.insightful})", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'insightful'), :class => 'rate insightful', :rel => review.id -%></li>
-          <li><%= link_to "<span>No</span> (#{review.not_insightful})", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'not_insightful'), :class => 'rate not_insightful', :rel => review.id -%></li>
+          <li><%= link_to "<span>Yes</span> (#{review.insightful})", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'insightful'), :class => 'rate insightful login', :rel => review.id -%></li>
+          <li><%= link_to "<span>No</span> (#{review.not_insightful})", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'not_insightful'), :class => 'rate not_insightful login', :rel => review.id -%></li>
         </ul>
       </div>
     
 
-    <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
-  
+
 </li>
 

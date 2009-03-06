@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090304201627) do
+ActiveRecord::Schema.define(:version => 20090306193031) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(:version => 20090304201627) do
     t.string   "random_clip_file_size"
     t.integer  "ability",                                :default => 0
     t.boolean  "archived"
+    t.string   "framerate",                :limit => 20
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

@@ -3,11 +3,11 @@ class FileSize
     @size = size
   end
 
-  def to_s(abbr = true)
+  def to_s(abbr = true, space = true)
     h = self.to_hash
 
     [:gigabytes, :megabytes, :kilobytes].map do |unit|
-      "#{format(h[unit])} #{label(unit)}" if h.has_key?(unit)
+      "#{format(h[unit])}#{' ' if space}#{label(unit)}" if h.has_key?(unit)
     end.compact.join(" ")
   end
 

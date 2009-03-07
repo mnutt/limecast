@@ -1,4 +1,4 @@
-<h1><%=h @source.file_name -%></h1>
+<h1><%= link_to info_source_url(@podcast, @episode, @source) -%></h1>
 
 <%= render :partial => 'feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
 
@@ -17,6 +17,218 @@
   </tr>
 
   <tr>
+    <td class="key">Archived:</td>
+    <td>
+      <%= @source.archived -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Name Date:</td>
+    <td>
+      <%= @episode.clean_url -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">XML Date:</td>
+    <td>
+      <%= relative_time @episode.published_at -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Found Date:</td>
+    <td>
+      <%= relative_time @episode.created_at -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Age:</td>
+    <td>
+      <%= relative_time @episode.created_at -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">XML Age:</td>
+    <td>
+      <%= @source.downloaded_at.blank? ? blankness: relative_time(@source.downloaded_at) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Download Age:</td>
+    <td>
+      <%= @source.hashed_at.blank? ? blankness : relative_time(@source.hashed_at) -%>
+    </td>
+  </tr>
+</table>
+
+
+<h2>Media:</h2>
+<%= render :partial => "sources/info_media", :locals => {:source => @source} %>
+
+<table>
+  <tr>
+    <td class="key">Extension result:</td>
+    <td>
+      <%= non_blank @source.extension -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Resolution result:</td>
+    <td>
+      <%= non_blank @source.resolution -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Frame rate result:</td>
+    <td>
+      <%= non_blank @source.framerate -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Hash result:</td>
+    <td>
+      <%= non_blank @source.sha1hash -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Download file name result:</td>
+    <td>
+      <%= non_blank @source.file_name -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Bitrate result:</td>
+    <td>
+      <%= non_blank @feed.bitrate.to_bitrate.to_s -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Size result:</td>
+    <td>
+      <%= non_blank @source.size.to_file_size.to_s -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Duration result:</td>
+    <td>
+      <%= non_blank @episode.duration.to_duration.to_s -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Bitrate exact:</td>
+    <td>
+      <%= non_blank @feed.bitrate -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Size exact:</td>
+    <td>
+      <%= non_blank @source.size -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Duration exact:</td>
+    <td>
+      <%= non_blank @episode.duration -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">XML size:</td>
+    <td>
+      <%= @source.xml.blank? ? blankness : @source.xml.size -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Disk size:</td>
+    <td>
+      <%= non_blank @source.size -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">XML Duration:</td>
+    <td>
+      <%= non_blank @episode.duration -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">FFMPEG duration:</td>
+    <td>
+      <%= non_blank @episode.duration -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">XML&nbsp;extension&nbsp;exact:</td>
+    <td>
+      <%= non_blank @source.extension -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">XML&nbsp;type:</td>
+    <td>
+      <%= non_blank @source.type -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">HTTP extension:</td>
+    <td>
+      <%= non_blank @source.extension -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">HTTP type:</td>
+    <td>
+      <%= non_blank @source.type -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Disk extension:</td>
+    <td>
+      <%= non_blank @source.extension -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Disk type:</td>
+    <td>
+      <%= non_blank @source.type -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Curl output:</td>
+    <td>
+      <%= non_blank @source.curl_info -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">FFmpeg output:</td>
+    <td>
+      <%= non_blank @source.ffmpeg_info -%>
+    </td>
+  </tr>
+
+  <!-- <tr>
     <td class="key">Screenshot:</td>
     <td>
       <%= link_to(@source.screenshot.url, @source.screenshot.url) -%>
@@ -31,50 +243,86 @@
       (<%= FileSize.new(@source.preview_file_size.to_i || 0) -%>)
     </td>
   </tr>
-  
+  -->
+</table>
+
+<h2>Preview</h2>
+<table>
   <tr>
-    <td class="key">Torrent:</td>
+    <td class="key">Preview:</td>
     <td>
-      <%= link_to(@source.torrent.url, @source.torrent.url) -%>
-      (<%= FileSize.new(@source.torrent_file_size.to_i || 0) -%>)
-    </td>
-  </tr>
-  
-  <tr>
-    <td class="key">Resolution:</td>
-    <td>
-      <%= non_blank @source.resolution -%>
-    </td>
-  </tr>
-  
-  <tr>
-    <td class="key">URL:</td>
-    <td>
-      <%= link_to(h(@source.url), @source.url) -%>
-    </td>
-  </tr>
-  
-  <tr>
-    <td class="key">SHA1 Hash:</td>
-    <td>
-      <%= non_blank @source.sha1hash  -%>
+    <% if @episode.audio_source -%>
+      <%= render :partial => 'episodes/audio_player', :object => @episode %>
+    <% else -%>
+      <%= render :partial => 'episodes/video_player', :object => @episode -%>
+    <% end -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">Curl Errors:</td>
-    <td><%= @source.curl_info.blank? ? "No errors." : h(@source.curl_info) -%></td>
+    <td class="key">Video still:</td>
+    <td>
+    <%- if @source.screenshot? -%>
+      <%= image_tag(@source.screenshot.url, {:rel => @source.preview.url, :alt => "#{@episode.title} cover art"}.merge(scaled_resolution(:width => @source.width, :height => @source.height))) -%>
+    <%- else -%>
+       <%= image_tag('/imgs/video_placeholder.png', :alt => "#{@episode.title} cover art is missing", :width => 460) -%>
+    <%- end -%>
+    </td>
   </tr>
 
   <tr>
-    <td class="key">FFmpeg output:</td>
-    <td><%= '<pre>'+non_blank(@source.ffmpeg_info)+'</pre>' -%></td>
+    <td class="key">Video&nbsp;Preview:</td>
+    <td>
+      <%= link_to(@source.preview.url, @source.preview.url) -%>
+      (<%= FileSize.new(@source.preview_file_size.to_i || 0) -%>)
+    </td>
   </tr>
 </table>
 
+<h2>Text</h2>
+<table>
+  <tr>
+    <td class="key">Itunes:</td>
+    <td>
+      <%= non_blank @feed.itunes_link %>
+    </td>
+  </tr>
 
-<h2>Media:</h2>
-<%= render :partial => "sources/info_media", :locals => {:source => @source} %>
+  <tr>
+    <td class="key">Title</td>
+    <td>
+      <%= non_blank @episode.title %>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Line description:</td>
+    <td>
+      <%= non_blank sanitize_condensed_summary(@episode.summary) %>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Safe description:</td>
+    <td>
+      <%= non_blank unescape_entities(@episode.summary) %>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Page description:</td>
+    <td>
+      <%= non_blank sanitize_summary @episode.summary %>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">HTML description:</td>
+    <td>
+      <%= non_blank sanitize_condensed_summary @episode.summary %>
+    </td>
+  </tr>
+</table>
 
 <h2>Badges:</h2>
 <ul>

@@ -22,6 +22,7 @@ class Episode < ActiveRecord::Base
 
   has_attached_file :thumbnail, 
     :whiny_thumbnails => true,
+    :url    => "/:attachment/:id/:style/:basename.:extension",
     :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension",
     :styles => { :square => ["85x85#", :png],
                  :small  => ["170x170#", :png] }

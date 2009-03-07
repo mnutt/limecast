@@ -1,7 +1,7 @@
 <div class="summary">
   <div id="episode_head">
     <h1><%=h @podcast.title %></h1>
-    <div class="callout"><ul><li><%= link_to "Go to series page", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
+    <div class="callout"><ul><li><%= link_to_podcast(@podcast, :text => "Go to series page") -%></li></ul></div>
     <div class="clear"></div>
     <h2><%=h @episode.title -%></h2>
     <div class="clear"></div>
@@ -10,8 +10,8 @@
 
   <div class="preview">
     <%= render :partial => 'video_player', :object => @episode -%>
-    <%= link_to "Older episode", episode_url(:podcast_slug => @podcast, :episode => @episode.previous_episode), :class => "previous" if @episode.previous_episode -%>
-    <%= link_to "Newer episode", episode_url(:podcast_slug => @podcast, :episode => @episode.next_episode), :class => "next" if @episode.next_episode -%>
+    <%= link_to_episode(@episode.previous_episode, :text => "Older episode", :class => "previous") if @episode.previous_episode -%>
+    <%= link_to_episode(@episode.next_episode,     :text => "Newer episode", :class => "next")     if @episode.newer_episode -%>
   </div>
 
   <div class="podcast_block">
@@ -25,9 +25,7 @@
         <%- end -%>
       </p>
 
-      <p>
-        <span class="date"><%= @episode.published_at.to_date %></span> - <%= sanitize_summary @episode.summary -%>
-      </p>
+      <p><span class="date"><%= @episode.published_at.to_date %></span> - <%= sanitize_summary @episode.summary -%> </p>
       
       <%= render :partial => "download_button" -%>
     </div>

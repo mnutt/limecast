@@ -1,33 +1,7 @@
-<script type="text/javascript">
- $().ready(function() {  
-  $('span.body').jTruncate({  
-   length: 110, 
-   moreText: "" 
-  });  
- });
-</script>
-
 <div id="recent_reviews" class="rounded_corners">
   <% rounded_corners do -%>
     <ul class="reviews">
-      <%- @recent_reviews.each do |r| -%>
-        <li id="<%=h dom_id(r) -%>" class="review <%= r.positive? ? "positive" : "negative" %> clearfix">
-          <h3>Left for <%= link_to r.episode.podcast.title, podcast_url(:podcast_slug => r.episode.podcast) -%></h3>
-         
-       
-            
-          
-  
-          <div class="summary">
-            <span class="title"><%= r.title -%></span>
-            <span class="info light">Written by <%= link_to_profile r.reviewer -%> <%= time_ago_in_words r.created_at %> ago</span>
-            <span class="body"><%= unescape_entities(r.body) -%></span>
-            <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
-          </div>
-        </li>
-      <%- end -%>
+      <%= render :partial => "reviews/review", :collection => @recent_reviews, :locals => { :with_podcast_reference => true, :with_helpfulness => false, :truncate_length => 110 } -%>
     </ul>
-    
-
   <% end -%>
-</div> <!-- /rounded_corners -->
+</div>

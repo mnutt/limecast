@@ -46,11 +46,14 @@ class Source < ActiveRecord::Base
   named_scope :sorted, lambda {|*col| {:order => "#{col[0] || 'episodes.published_at'} DESC", :include => :episode} }
 
   has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] },
-                    :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
+                    :url  => "/:attachment/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
   has_attached_file :preview,
-                    :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
+                    :url  => "/:attachment/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
   has_attached_file :torrent,
-                    :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
+                    :url  => "/:attachment/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
 
   def file_name?
     !!read_attribute('file_name')

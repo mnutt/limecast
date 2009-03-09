@@ -298,7 +298,7 @@
   <tr>
     <td class="key">Line description:</td>
     <td>
-      <%= non_blank sanitize_condensed_summary(@episode.summary) %>
+      <%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@episode.summary)) %>
     </td>
   </tr>
 
@@ -319,7 +319,7 @@
   <tr>
     <td class="key">HTML description:</td>
     <td>
-      <%= non_blank sanitize_condensed_summary @episode.summary %>
+      <%= non_blank sanitize_lightly @episode.summary %>
     </td>
   </tr>
 </table>

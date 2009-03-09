@@ -6,85 +6,78 @@
 
 <table>
   <tr>
-    <td>Updated</td>
-    <td><%= @feed.updated_at.to_s -%></td>
-  </tr>
-
-  <tr>
-    <td>Ability</td>
-    <td><%= @feed.ability -%></td>
-  </tr>
-
-  <tr>
-    <td>Name</td>
-    <td><%= @feed.formatted_bitrate -%> .<%= @feed.apparent_format -%></td>
-  </tr>
-
-  <tr>
-    <td>Podcast</td>
-    <td><%= link_to_podcast @feed.podcast -%></td>
-  </tr>
-
-  <tr>
-    <td>Primary?</td>
-    <td><%= @feed.primary? ? "true" : "false" -%></td>
-  </tr>
-
-  <tr>
-    <td>Found by</td>
-    <td><%= link_to @feed.finder.login, info_user_url(@feed.finder) if @feed.finder -%></td>
-  </tr>
-
-  <tr>
-    <td>Link</td>
-    <td><%= link_to @feed.podcast.site -%></td>
-  </tr>
-
-  <tr>
-    <td>Link page</td>
-    <td><%= link_to @feed.podcast.clean_site -%></td>
+    <td>Maker</td>
+    <td><%= @feed.podcast.owner.nil? ? blankness : link_to(@feed.podcast.owner.login, @feed.podcast.owner) -%></td>
   </tr>
 
   <tr>
     <td>RSS</td>
-    <td><%= link_to @feed.url -%></td>
-    </tr>
-
-  <tr>
-    <td>iTunes link</td>
-    <td><%= link_to @feed.itunes_link -%></td>
+    <td><%= link_to(@feed.url) -%></td>
   </tr>
 
   <tr>
-    <td>Description HTML</td>
-    <td><%=h @feed.podcast.description -%></td>
+    <td>Magnet</td>
+    <td><%= link_to(magnet_feed_url(@feed.podcast, @feed)) -%></td>
   </tr>
 
   <tr>
-    <td>Description scrubbed</td>
-    <td><%=h sanitize_summary(@feed.podcast.description) -%></td>
+    <td>Torrent</td>
+    <td><%= link_to(torrent_feed_url(@feed.podcast, @feed)) -%></td>
   </tr>
 
   <tr>
-    <td>Description scrubbed, condensed</td>
-    <td><%=h sanitize_condensed_summary(@feed.podcast.description) -%></td>
+    <td>Ability</td>
+    <td><%= non_blank @feed.ability -%></td>
   </tr>
 
   <tr>
-    <td>Explicit?</td>
-    <td><%=h @feed.podcast.tags.map(&:name).include?('explicit') -%></td>
+    <td>Updated</td>
+    <td><%= non_blank @feed.updated_at.to_s -%></td>
   </tr>
 
   <tr>
-    <td>Creative Commons?</td>
-    <td><%=h @feed.podcast.tags.map(&:name).include?('creativecommons') -%></td>
+    <td>set iTunes</td>
+    <td><%= non_blank @feed.itunes_link -%></td>
   </tr>
   
   <tr>
-    <td>Language</td>
-    <td><%=h @feed.podcast.language %></td>
+    <td>parsed iTunes</td>
+    <td><%= "NOT IMPLEMENTED YET" -%></td>
   </tr>
 
+  <tr>
+    <td>Cover</td>
+    <td>
+    <% %w(large small square icon).each do |size| -%>
+      <%= image_tag @feed.podcast.logo.url(size) -%>
+    <% end -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Title</td>
+    <td><%= non_blank @feed.podcast.original_title -%></td>
+  </tr>
+
+  <tr>
+    <td>Site</td>
+    <td><%= link_to(@feed.podcast.site) -%></td>
+  </tr>
+
+  <tr>
+    <td>Line Description</td>
+    <td><%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@feed.podcast.description)) -%></td>
+  </tr>
+
+  <tr>
+    <td>Page Description</td>
+    <td><%= non_blank sanitize_summary(@feed.podcast.description) -%></td>
+  </tr>
+
+  <tr>
+    <td>HTML Description</td>
+    <td><%= non_blank sanitize_lightly(@feed.podcast.description) -%></td>
+  </tr>
 </table>
 
 <h2>Tags</h2>

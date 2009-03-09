@@ -89,4 +89,8 @@ class Source < ActiveRecord::Base
   def primary?
     feed.primary?
   end
+
+  def extension
+    file_name.split('.').last
+  end
 end

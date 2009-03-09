@@ -6,7 +6,7 @@ class Admin::PodcastsController < AdminController
   end
 
   def approve
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @podcast.update_attributes(:approved => true)
 
     redirect_to :action => :index

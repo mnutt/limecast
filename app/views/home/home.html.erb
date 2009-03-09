@@ -38,8 +38,8 @@
     <div id="featured">
       <h2>Featured Podcasts</h2>
 
-      <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("The-1UP-Show") rescue Podcast.all[0]), :locals => {:is_first => true} -%>
-      <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("Diggnation") rescue Podcast.all[1]) -%>
+      <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("The-1UP-Show") || Podcast.all[0]), :locals => {:is_first => true} -%>
+      <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("Diggnation") || Podcast.all[1]) -%>
     </div>
   </div>
 

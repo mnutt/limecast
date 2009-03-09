@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_filter :login_required, :only => [:new, :update]
 
   def index
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
     @feeds    = @podcast.feeds.all
     @most_recent_episode = @podcast.episodes.newest.first
@@ -21,14 +21,14 @@ class ReviewsController < ApplicationController
   end
 
   def info
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @review = @podcast.reviews.find(params[:id])
     render :layout => 'info'
   end
 
   def search
     @q = params[:q]
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @feeds   = @podcast.feeds
 
     @reviews = Review.search(@q, :with => {:podcast_id => @podcast.id}).compact.uniq
@@ -38,19 +38,19 @@ class ReviewsController < ApplicationController
   def show
     @review = Review.find(params[:id])
 
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @feeds   = @podcast.feeds
   end
 
   def new
     @review = Review.new
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @feeds   = @podcast.feeds
   end
 
   def edit
     @review = Review.find(params[:id])
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @feeds   = @podcast.feeds
 
     redirect_to(:back) rescue redirect_to('/') unless @review.editable?
@@ -58,7 +58,7 @@ class ReviewsController < ApplicationController
 
   def create
     review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @review = Review.new(review_params)
 
     if current_user
@@ -73,7 +73,7 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
     @review.update_attributes(params[:review])
 
@@ -94,7 +94,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @review = @podcast.reviews.find(params[:id])
     @review.destroy
 

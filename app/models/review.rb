@@ -19,7 +19,7 @@ class Review < ActiveRecord::Base
   belongs_to :episode
   belongs_to :reviewer, :class_name => 'User', :foreign_key => 'user_id'
 
-  has_many :review_ratings
+  has_many :review_ratings, :dependent => :destroy
 
   after_create  { |c| c.reviewer.calculate_score! if c.reviewer }
   after_destroy { |c| c.reviewer.calculate_score! if c.reviewer }

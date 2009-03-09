@@ -21,6 +21,13 @@ class ReviewsController < ApplicationController
     render :template => 'podcasts/show'
   end
 
+  def info
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
+    @review = @podcast.reviews.find(params[:id])
+    render :layout => 'info'
+  end
+
   def search
     @q = params[:q]
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])

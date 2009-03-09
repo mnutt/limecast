@@ -27,25 +27,23 @@ $(document).ready(function() {
     return false;
   });
 
+
   if($('.podcast.show').size() && !$('.podcast.new.show').size()) {
     $('#podcast_episodes').dataTable( {
-     		"aaSorting": [[ 3, "desc" ]],
-     		"aoColumns": [ 
-        			/* Title */   { "bSortable": false },
-        			/* Description */  { "bVisible":    false, "bSortable": false },
-        			/* Runtime */ { "bSortable": false },
-        			/* Date released */  null
-        		],
+      "aaSorting": [[ 3, "desc" ]],
+      "aoColumns": [ 
+           /* Title */   { "bSortable": false },
+           /* Description */  { "bVisible":    false, "bSortable": false },
+           /* Runtime */ { "bSortable": false },
+           /* Date released */  null
+           ],
         "bStateSave": true,
         "bProcessing": true
-     	});
-     	$('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
+    });
+    $('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
   }
 
-  // ---------------------------------
-  // END STUFF MOVED OVER FROM SKND
-  // ---------------------------------
-
+  // Favorite link
   $('a.favorite_link').click(function() {
     var favorite_link = $(this);
     var favorite_url = favorite_link.attr('href');
@@ -62,37 +60,6 @@ $(document).ready(function() {
     }, 'json');
     return false;
   });
-
-  //*************************************************************
-  // Toggle
-  //************************************************************/
-  $('li.expandable').map(function(){
-    var expandable_li = $(this);
-
-    expandable_li.find('span.expand').click(function(){
-      if(expandable_li.hasClass('expanded')) {
-        expandable_li.removeClass('expanded');
-        expandable_li.find('span.expand').text('Collapse');
-      } else {
-        expandable_li.addClass('expanded');
-        expandable_li.find('span.expand').text('Expand');
-      }
-    });
-  });
-
-
-  // Hook up all of the search term highlighting
-  var searchLabel = $('label[for=q]').text();
-  var searchBox   = $('input#q').val();
-  if($(document).searchTermContext && searchLabel != searchBox) {
-    $('#primary li .searched').map(function(){
-      $(this).searchTermContext({
-        query: searchBox,
-        wordsOfContext: 5,
-        format: function(s) { return '<span class="search_term">' + s + '</span>'; }
-      });
-    });
-  }
   
   // Makes clicking labels check their associated checkbox/radio button
   $('label').map(function(){
@@ -104,12 +71,10 @@ $(document).ready(function() {
     }
   });
 
+  // Superbutton
   $('form.super_button').superButton();
-  
-  
-  //*************************************************************
+
   // Video Preview
-  //************************************************************/
   $(".preview .container img").load(function(){
     var preview = $(this);
 
@@ -201,19 +166,8 @@ $(document).ready(function() {
     return false;
   });
 
-
-  $('.dropdown .focuser').click(function(){
-    $(this).parents(".dropdown").toggleClass('open');
-    return false;
-  }).blur(function(event){
-    // FIXME the blur action is conflicting with the "LI A" click events; also, doesn't seem to work in safari anymore?
-    // $(this).parents(".dropdown").toggleClass('open');
-    // return false;
-  });
-
-
   // Tabs
-  $tabs = $('.tabify').tabs({
+  $tabs = $('#subscribe_options ul').tabs({
     navClass: 'tabs',
     containerClass: 'tabs-cont'
   });

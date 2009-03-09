@@ -11,14 +11,16 @@ module ApplicationHelper
   # Example:
   #   * dropdown ["Most recent", "First to last"], 1, {} -%>
   #
-	def dropdown(links, selected_index, options = {})
-		selected_index ||= 0
+  # NOTE: Not in use by current design
+  #
+  def dropdown(links, selected_index, options = {})
+    selected_index ||= 0
     label = options.delete(:label)
     options[:class] = "dropdown #{options[:class]}"
 
     focuser = content_tag :span, links[selected_index], :class => 'focuser'
 
-		links = links.zip((0..links.size).to_a).map do |link, i|
+    links = links.zip((0..links.size).to_a).map do |link, i|
       "<li#{' class="selected"' if i == selected_index}>#{link}</li>"
     end
 

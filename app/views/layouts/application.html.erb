@@ -29,6 +29,7 @@
 
 
 <%= javascript_include_tag 'jquery' -%>
+<%= javascript_include_tag 'bench_begin' -%>
 <%= javascript_include_tag 'jquery-ui' -%>
 <%= javascript_include_tag 'jquery-periodic' -%>
 <%= javascript_include_tag 'jquery.tabs' -%>
@@ -38,6 +39,7 @@
 <%= javascript_include_tag 'jquery.dataTables.min' -%>
 <%= javascript_include_tag 'jquery.cluetip' -%>
 <%= javascript_include_tag 'jquery.default-text' -%>
+<%= javascript_include_tag 'jquery.hover-and-focus' -%>
 <%= javascript_include_tag 'test_helpers' -%>
 <script type="text/javascript">
   $.ajaxSetup({
@@ -172,5 +174,6 @@
 
     <%= render :partial => 'users/quick_signin', :locals => { }  -%>
 
+    <%= javascript_include_tag 'bench_end' -%>
 </body>
 </html>

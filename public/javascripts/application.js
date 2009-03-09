@@ -1,21 +1,8 @@
-// ---------------------------------
-// START STUFF MOVED OVER FROM SKND
-// ---------------------------------
+if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
+
 $(document).ready(function() {
-  // Edit Podcast link
-  $('#edit_link').click(function() { 
-    $('.limecast_form').toggle(); 
-    $(this).hide(); 
-    return false; 
-  })
-  $('#edit_actions').show(); // we hide the edit link until ready in case the user clicks it
 
-  $('.limecast_form .cancel').click(function(){ 
-    $('#edit_link').show(); 
-    $(this).parents(".limecast_form").hide(); 
-    return false;
-  });
-
+  // Default text
   $('#feed_url').inputDefaultText();
   $('#q').inputDefaultText();
   $('#accounts_forgot_password #email').inputDefaultText();
@@ -54,14 +41,11 @@ $(document).ready(function() {
      	});
      	$('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
   }
-});
 
+  // ---------------------------------
+  // END STUFF MOVED OVER FROM SKND
+  // ---------------------------------
 
-// ---------------------------------
-// END STUFF MOVED OVER FROM SKND
-// ---------------------------------
-
-$(document).ready(function(){
   $('a.favorite_link').click(function() {
     var favorite_link = $(this);
     var favorite_url = favorite_link.attr('href');
@@ -78,44 +62,10 @@ $(document).ready(function(){
     }, 'json');
     return false;
   });
-});
 
-
-if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
-
-//*************************************************************
-// Hover/Focus Behaviors
-//**************************************************************/
-$.fn.extend({
-  hoverAndFocusBehavior: function() {
-    $(this).mouseover(function() { $(this).addClass('hover'); })
-           .mousedown(function() { $(this).addClass('active'); })
-           .mouseup(function() { $(this).removeClass('active'); })
-           .mouseout(function() { $(this).removeClass('hover active'); })
-           .focus(function() { $(this).addClass('focus').removeClass('active hover'); })
-           .blur(function() { $(this).removeClass('focus hover active'); });
-  }
-});
-$(document).ready(function() {
-  $('input:not([type=hidden]), textarea, button').hoverAndFocusBehavior();
-});
-
-//*************************************************************
-// Sign In
-//************************************************************/
-$(document).ready(function(){
-  // Attach the global quick signup in the top-bar
-  $('#utility_nav .signin a').click(function(){
-    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {toggle:false});
-  });
-
-});
-
-
-//*************************************************************
-// Toggle
-//************************************************************/
-$(document).ready(function(){
+  //*************************************************************
+  // Toggle
+  //************************************************************/
   $('li.expandable').map(function(){
     var expandable_li = $(this);
 
@@ -129,25 +79,9 @@ $(document).ready(function(){
       }
     });
   });
-});
 
 
-// Makes clicking labels check their associated checkbox/radio button
-$(document).ready(function(){
-  $('label').map(function(){
-    var field = $('#' + $(this).attr('for'));
-    if(field.is('input[type=radio]') || field.is('input[type=checkbox]')) {
-      $(this).click(function() {
-        field.attr('checked', true);
-      });
-    }
-  });
-
-  $('form.super_button').superButton();
-});
-
-// Hook up all of the search term highlighting
-$(document).ready(function(){
+  // Hook up all of the search term highlighting
   var searchLabel = $('label[for=q]').text();
   var searchBox   = $('input#q').val();
   if($(document).searchTermContext && searchLabel != searchBox) {
@@ -159,13 +93,23 @@ $(document).ready(function(){
       });
     });
   }
-});
+  
+  // Makes clicking labels check their associated checkbox/radio button
+  $('label').map(function(){
+    var field = $('#' + $(this).attr('for'));
+    if(field.is('input[type=radio]') || field.is('input[type=checkbox]')) {
+      $(this).click(function() {
+        field.attr('checked', true);
+      });
+    }
+  });
 
-//*************************************************************
-// Video Preview
-//************************************************************/
-$(document).ready(function() {
-
+  $('form.super_button').superButton();
+  
+  
+  //*************************************************************
+  // Video Preview
+  //************************************************************/
   $(".preview .container img").load(function(){
     var preview = $(this);
 
@@ -191,9 +135,7 @@ $(document).ready(function() {
       flashvars: flashvars
     });
   });
-});
-
-$(document).ready(function() {
+  
   $("#subscribe_options li a").click(function(){ return false; });
 
   $("#s_options_toggle").click(function(e){
@@ -268,14 +210,27 @@ $(document).ready(function() {
     // $(this).parents(".dropdown").toggleClass('open');
     // return false;
   });
-});
 
 
-$(function() {
+  // Tabs
   $tabs = $('.tabify').tabs({
     navClass: 'tabs',
     containerClass: 'tabs-cont'
   });
 
+  // Hover/Focus Behaviors
+  $('input:not([type=hidden]), textarea, button').hoverAndFocusBehavior();
 
 });
+
+
+//*************************************************************
+// Sign In
+//************************************************************/
+// Attach the global quick signup in the top-bar
+$('#utility_nav .signin a').click(function(){
+  return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {toggle:false});
+});
+
+
+

@@ -70,15 +70,4 @@ class ReviewsController < ApplicationController
       format.html { redirect_to episode_url(@review.episode.podcast, @review.episode) }
     end
   end
-
-  protected
-
-  def filter(reviews, f)
-    case f
-    when "positive": reviews.that_are_positive
-    when "negative": reviews.that_are_negative
-    else reviews
-    end
-  end
-
 end

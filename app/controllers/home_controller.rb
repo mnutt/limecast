@@ -39,6 +39,8 @@ class HomeController < ApplicationController
     if File.exist?("#{RAILS_ROOT}/.git")
       master_info = "#{RAILS_ROOT}/.git/refs/heads/master"
       @commit = File.read(master_info) if File.exist?(master_info)
+      deploy_info = "#{RAILS_ROOT}/.git/refs/heads/deploy"
+      @commit = File.read(deploy_info) if File.exist?(deploy_info)
       commit_msg = "#{RAILS_ROOT}/.git/COMMIT_EDITMSG"
       @message = File.read(commit_msg) if File.exist?(commit_msg)
     end

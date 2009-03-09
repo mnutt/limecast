@@ -3,10 +3,6 @@
 <% source  = episode.sources.first -%>
 <%- if source && source.screenshot? -%>
   <div class="container">
-    <%= image_tag(source.screenshot.url, {:rel => source.preview.url, :alt => "#{episode.title} cover art"}.merge(scaled_resolution(:width => source.width, :height => source.height))) -%>
+    <%= image_tag(source.screenshot.url, {:rel => source.preview.url, :alt => "#{episode.title} cover art"}) -%>
   </div>
-<%- else -%>
-  <% unless options[:hide_broken_previews] -%>
-    <%= image_tag('/imgs/video_placeholder.png', :alt => "#{episode.title} cover art is missing", :width => 460) -%>
-  <% end -%>
 <%- end -%>

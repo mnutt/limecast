@@ -165,21 +165,31 @@ $(document).ready(function(){
 // Video Preview
 //************************************************************/
 $(document).ready(function() {
-  var preview = $(".preview .container img");
-  var url = window.location.href
-  var hasPlayInUrl = url.lastIndexOf("play") > url.lastIndexOf("?");
 
-  var flashvars = {
-    previewURL: preview.attr('src'),
-    videoURL: preview.attr('rel'),
-    playOnOpen: hasPlayInUrl
-  };
+  $(".preview .container img").load(function(){
+    var preview = $(this);
 
-  preview.parent('div').empty().flash({
-    src:       "/flash/CastPlayer.swf",
-    width:     preview.attr('width'),
-    height:    preview.attr('height'),
-    flashvars: flashvars
+    var url = window.location.href;
+
+    function scale(height,width) {
+      var scaleToWidth = 460;
+      var h = (scaleToWidth / width) * height;
+      return {height: h, width: scaleToWidth};
+    }
+    var scaledSize = scale(preview.height(), preview.width());
+
+    var flashvars = {
+      previewURL: preview.attr('src'),
+      videoURL:   preview.attr('rel'),
+      totalTime:  5 * 60
+    };
+
+    preview.parent('div').empty().flash({
+      src:       "/flash/CastPlayer.swf",
+      width:     scaledSize.width,
+      height:    scaledSize.height,
+      flashvars: flashvars
+    });
   });
 });
 

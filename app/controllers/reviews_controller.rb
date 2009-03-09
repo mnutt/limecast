@@ -8,16 +8,8 @@ class ReviewsController < ApplicationController
   def info
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @review = @podcast.reviews.find(params[:id])
+
     render :layout => 'info'
-  end
-
-  def search
-    @q = params[:q]
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @feeds   = @podcast.feeds
-
-    @reviews = Review.search(@q, :with => {:podcast_id => @podcast.id}).compact.uniq
-    render :action => 'index'
   end
 
   def show

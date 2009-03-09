@@ -1,4 +1,4 @@
-<h1><%= @user.login -%></h1>
+<h1>User</h1>
 
 <table>
   <tr>
@@ -67,49 +67,49 @@
   <tr>
     <td class="key">Makes:</td>
     <td>
-      <%= @user.owned_podcasts.map { |p| link_to p.title, info_podcast_url(p) }.to_sentence -%>
+      <%= @user.owned_podcasts.map { |p| link_to h(p.title), info_podcast_url(p) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
     <td class="key">Finds:</td>
     <td>
-      <%= @user.feeds.map(&:podcast).uniq.map { |p| link_to p.title, info_podcast_url(p) }.to_sentence -%>
+      <%= @user.feeds.map(&:podcast).uniq.map { |p| link_to h(p.title), info_podcast_url(p) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
     <td class="key">Favorites:</td>
     <td>
-      <%= @user.favorite_podcasts.map { |p| link_to p.title, info_podcast_url(p) }.to_sentence -%>
+      <%= @user.favorite_podcasts.map { |p| link_to h(p.title), info_podcast_url(p) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
     <td class="key">Tagged:</td>
     <td>
-      <%= @user.taggings.map(&:podcast).uniq.map { |p| link_to p.title, info_podcast_url(p) }.to_sentence -%>
+      <%= @user.taggings.map(&:podcast).uniq.map { |p| link_to h(p.title), info_podcast_url(p) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
     <td class="key">Reviews:</td>
     <td>
-      <%= @user.reviews.map { |r| link_to review_url(r.podcast, r) }.to_sentence -%>
+      <%= @user.reviews.map { |r| link_to h(r.title), info_review_url(r.episode.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
     <td class="key">Insightful:</td>
     <td>
-      <%= @user.review_ratings.insightful.map(&:podcast).map { |r| link_to review_url(r.podcast, r) }.to_sentence -%>
+      <%= @user.review_ratings.insightful.map(&:review).map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
     <td class="key">Not Insightful:</td>
     <td>
-      <%= @user.review_ratings.not_insightful.map(&:podcast).map { |r| link_to review_url(r.podcast, r) }.to_sentence -%>
+      <%= @user.review_ratings.not_insightful.map(&:review).map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 

@@ -12,25 +12,13 @@ class ReviewsController < ApplicationController
     render :layout => 'info'
   end
 
-  def show
-    @review = Review.find(params[:id])
-
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @feeds   = @podcast.feeds
-  end
-
-  def new
-    @review = Review.new
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @feeds   = @podcast.feeds
-  end
-
-  def edit
-    @review = Review.find(params[:id])
+  def search
+    @q = params[:q]
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @feeds   = @podcast.feeds
 
-    redirect_to(:back) rescue redirect_to('/') unless @review.editable?
+    @reviews = Review.search(@q, :with => {:podcast_id => @podcast.id}).compact.uniq
+    render :action => 'index'
   end
 
   def create

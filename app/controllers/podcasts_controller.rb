@@ -14,7 +14,6 @@ class PodcastsController < ApplicationController
 
   def show
     @podcast ||= Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
     @feeds = @podcast.feeds.all
     @most_recent_episode = @podcast.episodes.newest.first
@@ -28,7 +27,6 @@ class PodcastsController < ApplicationController
 
   def info
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
     render :layout => "info"
   end
@@ -45,7 +43,6 @@ class PodcastsController < ApplicationController
   # TODO we should refactor/DRY up this method
   def update
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
     authorize_write @podcast
 
@@ -85,8 +82,7 @@ class PodcastsController < ApplicationController
   end
 
   def favorite
-    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
 
     if current_user
       @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)
@@ -111,8 +107,7 @@ class PodcastsController < ApplicationController
   end
 
   def destroy
-    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
+    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
     authorize_write @podcast
 
     @podcast.destroy

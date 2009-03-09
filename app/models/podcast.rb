@@ -97,6 +97,12 @@ class Podcast < ActiveRecord::Base
     has :created_at
   end
 
+  def self.find_by_clean_url(slug)
+		i = self.find(:first, :conditions => {:clean_url => slug})
+		raise ActiveRecord::RecordNotFound if i.nil? || slug.nil?
+		i
+	end
+
   def found_by
     feeds.first.finder rescue nil
   end

@@ -3,7 +3,6 @@ class ReviewsController < ApplicationController
 
   def index
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
 
     @feeds    = @podcast.feeds.all
     @most_recent_episode = @podcast.episodes.newest.first
@@ -23,7 +22,6 @@ class ReviewsController < ApplicationController
 
   def info
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
     @review = @podcast.reviews.find(params[:id])
     render :layout => 'info'
   end

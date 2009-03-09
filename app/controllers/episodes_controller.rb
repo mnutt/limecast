@@ -3,7 +3,7 @@ class EpisodesController < ApplicationController
 
   def index
     @podcast  = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil?
+
     @episodes = @podcast.episodes.find(:all, :include => [:podcast], :order => "published_at DESC")
     @newest_episode = @episodes.first
     @oldest_episode = @episodes.last if @episodes.size > 1
@@ -20,16 +20,13 @@ class EpisodesController < ApplicationController
 
   def show
     @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
+
 
     @episode = @podcast.episodes.find_by_clean_url(params[:episode])
     raise ActiveRecord::RecordNotFound if @episode.nil? || params[:episode].nil?
 
     @feeds   = @podcast.feeds
     @review = Review.new(:episode => @episode)
-
-    @next_episode = @podcast.episodes.find(:first, :conditions => ["published_at > ?", @episode.published_at], :order => "published_at ASC")
-    @previous_episode = @podcast.episodes.find(:first, :conditions => ["episodes.published_at < ?", @episode.published_at], :order => "published_at DESC")
   end
 
   def info

@@ -1,21 +1,122 @@
 <h1><%= @user.login -%></h1>
 
-<dl>
-  <dt>Name</dt>
-  <dd><pre><%= @user.login -%></pre></dd>
+<table>
+  <tr>
+    <td class="key">Created:</td>
+    <td>
+      <%= @user.created_at.to_s(:long_ordinal) rescue "error" -%>
+    </td>
+  </tr>
 
-  <dt>Email</dt>
-  <dd><pre><%= @user.email -%></pre></dd>
+  <tr>
+    <td class="key">Arrived:</td>
+    <td>
+      <%= @user.arrived_at.to_s(:long_ordinal) rescue "NOT IMPLEMENTED YET" -%>
+    </td>
+  </tr>
 
-  <dt>Confirmation state</dt>
-  <dd><pre><%= @user.state -%></pre></dd>
+  <tr>
+    <td class="key">Visited:</td>
+    <td>
+      <%= @user.logged_in_at.to_s(:long_ordinal) rescue "error" -%>
+    </td>
+  </tr>
 
-  <dt>Created on</dt>
-  <dd><pre><%= @user.created_at.to_s(:long_ordinal) rescue "error" -%></pre></dd>
+  <tr>
+    <td class="key">Name:</td>
+    <td>
+      <%= @user.login -%>
+    </td>
+  </tr>
 
-  <dt>Confirmed on</dt>
-  <dd><pre><%= @user.active? ? @user.activated_at.to_s(:long_ordinal) : "Not yet." rescue "error" -%></pre></dd>
+  <tr>
+    <td class="key">URL:</td>
+    <td>
+      <%= link_to @user -%>
+    </td>
+  </tr>
 
-  <dt>Admin?</dt>
-  <dd><pre><%= @user.admin? ? "Yes" : "No" -%></pre></dd>
-</dl>
+  <tr>
+    <td class="key">Email:</td>
+    <td>
+      <%= @user.email -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Confirmed:</td>
+    <td>
+      <%= @user.active? ? @user.activated_at.to_s(:long_ordinal) : "Not yet." rescue "error" -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Contact:</td>
+    <td>
+      <%= "NOT IMPLEMENTED YET" -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Score:</td>
+    <td>
+      <%= @user.score -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Makes:</td>
+    <td>
+      <%= @user.owned_podcasts.map { |p| link_to p.title, info_podcast_url(p) }.to_sentence -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Finds:</td>
+    <td>
+      <%= @user.feeds.map(&:podcast).uniq.map { |p| link_to p.title, info_podcast_url(p) }.to_sentence -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Favorites:</td>
+    <td>
+      <%= @user.favorite_podcasts.map { |p| link_to p.title, info_podcast_url(p) }.to_sentence -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Tagged:</td>
+    <td>
+      <%= @user.taggings.map(&:podcast).uniq.map { |p| link_to p.title, info_podcast_url(p) }.to_sentence -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Reviews:</td>
+    <td>
+      <%= @user.reviews.map { |r| link_to review_url(r.podcast, r) }.to_sentence -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Insightful:</td>
+    <td>
+      <%= @user.review_ratings.insightful.map(&:podcast).map { |r| link_to review_url(r.podcast, r) }.to_sentence -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Not Insightful:</td>
+    <td>
+      <%= @user.review_ratings.not_insightful.map(&:podcast).map { |r| link_to review_url(r.podcast, r) }.to_sentence -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Admin?:</td>
+    <td>
+      <%= @user.admin? ? "Yes" : "No" -%>
+    </td>
+  </tr>
+</table>

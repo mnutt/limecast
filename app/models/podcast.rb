@@ -107,6 +107,10 @@ class Podcast < ActiveRecord::Base
     self.episodes.newest.first
   end
 
+  def related_podcasts
+    Recommendation.for_podcast(self).by_weight.first(5).map(&:related_podcast)
+  end
+
   def found_by
     feeds.first.finder rescue nil
   end

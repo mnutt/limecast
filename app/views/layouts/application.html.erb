@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>
-  <%= "#{@title} - " if @title -%> LimeCast
+  <%= "#{@title} &mdash; " if @title -%> LimeCast
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="description" content="Coming 2009 March"/>
@@ -12,9 +12,9 @@
   <link rel="icon" type="image/png" href="<%= @podcast.logo.url(:icon) -%>" />
 <% end -%>
 
-<% (@feeds || []).each do |feed| %>
+<% (@feeds || []).each do |feed| -%>
   <%= rss_link(feed) -%>
-<% end %>
+<% end -%>
 
 <%= stylesheet_link_tag 'reset' -%>
 <%= stylesheet_link_tag "sknd.global", "sknd.typography", "sknd.icons", "sknd.presentation" -%>
@@ -24,13 +24,13 @@
   <%= stylesheet_link_tag 'base_ie6', 'application_ie6' -%>
 <![endif]-->
 <!--[if IE 7]>
-<%= stylesheet_link_tag 'base_ie7', 'application_ie7' -%>
+  <%= stylesheet_link_tag 'base_ie7', 'application_ie7' -%>
 <![endif]-->
 
 
 <%= javascript_include_tag 'jquery' -%>
-<%= javascript_include_tag 'bench_begin' -%>
-<%= javascript_include_tag 'jquery-ui' -%>
+<%#= javascript_include_tag 'bench_begin' -%>
+<%#= javascript_include_tag 'jquery-ui' -%>
 <%= javascript_include_tag 'jquery-periodic' -%>
 <%= javascript_include_tag 'jquery.tabs' -%>
 <%= javascript_include_tag 'jquery.cookie' -%>
@@ -68,7 +68,7 @@
       <div id="header">
         
         <div id="utility_nav">
-                                        <%= render :partial => "layouts/sign_in_area" -%>
+          <%= render :partial => "layouts/sign_in_area" -%>
         </div>
 
 
@@ -166,6 +166,6 @@
 
     <%= render :partial => 'users/quick_signin', :locals => { }  -%>
 
-    <%= javascript_include_tag 'bench_end' -%>
+    <%#= javascript_include_tag 'bench_end' -%>
 </body>
 </html>

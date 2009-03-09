@@ -4,34 +4,34 @@
 # Table name: sources
 #
 #  id                       :integer(4)    not null, primary key
-#  url                      :string(255)   
-#  type                     :string(255)   
-#  guid                     :string(255)   
-#  episode_id               :integer(4)    
-#  format                   :string(255)   
-#  feed_id                  :integer(4)    
-#  sha1hash                 :string(24)    
-#  screenshot_file_name     :string(255)   
-#  screenshot_content_type  :string(255)   
-#  screenshot_file_size     :string(255)   
-#  preview_file_name        :string(255)   
-#  preview_content_type     :string(255)   
-#  preview_file_size        :string(255)   
-#  size                     :integer(8)    
-#  xml                      :text          
-#  downloaded_at            :datetime      
-#  hashed_at                :datetime      
-#  curl_info                :text          
-#  ffmpeg_info              :text          
-#  height                   :integer(4)    
-#  width                    :integer(4)    
-#  file_name                :string(255)   
-#  torrent_file_name        :string(255)   
-#  torrent_content_type     :string(255)   
-#  torrent_file_size        :string(255)   
-#  random_clip_file_name    :string(255)   
-#  random_clip_content_type :string(255)   
-#  random_clip_file_size    :string(255)   
+#  url                      :string(255)
+#  type                     :string(255)
+#  guid                     :string(255)
+#  episode_id               :integer(4)
+#  format                   :string(255)
+#  feed_id                  :integer(4)
+#  sha1hash                 :string(24)
+#  screenshot_file_name     :string(255)
+#  screenshot_content_type  :string(255)
+#  screenshot_file_size     :string(255)
+#  preview_file_name        :string(255)
+#  preview_content_type     :string(255)
+#  preview_file_size        :string(255)
+#  size                     :integer(8)
+#  xml                      :text
+#  downloaded_at            :datetime
+#  hashed_at                :datetime
+#  curl_info                :text
+#  ffmpeg_info              :text
+#  height                   :integer(4)
+#  width                    :integer(4)
+#  file_name                :string(255)
+#  torrent_file_name        :string(255)
+#  torrent_content_type     :string(255)
+#  torrent_file_size        :string(255)
+#  random_clip_file_name    :string(255)
+#  random_clip_content_type :string(255)
+#  random_clip_file_size    :string(255)
 #  ability                  :integer(4)    default(0)
 #
 

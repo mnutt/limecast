@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20090306193031
+# Schema version: 20090303162109
 #
 # Table name: user_taggings
 #
 #  id         :integer(4)    not null, primary key
-#  user_id    :integer(4)
-#  tagging_id :integer(4)
+#  user_id    :integer(4)    
+#  tagging_id :integer(4)    
 #
 
 # This is merely a denormalized table to track which users added taggings.

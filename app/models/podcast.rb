@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090306193031
+# Schema version: 20090303162109
 #
 # Table name: podcasts
 #

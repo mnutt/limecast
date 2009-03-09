@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090306193031
+# Schema version: 20090303162109
 #
 # Table name: sources
 #
@@ -18,13 +18,13 @@
 #  preview_content_type     :string(255)
 #  preview_file_size        :string(255)
 #  size                     :integer(8)
-#  height                   :integer(4)
-#  width                    :integer(4)
 #  xml                      :text
 #  downloaded_at            :datetime
 #  hashed_at                :datetime
 #  curl_info                :text
 #  ffmpeg_info              :text
+#  height                   :integer(4)
+#  width                    :integer(4)
 #  file_name                :string(255)
 #  torrent_file_name        :string(255)
 #  torrent_content_type     :string(255)
@@ -33,8 +33,6 @@
 #  random_clip_content_type :string(255)
 #  random_clip_file_size    :string(255)
 #  ability                  :integer(4)    default(0)
-#  archived                 :boolean(1)
-#  framerate                :string(10)
 #
 
 class Source < ActiveRecord::Base

@@ -217,14 +217,14 @@
   <tr>
     <td class="key">Curl output:</td>
     <td>
-      <%= non_blank @source.curl_info -%>
+      <%= @source.curl_info.blank? ? blankness : "<pre>#{@source.curl_info}</pre>" -%>
     </td>
   </tr>
 
   <tr>
     <td class="key">FFmpeg output:</td>
     <td>
-      <%= non_blank @source.ffmpeg_info -%>
+      <%= @source.ffmpeg_info.blank? ? blankness : "<pre>#{@source.ffmpeg_info}</pre>" -%>
     </td>
   </tr>
 

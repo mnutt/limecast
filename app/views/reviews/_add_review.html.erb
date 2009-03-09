@@ -19,7 +19,7 @@
     <h6>Heading</h6>
     <%= f.text_field :title, :class => 'text', :size => 15, :id => "review_title#{options[:suffix]}" -%>
 
-    <h6>Your review of the 1Up Show</h6>
+    <h6>Your review of <%=h @podcast.title %></h6>
     <%= f.text_area :body, :rows => 2, :cols => 20, :id => "review_body#{options[:suffix]}" -%>
   </p>
   <button type="submit">

@@ -30,6 +30,15 @@ class PodcastsController < ApplicationController
     render :layout => "info"
   end
 
+  def destroy
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
+    authorize_write @podcast
+
+    @podcast.destroy
+
+    redirect_to(podcasts_url)
+  end
+
   # TODO we should refactor/DRY up this method
   def update
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
@@ -94,14 +103,5 @@ class PodcastsController < ApplicationController
       end
     end
 
-  end
-
-  def destroy
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    authorize_write @podcast
-
-    @podcast.destroy
-
-    redirect_to(podcasts_url)
   end
 end

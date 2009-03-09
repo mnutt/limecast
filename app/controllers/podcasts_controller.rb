@@ -16,7 +16,7 @@ class PodcastsController < ApplicationController
     @podcast ||= Podcast.find_by_slug(params[:podcast_slug])
 
     @feeds = @podcast.feeds.all
-    @most_recent_episode = @podcast.episodes.newest.first
+    @most_recent_episode = @podcast.most_recent_episode
     @episodes = @podcast.episodes
 
     @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)

@@ -103,6 +103,10 @@ class Podcast < ActiveRecord::Base
     i
   end
 
+  def most_recent_episode
+    self.episodes.newest.first
+  end
+
   def found_by
     feeds.first.finder rescue nil
   end

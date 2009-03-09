@@ -2,21 +2,7 @@ class ReviewsController < ApplicationController
   before_filter :login_required, :only => [:new, :update]
 
   def index
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-
-    @feeds    = @podcast.feeds.all
-    @episodes = @podcast.episodes.without(@podcast.most_recent_episode).paginate(
-      :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
-      :page => (params[:page] || 1),
-      :per_page => params[:limit] || 10
-    )
-
-    @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
-
-    @reviews = @podcast.reviews
-    @review  = Review.new(:episode => @podcast.episodes.newest.first)
-
-    render :template => 'podcasts/show'
+    redirect_to :action => :show, :controller => :podcasts
   end
 
   def info

@@ -58,6 +58,17 @@ class Feed < ActiveRecord::Base
     has :created_at, :podcast_id
   end
 
+  def as(type)
+    case type
+    when :torrent
+      self.remixed_as_torrent
+    when :magnet
+      self.remixed_as_magnet
+    else
+      self.xml
+    end
+  end
+
   def remix_feed
     xml = self.xml.to_s.dup
 

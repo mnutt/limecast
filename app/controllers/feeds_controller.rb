@@ -8,16 +8,8 @@ class FeedsController < ApplicationController
 
   def show
     @feed = Feed.find params[:id]
-    @type = params[:type]
 
-    case @type
-    when :torrent
-      render :xml => @feed.remixed_as_torrent
-    when :magnet
-      render :xml => @feed.remixed_as_magnet
-    else
-      render :xml => @feed.xml
-    end
+    render :xml => @feed.as(params[:type])
   end
 
   def create

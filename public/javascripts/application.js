@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 
   if($('.podcast.show').size() && !$('.podcast.new.show').size()) {
-    $('#podcast_episodes').dataTable( {
+    $('#podcast_episodes').dataTable({
       "aaSorting": [[ 3, "desc" ]],
       "aoColumns": [ 
            /* Title */   { "bSortable": false },
@@ -39,8 +39,8 @@ $(document).ready(function() {
            ],
         "bStateSave": true,
         "bProcessing": true
-     	});
-     	$('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
+      });
+      $('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
   }
 
  	$('a.login').cluetip({

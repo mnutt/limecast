@@ -25,6 +25,7 @@ class Review < ActiveRecord::Base
   after_destroy { |c| c.reviewer.calculate_score! if c.reviewer }
 
   validates_presence_of :user_id
+  validates_length_of :title, :in => (7..32)
 
   named_scope :newer_than, lambda {|who| {:conditions => ["reviews.created_at >= (?)", who.created_at]} }
   named_scope :without, lambda {|who| {:conditions => ["reviews.id NOT IN (?)", who.id]} }

@@ -111,10 +111,6 @@ ul.episodes li.expanded div.full {
 }
 ul.episodes li.expanded div.summary,
 ul.episodes li.expanded div.preview,
-ul.episodes li.expanded form.super_button {
-  display: block;
-  margin-bottom: 12px !important;
-}
 ul.episodes li.expanded span.expand {
   background-image: url("../images/icons/collapse.png");
 }
@@ -266,127 +262,6 @@ ol#terms strong {
 }
 #privacy ul {
   margin: 0 0 14px 28px;
-}
-
-/**
- * Superbutton 
-**/   
-.super_button {
-  float: left;
-  white-space: nowrap;
-  display: table-row;
-  height: 47px;
-  padding-left: 20px;
-  background: #515557 url("/images/content/superbutton.png") no-repeat 0 0;
-}
-.super_button .dropdown {
-  display: table-cell;
-  margin-top: 12px;
-  margin-right: 15px;
-  /*background: #333;*/
-}
-.super_button .dropdown ul {
-  position: relative;
-  z-index: 5;
-  padding: 3px;
-  background-color: #555;
-}
-.super_button {
-  float: left;
-  white-space: nowrap;
-  display: table-row;
-  height: 47px;
-  padding-left: 20px;
-  background: #515557 url("/images/content/superbutton.png") no-repeat 0 0;
-}
-.super_button .dropdown {
-  display: table-cell;
-  margin-top: 12px;
-  margin-right: 15px;
-  /*background: #333;*/
-}
-.super_button .dropdown ul {
-  position: relative;
-  z-index: 5;
-  padding: 3px;
-  background-color: #555;
-}
-#content .super_button .dropdown ul li {
-  margin-bottom: 0px;
-}
-.super_button .button {
-  /* background-image: url("/images/content/superbutton.png"); */
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  display: table-cell;
-  height: 47px;
-  overflow: hidden;
-}
-.super_button .button a {
-  display: block;
-  height: 47px;
-  background-image: url("/images/content/superbutton.png");
-  background-repeat: no-repeat;
-}
-.super_button .button.orange a { background-position: right -47px; }
-.super_button .button.green a { background-position: right -94px; }
-.super_button .button a .cap {
-  display: block;
-  height: 47px;
-  padding: 0 0 0 20px;
-  margin: 0 20px 0 0;
-  background-image: url("/images/content/superbutton.png");
-}
-.super_button .button.orange a .cap { background-position: left -47px; }
-.super_button .button.green a .cap { background-position: left -94px; }
-.super_button .button a .label {
-  display: block;
-  padding: 17px 0 2px 0;
-  line-height: 11px;
-  color: #FFF;
-}
-.super_button .button {
-  /* background-image: url("/images/content/superbutton.png"); */
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  display: table-cell;
-  height: 47px;
-  overflow: hidden;
-}
-.super_button .button a {
-  display: block;
-  height: 47px;
-  background-image: url("/images/content/superbutton.png");
-  background-repeat: no-repeat;
-}
-.super_button .button.orange a { background-position: right -47px; }
-.super_button .button.green a { background-position: right -94px; }
-.super_button .button a .cap {
-  display: block;
-  height: 47px;
-  padding: 0 0 0 20px;
-  margin: 0 20px 0 0;
-  background-image: url("/images/content/superbutton.png");
-}
-.super_button .button.orange a .cap { background-position: left -47px; }
-.super_button .button.green a .cap { background-position: left -94px; }
-.super_button .button a .label {
-  display: block;
-  padding: 17px 0 2px 0;
-  line-height: 11px;
-  color: #FFF;
-}
-.super_button ul li.single {
-  background: none !important;
-}
-.super_button ul li.single a {
-  text-decoration: none;
-  cursor: text;
-}
-.super_button ul li.selected {
-  padding: 0 10px 0 0;
-  background: url("/images/icons/select-arrow.png") no-repeat scroll right 8px;
-  overflow: hidden;
 }
 
 

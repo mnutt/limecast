@@ -96,19 +96,11 @@ form#search input {padding: 0px 0 0 5px;}
 form.search button {
 	width: 30px;
 	background: url('../imgs/search_button.png') no-repeat right;
-}
-
-form#search button {
-  position: absolute;
+	position: absolute;
 	top: -7px;
   right: 0px;
 }
 
-form#podcast_search button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
 
 form.search button span {
 	margin-left: -5000px;
@@ -182,6 +174,10 @@ form#quick_signin .callout {
 	font-size: .7em; float: right;
 text-align: right;
 margin-top: -16px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
+form#quick_signin .callout {margin-top: 0px;}
 }
 
 form#quick_signin a.forgot {
@@ -488,16 +484,16 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 .home .preview img { width: 160px; }
 .episode.summary .preview { width: 460px; }
   
-.episode.summary .preview .previous {
+.episode .preview .previous {
   display: block;
-  width: 40%;
+  width: auto;
 	float: left;
 	font-size: 1.2em;
 }
 
-.episode.summary .preview .next {
+.episode .preview .next {
   display: block;
-  width: 40%;
+  width: auto;
   float: right;
   text-align: right;
 	font-size: 1.2em;
@@ -509,7 +505,6 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 }
 .summary h2 {
 	width: 800px;
-	color: #a9a9a9;
 }
 
 
@@ -586,18 +581,23 @@ h6#page_type {
 
 .episode .podcast_block { /*episode page*/
 	width: 460px;
+	float: right;
+}
+
+.episode .preview {
+  margin-right: 20px;
+  padding: 0;width: 460px;
 }
 
 
 .episode .summary h1 {float: left; width: auto;}
-.episode .summary h2 {float: left; width: auto;}
+.episode .summary h2 {float: left; width: auto; margin: -20px 0 20px 0;}
 .episode #episode_head {width: 735px;}
 
 .episode .callout  {
 	float: left;
   font-size: .7em;
-	margin: 16px 0 0 10px;
-	margin: 5px 0 0 10px;
+	margin: 2px 0 0 10px;
 
 }
 
@@ -667,8 +667,8 @@ h6#page_type {
 	color: #a9a9a9;
 	font-size: 1.2em;
 	position: absolute;
-	right: 127px;
-	bottom: 13px;
+	right: 129px;
+	bottom: 18px;
 }
 
 .review div.social {
@@ -754,11 +754,8 @@ h6#page_type {
 	color: #171717;
 }
 
-.show li.review .summary .body {
-	font-size: 1.4em;
-	margin: 0px 0 0 18px;
-	display: block;
-}
+
+
 
 .show .reviews.list #review_login {
 	min-height: 200px;
@@ -1218,6 +1215,11 @@ display: inline;
 
 #recent_reviews .review {
   min-height: 120px;
+}
+
+#epsiode_goog {
+  text-align: center;
+  margin: 20px auto 20px auto;
 }
 
 

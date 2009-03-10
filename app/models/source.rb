@@ -44,8 +44,8 @@ class Source < ActiveRecord::Base
   named_scope :stale,    :conditions => ["sources.ability < ?", ABILITY]
   named_scope :approved, lambda { {:conditions => ["episode_id IN (?)", Podcast.approved.map(&:episode_ids).flatten]} }
   named_scope :sorted, lambda {|*col| {:order => "#{col[0] || 'episodes.published_at'} DESC", :include => :episode} }
-  named_scope :with_preview, :conditions => "sources.preview_file_size IS NOT NULL && sources.preview_file_size <> 0"
-  named_scope :with_screenshot, :conditions => "sources.screenshot_file_size IS NOT NULL && sources.screenshot_file_size <> 0"
+  named_scope :with_preview, :conditions => "sources.preview_file_size IS NOT NULL && sources.preview_file_size > 1023"
+  named_scope :with_screenshot, :conditions => "sources.screenshot_file_size IS NOT NULL && sources.screenshot_file_size > 0"
 
   has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] },
                     :url  => "/:attachment/:id/:style/:basename.:extension",

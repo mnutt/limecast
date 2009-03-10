@@ -22,14 +22,13 @@
     <%= f.text_field :title, :class => 'text', :size => 15, :id => "review_title_#{dom_id(review)}" -%>
 
     <h6>Your review of <%=h podcast.title %></h6>
+    <div class="textarea">
     <%= f.text_area :body, :rows => 2, :cols => 20, :id => "review_body_#{dom_id(review)}" -%>
+    </div>
   </p>
   <button type="submit">
     <span>Submit review</span>
   </button>
 
-<% if options[:cancel] -%>
-  <%= link_to "cancel", "#", :class => 'cancel' -%>
-<% end -%>
-
+  <%= link_to "cancel", "#", :class => 'cancel' if options[:cancel] -%>
 <% end -%>

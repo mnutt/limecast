@@ -9,27 +9,10 @@ class SessionsController < ApplicationController
 
   def create
     authenticate
-    if logged_in?
-      current_user.calculate_score!
-      current_user.update_attribute(:logged_in_at, Time.now)
-    end
 
-    respond_to do |format|
-      format.html do
-        if logged_in?
-          flash[:notice] = "Successful sign in"
-          redirect_back_or_default('/')
-        else
-          flash.now[:notice] = "There was a problem logging in"
-          render :action => 'new'
-        end
-      end
-      format.js do
-        @unknown_user = !User.find_by_login(params[:user][:login]) if params[:user][:login] !~ /@/
-        @unknown_email = !User.find_by_email(params[:user][:login]) if params[:user][:login] =~ /@/
-        render :layout => false
-      end
-    end
+    @unknown_user  = !User.find_by_login(params[:user][:login]) if params[:user][:login] !~ /@/
+    @unknown_email = !User.find_by_email(params[:user][:login]) if params[:user][:login] =~ /@/
+    render :layout => false
   end
 
   def destroy
@@ -45,6 +28,8 @@ class SessionsController < ApplicationController
     if logged_in?
       claim_all
       set_cookies
+      current_user.calculate_score!
+      current_user.update_attribute(:logged_in_at, Time.now)
     end
   end
 

@@ -1,6 +1,7 @@
 <%- with_podcast_reference = false if with_podcast_reference.nil? -%>
 <%- with_helpfulness       = true if with_helpfulness.nil? -%>
 <%- truncate_length        ||= -1 -%>
+<%- editable               = local_assigns.has_key?(:editable) && current_user && review.writable_by?(current_user) -%>
 
 <li id="<%= dom_id review %>" class="<%= cycle "odd", "even" -%> review <%= review.positive? ? "positive" : "negative" %> clearfix">
   <div class="show_review">
@@ -13,10 +14,8 @@
       <span class="title"><%= review.title -%></span>
       <span class="info light">
         <%= review_by_line(review) -%>
-        <% if current_user && review.writable_by?(current_user) && controller.controller_name == 'podcasts' -%>
-          <%= " &mdash; " + link_to("edit", edit_review_url(review.episode.podcast, review), :class => 'edit') %>
-          <%= " / " + link_to("delete") %>
-        <% end -%>
+        <%= " &mdash; #{link_to("edit", edit_review_url(review.episode.podcast, review), :class => 'edit')}" if editable %>
+        <%= " / #{link_to("delete")}" if editable %>
       </span>
       <span class="body"><p><%= truncated_text unescape_entities(review.body), truncate_length -%></p></span>
 
@@ -24,7 +23,7 @@
     </div>
   </div>
   
-  <% if current_user && review.writable_by?(current_user) && controller.controller_name == 'podcasts' -%>
+  <% if editable -%>
   <div class="edit_review" style="display: none;">
     <%= render :partial => 'reviews/form', :locals => {:options => {:cancel => true}, 
                                                        :podcast => review.episode.podcast, :review => review} %>

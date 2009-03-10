@@ -1,8 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   # Resources
   map.resources :categories
-  map.resources :reviews
-#  map.resources :podcasts
+  map.resources :reviews, :path_prefix => '/:podcast_slug', :collection => {:search => :get}
   map.resources :episodes
   map.resources :feeds
   
@@ -91,7 +90,7 @@ ActionController::Routing::Routes.draw do |map|
   map.positive_reviews '/:podcast_slug/reviews/positive', :controller => 'reviews', :filter => 'positive'
   map.negative_reviews '/:podcast_slug/reviews/negative', :controller => 'reviews', :filter => 'negative'
   map.with_options :controller => 'reviews' do |r|
-    r.rate_review      '/:podcast_slug/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
+    r.rate_review '/:podcast_slug/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
   end
 
   map.with_options :controller => 'feeds' do |f|

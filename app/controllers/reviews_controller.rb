@@ -15,23 +15,20 @@ class ReviewsController < ApplicationController
   def create
     review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
+    @review  = @podcast.reviews.new(review_params)
 
-    if current_user
-      Review.create(review_params.merge(:reviewer => current_user))
+    if @review.reviewer = current_user
+      save_response(@review, @review.save)
     else
       session[:review] = review_params
+      render :json => {:success => true, :login_required => true}
     end
-
-    render :layout => false
   end
 
   def update
     @review = Review.find(params[:id])
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
-    @review.update_attributes(params[:review])
-
-    redirect_to :back
+    save_response(@review, @review.update_attributes(params[:review]))
   end
 
   def rate
@@ -52,5 +49,15 @@ class ReviewsController < ApplicationController
     session.data[:reviews].delete(params[:id]) if session.data[:reviews]
 
     render :nothing => true
+  end
+
+	protected
+
+  def save_response(review, success)
+    if success
+      render :json => {:success => true, :html => render_to_string(:partial => 'reviews/review', :object => review)}
+    else
+      render :json => {:success => false, :errors => "There was a problem:<br /> #{review.errors.full_messages.join('.<br /> ')}."}
+    end
   end
 end

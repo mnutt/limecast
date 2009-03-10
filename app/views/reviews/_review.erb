@@ -2,18 +2,32 @@
 <%- with_helpfulness       = true if with_helpfulness.nil? -%>
 <%- truncate_length        ||= -1 -%>
 
-<li class="<%= cycle "odd", "even" -%> review <%= review.positive? ? "positive" : "negative" %> clearfix">
-  <%- if with_podcast_reference -%>
-    <h3>Left for <%= link_to_podcast(review.episode.podcast) -%></h3>
-  <%- end -%>
+<li id="<%= dom_id review %>" class="<%= cycle "odd", "even" -%> review <%= review.positive? ? "positive" : "negative" %> clearfix">
+  <div class="show_review">
+    <%- if with_podcast_reference -%>
+      <h3>Left for <%= link_to_podcast(review.episode.podcast) -%></h3>
+    <%- end -%>
 
 
-  <div class="summary">
-    <span class="title"><%= review.title -%></span>
-    <span class="info light"><%= review_by_line(review) -%></span>
-    <span class="body"><%= truncated_text unescape_entities(review.body), truncate_length -%></span>
+    <div class="summary">
+      <span class="title"><%= review.title -%></span>
+      <span class="info light">
+        <%= review_by_line(review) -%>
+        <% if current_user && review.writable_by?(current_user) -%>
+          <%= " &mdash; " + link_to("edit", edit_review_url(review.episode.podcast, review), :class => 'edit') %>
+          <%= " / " + link_to("delete") %>
+        <% end -%>
+      </span>
+      <span class="body"><%= truncated_text unescape_entities(review.body), truncate_length -%></span>
 
-    <%= render :partial => "reviews/helpfulness", :object => review if with_helpfulness -%>
+      <%= render :partial => "reviews/helpfulness", :object => review if with_helpfulness -%>
+    </div>
   </div>
+  
+  <% if current_user && review.writable_by?(current_user) -%>
+  <div class="edit_review" style="display: none;">
+    <%= render :partial => 'reviews/form', :locals => {:options => {:cancel => true}, 
+                                                       :podcast => review.episode.podcast, :review => review} %>
+  </div>
+  <% end -%>
 </li>
-

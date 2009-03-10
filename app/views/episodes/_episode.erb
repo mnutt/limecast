@@ -1,23 +1,10 @@
-<!--
-<div class="episode">
- 
-  <%#= image_tag(episode.sources.first.screenshot(:square).to_s, :height => 95, :width => 95, :class => 'preview') %>
-  <div>
-    <h3><%#= link_to episode.title, episode_url(:podcast_slug => @podcast, :episode => episode) -%></h3>
-    <p class="details"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></p>
-    <p><%#= sanitize_condensed_summary(episode.summary) -%></p>
-  </div>
-  <%#= render :partial => 'episodes/audio_player', :object => episode if episode.audio_source %>
-</div>
--->
-
 <% if episode.sources.first %>
 <tr>
-    <td>
-      <h3><%= link_to episode.title, episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips"  -%></h3>
-    </td>
-    <td><%= sanitize_condensed_summary(episode.summary) -%></td>
-    <td><%= time_to_words(episode.duration) -%></td>
-    <td><%= episode.published_at.to_date -%></td>
+  <td>
+    <h3><%= link_to episode.title, episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips"  -%></h3>
+  </td>
+  <td><%= sanitize_condensed_summary(episode.summary) -%></td>
+  <td><%= time_to_words(episode.duration) -%></td>
+  <td><%= episode.published_at.to_date -%></td>
 </tr>
 <% end %>

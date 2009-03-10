@@ -96,19 +96,11 @@ form#search input {padding: 0px 0 0 5px;}
 form.search button {
 	width: 30px;
 	background: url('../imgs/search_button.png') no-repeat right;
-}
-
-form#search button {
-  position: absolute;
+	position: absolute;
 	top: -7px;
   right: 0px;
 }
 
-form#podcast_search button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
 
 form.search button span {
 	margin-left: -5000px;
@@ -182,6 +174,10 @@ form#quick_signin .callout {
 	font-size: .7em; float: right;
 text-align: right;
 margin-top: -16px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
+form#quick_signin .callout {margin-top: 0px;}
 }
 
 form#quick_signin a.forgot {

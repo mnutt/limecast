@@ -1,8 +1,0 @@
-<% review = rating_links -%>
-<% if review.reviewer == current_user or review.rated_by?(current_user) %>
-  Insightful (<%= review.insightful -%>)
-  Not so much (<%= review.not_insightful -%>)
-<% else -%>
-  <%= link_to "Insightful (#{review.insightful})", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'insightful'), :class => 'rate insightful', :rel => review.id -%>
-  <%= link_to "Not so much (#{review.not_insightful})", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'not_insightful'), :class => 'rate not_insightful', :rel => review.id -%>
-<% end %>

@@ -8,16 +8,8 @@ class FeedsController < ApplicationController
 
   def show
     @feed = Feed.find params[:id]
-    @type = params[:type]
 
-    case @type
-    when :torrent
-      render :xml => @feed.remixed_as_torrent
-    when :magnet
-      render :xml => @feed.remixed_as_magnet
-    else
-      render :xml => @feed.xml
-    end
+    render :xml => @feed.as(params[:type])
   end
 
   def create
@@ -97,9 +89,8 @@ class FeedsController < ApplicationController
 
   def info
     @feed = Feed.find(params[:id])
-    doc = Hpricot.XML(@feed.xml)
-    doc.search("item").remove
-    @feed_xml = doc.to_s.gsub(/\n\s*\n/, "\n")
+    @feed_xml = @feed.diagnostic_xml
+
     render :layout => 'info'
   end
 

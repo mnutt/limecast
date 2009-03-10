@@ -13,39 +13,35 @@ class PodcastsController < ApplicationController
   end
 
   def show
-    @podcast ||= Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
+    @podcast ||= Podcast.find_by_slug(params[:podcast_slug])
 
-    @feeds = @podcast.feeds.all
-    @most_recent_episode = @podcast.episodes.newest.first
+    @most_recent_episode = @podcast.most_recent_episode
+
     @episodes = @podcast.episodes
-
-    @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
-
-    @reviews = @podcast.reviews
-    @review  = Review.new(:episode => @podcast.episodes.newest.first)
+    @feeds    = @podcast.feeds
+    @related  = @podcast.related_podcasts
+    @reviews  = @podcast.reviews
+    @review   = Review.new(:episode => @most_recent_episode)
   end
 
   def info
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
     render :layout => "info"
   end
 
-  def search
-    if params[:q]
-      redirect_to :controller => 'podcasts', :action => 'search', :query => params[:q]
-    else
-      @query = params[:query]
-      @podcasts = Podcast.search(@query)
-    end
+  def destroy
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
+    authorize_write @podcast
+
+    @podcast.destroy
+
+    redirect_to(podcasts_url)
   end
 
   # TODO we should refactor/DRY up this method
   def update
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
     authorize_write @podcast
 
@@ -85,8 +81,7 @@ class PodcastsController < ApplicationController
   end
 
   def favorite
-    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
     if current_user
       @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)
@@ -108,15 +103,5 @@ class PodcastsController < ApplicationController
       end
     end
 
-  end
-
-  def destroy
-    raise ActiveRecord::RecordNotFound if params[:podcast_slug].nil?
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug]) or raise ActiveRecord::RecordNotFound
-    authorize_write @podcast
-
-    @podcast.destroy
-
-    redirect_to(podcasts_url)
   end
 end

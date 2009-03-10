@@ -1,7 +1,7 @@
 class SourcesController < ApplicationController
   def info
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    @episode = @podcast.episodes.find_by_clean_url(params[:episode])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
+    @episode = @podcast.episodes.find_by_slug(params[:episode])
     @source = Source.find(params[:id])
     @feed = @source.feed
     if newer_episode = @podcast.episodes.oldest.after(@episode).first

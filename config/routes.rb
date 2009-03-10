@@ -92,7 +92,6 @@ ActionController::Routing::Routes.draw do |map|
   map.negative_reviews '/:podcast_slug/reviews/negative', :controller => 'reviews', :filter => 'negative'
   map.with_options :controller => 'reviews' do |r|
     r.rate_review      '/:podcast_slug/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
-    r.resources :reviews, :path_prefix => '/:podcast_slug', :collection => {:search => :get}
   end
 
   map.with_options :controller => 'feeds' do |f|

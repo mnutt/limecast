@@ -36,7 +36,7 @@ class SearchController < ApplicationController
     # match Podcast, ex: "games podcast:Diggnation"
     def extract_podcast!
       @parsed_q.gsub!(/(\b)*podcast\:(\S*)(\b)*/i, "")
-      @podcast = Podcast.find_by_clean_url($2) unless $2.blank?
+      @podcast = Podcast.find_by_slug($2) unless $2.blank?
     end
 
     # match Tags, :ex: "games tags:hd,video" to match in tags hd and video

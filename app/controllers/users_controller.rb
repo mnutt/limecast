@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def favoriters
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
     @users = @podcast.favoriters
   end

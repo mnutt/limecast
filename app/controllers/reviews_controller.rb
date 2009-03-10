@@ -2,65 +2,28 @@ class ReviewsController < ApplicationController
   before_filter :login_required, :only => [:new, :update]
 
   def index
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
-
-    @feeds    = @podcast.feeds.all
-    @most_recent_episode = @podcast.episodes.newest.first
-    @episodes = @podcast.episodes.without(@most_recent_episode).paginate(
-      :order => ["published_at ", params[:order] =~ /^asc|desc$/ ? params[:order] : "desc"],
-      :page => (params[:page] || 1),
-      :per_page => params[:limit] || 10
-    )
-
-    @related = Recommendation.for_podcast(@podcast).by_weight.first(5).map(&:related_podcast)
-
-    @reviews = @podcast.reviews
-    @review  = Review.new(:episode => @podcast.episodes.newest.first)
-
-    render :template => 'podcasts/show'
+    redirect_to :action => :show, :controller => :podcasts
   end
 
   def info
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    raise ActiveRecord::RecordNotFound if @podcast.nil? || params[:podcast_slug].nil?
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @review = @podcast.reviews.find(params[:id])
+
     render :layout => 'info'
   end
 
   def search
     @q = params[:q]
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @feeds   = @podcast.feeds
 
     @reviews = Review.search(@q, :with => {:podcast_id => @podcast.id}).compact.uniq
     render :action => 'index'
   end
 
-  def show
-    @review = Review.find(params[:id])
-
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    @feeds   = @podcast.feeds
-  end
-
-  def new
-    @review = Review.new
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    @feeds   = @podcast.feeds
-  end
-
-  def edit
-    @review = Review.find(params[:id])
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    @feeds   = @podcast.feeds
-
-    redirect_to(:back) rescue redirect_to('/') unless @review.editable?
-  end
-
   def create
     review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @review = Review.new(review_params)
 
     if current_user
@@ -75,7 +38,7 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
     @review.update_attributes(params[:review])
 
@@ -96,7 +59,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @review = @podcast.reviews.find(params[:id])
     @review.destroy
 
@@ -107,15 +70,4 @@ class ReviewsController < ApplicationController
       format.html { redirect_to episode_url(@review.episode.podcast, @review.episode) }
     end
   end
-
-  protected
-
-  def filter(reviews, f)
-    case f
-    when "positive": reviews.that_are_positive
-    when "negative": reviews.that_are_negative
-    else reviews
-    end
-  end
-
 end

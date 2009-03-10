@@ -63,7 +63,7 @@ describe PodcastsController do
       before(:each) do
         @user = mock_model(User)
         @podcast = mock_model(Podcast, :destroy => true)
-        Podcast.stub!(:find_by_clean_url).and_return(@podcast)
+        Podcast.stub!(:find_by_slug).and_return(@podcast)
         @podcast.should_receive(:writable_by?).and_return(true)
         login(@user)
       end
@@ -73,7 +73,7 @@ describe PodcastsController do
       end
 
       it "should find the podcast requested" do
-        Podcast.should_receive(:find_by_clean_url).with("mypodcast").and_return(@podcast)
+        Podcast.should_receive(:find_by_slug).with("mypodcast").and_return(@podcast)
         do_delete
       end
 
@@ -117,7 +117,7 @@ describe PodcastsController do
         @user = Factory.create(:user)
         @podcast = Factory.create(:parsed_podcast, :owner_email => @user.email, :owner_id => @user.id)
         @feed = Factory.create(:feed, :state => 'parsed')
-        Podcast.stub!(:find_by_clean_url).and_return(@podcast)
+        Podcast.stub!(:find_by_slug).and_return(@podcast)
         @podcast.should_receive(:writable_by?).and_return(true)
         login(@user)
       end
@@ -177,7 +177,7 @@ describe PodcastsController do
       before(:each) do
         @user = Factory.create(:user)
         @podcast = Factory.create(:parsed_podcast)
-        Podcast.stub!(:find_by_clean_url).and_return(@podcast)
+        Podcast.stub!(:find_by_slug).and_return(@podcast)
         @podcast.should_receive(:writable_by?).and_return(false)
         login(@user)
       end

@@ -97,6 +97,20 @@ class Podcast < ActiveRecord::Base
     has :created_at
   end
 
+  def self.find_by_slug(slug)
+    i = self.find_by_clean_url(slug)
+    raise ActiveRecord::RecordNotFound if i.nil? || slug.nil?
+    i
+  end
+
+  def most_recent_episode
+    self.episodes.newest.first
+  end
+
+  def related_podcasts
+    Recommendation.for_podcast(self).by_weight.first(5).map(&:related_podcast)
+  end
+
   def found_by
     feeds.first.finder rescue nil
   end

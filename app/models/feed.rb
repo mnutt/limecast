@@ -58,6 +58,23 @@ class Feed < ActiveRecord::Base
     has :created_at, :podcast_id
   end
 
+  def diagnostic_xml
+    doc = Hpricot.XML(self.xml)
+    doc.search("item").remove
+    doc.to_s.gsub(/\n\s*\n/, "\n")
+  end
+
+  def as(type)
+    case type
+    when :torrent
+      self.remixed_as_torrent
+    when :magnet
+      self.remixed_as_magnet
+    else
+      self.xml
+    end
+  end
+
   def remix_feed
     xml = self.xml.to_s.dup
 

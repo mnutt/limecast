@@ -1,26 +1,26 @@
 # == Schema Information
-# Schema version: 20090303162109
+# Schema version: 20090306193031
 #
 # Table name: users
 #
 #  id                        :integer(4)    not null, primary key
-#  login                     :string(255)
-#  email                     :string(255)
-#  crypted_password          :string(40)
-#  salt                      :string(40)
-#  created_at                :datetime
-#  updated_at                :datetime
-#  remember_token            :string(255)
-#  remember_token_expires_at :datetime
-#  activation_code           :string(40)
-#  activated_at              :datetime
+#  login                     :string(255)   
+#  email                     :string(255)   
+#  crypted_password          :string(40)    
+#  salt                      :string(40)    
+#  created_at                :datetime      
+#  updated_at                :datetime      
+#  remember_token            :string(255)   
+#  remember_token_expires_at :datetime      
+#  activation_code           :string(40)    
+#  activated_at              :datetime      
 #  state                     :string(255)   default("passive")
-#  deleted_at                :datetime
-#  admin                     :boolean(1)
-#  reset_password_code       :string(255)
-#  reset_password_sent_at    :datetime
+#  deleted_at                :datetime      
+#  admin                     :boolean(1)    
+#  reset_password_code       :string(255)   
+#  reset_password_sent_at    :datetime      
 #  score                     :integer(4)    default(0)
-#  logged_in_at              :datetime
+#  logged_in_at              :datetime      
 #
 
 require 'digest/sha1'

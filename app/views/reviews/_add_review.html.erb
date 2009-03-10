@@ -1,7 +1,6 @@
 <% options ||= {} -%>
 <% javascript_include "review_new" -%>
 
-
 <h4>Review this series</h4>
 
 <%= render :partial => 'reviews/form', :locals => {:options => options, :podcast => @podcast, :review => @review} %>

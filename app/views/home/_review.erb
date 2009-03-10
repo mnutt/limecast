@@ -13,7 +13,7 @@
     <span class="info light">
       <%= review_by_line(review) -%>
     </span>
-    <span class="body"><%= truncated_text unescape_entities(review.body), truncate_length -%></span>
+    <span class="body"><p><%= truncated_text unescape_entities(review.body), truncate_length -%></p></span>
 
     <%= render :partial => "reviews/helpfulness", :object => review if with_helpfulness -%>
   </div>

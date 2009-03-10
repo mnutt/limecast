@@ -29,18 +29,17 @@
 
 
 <%= javascript_include_tag 'jquery' -%>
-<%#= javascript_include_tag 'bench_begin' -%>
 <%#= javascript_include_tag 'jquery-ui' -%>
 <%= javascript_include_tag 'jquery-periodic' -%>
 <%= javascript_include_tag 'jquery.tabs' -%>
 <%= javascript_include_tag 'jquery.cookie' -%>
 <%= javascript_include_tag 'jquery.flash' -%>
 <%= javascript_include_tag 'jquery.dropdown' -%>
-<%= javascript_include_tag 'jquery.dataTables.min' -%>
-<%= javascript_include_tag 'jquery.cluetip' -%>
 <%= javascript_include_tag 'jquery.default-text' -%>
 <%= javascript_include_tag 'jquery.hover-and-focus' -%>
 <%= javascript_include_tag 'test_helpers' -%>
+<% javascript_include "jquery.dimensions", "jquery.hoverIntent", "jquery.cluetip" -%>
+
 <script type="text/javascript">
   $.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -70,7 +69,6 @@
         <div id="utility_nav">
           <%= render :partial => "layouts/sign_in_area" -%>
         </div>
-
 
         <div id="global_nav">
           <a href="/" id="logo"><span>LimeCast</span></a>
@@ -140,32 +138,13 @@
 
             </div>
 
-            <div class="legal section">
 
-
-              <!--<h4>Legal</h4>
-
-              <ul>
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/refund" title="Refund Policy">Refund Policy</a>        </li>
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/privacy" title="Privacy Policy">Privacy Policy</a>        </li>
-
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/copyright" title="Copyright Information">Copyright Information</a>        </li>
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/safety" title="Using P2P Safely">Using P2P Safely</a>        </li>
-              </ul>
-
-            </div>-->
 
       </div> <!-- /footer -->
     </div> <!-- /foot_wrapper -->
 
     <%= @tracker -%>
-
+    
     <%= render :partial => 'users/quick_signin', :locals => { }  -%>
-
-    <%#= javascript_include_tag 'bench_end' -%>
 </body>
 </html>

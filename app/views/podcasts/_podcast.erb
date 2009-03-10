@@ -11,6 +11,8 @@
 
     <%= render :partial => "tags/tags", :object => podcast.tags -%>
     <%= render :partial => "podcasts/social", :locals => {:podcast => podcast} -%>
+
     <%= render :partial => "podcasts/favorite", :locals => {:podcast => podcast} if show_favorite -%>
+
   </div>
 </div>

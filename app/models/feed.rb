@@ -1,20 +1,20 @@
 # == Schema Information
-# Schema version: 20090303162109
+# Schema version: 20090306193031
 #
 # Table name: feeds
 #
 #  id          :integer(4)    not null, primary key
-#  url         :string(255)
-#  error       :string(255)
-#  itunes_link :string(255)
-#  podcast_id  :integer(4)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  url         :string(255)   
+#  error       :string(255)   
+#  itunes_link :string(255)   
+#  podcast_id  :integer(4)    
+#  created_at  :datetime      
+#  updated_at  :datetime      
 #  state       :string(255)   default("pending")
-#  bitrate     :integer(4)
-#  finder_id   :integer(4)
-#  format      :string(255)
-#  xml         :text(16777215
+#  bitrate     :integer(4)    
+#  finder_id   :integer(4)    
+#  format      :string(255)   
+#  xml         :text(16777215 
 #  ability     :integer(4)    default(0)
 #
 

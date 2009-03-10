@@ -122,3 +122,74 @@ button {
 	.itunes_feed { background: url('../imgs/subscribe_itunes.png') top left no-repeat; }
 	.miro_feed   { background: url('../imgs/subscribe_miro.png') top left no-repeat; }
 	.rss_feed    { background: url('../imgs/subscribe_rss.png') top left no-repeat; }
+	
+	
+	/* Subscribe dropdown **/
+
+  #subscribe_options_container {
+  	width: 263px;
+  	height: 200px;
+  	position: absolute;
+  	top: 100px;
+  	right: 16px;
+  	z-index: 2;
+    display: none;
+    outline: none;
+  }
+
+  #subscribe_options_container #delivery_options {
+    display: none;
+  }
+
+  .pane p.info {
+    display: none;
+  }
+  .selected.pane p.info {
+    display: block;
+  }
+
+  .delivery_method p {font-size: 1em;color: #a9a9a9;}
+
+
+
+  #tabnav a:link.active, #tabnav a:visited.active
+  	{
+  		border-bottom: 1px solid #fff;
+  		background: #fff;
+  		color: #000;
+  	}
+
+  #tabnav a:hover
+  	{
+  		background: #fff url('../imgs/tab_shadow_over.png') bottom left repeat-x;
+  	}
+  	
+  	
+
+    
+    ul.v_options_list ul  {
+    	clear: left;
+    	margin-top: 10px;
+    }
+
+    ul.v_options_list li  {
+    	display: block;
+    	padding: 3px 0;
+    	border-bottom: 1px dotted #ddd;
+    	overflow: visible;
+    	clear: left;
+    }
+    ul.v_options_list li p {
+    	text-align: left;
+    }
+
+    span.v_options {
+    	text-align: right;
+    	font-size: 1.4em;
+    }
+
+    ul.v_options_list li .selected_vid {
+    	padding-right: 12px;
+    	font-weight: bold;
+    	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
+    }

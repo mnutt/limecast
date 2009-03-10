@@ -1025,7 +1025,7 @@ ul.v_options_list li  {
 	display: block;
 	padding: 3px 0;
 	border-bottom: 1px dotted #ddd;
-	overflow: hidden;
+	overflow: visible;
 }
 
 ul.v_options_list li p {

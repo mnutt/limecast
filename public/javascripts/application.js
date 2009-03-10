@@ -132,9 +132,6 @@ $(document).ready(function(){
     }
   });
 
-  // Superbutton
-  $('form.super_button').superButton();
-
   // Video Preview
   $(".preview .container img").load(function(){
     var preview = $(this);

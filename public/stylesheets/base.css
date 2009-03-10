@@ -68,19 +68,12 @@ body {
 /***************************************/
 #content p,
 #content ul li,
-#content .super_button,
 #content .search,
 #content .urls,
 #content .authors,
 #content h1, #content h2, #content h3, #content h4, #content h5 {
 /*  margin-bottom: 12px; */
 }
-
-/** Cancel any Golden Line Separation Margin Here **/
-#content li .super_button {
-  margin-bottom: 0px;
-}
-
 
 /**
 /** Basic Typography

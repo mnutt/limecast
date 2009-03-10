@@ -184,6 +184,10 @@ text-align: right;
 margin-top: -16px;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
+form#quick_signin .callout {margin-top: 0px;}
+}
+
 form#quick_signin a.forgot {
 	display: inline; 
   margin-left: 100px;

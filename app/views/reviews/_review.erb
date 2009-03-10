@@ -14,7 +14,7 @@
       <span class="info light">
         <%= review_by_line(review) -%>
         <% if current_user && review.writable_by?(current_user) -%>
-          <%= " &mdash; " + link_to("edit", edit_review_url(@podcast, review), :class => 'edit') %>
+          <%= " &mdash; " + link_to("edit", edit_review_url(review.episode.podcast, review), :class => 'edit') %>
           <%= " / " + link_to("delete") %>
         <% end -%>
       </span>

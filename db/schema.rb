@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(:version => 20090306193031) do
     t.integer  "podcast_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                           :default => "pending"
+    t.string   "state",                             :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
-    t.text     "xml",         :limit => 16777215
-    t.integer  "ability",                         :default => 0
+    t.text     "xml",         :limit => 2147483647
+    t.integer  "ability",                           :default => 0
   end
 
   add_index "feeds", ["finder_id"], :name => "index_feeds_on_finder_id"

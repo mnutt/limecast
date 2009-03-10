@@ -1,0 +1,5 @@
+<% if @review.valid? -%>
+{ success: true, html: <%= escape_javascript(render_to_string(:partial => 'reviews/review', :object => @review)) %> }
+<% else -%>
+{ success: false, errors: "There was a problem:<br /> <%= @review.errors.full_messages.join('.<br /> ') %>." }
+<% end -%>

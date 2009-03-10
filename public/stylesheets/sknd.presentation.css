@@ -846,20 +846,28 @@ li.review {
 	margin: 20px 0 20px 0;
 }
 
-.show .reviews.list #review_doit h4 {
+.show .reviews.list .review_form h4 {
 	font-size: 1.6em;
 }
 
-.show .reviews.list #review_doit p {
+.show .reviews.list .review_form .errors {
+  color: red;
+  padding: 0 2px;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.show .reviews.list .review_form p {
 	margin-top: 15px;
 }
 
-.show .reviews.list #review_doit h6 {
+.show .reviews.list .review_form h6 {
 	font-size: 1.4em;
 	margin-top: 1.5em;
 }
 
-.show .reviews.list #review_doit input.text {
+.show .reviews.list .review_form input.text {
 	border: none;
 	background: url('../imgs/input_heading.png') top left no-repeat;
 	width: 343px;
@@ -868,7 +876,7 @@ li.review {
 	padding: 5px 5px 0 5px;
 }
 
-.show .reviews.list #review_doit textarea {
+.show .reviews.list .review_form  textarea {
 	border: none;
 	background: url('../imgs/textarea.png') top left no-repeat;
 	width: 393px;
@@ -878,7 +886,7 @@ li.review {
 	display: block;
 }
 
-.show .reviews.list #review_doit button {
+.show .reviews.list .review_form button {
 	margin: 15px 0 0 0px;
 }
 

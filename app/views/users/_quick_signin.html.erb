@@ -1,13 +1,10 @@
 <% options ||= {} -%>
 <% options[:top_bar] ||= false -%>
-
+<div id="login_pop" style="display: none;">
 <% form_for :user, :url => session_path,
-            :html => {:id => "quick_signin",
-            :style => "display: none;"} do |f| -%>
+            :html => {:id => "quick_signin"} do |f| -%>
             
-<div class="rounded_corners">
-  <% rounded_corners do -%>
-  
+
   <h5 class="signup_heading">Login to LimeCast</h5>
   <div class="message"></div>
   <div class="response_container"><!-- this is used for error messages, etc. //--></div>
@@ -37,29 +34,25 @@
   </button>
   
   <input type="submit" value="Submit" style="display: none;" title="to force WebKit to submit on enter" />
-  
-  <div class="titlebar">
-    <a href="#" class="close">Cancel</a>
-  </div>
+
 
   <div class="controls">
     <%= link_to "I forgot my password", forgot_password_path, :class => "forgot" -%> |
     <div class="callout"><ul><li>
-      <%= link_to "Sign up", signup_url, :id => "signup", :class => "button signup_button" %>
+      <%= link_to "Sign up", signup_url, :class => "signup_button" %>
     </li></ul></div>
-    
   </div>
   
+
   <div class="controls_signup" style="display: none;">
     <span class="forgot">Already a member?</span>
     <div class="callout"><ul><li>
-      <%= link_to "Login", signup_url, :id => "login", :class => "button signin_button gotologin" %>
+      <%= link_to "Login", signup_url,  :class => "signin_button" %>
     </li></ul></div>
   </div>
+
   
   
-  
-  
+
 <% end -%>
 </div>
-<% end -%>

@@ -1,26 +1,34 @@
 # == Schema Information
+<<<<<<< HEAD:app/models/episode.rb
 # Schema version: 20090303162109
+=======
+# Schema version: 20090306193031
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/models/episode.rb
 #
 # Table name: episodes
 #
 #  id                     :integer(4)    not null, primary key
-#  podcast_id             :integer(4)
-#  summary                :text
-#  published_at           :datetime
-#  created_at             :datetime
-#  updated_at             :datetime
-#  thumbnail_file_size    :integer(4)
-#  thumbnail_file_name    :string(255)
-#  thumbnail_content_type :string(255)
-#  duration               :integer(4)
-#  title                  :string(255)
-#  clean_url              :string(255)
+#  podcast_id             :integer(4)    
+#  summary                :text          
+#  published_at           :datetime      
+#  created_at             :datetime      
+#  updated_at             :datetime      
+#  thumbnail_file_size    :integer(4)    
+#  thumbnail_file_name    :string(255)   
+#  thumbnail_content_type :string(255)   
+#  duration               :integer(4)    
+#  title                  :string(255)   
+#  clean_url              :string(255)   
 #
 
 class Episode < ActiveRecord::Base
   belongs_to :podcast
 
+<<<<<<< HEAD:app/models/episode.rb
   has_attached_file :thumbnail,
+=======
+  has_attached_file :thumbnail, 
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/models/episode.rb
     :whiny_thumbnails => true,
     :url    => "/:attachment/:id/:style/:basename.:extension",
     :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension",

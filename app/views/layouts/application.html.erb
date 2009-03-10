@@ -41,6 +41,8 @@
 <%= javascript_include_tag 'jquery.default-text' -%>
 <%= javascript_include_tag 'jquery.hover-and-focus' -%>
 <%= javascript_include_tag 'test_helpers' -%>
+<% javascript_include "jquery.dimensions", "jquery.hoverIntent", "jquery.cluetip" -%>
+
 <script type="text/javascript">
   $.ajaxSetup({
     'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -68,9 +70,14 @@
       <div id="header">
         
         <div id="utility_nav">
+<<<<<<< HEAD:app/views/layouts/application.html.erb
           <%= render :partial => "layouts/sign_in_area" -%>
         </div>
 
+=======
+					<%= render :partial => "layouts/sign_in_area" -%>
+        </div>
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/layouts/application.html.erb
 
         <div id="global_nav">
           <a href="/" id="logo"><span>LimeCast</span></a>
@@ -140,6 +147,7 @@
 
             </div>
 
+<<<<<<< HEAD:app/views/layouts/application.html.erb
             <div class="legal section">
 
 
@@ -159,13 +167,22 @@
 
             </div>-->
 
+=======
+
+
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/layouts/application.html.erb
       </div> <!-- /footer -->
     </div> <!-- /foot_wrapper -->
 
     <%= @tracker -%>
-
+    
     <%= render :partial => 'users/quick_signin', :locals => { }  -%>
 
+<<<<<<< HEAD:app/views/layouts/application.html.erb
     <%#= javascript_include_tag 'bench_end' -%>
+=======
+    
+    
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/layouts/application.html.erb
 </body>
 </html>

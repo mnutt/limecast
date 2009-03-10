@@ -1,16 +1,20 @@
 # == Schema Information
+<<<<<<< HEAD:app/models/review.rb
 # Schema version: 20090303162109
+=======
+# Schema version: 20090306193031
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/models/review.rb
 #
 # Table name: reviews
 #
 #  id             :integer(4)    not null, primary key
-#  user_id        :integer(4)
-#  body           :text
-#  created_at     :datetime
-#  updated_at     :datetime
-#  title          :string(255)
-#  positive       :boolean(1)
-#  episode_id     :integer(4)
+#  user_id        :integer(4)    
+#  body           :text          
+#  created_at     :datetime      
+#  updated_at     :datetime      
+#  title          :string(255)   
+#  positive       :boolean(1)    
+#  episode_id     :integer(4)    
 #  insightful     :integer(4)    default(0)
 #  not_insightful :integer(4)    default(0)
 #

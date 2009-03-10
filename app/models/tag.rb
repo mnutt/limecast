@@ -1,14 +1,26 @@
 # == Schema Information
+<<<<<<< HEAD:app/models/tag.rb
 # Schema version: 20090303162109
+=======
+# Schema version: 20090306193031
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/models/tag.rb
 #
 # Table name: tags
 #
 #  id             :integer(4)    not null, primary key
+<<<<<<< HEAD:app/models/tag.rb
 #  name           :string(255)
 #  badge          :boolean(1)
 #  blacklisted    :boolean(1)
 #  map_to_id      :integer(4)
 #  taggings_count :integer(4)
+=======
+#  name           :string(255)   
+#  badge          :boolean(1)    
+#  blacklisted    :boolean(1)    
+#  map_to_id      :integer(4)    
+#  taggings_count :integer(4)    
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/models/tag.rb
 #
 
 class Tag < ActiveRecord::Base

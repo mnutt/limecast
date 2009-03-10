@@ -1,7 +1,15 @@
+<<<<<<< HEAD:app/views/home/_recent_reviews.html.erb
 <div id="recent_reviews" class="rounded_corners">
   <% rounded_corners do -%>
     <ul class="reviews">
       <%= render :partial => "home/review", :collection => @recent_reviews, :locals => { :with_podcast_reference => true, :with_helpfulness => false, :truncate_length => 110 } -%>
+=======
+
+<div id="recent_reviews" class="rounded_corners">
+  <% rounded_corners do -%>
+    <ul class="reviews">
+      <%= render :partial => "reviews/review", :collection => @recent_reviews, :locals => { :with_podcast_reference => true, :with_helpfulness => false } -%>
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/home/_recent_reviews.html.erb
     </ul>
   <% end -%>
 </div>

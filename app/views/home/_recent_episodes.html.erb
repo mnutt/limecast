@@ -1,13 +1,17 @@
 <div id="recent_episodes" class="rounded_corners">
   <% rounded_corners do -%>
     <%- @recent_episodes.each do |ep| -%>
-      <div class="podcast_block sm_social">
+      <div class="podcast_block">
         <div class="preview">
           <%= display_episode_screenshot(ep) -%>
         </div>
         <div>
           <h3><%= link_to_episode(ep) -%></h3>
+<<<<<<< HEAD:app/views/home/_recent_episodes.html.erb
           <p><%= ep.published_at.to_date -%> - <%= time_to_words(ep.duration) -%></p>
+=======
+          <p class="details"><%= ep.published_at.to_date -%> - <%= time_to_words(ep.duration) -%></p>
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/home/_recent_episodes.html.erb
         </div>
       </div>
     <%- end -%>

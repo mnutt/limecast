@@ -39,8 +39,29 @@ $(document).ready(function() {
            ],
         "bStateSave": true,
         "bProcessing": true
+<<<<<<< HEAD:public/javascripts/application.js
     });
     $('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
+=======
+     	});
+     	$('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
+     	$('a.login').cluetip({
+     	  local: true, 
+     	  hideLocal: true, 
+     	  arrows: true, 
+     	  width: 350,  
+     	  sticky: true,
+     	  showTitle: false, 
+     	  activation: 'click', 
+     	  positionBy: 'bottomTop', 
+     	  topOffset: 25,
+     	  onShow: function(){
+     	    $("#cluetip-close").click($.quickSignIn.reset);
+          $.quickSignIn.setup();
+     	  }
+     	});
+     	
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:public/javascripts/application.js
   }
 
   // Favorite link
@@ -60,8 +81,67 @@ $(document).ready(function() {
     }, 'json');
     return false;
   });
+<<<<<<< HEAD:public/javascripts/application.js
   
   // Makes clicking labels check their associated checkbox/radio button
+=======
+});
+
+
+if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
+
+//*************************************************************
+// Hover/Focus Behaviors
+//**************************************************************/
+$.fn.extend({
+  hoverAndFocusBehavior: function() {
+    $(this).mouseover(function() { $(this).addClass('hover'); })
+           .mousedown(function() { $(this).addClass('active'); })
+           .mouseup(function() { $(this).removeClass('active'); })
+           .mouseout(function() { $(this).removeClass('hover active'); })
+           .focus(function() { $(this).addClass('focus').removeClass('active hover'); })
+           .blur(function() { $(this).removeClass('focus hover active'); });
+  }
+});
+$(document).ready(function() {
+  $('input:not([type=hidden]), textarea, button').hoverAndFocusBehavior();
+});
+
+//*************************************************************
+// Sign In
+//************************************************************/
+$(document).ready(function(){
+  // Attach the global quick signup in the top-bar
+  $('#utility_nav a.login').click(function(){
+    //return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {toggle:false});
+  });
+
+});
+
+
+//*************************************************************
+// Toggle
+//************************************************************/
+$(document).ready(function(){
+  $('li.expandable').map(function(){
+    var expandable_li = $(this);
+
+    expandable_li.find('span.expand').click(function(){
+      if(expandable_li.hasClass('expanded')) {
+        expandable_li.removeClass('expanded');
+        expandable_li.find('span.expand').text('Collapse');
+      } else {
+        expandable_li.addClass('expanded');
+        expandable_li.find('span.expand').text('Expand');
+      }
+    });
+  });
+});
+
+
+// Makes clicking labels check their associated checkbox/radio button
+$(document).ready(function(){
+>>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:public/javascripts/application.js
   $('label').map(function(){
     var field = $('#' + $(this).attr('for'));
     if(field.is('input[type=radio]') || field.is('input[type=checkbox]')) {

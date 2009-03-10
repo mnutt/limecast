@@ -1,35 +1,93 @@
-
-.social {
-  float:left;
-  width:100%;
+/**** =Main podcast block ***************/
+.podcast_block {
+	overflow: visible;
 	position: relative;
-	bottom: -5px;
-	margin-bottom: 60px;
-  }
-
-	.new #featured .social {
-		font-size: .7em;
-		position: absolute;
-		bottom: -54px;
-	}
-	
-	.sm_social .social {
-
-		margin-top: -7px;
-	}
-	
-	.podcast.index .social {
-
-		margin-top: 2px;
-	}
-
-
-	#mission {
-		margin: 0px -3px 0 -3px;
+	float: left;
+	display: block;
+	margin-bottom: 40px;
 }
 
-.podcast.show .summary .preview,
-.podcast.show .summary .preview img { width: 160px !important; }
+.podcast_block .preview , .podcast_block .preview img {
+	width: 110px;
+	float: left;
+
+}
+
+
+.podcast_block .description {
+	position: relative;
+  overflow: auto;
+	padding: 0;
+
+}
+
+.podcast_block  p.details {
+  color: #a9a9a9;
+	font-size: 1em;
+	font-style: italic;
+	display: block;
+	line-height: 1.4em;
+}
+
+ul.tabs {
+  padding-bottom: 28px;
+}
+
+
+
+
+.popular .podcast_block {width: 640px;}
+
+
+
+
+
+
+#featured_cont {
+	margin: 30px 0px 20px 0px;
+}
+
+
+#featured {
+	margin: 15px 0px 20px 20px;
+}
+
+#featured h2 {
+	margin: 0px;
+}
+
+.home #featured .podcast_block {
+	width: 420px;
+	float: left;
+	margin-right: 20px;
+}
+
+.home #featured .preview {
+  margin-right: 20px;
+  float: left;
+  width: 160px;
+}
+
+
+
+#download_button a.download {
+	padding: 8px 40px 0 8px;
+}
+
+
+#download_button a.opener {
+  margin-top: 4px;
+}
+
+.review .helpfulness {
+	right: 140px;
+	bottom: 13px;
+}
+
+button {
+	padding: 8px 4px 0 0;
+}
+
 
 
 #pop_recent_cont .preview, #pop_recent_cont .preview img, #tags_review_cont .preview, #tags_review_cont .preview img {
@@ -47,13 +105,6 @@
 		right: -1px;
 	}
 
-
-	.podcast.show .podcast_block {
-		background: url('../imgs/b_border.png') bottom left repeat-x;
-	  width: 760px;display: block; height: 1%;
-	}
-	
-	
 
 
 	.show #subscribe h2 {

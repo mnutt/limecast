@@ -21,10 +21,6 @@
     <ul class="reviews">
       <%= render :partial => 'reviews/review', :collection => reviews.reverse -%>
     </ul>
-    <div id="review_login" style="display: none;">
-      <h4>Login or register to add a comment</h4>
-      <p><a href="#"><strong>Join now by creating an account</strong></a> or <a href="#"><strong>sign in</strong></a> to review this series.</p>
-    </div>
     <div class="quick_signin_container after_adding_review"></div>
     <div id="review_doit">
       <% if can_add_reviews?(episode) %>

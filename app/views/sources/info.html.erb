@@ -324,6 +324,10 @@
   </tr>
 </table>
 
+
+<h2>Media:</h2>
+<%= render :partial => "sources/info_media", :locals => {:source => @source} %>
+
 <h2>Badges:</h2>
 <ul>
 <%- @source.feed.podcast.tags.badges.each do |t| -%>

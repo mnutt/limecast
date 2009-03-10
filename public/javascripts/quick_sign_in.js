@@ -3,7 +3,7 @@ $.quickSignIn = {
   isVisible: function() { return ($("#quick_signin").css('display') != 'none'); },
 
   setup: function() {
-    var me = $("#quick_signin");
+    var me = $("#cluetip #quick_signin");
 
     // Makes the form use AJAX
     me.submit(function(event){
@@ -47,7 +47,7 @@ $.quickSignIn = {
   },
   
   signinSubmitCallback: function(resp){
-    me = $("#quick_signin");
+    me = $("#cluetip #quick_signin");
 
     if(resp.success && me.attr('reloadPage') == 'false') { // success, no reload
       for(var a in resp) {
@@ -74,7 +74,7 @@ $.quickSignIn = {
   },
 
   signupSubmitCallback: function(resp){
-    me = $("#quick_signin");
+    me = $("#cluetip #quick_signin");
 
     if(resp.success && me.attr('reloadPage') == 'false') { // success, no reload
       if(resp.profileLink) { $('.signup').removeClass('signup').addClass('user').html(resp.profileLink); }
@@ -94,8 +94,8 @@ $.quickSignIn = {
   },
 
   reset: function() {
-    me = $("#quick_signin");
-    me.hide();
+    me = $("#cluetip #quick_signin");
+    me.css('border', 'solid 10px red');
     me.find('.message').html('');
     me.find('.sign_up').hide();
 		me.find('.controls').show();
@@ -115,28 +115,28 @@ $.quickSignIn = {
   //   * toggle: boolean; if true, the signin will toggle (hide/show) when it's already attached
   //
   attach: function(container, options) {
-    var me = $("#quick_signin");
+    var me = $("#cluetip #quick_signin");
     var container = $(container);
     me.attr('reloadPage', options.reloadPage);
 
-    if(me.parent()[0] == container[0]) { // if it's already attached
-      if(options.toggle) me.toggle();
-      else me.show();
-      
-      if(me.css('display')=='none') $.quickSignIn.reset();
-      else me.find('input.login')[0].focus();
-    } else {
+    // if(me.parent()[0] == container[0]) { // if it's already attached
+    //   if(options.toggle) me.toggle();
+    //   else me.show();
+    //   
+    //   if(me.css('display')=='none') $.quickSignIn.reset();
+    //   else me.find('input.login')[0].focus();
+    // } else {
       $.quickSignIn.reset();
       container.append(me);
       me.show().find(".message").html(options.message);
       me.find('input.login')[0].focus();
-    }
+    // }
     
     return false;
   },
   
   showSignUp: function(event) {
-    me = $("#quick_signin");
+    me = $("#cluetip #quick_signin");
 
     // Show default message if they click the inline signup link
     if(event && event.target.className=='inline_signup_button') me.find('div.response_container').html("<p>Choose your new user name.</p>");
@@ -161,7 +161,7 @@ $.quickSignIn = {
   },
 
   showSignIn: function(event) {
-    me = $("#quick_signin");
+    me = $("#cluetip #quick_signin");
 
     // Show default message if they click the inline signup link
     if(event && event.target.className=='inline_signup_button') me.find('div.response_container').html("<p>Choose your new user name.</p>");
@@ -190,6 +190,6 @@ $.quickSignIn = {
 }
 
 // Initialize the quick sign in
-$(document).ready(function(){
-  $.quickSignIn.setup();
-});
+// $(document).ready(function(){
+//   $.quickSignIn.setup();
+// });

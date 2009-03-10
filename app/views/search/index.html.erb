@@ -1,5 +1,7 @@
 <% @title = "Search" -%>
 <% @classes = %{podcast show index} -%>
+<% javascript_include "search" -%>
+
 <div class="summary">
 <h1>Search results for '<em><%= h @parsed_q -%></em>'<%= " in podcast '#{link_to_searched_podcast @podcast}'" if @podcast %></h1>
 <!--

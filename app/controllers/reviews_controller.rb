@@ -26,23 +26,35 @@ class ReviewsController < ApplicationController
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @review = Review.new(review_params)
 
-    if current_user
-      @review.reviewer = current_user
-      @review.save!
-    else
-      session[:review] = review_params
+    respond_to do |format|
+      if @review.reviewer = current_user
+        if @review.save
+          format.js { render :json => {:success => true, :html => render_to_string(:partial => 'reviews/review', :object => @review)} }
+        else
+          format.js { render :json => {:success => false, :errors => "There was a problem:<br /> #{@review.errors.full_messages.join('.<br /> ')}."} }
+        end
+      else
+        session[:review] = review_params
+        format.js { render :json => {:success => true, :login_required => true}}
+      end
     end
-
-    render :layout => false
   end
 
   def update
     @review = Review.find(params[:id])
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
-    @review.update_attributes(params[:review])
-
-    redirect_to :back
+    if @review.update_attributes(params[:review])
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js { render :json => {:success => true, :html => render_to_string(:partial => 'reviews/review', :object => @review)} }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js { render :json => {:success => false, :errors => "There was a problem:<br /> #{@review.errors.full_messages.join('.<br /> ')}."} }
+      end
+    end
   end
 
   def rate

@@ -167,7 +167,7 @@ $(document).ready(function() {
   });
 
   // Tabs
-  $tabs = $('#subscribe_options ul').tabs({
+  $tabs = $('.tabify').tabs({
     navClass: 'tabs',
     containerClass: 'tabs-cont'
   });

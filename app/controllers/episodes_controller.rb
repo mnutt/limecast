@@ -30,13 +30,8 @@ class EpisodesController < ApplicationController
   end
 
   def info
-<<<<<<< HEAD:app/controllers/episodes_controller.rb
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @episode = @podcast.episodes.find_by_slug(params[:episode])
-=======
-    @podcast = Podcast.find_by_clean_url(params[:podcast_slug])
-    @episode = @podcast.episodes.find_by_clean_url(params[:episode])
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/controllers/episodes_controller.rb
     @newer   = @podcast.episodes.oldest.after(@episode).first
     @older   = @podcast.episodes.newest.before(@episode).first
 

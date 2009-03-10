@@ -1,6 +1,5 @@
 <%- with_podcast_reference = false if with_podcast_reference.nil? -%>
 <%- with_helpfulness       = true if with_helpfulness.nil? -%>
-<<<<<<< HEAD:app/views/reviews/_review.erb
 <%- truncate_length        ||= -1 -%>
 
 <li id="<%= dom_id review %>" class="<%= cycle "odd", "even" -%> review <%= review.positive? ? "positive" : "negative" %> clearfix">
@@ -31,20 +30,4 @@
                                                        :podcast => review.episode.podcast, :review => review} %>
   </div>
   <% end -%>
-=======
-
-<li class="<%= cycle "odd", "even" -%> review <%= review.positive? ? "positive" : "negative" %> clearfix">
-  <%- if with_podcast_reference -%>
-    <h3>Left for <%= link_to_podcast(review.episode.podcast) -%></h3>
-  <%- end -%>
-
-
-  <div class="summary">
-    <span class="title"><%= review.title -%></span>
-    <span class="info light"><%= review_by_line(review) -%></span>
-    <span class="body"><p><%= unescape_entities(review.body) -%></p></span>
-    <%= render :partial => "reviews/helpfulness", :object => review if with_helpfulness -%>
-  </div>
-
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/reviews/_review.erb
 </li>

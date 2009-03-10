@@ -344,8 +344,6 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
   margin-left: -5000px;
 }
 
-<<<<<<< HEAD:public/stylesheets/sknd.presentation.css
-=======
 #mission a i {
   visibility: hidden;
 }
@@ -355,7 +353,6 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 }
 
 
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:public/stylesheets/sknd.presentation.css
 #mission ul {
   margin-top: 15px;
   margin-left: 97px;
@@ -665,7 +662,6 @@ h6#page_type {
 }
 
 
-<<<<<<< HEAD:public/stylesheets/sknd.presentation.css
 .review .helpfulness {
 	color: #a9a9a9;
 	font-size: 1.2em;
@@ -817,8 +813,6 @@ h6#page_type {
 .show .reviews.list .review_form button {
 	margin: 15px 0 0 0px;
 }
-=======
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:public/stylesheets/sknd.presentation.css
 
 
 #zone-bar {

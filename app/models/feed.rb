@@ -1,9 +1,5 @@
 # == Schema Information
-<<<<<<< HEAD:app/models/feed.rb
-# Schema version: 20090303162109
-=======
 # Schema version: 20090306193031
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/models/feed.rb
 #
 # Table name: feeds
 #
@@ -15,17 +11,10 @@
 #  created_at  :datetime      
 #  updated_at  :datetime      
 #  state       :string(255)   default("pending")
-<<<<<<< HEAD:app/models/feed.rb
-#  bitrate     :integer(4)
-#  finder_id   :integer(4)
-#  format      :string(255)
-#  xml         :text(16777215
-=======
 #  bitrate     :integer(4)    
 #  finder_id   :integer(4)    
 #  format      :string(255)   
 #  xml         :text(16777215 
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/models/feed.rb
 #  ability     :integer(4)    default(0)
 #
 

@@ -11,11 +11,7 @@
   <div class="preview">
     <%= render :partial => 'video_player', :object => @episode -%>
     <%= link_to_episode(@episode.previous_episode, :text => "Older episode", :class => "previous") if @episode.previous_episode -%>
-<<<<<<< HEAD:app/views/episodes/_summary.html.erb
     <%= link_to_episode(@episode.next_episode,     :text => "Newer episode", :class => "next")     if @episode.next_episode -%>
-=======
-    <%= link_to_episode(@episode.next_episode,     :text => "Newer episode", :class => "next")     if @episode.newer_episode -%>
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/episodes/_summary.html.erb
   </div>
 
   <div class="podcast_block">

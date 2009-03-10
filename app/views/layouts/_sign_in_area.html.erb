@@ -6,7 +6,6 @@
 <% else %>
   <div class="signin">
     <%= link_to "Join now!", :signup %> |
-    <%= link_to_with_icon "Sign in", :user, new_session_url -%>
+    <%= link_to "Sign in", new_session_url, :class => 'login', :rel => "#login_pop" -%>
   </div>
-  <div class="quick_signin_container from_top_bar"></div>
 <% end -%>

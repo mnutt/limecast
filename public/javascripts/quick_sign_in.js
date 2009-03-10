@@ -103,7 +103,8 @@ $.quickSignIn = {
 		me.find('.signup_heading').text('Login to LimeCast');
 		me.find('.signin_signup_button span').text('Login');
     me.attr('action', '/session');
-    me[0].reset(); // the actual DOM function for resetting a form
+    me.css('border', 'solid 1px red');
+//    me.find('form')[0].reset(); // the actual DOM function for resetting a form
     me.find('div.response_container').html('');
   },
 
@@ -129,7 +130,7 @@ $.quickSignIn = {
       $.quickSignIn.reset();
       container.append(me);
       me.show().find(".message").html(options.message);
-      me.find('input.login')[0].focus();
+      me.find('input#user_login').focus();
     // }
     
     return false;
@@ -155,7 +156,7 @@ $.quickSignIn = {
         me.find('input.login').val("");
       }
     }
-    me.find('input.login').focus();    
+    me.find('input#user_login').focus();    
 
     return false;
   },

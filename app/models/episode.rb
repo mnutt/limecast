@@ -1,9 +1,5 @@
 # == Schema Information
-<<<<<<< HEAD:app/models/episode.rb
-# Schema version: 20090303162109
-=======
 # Schema version: 20090306193031
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/models/episode.rb
 #
 # Table name: episodes
 #
@@ -24,11 +20,7 @@
 class Episode < ActiveRecord::Base
   belongs_to :podcast
 
-<<<<<<< HEAD:app/models/episode.rb
-  has_attached_file :thumbnail,
-=======
   has_attached_file :thumbnail, 
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/models/episode.rb
     :whiny_thumbnails => true,
     :url    => "/:attachment/:id/:style/:basename.:extension",
     :path   => ":rails_root/public/:attachment/:id/:style/:basename.:extension",

@@ -29,15 +29,12 @@
 
 
 <%= javascript_include_tag 'jquery' -%>
-<%#= javascript_include_tag 'bench_begin' -%>
 <%#= javascript_include_tag 'jquery-ui' -%>
 <%= javascript_include_tag 'jquery-periodic' -%>
 <%= javascript_include_tag 'jquery.tabs' -%>
 <%= javascript_include_tag 'jquery.cookie' -%>
 <%= javascript_include_tag 'jquery.flash' -%>
 <%= javascript_include_tag 'jquery.dropdown' -%>
-<%= javascript_include_tag 'jquery.dataTables.min' -%>
-<%= javascript_include_tag 'jquery.cluetip' -%>
 <%= javascript_include_tag 'jquery.default-text' -%>
 <%= javascript_include_tag 'jquery.hover-and-focus' -%>
 <%= javascript_include_tag 'test_helpers' -%>
@@ -70,14 +67,8 @@
       <div id="header">
         
         <div id="utility_nav">
-<<<<<<< HEAD:app/views/layouts/application.html.erb
           <%= render :partial => "layouts/sign_in_area" -%>
         </div>
-
-=======
-					<%= render :partial => "layouts/sign_in_area" -%>
-        </div>
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/layouts/application.html.erb
 
         <div id="global_nav">
           <a href="/" id="logo"><span>LimeCast</span></a>
@@ -147,42 +138,13 @@
 
             </div>
 
-<<<<<<< HEAD:app/views/layouts/application.html.erb
-            <div class="legal section">
 
 
-              <!--<h4>Legal</h4>
-
-              <ul>
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/refund" title="Refund Policy">Refund Policy</a>        </li>
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/privacy" title="Privacy Policy">Privacy Policy</a>        </li>
-
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/copyright" title="Copyright Information">Copyright Information</a>        </li>
-                <li class="refund">
-                  <a href="http://deuce.limewire.com/beta.limewire.com/legal/safety" title="Using P2P Safely">Using P2P Safely</a>        </li>
-              </ul>
-
-            </div>-->
-
-=======
-
-
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/layouts/application.html.erb
       </div> <!-- /footer -->
     </div> <!-- /foot_wrapper -->
 
     <%= @tracker -%>
     
     <%= render :partial => 'users/quick_signin', :locals => { }  -%>
-
-<<<<<<< HEAD:app/views/layouts/application.html.erb
-    <%#= javascript_include_tag 'bench_end' -%>
-=======
-    
-    
->>>>>>> 1d54dce415fcb9ece7febfca4ef0e36fb671404b:app/views/layouts/application.html.erb
 </body>
 </html>

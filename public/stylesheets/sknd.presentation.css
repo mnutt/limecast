@@ -725,15 +725,13 @@ h6#page_type {
   background: #ebebeb;
 }
 
-.new li.even {
+.home li.even {
   background: none;
-}
-
-.new li:last-child {
   border: none;
 }
 
-.new a.truncated {
+
+.home a.truncated {
   display: none;
 }
 
@@ -1221,6 +1219,8 @@ display: inline;
 #recent_reviews .review {
   min-height: 120px;
 }
+
+
 
 
 

@@ -1,36 +1,12 @@
 <% @classes = %{podcast new show} -%>
 <% @full_width = true -%>
 
-
-<script type="text/javascript">
-    $(function() {
-      var open = true;
-      $('a.homeclose').click(function() {
-        if(open){
-         $(this).removeClass('homeclose');
-         $(this).addClass('openarrow');
-         $(this).text('Show intro');
-          open = false;
-        } else {
-          $(this).removeClass('openarrow');
-          $(this).addClass('homeclose');
-          $(this).html('Hide intro');
-          open = true;
-        }
-        $("#mission").toggle("blind", { direction: "vertical" }, 0300);
-        return false;
-      });
-    });
-</script>
-
-
-
 <div class="summary">
   <div id="mission">
-    <h1><span>WELCOME TO LIMECAST</span></h1>
+    <h1><span>WELCOME TO LIMECAST, THE WEB’S OPEN PODCAST DIRECTORY AND ARCHIVE</span></h1>
     <ul>
       <li>Join others in discovering new podcasts every day!</li>
-      <li>We're open source, and building tools to let everyone <a href="http://wiki.limewire.org/index.php?title=LimeCast">get involved</a>.</li>
+      <li>We're open source, and building tools to let everyone <a href="http://wiki.limewire.org/index.php?title=LimeCast">get involved</a></li>
     </ul>
   </div>
 
@@ -64,12 +40,12 @@
   </div> <!-- /pop_recent_cont -->
 
   <div id="hp_tower">
-    <h3><a href="#">Want to broadcast your own show?</a></h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+    <h3><a href="/tracker">Want to broadcast your own show?</a></h3>
+
   </div>
 
   <div id="hp_open">
-    <h3><a href="#">LimeCast is open source!</a></h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+    <h3><a href="http://wiki.limewire.org/index.php?title=LimeCast">LimeCast is open source!</a></h3>
+
   </div>
 </div>

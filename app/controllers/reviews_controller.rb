@@ -12,49 +12,23 @@ class ReviewsController < ApplicationController
     render :layout => 'info'
   end
 
-  def search
-    @q = params[:q]
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @feeds   = @podcast.feeds
-
-    @reviews = Review.search(@q, :with => {:podcast_id => @podcast.id}).compact.uniq
-    render :action => 'index'
-  end
-
   def create
     review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @review = Review.new(review_params)
+    @review  = @podcast.reviews.new(review_params)
 
-    respond_to do |format|
-      if @review.reviewer = current_user
-        if @review.save
-          format.js { render :json => {:success => true, :html => render_to_string(:partial => 'reviews/review', :object => @review)} }
-        else
-          format.js { render :json => {:success => false, :errors => "There was a problem:<br /> #{@review.errors.full_messages.join('.<br /> ')}."} }
-        end
-      else
-        session[:review] = review_params
-        format.js { render :json => {:success => true, :login_required => true}}
-      end
+    if @review.reviewer = current_user
+      save_response(@review, @review.save)
+    else
+      session[:review] = review_params
+      render :json => {:success => true, :login_required => true}
     end
   end
 
   def update
     @review = Review.find(params[:id])
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
-    if @review.update_attributes(params[:review])
-      respond_to do |format|
-        format.html { redirect_to :back }
-        format.js { render :json => {:success => true, :html => render_to_string(:partial => 'reviews/review', :object => @review)} }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to :back }
-        format.js { render :json => {:success => false, :errors => "There was a problem:<br /> #{@review.errors.full_messages.join('.<br /> ')}."} }
-      end
-    end
+    save_response(@review, @review.update_attributes(params[:review]))
   end
 
   def rate
@@ -63,23 +37,27 @@ class ReviewsController < ApplicationController
     insightful = !(params[:rating] =~ /not/)
     if current_user
       ReviewRating.create(:review => @review, :user => current_user, :insightful => insightful)
-      respond_to {|format| format.js { render :json => {:logged_in => true } } }
+      render :json => {:logged_in => true }
     else
       session[:rating] = {:review_id => @review.id, :insightful => insightful}
-      respond_to {|format| format.js { render :json => {:logged_in => false, :message => "Sign up or sign in to rate this review."} } }
+      render :json => {:logged_in => false, :message => "Sign up or sign in to rate this review."}
     end
   end
 
   def destroy
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @review = @podcast.reviews.find(params[:id])
-    @review.destroy
-
+    Review.destroy(params[:id])
     session.data[:reviews].delete(params[:id]) if session.data[:reviews]
 
-    respond_to do |format|
-      format.js   { render :nothing => true }
-      format.html { redirect_to episode_url(@review.episode.podcast, @review.episode) }
+    render :nothing => true
+  end
+
+	protected
+
+  def save_response(review, success)
+    if success
+      render :json => {:success => true, :html => render_to_string(:partial => 'reviews/review', :object => review)}
+    else
+      render :json => {:success => false, :errors => "There was a problem:<br /> #{review.errors.full_messages.join('.<br /> ')}."}
     end
   end
 end

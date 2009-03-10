@@ -18,7 +18,6 @@ class FeedsController < ApplicationController
       @feed.send_later(:refresh)
     else
       @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
-      @feed.finder = current_user
     end
 
     if current_user.nil?

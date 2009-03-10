@@ -28,8 +28,5 @@
     <span>Submit review</span>
   </button>
 
-<% if options[:cancel] -%>
-  <%= link_to "cancel", "#", :class => 'cancel' -%>
-<% end -%>
-
+  <%= link_to "cancel", "#", :class => 'cancel' if options[:cancel] -%>
 <% end -%>

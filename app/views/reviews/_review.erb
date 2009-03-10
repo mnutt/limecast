@@ -13,7 +13,7 @@
       <span class="title"><%= review.title -%></span>
       <span class="info light">
         <%= review_by_line(review) -%>
-        <% if current_user && review.writable_by?(current_user) -%>
+        <% if current_user && review.writable_by?(current_user) && controller.controller_name == 'podcasts' -%>
           <%= " &mdash; " + link_to("edit", edit_review_url(review.episode.podcast, review), :class => 'edit') %>
           <%= " / " + link_to("delete") %>
         <% end -%>
@@ -24,7 +24,7 @@
     </div>
   </div>
   
-  <% if current_user && review.writable_by?(current_user) -%>
+  <% if current_user && review.writable_by?(current_user) && controller.controller_name == 'podcasts' -%>
   <div class="edit_review" style="display: none;">
     <%= render :partial => 'reviews/form', :locals => {:options => {:cancel => true}, 
                                                        :podcast => review.episode.podcast, :review => review} %>

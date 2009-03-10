@@ -175,16 +175,14 @@ $(document).ready(function() {
   // Hover/Focus Behaviors
   $('input:not([type=hidden]), textarea, button').hoverAndFocusBehavior();
 
+  // Sign In - Attach the global quick signup in the top-bar
+  $('#utility_nav .signin a').click(function(){
+    return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {toggle:false});
+  });
+
 });
 
 
-//*************************************************************
-// Sign In
-//************************************************************/
-// Attach the global quick signup in the top-bar
-$('#utility_nav .signin a').click(function(){
-  return $.quickSignIn.attach($('.quick_signin_container.from_top_bar'), {toggle:false});
-});
 
 
 

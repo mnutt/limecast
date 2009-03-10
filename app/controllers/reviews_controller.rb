@@ -12,15 +12,6 @@ class ReviewsController < ApplicationController
     render :layout => 'info'
   end
 
-  def search
-    @q = params[:q]
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @feeds   = @podcast.feeds
-
-    @reviews = Review.search(@q, :with => {:podcast_id => @podcast.id}).compact.uniq
-    render :action => 'index'
-  end
-
   def create
     review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
@@ -51,23 +42,17 @@ class ReviewsController < ApplicationController
     insightful = !(params[:rating] =~ /not/)
     if current_user
       ReviewRating.create(:review => @review, :user => current_user, :insightful => insightful)
-      respond_to {|format| format.js { render :json => {:logged_in => true } } }
+      render :json => {:logged_in => true }
     else
       session[:rating] = {:review_id => @review.id, :insightful => insightful}
-      respond_to {|format| format.js { render :json => {:logged_in => false, :message => "Sign up or sign in to rate this review."} } }
+      render :json => {:logged_in => false, :message => "Sign up or sign in to rate this review."}
     end
   end
 
   def destroy
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @review = @podcast.reviews.find(params[:id])
-    @review.destroy
-
+    Review.destroy(params[:id])
     session.data[:reviews].delete(params[:id]) if session.data[:reviews]
 
-    respond_to do |format|
-      format.js   { render :nothing => true }
-      format.html { redirect_to episode_url(@review.episode.podcast, @review.episode) }
-    end
+    render :nothing => true
   end
 end

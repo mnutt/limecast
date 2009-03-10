@@ -26,14 +26,30 @@ $(document).ready(function(){
   });
 
 
-  var enableReviewLinks = function(elements) {
+  var enableReviewLinks = function() {
     // review form toggle
-    $(elements).map(function(){
-      var show  = $(this).find('.show_review');
-      var edit = $(this).find('.edit_review');
+    $('li.review, div.review').map(function(){
+      var review_form = $(this);
+      var show        = $(this).find('.show_review');
+      var edit        = $(this).find('.edit_review');
 
       show.find('a.edit').click(function(){
         show.hide(); edit.show(); return false;
+      });
+
+      show.find('a.delete').click(function(){
+        $.ajax({
+          type:     'post',
+          url:      $(this).attr('href'),
+          data:     '_method=delete&authenticity_token=' + AUTH_TOKEN,
+          dataType: 'json',
+          success: function(resp){ 
+            $('.reviews.list').replaceWith(resp.html);
+            enableReviewLinks('li.review, div.review');
+            enableReviewForm('.review_form');
+          }
+        });
+        return false;
       });
 
       edit.find('a.cancel').click(function(){
@@ -42,9 +58,9 @@ $(document).ready(function(){
     });  
   };
 
-  var enableReviewForm = function(elements) {
+  var enableReviewForm = function() {
     // review form ajax
-    $(elements).submit(function(){
+    $('.review_form').submit(function(){
       var review_form = $(this);
       $.ajax({
         type:    'post',
@@ -54,30 +70,28 @@ $(document).ready(function(){
         success: function(resp){
           if(resp.success) {
             if(resp.login_required) {
-              alert('login required');
               // // if not logged in, show quick signin
               // $.quickSignIn.attach($('.quick_signin_container.after_adding_review'), 
               //   {message:'Sign up or sign in to save your review:'});
             } else { 
-              var review_id = review_form.parents('.review').replaceWith(resp.html).attr('id');
-              enableReviewLinks("#"+review_id);
-              enableReviewForm("#"+review_id+" .review_form");
+              $('.reviews.list').replaceWith(resp.html);
+              enableReviewLinks('li.review, div.review');
+              enableReviewForm('.review_form');
             };
           } else {
             review_form.find('.errors').html(resp.errors).show();
           }
         }
       });
-
       return false;
     });
   ;}
   
   // enable 'new review'/'edit review' links
-  enableReviewLinks('li.review, div.review');
+  enableReviewLinks();
 
   // enable 'new review'/'edit review' form
-  enableReviewForm('.review_form');
+  enableReviewForm();
 
 
   // REFACTOR with Events/live when we switch to JQuery 1.3

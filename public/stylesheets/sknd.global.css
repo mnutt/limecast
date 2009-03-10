@@ -826,7 +826,7 @@ li.review p {
 
 .reviews.list #review_doit .textarea {
 	border: none;
-	background: transparent url('../imgs/textarea.png') top left no-repeat;
+	background: transparent url('/imgs/textarea.png') top left no-repeat;
 	width: 393px;
 	height: 118px;
 	font-size: 1.8em;
@@ -839,7 +839,7 @@ li.review p {
   border: none;
   width: 393px;
 	height: 118px;
-	background: none;
+	/*background: none;*/
 }
 
 .reviews.list #review_doit button {

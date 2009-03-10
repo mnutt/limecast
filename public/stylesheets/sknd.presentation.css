@@ -769,11 +769,11 @@ h6#page_type {
 	margin: 20px 0 20px 0;
 }
 
-.show .reviews.list .review_form h4 {
+.show .review_form h4 {
 	font-size: 1.6em;
 }
 
-.show .reviews.list .review_form .errors {
+.show .review_form .errors {
   color: red;
   padding: 0 2px;
   font-style: italic;
@@ -781,27 +781,27 @@ h6#page_type {
   font-size: 1.1em;
 }
 
-.show .reviews.list .review_form p {
+.show .review_form p {
 	margin-top: 15px;
 }
 
-.show .reviews.list .review_form h6 {
+.show .review_form h6 {
 	font-size: 1.4em;
 	margin-top: 1.5em;
 }
 
-.show .reviews.list .review_form input.text {
+.show .review_form input.text {
 	border: none;
-	background: url('../imgs/input_heading.png') top left no-repeat;
+	background: url('/imgs/input_heading.png') top left no-repeat;
 	width: 343px;
 	height: 28px;
 	font-size: 1.4em;
 	padding: 5px 5px 0 5px;
 }
 
-.show .reviews.list .review_form  textarea {
+.show form.review_form textarea {
 	border: none;
-	background: url('../imgs/textarea.png') top left no-repeat;
+	background: url('/imgs/textarea.png') no-repeat;
 	width: 393px;
 	height: 118px;
 	font-size: 1.8em;

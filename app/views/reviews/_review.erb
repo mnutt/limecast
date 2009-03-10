@@ -15,7 +15,7 @@
       <span class="info light">
         <%= review_by_line(review) -%>
         <%= " &mdash; #{link_to("edit", edit_review_url(review.episode.podcast, review), :class => 'edit')}" if editable %>
-        <%= " / #{link_to("delete")}" if editable %>
+        <%= " / #{link_to("delete", review_url(review.episode.podcast, review), :class => 'delete')}" if editable %>
       </span>
       <span class="body"><p><%= truncated_text unescape_entities(review.body), truncate_length -%></p></span>
 

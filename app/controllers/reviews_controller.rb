@@ -15,11 +15,9 @@ class ReviewsController < ApplicationController
   def create
     review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @review = Review.new(review_params)
 
     if current_user
-      @review.reviewer = current_user
-      @review.save!
+      Review.create(review_params.merge(:reviewer => current_user))
     else
       session[:review] = review_params
     end

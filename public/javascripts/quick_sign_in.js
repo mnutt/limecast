@@ -95,7 +95,6 @@ $.quickSignIn = {
 
   reset: function() {
     me = $("#cluetip #quick_signin");
-    me.css('border', 'solid 10px red');
     me.find('.message').html('');
     me.find('.sign_up').hide();
 		me.find('.controls').show();
@@ -103,7 +102,6 @@ $.quickSignIn = {
 		me.find('.signup_heading').text('Login to LimeCast');
 		me.find('.signin_signup_button span').text('Login');
     me.attr('action', '/session');
-    me.css('border', 'solid 1px red');
 //    me.find('form')[0].reset(); // the actual DOM function for resetting a form
     me.find('div.response_container').html('');
   },

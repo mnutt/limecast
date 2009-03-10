@@ -476,6 +476,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 #all_podcasts li.podcast a {
   display: block;
   margin-left: 35px;
+  outline: none;
 }
 
 /**** Summary **************/

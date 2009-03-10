@@ -1,6 +1,6 @@
 <% options ||= {} -%>
 <% options[:top_bar] ||= false -%>
-<div id="login_pop">
+<div id="login_pop" style="display: none;">
 <% form_for :user, :url => session_path,
             :html => {:id => "quick_signin"} do |f| -%>
             

@@ -15,8 +15,8 @@
 
 <div id="search_results" class="tabify main">
 
-  <ul>
-    <% unless @podcasts.blank? -%><li><a href="#podcast_results"><h4>Podcasts <span>(<%= @podcasts.size %>)</span></h4></a></li><% end -%>
+  <ul class="tabs">
+    <% unless @podcasts.blank? -%><li class="tabs-selected"><a href="#podcast_results"><h4>Podcasts <span>(<%= @podcasts.size %>)</span></h4></a></li><% end -%>
     <% unless @episodes.blank? -%><li><a href="#episodes_results"><h4>Episodes <span>(<%= @episodes.size %>)</span></h4></a></li><% end -%>
     <% unless @reviews.blank? -%><li><a href="#reviews_results"><h4>Reviews <span>(<%= @reviews.size %>)</span></h4></a></li><% end -%>
   </ul>

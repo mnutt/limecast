@@ -53,7 +53,7 @@ class ReviewsController < ApplicationController
     save_response(nil, @review.destroy)
   end
 
-	protected
+  protected
 
   def save_response(review, success)
     if success

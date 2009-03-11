@@ -25,7 +25,7 @@
 	position: relative;
 	width: 670px;
 	float: left;
-	margin-bottom: 20px;
+	margin: 20px 0 !important;
 	min-height: 350px;
 	overflow: hidden;
 }
@@ -37,6 +37,7 @@
 	float: left;
 	display: block;
 	margin-bottom: 40px;
+	width: 100%;
 }
 
 .podcast_block .preview img {
@@ -534,6 +535,7 @@ a.calloutlight:hover {
 
 #download_container {
   position: relative;
+  margin-top: 20px;
 }
 
 #download_dropdown {
@@ -853,7 +855,7 @@ li.review p {
 	overflow: hidden;
 	width: 250px;
 	float: right;
-	margin-bottom: 20px;
+	margin: 20px 0;
 }
 
 .googleads iframe {
@@ -861,7 +863,7 @@ li.review p {
 }
 
 #series_page_goog  {
-	margin-top: 75px;
+	margin-top: 65px;
 }
 
 #profile_goog  {

@@ -3,6 +3,7 @@
 .podcast.show .podcast_block {
 	background: url('../imgs/bg_podcast.png') top left no-repeat;
   width: 660px;
+  margin-top: 20px;
 }
 
 .podcast_block .description {

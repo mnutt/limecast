@@ -517,10 +517,12 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 }
 
 
+
+
 .episode.summary h2 {
 	margin-bottom: 15px;
 }
-.summary h1 {
+.episode h1 {
 	margin-bottom: 20px;
 }
 
@@ -545,7 +547,7 @@ h6#page_type {
 .episode .summary .media {
 	font-size: 1.2em;
 	font-style: italic;
-	margin: 10px 0;
+	margin: 0 0 10px 0;
 }
 
 .episode .summary p .date {

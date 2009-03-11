@@ -66,7 +66,9 @@ $(document).ready(function(){
         sticky: true,
         showTitle: false, 
         activation: 'click', 
-        topOffset: -100,
+        positionBy: 'auto',
+        topOffset: 25,
+
         onShow: function(){ $.quickSignIn.setup(); }
       })
 

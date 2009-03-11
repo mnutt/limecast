@@ -16,7 +16,7 @@
       
     <p class="per_page">
       View: <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
-        <%= link_to count, all_url(:limit => count), :class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil -%><%= comma -%>
+        <%= link_to count, popular_url(:limit => count), :class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil -%><%= comma -%>
       <% end -%>
       per page
     </p>

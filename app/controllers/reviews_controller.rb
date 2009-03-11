@@ -26,7 +26,8 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    @review = Review.find(params[:id])
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
+    @review = @podcast.reviews.find(params[:id])
 
     save_response(@review, @review.update_attributes(params[:review]))
   end
@@ -45,17 +46,18 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    Review.destroy(params[:id])
-    session.data[:reviews].delete(params[:id]) if session.data[:reviews]
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
+    @review = @podcast.reviews.find(params[:id])
+    session[:reviews].delete(params[:id]) if session[:reviews]
 
-    render :nothing => true
+    save_response(nil, @review.destroy)
   end
 
-	protected
+  protected
 
   def save_response(review, success)
     if success
-      render :json => {:success => true, :html => render_to_string(:partial => 'reviews/review', :object => review, :locals => {:editable => true})}
+      render :json => {:success => true, :html => render_to_string(:partial => 'reviews/reviews', :object => @podcast.reviews, :locals => {:podcast => @podcast, :editable => true})}
     else
       render :json => {:success => false, :errors => "There was a problem:<br /> #{review.errors.full_messages.join('.<br /> ')}."}
     end

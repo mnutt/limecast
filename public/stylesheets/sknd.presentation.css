@@ -330,14 +330,23 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
   position: relative;
   left: 97px;
   top: 16px;
-  padding: 40px 0 0;
+  padding: 0;40px 0 0;
   margin: 0;
-  font-size: 2.3em;
-  background: url('../imgs/intro.png') top left no-repeat;
+  line-height: 1em;
+  font-size: 2.2em;
+  background: #2B69B6; url('../imgs/intro.png') top left no-repeat;
 }
 
 #mission h1 span {
-  margin-left: -5000px;
+  color: #DBDBDB;
+  font-weight: normal;
+  margin-left:; -5000px;
+  opacity: 0.5em;
+}
+
+#mission h1 span strong {
+  color: #CBEA97;
+  font-weight: normal;
 }
 
 #mission a i {
@@ -361,7 +370,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 }
 
 #mission ul li a {
-  color: #fff;
+  color:  #DBDBDB;
 }
 
 #mission ul li a:hover {
@@ -766,11 +775,11 @@ h6#page_type {
 	margin: 20px 0 20px 0;
 }
 
-.show .reviews.list .review_form h4 {
+.show .review_form h4 {
 	font-size: 1.6em;
 }
 
-.show .reviews.list .review_form .errors {
+.show .review_form .errors {
   color: red;
   padding: 0 2px;
   font-style: italic;
@@ -778,27 +787,27 @@ h6#page_type {
   font-size: 1.1em;
 }
 
-.show .reviews.list .review_form p {
+.show .review_form p {
 	margin-top: 15px;
 }
 
-.show .reviews.list .review_form h6 {
+.show .review_form h6 {
 	font-size: 1.4em;
 	margin-top: 1.5em;
 }
 
-.show .reviews.list .review_form input.text {
+.show .review_form input.text {
 	border: none;
-	background: url('../imgs/input_heading.png') top left no-repeat;
+	background: url('/imgs/input_heading.png') top left no-repeat;
 	width: 343px;
 	height: 28px;
 	font-size: 1.4em;
 	padding: 5px 5px 0 5px;
 }
 
-.show .reviews.list .review_form  textarea {
+.show form.review_form textarea {
 	border: none;
-	background: url('../imgs/textarea.png') top left no-repeat;
+	background: url('/imgs/textarea.png') no-repeat;
 	width: 393px;
 	height: 118px;
 	font-size: 1.8em;

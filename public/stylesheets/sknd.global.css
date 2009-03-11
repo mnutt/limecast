@@ -829,8 +829,6 @@ li.review p {
 	background: transparent url('../imgs/textarea.png') top left no-repeat;
 	width: 400px;
 	height: 128px;
-
-	
 	display: block;
 	overflow: hidden;
 }
@@ -838,8 +836,7 @@ li.review p {
 .reviews.list #review_doit textarea {
   border: none;
   width: 393px;
-
-	background: none;
+	/*background: none;*/
 	padding: 5px;
 }
 

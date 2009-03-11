@@ -5,7 +5,7 @@
   </div>
 <% else %>
   <div class="signin">
-    <%= link_to "Sign up!", :signup %> |
-    <%= link_to "Sign in", new_session_url, :class => 'login', :rel => "#login_pop" -%>
+    <%= link_to "Sign up", new_user_url, :class => 'signup', :rel => '#login_pop' %> |
+    <%= link_to "Sign in", new_session_url, :class => 'login', :rel => '#login_pop' -%>
   </div>
 <% end -%>

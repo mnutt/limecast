@@ -330,14 +330,22 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
   position: relative;
   left: 97px;
   top: 16px;
-  padding: 40px 0 0;
+  padding: 0;40px 0 0;
   margin: 0;
-  font-size: 2.3em;
-  background: url('../imgs/intro.png') top left no-repeat;
+  font-size: 2.2em;
+  background: #2B69B6; url('../imgs/intro.png') top left no-repeat;
 }
 
 #mission h1 span {
-  margin-left: -5000px;
+  color: #DBDBDB;
+  font-weight: normal;
+  margin-left:; -5000px;
+  opacity: 0.5em;
+}
+
+#mission h1 span strong {
+  color: #CBEA97;
+  font-weight: normal;
 }
 
 #mission a i {
@@ -361,7 +369,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 }
 
 #mission ul li a {
-  color: #fff;
+  color:  #DBDBDB;
 }
 
 #mission ul li a:hover {

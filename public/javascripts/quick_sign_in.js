@@ -43,6 +43,8 @@ $.quickSignIn = {
     // Keypress to handle pressing escape to close box.
     me.find('input').keydown(function(e){ if(e.keyCode == 27) $.quickSignIn.reset(); }); 
 
+    $.quickSignIn.showOverlay();
+
     return me;
   },
   
@@ -177,6 +179,16 @@ $.quickSignIn = {
     me.find('input.login').focus();
 
     return false;
+  },
+  
+  // similar to jquery.dropdown.js
+  showOverlay: function() {
+    if($("#overlay").size() == 0) $('body').append("<div id=\"overlay\"></div>");
+    $("#overlay").mousedown(function(){
+      $('#cluetip-close').click();
+      $(this).remove();
+    });
+    $("#cluetip-close").click($.quickSignIn.reset);
   },
   
   // Updates the response section; if the response is the same as the current

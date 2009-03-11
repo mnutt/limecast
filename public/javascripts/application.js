@@ -43,6 +43,7 @@ $(document).ready(function() {
       $('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
   }
 
+
   $('a.login').cluetip({
     local: true, 
     hideLocal: true, 
@@ -54,13 +55,22 @@ $(document).ready(function() {
     positionBy: 'bottomTop', 
     topOffset: 25,
     onShow: function(){
-      // similar to jquery.dropdown.js
-      if($("#overlay").size() == 0) $('body').append("<div id=\"overlay\"></div>");
-      $("#overlay").click(function(){
-        $('#cluetip-close').click();
-        $(this).remove();
-      });
-      $("#cluetip-close").click($.quickSignIn.reset);
+      $.quickSignIn.setup();
+    }
+  });
+
+  $('a.signup').cluetip({
+    local: true, 
+    hideLocal: true, 
+    arrows: true, 
+    width: 350,  
+    sticky: true,
+    showTitle: false, 
+    activation: 'click', 
+    positionBy: 'bottomTop', 
+    topOffset: 25,
+    onShow: function(){
+      $.quickSignIn.showSignUp();
       $.quickSignIn.setup();
     }
   });

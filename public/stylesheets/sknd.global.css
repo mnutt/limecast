@@ -775,6 +775,10 @@ li.review {
 	padding: 20px 10px 40px 10px;
 }
 
+li.review:last-child {
+  border: none;
+}
+
 
 li.review  .title {
 	display: block;

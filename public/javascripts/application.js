@@ -233,34 +233,7 @@ $(document).ready(function(){
   }, function(){
 		$(this).find("a.popup").hide();
 	});
-
-  // Episodes/Reviews toggle links
-  $(".supplemental h2.linkable a").click(function(e){
-    $(".supplemental h2.linkable.current").removeClass('current');
-    $(this).parent().addClass('current');
-    $(this).addClass('current');
-
-    $(".reviews.list").parents('.wrapper').toggle();
-    $(".episodes.list").parents('.wrapper').toggle();
-    return false;
-  });
   
-  $(".supplemental #r_view .linkable a").click(function(){
-    $(".supplemental #r_view .linkable.current").removeClass('current');
-    $(this).parent('span.linkable').addClass('current');
-
-    if ($(this).attr('rel') == 'all') $(".reviews.list .review").show();
-    else if ($(this).attr('rel') == 'positive') {
-      $(".reviews.list .review.negative").hide();
-      $(".reviews.list .review.positive").show();
-    } else if ($(this).attr('rel') == 'negative') {
-      $(".reviews.list .review.negative").show();
-      $(".reviews.list .review.positive").hide();
-    }
-    
-    return false;
-  });
-
   // Tabs
   $tabs = $('.tabify').tabs({
     navClass: 'tabs',

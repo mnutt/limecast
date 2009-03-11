@@ -27,6 +27,20 @@ $(document).ready(function(){
 
 
   var enableReviewLinks = function() {
+    // review list toggles
+    $(".reviews.list .linkable a").click(function(){
+      $(".reviews.list .linkable.current").removeClass('current');
+      $(this).parent('span.linkable').addClass('current');
+
+      if ($(this).attr('rel') == 'all') {
+        $(".reviews.list .review").show();
+      } else if ($(this).attr('rel') == 'positive') {
+        $(".reviews.list .review.negative").hide(); $(".reviews.list .review.positive").show();
+      } else if ($(this).attr('rel') == 'negative') {
+        $(".reviews.list .review.negative").show(); $(".reviews.list .review.positive").hide();
+      }
+    });
+
     // review form toggle
     $('li.review, div.review').map(function(){
       var review_form = $(this);
@@ -96,12 +110,11 @@ $(document).ready(function(){
     });
   ;}
   
-  // enable 'new review'/'edit review' links
+  // enable 'new review'/'edit review'/'all|positive|negative' links
   enableReviewLinks();
 
   // enable 'new review'/'edit review' form
   enableReviewForm();
-
 
   // REFACTOR with Events/live when we switch to JQuery 1.3
 });

@@ -641,10 +641,6 @@ h6#page_type {
 	margin-left: -2px;
 }
 
-.supplemental .linkable a {margin-left: 40px; margin-right: 6px;}
-
-
-
 .episode .supplemental  {
 	margin-top: 20px;
 }
@@ -709,11 +705,6 @@ h6#page_type {
 .show #r_view .linkable {
 	color: #171717;
 	font-weight: bold;
-}
-
-.show #r_view .current {
-	margin-right: 6px;
-	margin-left: 40px;
 }
 
 .show #r_view span#first_linkable {

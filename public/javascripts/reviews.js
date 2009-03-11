@@ -34,13 +34,13 @@ $(document).ready(function(){
       var edit        = $(this).find('.edit_review');
 
       show.find('a.edit').click(function(){
-        show.hide(); edit.show(); return false;
+        show.hide(); edit.show(); edit.find('input.text').focus(); return false;
       });
 
       show.find('a.delete').restfulDelete({
+        dataType: 'json',
         success: function(resp){ 
-          alert(resp.html);
-          $('.reviews.list').replaceWith(resp.html).css('border', 'solid 1px red');
+          $('.reviews.list').replaceWith(resp.html);
           enableReviewLinks('li.review, div.review');
           enableReviewForm('.review_form');
         }

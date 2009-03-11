@@ -692,7 +692,7 @@ h6#page_type {
 
 .show #r_view {
 	position: absolute;
-	top: -40px;
+	top: 0px;
 	right: 0;
 }
 

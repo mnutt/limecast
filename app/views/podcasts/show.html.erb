@@ -29,9 +29,6 @@
     <%= render :partial => 'episodes/episodes', :object => @episodes, :locals => {:podcast => @podcast} %>
   </div>
   
-
-  <h2>Reviews <span>(<%= @podcast.reviews.count %>)</span></h2>
-  
   <div id="podcast_reviews">
     <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => {:podcast => @podcast} %>
   </div>

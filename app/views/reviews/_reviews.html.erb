@@ -1,32 +1,33 @@
 <% episode ||= podcast.episodes.newest.first -%>
 
 <div class="reviews list">
+  <h2>Reviews <span>(<%= @podcast.reviews.count %>)</span></h2>
 
-    <div id="r_view">
-      <p><span id="first_linkable">View:</span>
-        <span class="linkable current">
-          <%= link_to "All (#{reviews.count})", reviews_url(:podcast_slug => podcast), :rel => "all" %>
-          <span>All (<%= reviews.count -%>)</span>
-        </span>
-        <span class="linkable">
-          <%= link_to "Positive (#{reviews.that_are_positive.count})", positive_reviews_url(:podcast_slug => podcast), :class => "positive", :rel => "positive" %>
-          <span class="positive">Positive (<%= reviews.that_are_positive.count -%>)</span>
-        </span>
-        <span class="linkable">
-          <%= link_to "Negative (#{reviews.that_are_negative.count})", negative_reviews_url(:podcast_slug => podcast), :class => "negative", :rel => "negative" %>
-          <span class="negative">Negative (<%= reviews.that_are_negative.count -%>)</span>
-        </span>
-      </p>
-    </div>
-    <ul class="reviews">
-      <%= render :partial => 'reviews/review', :collection => reviews.reverse, :locals => {:editable => true} -%>
-    </ul>
-    <div class="quick_signin_container after_adding_review"></div>
-    <div id="review_doit">
-      <% if can_add_reviews?(episode) %>
-        <%= render :partial => 'reviews/add_review', :object => podcast -%>
-      <% end %>
-    </div> 
+  <div id="r_view">
+    <p><span id="first_linkable">View:</span>
+      <span class="linkable current">
+        <%= link_to "All (#{reviews.count})", reviews_url(:podcast_slug => podcast), :rel => "all" %>
+        <span>All (<%= reviews.count -%>)</span>
+      </span>
+      <span class="linkable">
+        <%= link_to "Positive (#{reviews.that_are_positive.count})", positive_reviews_url(:podcast_slug => podcast), :class => "positive", :rel => "positive" %>
+        <span class="positive">Positive (<%= reviews.that_are_positive.count -%>)</span>
+      </span>
+      <span class="linkable">
+        <%= link_to "Negative (#{reviews.that_are_negative.count})", negative_reviews_url(:podcast_slug => podcast), :class => "negative", :rel => "negative" %>
+        <span class="negative">Negative (<%= reviews.that_are_negative.count -%>)</span>
+      </span>
+    </p>
+  </div>
+  <ul class="reviews">
+    <%= render :partial => 'reviews/review', :collection => reviews.reverse, :locals => {:editable => true} -%>
+  </ul>
+  <div class="quick_signin_container after_adding_review"></div>
+  <div id="review_doit">
+    <% if can_add_reviews?(episode) %>
+      <%= render :partial => 'reviews/add_review', :object => podcast -%>
+    <% end %>
+  </div> 
 
 </div><!-- /s_reviews -->
 

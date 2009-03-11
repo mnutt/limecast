@@ -37,19 +37,13 @@ $(document).ready(function(){
         show.hide(); edit.show(); return false;
       });
 
-      show.find('a.delete').click(function(){
-        $.ajax({
-          type:     'post',
-          url:      $(this).attr('href'),
-          data:     '_method=delete&authenticity_token=' + AUTH_TOKEN,
-          dataType: 'json',
-          success: function(resp){ 
-            $('.reviews.list').replaceWith(resp.html);
-            enableReviewLinks('li.review, div.review');
-            enableReviewForm('.review_form');
-          }
-        });
-        return false;
+      show.find('a.delete').restfulDelete({
+        success: function(resp){ 
+          alert(resp.html);
+          $('.reviews.list').replaceWith(resp.html).css('border', 'solid 1px red');
+          enableReviewLinks('li.review, div.review');
+          enableReviewForm('.review_form');
+        }
       });
 
       edit.find('a.cancel').click(function(){
@@ -62,6 +56,21 @@ $(document).ready(function(){
     // review form ajax
     $('.review_form').submit(function(){
       var review_form = $(this);
+
+      // setup the cluetip link
+      review_form.find('.cluetip_link').cluetip({
+        local: true, 
+        hideLocal: true, 
+        arrows: true, 
+        width: 350,  
+        sticky: true,
+        showTitle: false, 
+        activation: 'click', 
+        topOffset: -100,
+        onShow: function(){ $.quickSignIn.setup(); }
+      })
+
+      // send the review create/update
       $.ajax({
         type:    'post',
         url:     review_form.attr('action'),
@@ -70,9 +79,7 @@ $(document).ready(function(){
         success: function(resp){
           if(resp.success) {
             if(resp.login_required) {
-              // // if not logged in, show quick signin
-              // $.quickSignIn.attach($('.quick_signin_container.after_adding_review'), 
-              //   {message:'Sign up or sign in to save your review:'});
+              review_form.find('.cluetip_link').click();
             } else { 
               $('.reviews.list').replaceWith(resp.html);
               enableReviewLinks('li.review, div.review');

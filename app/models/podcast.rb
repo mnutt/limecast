@@ -289,7 +289,7 @@ class Podcast < ActiveRecord::Base
     if self.owner = User.find_by_email(owner_email)
       # don't do anything
     else
-      owner_login = owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")
+      owner_login = owner_email.blank? ? "user" : owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")[0..39]
       while User.exists?(:login => owner_login) do
         i ||= 1
         owner_login.chop! unless i == 1

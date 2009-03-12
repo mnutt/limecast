@@ -75,7 +75,7 @@ $(document).ready(function() {
     }
   });
 
-  // Favorite link
+  // Favorite link / Favorite cluetip link
   $('a.cluetip_favorite_link').cluetip({
     local: true, 
     hideLocal: true, 
@@ -98,6 +98,22 @@ $(document).ready(function() {
     }, 'json');
     return false;
   });
+  
+  // Add Podcast link
+  $('a.cluetip_add_link').cluetip({
+    local: true, 
+    hideLocal: true, 
+    arrows: true, 
+    width: 350,  
+    sticky: true,
+    showTitle: false, 
+    activation: 'click', 
+    positionBy: 'auto',
+    topOffset: 25,
+    onShow: function(){ $.quickSignIn.setup(); }
+  })
+  
+  
   // Makes clicking labels check their associated checkbox/radio button
 });
 

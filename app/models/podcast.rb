@@ -284,7 +284,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def find_or_create_owner
-    return true if !self.owner_id.blank? || self.owner_email.blank?
+    return true if (!self.owner_id.blank? || self.owner_email.blank?) && !self.owner_email_changed?
 
     if self.owner = User.find_by_email(owner_email)
       # don't do anything
@@ -293,12 +293,13 @@ class Podcast < ActiveRecord::Base
       while User.exists?(:login => owner_login) do
         i ||= 1
         owner_login.chop! unless i == 1
-        owner_login = "#{owner.login}#{i += 1}"
+        owner_login = "#{owner_login}#{i += 1}"
       end
 
-      build_owner(:state => 'passive', :email => owner_email, :login => owner_login)
-      self.owner.generate_reset_password_code
-      self.owner.save!
+      o = build_owner(:state => 'passive', :email => owner_email, :login => owner_login)
+      o.generate_reset_password_code
+      o.save!
+      self.owner = o
 
       UserMailer.deliver_claim_podcast(owner, self)
     end

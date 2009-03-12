@@ -1,31 +1,4 @@
 $(document).ready(function(){
-  // review rating links
-  $('li.review').map(function(){
-    var review = $(this);
-
-    review.find('a.rate').click(function(){
-      var link = $(this);
-      var id = link.attr('rel');
-
-      $.ajax({
-        url: link.attr('href'),
-        dataType: 'json',
-        success: function(resp,ev) {
-          if(resp.logged_in) {
-            window.location.reload();
-          } else {
-            // if not logged in, show quick signin
-            $.quickSignIn.attach($('li#review_'+id+' .quick_signin_container.after_rating'), 
-              {message:'Sign up or sign in to rate this review.'});
-          }
-        }
-      });
-
-      return false;
-    });
-  });
-
-
   var enableReviewLinks = function() {
     // review list toggles
     $(".reviews.list .linkable a").click(function(){
@@ -41,6 +14,34 @@ $(document).ready(function(){
       }
     });
 
+    // rating cluetip link
+    $('.cluetip_helpfulness_link').cluetip({
+      local: true, 
+      hideLocal: true, 
+      arrows: true, 
+      width: 350,  
+      sticky: true,
+      showTitle: false, 
+      activation: 'click', 
+      positionBy: 'auto',
+      topOffset: 25,
+      onShow: function(){ $.quickSignIn.setup(); }
+    })
+
+    // review rating links
+    $('li.review a.rate').click(function(){
+      $.ajax({
+        type: 'get',
+        url: $(this).attr('href'),
+        dataType: 'json',
+        success: function(resp,ev) {
+          if(resp.logged_in) window.location.reload();
+          else $('.cluetip_helpfulness_link').click();
+        }
+      });
+      return false;
+    });
+
     // review form toggle
     $('li.review, div.review').map(function(){
       var review_form = $(this);
@@ -51,6 +52,10 @@ $(document).ready(function(){
         show.hide(); edit.show(); edit.find('input.text').focus(); return false;
       });
 
+      edit.find('a.cancel').click(function(){
+        show.show(); edit.hide(); return false;
+      });
+
       show.find('a.delete').restfulDelete({
         dataType: 'json',
         success: function(resp){ 
@@ -58,10 +63,6 @@ $(document).ready(function(){
           enableReviewLinks('li.review, div.review');
           enableReviewForm('.review_form');
         }
-      });
-
-      edit.find('a.cancel').click(function(){
-        show.show(); edit.hide(); return false;
       });
     });  
   };
@@ -71,7 +72,7 @@ $(document).ready(function(){
     $('.review_form').submit(function(){
       var review_form = $(this);
 
-      // setup the cluetip link
+      // review form cluetip link
       review_form.find('.cluetip_review_link').cluetip({
         local: true, 
         hideLocal: true, 

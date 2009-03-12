@@ -75,22 +75,26 @@ $(document).ready(function() {
     }
   });
 
-
   // Favorite link
+  $('a.cluetip_favorite_link').cluetip({
+    local: true, 
+    hideLocal: true, 
+    arrows: true, 
+    width: 350,  
+    sticky: true,
+    showTitle: false, 
+    activation: 'click', 
+    positionBy: 'auto',
+    topOffset: 25,
+    onShow: function(){ $.quickSignIn.setup(); }
+  })
   $('a.favorite_link').click(function() {
     var favorite_link = $(this);
     var favorite_url = favorite_link.attr('href');
   
     $.post(favorite_url, {}, function(resp) {
-      if(resp.logged_in) {
-        window.location = window.location;
-      } else {
-        // replace with cluetip
-        $.quickSignIn.attach(
-          favorite_link.parents('.description').find('.quick_signin_container.after_favoriting'), 
-          {message:'Sign up or sign in to save your favorite.'}
-        );
-      }
+      if(resp.logged_in) window.location = window.location;
+      else               $('a.cluetip_favorite_link').click();
     }, 'json');
     return false;
   });

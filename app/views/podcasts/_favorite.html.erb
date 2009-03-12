@@ -2,7 +2,7 @@
 
 <% if !podcast.favorite_of?(current_user) -%>
   <div class="addit"><%= link_to_add_favorite(podcast) -%></div>
-  <div class="quick_signin_container after_favoriting"></div>
+  <a href="#" class="cluetip_favorite_link" onclick="return false;" rel="#login_pop" style="visibility: hidden;"><!-- //--></a>
 <% elsif show_remove -%>
   <div class="removeit"><ul><li><%= link_to_remove_favorite(podcast) -%></li></ul></div>
 <% else -%>

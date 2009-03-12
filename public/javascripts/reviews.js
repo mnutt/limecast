@@ -72,7 +72,7 @@ $(document).ready(function(){
       var review_form = $(this);
 
       // setup the cluetip link
-      review_form.find('.cluetip_link').cluetip({
+      review_form.find('.cluetip_review_link').cluetip({
         local: true, 
         hideLocal: true, 
         arrows: true, 
@@ -95,7 +95,7 @@ $(document).ready(function(){
         success: function(resp){
           if(resp.success) {
             if(resp.login_required) {
-              review_form.find('.cluetip_link').click();
+              review_form.find('.cluetip_review_link').click();
             } else { 
               $('.reviews.list').replaceWith(resp.html);
               enableReviewLinks('li.review, div.review');

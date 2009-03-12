@@ -17,6 +17,8 @@ class Tagging < ActiveRecord::Base
 
   before_save :map_to_different_tag
 
+  named_scope :sorted_by_podcast, :order => "REPLACE(podcasts.title, 'The ', '')", :include => :podcast
+
   attr_accessor :user, :user_id
 
   validates_uniqueness_of :tag_id, :scope => :podcast_id, :message => "has already been used on this Podcast"

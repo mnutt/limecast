@@ -2,7 +2,7 @@
 
 <h2>Taggings</h2>
 <ul>
-  <% @tag.taggings.select{|t| t.podcast}.each do |tagging| -%>
+  <% @tag.taggings.sorted_by_podcast.select{|t| t.podcast}.each do |tagging| -%>
     <li>
       <%= link_to tagging.podcast.title, info_podcast_url(tagging.podcast) -%> 
       by <%= tagging.user ? tagging.user.login : "autotagger" -%>

@@ -275,7 +275,9 @@ input.radio {
 .limecast_form .field {
 	margin-bottom: 5px;
 } 
-
+.limecast_form ul.tags li { 
+  display: inline;
+}
 
 /* icons */
 a img.inline_icon {

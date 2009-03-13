@@ -212,7 +212,7 @@ class Podcast < ActiveRecord::Base
 
       if user && user.is_a?(User)
         tagging = taggings(true).find_by_tag_id(t.id)
-        tagging.users << user
+        tagging.users << user unless tagging.users.include?(user)
       end
     end
   end

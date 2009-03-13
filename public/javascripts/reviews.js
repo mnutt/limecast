@@ -1,9 +1,7 @@
 $(document).ready(function(){
-  // review rating links
-  $('li.review').map(function(){
-    var review = $(this);
-
-    review.find('a.rate').click(function(){
+  var enableReviewLinks = function() {
+    // review rating links
+    $('a.rate').click(function(){
       var link = $(this);
       var id = link.attr('rel');
 
@@ -11,22 +9,13 @@ $(document).ready(function(){
         url: link.attr('href'),
         dataType: 'json',
         success: function(resp,ev) {
-          if(resp.logged_in) {
-            window.location.reload();
-          } else {
-            // if not logged in, show quick signin
-            $.quickSignIn.attach($('li#review_'+id+' .quick_signin_container.after_rating'), 
-              {message:'Sign up or sign in to rate this review.'});
-          }
+          if(resp.logged_in) window.location.reload();
         }
       });
 
       return false;
     });
-  });
 
-
-  var enableReviewLinks = function() {
     // review list toggles
     $(".reviews.list .linkable a").click(function(){
       $(".reviews.list .linkable.current").removeClass('current');
@@ -67,12 +56,9 @@ $(document).ready(function(){
   };
 
   var enableReviewForm = function() {
-    // review form ajax
-    $('.review_form').submit(function(){
-      var review_form = $(this);
-
+    if(!LOGGED_IN) {
       // setup the cluetip link
-      review_form.find('.cluetip_review_link').cluetip({
+      $('.cluetip_review_link').cluetip({
         local: true, 
         hideLocal: true, 
         arrows: true, 
@@ -82,9 +68,13 @@ $(document).ready(function(){
         activation: 'click', 
         positionBy: 'auto',
         topOffset: 25,
-
         onShow: function(){ $.quickSignIn.setup(); }
       })
+    }
+
+    // review form ajax
+    $('.review_form').submit(function(){
+      var review_form = $(this);
 
       // send the review create/update
       $.ajax({

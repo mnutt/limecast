@@ -101,10 +101,10 @@ $.quickSignIn = {
     me = $("#cluetip #quick_signin");
     me.find('.message').html('');
     me.find('.sign_up').hide();
-		me.find('.controls').show();
-		me.find('.controls_signup').hide();
-		me.find('.signup_heading').text('Sign in to LimeCast');
-		me.find('.signin_signup_button span').text('Sign in');
+    me.find('.controls').show();
+    me.find('.controls_signup').hide();
+    me.find('.signup_heading').text('Sign in to LimeCast');
+    me.find('.signin_signup_button span').text('Sign in');
     me.attr('action', '/session');
 //    me.find('form')[0].reset(); // the actual DOM function for resetting a form
     me.find('div.response_container').html('');

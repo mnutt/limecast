@@ -1,5 +1,9 @@
 if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
 
+$.ajaxSetup({
+  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+})
+
 $(document).ready(function() {
 
   // Default text

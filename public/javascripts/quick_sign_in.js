@@ -24,9 +24,8 @@ $.quickSignIn = {
     
     // Show the full signup form on clicking the 'Sign Up' button
     me.find('.signup_button').click(function(event){
-      if(!me.find('.sign_up:visible').length) { // if signup hasn't happened yet, just show full signup form
-        $.quickSignIn.showSignUp();
-      }
+      // if signup hasn't happened yet, just show full signup form
+      if(!me.find('.sign_up:visible').length) $.quickSignIn.showSignUp();
       return false;
     });
 
@@ -106,36 +105,7 @@ $.quickSignIn = {
     me.find('.signup_heading').text('Sign in to LimeCast');
     me.find('.signin_signup_button span').text('Sign in');
     me.attr('action', '/session');
-//    me.find('form')[0].reset(); // the actual DOM function for resetting a form
     me.find('div.response_container').html('');
-  },
-
-  // Attaches the Quick Signin form to a container
-  //
-  // options is a JSON object that can include these key/values:
-  //   * message: the message for the titlebar of the Quick Signin form
-  //   * reloadPage: boolean; if false, won't reload page on success
-  //   * toggle: boolean; if true, the signin will toggle (hide/show) when it's already attached
-  //
-  attach: function(container, options) {
-    var me = $("#cluetip #quick_signin");
-    var container = $(container);
-    me.attr('reloadPage', options.reloadPage);
-
-    // if(me.parent()[0] == container[0]) { // if it's already attached
-    //   if(options.toggle) me.toggle();
-    //   else me.show();
-    //   
-    //   if(me.css('display')=='none') $.quickSignIn.reset();
-    //   else me.find('input.login')[0].focus();
-    // } else {
-      $.quickSignIn.reset();
-      container.append(me);
-      me.show().find(".message").html(options.message);
-      me.find('input#user_login').focus();
-    // }
-    
-    return false;
   },
   
   showSignUp: function(event) {
@@ -147,9 +117,9 @@ $.quickSignIn = {
     // Show signup form if hidden
     if(!me.find('.sign_up:visible').length) {
       me.find('.sign_up').show();
-			me.find('.signup_heading').text('Sign up with LimeCast');
-			me.find('.controls').hide();
-			me.find('.controls_signup').show();
+      me.find('.signup_heading').text('Sign up with LimeCast');
+      me.find('.controls').hide();
+      me.find('.controls_signup').show();
       me.find('.signin_signup_button span').text('Sign up');
       me.attr('action', '/users'); // Set the forms action to /users to call UsersController#create
 
@@ -172,9 +142,9 @@ $.quickSignIn = {
     // Show signup form if hidden
     if(me.find('.sign_up:visible').length) {
       me.find('.sign_up').hide();
-			me.find('.signup_heading').text('Sign in to LimeCast');
-			me.find('.controls').show();
-			me.find('.controls_signup').hide();
+      me.find('.signup_heading').text('Sign in to LimeCast');
+      me.find('.controls').show();
+      me.find('.controls_signup').hide();
       me.find('.signin_signup_button span').text('Sign in');
       me.attr('action', '/session'); // Set the forms action to /users to call UsersController#create
     }
@@ -189,7 +159,7 @@ $.quickSignIn = {
     $("#overlay").mousedown(function(){
       $('#cluetip-close').click();
       $(this).remove();
-    });
+    }).css('height', $('body').attr('clientHeight')+'px');;
     $("#cluetip-close").click($.quickSignIn.reset);
   },
   
@@ -201,8 +171,3 @@ $.quickSignIn = {
     else resp_container.html(html);
   }
 }
-
-// Initialize the quick sign in
-// $(document).ready(function(){
-//   $.quickSignIn.setup();
-// });

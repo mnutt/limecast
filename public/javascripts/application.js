@@ -40,64 +40,57 @@ $(document).ready(function() {
         "bStateSave": true,
         "bProcessing": true
       });
-      $('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
   }
-
-
-  $('a.login').cluetip({
-    local: true, 
-    hideLocal: true, 
-    arrows: true, 
-    width: 350,  
-    sticky: true,
-    showTitle: false, 
-    activation: 'click', 
-    positionBy: 'bottomTop', 
-    topOffset: 25,
-    onShow: function(){
-      $.quickSignIn.setup();
-    }
-  });
-
-  $('a.signup').cluetip({
-    local: true, 
-    hideLocal: true, 
-    arrows: true, 
-    width: 350,  
-    sticky: true,
-    showTitle: false, 
-    activation: 'click', 
-    positionBy: 'bottomTop', 
-    topOffset: 25,
-    onShow: function(){
-      $.quickSignIn.showSignUp();
-      $.quickSignIn.setup();
-    }
-  });
-
-  // Favorite link / Favorite cluetip link
-  $('a.cluetip_favorite_link').cluetip({
-    local: true, 
-    hideLocal: true, 
-    arrows: true, 
-    width: 350,  
-    sticky: true,
-    showTitle: false, 
-    activation: 'click', 
-    positionBy: 'auto',
-    topOffset: 25,
-    onShow: function(){ $.quickSignIn.setup(); }
-  })
-  $('a.favorite_link').click(function() {
-    var favorite_link = $(this);
-    var favorite_url = favorite_link.attr('href');
   
-    $.post(favorite_url, {}, function(resp) {
-      if(resp.logged_in) window.location = window.location;
-      else               $('a.cluetip_favorite_link').click();
-    }, 'json');
+  // Favorite link
+  $('a.favorite_link').click(function() {
+    if(LOGGED_IN) {
+      var favorite_link = $(this);
+      var favorite_url = favorite_link.attr('href');
+  
+      $.post(favorite_url, {}, function(resp) {
+        if(resp.logged_in) window.location = window.location;
+      }, 'json');
+    }
     return false;
   });
+  
+  // Cluetips 
+  if(!LOGGED_IN) {
+    $('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
+
+    $('a.login').cluetip({
+      local: true, 
+      hideLocal: true, 
+      arrows: true, 
+      width: 350,  
+      sticky: true,
+      showTitle: false, 
+      activation: 'click', 
+      positionBy: 'bottomTop', 
+      topOffset: 25,
+      onShow: function(){
+        $.quickSignIn.setup();
+      }
+    });
+
+    $('a.signup').cluetip({
+      local: true, 
+      hideLocal: true, 
+      arrows: true, 
+      width: 350,  
+      sticky: true,
+      showTitle: false, 
+      activation: 'click', 
+      positionBy: 'bottomTop', 
+      topOffset: 25,
+      onShow: function(){
+        $.quickSignIn.showSignUp();
+        $.quickSignIn.setup();
+      }
+    });
+  }
+
   
   // Add Podcast link
   $('a.cluetip_add_link').cluetip({

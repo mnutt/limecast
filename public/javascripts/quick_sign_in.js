@@ -43,7 +43,7 @@ $.quickSignIn = {
     // Keypress to handle pressing escape to close box.
     me.find('input').keydown(function(e){ if(e.keyCode == 27) $.quickSignIn.reset(); }); 
 
-    
+    me.find('input#quicksignin_login').focus();
 
     $.quickSignIn.showOverlay();
 

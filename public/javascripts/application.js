@@ -113,6 +113,7 @@ $(document).ready(function() {
     onShow: function(){ $.quickSignIn.setup(); }
   })
   
+  
   // Makes clicking labels check their associated checkbox/radio button
 });
 

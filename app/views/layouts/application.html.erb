@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>
-  <%= "#{@title} &mdash; " if @title -%> LimeCast
-</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta name="description" content="Coming 2009 March"/>
+  <title>
+    <%= "#{@title} &mdash; " if @title -%> LimeCast
+  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="description" content="Coming 2009 March"/>
 
 <% if @podcast -%>
   <link rel="shortcut icon" type="image/png" href="<%= @podcast.logo.url(:icon) -%>" />
@@ -16,52 +16,48 @@
   <%= rss_link(feed) -%>
 <% end -%>
 
-<%= stylesheet_link_tag 'reset' -%>
-<%= stylesheet_link_tag "sknd.global", "sknd.typography", "sknd.icons", "sknd.presentation" -%>
-<%= stylesheet_link_actions -%>
+  <%= stylesheet_link_tag 'reset' -%>
+  <%= stylesheet_link_tag "sknd.global", "sknd.typography", "sknd.icons", "sknd.presentation" -%>
+  <%= stylesheet_link_actions -%>
 
-<!--[if IE 6]>
-  <%= stylesheet_link_tag 'base_ie6', 'application_ie6' -%>
-<![endif]-->
-<!--[if IE 7]>
-  <%= stylesheet_link_tag 'base_ie7', 'application_ie7' -%>
-<![endif]-->
+  <!--[if IE 6]>
+    <%= stylesheet_link_tag 'base_ie6', 'application_ie6' -%>
+  <![endif]-->
+  <!--[if IE 7]>
+    <%= stylesheet_link_tag 'base_ie7', 'application_ie7' -%>
+  <![endif]-->
 
+  <%= javascript_include_tag 'jquery', 
+                             'jquery-periodic', 
+                             'jquery.tabs', 
+                             'jquery.cookie', 
+                             'jquery.flash',
+                             'jquery.dropdown', 
+                             'jquery.default-text', 
+                             'jquery.hover-and-focus', 
+                             'jquery.dimensions',
+                             'jquery.hoverIntent',
+                             'jquery.cluetip',
+                             :cache => 'jquery-all' -%>
 
-<%= javascript_include_tag 'jquery' -%>
-<%#= javascript_include_tag 'jquery-ui' -%>
-<%= javascript_include_tag 'jquery-periodic' -%>
-<%= javascript_include_tag 'jquery.tabs' -%>
-<%= javascript_include_tag 'jquery.cookie' -%>
-<%= javascript_include_tag 'jquery.flash' -%>
-<%= javascript_include_tag 'jquery.dropdown' -%>
-<%= javascript_include_tag 'jquery.default-text' -%>
-<%= javascript_include_tag 'jquery.hover-and-focus' -%>
-<%= javascript_include_tag 'test_helpers' -%>
-<% javascript_include "jquery.dimensions", "jquery.hoverIntent", "jquery.cluetip" -%>
+  <script type="text/javascript">
+    <% if protect_against_forgery? -%>
+    AUTH_TOKEN = "<%= form_authenticity_token -%>";
+    <% end -%>
+    LOGGED_IN  = <%= !!logged_in? %>;
+  </script>
 
-<script type="text/javascript">
-  $.ajaxSetup({
-    'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
-  })
+  <%= javascript_include_tag 'quick_sign_in', 
+                            'super_button', 
+                            'restful_delete',
+                            'application',
+                            :cache => 'all' %>
 
-  <% if protect_against_forgery? -%>
-  AUTH_TOKEN = "<%= form_authenticity_token -%>";
-  <% end -%>
-  LOGGED_IN  = <%= !!logged_in? %>;
-</script>
-
-<%= javascript_include_tag 'quick_sign_in' %>
-<%= javascript_include_tag 'super_button' %>
-<%= javascript_include_tag 'restful_delete' %>
-<%= javascript_include_actions -%>
-
-<%= javascript_include_tag 'application' -%>
-
+  <%= javascript_include_actions -%>
+  <%#= javascript_include_tag 'test_helpers' -%>
 </head>
 
 <body class="<%= @classes -%><%= " status_#@error" if @error %>">
-  
 
     <div id="wrapper">
       <div id="header">
@@ -72,13 +68,11 @@
 
         <div id="global_nav">
           <a href="/" id="logo"><span>LimeCast</span></a>
-          
           <ul>
             <li><a href="/" id="nav_home"><span>Home</span></a></li>
             <li><a href="/popular" id="nav_pop"><span>Popular</span></a></li>
             <li><a href="/add" id="add_podcast"><span>Add podcast</span></a><li>
           </ul>
-
         </div> <!-- /global_nav -->
         
         <form action="/search" method="get" id="search" class="search">            
@@ -109,42 +103,32 @@
         </div> <!-- /content -->
       </div> <!-- /content_wrapper -->
     </div> <!-- /wrapper -->
-  
-    
-        
-        <div class="foot_wrapper">
-          <div id="footer">
 
-            <div class="about section">
+    <div class="foot_wrapper">
+      <div id="footer">
 
-              
-
-
-              <ul>
-                <li class="blog">
-                  <a href="http://limecast.limespot.com/"><span>Blog</span></a>
-                </li>
-                <li class="use">
-                  <a href="http://limecast.com/use"><span>Terms of use</span></a>
-
-                </li>
-                <li class="privacy">
-                  <a href="/privacy"><span>Privacy</span></a>
-                </li>
-                <li class="opensource">
-                  <a href="http://wiki.limewire.org/index.php?title=LimeCast"><span>Open source</span></a>
-                </li>
-              </ul>
-
-            </div>
-
-
+        <div class="about section">
+          <ul>
+            <li class="blog">
+              <a href="http://limecast.limespot.com/"><span>Blog</span></a>
+            </li>
+            <li class="use">
+              <a href="http://limecast.com/use"><span>Terms of use</span></a>
+            </li>
+            <li class="privacy">
+              <a href="/privacy"><span>Privacy</span></a>
+            </li>
+            <li class="opensource">
+              <a href="http://wiki.limewire.org/index.php?title=LimeCast"><span>Open source</span></a>
+            </li>
+          </ul>
+        </div>
 
       </div> <!-- /footer -->
     </div> <!-- /foot_wrapper -->
 
     <%= @tracker -%>
-    
+
     <%= render :partial => 'users/quick_signin', :locals => { }  -%>
 </body>
 </html>

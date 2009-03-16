@@ -24,7 +24,7 @@
 
 <% podcast.editors.each do |editor| -%>
 <h4>from <%= link_to_profile(editor) %></h4>
-<ul class="tags"><%= editor.taggings.empty? ? "<li>none</li>" : editor.taggings.map { |tagging| "<li>#{link_to h(tagging.tag.name), tag_url(tagging.tag)}</li>" }.join(' ') -%></ul>
+<ul class="tags"><%= editor.taggings.empty? ? "<li>none</li>" : editor.taggings.for_podcast(podcast).map { |tagging| "<li>#{link_to h(tagging.tag.name), tag_url(tagging.tag)}</li>" }.join(' ') -%></ul>
 <% end -%>
 
 

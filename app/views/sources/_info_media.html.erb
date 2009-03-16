@@ -6,7 +6,7 @@
       <%= non_blank source.format -%> 
       <%= non_blank source.resolution -%> 
       <%= non_blank source.framerate -%> 
-      <%= source.episode.duration.to_duration -%>
+      <%= source.episode.duration.to_i.to_duration -%>
     </td>
   </tr>
   <tr>

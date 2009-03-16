@@ -18,6 +18,7 @@ class Tagging < ActiveRecord::Base
   before_save :map_to_different_tag
 
   named_scope :sorted_by_podcast, :order => "REPLACE(podcasts.title, 'The ', '')", :include => :podcast
+  named_scope :for_podcast, lambda { |podcast| {:conditions => {:podcast_id => podcast}} }
 
   attr_accessor :user, :user_id
 

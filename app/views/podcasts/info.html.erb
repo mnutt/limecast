@@ -13,7 +13,7 @@
 </p>
 
 <h2>Media (for latest Primary Source):</h2>
-<% if source = @podcast.primary_feed.sources.sorted.first -%>
+<% if @podcast.primary_feed && source = @podcast.primary_feed.sources.sorted.first -%>
   <%= render :partial => "sources/info_media", :locals => {:source => source} %>
 <% end -%>
 

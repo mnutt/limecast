@@ -17,11 +17,11 @@ module UsersHelper
   end
 
   def link_to_add_favorite(podcast)
-    link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url), :class => "favorite_link login", :rel => "#login_pop"
+    link_to 'Add to favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url), :class => "favorite_link login", :rel => ".login_pop"
   end
 
   def link_to_remove_favorite(podcast)
-    link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url), :class => "login", :rel => "#login_pop"
+    link_to 'Remove from favorites', favorite_podcast_url(:podcast_slug => podcast.clean_url), :class => "login", :rel => ".login_pop"
   end
 
   def link_to_favorites_page(user)

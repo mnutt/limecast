@@ -12,7 +12,10 @@ class SessionsController < ApplicationController
 
     @unknown_user  = !User.find_by_login(params[:user][:login]) if params[:user][:login] !~ /@/
     @unknown_email = !User.find_by_email(params[:user][:login]) if params[:user][:login] =~ /@/
-    render :layout => false
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html { redirect_back_or_default('/') }
+    end
   end
 
   def destroy

@@ -14,12 +14,14 @@
   <h2>Latest episode preview</h2>
   
   <div id="latest_episode" class="preview">
+  <% if @most_recent_episode -%>
     <h3><%= link_to_episode @most_recent_episode -%></h3>
     <p class="details"><em><%= @most_recent_episode.published_at.to_date -%> - <%= time_to_words(@most_recent_episode.duration) -%></em></p>
     <p><%= sanitize_condensed_summary(@most_recent_episode.summary) -%></p>
     <div class="video_player">
       <%= render :partial => 'episodes/video_player', :object => @most_recent_episode, :locals => {:options => {:hide_broken_previews => true}} -%>
     </div> <!-- /video_player -->
+  <% end -%>
   </div> <!-- /latest_episode -->
   
   

@@ -12,9 +12,7 @@
   <link rel="icon" type="image/png" href="<%= @podcast.logo.url(:icon) -%>" />
 <% end -%>
 
-<% (@feeds || []).each do |feed| -%>
-  <%= rss_link(feed) -%>
-<% end -%>
+  <%= rss_links(@feeds) -%>
 
   <%= stylesheet_link_tag 'reset' -%>
   <%= stylesheet_link_tag "sknd.global", "sknd.typography", "sknd.icons", "sknd.presentation" -%>

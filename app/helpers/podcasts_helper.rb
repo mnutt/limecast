@@ -3,6 +3,10 @@ module PodcastsHelper
     %{<link rel="alternate" type="application/rss+xml" title="#{feed.formatted_bitrate} #{feed.apparent_format}" href="#{feed.url}" />}
   end
 
+  def rss_links(feeds)
+    (feeds || []).map {|f| rss_link(f) }
+  end
+
   def paginate_podcasts(podcasts)
     will_paginate podcasts,
       :previous_label => '<img src="../imgs/icons/left-arrow.gif" title="Previous page" />',
@@ -30,7 +34,7 @@ module PodcastsHelper
   end
 
   def cover_art(podcast, size = :small)
-    if podcast.logo?
+    if podcast && podcast.logo?
       podcast.logo.url(size)
     else
       "/imgs/no_cover.png"

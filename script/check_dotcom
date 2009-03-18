@@ -14,7 +14,7 @@ fi
 
 # Makes sure the disk usage is below 90%
 DISK_USAGE=$(df ~/limecast.com/shared | grep "/$" | awk '{ print $4 < 90 }')
-if [ "$DISK_USAGE" = "0" ]; then
+if [ "$DISK_USAGE" = "1" ]; then
   echo "" | mail -s "Error: Disk is more than 90% full" spotdev@limewire.com
 fi
 

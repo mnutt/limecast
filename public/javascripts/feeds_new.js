@@ -18,11 +18,17 @@ $(document).ready(function(){
       // if($('#inline_signin'))
       //   $('#inline_signin').show();
 
+      var periodic_count = 0; 
       $.periodic(function(controller){
         var callback = function(response) {
+          periodic_count += 1;
           form_clone.find('.status').html(response);
           if(/finished/g.test(response))
             controller.stop();
+          if(periodic_count > 10) {
+            controller.stop();
+            form_clone.find('.status').html("<p class=\"status_message\">Timeout error. Please try again later.</p>");
+          }
         };
 
         $.ajax({

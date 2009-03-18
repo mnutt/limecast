@@ -1,8 +1,20 @@
 #!/bin/bash
 
+# Checks to see if homepage is up
 WEB=$(curl limecast.com | grep "Want to broadcast your own show")
-
 if [ "$WEB" = "" ]; then
-	echo "Homepage not accessible" | mail -s "$0" jcamerer@limewire.com
+	echo "" | mail -s "Error: Homepage not accessible" jcamerer@limewire.com
+fi
+
+# Checks to see if god is running
+GOD=$(ps aux | grep god | grep -v grep)
+if [ "$GOD" = "" ]; then
+	echo "" | mail -s "Error: God not running" jcamerer@limewire.com
+fi
+
+# Makes sure the disk usage is below 90%
+DISK_USAGE=$(df . | grep "/$" | awk '{ print $4 < 90 }')
+if [ "$DISK_USAGE" = "0" ]; then
+	echo "" | mail -s "Error: Disk is more than 90% full" jcamerer@limewire.com
 fi
 

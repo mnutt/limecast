@@ -1,0 +1,10 @@
+#!/bin/bash
+
+WEB=$(curl limecast.com | grep "Want to broadcast your own show")
+
+if [ "$WEB" = "" ]; then
+	echo "Homepage not accessible" | mail -s "$0" jcamerer@limewire.com
+else
+	echo "Homepage is accessible"  | mail -s "$0" jcamerer@limewire.com
+fi
+

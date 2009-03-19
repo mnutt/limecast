@@ -9,11 +9,11 @@ fi
 # Checks to see if god is running
 GOD=$(ps aux | grep god | grep -v grep)
 if [ "$GOD" = "" ]; then
-  echo "" | mail -s "Error: God not running" spotdev@limewire.com
+  echo "" | mail -s "Error: Where has God gone? ... I shall tell you. We have killed him - you and I." spotdev@limewire.com
 fi
 
 # Makes sure the disk usage is below 90%
-DISK_USAGE=$(df ~/limecast.com/shared | grep "/$" | awk '{ print $4 < 90 }')
+DISK_USAGE=$(df ~/limecast.com/shared | grep "/$" | awk '{ print ($4 > 90) }')
 if [ "$DISK_USAGE" = "1" ]; then
   echo "" | mail -s "Error: Disk is more than 90% full" spotdev@limewire.com
 fi

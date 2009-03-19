@@ -25,7 +25,7 @@ $(document).ready(function(){
           form_clone.find('.status').html(response);
           if(/finished/g.test(response))
             controller.stop();
-          if(periodic_count > 10) {
+          if(periodic_count > 20) {
             controller.stop();
             form_clone.find('.status').html("<p class=\"status_message\">Timeout error. Please try again later.</p>");
           }
@@ -41,7 +41,7 @@ $(document).ready(function(){
         });
 
         return true;
-      }, {frequency: 1});
+      }, {frequency: 2});
     };
 
     $.ajax({

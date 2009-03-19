@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   has_many :favorites, :dependent => :destroy
   has_many :favorite_podcasts, :through => :favorites, :source => :podcast
   has_many :user_taggings, :dependent => :destroy
-  has_many :taggings, :through => :user_taggings
+  has_many :taggings, :through => :user_taggings, :include => :tag, :order => 'tags.name ASC'
 
   attr_accessor :password # Virtual attribute for the unencrypted password
   attr_accessor_with_default :messages, []

@@ -50,11 +50,22 @@
 
 .podcast.show .summary .calloutlight {
   float: none;
-
 }
 
+.podcast.show .summary #podcast_tag_form,
+.podcast.show .summary #podcast_tag_form div {
+  display: inline;
+}
 
-
+.podcast.show .summary #podcast_tag_form input {
+  display: inline !important;
+	border: none;
+	background: url('/imgs/input_small.png') top left no-repeat;
+	width: 70px;
+	height: 20px;
+	font-size: 1em;
+	padding: 5px 5px 0 5px;
+}
 
 
 /* =Episodes & reviews ***********************************/

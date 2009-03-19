@@ -1,5 +1,5 @@
 class PodcastsController < ApplicationController
-  before_filter :login_required, :only => [:edit, :update, :destroy]
+  before_filter :login_required, :only => [:edit, :update, :destroy, :tag]
 
   def index
     @podcasts = Podcast.parsed.sorted
@@ -39,6 +39,21 @@ class PodcastsController < ApplicationController
     redirect_to(podcasts_url)
   end
 
+  # TODO move this to UserTaggingsController
+  def tag
+    @podcast = Podcast.find_by_slug(params[:podcast_slug])
+
+    if tags = params[:podcast].delete(:tag_string)
+      tags.gsub!(/,/, '')
+      @podcast.update_attribute :tag_string, [tags, current_user]
+    end
+
+    redirect_to(@podcast)
+  rescue ActiveRecord::RecordInvalid
+    flash[:notice] = "You are only allowed to add 8 tags for this podcast." if @podcast.taggings
+    redirect_to(@podcast)
+  end
+
   # TODO we should refactor/DRY up this method
   def update
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
@@ -54,13 +69,17 @@ class PodcastsController < ApplicationController
 
     # Set user-specific Podcast attributes if necessary
     params[:podcast][:tag_string] = [params[:podcast][:tag_string], current_user] if params[:podcast][:tag_string]
-    params[:podcast][:feeds_attributes].each {|key,value|
-      params[:podcast][:feeds_attributes][key][:finder_id] = current_user.id if key.to_s =~ /^new\_/
-    } if params[:podcast][:feeds_attributes].respond_to?(:each)
+    params[:podcast][:feeds_attributes].each do |key,value|
+      unless params[:podcast][:feeds_attributes][key].has_key?('id')
+        params[:podcast][:feeds_attributes][key][:finder_id] = current_user.id
+      end
+    end if params[:podcast][:feeds_attributes].respond_to?(:each)
 
     @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, :tag_string,
                                                       :feeds_attributes, :title, :primary_feed_id])
 
+
+    @podcast.feeds
     respond_to do |format|
       if @podcast.save
         PodcastMailer.deliver_updated_podcast_from_site(@podcast)
@@ -102,6 +121,5 @@ class PodcastsController < ApplicationController
         format.js { render :json => {:logged_in => false, :message => "Sign up or sign in to save your favorite:"} }
       end
     end
-
   end
 end

@@ -20,12 +20,9 @@ describe SessionsController do
   end
 
   it 'fails login and does not redirect' do
-    puts "\nFAILING SPEC HERE\n"
     post :create, :user => { :login => @user.login, :password => "xxxx" }, :format => 'js'
     session[:user_id].should be_nil
     response.should be_success
-    puts "\n\nresponse is #{response.call}\n\n"
-    puts "\nReponse methods are #{response.rendered.inspect}\n"
     response.body.should =~ /User and password don\\'t match./
   end
 

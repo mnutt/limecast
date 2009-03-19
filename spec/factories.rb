@@ -10,6 +10,10 @@ Factory.define :tagging do |t|
   t.podcast { Factory.create :podcast }
 end
 
+Factory.define :user_tagging do |t|
+  t.tagging { Factory.create :tagging }
+  t.user { Factory.create :user }
+end
 Factory.define :feed do |f|
   f.url     { "#{Factory.next :site}/feed.xml" }
   f.content { File.open("#{RAILS_ROOT}/spec/data/example.xml").read }

@@ -578,7 +578,7 @@ h6#page_type {
 	display: inline;
 	font-size: 1.2em;
 	color: #a9a9a9;
-
+  line-height: 1.5em;
 }
 
 
@@ -1138,7 +1138,6 @@ display: inline;
   margin-top: 12px;
   font-size: .9em;
 }
-
 
 
 

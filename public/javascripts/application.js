@@ -12,6 +12,7 @@ $(document).ready(function() {
   $('#accounts_forgot_password #email').inputDefaultText();
   $('.limecast_form .new_podcast_feed_url').inputDefaultText();
   $('#search_podcast_q').inputDefaultText();
+  $('#podcast_tag_string').inputDefaultText();
 
   // Handles truncated "more" and "less" links
   $("a.truncated").click(function(){
@@ -61,6 +62,21 @@ $(document).ready(function() {
   
   // Cluetips 
   if(!LOGGED_IN) {
+    $('#podcast_tag_form .submit').cluetip({
+      local: true, 
+      hideLocal: true, 
+      arrows: true, 
+      width: 350,  
+      sticky: true,
+      showTitle: false, 
+      activation: 'click', 
+      positionBy: 'auto', 
+      leftOffset: -50,
+      onShow: function(){
+        $.quickSignIn.setup();
+      }
+    });
+
     $('a.tips').cluetip({local: true, hideLocal: true, arrows: true, width: 350,  showTitle: false});
 
     $('a.login').cluetip({

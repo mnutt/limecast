@@ -54,12 +54,18 @@ class ApplicationController < ActionController::Base
 
     def redirect_with_unauthenticated(exception)
       logger.info "Rescuing from: #{exception}"
-      redirect_to_home "Sorry, you need to be logged in to access that page."
+      respond_to do |format|
+        format.html { redirect_to_home "Sorry, you need to be logged in to access that page." }
+        format.js { head(:unauthorized) }
+      end
     end
 
     def redirect_with_forbidden(exception)
       logger.info "Rescuing from: #{exception}"
-      redirect_to_home "Sorry, you are not allowed to access that page."
+      respond_to do |format|
+        format.html { redirect_to_home "Sorry, you are not allowed to access that page." }
+        format.js { head(:forbidden) }
+      end
     end
 
     def render_404
@@ -77,6 +83,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html { render :template => "errors/#{status}", :status => status }
         format.xml  { render :xml => {:status => interpret_status(status)}.to_xml }
+        format.js   { head(status) }
       end
     end
 

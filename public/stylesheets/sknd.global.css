@@ -275,9 +275,14 @@ input.radio {
 .limecast_form .field {
 	margin-bottom: 5px;
 } 
+.limecast_form ul.tags {
+  margin: 5px 0 5px 10px;
+}
 .limecast_form ul.tags li { 
   display: inline;
 }
+.limecast_form ul.tags li:after { content: ","; }
+.limecast_form ul.tags li:last-child:after { content: ""; }
 
 /* icons */
 a img.inline_icon {
@@ -304,7 +309,6 @@ abbr > img.inline_icon {
 /**** ADD button **************/
 
 .addit a {
-
   background:url("../imgs/icons/add.png") no-repeat left center;
   padding: 0px 0px 0px 20px;
 }
@@ -436,7 +440,7 @@ a.calloutlight:hover {
 .social {
   float:left;
   margin-top: 35px;
-  width: auto;
+  width: 100%;
   }
 .social ul {
   margin:0;

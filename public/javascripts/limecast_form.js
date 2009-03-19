@@ -13,4 +13,6 @@ $(document).ready(function() {
     $(this).parents(".limecast_form").hide(); 
     return false;
   });
+  
+  $('.limecast_form .delete').restfulDelete({ confirmed:function(link){ link.parent().fadeOut(); } });
 });

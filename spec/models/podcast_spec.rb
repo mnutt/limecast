@@ -374,9 +374,9 @@ describe Podcast, "finding or creating owner" do
   end
 
   it "should find and set the owner if owner exists" do
-    @podcast.owner = user = Factory.create(:user, :email => 'john.doe@example.com')
+    owner = Factory.create(:user, :email => @podcast.owner_email)
     @save_podcast.should_not change { User.all.size }
-    @podcast.owner.should == user
+    @podcast.owner.should == owner
   end
 
   describe 'email notifications' do
@@ -429,5 +429,25 @@ describe Podcast, "additional badges" do
   it "should include 'archive'" do
     Episode.create(:published_at => 91.day.ago, :podcast_id => @podcast.id)
     @podcast.reload.additional_badges.should include("archive")
+  end
+end
+
+describe Podcast, "taggers" do
+  before(:each) do
+    @podcast = Factory.create(:podcast)
+    @user1 = Factory.create(:user)
+    @user2 = Factory.create(:user)
+    @user3 = Factory.create(:user)
+  end
+  
+  it "should be empty if podcast isn't tagged" do
+    @podcast.taggers.should be_empty
+  end
+  
+  it "should only include the users who tagged it" do
+    @podcast.update_attribute(:tag_string, "somebadge")
+    @podcast.update_attribute(:tag_string, ["fromuser1", @user1])
+    @podcast.update_attribute(:tag_string, ["fromuser2", @user2])
+    @podcast.reload.taggers.should be([@user1, @user2])
   end
 end

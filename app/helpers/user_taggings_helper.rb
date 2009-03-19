@@ -1,0 +1,2 @@
+module UserTaggingsHelper
+end

@@ -13,7 +13,7 @@ $.fn.extend({
           failure: opts.failure
         });
  
-        if(opts.confirmed){ opts.confirmed(); }
+        if(opts.confirmed){ opts.confirmed($(this)); }
       }
  
       return false;

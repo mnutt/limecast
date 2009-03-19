@@ -12,11 +12,12 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :tags, :member => { :merge => :any }
     admin.resources :users
 
-	  admin.approve_podcast '/podcast/:podcast_slug/approve', :action => "approve", :controller => "podcasts"
+    admin.approve_podcast '/podcast/:podcast_slug/approve', :action => "approve", :controller => "podcasts"
   end
 
-  map.resources :users
   map.resource  :session
+  map.resources :users
+  map.resources :user_taggings
 
   map.search    '/search', :controller => 'search', :action => 'index'
   map.search_google '/search/google', :controller => 'search', :action => 'google' # for SEO
@@ -85,6 +86,7 @@ ActionController::Routing::Routes.draw do |map|
     p.cover            '/:podcast_slug/cover',    :action => 'cover'
     p.recs             '/:podcast_slug/recs',     :action => 'recs'
     p.podcast_info     '/:podcast_slug/info',     :action => 'info'
+    p.tag_podcast      '/:podcast_slug/tag',      :action => 'tag', :conditions => {:method => :put}
   end
 
   map.positive_reviews '/:podcast_slug/reviews/positive', :controller => 'reviews', :filter => 'positive'

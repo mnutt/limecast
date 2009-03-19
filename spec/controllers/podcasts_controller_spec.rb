@@ -123,13 +123,15 @@ describe PodcastsController do
       end
 
       it "should add a new feed (via nested form attributes)" do
-        podcast_with_nested_attrs = {'feeds_attributes' => {'new_1' => {"url" => "http://#{@podcast.clean_site}/newfeed.xml"}}}
+        # the nested attributes should build a new association model for every hash that doesn't have an id 
+        url = "http://#{@podcast.clean_site}/newfeed.xml"
+        podcast_with_nested_attrs = {'feeds_attributes' => {'new' => {"url" => url}}}
         lambda { do_put(podcast_with_nested_attrs) }.should change{ @podcast.reload.feeds.size }.by(1)
-        @podcast.feeds.all(:order => "created_at ASC").first.finder.should == @user
+        @podcast.feeds.find_by_url(url).finder.should == @user
       end
 
       it "should delete a feed (via nested form attributes)" do
-        podcast_with_nested_attrs = {'feeds_attributes' => {@podcast.feeds.first.id.to_s => {"_delete" => "1"}}}
+        podcast_with_nested_attrs = {'feeds_attributes' => {"0" => {"id" => @podcast.feeds.first.id.to_s, "_delete" => "1"}}}
         lambda { do_put(podcast_with_nested_attrs) }.should change{ @podcast.reload.feeds.size }.by(-1)
       end
 
@@ -230,6 +232,52 @@ describe PodcastsController do
       lambda { do_post(@podcast) }.should change { @podcast.favorites.count }.by(-1)
       lambda { do_post(@podcast) }.should change { @podcast.favorites.count }.by(1)
       lambda { do_post(@podcast) }.should change { @podcast.favorites.count }.by(-1)
+    end
+  end
+
+  describe "handling POST /:podcast/tag" do
+    before do
+      @user = Factory.create(:user)
+      @podcast = Factory.create(:podcast)
+    end
+    
+    def do_put(podcast=nil, tag_string="foobar")
+      put :tag, :podcast_slug => @podcast.clean_url, :podcast => {:tag_string => tag_string}
+    end
+
+    describe "logged in" do
+      before do
+        login @user
+      end
+
+      it "should be redirect to podcast" do
+        do_put(@podcast).should redirect_to(podcast_url(@podcast))
+      end
+    
+      it "should increment the taggings count by 1" do
+        lambda { do_put(@podcast) }.should change { @podcast.taggings.count }.by(1)
+      end
+    
+      it "should increment the taggings count by 4" do
+        lambda { do_put(@podcast, "one two three four") }.should change { @podcast.taggings.count }.by(4)
+      end
+
+      it "should strip spaces if commas are used" do
+        lambda { do_put(@podcast, "blaster master, zelda") }.should change { @podcast.taggings.count }.by(3)
+        @podcast.tags.map(&:name).should include("blaster")
+        @podcast.tags.map(&:name).should include("master")
+        @podcast.tags.map(&:name).should include("zelda")
+      end
+    end
+    
+    describe "not logged in" do
+      it "should redirect to home" do
+        do_put(@podcast).should redirect_to('/')
+      end
+      
+      it "should not change the taggings count" do
+        lambda { do_put(@podcast, "five six seven eight") }.should change { @podcast.taggings.count }.by(0)
+      end
     end
   end
 

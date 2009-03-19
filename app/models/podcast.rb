@@ -44,8 +44,8 @@ class Podcast < ActiveRecord::Base
   has_many :recommendations, :order => 'weight DESC'
   has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast
 
-  has_many :taggings, :dependent => :destroy, :include => :tag
-  has_many :tags, :through => :taggings, :order => 'name ASC'
+  has_many :taggings, :dependent => :destroy, :include => :tag, :order => 'tags.name ASC'
+  has_many :tags, :through => :taggings, :order => 'tags.name ASC'
   has_many :badges, :source => :tag, :through => :taggings, :conditions => {:badge => true}, :order => 'name ASC'
 
   accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? }
@@ -189,8 +189,13 @@ class Podcast < ActiveRecord::Base
   end
 
   def finders
-    self.feeds.map(&:finder).compact
+    self.feeds.map { |f| f.finder }.compact
   end
+
+ # An array of users that tagged this podcast
+ def taggers
+   taggings.map { |t| t.users }.flatten.compact.uniq
+ end
 
   # An array of users that may edit this podcast
   def editors

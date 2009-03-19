@@ -178,6 +178,7 @@ namespace :limecast do
         mkdir #{shared_path}/logos &&
         mkdir #{shared_path}/screenshots &&
         mkdir #{shared_path}/previews &&
+        mkdir #{shared_path}/random_clips &&
         mkdir #{shared_path}/torrents &&
         mkdir #{shared_path}/private
       CMD
@@ -208,6 +209,7 @@ namespace :limecast do
                    'logos'          => 'public/logos',
                    'screenshots'    => 'public/screenshots',
                    'previews'       => 'public/previews',
+                   'random_clips'   => 'public/random_clips',
                    'torrents'       => 'public/torrents',
                    'private'        => 'private' }
 

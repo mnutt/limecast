@@ -225,7 +225,8 @@ while true
 
       # Create flv
       encode_preview_video(source, info)
-      encode_random_video(source, info)
+      # XXX: we are going to wait for a while to turn this on
+      # encode_random_video(source, info)
     end
 
     # Updates database with info taken from the video

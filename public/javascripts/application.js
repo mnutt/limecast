@@ -12,7 +12,7 @@ $(document).ready(function() {
   $('#accounts_forgot_password #email').inputDefaultText();
   $('.limecast_form .new_podcast_feed_url').inputDefaultText();
   $('#search_podcast_q').inputDefaultText();
-  $('#podcast_tag_string').inputDefaultText();
+  $('#user_tagging_tag_string').inputDefaultText();
 
   // Handles truncated "more" and "less" links
   $("a.truncated").click(function(){

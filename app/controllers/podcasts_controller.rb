@@ -39,21 +39,6 @@ class PodcastsController < ApplicationController
     redirect_to(podcasts_url)
   end
 
-  # TODO move this to UserTaggingsController
-  def tag
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-
-    if tags = params[:podcast].delete(:tag_string)
-      tags.gsub!(/,/, '')
-      @podcast.update_attribute :tag_string, [tags, current_user]
-    end
-
-    redirect_to(@podcast)
-  rescue ActiveRecord::RecordInvalid
-    flash[:notice] = "You are only allowed to add 8 tags for this podcast." if @podcast.taggings
-    redirect_to(@podcast)
-  end
-
   # TODO we should refactor/DRY up this method
   def update
     @podcast = Podcast.find_by_slug(params[:podcast_slug])

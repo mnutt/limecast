@@ -86,7 +86,6 @@ ActionController::Routing::Routes.draw do |map|
     p.cover            '/:podcast_slug/cover',    :action => 'cover'
     p.recs             '/:podcast_slug/recs',     :action => 'recs'
     p.podcast_info     '/:podcast_slug/info',     :action => 'info'
-    p.tag_podcast      '/:podcast_slug/tag',      :action => 'tag', :conditions => {:method => :put}
   end
 
   map.positive_reviews '/:podcast_slug/reviews/positive', :controller => 'reviews', :filter => 'positive'

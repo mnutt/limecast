@@ -1,6 +1,64 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe UserTaggingsController do
+  describe "handling POST /user_taggings" do
+    before do
+      @user = Factory.create(:user)
+      @podcast = Factory.create(:podcast)
+    end
+    
+    def do_post(tag_string="gutentag", podcast_id=@podcast.id)
+      post :create, :user_tagging => {:tag_string => tag_string, :podcast_id => podcast_id}
+    end
+    
+    describe "not logged in" do
+      it "should redirect to home" do
+        do_post.should redirect_to('/')
+      end
+      
+      it "should not change the taggings count" do
+        lambda { do_post("five six seven eight") }.should change { Tagging.count + UserTagging.count }.by(0)
+      end
+    end
+
+    describe "logged in" do
+      before do
+        login @user
+      end
+
+      it "should be redirected to podcast" do
+        do_post.should redirect_to(podcast_url(@podcast))
+      end
+    
+      it "should increment the taggings count by 1" do
+        lambda { do_post }.should change { @podcast.taggings.count }.by(1)
+      end
+    
+      it "should increment the taggings count by 4" do
+        lambda { do_post("one two three four") }.should change { @podcast.taggings.count }.by(4)
+      end
+
+      it "should strip spaces if commas are used" do
+        lambda { do_post("blaster master, zelda") }.should change { @podcast.taggings.count }.by(3)
+        @podcast.tags.map(&:name).should include("blaster")
+        @podcast.tags.map(&:name).should include("master")
+        @podcast.tags.map(&:name).should include("zelda")
+      end
+      
+      it "should redirect and not change the tagging if podcast not found" do
+        lambda { do_post("gutentag", "not-a-podcast-id") }.should_not change { UserTagging.count }
+        response.response_code.should be(404)
+      end
+      
+      it "should set a flash message if regular user tries to add more than 8 tags" do
+        lambda { do_post("tag1 tag2 tag3 tag4 tag5 tag6 tag7 tag8 tag9") }.should change { UserTagging.count }.by(8)
+        response.should redirect_to(podcast_url(@podcast))
+        flash[:notice].should == "You are only allowed to add 8 tags for this podcast."
+      end
+      
+    end
+  end
+
   describe "handling DELETE /user_tagging/:id" do
     before(:each) do
       @tagger = Factory.create(:user)

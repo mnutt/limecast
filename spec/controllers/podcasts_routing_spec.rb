@@ -49,9 +49,5 @@ describe PodcastsController do
     it "should generate params { :podcast_slug => 'mypodcast', :controller => 'episodes', :action => 'favorite' } from POST /mypodcast/favorite" do
       params_from(:post, "/mypodcast/favorite").should == {:podcast_slug => 'mypodcast', :controller => "podcasts", :action => "favorite"}
     end
-
-    it "should generate params { :podcast_slug => 'mypodcast', :controller => 'podcasts', :action => 'tag' } from POST /mypodcast/tag" do
-      params_from(:put, "/mypodcast/tag").should == {:podcast_slug => 'mypodcast', :controller => "podcasts", :action => "tag"}
-    end
   end
 end

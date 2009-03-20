@@ -1,4 +1,5 @@
-<% form_for :podcast, :url => tag_podcast_url(podcast), :html => {:id => 'podcast_tag_form', :method => :put} do |p| -%>
-  <%= p.label :tag_string, "add tags&hellip;"%>
-  <%= p.text_field :tag_string, :value => '', :title => "Add tags separated by spaces, and press enter" -%><%= submit_tag "Add", :class => "submit", :style => "visibility: hidden; width; 1px;", :rel => ".login_pop" -%>
+<% form_for :user_tagging, :url => user_taggings_url, :html => {:id => 'podcast_tag_form', :method => :post} do |ut| -%>
+  <%= hidden_field_tag "user_tagging[podcast_id]", podcast.id -%>
+  <%= ut.label :tag_string, "add tags&hellip;"%>
+  <%= ut.text_field :tag_string, :value => '', :title => "Add tags separated by spaces, and press enter" -%><%= submit_tag "Add", :class => "submit", :style => "visibility: hidden; width; 1px;", :rel => ".login_pop" -%>
 <% end -%>

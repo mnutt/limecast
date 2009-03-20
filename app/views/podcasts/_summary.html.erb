@@ -16,7 +16,7 @@
       <%= link_to_itunes(@podcast.primary_feed) + " &ndash; " if @podcast.primary_feed && !@podcast.primary_feed.itunes_link.blank? -%>
       <%= truncated_text unescape_entities(h(@podcast.description)), 110 -%>
     </p>
-    <%= render :partial => "tags/tags", :object => @podcast.tags, :locals => {:podcast => @podcast} -%>
+    <%= render :partial => "tags/tags_with_new_form", :object => @podcast.tags, :locals => {:podcast => @podcast} -%>
     <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
   </div>
   

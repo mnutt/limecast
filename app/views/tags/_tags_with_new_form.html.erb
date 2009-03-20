@@ -1,0 +1,7 @@
+<% tags = tags_with_new_form -%>
+
+<h6>Tags:</h6>
+<ul class="tags">
+  <%= comma_separated_list_items(tags.map {|tag| link_to_tag(tag) } + 
+        [render(:partial => 'tags/new', :locals => {:podcast => @podcast})]) -%>
+</ul>

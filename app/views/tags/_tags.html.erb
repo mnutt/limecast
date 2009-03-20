@@ -1,5 +1,4 @@
 <h6>Tags:</h6>
 <ul class="tags">
-  <%= comma_separated_list_items(tags.map {|tag| link_to_tag(tag) } + 
-        [render(:partial => 'tags/new', :locals => {:podcast => @podcast})]) -%>
+  <%= comma_separated_list_items(tags.map {|tag| link_to_tag(tag) }) -%>
 </ul>

@@ -357,6 +357,7 @@ describe Podcast, "primary feed" do
   it 'should make the second feed be the primary feed' do
     @podcast.update_attribute(:primary_feed_id, @feed2.id)
     @podcast.primary_feed.should == @feed2
+    @feed2.reload
     @feed2.should be_primary
   end
 end

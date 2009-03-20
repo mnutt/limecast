@@ -35,7 +35,7 @@ class Podcast < ActiveRecord::Base
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites
 
-  has_many :feeds, :include => :first_source, :dependent => :destroy,
+  has_many :feeds, :include => :first_source,#:dependent => :destroy,
            :after_add => :set_primary_feed, :after_remove => :set_primary_feed,
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_many :episodes, :dependent => :destroy

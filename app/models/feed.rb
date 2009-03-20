@@ -309,7 +309,7 @@ class Feed < ActiveRecord::Base
   end
 
   def remove_empty_podcast
-    self.podcast.destroy if self.failed? && !self.podcast.nil? && self.podcast.failed?
+    self.podcast.destroy if self.podcast && self.podcast.failed?
   end
 
   def is_similar_to_podcast

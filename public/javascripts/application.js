@@ -37,20 +37,6 @@ function truncatedText() {
   }); 
 }
 
-function podcastEpisodeSorting() {
-  var title = { "bSortable": false };
-  var description = { "bVisible":    false, "bSortable": false };
-  var runtime = { "bSortable": false };
-  var date_released = null;
-  
-  $('#podcast_episodes').dataTable({
-    "aaSorting": [[ 3, "desc" ]],
-    "aoColumns": [ title, description, runtime, date_released ],
-    "bStateSave": true,
-    "bProcessing": true
-  });
-}
-
 function favoriteLink() {
   $('a.favorite_link').click(function() {
     if(LOGGED_IN) {
@@ -63,11 +49,11 @@ function favoriteLink() {
   });
 }
 
-function setupNotLoggedInCluetips() {
+function setupCluetips() {
+  var default_options = { local: true, arrows: true, width: 350, showTitle: false };
+  $('a.tips').cluetip(default_options);
+  
   if(!LOGGED_IN) {
-    var default_options = { local: true, arrows: true, width: 350, showTitle: false };
-    $('a.tips').cluetip(default_options);
-
     default_options = $.extend({activation: 'click', sticky: true, onShow: function(){$.quickSignIn.setup()}}, default_options);
 
     var options = $.extend({positionBy: 'auto', leftOffset: -50}, default_options);
@@ -75,6 +61,9 @@ function setupNotLoggedInCluetips() {
     
     default_options = $.extend({positionBy: 'bottomTop', topOffset: 25}, default_options);
     $('a.login').cluetip(default_options); 
+
+    default_options = $.extend({positionBy: 'bottomTop'}, default_options);
+    $('a.cluetip_add_link').cluetip(default_options);
 
     default_options = $.extend({onShow: function(){ $.quickSignIn.showSignUp(); $.quickSignIn.setup(); }}, default_options);
     $('a.signup').cluetip(default_options);
@@ -84,26 +73,9 @@ function setupNotLoggedInCluetips() {
 $(document).ready(function() {
   defaultText();
   truncatedText();
-  podcastEpisodeSorting();
   favoriteLink();
-  setupNotLoggedInCluetips();
+  setupCluetips();
 
-  
-  // Add Podcast link
-  $('a.cluetip_add_link').cluetip({
-    local: true, 
-    hideLocal: true, 
-    arrows: true, 
-    width: 350,  
-    sticky: true,
-    showTitle: false, 
-    activation: 'click', 
-    positionBy: 'auto',
-    topOffset: 25,
-    onShow: function(){ $.quickSignIn.setup(); }
-  })
-  
-  
   // Makes clicking labels check their associated checkbox/radio button
 });
 

@@ -448,9 +448,9 @@ describe Podcast, "taggers" do
   end
   
   it "should only include the users who tagged it" do
-    @podcast.update_attribute(:tag_string, "somebadge")
-    @podcast.update_attribute(:tag_string, ["fromuser1", @user1])
-    @podcast.update_attribute(:tag_string, ["fromuser2", @user2])
-    @podcast.reload.taggers.should be([@user1, @user2])
+    @podcast.tag_string = ["somebadge"]
+    @podcast.tag_string = ["fromuser1", @user1]
+    @podcast.tag_string = ["fromuser2", @user2]
+    @podcast.reload.taggers.should == [@user1, @user2]
   end
 end

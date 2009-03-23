@@ -171,7 +171,7 @@ class Feed < ActiveRecord::Base
 
   def update_from_feed
     update_podcast!
-    update_badges!
+    update_tags!
     update_episodes!
 
     self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64),
@@ -228,13 +228,16 @@ class Feed < ActiveRecord::Base
       :owner_name     => @feed.owner_name,
       :site           => @feed.link
     )
-    PodcastMailer.deliver_new_podcast(podcast) if new_podcast
-    PodcastMailer.deliver_updated_podcast_from_feed(podcast) if !new_podcast && !podcast.last_changes.blank?
+    if new_podcast
+      PodcastMailer.deliver_new_podcast(podcast)
+    elsif !podcast.last_changes.blank?
+      PodcastMailer.deliver_updated_podcast_from_feed(podcast)
+    end
   rescue RPodcast::NoEnclosureError
     raise NoEnclosureException
   end
 
-  def update_badges!
+  def update_tags!
     self.podcast.tag_string = "hd" if @feed.hd?
     self.podcast.tag_string = "video" if @feed.video?
     self.podcast.tag_string = "audio" if @feed.audio?

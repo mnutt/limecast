@@ -48,8 +48,8 @@
   <tr>
     <td>Cover</td>
     <td>
-    <% %w(large small square icon).each do |size| -%>
-      <%= image_tag @feed.podcast.logo.url(size) -%>
+    <% @feed.podcast.logo.styles.keys.each do |size| -%>
+      <%= image_tag @feed.podcast.logo(size) -%>
     <% end -%>
     </td>
   </tr>

@@ -63,8 +63,6 @@ $(function(){
 
     // XXX: %23 is # ... Doesnt seem to be working in firefox. Bug with encoding? should be able to take '#' out.
     update_cookie($(this).attr('id') + "," + type);
-
-    //return false;
   });
 
   $("#download_button a.opener, #download_dropdown a").click(function() {

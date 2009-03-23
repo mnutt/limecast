@@ -1,18 +1,32 @@
-if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
+//*************************************************************
+// Hover/Focus Behaviors
+//**************************************************************/
+$.fn.extend({
+  hoverAndFocusBehavior: function() {
+    $(this).mouseover(function() { $(this).addClass('hover'); })
+           .mousedown(function() { $(this).addClass('active'); })
+           .mouseup(function() { $(this).removeClass('active'); })
+           .mouseout(function() { $(this).removeClass('hover active'); })
+           .focus(function() { $(this).addClass('focus').removeClass('active hover'); })
+           .blur(function() { $(this).removeClass('focus hover active'); });
+  }
+});
 
 $.ajaxSetup({
   'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 })
 
-$(document).ready(function() {
 
-  // Default text
-  $('#feed_url').inputDefaultText();
-  $('#q').inputDefaultText();
-  $('#accounts_forgot_password #email').inputDefaultText();
-  $('.limecast_form .new_podcast_feed_url').inputDefaultText();
-  $('#search_podcast_q').inputDefaultText();
-  $('#user_tagging_tag_string').inputDefaultText();
+// Method hooks up all of the input text boxes that should have default labels
+function defaultText() {
+  var ids = [ '#feed_url', '#accounts_forgot_password #email', '#search_podcast_q',
+               '.limecast_form .new_podcast_feed_url', '#q', '#user_tagging_tag_string'];
+
+  $(ids.join(',')).inputDefaultText();
+}
+
+$(document).ready(function() {
+  defaultText();
 
   // Handles truncated "more" and "less" links
   $("a.truncated").click(function(){
@@ -130,22 +144,6 @@ $(document).ready(function() {
   // Makes clicking labels check their associated checkbox/radio button
 });
 
-
-if(typeof $=='undefined') throw("application.js requires the $ JavaScript framework.");
-
-//*************************************************************
-// Hover/Focus Behaviors
-//**************************************************************/
-$.fn.extend({
-  hoverAndFocusBehavior: function() {
-    $(this).mouseover(function() { $(this).addClass('hover'); })
-           .mousedown(function() { $(this).addClass('active'); })
-           .mouseup(function() { $(this).removeClass('active'); })
-           .mouseout(function() { $(this).removeClass('hover active'); })
-           .focus(function() { $(this).addClass('focus').removeClass('active hover'); })
-           .blur(function() { $(this).removeClass('focus hover active'); });
-  }
-});
 $(document).ready(function() {
   $('input:not([type=hidden]), textarea, button').hoverAndFocusBehavior();
 });

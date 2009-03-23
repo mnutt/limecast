@@ -31,6 +31,7 @@ describe Episode do
 
   it 'should have a thumbnail' do
     @file = PaperClipFile.new
+    @file.to_tempfile = Tempfile.new('tmp')
     @episode.attachment_for(:thumbnail).assign(@file)
     @episode.thumbnail.should_not be_nil
   end

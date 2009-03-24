@@ -3,7 +3,13 @@ class SessionsController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
 
-  # render new.rhtml
+  # for create(:js)
+  include ERB::Util
+  include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::TagHelper
+  include ApplicationHelper
+  include SessionsHelper
+
   def new
   end
 
@@ -13,31 +19,23 @@ class SessionsController < ApplicationController
     @unknown_user  = !User.find_by_login(params[:user][:login]) if params[:user][:login] !~ /@/
     @unknown_email = !User.find_by_email(params[:user][:login]) if params[:user][:login] =~ /@/
     respond_to do |format|
-      format.js { render :layout => false }
+      # Took this out of create.js.erb because rspec isn't seeing it (after upgrading to 2.3)
       format.html { redirect_back_or_default('/') }
+      format.js do 
+        msg = if logged_in?
+          { :success => true, 
+            :html => "Successful signin, #{link_to_profile(current_user)}." }
+        else
+          { :success => false,
+            :html => "<p>#{create_session_error(params)}</p>" }
+        end
+        render :json => msg
+      end
     end
   end
 
   def destroy
     logout
     redirect_back_or_default('/')
-  end
-
-  protected
-
-  def authenticate
-    self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
-
-    if logged_in?
-      claim_all
-      set_cookies
-      current_user.calculate_score!
-      current_user.update_attribute(:logged_in_at, Time.now)
-    end
-  end
-
-  def set_cookies
-    current_user.remember_me unless current_user.remember_token?
-    cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
   end
 end

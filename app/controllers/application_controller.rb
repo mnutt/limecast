@@ -28,6 +28,25 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+    def authenticate
+      self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
+
+      if logged_in?
+        claim_all
+        set_cookies
+        current_user.calculate_score!
+        current_user.update_attribute(:logged_in_at, Time.now)
+        return true
+      else 
+        return false
+      end
+    end
+
+    def set_cookies
+      current_user.remember_me unless current_user.remember_token?
+      cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+    end
+
     def local_request?
       false
     end

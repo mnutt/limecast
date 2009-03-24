@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
+  # for create(:js)
+  #include ActionController::UrlWriter  
+  # include ActionView::Helpers::UrlHelper
+  # include ActionView::Helpers::TagHelper
+  # include UsersHelper
+  # include ApplicationHelper
+
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
 
-  # render new.html.erb
   def new
   end
 
@@ -19,15 +25,14 @@ class UsersController < ApplicationController
 
   def create
     cookies.delete :auth_token
-    # protects against session fixation attacks, wreaks havoc with
-    # request forgery protection.
-    # uncomment at your own risk
+    # protects against session fixation attacks, wreaks havoc with request forgery protection. uncomment at your own risk
     # reset_session
-    if self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
-      respond_to do |format|
+
+    if authenticate
+      respond_to { |format|
         format.html { redirect_back_or_default('/') }
-        format.js { render :layout => false }
-      end
+        format.js { render 'sessions/create' }
+      }
       return
     end
 
@@ -35,18 +40,15 @@ class UsersController < ApplicationController
     @user.state = 'pending'
     @user.register! if @user.valid?
 
-    if @user.errors.empty?
-      self.current_user = @user
+    respond_to do |format|
+      if @user.errors.empty?
+        self.current_user = @user
+        claim_all
 
-      claim_all
-
-      respond_to do |format|
-        format.js
+        format.js { render 'users/create.js.erb' }# :json => { :success => true, :html => "Successful signup, #{link_to_profile(current_user)}." } }
         format.html { redirect_back_or_default('/') }
-      end
-    else
-      respond_to do |format|
-        format.js { render }
+      else
+        format.js { render 'users/create.js.erb', :layout => false }#:json => { :success => false,  :html => "<p>#{create_user_error(@user)}</p>" } }
         format.html { render :action => 'new' }
       end
     end

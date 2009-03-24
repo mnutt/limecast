@@ -1,6 +1,6 @@
 function podcastEpisodeSorting() {
   var title = { "bSortable": false };
-  var description = { "bVisible":    false, "bSortable": false };
+  var description = { "bVisible": false, "bSortable": false };
   var runtime = { "bSortable": false };
   var date_released = null;
 
@@ -27,4 +27,4 @@ $(document).ready(function() {
 
     e.preventDefault();
   });
-}
+});

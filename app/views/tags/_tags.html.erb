@@ -1,4 +1,6 @@
-<h6>Tags:</h6>
-<ul class="tags">
-  <%= comma_separated_list_items(tags.map {|tag| link_to_tag(tag) }) -%>
-</ul>
+<%- unless tags.empty? -%>
+  <h6>Tags:</h6>
+  <ul class="tags">
+    <%= comma_separated_list_items(tags.map {|tag| link_to_tag(tag) }) -%>
+  </ul>
+<%- end -%>

@@ -1,42 +1,43 @@
-$(document).ready(function(){  
-  // From http://www.sajithmr.com/javascript-check-an-image-is-loaded-or-not/
-  var imgLoaded = function(img){
-    if(!img.attr('complete')) {
-      return false;
-    }
-    if(typeof img.attr('naturalWidth') != 'undefined' && img.attr('naturalWidth') == 0) {
-      return false;
-    }
-    return true;
+// From http://www.sajithmr.com/javascript-check-an-image-is-loaded-or-not/
+var imgLoaded = function(img){
+  if(!img.attr('complete')) {
+    return false;
   }
-  
-  var hook_up_preview = function(){
-    var preview = $(".preview .container img");
-    var url = window.location.href;
-  
-    if(!imgLoaded(preview)) { return };
-  
-    function scale(height,width) {
-      var scaleToWidth = 460;
-      var h = (scaleToWidth / width) * height;
-      return {height: h + 2, width: Math.round(scaleToWidth)};
-    }
-    var scaledSize = scale(preview.height(), preview.width());
-  
-    var flashvars = {
-      previewURL: preview.attr('src'),
-      videoURL:   preview.attr('rel'),
-      totalTime:  5 * 60
-    };
-  
-    preview.parent('div').empty().flash({
-      src:       "/flash/CastPlayer.swf",
-      width:     scaledSize.width,
-      height:    scaledSize.height,
-      flashvars: flashvars
-    });
+  if(typeof img.attr('naturalWidth') != 'undefined' && img.attr('naturalWidth') == 0) {
+    return false;
+  }
+  return true;
+}
+
+var hook_up_preview = function(){
+  var preview = $(".preview .container img");
+  var url = window.location.href;
+
+  if(!imgLoaded(preview)) { return };
+
+  function scale(height,width) {
+    var scaleToWidth = 460;
+    var h = (scaleToWidth / width) * height;
+    return {height: h + 2, width: Math.round(scaleToWidth)};
+  }
+  var scaledSize = scale(preview.height(), preview.width());
+
+  var flashvars = {
+    previewURL: preview.attr('src'),
+    videoURL:   preview.attr('rel'),
+    totalTime:  5 * 60
   };
-  
+
+  preview.parent('div').empty().flash({
+    src:       "/flash/CastPlayer.swf",
+    width:     scaledSize.width,
+    height:    scaledSize.height,
+    flashvars: flashvars
+  });
+};
+
+
+$(function(){  
   // Video Preview
   // XXX: Hack. We call this method twice because if the image is already cached,
   // load never gets executed. I added imgLoaded(img) so that the code is only executed

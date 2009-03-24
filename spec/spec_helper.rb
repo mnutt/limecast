@@ -8,9 +8,10 @@ ENV['DO_NOT_LOAD_FEED_OBSERVER'] ||= 'true'
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
-require 'scenarios'
+require 'spec/autorun'
 require 'factory_girl'
 require 'thinking_sphinx'
+
 
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
@@ -61,15 +62,6 @@ end
 
 def reset_actionmailer
   ActionMailer::Base.deliveries.clear
-end
-
-# Starts sphinx, runs block, stops sphinx (this takes a while to execute!)
-def with_sphinx &blk
-  system "rake ts:config RAILS_ENV=test > /dev/null"
-  system "rake ts:index RAILS_ENV=test > /dev/null"
-  system "rake ts:start RAILS_ENV=test > /dev/null"
-  yield
-  system "rake ts:stop RAILS_ENV=test > /dev/null"
 end
 
 # Returns a controller that has been initialized enough to make #url_for and

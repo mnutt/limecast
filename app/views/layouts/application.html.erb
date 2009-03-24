@@ -37,6 +37,12 @@
                              'jquery.hoverIntent',
                              'jquery.cluetip',
                              :cache => 'jquery-all' -%>
+	<%= javascript_include_tag 'nbga-1.0' -%>
+
+  <script type="text/javascript">
+	  ga().config({id: '<%= @tracker -%>'}).track();
+	</script>
+
 
   <script type="text/javascript">
     <% if protect_against_forgery? -%>
@@ -123,8 +129,6 @@
 
       </div> <!-- /footer -->
     </div> <!-- /foot_wrapper -->
-
-    <%= @tracker -%>
 
     <%= render :partial => 'users/quick_signin', :locals => { }  -%>
 </body>

@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   before_filter :read_tracker
   def read_tracker
     tracker_file = "#{RAILS_ROOT}/private/tracker.txt"
-    @tracker ||= File.read(tracker_file) if File.exist?(tracker_file)
+    @tracker ||= File.read(tracker_file).strip if File.exist?(tracker_file)
   end
 
   before_filter :read_ads

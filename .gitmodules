@@ -34,12 +34,12 @@
 [submodule "vendor/plugins/rspec"]
 	path = vendor/plugins/rspec
 	url = git://github.com/dchelimsky/rspec.git
-[submodule "vendor/plugins/rspec-rails"]
-	path = vendor/plugins/rspec-rails
-	url = git://github.com/dchelimsky/rspec-rails.git
 [submodule "vendor/plugins/action_assets_helper"]
 	path = vendor/plugins/action_assets_helper
 	url = git://github.com/mnutt/action_assets_helper.git
 [submodule "vendor/plugins/paperclip"]
 	path = vendor/plugins/paperclip
 	url = git://github.com/thoughtbot/paperclip.git
+[submodule "vendor/plugins/rspec-rails"]
+	path = vendor/plugins/rspec-rails
+	url = git@github.com:tiegz/rspec-rails.git

@@ -6,12 +6,11 @@ $: << File.dirname(__FILE__)
 ENV['DO_NOT_LOAD_FEED_OBSERVER'] ||= 'true'
 
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
-require 'spec'
-require 'spec/rails'
 require 'spec/autorun'
+require 'spec/rails'
 require 'factory_girl'
 require 'thinking_sphinx'
-
+require 'factories'
 
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true

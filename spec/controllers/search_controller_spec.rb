@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SearchController do
-  # TODO find a faster solution for testing with sphinx than with_sphinx to get real search results
   describe "handling GET /search?q=the" do
     before(:each) do
       @podcast = Factory.create(:parsed_podcast)

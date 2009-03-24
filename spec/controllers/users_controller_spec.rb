@@ -15,7 +15,7 @@ describe UsersController do
 
   it 'requires login on signup' do
     lambda do
-      create_user({}, {:login => nil})
+      create_user(:user => {:login => nil}, :format => 'js')
       assigns[:user].errors.on(:login).should_not be_nil
       response.should be_success
     end.should_not change(User, :count)
@@ -23,7 +23,7 @@ describe UsersController do
 
   it 'requires password on signup' do
     lambda do
-      create_user({}, {:password => nil})
+      create_user(:user => {:password => nil}, :format => 'js')
       assigns[:user].errors.on(:password).should_not be_nil
       response.should be_success
     end.should_not change(User, :count)
@@ -31,36 +31,28 @@ describe UsersController do
 
   it 'requires email on signup' do
     lambda do
-      create_user({}, {:email => nil})
+      create_user(:user => {:email => nil}, :format => 'js')
       assigns[:user].errors.on(:email).should_not be_nil
       response.should be_success
     end.should_not change(User, :count)
   end
 
-  def create_user(options = {}, user_options = {})
-    post :create, {:user => { :login => 'quire', :email => 'quire@example.com',
-      :password => 'quire'}.merge(user_options)}.merge(options)
+  def create_user(options = {})
+    post :create, {:user => {:login => 'quire', :email => 'quire@example.com', :password => 'quire'}}.merge(options)
   end
 end
 
 describe UsersController, "handling POST /users" do
   describe "when the email is bad" do
     before do
-      xhr :post, :create, {:user => {:login => 'quire', :password => 'blah'}, :format => 'js'}
+      post :create, {:user => {:login => 'quire', :password => 'blah'}, :format => 'html'}
     end
 
     it 'should not succeed' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["success"].should be_false
     end
 
-    it 'should render the create.js.erb template' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
-      response.should render_template('users/create.js.erb')
-    end
-
     it 'should report that the email address should be entered' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["html"].should =~ /type your email/
     end
   end
@@ -71,12 +63,10 @@ describe UsersController, "handling POST /users" do
     end
 
     it 'should not succeed' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["success"].should be_false
     end
 
     it 'should report that the password should be entered' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["html"].should =~ /choose a password/
     end
   end
@@ -87,12 +77,10 @@ describe UsersController, "handling POST /users" do
     end
 
     it 'should not succeed' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["success"].should be_false
     end
 
     it 'should report that the user name should be entered' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["html"].should =~ /Choose your new user name/
     end
   end
@@ -104,49 +92,42 @@ describe UsersController, "handling POST /users" do
     end
 
     it 'should succeed' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["success"].should be_true
     end
 
     it 'should return the user link' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
-      decode(response)["html"].should =~ /quire \(0\)/
+      decode(response)["html"].should =~ /Successful signin\,.*quire/
     end
   end
 
   describe "when the email is known, but the password is wrong" do
     before do
       @user = Factory.create(:user, :login => 'quire', :email => 'quire@example.com')
-
       post :create, :user => {:login => 'quire',
                               :email => 'quire@example.com',
-                              :password => 'bad'}, :format => 'js'
+                              :password => 'bad'} , :format => 'js'
     end
 
     it 'should not succeed' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["success"].should be_false
     end
 
     it 'should report that the email matches, but password is wrong' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["html"].should =~ /Sorry/
     end
   end
-
+  
   describe "when the user name has already been taken" do
     before do
       @user = Factory.create(:user)
       post :create, :user => {:login => @user.login, :password => "goodpass", :email => "quire@example.com"}, :format => 'js'
     end
-
+  
     it 'should not succeed' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["success"].should be_false
     end
-
+  
     it 'should report that the username has already been taken' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       response.body.should =~ /Sorry, this user name is taken/
     end
   end
@@ -159,15 +140,13 @@ describe UsersController, "handling POST /users" do
     before do
       post :create, :user => {:login => "quire", :password => "goodpass", :email => "quire@example.com"}, :format => 'js'
     end
-
+  
     it 'should succeed' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
       decode(response)["success"].should be_true
     end
-
+  
     it 'should return the link_to_user' do
-      pending "Rails 2.3 response.body doesn't seem to come through in JS tests"
-      decode(response)["html"].should =~ /quire \(0\)/
+      decode(response)["html"].should =~ /Successful signup\,.*quire/
     end
   end
 end

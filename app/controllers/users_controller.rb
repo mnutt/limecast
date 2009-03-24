@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with request forgery protection. uncomment at your own risk
     # reset_session
-
+    
     if authenticate
       respond_to { |format|
         format.html { redirect_back_or_default('/') }
@@ -35,20 +35,21 @@ class UsersController < ApplicationController
       }
       return
     end
-
+    
     @user = User.new(params[:user].keep_keys([:email, :password, :login]))
     @user.state = 'pending'
     @user.register! if @user.valid?
 
     respond_to do |format|
+    
       if @user.errors.empty?
         self.current_user = @user
         claim_all
-
-        format.js { render 'users/create.js.erb' }# :json => { :success => true, :html => "Successful signup, #{link_to_profile(current_user)}." } }
+    
+        format.js { render :layout => false }
         format.html { redirect_back_or_default('/') }
       else
-        format.js { render 'users/create.js.erb', :layout => false }#:json => { :success => false,  :html => "<p>#{create_user_error(@user)}</p>" } }
+        format.js { render :layout => false }
         format.html { render :action => 'new' }
       end
     end

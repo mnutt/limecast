@@ -38,7 +38,7 @@ class Podcast < ActiveRecord::Base
   has_many :feeds, :include => :first_source,#:dependent => :destroy,
            :after_add => :set_primary_feed, :after_remove => :set_primary_feed,
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
-  has_many :episodes, :dependent => :destroy
+  has_many :episodes, :order => "published_at DESC", :dependent => :destroy
   has_many :reviews, :through => :episodes
 
   has_many :recommendations, :order => 'weight DESC'

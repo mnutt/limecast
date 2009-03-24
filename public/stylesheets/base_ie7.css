@@ -77,3 +77,4 @@ button {
      right: 0px;
    }
 
+img { -ms-interpolation-mode:bicubic; }

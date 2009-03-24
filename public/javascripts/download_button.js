@@ -1,37 +1,38 @@
+
+function update_selected_link(link){
+  $("#download_dropdown a").removeClass("circle");
+  link.addClass("circle");
+}
+
+function update_selected_type(type){
+  $("input[type=radio][value=" + type + "]").attr("checked", "checked");
+}
+
+function downloadUrl(delivery, id) {
+  if(delivery == "LimeWire") {
+    return $('#' + id + '_magnet').attr('href');
+  }
+  return $('#' + id).attr('href');
+};
+
+function read_cookie(){
+  var id = $.cookie('podcast_' + PODCAST_ID + '_download');
+  return "#" + id;
+}
+
+function update_cookie(id){
+  $.cookie('podcast_' + PODCAST_ID + '_download', id);
+}
+
+function update_download_button(link, type){
+  var url  = link.attr('href');
+  var info = link.parents('li:first').find('p').text() + " - " + link.text();
+
+  $("#download_button a.download").attr("href", downloadUrl(type, link.attr('id')));
+  $("#download_button a.download span").text(type + " | " + info);
+}
+
 $(function(){
-  function read_cookie(){
-    var id = $.cookie('podcast_' + PODCAST_ID + '_download');
-    return "#" + id;
-  }
-
-  function update_cookie(id){
-    $.cookie('podcast_' + PODCAST_ID + '_download', id);
-  }
-
-  function downloadUrl(delivery, id) {
-    if(delivery == "LimeWire") {
-      return $('#' + id + '_magnet').attr('href');
-    }
-    return $('#' + id).attr('href');
-  };
-
-  function update_download_button(link, type){
-    var url  = link.attr('href');
-    var info = link.parents('li:first').find('p').text() + " - " + link.text();
-
-    $("#download_button a.download").attr("href", downloadUrl(type, link.attr('id')));
-    $("#download_button a.download span").text(type + " | " + info);
-  }
-
-  function update_selected_link(link){
-    $("#download_dropdown a").removeClass("circle");
-    link.addClass("circle");
-  }
-
-  function update_selected_type(type){
-    $("input[type=radio][value=" + type + "]").attr("checked", "checked");
-  }
-
   var default_link = "a.primary";
   var default_type = "Web";
   var cookie = read_cookie();

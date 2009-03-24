@@ -1,6 +1,7 @@
 <% options ||= {} -%>
 <% episode = video_player -%>
 <% source  = episode.sources.with_screenshot.with_preview.first -%>
+<% javascript_include "video_preview" -%>
 
 <%- if source -%>
   <div class="container">

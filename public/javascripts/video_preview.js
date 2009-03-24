@@ -19,7 +19,7 @@ $(document).ready(function(){
     function scale(height,width) {
       var scaleToWidth = 460;
       var h = (scaleToWidth / width) * height;
-      return {height: h, width: Math.round(scaleToWidth)};
+      return {height: h + 2, width: Math.round(scaleToWidth)};
     }
     var scaledSize = scale(preview.height(), preview.width());
   

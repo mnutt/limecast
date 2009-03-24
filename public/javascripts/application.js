@@ -59,7 +59,7 @@ function setupTabs() {
   $('.tabify').tabs({ navClass: 'tabs', containerClass: 'tabs-cont' });
 }
 
-$(document).ready(function() {
+$(function() {
   defaultText();
   truncatedText();
   favoriteLink();

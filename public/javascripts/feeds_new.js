@@ -27,7 +27,7 @@ $(document).ready(function(){
             controller.stop();
           if(periodic_count > 20) {
             controller.stop();
-            form_clone.find('.status').html("<p class=\"status_message\">Timeout error. Please try again later.</p>");
+            form_clone.find('.status').html('<p class="status_message">Timeout error. Please try again later.</p>');
           }
         };
 

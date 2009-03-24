@@ -9,7 +9,6 @@ jQuery.fn.extend({
   
     this.each(function(){
       var input = $(this);
-      console.log(input);
   
       var label = input.parent().find("label[for='" + input.attr("id") + "']");
       var defaultTxt = label.text();

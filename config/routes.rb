@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   # Resources
   map.resources :categories
-  map.resources :reviews, :path_prefix => '/:podcast_slug', :collection => {:search => :get}
+  map.resources :reviews, :path_prefix => '/:podcast_slug'
   map.resources :episodes
   map.resources :feeds
   

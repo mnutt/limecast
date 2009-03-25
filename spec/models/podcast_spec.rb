@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Podcast do
   before do
-    @user    = Factory.create(:user)
+    @user    = Factory.create(:user, :login => "podcast_spec_user")
     @podcast = Factory.create(:podcast, :original_title => "My Podcast")
   end
 
@@ -45,7 +45,7 @@ describe Podcast, "getting the average time between episodes" do
   it 'should be one day for three episodes spaced one day apart' do
     @second =  Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 3.days.ago)
     @third =   Factory.create(:episode, :podcast_id => @podcast.id, :published_at => 2.day.ago)
-    @podcast.episodes.count.should == 3
+    @podcast.reload.episodes.count.should == 3
     @podcast.average_time_between_episodes.should be_close(1.day.to_f, 5.minutes)
   end
 

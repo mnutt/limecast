@@ -143,7 +143,7 @@ class Podcast < ActiveRecord::Base
 
   def average_time_between_episodes
     return 0 if self.episodes.count < 2
-    time_span = self.episodes.newest.first.published_at - self.episodes.oldest.first.published_at
+    time_span = self.episodes.first.published_at - self.episodes.last.published_at
     time_span / (self.episodes.count - 1)
   end
 

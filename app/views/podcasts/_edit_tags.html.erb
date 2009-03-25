@@ -1,0 +1,16 @@
+<%= link_to "(edit)", "#", :id => "podcast_edit_tags_link" %>
+
+<div id="podcast_edit_tags" style="display: none;">
+  <ul class="tags"><%= podcast.tags.badges.map { |tag| "<li>#{link_to h(tag.name), tag_url(tag)}</li>" }.join(' ') -%></ul>
+
+  <% podcast.taggers.each do |editor| -%>
+  <h6>Tags from <%= link_to_profile(editor) %></h6>
+  <ul class="tags"><%= editor.taggings.empty? ? "<li>none</li>" : editor.user_taggings.for_podcast(podcast).map { |ut| 
+      "<li>#{link_to h(ut.tag.name), tag_url(ut.tag)} 
+           #{link_to('✘', ut, :class => 'delete', :style => 'color:red;font-size:1.2em;') if ut.writable_by?(current_user)}</li>" 
+    }.join(' ') -%></ul>
+  <% end -%>
+
+  <br /><br />
+  <p><%= link_to "cancel", "#", :id => "podcast_tags_link" %></p>
+</div>

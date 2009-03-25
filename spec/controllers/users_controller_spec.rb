@@ -45,7 +45,7 @@ end
 describe UsersController, "handling POST /users" do
   describe "when the email is bad" do
     before do
-      post :create, {:user => {:login => 'quire', :password => 'blah'}, :format => 'html'}
+      post :create, {:user => {:login => 'quire', :password => 'blah'}, :format => 'js'}
     end
 
     it 'should not succeed' do

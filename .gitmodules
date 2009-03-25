@@ -42,4 +42,4 @@
 	url = git://github.com/thoughtbot/paperclip.git
 [submodule "vendor/plugins/rspec-rails"]
 	path = vendor/plugins/rspec-rails
-	url = git@github.com:tiegz/rspec-rails.git
+	url = git://github.com/tiegz/rspec-rails.git

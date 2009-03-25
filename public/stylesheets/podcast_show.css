@@ -56,8 +56,7 @@
 .podcast.show .summary #podcast_tag_form div {
   display: inline;
 }
-
-.podcast.show .summary #podcast_tag_form input {
+.podcast.show .summary #podcast_tag_form input#user_tagging_tag_string {
   display: inline !important;
 	border: none;
 	background: url('/imgs/input_small.png') top left no-repeat;

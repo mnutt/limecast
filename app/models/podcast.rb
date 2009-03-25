@@ -303,7 +303,7 @@ class Podcast < ActiveRecord::Base
 
       o = build_owner(:state => 'passive', :email => owner_email, :login => owner_login)
       o.generate_reset_password_code
-      o.save!
+      o.save # fail gracefully if no owner
       self.owner = o
 
       UserMailer.deliver_claim_podcast(owner, self)

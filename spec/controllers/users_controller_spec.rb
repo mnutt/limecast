@@ -14,9 +14,7 @@ describe UsersController do
   end
 
   it 'signs in user after signup' do
-    puts "FAILING SPEC"
     create_user(:format => 'html', :debug => true)
-    puts "END FAIL SPEC"
     session[:user_id].should be(User.last.id)
   end
 

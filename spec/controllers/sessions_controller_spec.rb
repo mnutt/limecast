@@ -12,6 +12,10 @@ describe SessionsController do
     request.env["HTTP_REFERER"] = "/"
   end
 
+  def decode(response)
+    ActiveSupport::JSON.decode(response.body.gsub("'", ""))
+  end
+
   it 'logins and redirects' do
     post :create, :user => { :login => @user.login, :password => @user.password }
     session[:user_id].should_not be_nil
@@ -23,11 +27,10 @@ describe SessionsController do
     post :create, :user => { :login => @user.login, :password => "xxxx" }, :format => 'js'
     session[:user_id].should be_nil
     response.should be_success
-    response.body.should =~ /User and password don\\'t match./
+    decode(response)['html'].should =~ /User and password don\t match./
   end
 
   it 'fails login and notices when new email has been given' do
-    pending "UsersController handling POST /users when the email is bad should report that the email address should be entered (Rails 2.3 response.body doesn't seem to come through in JS tests)"
     post :create, :user => { :login => 'newemail@example.com', :password => 'xxxx' }, :format => 'js'
     session[:user_id].should be_nil
     response.should be_success

@@ -5,7 +5,7 @@ module StopParse
 end
 describe EpisodesController do
   before(:each) do
-    @episode = Factory.create(:episode, :published_at => Time.now)
+    @episode = Factory.create(:episode, :published_at => Time.now, :sources => [])
     @podcast = @episode.podcast
     @feed = @podcast.feeds.first
     @feed.extend(StopParse)

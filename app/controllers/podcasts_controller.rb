@@ -1,5 +1,5 @@
 class PodcastsController < ApplicationController
-  before_filter :login_required, :only => [:edit, :update, :destroy, :tag]
+  before_filter :login_required, :only => [:edit, :update, :destroy]
 
   def index
     @podcasts = Podcast.parsed.sorted

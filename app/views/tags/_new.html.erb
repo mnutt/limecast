@@ -2,5 +2,5 @@
   <%= hidden_field_tag "user_tagging[podcast_id]", podcast.id -%>
   <%= ut.label :tag_string, "add tags&hellip;", :style => "display: none;" %>
   <%= ut.text_field :tag_string, :value => '', :title => "Add tags separated by spaces, and press enter" -%>
-  <%= submit_tag "Add", :class => "submit", :style => "visibility: hidden; width; 1px;", :rel => ".login_pop" -%>
+  <%= submit_tag "Add", :class => "submit", :style => "visibility: hidden; width: 1px", :rel => ".login_pop" -%>
 <% end -%>

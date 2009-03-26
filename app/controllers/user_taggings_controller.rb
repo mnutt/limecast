@@ -9,11 +9,13 @@ class UserTaggingsController < ApplicationController
     if tags = params[:user_tagging].delete(:tag_string)
       tags.gsub!(/,/, '')
       @podcast.update_attribute :tag_string, [tags, current_user]
+      flash[:display_edit_form] = true
     end
 
     redirect_to(@podcast)
   rescue ActiveRecord::RecordInvalid
     flash[:notice] = "You are only allowed to add 8 tags for this podcast."
+    flash[:display_edit_form] = false
     redirect_to(@podcast)
   end
   
@@ -25,7 +27,7 @@ class UserTaggingsController < ApplicationController
     
     respond_to do |format|
       if @user_tagging.destroy
-        format.js { render :layout => false }#'users/destroy.js.erb' }
+        format.js { render :layout => false }
       else
         format.js { head 404 }
       end

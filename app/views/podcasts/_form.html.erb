@@ -19,21 +19,6 @@
 </div>
 
 <br />
-<h4>All Tags</h4>
-<ul class="tags"><%= podcast.tags.without_badges.map { |tag| "<li>#{link_to h(tag.name), tag_url(tag)}</li>" }.join(' ') -%></ul>
-
-<% podcast.taggers.each do |editor| -%>
-<h4>Tags from <%= link_to_profile(editor) %></h4>
-<ul class="tags"><%= editor.taggings.empty? ? "<li>none</li>" : editor.user_taggings.for_podcast(podcast).map { |ut| 
-    "<li>#{link_to h(ut.tag.name), tag_url(ut.tag)} #{link_to '✘', ut, :class => 'delete', :style => 'color:red;font-size:1.2em;'}</li>" 
-  }.join(' ') -%></ul>
-<% end -%>
-
-<br />
-<h4>Badge</h4>
-<ul class="tags"><%= podcast.tags.badges.map { |badge| "<li>#{link_to h(badge.name), tag_url(badge)}</li>" }.join(' ') -%></ul>
-
-<br />
 <h4>Feeds</h4>
 <% podcast_form.fields_for :feeds do |feed_form| %>
   <% feed = feed_form.object -%>

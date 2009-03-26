@@ -24,12 +24,10 @@ function truncatedText() {
 
 function favoriteLink() {
   $('a.favorite_link').click(function() {
-    if(LOGGED_IN) {
-      var favorite_link = $(this);
-      var favorite_url = favorite_link.attr('href');
-  
-      $.post(favorite_url, {}, function(resp) { window.location.reload(); }, 'json');
-    }
+    var favorite_link = $(this);
+    var favorite_url = favorite_link.attr('href');
+
+    $.post(favorite_url, {}, function(resp) { if(LOGGED_IN) window.location.reload(); }, 'json');
     return false;
   });
 }
@@ -46,6 +44,8 @@ function setupCluetips() {
     
     default_options = $.extend({positionBy: 'bottomTop', topOffset: 25}, default_options);
     $('a.login').cluetip(default_options); 
+    $('a.favorite_link').cluetip(default_options); 
+    $('a.unfavorite_link').cluetip(default_options); 
 
     default_options = $.extend({positionBy: 'bottomTop'}, default_options);
     $('a.cluetip_add_link').cluetip(default_options);

@@ -13,6 +13,11 @@ describe UsersController do
     end.should change(User, :count).by(1)
   end
 
+  it 'signs in user after signup' do
+    create_user(:format => 'html', :debug => true)
+    session[:user_id].should be(User.last.id)
+  end
+
   it 'requires login on signup' do
     lambda do
       create_user(:user => {:login => nil}, :format => 'js')
@@ -151,14 +156,14 @@ describe UsersController, "handling POST /users" do
   end
 end
 
-describe UsersController, "handling POST /user/:user" do
+describe UsersController, "handling PUT /user/:user" do
   describe "when user is the current user" do
 
     before(:each) do
       @user = Factory.create(:user)
       login(@user)
 
-      post :update, :user_slug => @user.login, :user => {:email => "newemail@example.com"}
+      put :update, :user_slug => @user.login, :user => {:email => "newemail@example.com"}
     end
 
     it "should find the user requested" do

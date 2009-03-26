@@ -5,7 +5,7 @@
     <%= "#{@title} &mdash; " if @title -%> LimeCast
   </title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta name="description" content="Coming 2009 March"/>
+  <meta name="description" content="Open podcast directory and archive"/>
 
 <% if @podcast -%>
   <link rel="shortcut icon" type="image/png" href="<%= @podcast.logo.url(:icon) -%>" />
@@ -14,8 +14,7 @@
 
   <%= rss_links(@feeds) -%>
 
-  <%= stylesheet_link_tag 'reset' -%>
-  <%= stylesheet_link_tag "sknd.global", "sknd.typography", "sknd.icons", "sknd.presentation" -%>
+  <%= stylesheet_link_tag "reset", "global", "typography", "icons", "presentation", :cache => 'all' -%>
   <%= stylesheet_link_actions -%>
 
   <!--[if IE 6]>

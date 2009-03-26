@@ -16,7 +16,6 @@ Factory.define :user_tagging do |t|
 end
 Factory.define :feed do |f|
   f.url     { "#{Factory.next :site}/feed.xml" }
-  f.content { File.open("#{RAILS_ROOT}/spec/data/example.xml").read }
   f.xml ""
   f.bitrate 64
 end

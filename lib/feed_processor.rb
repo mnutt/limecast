@@ -9,7 +9,7 @@ class FeedProcessor
   #     @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
   #   end
 
-  attr_reader :feed
+  attr_accessor :feed
 
   def self.process(url)
     fp = self.new(url)
@@ -19,7 +19,6 @@ class FeedProcessor
 
   def initialize(url)
     url = clean_url(url)
-    puts url
 
     @feed = Feed.find_by_url(url)
     if @feed.nil?
@@ -45,26 +44,44 @@ class FeedProcessor
     raise Feed::InvalidAddressException unless @feed.url =~ %r{^([^/]*//)?([^/]+)}
     raise Feed::BannedFeedException if Blacklist.find_by_domain($2)
 
-    fetch
+    @content = fetch
     parse
     update_podcast!
     update_tags!
     update_episodes!
     update_feed!
 
-  rescue Exception
-    exception = $!
-    log_failed(exception)
-    PodcastMailer.deliver_failed_feed(@feed, exception)
-    @feed.update_attributes(:state => 'failed', :error => exception.class.to_s)
+  #rescue Exception
+  #  exception = $!
+  #  log_failed(exception)
+  #  PodcastMailer.deliver_failed_feed(@feed, exception)
+  #  @feed.update_attributes(:state => 'failed', :error => exception.class.to_s)
   end
 
+  def log_failed(exception)
+    stored_exception = {
+      :feed => @feed.url,
+      :klass => exception.class.to_s,
+      :message => exception.to_s,
+      :backtrace => exception.backtrace
+    }
+    File.open("#{RAILS_ROOT}/log/last_add_failed.yml", "w") do |f|
+      f.write(YAML::dump(stored_exception))
+    end
+  end
+
+
+  # By making the fetch method return the XML instead of saving it to an ivar,
+  # we can mock it easier.
   def fetch
+    xml = ""
     Timeout::timeout(15) do
       OpenURI::open_uri(@feed.url, "User-Agent" => "LimeCast/0.1") do |f|
-        @content = f.read
+        xml = f.read
       end
     end
+
+    xml
   rescue NoMethodError
     raise Feed::InvalidAddressException
   end
@@ -104,7 +121,7 @@ class FeedProcessor
     )
     if new_podcast
       PodcastMailer.deliver_new_podcast(@feed.podcast)
-    elsif !podcast.last_changes.blank?
+    elsif !@feed.podcast.last_changes.blank?
       PodcastMailer.deliver_updated_podcast_from_feed(@feed.podcast)
     end
   rescue RPodcast::NoEnclosureError

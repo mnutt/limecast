@@ -117,19 +117,71 @@ class Feed < ActiveRecord::Base
     "http://subscribe.getmiro.com/?url1=#{self.url}"
   end
 
-  def refresh
-    fetch
-    parse
-    update_from_feed
-    update_finder_score
-
-  rescue Exception
-    exception = $!
-    log_failed(exception)
-    PodcastMailer.deliver_failed_feed(self, exception)
-    self.update_attributes(:state => 'failed', :error => exception.class.to_s)
+  def update_finder_score
+    self.finder.calculate_score! if self.finder
   end
 
+  def writable_by?(user)
+    !!(user && user.active? && (self.finder_id == user.id || user.admin?))
+  end
+
+  def primary?
+    self.podcast.primary_feed == self
+  end
+
+  def apparent_format
+    self.sources.first.attributes['format'].to_s unless self.sources.blank?
+  end
+
+  def apparent_resolution
+    self.sources.first.resolution unless self.sources.blank?
+  end
+
+  # takes the name of the Feed url (ie "http://me.com/feeds/quicktime-small" -> "Quicktime Small")
+  def apparent_format_long
+    url.split("/").last.titleize
+
+    # Uncomment this to get the official format from the Source extension
+    # ::FileExtensions::All[apparent_format.intern]
+  end
+
+  def formatted_bitrate
+    self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
+  end
+
+  def just_created?
+    self.created_at > 2.minutes.ago
+  end
+
+  protected
+
+  def add_podcast_message
+    podcast.send(:add_message, "The #{apparent_format} feed has been removed.") if podcast
+  end
+
+  def remove_empty_podcast
+    self.podcast.destroy if self.podcast && self.podcast.failed?
+  end
+
+  def is_similar_to_podcast
+    if new_record? && url && podcast && URI::parse(url).host != URI::parse(podcast.site).host
+      errors.add('url', "doesn't seem to match the podcast.")
+    end
+  end
+
+#  def refresh
+#    fetch
+#    parse
+#    update_from_feed
+#    update_finder_score
+#
+#  rescue Exception
+#    exception = $!
+#    log_failed(exception)
+#    PodcastMailer.deliver_failed_feed(self, exception)
+#    self.update_attributes(:state => 'failed', :error => exception.class.to_s)
+#  end
+#
 #  def url=(val)
 #    val.strip!
 #    write_attribute(:url, val)
@@ -179,11 +231,7 @@ class Feed < ActiveRecord::Base
 #                           :state => 'parsed',
 #                           :xml => @content)
 #  end
-
-  def update_finder_score
-    self.finder.calculate_score! if self.finder
-  end
-
+#
 #  def update_episodes!
 #    self.sources.update_all :archived => true
 #
@@ -247,69 +295,11 @@ class Feed < ActiveRecord::Base
 #
 #    self.podcast.tag_string = @feed.categories.map {|t| Tag.tagize(t) }.join(" ")
 #  end
-
-  def writable_by?(user)
-    !!(user && user.active? && (self.finder_id == user.id || user.admin?))
-  end
-
-  def primary?
-    self.podcast.primary_feed == self
-  end
-
+#
 #  def similar_to_podcast?(podcast)
 #    parse # rescue return false
 #    return true if podcast.new_record?
 #    return false unless URI::parse(@feed.link).host == URI::parse(podcast.site).host
 #    true
 #  end
-
-  def apparent_format
-    self.sources.first.attributes['format'].to_s unless self.sources.blank?
-  end
-
-  def apparent_resolution
-    self.sources.first.resolution unless self.sources.blank?
-  end
-
-  # takes the name of the Feed url (ie "http://me.com/feeds/quicktime-small" -> "Quicktime Small")
-  def apparent_format_long
-    url.split("/").last.titleize
-
-    # Uncomment this to get the official format from the Source extension
-    # ::FileExtensions::All[apparent_format.intern]
-  end
-
-  def formatted_bitrate
-    self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
-  end
-
-  def just_created?
-    self.created_at > 2.minutes.ago
-  end
-
-  protected
-  def add_podcast_message
-    podcast.send(:add_message, "The #{apparent_format} feed has been removed.") if podcast
-  end
-
-  def log_failed(exception)
-    stored_exception = { :feed => self.url,
-      :klass => exception.class.to_s,
-      :message => exception.to_s,
-      :backtrace => exception.backtrace
-    }
-    File.open("#{RAILS_ROOT}/log/last_add_failed.yml", "w") do |f|
-      f.write(YAML::dump(stored_exception))
-    end
-  end
-
-  def remove_empty_podcast
-    self.podcast.destroy if self.podcast && self.podcast.failed?
-  end
-
-  def is_similar_to_podcast
-    if new_record? && url && podcast && URI::parse(url).host != URI::parse(podcast.site).host
-      errors.add('url', "doesn't seem to match the podcast.")
-    end
-  end
 end

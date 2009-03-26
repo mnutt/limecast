@@ -58,6 +58,7 @@ class Podcast < ActiveRecord::Base
                                  :large  => ["300x300>", :png],
                                  :icon   => ["25x25#", :png] }
 
+  named_scope :not_approved, :conditions => {:approved => false}
   named_scope :approved, :conditions => {:approved => true}
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
   named_scope :parsed, lambda {
@@ -103,6 +104,15 @@ class Podcast < ActiveRecord::Base
     i
   end
 
+	def blacklist!
+		self.feeds.each do |f|
+			Blacklist.create(:domain => f.url)
+			f.update_attributes(:state => "blacklisted")
+		end
+
+		self.destroy
+	end
+
   def most_recent_episode
     self.episodes.newest.first
   end
@@ -139,6 +149,7 @@ class Podcast < ActiveRecord::Base
     end
 
     self.attachment_for(:logo).assign(file)
+  rescue OpenURI::HTTPError
   end
 
   def average_time_between_episodes

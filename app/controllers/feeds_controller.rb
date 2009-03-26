@@ -13,14 +13,12 @@ class FeedsController < ApplicationController
   end
 
   def create
-    if @feed = Feed.find_by_url(params[:feed][:url])
-      @feed.update_attribute(:state, "pending") if @feed.state == "failed"
-      @feed.send_later(:refresh)
-    else
-      @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
-    end
+    @feed = FeedProcessor.process(params[:feed][:url])
 
-    if current_user.nil?
+    if current_user
+      @feed.update_attributes :finder => current_user
+      @feed.update_finder_score
+    else
       session[:feeds] ||= []
       session[:feeds] << @feed.id
     end
@@ -40,7 +38,7 @@ class FeedsController < ApplicationController
     elsif @podcast && @feed.parsed? && feed_created_just_now_by_user?(@feed)
       render :partial => 'status_added'
     # Expected errors
-    elsif @feed.failed? || @podcast && @feed.parsed?
+    elsif @feed.failed? || @feed.blacklisted? || @podcast && @feed.parsed?
       render :partial => 'status_failed'
     # Progress
     elsif @feed.pending?

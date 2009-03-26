@@ -7,7 +7,7 @@
     That's a text RSS feed, not an audio or video podcast.
   <% elsif @feed.error == "Feed::InvalidAddressException" -%>
     That's not a web address.
-  <% elsif @feed.error == "Feed::BannedFeedException" -%>
+  <% elsif @feed.error == "Feed::BannedFeedException" || @feed.blacklisted? -%>
     I can't take feeds from that site!
   <% elsif @feed.error == "Feed::FeedDoesNotMatchPodcast" -%>
     This feed doesn't seem to match the podcast.

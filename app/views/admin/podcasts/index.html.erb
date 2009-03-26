@@ -1,14 +1,18 @@
 <h1>Podcasts</h1>
 
-<table>
-<% @podcasts.each do |p| %>
-  <tr>
-    <td><%= link_to p.title, podcast_url(:podcast_slug => p) %></td>
-    <% if p.approved? %>
-      <td>approved</td>
-    <% else %>
-      <td><%= link_to "approve", admin_approve_podcast_url(p) %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
+<form action="/admin/podcasts/approve" method="POST">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token -%>" />
+  <table>
+  <% @podcasts.each do |p| %>
+    <tr>
+      <td>
+        <%= link_to p.title, podcast_url(:podcast_slug => p) %>
+        <input type="hidden" name="podcast[id][]" value="<%= p.id -%>" />
+      </td>
+      <td><%= link_to "blacklist", admin_blacklist_podcast_url(:podcast_slug => p) %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <input type="submit" value="Approve All" />
+</form>

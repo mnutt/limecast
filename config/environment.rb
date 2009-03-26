@@ -80,7 +80,7 @@ end
 
 # Load /lib files
 %w{file_size duration convenience array_ext object_ext date_ext
-   hash_ext string_ext integer_ext numeric_ext}.each do |lib|
+   hash_ext string_ext integer_ext numeric_ext feed_processor}.each do |lib|
   require lib
 end
 

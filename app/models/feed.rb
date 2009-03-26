@@ -34,7 +34,6 @@ class Feed < ActiveRecord::Base
   belongs_to :podcast
   belongs_to :finder, :class_name => 'User'
 
-  before_create :sanitize
   after_save :remove_empty_podcast
   after_destroy { |f| f.finder.calculate_score! if f.finder }
   after_destroy :add_podcast_message
@@ -46,9 +45,10 @@ class Feed < ActiveRecord::Base
 
   named_scope :with_itunes_link, :conditions => 'feeds.itunes_link IS NOT NULL and feeds.itunes_link <> ""'
   named_scope :parsed, :conditions => {:state => 'parsed'}
-  def pending?; self.state == 'pending' || self.state.nil? end
-  def parsed?;  self.state == 'parsed' end
-  def failed?;  self.state == 'failed' end
+  def pending?;      self.state == 'pending' || self.state.nil? end
+  def parsed?;       self.state == 'parsed' end
+  def failed?;       self.state == 'failed' end
+  def blacklisted?;  self.state == 'blacklisted' end
 
   attr_accessor :content
 
@@ -130,123 +130,123 @@ class Feed < ActiveRecord::Base
     self.update_attributes(:state => 'failed', :error => exception.class.to_s)
   end
 
-  def url=(val)
-    val.strip!
-    write_attribute(:url, val)
-  end
-
-  def url
-    url = self.read_attribute(:url)
-
-    # Add http:// if the url does not have :// in it.
-    url = 'http://' + url.to_s unless url.to_s =~ %r{://}
-
-    url
-  rescue
-    ""
-  end
-
-  def fetch
-    raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
-    raise BannedFeedException if Blacklist.find_by_domain($2)
-
-    Timeout::timeout(15) do
-      OpenURI::open_uri(self.url, "User-Agent" => "LimeCast/0.1") do |f|
-        @content = f.read
-      end
-    end
-  rescue NoMethodError
-    raise InvalidAddressException
-  end
-
-  def parse
-    begin
-      @feed = RPodcast::Feed.new(@content)
-
-      raise InvalidFeedException if @feed.episodes.empty?
-    rescue RPodcast::NoEnclosureError
-      raise NoEnclosureException
-    end
-  end
-
-  def update_from_feed
-    update_podcast!
-    update_tags!
-    update_episodes!
-
-    self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64),
-                           :ability => ABILITY,
-                           :state => 'parsed',
-                           :xml => @content)
-  end
+#  def url=(val)
+#    val.strip!
+#    write_attribute(:url, val)
+#  end
+#
+#  def url
+#    url = self.read_attribute(:url)
+#
+#    # Add http:// if the url does not have :// in it.
+#    url = 'http://' + url.to_s unless url.to_s =~ %r{://}
+#
+#    url
+#  rescue
+#    ""
+#  end
+#
+#  def fetch
+#    raise InvalidAddressException unless self.url =~ %r{^([^/]*//)?([^/]+)}
+#    raise BannedFeedException if Blacklist.find_by_domain($2)
+#
+#    Timeout::timeout(15) do
+#      OpenURI::open_uri(self.url, "User-Agent" => "LimeCast/0.1") do |f|
+#        @content = f.read
+#      end
+#    end
+#  rescue NoMethodError
+#    raise InvalidAddressException
+#  end
+#
+#  def parse
+#    begin
+#      @feed = RPodcast::Feed.new(@content)
+#
+#      raise InvalidFeedException if @feed.episodes.empty?
+#    rescue RPodcast::NoEnclosureError
+#      raise NoEnclosureException
+#    end
+#  end
+#
+#  def update_from_feed
+#    update_podcast!
+#    update_tags!
+#    update_episodes!
+#
+#    self.update_attributes(:bitrate => @feed.bitrate.nearest_multiple_of(64),
+#                           :ability => ABILITY,
+#                           :state => 'parsed',
+#                           :xml => @content)
+#  end
 
   def update_finder_score
     self.finder.calculate_score! if self.finder
   end
 
-  def update_episodes!
-    self.sources.update_all :archived => true
-
-    @feed.episodes.each do |e|
-      # XXX: Definitely need to figure out something better for this.
-      episode = self.podcast.episodes.find_by_title(e.title) || self.podcast.episodes.new
-      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => self)
-
-      # The feed is a duplicate if the source found matches a source from another (older) feed.
-      raise DuplicateFeedExeption if source.feed != self && source.created_at < self.created_at
-
-      episode.update_attributes(
-        :summary      => e.summary,
-        :published_at => e.published_at,
-        :title        => e.title,
-        :duration     => e.duration
-      )
-      source.update_attributes(
-        :guid       => e.guid,
-        :format     => e.enclosure.format.to_s,
-        :type       => e.enclosure.content_type,
-        :size       => e.enclosure.size,
-        :url        => e.enclosure.url,
-        :episode_id => episode.id,
-        :xml        => e.raw_xml,
-        :archived   => false
-      )
-    end
-  end
-
-  def update_podcast!
-    self.podcast ||= Podcast.find_by_site(@feed.link) || Podcast.new
-    raise FeedDoesNotMatchPodcast unless self.similar_to_podcast?(self.podcast)
-    new_podcast = self.podcast.new_record?
-
-    self.podcast.download_logo(@feed.image) unless @feed.image.nil?
-    self.podcast.update_attributes!(
-      :original_title => @feed.title,
-      :description    => @feed.summary,
-      :language       => @feed.language,
-      :owner_email    => @feed.owner_email,
-      :owner_name     => @feed.owner_name,
-      :site           => @feed.link
-    )
-    if new_podcast
-      PodcastMailer.deliver_new_podcast(podcast)
-    elsif !podcast.last_changes.blank?
-      PodcastMailer.deliver_updated_podcast_from_feed(podcast)
-    end
-  rescue RPodcast::NoEnclosureError
-    raise NoEnclosureException
-  end
-
-  def update_tags!
-    self.podcast.tag_string = "hd" if @feed.hd?
-    self.podcast.tag_string = "video" if @feed.video?
-    self.podcast.tag_string = "audio" if @feed.audio?
-    self.podcast.tag_string = "torrent" if @feed.torrent?
-    self.podcast.tag_string = "creativecommons" if @feed.creative_commons?
-    self.podcast.tag_string = "explicit" if @feed.explicit?
-
-    self.podcast.tag_string = @feed.categories.map {|t| Tag.tagize(t) }.join(" ")
-  end
+#  def update_episodes!
+#    self.sources.update_all :archived => true
+#
+#    @feed.episodes.each do |e|
+#      # XXX: Definitely need to figure out something better for this.
+#      episode = self.podcast.episodes.find_by_title(e.title) || self.podcast.episodes.new
+#      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => self)
+#
+#      # The feed is a duplicate if the source found matches a source from another (older) feed.
+#      raise DuplicateFeedExeption if source.feed != self && source.created_at < self.created_at
+#
+#      episode.update_attributes(
+#        :summary      => e.summary,
+#        :published_at => e.published_at,
+#        :title        => e.title,
+#        :duration     => e.duration
+#      )
+#      source.update_attributes(
+#        :guid       => e.guid,
+#        :format     => e.enclosure.format.to_s,
+#        :type       => e.enclosure.content_type,
+#        :size       => e.enclosure.size,
+#        :url        => e.enclosure.url,
+#        :episode_id => episode.id,
+#        :xml        => e.raw_xml,
+#        :archived   => false
+#      )
+#    end
+#  end
+#
+#  def update_podcast!
+#    self.podcast ||= Podcast.find_by_site(@feed.link) || Podcast.new
+#    raise FeedDoesNotMatchPodcast unless self.similar_to_podcast?(self.podcast)
+#    new_podcast = self.podcast.new_record?
+#
+#    self.podcast.download_logo(@feed.image) unless @feed.image.nil?
+#    self.podcast.update_attributes!(
+#      :original_title => @feed.title,
+#      :description    => @feed.summary,
+#      :language       => @feed.language,
+#      :owner_email    => @feed.owner_email,
+#      :owner_name     => @feed.owner_name,
+#      :site           => @feed.link
+#    )
+#    if new_podcast
+#      PodcastMailer.deliver_new_podcast(podcast)
+#    elsif !podcast.last_changes.blank?
+#      PodcastMailer.deliver_updated_podcast_from_feed(podcast)
+#    end
+#  rescue RPodcast::NoEnclosureError
+#    raise NoEnclosureException
+#  end
+#
+#  def update_tags!
+#    self.podcast.tag_string = "hd" if @feed.hd?
+#    self.podcast.tag_string = "video" if @feed.video?
+#    self.podcast.tag_string = "audio" if @feed.audio?
+#    self.podcast.tag_string = "torrent" if @feed.torrent?
+#    self.podcast.tag_string = "creativecommons" if @feed.creative_commons?
+#    self.podcast.tag_string = "explicit" if @feed.explicit?
+#
+#    self.podcast.tag_string = @feed.categories.map {|t| Tag.tagize(t) }.join(" ")
+#  end
 
   def writable_by?(user)
     !!(user && user.active? && (self.finder_id == user.id || user.admin?))
@@ -256,12 +256,12 @@ class Feed < ActiveRecord::Base
     self.podcast.primary_feed == self
   end
 
-  def similar_to_podcast?(podcast)
-    parse # rescue return false
-    return true if podcast.new_record?
-    return false unless URI::parse(@feed.link).host == URI::parse(podcast.site).host
-    true
-  end
+#  def similar_to_podcast?(podcast)
+#    parse # rescue return false
+#    return true if podcast.new_record?
+#    return false unless URI::parse(@feed.link).host == URI::parse(podcast.site).host
+#    true
+#  end
 
   def apparent_format
     self.sources.first.attributes['format'].to_s unless self.sources.blank?
@@ -283,10 +283,6 @@ class Feed < ActiveRecord::Base
     self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
   end
 
-  def rfeed
-    @feed
-  end
-
   def just_created?
     self.created_at > 2.minutes.ago
   end
@@ -305,10 +301,6 @@ class Feed < ActiveRecord::Base
     File.open("#{RAILS_ROOT}/log/last_add_failed.yml", "w") do |f|
       f.write(YAML::dump(stored_exception))
     end
-  end
-
-  def sanitize
-    self.url.gsub!(%r{^feed://}, "http://")
   end
 
   def remove_empty_podcast

@@ -40,9 +40,9 @@ views = view_paths.map { |file|
 
 def clean(k, v=nil)
   if v.nil? or v == []
-    {k.gsub(/#{ROOT}\//, ''), v}
+    {k.gsub(/#{ROOT}\//, '') => v}
   else
-    {k.gsub(/#{ROOT}\//, ''), v.map{|i| String === i ? i : clean(i.keys.first, i.values.first)} }
+    {k.gsub(/#{ROOT}\//, '') => v.map{|i| String === i ? i : clean(i.keys.first, i.values.first)} }
   end
 end
 

@@ -17,7 +17,9 @@
       <%= " &ndash; " + truncated_text(unescape_entities(h(@podcast.description)), 110) unless @podcast.description.blank? -%>
     </p>
     <br />
-    <%= render :partial => "tags/tags_with_new_form", :object => @podcast.tags, :locals => {:podcast => @podcast} -%>
+    <div id="tags_block">
+      <%= render :partial => "tags/tags_with_new_form", :object => @podcast.tags, :locals => {:podcast => @podcast} -%>
+    </div>
     <%= render :partial => "podcasts/social", :locals => {:podcast => @podcast} -%>
   </div>
   

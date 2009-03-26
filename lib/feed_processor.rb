@@ -51,11 +51,11 @@ class FeedProcessor
     update_episodes!
     update_feed!
 
-  #rescue Exception
-  #  exception = $!
-  #  log_failed(exception)
-  #  PodcastMailer.deliver_failed_feed(@feed, exception)
-  #  @feed.update_attributes(:state => 'failed', :error => exception.class.to_s)
+  rescue Exception
+    exception = $!
+    log_failed(exception)
+    PodcastMailer.deliver_failed_feed(@feed, exception)
+    @feed.update_attributes(:state => 'failed', :error => exception.class.to_s)
   end
 
   def log_failed(exception)
@@ -69,7 +69,6 @@ class FeedProcessor
       f.write(YAML::dump(stored_exception))
     end
   end
-
 
   # By making the fetch method return the XML instead of saving it to an ivar,
   # we can mock it easier.
@@ -89,6 +88,7 @@ class FeedProcessor
   def parse
     begin
       @rpodcast_feed = RPodcast::Feed.new(@content)
+
 
       raise Feed::InvalidFeedException if @rpodcast_feed.episodes.empty?
     rescue RPodcast::NoEnclosureError

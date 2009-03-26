@@ -14,6 +14,7 @@ Factory.define :user_tagging do |t|
   t.tagging { Factory.create :tagging }
   t.user { Factory.create :user }
 end
+
 Factory.define :feed do |f|
   f.url     { "#{Factory.next :site}/feed.xml" }
   f.xml ""

@@ -84,35 +84,42 @@ describe Feed, "updating episodes" do
     @feed.podcast.episodes.count.should == 3
   end
 end
-# 
-# describe Feed, "downloading the logo for its podcast" do
-#   before do
-#     @podcast = Factory.create(:podcast)
-#     @feed = @podcast.feeds.first
-#   end
-# 
-#   it 'should not set the logo_filename for a bad link' do
-#     @podcast.download_logo('http://google.com')
-#     @podcast.logo_file_name.should be_nil
-#   end
-# end
-# 
-# describe Feed, "being created" do
-#   before do
-#     @podcast = Factory.create(:podcast)
-#     @feed = @podcast.feeds.first
-#   end
-# 
-#   describe 'with normal RSS feed' do
-#     it 'should save the error that the feed is not for a podcast' do
-#       @feed.extend(StopFetch)
-#       @feed.content = File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
-#       @feed.refresh
-# 
-#       @feed.error.should == "Feed::NoEnclosureException"
-#     end
-#   end
-# 
+
+describe Feed, "downloading the logo for its podcast" do
+  before do
+    @podcast = Factory.create(:podcast)
+    @feed = @podcast.feeds.first
+  end
+
+  it 'should not set the logo_filename for a bad link' do
+    @podcast.download_logo('http://google.com')
+    @podcast.logo_file_name.should be_nil
+  end
+end
+
+describe Feed, "being created" do
+
+  before do
+    class FeedProcessor
+      def fetch
+        puts "10" * 10
+        File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
+      end
+    end
+
+    @podcast = Factory.create(:podcast)
+    @feed = @podcast.feeds.first
+  end
+
+  describe 'with normal RSS feed' do
+    it 'should save the error that the feed is not for a podcast' do
+      FeedProcessor.process(@feed.url)
+
+      @feed.reload.error.should == "Feed::NoEnclosureException"
+    end
+  end
+end
+
 #   describe 'with valid url' do
 #     it 'should allow urls without http://' do
 #       @feed.url = 'google.com'

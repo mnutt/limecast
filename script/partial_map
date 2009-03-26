@@ -18,7 +18,7 @@ def find_partials(file)
   file.gsub!(/\.html/, '') unless File.exist?(file)
   return "file not found: #{file}" unless File.exist?(file)
   content = File.read(file)
-  found_partials = content.scan /render\s*\:partial\s*\=\>\s*[\"\']([^"']*)[\"\']/
+  found_partials = content.scan /:partial\s*\=\>\s*[\"\']([^"']*)[\"\']/
   return {file => nil} if found_partials.nil? || found_partials == []
 
   {file =>  
@@ -40,7 +40,7 @@ views = view_paths.map { |file|
 
 def clean(k, v=nil)
   if v.nil? or v == []
-    {k.gsub(/#{ROOT}\//, ''), v}
+    k.gsub(/#{ROOT}\//, '')
   else
     {k.gsub(/#{ROOT}\//, ''), v.map{|i| String === i ? i : clean(i.keys.first, i.values.first)} }
   end

@@ -66,17 +66,13 @@
 	padding: 5px 5px 0 5px;
 }
 .podcast.show #podcast_edit_tags_link {
-  margin-left: -20px;
+  display: inline;
 }
 .podcast.show #podcast_edit_tags ul {
   margin: 20px 10px;
 }
 .podcast.show #podcast_edit_tags h6 {
   display: block;
-}
-.podcast.show #podcast_edit_tags_link,
-.podcast.show #podcast_tags_link {
-  text-decoration: underline;
 }
 
 

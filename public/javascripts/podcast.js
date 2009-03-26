@@ -23,7 +23,7 @@ function podcastTagEdit() {
              $('#tags_block').html(resp.html); 
              podcastTagEdit(); 
              $("#user_tagging_tag_string").inputDefaultText(); 
-             $('#podcast_edit_tags_link').click();
+             $('#podcast_edit_tags_link a').click();
            }, 
           'json');
     return false;
@@ -31,7 +31,7 @@ function podcastTagEdit() {
   $('#podcast_edit_tags_link, #podcast_tags_link').click(function(){ 
     $('#podcast_tags').toggle(); 
     $('#podcast_edit_tags').toggle();
-    $('#podcast_edit_tags_link').toggle();
+    $('#podcast_edit_tags_link a').toggle();
   });
   $('.tags .delete').restfulDelete({ confirmed:function(link){ link.parent().fadeOut(); } });
 }

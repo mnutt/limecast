@@ -88,11 +88,11 @@ class FeedProcessor
   def parse
     begin
       @rpodcast_feed = RPodcast::Feed.new(@content)
-
-      raise Feed::InvalidFeedException if @rpodcast_feed.episodes.empty?
     rescue RPodcast::NoEnclosureError
       raise Feed::NoEnclosureException
     end
+
+    raise Feed::InvalidFeedException if @rpodcast_feed.episodes.empty?
   end
 
   def similar_to_podcast?(podcast)
@@ -105,7 +105,10 @@ class FeedProcessor
 
   def update_podcast!
     @feed.podcast ||= Podcast.find_by_site(@rpodcast_feed.link) || Podcast.new
-    raise Feed::FeedDoesNotMatchPodcast unless self.similar_to_podcast?(@feed.podcast)
+
+    if !self.similar_to_podcast?(@feed.podcast)
+      raise Feed::FeedDoesNotMatchPodcast
+    end
 
     @feed.podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
     @feed.podcast.update_attributes!(

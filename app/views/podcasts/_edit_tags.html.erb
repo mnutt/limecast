@@ -1,4 +1,4 @@
-<%= link_to "(edit)", "#", :id => "podcast_edit_tags_link" %>
+<p id="podcast_edit_tags_link"><%= link_to "(edit)", "#" %></p>
 
 <div id="podcast_edit_tags" style="display: none;">
   <ul class="tags"><%= podcast.tags.badges.map { |tag| "<li>#{link_to h(tag.name), tag_url(tag)}</li>" }.join(' ') -%></ul>
@@ -12,5 +12,5 @@
   <% end -%>
 
   <br /><br />
-  <p><%= link_to "cancel", "#", :id => "podcast_tags_link" %></p>
+  <p><%= link_to "(cancel)", "#", :id => "podcast_tags_link" %></p>
 </div>

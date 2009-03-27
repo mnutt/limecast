@@ -1,5 +1,5 @@
 class UserTaggingsController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :only => [:destroy]
 
 
   # POST /user_taggings
@@ -12,11 +12,18 @@ class UserTaggingsController < ApplicationController
       flash[:display_edit_form] = true
     end
 
-    redirect_to(@podcast)
+    respond_to do |format|
+      format.js { render :json => {:success => true, :html => render_to_string(:partial => "tags/tags_with_new_form", :object => @podcast.reload.tags, :locals => {:podcast => @podcast.reload}) } }
+      format.html { redirect_to(@podcast) }
+    end
   rescue ActiveRecord::RecordInvalid
     flash[:notice] = "You are only allowed to add 8 tags for this podcast."
     flash[:display_edit_form] = false
-    redirect_to(@podcast)
+
+    respond_to do |format|
+      format.js { render :json => {:success => false } }
+      format.html { redirect_to(@podcast) }
+    end
   end
   
   # DELETE /user_tagging/:id

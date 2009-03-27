@@ -252,11 +252,16 @@ input.radio {
 	min-width: 400px;
 	width: 650px;
 	clear: left;
+	margin: 10px 0;
+	font-size: 12px;
+	background-color: #E7EB99;
+	background: -webkit-gradient(radial, left top, 10, left top, 300, color-stop(0.5, #E7EB99), from(#FFF), to(#E7EB99)); 
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
 .limecast_form .top {
 	height: 30px;
-	border: dashed #000;
-	border-width: 2px 2px 0 2px;
 }
 .limecast_form .middle {
 	margin: -20px 0;
@@ -264,13 +269,11 @@ input.radio {
 }
 .limecast_form .bottom {
 	height: 15px;
-	border: dashed #000;
-	border-width: 0 2px 2px 2px;
 	padding: 20px 10px 10px 10px;
 	text-align: left;
 }
 .limecast_form fieldset {
-	margin: 10px 0 0 10px;
+	margin: 15px 0 0 10px;
 }
 .limecast_form .field {
 	margin-bottom: 5px;
@@ -280,6 +283,12 @@ input.radio {
 }
 .limecast_form ul.tags li { 
   display: inline;
+}
+.limecast_form fieldset.feed {
+	font-size: 0.9em;
+}
+.limecast_form fieldset div {
+	margin-bottom: 3px;
 }
 .limecast_form ul.tags li:after { content: ","; }
 .limecast_form ul.tags li:last-child:after { content: ""; }

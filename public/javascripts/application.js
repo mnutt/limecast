@@ -5,7 +5,7 @@ $.ajaxSetup({
 // Method hooks up all of the input text boxes that should have default labels
 function defaultText() {
   $("#feed_url, #accounts_forgot_password #email, #search_podcast_q, " + 
-    ".limecast_form .new_podcast_feed_url, #q, #user_tagging_tag_string").inputDefaultText();
+    "#q, #user_tagging_tag_string").inputDefaultText();
 }
 
 // Handles truncated "more" and "less" links

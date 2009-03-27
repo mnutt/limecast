@@ -130,23 +130,22 @@ class ApplicationController < ActionController::Base
       reset_session
     end
     
-    # Stores another [classname, id] in the session for the person to claim when they signin
-    def remember_unclaimed_record(record)
+    # Stores another [classname, column, id] in the session for the person to claim when they signin
+    def remember_unclaimed_record(record, column = 'user_id')
       session[:unclaimed_records] ||= []
-      session[:unclaimed_records] << [record.class.to_s, record.id]
+      session[:unclaimed_records] << [record.class.to_s, column, record.id]
     end
     
     # Claims the unclaimed records stored in the session
     def claim_records
-      session[:unclaimed_records].each do |klass, record_id|
+      session[:unclaimed_records].each do |klass, column, record_id|
         record = klass.constantize.find(record_id)
-        record.update_attribute(:user_id, current_user.id) if record
+        record.update_attribute(column, current_user.id) if record
       end.clear if session[:unclaimed_records]
     end
 
     def claim_all
       if logged_in?
-        claim_feeds
         claim_favorites
         claim_rating
 

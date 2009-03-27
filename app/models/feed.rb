@@ -46,6 +46,8 @@ class Feed < ActiveRecord::Base
 
   named_scope :with_itunes_link, :conditions => 'feeds.itunes_link IS NOT NULL and feeds.itunes_link <> ""'
   named_scope :parsed, :conditions => {:state => 'parsed'}
+  named_scope :unclaimed, :conditions => "finder_id IS NULL"
+  named_scope :claimed, :conditions => "finder_id IS NOT NULL"
   def pending?; self.state == 'pending' || self.state.nil? end
   def parsed?;  self.state == 'parsed' end
   def failed?;  self.state == 'failed' end

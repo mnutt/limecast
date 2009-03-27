@@ -116,11 +116,7 @@ class FeedProcessor
       :owner_name     => @rpodcast_feed.owner_name,
       :site           => @rpodcast_feed.link
     )
-    if @feed.podcast.created_at == @feed.podcast.updated_at
-      PodcastMailer.deliver_new_podcast(@feed.podcast)
-    elsif !@feed.podcast.last_changes.blank?
-      PodcastMailer.deliver_updated_podcast_from_feed(@feed.podcast)
-    end
+    @feed.podcast.notify_users
   rescue RPodcast::NoEnclosureError
     raise Feed::NoEnclosureException
   end

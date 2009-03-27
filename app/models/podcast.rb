@@ -252,6 +252,18 @@ class Podcast < ActiveRecord::Base
     end
   end
 
+	def new?
+		created_at == updated_at
+	end
+
+	def notify_users
+    if self.new?
+      PodcastMailer.deliver_new_podcast(self)
+    elsif !self.last_changes.blank?
+      PodcastMailer.deliver_updated_podcast_from_feed(self)
+    end
+  end
+
   protected
   def add_message(msg)
     # TODO this could probably be a one-liner

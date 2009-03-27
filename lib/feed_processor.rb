@@ -109,7 +109,6 @@ class FeedProcessor
     raise Feed::FeedDoesNotMatchPodcast unless self.similar_to_podcast?(@feed.podcast)
     new_podcast = @feed.podcast.new_record?
 
-    p @rpodcast_feed.image
     @feed.podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
     @feed.podcast.update_attributes!(
       :original_title => @rpodcast_feed.title,

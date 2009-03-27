@@ -102,7 +102,6 @@ describe Feed, "being created" do
   before do
     class FeedProcessor
       def fetch
-        puts "10" * 10
         File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
       end
     end
@@ -113,38 +112,30 @@ describe Feed, "being created" do
 
   describe 'with normal RSS feed' do
     it 'should save the error that the feed is not for a podcast' do
-      FeedProcessor.process(@feed.url)
+      @feed = FeedProcessor.process(@feed.url)
 
-      @feed.reload.error.should == "Feed::NoEnclosureException"
+      @feed.error.should == "Feed::NoEnclosureException"
+    end
+  end
+
+#   describe "when a weird server error occurs" do
+#     it 'should save the error that an unknown exception occurred' do
+#       FeedProcessor.process('http://localhost:7')
+# 
+#       @feed.reload.error.should == "Errno::ECONNREFUSED"
+#     end
+#   end
+
+  describe "with a site on the blacklist" do
+    it 'should save the error that the site is on the blacklist' do
+      Blacklist.create!(:domain => "restrictedsite")
+
+      @feed = FeedProcessor.process("http://restrictedsite/bad/feed.xml")
+
+      @feed.error.should == "Feed::BannedFeedException"
     end
   end
 end
-
-#   describe 'with valid url' do
-#     it 'should allow urls without http://' do
-#       @feed.url = 'google.com'
-#       @feed.url.should == 'http://google.com'
-#     end
-#   end
-# 
-#   describe "when a weird server error occurs" do
-#     it 'should save the error that an unknown exception occurred' do
-#       @feed.url = 'http://localhost:7'
-#       @feed.refresh
-# 
-#       @feed.error.should == "Errno::ECONNREFUSED"
-#     end
-#   end
-# 
-#   describe "with a site on the blacklist" do
-#     it 'should save the error that the site is on the blacklist' do
-#       Blacklist.create!(:domain => "restrictedsite")
-#       @feed.url = "http://restrictedsite/bad/feed.xml"
-#       @feed.refresh
-# 
-#       @feed.error.should == "Feed::BannedFeedException"
-#     end
-#   end
 # 
 #   describe "when the submitting user is the podcast owner" do
 #     it 'should associate the podcast with the user as owner' do

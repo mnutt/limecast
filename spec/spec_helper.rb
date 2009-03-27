@@ -49,6 +49,11 @@ def login(user)
   template.stub!(:current_user).and_return(user) if self.respond_to?(:template)
 end
 
+def logout
+  controller.stub!(:current_user).and_return(nil) if self.respond_to?(:controller)
+  template.stub!(:current_user).and_return(nil) if self.respond_to?(:template)
+end
+
 def http_auth(name='foo', password='bar')
   @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64.encode64("#{name}:#{password}")}"
 end

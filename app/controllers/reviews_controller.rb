@@ -13,14 +13,16 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @review  = @podcast.reviews.new(review_params)
-
-    if @review.reviewer = current_user
-      save_response(@review, @review.save)
+    review_params    = params[:review].keep_keys([:title, :body, :positive, :episode_id])
+    @podcast         = Podcast.find_by_slug(params[:podcast_slug])
+    @review          = @podcast.reviews.new(review_params)
+    @review.reviewer = current_user if logged_in?
+    @review.save
+    
+    if logged_in? 
+      save_response(@review, !@review.new_record?)
     else
-      session[:review] = review_params
+      remember_unclaimed_record(@review) unless logged_in?
       render :json => {:success => true, :login_required => true}
     end
   end

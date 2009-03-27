@@ -20,14 +20,40 @@ describe ReviewsController do
     end
   end
 
-  describe "handling POST /:podcast_slug/reviews/1" do
-    def do_post(review)
+  describe "handling POST /:podcast_slug/reviews" do
+    def do_put
+      put :create, :podcast_slug => @podcast.clean_url, :review => { :title => 'new', :body => 'review', :episode_id => @episode.id }
+    end
+
+    it "should update the review" do
+      lambda { do_put }.should change { @podcast.reviews(true).count }.by(1)
+      assigns(:review).title.should == 'new'
+      assigns(:review).body.should == 'review'
+    end
+    
+    describe "when logged out" do
+      before(:each) { logout }
+      
+      it "should add unclaimed review" do
+        lambda { do_put }.should change { Review.unclaimed.count }.by(1)
+        assigns(:review).reviewer.should be_nil
+      end
+      
+      it "should add the unclaimed review to the session" do
+        do_put
+        session[:unclaimed_records].should include([Review.to_s, assigns(:review).id])
+      end
+    end
+  end
+
+  describe "handling PUT /:podcast_slug/reviews/1" do
+    def do_put(review)
       put :update, :podcast_slug => @podcast.clean_url, :id => review.id, :review => { :title => 'newish' }
     end
 
     it "should update the review" do
       request.env["HTTP_REFERER"] = "http://www.google.com"
-      do_post(@review)
+      do_put(@review)
       @review.reload.title.should eql("newish")
     end
   end

@@ -32,7 +32,8 @@ class ApplicationController < ActionController::Base
       self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
 
       if logged_in?
-        claim_all
+        claim_all # deprecated, being replaced...
+        claim_records # <-- with this
         set_cookies
         current_user.calculate_score!
         current_user.update_attribute(:logged_in_at, Time.now)
@@ -128,11 +129,24 @@ class ApplicationController < ActionController::Base
       cookies.delete :auth_token
       reset_session
     end
+    
+    # Stores another [classname, id] in the session for the person to claim when they signin
+    def remember_unclaimed_record(record)
+      session[:unclaimed_records] ||= []
+      session[:unclaimed_records] << [record.class.to_s, record.id]
+    end
+    
+    # Claims the unclaimed records stored in the session
+    def claim_records
+      session[:unclaimed_records].each do |klass, record_id|
+        record = klass.constantize.find(record_id)
+        record.update_attribute(:user_id, current_user.id) if record
+      end.clear if session[:unclaimed_records]
+    end
 
     def claim_all
       if logged_in?
         claim_feeds
-        claim_review
         claim_favorites
         claim_rating
 
@@ -159,18 +173,6 @@ class ApplicationController < ActionController::Base
       ReviewRating.create(session[:rating])
 
       session.delete(:rating)
-    end
-
-    def claim_review
-      return if session[:review].nil?
-
-      if Review.count(:conditions => {:episode_id => session[:review][:episode_id], :user_id => current_user.id}) == 0
-        c = Review.new(session[:review])
-        c.reviewer = current_user
-        c.save
-      end
-
-      session.delete(:review)
     end
 
     def claim_feeds

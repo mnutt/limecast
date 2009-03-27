@@ -89,7 +89,6 @@ class FeedProcessor
     begin
       @rpodcast_feed = RPodcast::Feed.new(@content)
 
-
       raise Feed::InvalidFeedException if @rpodcast_feed.episodes.empty?
     rescue RPodcast::NoEnclosureError
       raise Feed::NoEnclosureException
@@ -107,7 +106,6 @@ class FeedProcessor
   def update_podcast!
     @feed.podcast ||= Podcast.find_by_site(@rpodcast_feed.link) || Podcast.new
     raise Feed::FeedDoesNotMatchPodcast unless self.similar_to_podcast?(@feed.podcast)
-    new_podcast = @feed.podcast.new_record?
 
     @feed.podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
     @feed.podcast.update_attributes!(
@@ -118,7 +116,7 @@ class FeedProcessor
       :owner_name     => @rpodcast_feed.owner_name,
       :site           => @rpodcast_feed.link
     )
-    if new_podcast
+    if @feed.podcast.created_at == @feed.podcast.updated_at
       PodcastMailer.deliver_new_podcast(@feed.podcast)
     elsif !@feed.podcast.last_changes.blank?
       PodcastMailer.deliver_updated_podcast_from_feed(@feed.podcast)

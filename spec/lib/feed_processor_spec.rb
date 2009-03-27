@@ -38,6 +38,21 @@ describe FeedProcessor, "being parsed" do
   it 'should set the language of the podcast' do
     @feed.podcast.reload.language.should == "en-us"
   end
+
+#  describe "when the submitting user is the podcast owner" do
+#    it 'should associate the podcast with the user as owner' do
+#      user = Factory.create(:user, :email => "john.doe@example.com")
+#      @podcast = Factory.create(:parsed_podcast, :site => "http://www.example.com/")
+#      @feed = @podcast.feeds.first
+#      @feed.finder = user
+#
+#      @feed = FeedProcessor.process(@feed.url)
+#
+#      @feed.reload.finder.should == user
+#      @feed.podcast.should be_kind_of(Podcast)
+#      @feed.podcast.owner.should == user
+#    end
+#  end
 end
 
 # Feed is already in the system, looking it up by url.
@@ -97,6 +112,24 @@ describe Feed, "downloading the logo for its podcast" do
   end
 end
 
+describe Feed, "being updated" do
+  before do
+    @podcast = Factory.create(:parsed_podcast, :owner_email => "john.doe@example.com", :feeds => [], :site => "http://www.example.com")
+    @feed = Factory.create(:feed, :podcast_id => @podcast.id, :url => "#{@podcast.site}/feed.xml")
+    @podcast.update_attributes :original_title => "The Whatever Podcast"
+    @podcast.reload
+  end
+
+  it "should send an email out of if the podcast was changed at all" do
+    setup_actionmailer
+    lambda { FeedProcessor.process(@feed.url) }.should change { ActionMailer::Base.deliveries.size }.by(1)
+    ActionMailer::Base.deliveries.last.to_addrs.to_s.should == @podcast.editors.map(&:email).join(',')
+    ActionMailer::Base.deliveries.last.body.should =~ /A podcast that you can edit has been updated because one of its feeds was changed/
+    ActionMailer::Base.deliveries.last.body.should =~ /The Original Title was changed to All About Everything/
+    reset_actionmailer
+  end
+end
+
 describe Feed, "being created" do
 
   before do
@@ -136,24 +169,6 @@ describe Feed, "being created" do
     end
   end
 end
-# 
-#   describe "when the submitting user is the podcast owner" do
-#     it 'should associate the podcast with the user as owner' do
-#       user = Factory.create(:user, :email => "john.doe@example.com")
-#       @podcast = Factory.create(:parsed_podcast, :site => "http://www.example.com/")
-#       @feed = @podcast.feeds.first
-#       @feed.finder = user
-# 
-#       @feed.extend(StopFetch)
-#       @feed.podcast.extend(StopDownloadLogo)
-# 
-#       @feed.refresh
-# 
-#       @feed.reload.finder.should == user
-#       @feed.podcast.should be_kind_of(Podcast)
-#       @feed.podcast.owner.should == user
-#     end
-#   end
 # 
 #   describe "when it is associated with a podcast that it does not belong to" do
 #     it "should save the error that the feed is mismatched" do
@@ -229,25 +244,5 @@ end
 #     it 'should recalculate the finder\'s score' do
 #       lambda { @feed.destroy }.should change { @user.score }.by(-1)
 #     end
-#   end
-# end
-# 
-# describe Feed, "being updated" do
-#   before do
-#     @podcast = Factory.create(:parsed_podcast, :owner_email => "john.doe@example.com", :feeds => [], :site => "http://www.example.com")
-#     @feed = Factory.create(:feed, :podcast_id => @podcast.id, :url => "#{@podcast.site}/feed.xml")
-#     @podcast.update_attributes :original_title => "The Whatever Podcast"
-#     @podcast.reload
-#   end
-# 
-#   it "should send an email out of if the podcast was changed at all" do
-#     setup_actionmailer
-#     @feed.content = File.open("#{RAILS_ROOT}/spec/data/example.xml").read
-#     @feed.parse
-#     lambda { @feed.update_from_feed }.should change { ActionMailer::Base.deliveries.size }.by(1)
-#     ActionMailer::Base.deliveries.last.to_addrs.to_s.should == @podcast.editors.map(&:email).join(',')
-#     ActionMailer::Base.deliveries.last.body.should =~ /A podcast that you can edit has been updated because one of its feeds was changed/
-#     ActionMailer::Base.deliveries.last.body.should =~ /The Original Title was changed to All About Everything/
-#     reset_actionmailer
 #   end
 # end

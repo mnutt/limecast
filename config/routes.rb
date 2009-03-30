@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :path_prefix => '/info' do |info|
     info.root         :controller => 'home', :action => 'info'
     info.info_icons   'icons', :controller => 'home', :action => 'icons'
+    info.info_stats   'stats', :controller => 'home', :action => 'stats'
     info.info_hash    'hash', :controller => 'feeds', :action => 'hash_info'
     info.info_add     'add', :controller => 'feeds', :action => 'add_info'
     info.info_user    'user/:user_slug', :controller => 'users', :action => 'info', :user_slug => ''
@@ -69,7 +70,6 @@ ActionController::Routing::Routes.draw do |map|
     h.root                        :action => 'home'
     h.use         '/use',         :action => 'use'
     h.privacy     '/privacy',     :action => 'privacy'
-    h.stats       '/stats',       :action => 'stats'
     h.team        '/team',        :action => 'team'
     h.guide       '/guide',       :action => 'guide'
   end

@@ -55,6 +55,18 @@ describe User do
     lambda { u = Factory.create(:user, :email => nil) }.should raise_error(ActiveRecord::RecordInvalid)
   end
 
+  describe 'creating a duplicate user' do
+    it 'should not allow two users with the same username' do
+      @user = Factory.create(:user, :login => "duplicate")
+      lambda { u = Factory.create(:user, :login => "duplicate") }.should raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it 'should not allow two users with the same username with different capitalization' do
+      @user = Factory.create(:user, :login => "duplicate")
+      lambda { u = Factory.create(:user, :login => "dUpLiCaTe") }.should raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
   describe 'reseting password' do
     it 'should still authenticate user' do
       @user.update_attributes!(:password => 'new password')

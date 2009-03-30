@@ -223,3 +223,15 @@ describe Feed, "being updated" do
     reset_actionmailer
   end
 end
+
+describe Feed, "being claimed" do
+  before do
+    @feed = Factory.create(:feed, :finder_id => nil)
+    @user = Factory.create(:user)
+  end
+
+  it "should set the finder_id to the one given" do
+    lambda { @feed.claim_by(@user) }.should change { @feed.finder_id }
+    @feed.reload.finder_id.should be(@user.id)
+  end
+end

@@ -87,24 +87,22 @@ class PodcastsController < ApplicationController
   def favorite
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
-    if current_user
+    if logged_in? 
       @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)
-      @favorite.new_record? ? @favorite.save : @favorite.destroy
     else
-      session[:favorite] = @podcast.id
+      unless session[:unclaimed_records] && session[:unclaimed_records].any? {|rec| rec[0]=='Favorite' && Favorite.find(rec[1]).podcast==@podcast }
+        @favorite = Favorite.new(:podcast_id => @podcast.id)
+      end
+    end
+
+    if @favorite && !@favorite.nil?
+      @favorite.new_record? ? @favorite.save : @favorite.destroy
+      remember_unclaimed_record(@favorite) unless logged_in?
     end
 
     respond_to do |format|
-      if @favorite
-        format.html { redirect_to :back }
-        format.js { render :json => {:logged_in => true} }
-      else
-        format.html {
-          flash[:notice] = "Signup or sign in first to save your favorite."
-          redirect_to new_session_path
-        }
-        format.js { render :json => {:logged_in => false, :message => "Sign up or sign in to save your favorite:"} }
-      end
+      format.html { redirect_to :back }
+      format.js { render :json => {:logged_in => logged_in?} }
     end
   end
 end

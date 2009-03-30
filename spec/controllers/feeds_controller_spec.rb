@@ -40,7 +40,7 @@ describe FeedsController do
     end
 
     it 'should add the feed to the session' do
-      session[:unclaimed_records].should include(['Feed', 'finder_id', assigns(:feed).id])
+      session[:unclaimed_records].should include(['Feed', assigns(:feed).id])
     end
 
     it 'should not associate the feed with a user' do

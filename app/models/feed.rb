@@ -59,6 +59,10 @@ class Feed < ActiveRecord::Base
 
     has :created_at, :podcast_id
   end
+  
+  def claim_by(user)
+    update_attribute(:finder, user)
+  end
 
   def diagnostic_xml
     doc = Hpricot.XML(self.xml)

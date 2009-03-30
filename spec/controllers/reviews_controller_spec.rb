@@ -41,7 +41,7 @@ describe ReviewsController do
       
       it "should add the unclaimed review to the session" do
         do_put
-        session[:unclaimed_records].should include(['Review', 'user_id', assigns(:review).id])
+        session[:unclaimed_records].should include(['Review', assigns(:review).id])
       end
     end
   end

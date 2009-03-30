@@ -53,6 +53,10 @@ class Review < ActiveRecord::Base
   def rated_by?(user)
     user && self.review_ratings.exists?(:user_id => user.id)
   end
+  
+  def claim_by(user)
+    update_attribute(:reviewer, user)
+  end
 
   def editable?
     self.episode.open_for_reviews? && self.review_ratings.count == 0

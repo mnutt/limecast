@@ -13,4 +13,9 @@
 class Favorite < ActiveRecord::Base
   belongs_to :user
   belongs_to :podcast
+
+
+  def claim_by(user)
+    update_attribute(:user, user)
+  end
 end

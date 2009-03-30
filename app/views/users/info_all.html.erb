@@ -1,0 +1,10 @@
+<h1>User</h1>
+<ul>
+  <% @users.each do |user| -%>
+    <li>
+      <%= link_to user.login, info_user_url(user) -%>
+      (<%= user.score -%>)
+      <% if user.admin? -%>god <% end -%>
+    </li>
+  <% end -%>
+</ul>

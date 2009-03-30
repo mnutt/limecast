@@ -26,6 +26,7 @@ class Review < ActiveRecord::Base
 
   validates_presence_of :episode_id, :body
 
+  named_scope :older_than, lambda {|date| {:conditions => ["reviews.created_at < (?)", date]} }
   named_scope :newer_than, lambda {|who| {:conditions => ["reviews.created_at >= (?)", who.created_at]} }
   named_scope :without, lambda {|who| {:conditions => ["reviews.id NOT IN (?)", who.id]} }
   named_scope :for_podcast, lambda {|podcast| {:conditions => {:episode_id => podcast.episodes.map(&:id)}} }

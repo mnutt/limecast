@@ -9,6 +9,8 @@
       <th>Date</th>
       <th>Users</th>
       <th>Podcasts</th>
+      <th>HD</th>
+      <th>P2P</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +19,8 @@
         <td><%= date -%></td>
         <td><%= @user_stats[i] -%></td>
         <td><%= @podcast_stats[i] -%></td>
+	<td><%= @hd_stats[i] -%></td>
+	<td><%= @p2p_stats[i] -%></td>
       </tr>
     <% end -%>
   </tbody>

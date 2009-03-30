@@ -37,7 +37,6 @@
       <div class="summary">
         <span class="title"><%= @review.title -%></span>
         <span class="body"><%= unescape_entities(@review.body) -%></span>
-        <% unless current_user -%><div class="quick_signin_container after_rating"></div><% end -%>
       </div>
     </li>
   <% end -%>

@@ -20,10 +20,7 @@ class FeedsController < ApplicationController
       @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
     end
 
-    if current_user.nil?
-      session[:feeds] ||= []
-      session[:feeds] << @feed.id
-    end
+    remember_unclaimed_record(@feed) unless logged_in?
 
     render :nothing => true
   end

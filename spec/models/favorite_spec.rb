@@ -16,3 +16,15 @@ describe Favorite do
     end
   end
 end
+
+describe Favorite, "being claimed" do
+  before do
+    @favorite = Factory.create(:favorite, :user_id => nil)
+    @user = Factory.create(:user)
+  end
+
+  it "should set the user_id to the one given" do
+    lambda { @favorite.claim_by(@user) }.should change { @favorite.user_id }
+    @favorite.reload.user_id.should be(@user.id)
+  end
+end

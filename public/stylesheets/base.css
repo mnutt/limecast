@@ -341,28 +341,6 @@ form#quick_signin .response_container a {
   color: #a9a9a9;
 }
 
-.quick_signin_container.from_top_bar {
-  position: absolute;
-  top: 18px;
-  right: 0;
-  /*background-color: #2B2D2F;*/
-  /*border: 1px solid #181818;*/
-  z-index: 10;
-}
-.quick_signin_container.from_top_bar form#quick_signin a.close {
-  background: url("../images/icons/close.png") no-repeat center;
-  display: block;
-  text-indent: -5000px;
-  width: 16px;
-  height: 16px;
-  margin: 5px 5px 0 0;
-  overflow: hidden;
-  float: right;
-}
-.quick_signin_container.after_favoriting form#quick_signin .message {
-  position: relative;
-  top: -10px;
-}
 
 
 

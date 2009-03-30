@@ -32,8 +32,7 @@ class ApplicationController < ActionController::Base
       self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
 
       if logged_in?
-        claim_all # deprecated, being replaced...
-        claim_records # <-- with this
+        claim_records
         set_cookies
         current_user.calculate_score!
         current_user.update_attribute(:logged_in_at, Time.now)
@@ -142,36 +141,7 @@ class ApplicationController < ActionController::Base
         record = klass.constantize.find(record_id)
         record.claim_by(current_user) if record
       end.clear if session[:unclaimed_records]
-    end
-
-    def claim_all
-      if logged_in?
-        claim_rating
-
-        current_user.calculate_score!
-      end
-    end
-
-    def claim_rating
-      return if session[:rating].nil?
-
-      session[:rating][:user_id] = current_user.id
-      ReviewRating.create(session[:rating])
-
-      session.delete(:rating)
-    end
-
-
-    # NOTE: on new remember_claimed_records method, try adding a claim(user.id) method to each model
-    # so we can do extra stuff like this owner stuff!!!!
-    def claim_feeds
-      return if session[:feeds].nil?
-
-      Feed.find_all_by_id(session[:feeds]).each do |feed|
-        feed.update_attribute(:finder_id, @user.id) if feed.finder.nil?
-        feed.podcast.update_attribute(:owner_id, @user.id) if feed.podcast && feed.podcast.owner.nil? and feed.podcast.owner_email == @user.email
-      end
-
-      session.delete(:feeds)
+      
+      current_user.calculate_score!
     end
 end

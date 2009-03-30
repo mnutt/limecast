@@ -63,10 +63,10 @@ class Review < ActiveRecord::Base
   end
 
   def insightful
-    self.review_ratings.insightful.count
+    self.review_ratings.claimed.insightful.count
   end
 
   def not_insightful
-    self.review_ratings.not_insightful.count
+    self.review_ratings.claimed.not_insightful.count
   end
 end

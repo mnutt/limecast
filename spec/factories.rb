@@ -118,12 +118,19 @@ Factory.define :admin_user, :class => User do |u|
   u.admin true
 end
 
-Factory.define :review, :class => Review do |c|
-  c.association :reviewer, :factory => :user
-  c.association :episode, :factory => :episode
+Factory.define :review, :class => Review do |r|
+  r.association :reviewer, :factory => :user
+  r.association :episode, :factory => :episode
 
-  c.title    'My first podcast review'
-  c.body     'This podcast was very verbose! Loreim ipsum ftw.'
+  r.title    'My first podcast review'
+  r.body     'This podcast was very verbose! Loreim ipsum ftw.'
+end
+
+Factory.define :review_rating, :class => ReviewRating do |r|
+  r.association :user, :factory => :user
+  r.association :review, :factory => :review
+  
+  r.insightful true
 end
 
 Factory.define :favorite, :class => Favorite do |c|

@@ -47,8 +47,7 @@ class UsersController < ApplicationController
     
       if @user.errors.empty? && @user.reload
         self.current_user = @user
-        claim_all # deprected, being repalced
-        claim_records # <-- with this
+        claim_records
 
         format.js { render :layout => false }
         format.html { redirect_back_or_default('/') }

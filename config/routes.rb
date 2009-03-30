@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
     info.info_icons   'icons', :controller => 'home', :action => 'icons'
     info.info_hash    'hash', :controller => 'feeds', :action => 'hash_info'
     info.info_add     'add', :controller => 'feeds', :action => 'add_info'
-    info.info_user    'user/:user_slug', :controller => 'users', :action => 'info'
+    info.info_user    'user/:user_slug', :controller => 'users', :action => 'info', :user_slug => ''
     info.info_tags    'tags', :controller => 'tags', :action => 'info_index'
     info.info_tag     'tag/:tag', :controller => 'tags', :action => 'info'
     info.info_feed    ':podcast_slug/feed/:id', :controller => 'feeds', :action => 'info'

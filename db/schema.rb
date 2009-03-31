@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090324222241) do
+ActiveRecord::Schema.define(:version => 20090330155313) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -99,6 +99,15 @@ ActiveRecord::Schema.define(:version => 20090324222241) do
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
   add_index "podcasts", ["owner_id"], :name => "index_podcasts_on_owner_id"
+
+  create_table "queued_feeds", :force => true do |t|
+    t.string   "url"
+    t.string   "error"
+    t.string   "state"
+    t.integer  "feed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "recommendations", :force => true do |t|
     t.integer  "podcast_id"

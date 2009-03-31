@@ -141,10 +141,6 @@ class Feed < ActiveRecord::Base
     self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
   end
 
-  def just_created?
-    self.created_at > 2.minutes.ago
-  end
-
   protected
 
   def add_podcast_message

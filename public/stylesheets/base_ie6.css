@@ -10,12 +10,17 @@
 .podcast_block .preview , .podcast_block .preview img {
 	width: 110px;
 	float: left;
+
 }
+
+
 .podcast_block .description {
 	position: relative;
   overflow: auto;
 	padding: 0;
+
 }
+
 .podcast_block  p.details {
   color: #a9a9a9;
 	font-size: 1em;
@@ -23,130 +28,168 @@
 	display: block;
 	line-height: 1.4em;
 }
+
 ul.tabs {
   padding-bottom: 28px;
 }
 
+
+
+
 .popular .podcast_block {width: 640px;}
+
+
+
+
 
 #featured_cont {
 	margin: 30px 0px 20px 0px;
 }
+
+
 #featured {
 	margin: 15px 0px 20px 20px;
 }
+
 #featured h2 {
 	margin: 0px;
 }
+
 .home #featured .podcast_block {
 	width: 420px;
 	float: left;
 	margin-right: 20px;
 }
+
 .home #featured .preview {
   margin-right: 20px;
   float: left;
   width: 160px;
 }
 
+
+
 #download_button a.download {
 	padding: 8px 40px 0 8px;
 }
+
+
 #download_button a.opener {
   margin-top: 4px;
 }
+
 .review .helpfulness {
 	right: 140px;
 	bottom: 13px;
 }
+
 button {
 	padding: 8px 4px 0 0;
 }
+
+
 
 #pop_recent_cont .preview, #pop_recent_cont .preview img, #tags_review_cont .preview, #tags_review_cont .preview img {
 	width: 55px !important;
 }
 
 
-form#search button {
-   position: absolute;
- 	top: -10px;
-   right: 0px;
- }
-.show #subscribe h2 {
-	padding-left: 20px;
-}
-.show #subscribe p {
-	padding-left: 20px;
-}
+  form#search button {
+     position: absolute;
+   	top: -10px;
+     right: 0px;
+   }
 
 
-.show #subscribe div a {
-	padding-left: 45px;
-}
 
-.itunes_feed { background: url('../imgs/subscribe_itunes.png') top left no-repeat; }
-.miro_feed   { background: url('../imgs/subscribe_miro.png') top left no-repeat; }
-.rss_feed    { background: url('../imgs/subscribe_rss.png') top left no-repeat; }
+	.show #subscribe h2 {
+		padding-left: 20px;
+	}
 
-/* Subscribe dropdown **/
+	.show #subscribe p {
+		padding-left: 20px;
+	}
 
-#subscribe_options_container {
-	width: 263px;
-	height: 200px;
-	position: absolute;
-	top: 100px;
-	right: 16px;
-	z-index: 2;
-  display: none;
-  outline: none;
-}
-#subscribe_options_container #delivery_options {
-  display: none;
-}
 
-.pane p.info {
-  display: none;
-}
-.selected.pane p.info {
-  display: block;
-}
+	.show #subscribe div a {
 
-.delivery_method p {font-size: 1em;color: #a9a9a9;}
+		padding-left: 45px;
 
-#tabnav a:link.active, #tabnav a:visited.active {
-	border-bottom: 1px solid #fff;
-	background: #fff;
-	color: #000;
-}
-
-#tabnav a:hover {
-	background: #fff url('../imgs/tab_shadow_over.png') bottom left repeat-x;
-}
+	}
 	
-ul.v_options_list ul  {
-  clear: left;
-  margin-top: 10px;
-}
+	
+	
+	.itunes_feed { background: url('../imgs/subscribe_itunes.png') top left no-repeat; }
+	.miro_feed   { background: url('../imgs/subscribe_miro.png') top left no-repeat; }
+	.rss_feed    { background: url('../imgs/subscribe_rss.png') top left no-repeat; }
+	
+	
+	/* Subscribe dropdown **/
 
-ul.v_options_list li  {
-  display: block;
-	padding: 3px 0;
-	border-bottom: 1px dotted #ddd;
-	overflow: visible;
-	clear: left;
-}
-ul.v_options_list li p {
-	text-align: left;
-}
+  #subscribe_options_container {
+  	width: 263px;
+  	height: 200px;
+  	position: absolute;
+  	top: 100px;
+  	right: 16px;
+  	z-index: 2;
+    display: none;
+    outline: none;
+  }
 
-span.v_options {
-  text-align: right;
-  font-size: 1.4em;
-}
+  #subscribe_options_container #delivery_options {
+    display: none;
+  }
 
-ul.v_options_list li .selected_vid {
-  padding-right: 12px;
-  font-weight: bold;
-  background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
-}
+  .pane p.info {
+    display: none;
+  }
+  .selected.pane p.info {
+    display: block;
+  }
+
+  .delivery_method p {font-size: 1em;color: #a9a9a9;}
+
+
+
+  #tabnav a:link.active, #tabnav a:visited.active
+  	{
+  		border-bottom: 1px solid #fff;
+  		background: #fff;
+  		color: #000;
+  	}
+
+  #tabnav a:hover
+  	{
+  		background: #fff url('../imgs/tab_shadow_over.png') bottom left repeat-x;
+  	}
+  	
+  	
+
+    
+    ul.v_options_list ul  {
+    	clear: left;
+    	margin-top: 10px;
+    }
+
+    ul.v_options_list li  {
+    	display: block;
+    	padding: 3px 0;
+    	border-bottom: 1px dotted #ddd;
+    	overflow: visible;
+    	clear: left;
+    }
+    ul.v_options_list li p {
+    	text-align: left;
+    }
+
+    span.v_options {
+    	text-align: right;
+    	font-size: 1.4em;
+    }
+
+    ul.v_options_list li .selected_vid {
+    	padding-right: 12px;
+    	font-weight: bold;
+    	background:  url('../imgs/icons/circle.png') 100% 62% no-repeat;
+    }

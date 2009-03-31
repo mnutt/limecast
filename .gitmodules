@@ -43,3 +43,6 @@
 [submodule "vendor/plugins/partial_map"]
 	path = vendor/plugins/partial_map
 	url = git://github.com/mnutt/partial_map.git
+[submodule "vendor/plugins/acts_as_state_machine"]
+	path = vendor/plugins/acts_as_state_machine
+	url = git://github.com/mnutt/acts_as_state_machine.git

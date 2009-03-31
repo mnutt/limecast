@@ -20,7 +20,7 @@ end
 # Feed is not in the system, creating it by url.
 describe FeedProcessor, "being parsed" do
   before do
-    @feed = FeedProcessor.process("http://google.com/rss.xml")
+    @feed = FeedProcessor.process(QueuedFeed.create(:url => "http://google.com/rss.xml"))
   end
 
   it 'should set the title of the podcast' do

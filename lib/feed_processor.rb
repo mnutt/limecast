@@ -1,4 +1,10 @@
 class FeedProcessor
+  class BannedFeedException     < Exception; def message; "This feed site is not allowed." end end
+  class InvalidAddressException < Exception; def message; "That's not a web address." end end
+  class NoEnclosureException    < Exception; def message; "That's a text RSS feed, not an audio or video podcast." end end
+  class DuplicateFeedExeption   < Exception; def message; "This feed has already been added to the system." end end
+  class InvalidFeedException    < Exception; def message; "This feed is not supported." end end
+
   # def create
   #   @feed = Feed.find_by_url(params[:feed][:url])
   #   if @feed
@@ -11,56 +17,49 @@ class FeedProcessor
 
   attr_accessor :feed
 
-  def self.process(url)
-    fp = self.new(url)
-
-    fp.feed
+  def self.process(queued_feed)
+    self.new(queued_feed)
   end
 
-  def initialize(url)
-    url = clean_url(url)
-
-    @feed = Feed.find_by_url(url)
-    if @feed.nil?
-      @feed = Feed.create(:url => url)
-    elsif @feed.blacklisted?
-      return
-    elsif @feed.failed?
-      @feed.update_attribute(:state, "pending")
-    end
+  def initialize(queued_feed)
+    @qf   = queued_feed
+    @feed = queued_feed.feed || Feed.create(:url => @qf.url)
 
     refresh
   end
 
-  def clean_url(url)
-    url.gsub!(%r{^feed://}, "http://")
-    url.strip!
-    url = 'http://' + url.to_s unless url.to_s =~ %r{://}
-
-    url
-  end
-
   def refresh
-    raise Feed::InvalidAddressException unless @feed.url =~ %r{^([^/]*//)?([^/]+)}
-    raise Feed::BannedFeedException if Blacklist.find_by_domain($2)
+    ActiveRecord::Base.transaction do
+      raise InvalidAddressException if invalid_address?
+      raise BannedFeedException     if banned?
 
-    @content = fetch
-    parse
-    update_podcast!
-    update_tags!
-    update_episodes!
-    update_feed!
+      @content = fetch
+      @rpodcast_feed = RPodcast::Feed.new(@content)
+
+      raise InvalidFeedException if invalid_xml?
+      raise NoEnclosureException if no_enclosure?
+
+      parse
+
+      raise InvalidFeedException  if no_episodes?
+      raise DuplicateFeedExeption if duplicate_feed?
+
+      update_podcast!
+      update_tags!
+      update_episodes!
+      update_feed!
+    end
 
   rescue Exception
     exception = $!
     log_failed(exception)
     PodcastMailer.deliver_failed_feed(@feed, exception)
-    @feed.update_attributes(:state => 'failed', :error => exception.class.to_s)
+    @qf.update_attributes(:state => 'failed', :error => exception.class.to_s)
   end
 
   def log_failed(exception)
     stored_exception = {
-      :feed => @feed.url,
+      :feed => @qf.url,
       :klass => exception.class.to_s,
       :message => exception.to_s,
       :backtrace => exception.backtrace
@@ -75,40 +74,22 @@ class FeedProcessor
   def fetch
     xml = ""
     Timeout::timeout(15) do
-      OpenURI::open_uri(@feed.url, "User-Agent" => "LimeCast/0.1") do |f|
+      OpenURI::open_uri(@qf.url, "User-Agent" => "LimeCast/0.1") do |f|
         xml = f.read
       end
     end
 
     xml
   rescue NoMethodError
-    raise Feed::InvalidAddressException
+    raise InvalidAddressException
   end
 
   def parse
-    begin
-      @rpodcast_feed = RPodcast::Feed.new(@content)
-    rescue RPodcast::NoEnclosureError
-      raise Feed::NoEnclosureException
-    end
-
-    raise Feed::InvalidFeedException if @rpodcast_feed.episodes.empty?
-  end
-
-  def similar_to_podcast?(podcast)
-    return true if podcast.new_record?
-    # XXX: This is a problem we are looking at the domain name to see if we already have the podcast
-    # this means that we think "http://revision3.com/coop/feed/xvid-large" and ""http://revision3.com/hak5/feed/xvid-large" are the same thing
-    return false unless URI::parse(@rpodcast_feed.link).host == URI::parse(podcast.site).host
-    true
+    @rpodcast_feed.parse
   end
 
   def update_podcast!
-    @feed.podcast ||= Podcast.find_by_site(@rpodcast_feed.link) || Podcast.new
-
-    if !self.similar_to_podcast?(@feed.podcast)
-      raise Feed::FeedDoesNotMatchPodcast
-    end
+    @feed.podcast = Podcast.find_or_initialize_by_site(@rpodcast_feed.link) if @feed.podcast.nil?
 
     @feed.podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
     @feed.podcast.update_attributes!(
@@ -120,8 +101,6 @@ class FeedProcessor
       :site           => @rpodcast_feed.link
     )
     @feed.podcast.notify_users
-  rescue RPodcast::NoEnclosureError
-    raise Feed::NoEnclosureException
   end
 
   def update_tags!
@@ -140,11 +119,8 @@ class FeedProcessor
 
     @rpodcast_feed.episodes.each do |e|
       # XXX: Definitely need to figure out something better for this.
-      episode = @feed.podcast.episodes.find_by_title(e.title) || @feed.podcast.episodes.new
-      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => @feed)
-
-      # The feed is a duplicate if the source found matches a source from another (older) feed.
-      raise Feed::DuplicateFeedExeption if source.feed != @feed && source.created_at < @feed.created_at
+      episode = @feed.podcast.episodes.find_or_initialize_by_title(e.title)
+      source = @feed.sources.find_or_initialize_by_guid_and_episode_id(e.guid, episode.id)
 
       episode.update_attributes(
         :summary      => e.summary,
@@ -169,10 +145,45 @@ class FeedProcessor
     @feed.update_attributes(
       :bitrate => @rpodcast_feed.bitrate.nearest_multiple_of(64),
       :ability => ABILITY,
-      :state   => 'parsed',
       :xml     => @content
+    )
+    @qf.update_attributes(
+      :feed_id => @feed.id,
+      :state   => 'parsed'
     )
   end
 
+  protected
+
+  def invalid_address?
+    !@qf.url =~ %r{^([^/]*//)?([^/]+)}
+  end
+
+  def banned?
+    !!(Blacklist.find_by_domain($2) if @qf.url =~ %r{^([^/]*//)?([^/]+)})
+  end
+
+  def no_enclosure?
+    !@rpodcast_feed.has_enclosure?
+  end
+
+  def invalid_xml?
+    @rpodcast_feed.valid?
+  end
+
+  def duplicate_feed?
+    @rpodcast_feed.episodes.each do |e|
+      episode = @feed.podcast.episodes.find_by_title(e.title) || @feed.podcast.episodes.new
+      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => @feed)
+
+      return true if source.feed != @feed && source.created_at < @feed.created_at
+    end
+
+    false
+  end
+
+  def no_episodes?
+    @rpodcast_feed.episodes.empty?
+  end
 end
 

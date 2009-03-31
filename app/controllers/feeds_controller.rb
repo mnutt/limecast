@@ -13,35 +13,30 @@ class FeedsController < ApplicationController
   end
 
   def create
-    @feed = FeedProcessor.process(params[:feed][:url])
+    @queued_feed = QueuedFeed.add_to_queue(params[:feed][:url])
 
-    if current_user
-      @feed.update_attributes :finder => current_user
-      @feed.update_finder_score
-    else
-      session[:feeds] ||= []
-      session[:feeds] << @feed.id
-    end
+    # XXX: Should be able to figure out if we have seen the feed before and
+    # report on that.
 
     render :nothing => true
   end
 
   def status
-    @feed    = Feed.find_by_url(params[:feed])
-    @podcast = @feed.podcast unless @feed.nil?
+    @queued_feed = Feed.find_by_url(params[:feed])
+    @podcast     = @queued_feed.feed.podcast unless @queued_feed.nil? || @queued_feed.feed.nil?
 
     # See http://wiki.limewire.org/index.php?title=LimeCast_Add#Messages
     # Unexpected errors
-    if @feed.nil?
+    if @queued_feed.nil?
       render :partial => 'status_error'
     # Successes
-    elsif @podcast && @feed.parsed? && feed_created_just_now_by_user?(@feed)
+    elsif @podcast && @queued_feed.parsed? && feed_created_just_now_by_user?(@queued_feed)
       render :partial => 'status_added'
     # Expected errors
-    elsif @feed.failed? || @feed.blacklisted? || @podcast && @feed.parsed?
+    elsif @queued_feed.failed? || @queued_feed.blacklisted? || @podcast && @queued_feed.parsed?
       render :partial => 'status_failed'
     # Progress
-    elsif @feed.pending?
+    elsif @queued_feed.pending?
       render :partial => 'status_loading'
     # Really unexpected errors
     else

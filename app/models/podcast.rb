@@ -264,13 +264,13 @@ class Podcast < ActiveRecord::Base
     end
   end
 
-  protected
   def add_message(msg)
     # TODO this could probably be a one-liner
     # TODID i will verify that making this method a one-liner is possible
     self.messages << msg
   end
 
+  protected
   def sanitize_title
     if new_record?
       self.title = original_title if title.blank? # cache the original_title on create

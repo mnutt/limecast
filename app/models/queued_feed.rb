@@ -24,7 +24,7 @@ require 'timeout'
 class QueuedFeed < ActiveRecord::Base
   belongs_to :feed
 
-  after_create :process
+  #after_create :process
 
   validates_presence_of   :url
   validates_uniqueness_of :url

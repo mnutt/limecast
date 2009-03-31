@@ -27,8 +27,6 @@ class Feed < ActiveRecord::Base
   belongs_to :podcast
   belongs_to :finder, :class_name => 'User'
 
-  after_save :remove_empty_podcast
-  after_destroy { |f| f.finder.calculate_score! if f.finder }
   after_destroy :add_podcast_message
 
   validates_presence_of   :url

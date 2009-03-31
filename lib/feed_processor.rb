@@ -25,10 +25,10 @@ class FeedProcessor
     @qf   = queued_feed
     @feed = queued_feed.feed || Feed.create(:url => @qf.url)
 
-    refresh
+    process
   end
 
-  def refresh
+  def process
     ActiveRecord::Base.transaction do
       raise InvalidAddressException if invalid_address?
       raise BannedFeedException     if banned?
@@ -42,10 +42,12 @@ class FeedProcessor
       parse
 
       raise InvalidFeedException  if no_episodes?
-      raise DuplicateFeedExeption if duplicate_feed?
 
       update_podcast!
       update_tags!
+
+      raise DuplicateFeedExeption if duplicate_feed?
+
       update_episodes!
       update_feed!
     end
@@ -72,14 +74,11 @@ class FeedProcessor
   # By making the fetch method return the XML instead of saving it to an ivar,
   # we can mock it easier.
   def fetch
-    xml = ""
     Timeout::timeout(15) do
       OpenURI::open_uri(@qf.url, "User-Agent" => "LimeCast/0.1") do |f|
-        xml = f.read
+        f.read
       end
     end
-
-    xml
   rescue NoMethodError
     raise InvalidAddressException
   end
@@ -149,6 +148,7 @@ class FeedProcessor
     )
     @qf.update_attributes(
       :feed_id => @feed.id,
+      :error   => '',
       :state   => 'parsed'
     )
   end
@@ -168,7 +168,7 @@ class FeedProcessor
   end
 
   def invalid_xml?
-    @rpodcast_feed.valid?
+    !@rpodcast_feed.valid?
   end
 
   def duplicate_feed?
@@ -176,7 +176,7 @@ class FeedProcessor
       episode = @feed.podcast.episodes.find_by_title(e.title) || @feed.podcast.episodes.new
       source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => @feed)
 
-      return true if source.feed != @feed && source.created_at < @feed.created_at
+      return true if source.feed != @feed
     end
 
     false

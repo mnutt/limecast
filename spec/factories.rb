@@ -15,8 +15,14 @@ Factory.define :user_tagging do |t|
   t.user { Factory.create :user }
 end
 
+Factory.define :queued_feed do |q|
+  q.feed  { Factory.create :feed }
+  q.url   { Factory.create(:feed).url }
+  q.state "parsed"
+end
+
 Factory.define :feed do |f|
-  f.url     { "#{Factory.next :site}/feed.xml" }
+  f.url { "#{Factory.next :site}/feed.xml" }
   f.xml ""
   f.bitrate 64
 end
@@ -32,17 +38,8 @@ end
 Factory.define :parsed_podcast, :class => Podcast do |p|
   p.original_title { Factory.next :title }
   p.site  { Factory.next :site }
-  p.feeds {|a| [Factory.create(:feed, :url => "#{a.site}/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read, :state => 'parsed')] }
+  p.feeds {|a| [Factory.create(:feed, :url => "#{a.site}/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read)] }
   p.owner_email { Factory.next :email }
-
-  p.clean_url { Factory.next :title }
-end
-
-Factory.define :failed_podcast, :class => Podcast do |p|
-  p.owner_email { Factory.next :email }
-  p.original_title { Factory.next :title }
-  p.site  { Factory.next :site }
-  p.feeds { [Factory.create(:feed, :state => 'failed')] }
 
   p.clean_url { Factory.next :title }
 end

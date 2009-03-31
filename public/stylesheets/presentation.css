@@ -194,9 +194,6 @@ form#quick_signin span.forgot {
 }
 
 
-
-
-
 .index h1, .index.search h1 {
 	margin-left: 15px;
 }
@@ -1346,5 +1343,22 @@ span.truncated.more {
 
 #profile_reviews ul.reviews {
   width: 100%;
+}
+
+/* Terms of use page */
+
+.terms_privacy {
+  margin-top: 20px;
+}
+
+.terms_privacy h3 {
+  margin: 30px 0 5px 0;
+}
+
+.terms_privacy ul li {
+background:transparent url('../imgs/mission_bullet.png') no-repeat scroll left center;
+font-size:1.3em;
+padding:0 0 2px 10px;
+margin: 10px 40px;
 }
 

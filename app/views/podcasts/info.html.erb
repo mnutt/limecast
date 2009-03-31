@@ -1,7 +1,17 @@
 <% @title = "Podcast" -%>
 <h1>Podcast</h1>
 
+<h2>Map</h2>
 <%= render :partial => 'feeds/info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
+
+<ul>
+  <li><b>primary</b> marks the primary feed</li>
+  <li>Numbers like <b>5</b>, <b>6</b>, and <b>7</b> mark feeds and sources parsed and hashed by a site with that ability number</li>
+  <li><b>a</b> marks a source that wasn't found in the feed the last time the site downloaded the feed, making it part of the site's archive</li>
+</ul>
+
+
+<h2>Episodes</h2>
 
 <p class="episode_info">
   New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.newest.first) -%> <%= relative_time(@podcast.episodes.newest.first.published_at, true) -%><br />
@@ -12,39 +22,73 @@
   Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
 </p>
 
+<ul class="episodes">
+  <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes -%>
+</ul>
+
+<h2>Feeds</h2>
+<table class="feeds">
+  <%= render :partial => 'feeds/info_line', :collection => @podcast.feeds -%>
+</table>
+
 <h2>Media (for latest Primary Source):</h2>
 <% if @podcast.primary_feed && source = @podcast.primary_feed.sources.sorted.first -%>
   <%= render :partial => "sources/info_media", :locals => {:source => source} %>
 <% end -%>
 
-
-<h2>Episode List</h2>
-<ul class="episodes">
-  <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes -%>
-</ul>
-
-<h2>Feed Table</h2>
-<table class="feeds">
-  <%= render :partial => 'feeds/info_line', :collection => @podcast.feeds -%>
-</table>
-
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key">Description</td>
+    <td class="key">Age</td>
     <td>
-      <%= non_blank @podcast.description -%>
+      <%= relative_time @podcast.created_at -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Has P2P Acceleration</td>
+    <td class="key">Found</td>
+    <td>
+      <%= info_user_link(@podcast.primary_feed.finder) -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Protected</td>
+    <td>
+      Not Implemented
+    </td>
+  </tr>
+  <tr>
+    <td class="key">P2P Enabled</td>
     <td>
       <%= @podcast.has_p2p_acceleration ? "true" : "false" -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Has Previews</td>
+    <td class="key">Preview enabled</td>
     <td>
       <%= @podcast.has_previews ? "true" : "false" -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">iTunes</td>
+    <td>
+      <%= non_blank @podcast.primary_feed.itunes_link -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Top</td>
+    <td>
+      Not Implemented
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Favorite</td>
+    <td>
+      <%= @podcast.favoriters.map{|u| info_user_link(u)}.to_sentence -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key">Description</td>
+    <td>
+      <%= non_blank @podcast.description -%>
     </td>
   </tr>
   <tr>
@@ -78,15 +122,9 @@
     </td>
   </tr>
   <tr>
-    <td class="key">Updated At</td>
+    <td class="key">Last Modified</td>
     <td>
-      <%= @podcast.updated_at -%>
-    </td>
-  </tr>
-  <tr>
-    <td class="key">Age</td>
-    <td>
-      <%= @podcast.created_at -%>
+      <%= relative_time @podcast.updated_at -%>
     </td>
   </tr>
 </table>
@@ -114,31 +152,41 @@
   <% end -%>
 </ul>
 
-<h2>Logos</h2>
-<ul>
-<%- @podcast.logo.styles.keys.each do |k| -%>
-  <li><%= link_to nil, @podcast.logo(k) -%></li>
-<%- end -%>
-</ul>
-
 <h2>Tags</h2>
-<ul>
-<%- @podcast.tags.without_badges.all.each do |t| -%>
-  <li><%= t.name %></li>
-<%- end -%>
-</ul>
+<table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+    <td class="key">Badges</td>
+    <td><%= (@podcast.tags.badges.map{|b| b.name} + @podcast.additional_badges).join(", ") -%></td>
+  </tr>
+  <tr>
+    <td class="key">Not Badges</td>
+    <td><%= (Tag.badges - @podcast.tags.badges).map{|b| b.name}.join(", ") -%></td>
+  </tr>
+  <tr>
+    <td class="key">iTunes Categories</td>
+    <td>No way to tell yet.</td>
+  </tr>
+  <tr>
+    <td class="key">Tags</td>
+    <td><%= @podcast.tags.without_badges.map{|b| b.name}.join(", ") -%></td>
+  </tr>
+</table>
 
-<h2>Badges</h2>
-<ul>
-<%- @podcast.tags.badges.each do |t| -%>
-  <li><%= t.name %></li>
-<%- end -%>
-<%- @podcast.additional_badges.each do |t| -%>
-  <li><%= t %></li>
-<%- end -%>
-</ul>
+<h2>Features</h2>
+<table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+    <td class="key">Related podcasts</td>
+    <td><%= @podcast.related_podcasts.map{|p| link_to h(p.title), info_podcast_url(p)}.join(", ") -%></td>
+  </tr>
+  <tr>
+    <td class="key">Reviews</td>
+    <td><%= @podcast.reviews.map{|r| link_to(h(r.title), info_review_url(r)) rescue "" }.join(", ") -%></td>
+  </tr>
+</table>
 
 <% if @podcast.primary_feed -%>
-  <h1>Primary Feed</h1>
-  <iframe name="primary_feed_iframe" id="primary_feed_iframe" src="<%= info_feed_url(:podcast_slug => @podcast, :id => @podcast.primary_feed.id) %>" style="width: 90%; border: solid 1px #111; height: 400px; margin: 10px;">Your browser does not support iframes.</iframe>
+  <% @feed = @podcast.primary_feed -%>
+  <% @feed_xml = @feed.diagnostic_xml -%>
+
+  <%= render :file => 'feeds/info.html.erb' -%>
 <% end -%>

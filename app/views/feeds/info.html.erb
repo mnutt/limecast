@@ -1,9 +1,9 @@
 <h1>Feed</h1>
 
+<h2>Map</h2>
 <%= render :partial => 'feeds/info_source_table', :locals => {:options => {:feed => @feed}} -%>
 
-<p>from <%= link_to @feed.podcast.title, info_podcast_url(@feed.podcast) -%></p>
-
+<h2>Info</h2>
 <table>
   <tr>
     <td>Maker</td>
@@ -32,7 +32,7 @@
 
   <tr>
     <td>Updated</td>
-    <td><%= non_blank @feed.updated_at.to_s -%></td>
+    <td><%= non_blank relative_time(@feed.updated_at) -%></td>
   </tr>
 
   <tr>

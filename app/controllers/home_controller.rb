@@ -11,7 +11,7 @@ class HomeController < ApplicationController
   end
 
   def stats
-    @dates, @user_stats, @podcast_stats, @hd_stats, @p2p_stats = [], [], [], [], []
+    @dates, @user_stats, @podcast_stats, @hd_stats, @p2p_stats, @review_stats = [], [], [], [], [], []
 
     date = Time.now
     6.times do |i|

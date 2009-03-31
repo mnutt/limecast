@@ -168,13 +168,12 @@ input.radio {
 	/* Left border */
 .i1 {
 	padding:0 0 0 10px;
-	background:url('../imgs/border.png') repeat-y 2px 0;
+	background: url('../imgs/border.png') repeat-y 2px 0;
 }
 	/* Right border */
 .i2 {
-	
 	padding:0 10px 0 0;
-	background:url('../imgs/border.png') repeat-y 100% 0;
+	background: url('../imgs/border.png') repeat-y 100% 0;
 }
 	/* Wrapper for the content. Use it to set the background colour and insert some padding between the borders and the content. */
 .i3 {

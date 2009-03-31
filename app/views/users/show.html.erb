@@ -10,7 +10,7 @@
 
 
 <div id="member_profile" class="tabify main">
-  <ul>
+  <ul class="tabs">
     <% if @user.favorite_podcasts.size > 0 -%>
       <li><a href="#profile_favorites"><h4>Favorites <span>(<%= @user.favorite_podcasts.size %>)</span></h4></a></li>
     <% end -%>

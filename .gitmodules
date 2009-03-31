@@ -37,9 +37,6 @@
 [submodule "vendor/plugins/paperclip"]
 	path = vendor/plugins/paperclip
 	url = git://github.com/thoughtbot/paperclip.git
-[submodule "vendor/plugins/rspec-rails"]
-	path = vendor/plugins/rspec-rails
-	url = git://github.com/tiegz/rspec-rails.git
 [submodule "vendor/plugins/partial_map"]
 	path = vendor/plugins/partial_map
 	url = git://github.com/mnutt/partial_map.git

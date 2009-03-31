@@ -1,5 +1,6 @@
 <h1>Episode</h1>
 
+<h2>Map</h2>
 <%= render :partial => 'feeds/info_source_table', :locals => {:options => {:episode => @episode}} -%>
 
 <p>
@@ -8,7 +9,8 @@
   <%= link_to "Older >", info_episode_url(@podcast, @older) if @older %> 
 </p>
 
-<h2>Media:</h2>
+
+<h2>Media</h2>
 <% @episode.sources.sorted('bitrate').each do |source| -%>
   <%= render :partial => "sources/info_media", :locals => {:source => source} %>
 <% end -%>
@@ -34,14 +36,16 @@
 <%- end -%>
 </ul>
 
-<h2>Sources</h2>
-<ul>
-<%- @episode.sources.each do |s| -%>
-  <li><%= link_to s.file_name, info_source_url(@episode.podcast, @episode, s) -%></li>
-<%- end -%>
-</ul>
-
 <% if @episode.primary_source -%>
-  <h1>Source (Primary)</h1>
-  <iframe name="primary_source_iframe" id="primary_source_iframe" src="<%= info_source_url(:podcast_slug => @episode.podcast, :episode => @episode, :id => @episode.primary_source.id) %>" style="width: 90%; border: solid 1px #111; height: 400px; margin: 10px;">Your browser does not support iframes.</iframe>
+  <% @source = @episode.primary_source
+     @feed = @source.feed
+     if newer_episode = @podcast.episodes.oldest.after(@episode).first
+       @newer = newer_episode.sources.find_by_feed_id(@feed.id)
+     end
+     if older_episode = @podcast.episodes.newest.before(@episode).first
+       @older = older_episode.sources.find_by_feed_id(@feed.id)
+     end
+  -%>
+  <%= render :file => 'sources/info.html.erb', :layout => false -%>
+  
 <% end -%>

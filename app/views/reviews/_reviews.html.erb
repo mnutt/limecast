@@ -21,7 +21,6 @@
     <ul class="reviews">
       <%= render :partial => 'reviews/review', :collection => reviews.reverse, :locals => {:editable => true} -%>
     </ul>
-    <div class="quick_signin_container after_adding_review"></div>
     <div id="review_doit">
       <% if can_add_reviews?(episode) %>
         <%= render :partial => 'reviews/add_review', :object => podcast -%>

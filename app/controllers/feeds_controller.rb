@@ -17,6 +17,7 @@ class FeedsController < ApplicationController
 
     # XXX: Should be able to figure out if we have seen the feed before and
     # report on that.
+    remember_unclaimed_record(@queued_feed) unless logged_in?
 
     render :nothing => true
   end

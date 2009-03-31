@@ -15,13 +15,19 @@ class ReviewRating < ActiveRecord::Base
 
   named_scope :insightful,     :conditions => {:insightful => true}
   named_scope :not_insightful, :conditions => {:insightful => false}
+  named_scope :unclaimed, :conditions => "user_id IS NULL"
+  named_scope :claimed, :conditions => "user_id IS NOT NULL"
 
-  validates_uniqueness_of :review_id, :scope => :user_id
+  validates_uniqueness_of :review_id, :scope => :user_id, :unless => Proc.new { |rating| rating.user.nil? }
 
   def validate_on_create
     if self.review.reviewer == user
       errors.add(:user, 'cannot rate themselves.')
     end
+  end
+
+  def claim_by(user)
+    update_attribute(:user, user)
   end
 end
 

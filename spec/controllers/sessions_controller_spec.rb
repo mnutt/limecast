@@ -16,11 +16,26 @@ describe SessionsController do
     ActiveSupport::JSON.decode(response.body.gsub("'", ""))
   end
 
-  it 'logins and redirects' do
+
+  def do_post
+    post :create, :user => { :login => @user.login, :password => @user.password }
+  end
+
+  it 'login and redirect' do
     post :create, :user => { :login => @user.login, :password => @user.password }
     session[:user_id].should_not be_nil
     @user.reload.logged_in_at.to_i.should == Time.now.to_i
     response.should be_redirect
+  end
+  
+  it 'login and claim reviews' do
+    @review = Factory.create(:review, :reviewer => nil)
+    @podcast = @review.episode.podcast
+    session[:unclaimed_records] = [['Review', 'user_id', @review.id]]
+
+    lambda { do_post }.should change { @podcast.reload.reviews.count }.by(1)
+    @podcast.reviews.should include(@review)
+    session[:unclaimed_records].should be_empty
   end
 
   it 'fails login and does not redirect' do

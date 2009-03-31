@@ -3,17 +3,17 @@ $.quickSignIn = {
   isVisible: function() { return ($("#quick_signin").css('display') != 'none'); },
 
   setup: function() {
-    var me = $("#cluetip #quick_signin");
+    var me = $("#cluetip").find("#quick_signin");
 
     // Makes the form use AJAX
     me.submit(function(event){
-      if(!me.find('.sign_up:visible').length) 
+      if(!me.find('.sign_up:visible').length)
         me.find('.signin_signup_button').click();
       else
         me.find('.signin_signup_button').click();
       return false; // this will all be handled through specific Form Element events
     });
-    
+
     me.find('.signin_signup_button').click(function(event){
       if(!me.find('.sign_up:visible').length) { // if signup hasn't happened yet, just show full signup form
         $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
@@ -21,7 +21,7 @@ $.quickSignIn = {
         $.post(me.attr('action'), me.serialize(), $.quickSignIn.signupSubmitCallback, 'json');
       }
     });
-    
+
     // Show the full signup form on clicking the 'Sign Up' button
     me.find('.signup_button').click(function(event){
       // if signup hasn't happened yet, just show full signup form
@@ -35,12 +35,12 @@ $.quickSignIn = {
       }
       return false;
     });
-    
+
     // Handles clicking the X button to close the quick sign in box
     me.find('a.close').click(this.reset);
 
     // Keypress to handle pressing escape to close box.
-    me.find('input').keydown(function(e){ if(e.keyCode == 27) $.quickSignIn.reset(); }); 
+    me.find('input').keydown(function(e){ if(e.keyCode == 27) $.quickSignIn.reset(); });
 
     $('input.login').focus();
 
@@ -48,9 +48,9 @@ $.quickSignIn = {
 
     return me;
   },
-  
+
   signinSubmitCallback: function(resp){
-    me = $("#cluetip #quick_signin");
+    var me = $("#cluetip").find("#quick_signin");
 
     if(resp.success && me.attr('reloadPage') == 'false') { // success, no reload
       for(var a in resp) {
@@ -60,7 +60,7 @@ $.quickSignIn = {
       $.quickSignIn.reset();
 
     } else if(resp.success && me.attr('reloadPage') != 'false') { // success reload
-      window.location.reload(); 
+      window.location.reload();
     } else { // no success
       $.quickSignIn.updateResponse(resp.html);
 
@@ -77,13 +77,13 @@ $.quickSignIn = {
   },
 
   signupSubmitCallback: function(resp){
-    me = $("#cluetip #quick_signin");
+    var me = $("#cluetip").find("#quick_signin");
 
     if(resp.success && me.attr('reloadPage') == 'false') { // success, no reload
       if(resp.profileLink) { $('.signup').removeClass('signup').addClass('user').html(resp.profileLink); }
       $.quickSignIn.updateResponse(resp.html);
     } else if(resp.success && me.attr('reloadPage') != 'false') { // success reload
-      window.location.reload(); 
+      window.location.reload();
     } else { // no success
       $.quickSignIn.showSignUp();
 
@@ -97,7 +97,7 @@ $.quickSignIn = {
   },
 
   reset: function() {
-    me = $("#cluetip #quick_signin");
+    var me = $("#cluetip").find("#quick_signin");
     me.find('.message').html('');
     me.find('.sign_up').hide();
     me.find('.controls').show();
@@ -107,9 +107,9 @@ $.quickSignIn = {
     me.attr('action', '/session');
     me.find('div.response_container').html('');
   },
-  
+
   showSignUp: function(event) {
-    me = $("#cluetip #quick_signin");
+    me = $("#cluetip").find("#quick_signin");
 
     // Show default message if they click the inline signup link
     if(event && event.target.className=='inline_signup_button') me.find('div.response_container').html("<p>Choose your new user name.</p>");
@@ -128,13 +128,13 @@ $.quickSignIn = {
         me.find('input.login').val("");
       }
     }
-    me.find('input#user_login').focus();    
+    me.find('input#user_login').focus();
 
     return false;
   },
 
   showSignIn: function(event) {
-    me = $("#cluetip #quick_signin");
+    var me = $("#cluetip").find("#quick_signin");
 
     // Show default message if they click the inline signup link
     if(event && event.target.className=='inline_signup_button') me.find('div.response_container').html("<p>Choose your new user name.</p>");
@@ -152,7 +152,7 @@ $.quickSignIn = {
 
     return false;
   },
-  
+
   // similar to jquery.dropdown.js
   showOverlay: function() {
     if($("#overlay").size() == 0) $('body').append("<div id=\"overlay\"></div>");
@@ -162,10 +162,11 @@ $.quickSignIn = {
     }).css('height', $('body').attr('clientHeight')+'px');;
     $("#cluetip-close").click($.quickSignIn.reset);
   },
-  
+
   // Updates the response section; if the response is the same as the current
   // response, it does a highlight effect on the current response.
   updateResponse: function(html) {
+    var me = $("#cluetip").find("#quick_signin");
     resp_container = me.find('.response_container');
     if(html == resp_container.html()) resp_container.hide().fadeIn();
     else resp_container.html(html);

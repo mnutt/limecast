@@ -233,5 +233,32 @@ describe PodcastsController do
       lambda { do_post(@podcast) }.should change { @podcast.favorites.count }.by(1)
       lambda { do_post(@podcast) }.should change { @podcast.favorites.count }.by(-1)
     end
+    
+    describe "when logged out" do
+      before(:each) { logout }
+
+      it "should add unclaimed favorite" do
+        lambda { do_post(@podcast) }.should change { @podcast.favorites.count }.by(1)
+        assigns(:favorite).user.should be_nil
+      end
+
+      it "should add the unclaimed favorite to the session" do
+        do_post(@podcast)
+        session[:unclaimed_records].should include(['Favorite', assigns(:favorite).id])
+      end
+
+      it "should not add unclaimed favorite if one already exists" do
+        favorite = Factory.create(:favorite, :podcast => @podcast, :user => nil)
+        session[:unclaimed_records] = [['Favorite', favorite.id]]
+        
+        lambda { 
+          lambda { 
+            do_post(@podcast) 
+          }.should_not change { @podcast.favorites.count }
+        }.should_not change { session[:unclaimed_records].size }
+
+        session[:unclaimed_records].select { |rec| rec[0] == 'Favorite' }.size.should == 1
+      end
+    end
   end
 end

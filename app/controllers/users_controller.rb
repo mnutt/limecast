@@ -47,8 +47,8 @@ class UsersController < ApplicationController
     
       if @user.errors.empty? && @user.reload
         self.current_user = @user
-        claim_all
-    
+        claim_records
+
         format.js { render :layout => false }
         format.html { redirect_back_or_default('/') }
       else
@@ -207,8 +207,13 @@ class UsersController < ApplicationController
 
   def info
     raise Unauthenticated unless current_user && current_user.admin?
-    @user = User.find_by_login(params[:user_slug])
-    render :layout => 'info'
+    if params[:user_slug].blank?
+      @users = User.find(:all, :order => 'login ASC')
+      render :template => 'users/info_all', :layout => 'info'
+    else
+      @user = User.find_by_login(params[:user_slug]) or raise ActiveRecord::RecordNotFound
+      render :layout => 'info'
+    end
   end
 
 protected

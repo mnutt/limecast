@@ -37,10 +37,8 @@ class Feed < ActiveRecord::Base
 
   named_scope :with_itunes_link, :conditions => 'feeds.itunes_link IS NOT NULL and feeds.itunes_link <> ""'
   named_scope :parsed, :conditions => {:state => 'parsed'}
-  def pending?;     self.state == 'pending' || self.state.nil? end
-  def parsed?;      self.state == 'parsed' end
-  def failed?;      self.state == 'failed' end
-  def blacklisted?; self.state == 'blacklisted' end
+  named_scope :unclaimed, :conditions => "finder_id IS NULL"
+  named_scope :claimed, :conditions => "finder_id IS NOT NULL"
 
   attr_accessor :content
 
@@ -48,6 +46,10 @@ class Feed < ActiveRecord::Base
     indexes :url
 
     has :created_at, :podcast_id
+  end
+  
+  def claim_by(user)
+    update_attribute(:finder, user)
   end
 
   def diagnostic_xml

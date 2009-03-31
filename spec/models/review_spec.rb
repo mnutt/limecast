@@ -18,10 +18,6 @@ describe Review do
     @review.should_not be_editable
   end
 
-  it 'should not be valid if there is no reviewer' do
-    Factory.build(:review, :reviewer => nil).should_not be_valid
-  end
-
   it 'should not be able to be rated multiple times by the same person' do
     tmp_user = Factory.create(:user)
     tmp_user_adds_rating_to_review = lambda { @review.review_ratings << ReviewRating.new(:user => tmp_user) }
@@ -56,3 +52,14 @@ describe Review do
   end
 end
 
+describe Review, "being claimed" do
+  before do
+    @review = Factory.create(:review, :user_id => nil)
+    @user = Factory.create(:user)
+  end
+
+  it "should set the user_id to the one given" do
+    lambda { @review.claim_by(@user) }.should change { @review.user_id }
+    @review.reload.user_id.should be(@user.id)
+  end
+end

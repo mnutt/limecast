@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
 
       if logged_in?
-        claim_all
+        claim_records
         set_cookies
         current_user.calculate_score!
         current_user.update_attribute(:logged_in_at, Time.now)
@@ -128,59 +128,20 @@ class ApplicationController < ActionController::Base
       cookies.delete :auth_token
       reset_session
     end
-
-    def claim_all
-      if logged_in?
-        claim_feeds
-        claim_review
-        claim_favorites
-        claim_rating
-
-        current_user.calculate_score!
-      end
+    
+    # Stores another [classname, id] in the session for the person to claim when they signin
+    def remember_unclaimed_record(record)
+      session[:unclaimed_records] ||= []
+      session[:unclaimed_records] << [record.class.to_s, record.id]
     end
-
-    def claim_favorites
-      return if session[:favorite].nil?
-
-      if Favorite.count(:conditions => {:user_id => current_user.id, :podcast_id => session[:favorite]}) == 0
-        c = Favorite.new(:podcast_id => session[:favorite])
-        c.user = current_user
-        c.save
-      end
-
-      session.delete(:favorite)
-    end
-
-    def claim_rating
-      return if session[:rating].nil?
-
-      session[:rating][:user_id] = current_user.id
-      ReviewRating.create(session[:rating])
-
-      session.delete(:rating)
-    end
-
-    def claim_review
-      return if session[:review].nil?
-
-      if Review.count(:conditions => {:episode_id => session[:review][:episode_id], :user_id => current_user.id}) == 0
-        c = Review.new(session[:review])
-        c.reviewer = current_user
-        c.save
-      end
-
-      session.delete(:review)
-    end
-
-    def claim_feeds
-      return if session[:feeds].nil?
-
-      Feed.find_all_by_id(session[:feeds]).each do |feed|
-        feed.update_attribute(:finder_id, @user.id) if feed.finder.nil?
-        feed.podcast.update_attribute(:owner_id, @user.id) if feed.podcast && feed.podcast.owner.nil? and feed.podcast.owner_email == @user.email
-      end
-
-      session.delete(:feeds)
+    
+    # Claims the unclaimed records stored in the session
+    def claim_records
+      session[:unclaimed_records].each do |klass, record_id|
+        record = klass.constantize.find(record_id)
+        record.claim_by(current_user) if record
+      end.clear if session[:unclaimed_records]
+      
+      current_user.calculate_score!
     end
 end

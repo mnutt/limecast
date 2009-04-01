@@ -49,17 +49,22 @@ class QueuedFeed < ActiveRecord::Base
 
   def self.clean_url(url)
     url ||= ""
-
     url.gsub!(%r{^feed://}, "http://")
     url.strip!
     url = 'http://' + url.to_s unless url.to_s =~ %r{://}
     url
   end
 
-  def self.add_to_queue(url)
-    url = self.clean_url(url)
+  def dirty_url=(dirty_url)
+    self.url = self.class.clean_url(dirty_url)
+  end
 
-    QueuedFeed.find_by_url(url) || QueuedFeed.create(:url => url)
+  def self.find_by_dirty_url(dirty_url)
+    self.find_by_url(self.clean_url(dirty_url))
+  end
+
+  def self.add_to_queue(dirty_url)
+    QueuedFeed.find_by_dirty_url(dirty_url) || QueuedFeed.create(:dirty_url => dirty_url)
   end
 
   protected

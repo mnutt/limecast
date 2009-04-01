@@ -20,7 +20,7 @@ class FeedsController < ApplicationController
   end
 
   def status
-    @queued_feed = QueuedFeed.find_by_url(QueuedFeed.clean_url(params[:feed][:url]))
+    @queued_feed = QueuedFeed.find_by_dirty_url(params[:feed][:url])
     @feed        = @queued_feed.feed if @queued_feed
     @podcast     = @feed.podcast if @queued_feed && @feed
 

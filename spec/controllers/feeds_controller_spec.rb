@@ -27,24 +27,24 @@ describe FeedsController do
     end
   end
 
-  describe "handling PUT /feeds when not logged in" do
+  describe "handling POST /feeds when not logged in" do
     before(:each) do
-      put :create, :feed => {:url => "http://mypodcast/feed.xml"}
+      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
     end
 
     it 'should save an unclaimed feed' do
-      assigns[:feed].should be_kind_of(Feed)
-      assigns[:feed].should_not be_new_record
-      assigns[:feed].finder.should be_nil
-      Feed.unclaimed.should include(assigns[:feed])
+      assigns[:queued_feed].should be_kind_of(QueuedFeed)
+      assigns[:queued_feed].should_not be_new_record
+      assigns[:queued_feed].user.should be_nil
+      QueuedFeed.unclaimed.should include(assigns[:queued_feed])
     end
 
     it 'should add the feed to the session' do
-      session[:unclaimed_records].should include(['Feed', assigns(:feed).id])
+      session[:unclaimed_records].should include(['QueuedFeed', assigns(:queued_feed).id])
     end
 
     it 'should not associate the feed with a user' do
-      assigns[:feed].finder.should be_nil
+      assigns[:queued_feed].user.should be_nil
     end
   end
 

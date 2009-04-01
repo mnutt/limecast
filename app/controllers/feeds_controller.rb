@@ -14,9 +14,7 @@ class FeedsController < ApplicationController
   def create
     @queued_feed = QueuedFeed.add_to_queue(params[:feed][:url])
 
-    # XXX: Should be able to figure out if we have seen the feed before and
-    # report on that.
-    remember_unclaimed_record(@queued_feed) unless logged_in?
+    remember_unclaimed_record(@queued_feed)
 
     render :nothing => true
   end

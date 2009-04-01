@@ -17,15 +17,13 @@ class ReviewsController < ApplicationController
     @podcast         = Podcast.find_by_slug(params[:podcast_slug])
 
     unless has_unclaimed_record?(Review, lambda {|r| r.episode.podcast == @podcast })
-      @review          = @podcast.reviews.new(review_params)
-      @review.reviewer = current_user if logged_in?
-      @review.save
+      @review        = @podcast.reviews.create(review_params)
+      remember_unclaimed_record(@review) if @review
     end
     
     if logged_in? 
       save_response(@review, (@review && !@review.new_record?))
     else
-      remember_unclaimed_record(@review) if @review
       render :json => {:success => true, :login_required => true}
     end
   end
@@ -42,7 +40,7 @@ class ReviewsController < ApplicationController
     insightful = !(params[:rating] =~ /not/)
 
     unless has_unclaimed_record?(ReviewRating, lambda { |rr| rr.review == @review})
-      @rating = ReviewRating.create(:review => @review, :user => current_user, :insightful => insightful)
+      @rating = ReviewRating.create(:review => @review, :insightful => insightful)
       remember_unclaimed_record(@rating)
     end
     

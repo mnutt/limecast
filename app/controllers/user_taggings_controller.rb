@@ -9,7 +9,7 @@ class UserTaggingsController < ApplicationController
     if tags = params[:user_tagging].delete(:tag_string)
       tags.gsub(/,/,'').split.each do |tag|
         # Non-logged-in users are limimted to 8 claimable taggings
-#        break if !logged_in? && session[:unclaimed_records] && session[:unclaimed_records]['UserTagging'].size > 7
+        break if !logged_in? && session[:unclaimed_records] && session[:unclaimed_records]['UserTagging'].size > 7
 
         # Try to add Tag, Tagging, and UserTagging for each tagstring
         Tag.connection.transaction do

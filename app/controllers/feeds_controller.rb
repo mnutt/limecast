@@ -17,7 +17,7 @@ class FeedsController < ApplicationController
       @feed.update_attribute(:state, "pending") if @feed.state == "failed"
       @feed.send_later(:refresh)
     else
-      @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
+      @feed = Feed.create(:url => params[:feed][:url])
     end
 
     remember_unclaimed_record(@feed)

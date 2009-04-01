@@ -131,7 +131,9 @@ class ApplicationController < ActionController::Base
     
     # Stores another 'ClassName' => [id] pair in the session for the person to claim when they signin
     def remember_unclaimed_record(record)
-      unless logged_in?
+      if logged_in?
+        record.claim_by(current_user)
+      else
         session[:unclaimed_records] ||= {}
         (session[:unclaimed_records][record.class.to_s] ||= []) << record.id
       end

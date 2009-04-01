@@ -6,21 +6,16 @@
 #  id          :integer(4)    not null, primary key
 #  url         :string(255)
 #  error       :string(255)
-#  itunes_link :string(255)
-#  podcast_id  :integer(4)
+#  state       :string(255)   default("pending")
+#  feed_id     :integer(4)
 #  created_at  :datetime
 #  updated_at  :datetime
-#  state       :string(255)   default("pending")
-#  bitrate     :integer(4)
-#  finder_id   :integer(4)
-#  format      :string(255)
-#  xml         :text(16777215
-#  ability     :integer(4)    default(0)
 #
 
 require 'open-uri'
 require 'timeout'
 
+# XXX: Rename to URL
 class QueuedFeed < ActiveRecord::Base
   belongs_to :feed
 

@@ -1,5 +1,4 @@
 class FeedsController < ApplicationController
-  before_filter :replace_feed_protocol, :only => [:create, :status, :update]
   skip_before_filter :verify_authenticity_token, :only => :status
 
   def new
@@ -23,8 +22,9 @@ class FeedsController < ApplicationController
   end
 
   def status
-    @queued_feed = Feed.find_by_url(params[:feed])
-    @podcast     = @queued_feed.feed.podcast unless @queued_feed.nil? || @queued_feed.feed.nil?
+    @queued_feed = QueuedFeed.find_by_url(QueuedFeed.clean_url(params[:feed][:url]))
+    @feed        = @queued_feed.feed if @queued_feed
+    @podcast     = @feed.podcast if @queued_feed && @feed
 
     # See http://wiki.limewire.org/index.php?title=LimeCast_Add#Messages
     # Unexpected errors
@@ -111,6 +111,7 @@ class FeedsController < ApplicationController
   protected
 
     def feed_in_session?(feed)
+      # XXX: Fix to mesh with tiegs code
       (session[:feeds] and session[:feeds].include?(feed.id))
     end
 
@@ -119,12 +120,6 @@ class FeedsController < ApplicationController
     end
 
     def feed_created_just_now_by_user?(feed)
-      feed_created_by_user?(feed) && feed.just_created?
-    end
-
-    # WebKit sneaks in feed:// sometimes, so we can take care of it here.
-    def replace_feed_protocol
-      params[:feed][:url] if params[:feed][:url]
-      params[:feed].gsub!(/^feed\:\/\//i, 'http://') if params[:feed].is_a?(String)
+      feed_created_by_user?(feed) && feed.created_at > 2.minutes.ago
     end
 end

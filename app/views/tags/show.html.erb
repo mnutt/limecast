@@ -4,24 +4,23 @@
 
 <div class="summary">
   <h1>Tag: <%= h @tag.name -%></h1>
-  <div class="main rounded_corners" id="browse">
-    <% rounded_corners do -%>
-      <%= paginate_podcasts(@podcasts) -%>
+  <% rounded_corner_tag(:class => "main", :id => "browse") do -%>
+    <%= paginate_podcasts(@podcasts) -%>
 
-      <ul class="podcasts">
-        <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
-      </ul>
+    <ul class="podcasts">
+      <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
+    </ul>
 
-      <%= paginate_podcasts(@podcasts) -%>
+    <%= paginate_podcasts(@podcasts) -%>
+  <% end -%>
+
+  <p class="per_page">
+    View: <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
+      <%= link_to count, { :limit => count}, {:class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil} -%><%= comma -%>
     <% end -%>
-
-    <p class="per_page">
-      View: <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
-        <%= link_to count, { :limit => count}, {:class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil} -%><%= comma -%>
-      <% end -%>
-      per page
-    </p>
-  </div>
+    per page
+  </p>
+</div>
 </div>
 
 <%= google_ads -%>

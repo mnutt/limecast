@@ -14,45 +14,28 @@
   </ul>
 
 
-      <% unless @podcasts.blank? -%>
-        <div class="rounded_corners" id="podcast_results">
-          <% rounded_corners do -%>
-            <%= render :partial => 'search/podcast', :collection => @podcasts -%>
-            <% reset_cycle('row_class') %>
-          <% end -%>
-        </div>
-      <% end -%>
+      <% rounded_corner_tag(:id => "podcast_results") do -%>
+        <%= render :partial => 'search/podcast', :collection => @podcasts -%>
+        <% reset_cycle('row_class') %>
+      <% end unless @podcasts.blank? -%>
 
+      <% rounded_corner_tag(:id => "episodes_results") do -%>
+        <ul class="episodes clearfix">
+          <%= render :partial => 'search/episode', :collection => @episodes -%>
+        </ul>
+        <% reset_cycle('row_class') %>
+      <% end unless @episodes.blank? -%>
 
-      <% unless @episodes.blank? -%>
-        <div class="rounded_corners" id="episodes_results">
-          <% rounded_corners do -%>
-            <ul class="episodes clearfix">
-              <%= render :partial => 'search/episode', :collection => @episodes -%>
-            </ul>
-            <% reset_cycle('row_class') %>
-          <% end -%>
-        </div>
-      <% end -%>
+      <% rounded_corner_tag(:id => "reviews_results") do -%>
+        <ul class="reviews clearfix">
+          <%= render :partial => 'search/review', :collection => @reviews -%>
+        </ul>
+        <% reset_cycle('row_class') %>
+      <% end unless @reviews.blank? -%>
 
-      <% unless @reviews.blank? -%>
-        <div class="rounded_corners" id="reviews_results">
-          <% rounded_corners do -%>
-            <ul class="reviews clearfix">
-              <%= render :partial => 'search/review', :collection => @reviews -%>
-            </ul>
-            <% reset_cycle('row_class') %>
-          <% end -%>
-        </div>
-      <% end -%>
-
-      <% if @podcasts.blank? && @reviews.blank? && @episodes.blank? -%>
-        <div class="rounded_corners" id="reviews_results">
-          <% rounded_corners do -%>
-            <p>No results returned</p>
-          <% end -%>
-        </div>
-      <% end -%>
+      <% rounded_corner_tag(:id => "no_results") do -%>
+        <p>No results returned</p>
+      <% end if @podcasts.blank? && @reviews.blank? && @episodes.blank? -%>
   
   
 </div>

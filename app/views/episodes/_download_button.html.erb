@@ -13,18 +13,16 @@
   
   <a href="#" class="opener options">More download options</a>
   
-  <div id="download_dropdown" class="rounded_corners">
-    <% rounded_corners do -%>
-      <span class="delivery_method">
-        <p>Choose your delivery method:</p>
-        <input class="radio" id="w" name="download" type="radio" value="Web" checked="checked" /><label for="w">Web</label>
-        <input class="radio" id="m" name="download" type="radio" value="LimeWire" /><label for="m">LimeWire</label>
-      </span>
-      <ul>
-        <%= render :partial => "download_button_options", :collection => @episode.sources.group_by(&:format) -%>
-      </ul>
-    <% end -%>
-  </div>
+  <% rounded_corner_tag do -%>
+    <span class="delivery_method">
+      <p>Choose your delivery method:</p>
+      <input class="radio" id="w" name="download" type="radio" value="Web" checked="checked" /><label for="w">Web</label>
+      <input class="radio" id="m" name="download" type="radio" value="LimeWire" /><label for="m">LimeWire</label>
+    </span>
+    <ul>
+      <%= render :partial => "download_button_options", :collection => @episode.sources.group_by(&:format) -%>
+    </ul>
+  <% end -%>
   
 </div>
 

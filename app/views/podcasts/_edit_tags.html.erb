@@ -3,6 +3,11 @@
 <div id="podcast_edit_tags" style="display: none;">
   <ul class="tags"><%= podcast.tags.badges.map { |tag| "<li>#{link_to h(tag.name), tag_url(tag)}</li>" }.join(' ') -%></ul>
 
+  <h6>Unclaimed Tags</h6>
+  <ul class="tags"><%= podcast.unclaimed_taggings.empty? ? "<li>none</li>" : podcast.unclaimed_taggings.map { |t| 
+      "<li>#{link_to h(t.tag.name), tag_url(t.tag)}</li>" 
+    }.join(' ') -%></ul>
+
   <% podcast.taggers.each do |editor| -%>
   <h6>Tags from <%= link_to_profile(editor) %></h6>
   <ul class="tags"><%= editor.taggings.empty? ? "<li>none</li>" : editor.user_taggings.for_podcast(podcast).map { |ut| 

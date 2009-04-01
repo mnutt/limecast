@@ -129,19 +129,36 @@ class ApplicationController < ActionController::Base
       reset_session
     end
     
-    # Stores another [classname, id] in the session for the person to claim when they signin
+    # Stores another 'ClassName' => [id] pair in the session for the person to claim when they signin
     def remember_unclaimed_record(record)
-      session[:unclaimed_records] ||= []
-      session[:unclaimed_records] << [record.class.to_s, record.id]
+      unless logged_in?
+        session[:unclaimed_records] ||= {}
+        (session[:unclaimed_records][record.class.to_s] ||= []) << record.id
+      end
     end
     
     # Claims the unclaimed records stored in the session
     def claim_records
-      session[:unclaimed_records].each do |klass, record_id|
-        record = klass.constantize.find(record_id)
-        record.claim_by(current_user) if record
+      session[:unclaimed_records].each_pair do |klass, record_ids|
+        record_ids.each do |record_id|
+          record = klass.constantize.find(record_id)
+          record.claim_by(current_user) if record
+        end
       end.clear if session[:unclaimed_records]
       
       current_user.calculate_score!
+    end
+    
+    # Returns true if the non-logged-in user has the given class in their session's unclaimed_records.
+    # If +func+ is passed in, this only returns true if the func is true for at least one of the records
+    # of this class in the session[:unclaimed_records]
+    def has_unclaimed_record?(klass, func=nil)
+      if session[:unclaimed_records] && records = klass.find(session[:unclaimed_records][klass.to_s])
+        return false if records.empty?
+        return false if func && !records.any?(&func)
+        return true
+      else
+        return false
+      end
     end
 end

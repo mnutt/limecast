@@ -16,7 +16,7 @@ class ReviewsController < ApplicationController
     review_params    = params[:review].keep_keys([:title, :body, :positive, :episode_id])
     @podcast         = Podcast.find_by_slug(params[:podcast_slug])
 
-    unless session[:unclaimed_records] && session[:unclaimed_records].any? {|rec| rec[0] == 'Review' && Review.find(rec[1]).episode.podcast == @podcast}
+    unless has_unclaimed_record?(Review, lambda {|r| r.episode.podcast == @podcast })
       @review          = @podcast.reviews.new(review_params)
       @review.reviewer = current_user if logged_in?
       @review.save
@@ -41,9 +41,9 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     insightful = !(params[:rating] =~ /not/)
 
-    unless session[:unclaimed_records] && session[:unclaimed_records].any? {|rec| rec[0] == 'ReviewRating' && ReviewRating.find(rec[1]).review == @review}
+    unless has_unclaimed_record?(ReviewRating, lambda { |rr| rr.review == @review})
       @rating = ReviewRating.create(:review => @review, :user => current_user, :insightful => insightful)
-      remember_unclaimed_record(@rating) unless logged_in?
+      remember_unclaimed_record(@rating)
     end
     
     render :json => {:logged_in => logged_in?}

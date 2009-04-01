@@ -90,14 +90,14 @@ class PodcastsController < ApplicationController
     if logged_in? 
       @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user.id)
     else
-      unless session[:unclaimed_records] && session[:unclaimed_records].any? {|rec| rec[0]=='Favorite' && Favorite.find(rec[1]).podcast==@podcast }
+      unless has_unclaimed_record?(Favorite, lambda {|f| f.podcast == @podcast })
         @favorite = Favorite.new(:podcast_id => @podcast.id)
       end
     end
 
     if @favorite && !@favorite.nil?
       @favorite.new_record? ? @favorite.save : @favorite.destroy
-      remember_unclaimed_record(@favorite) unless logged_in?
+      remember_unclaimed_record(@favorite)
     end
 
     respond_to do |format|

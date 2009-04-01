@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe UserTaggingsController do
   describe "handling POST /user_taggings" do
-    before do
+    before(:each) do
       @user = Factory.create(:user)
       @podcast = Factory.create(:podcast)
     end
@@ -12,12 +12,8 @@ describe UserTaggingsController do
     end
     
     describe "not logged in" do
-      it "should redirect to home" do
-        do_post.should redirect_to('/')
-      end
-      
-      it "should not change the taggings count" do
-        lambda { do_post("five six seven eight") }.should change { Tagging.count + UserTagging.count }.by(0)
+      it 'should save an unclaimed user_tagging' do
+        lambda { do_post }.should change { UserTagging.count }.by(1)
       end
     end
 
@@ -51,7 +47,11 @@ describe UserTaggingsController do
       end
       
       it "should set a flash message if regular user tries to add more than 8 tags" do
-        lambda { do_post("tag1 tag2 tag3 tag4 tag5 tag6 tag7 tag8 tag9") }.should change { UserTagging.count }.by(8)
+        lambda { 
+          lambda {
+            lambda { do_post("t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12") }.should change { UserTagging.count }.by(8)
+          }.should change { Tagging.count }.by(8)
+        }.should change { Tag.count }.by(8)
         response.should redirect_to(podcast_url(@podcast))
         flash[:notice].should == "You are only allowed to add 8 tags for this podcast."
       end
@@ -62,7 +62,7 @@ describe UserTaggingsController do
   describe "handling DELETE /user_tagging/:id" do
     before(:each) do
       @tagger = Factory.create(:user)
-      @tag = Factory.create(:tag, :name => 'video')
+      @tag = Factory.create(:tag)
       @podcast = Factory.create(:podcast)
       @podcast.feeds.first.update_attribute(:finder_id, Factory.create(:user).id) # setup the finder
       @tagging = Factory.create(:tagging, :tag => @tag, :podcast => @podcast)

@@ -20,8 +20,6 @@ class QueuedFeed < ActiveRecord::Base
   belongs_to :feed
   belongs_to :user
 
-  #after_create :process
-
   validates_presence_of   :url
   validates_uniqueness_of :url
   validates_length_of     :url, :maximum => 1024
@@ -65,11 +63,5 @@ class QueuedFeed < ActiveRecord::Base
 
   def self.add_to_queue(dirty_url)
     QueuedFeed.find_by_dirty_url(dirty_url) || QueuedFeed.create(:dirty_url => dirty_url)
-  end
-
-  protected
-
-  def process
-    FeedProcessor.send_later :process, self
   end
 end

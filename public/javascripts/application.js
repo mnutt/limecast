@@ -23,11 +23,11 @@ function truncatedText() {
 }
 
 function favoriteLink() {
-  $('a.favorite_link').click(function() {
+  $('a.favorite_link, a.unfavorite_link').click(function() {
     var favorite_link = $(this);
     var favorite_url = favorite_link.attr('href');
 
-    $.post(favorite_url, {}, function(resp) { if(LOGGED_IN) window.location.reload(); }, 'json');
+    $.post(favorite_url, {}, function(resp) { if(resp.logged_in) window.location.reload(); }, 'json');
     return false;
   });
 }

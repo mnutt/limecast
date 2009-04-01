@@ -17,6 +17,7 @@ class Favorite < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :podcast_id, :allow_nil => true
 
   def claim_by(user)
-    update_attribute(:user, user)
+    self.user = user
+    save
   end
 end

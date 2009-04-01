@@ -49,9 +49,8 @@ describe ReviewsController do
         @episode = Factory.create(:episode, :podcast => @podcast)
         review = Factory.create(:review, :reviewer => nil, :episode => @episode)
         @controller.send(:remember_unclaimed_record, review)
-        puts "FAILING SPEC: session = #{session.inspect}"
 
-        lambda { do_put; puts "END SPEC" }.should_not change { Review.count }
+        lambda { do_put }.should_not change { Review.count }
         assigns[:review].should be_nil
       end
     end
@@ -121,7 +120,7 @@ describe ReviewsController do
       it "should add the unclaimed review to the session" do
         do_get(@review, 'insightful')
         session[:unclaimed_records]['ReviewRating'].should include(assigns[:rating].id)
-        @controller.send(:remember_unclaimed_record, review)
+        @controller.send(:remember_unclaimed_record, @review)
       end
       
       it "should only be able to be reviewed one by a user" do

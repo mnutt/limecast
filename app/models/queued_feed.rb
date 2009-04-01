@@ -40,6 +40,11 @@ class QueuedFeed < ActiveRecord::Base
     has :created_at
   end
 
+  def claim_by(user)
+    self.update_attributes(:user => user)
+    self.feed.update_attributes(:finder => user) if self.feed
+  end
+
   def self.clean_url(url)
     url.gsub!(%r{^feed://}, "http://")
     url.strip!

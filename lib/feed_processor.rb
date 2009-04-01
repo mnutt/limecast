@@ -17,10 +17,6 @@ class FeedProcessor
 
   attr_accessor :feed
 
-  def self.process(queued_feed)
-    self.new(queued_feed)
-  end
-
   def initialize(queued_feed)
     @qf   = queued_feed
     @feed = queued_feed.feed || Feed.create(:url => @qf.url)
@@ -39,9 +35,9 @@ class FeedProcessor
       raise InvalidFeedException if invalid_xml?
       raise NoEnclosureException if no_enclosure?
 
-      parse
+      @rpodcast_feed.parse
 
-      raise InvalidFeedException  if no_episodes?
+      raise InvalidFeedException if no_episodes?
 
       update_podcast!
       update_tags!
@@ -83,10 +79,6 @@ class FeedProcessor
     raise InvalidAddressException
   end
 
-  def parse
-    @rpodcast_feed.parse
-  end
-
   def update_podcast!
     @feed.podcast = Podcast.find_or_initialize_by_site(@rpodcast_feed.link) if @feed.podcast.nil?
 
@@ -103,14 +95,15 @@ class FeedProcessor
   end
 
   def update_tags!
-    @feed.podcast.tag_string = "hd" if @rpodcast_feed.hd?
-    @feed.podcast.tag_string = "video" if @rpodcast_feed.video?
-    @feed.podcast.tag_string = "audio" if @rpodcast_feed.audio?
-    @feed.podcast.tag_string = "torrent" if @rpodcast_feed.torrent?
-    @feed.podcast.tag_string = "creativecommons" if @rpodcast_feed.creative_commons?
-    @feed.podcast.tag_string = "explicit" if @rpodcast_feed.explicit?
+    tags = @rpodcast_feed.categories.map { |t| Tag.tagize(t) }
+    tags << "hd" if @rpodcast_feed.hd?
+    tags << "video" if @rpodcast_feed.video?
+    tags << "audio" if @rpodcast_feed.audio?
+    tags << "torrent" if @rpodcast_feed.torrent?
+    tags << "creativecommons" if @rpodcast_feed.creative_commons?
+    tags << "explicit" if @rpodcast_feed.explicit?
 
-    @feed.podcast.tag_string = @rpodcast_feed.categories.map {|t| Tag.tagize(t) }.join(" ")
+    @feed.podcast.tag_string = tags.join(" "), (@feed.podcast.owner || @qf.finder)
   end
 
   def update_episodes!
@@ -143,6 +136,7 @@ class FeedProcessor
   def update_feed!
     @feed.update_attributes(
       :bitrate => @rpodcast_feed.bitrate.nearest_multiple_of(64),
+      :finder_id => @qf.user_id,
       :ability => ABILITY,
       :xml     => @content
     )
@@ -175,7 +169,7 @@ class FeedProcessor
     @rpodcast_feed.episodes.each do |e|
       episode = @feed.podcast.episodes.find_by_title(e.title) || @feed.podcast.episodes.new
       source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => @feed)
-
+    
       return true if source.feed != @feed
     end
 

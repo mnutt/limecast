@@ -53,15 +53,9 @@ class QueuedFeed < ActiveRecord::Base
     url
   end
 
-  def dirty_url=(dirty_url)
-    self.url = self.class.clean_url(dirty_url)
+  def url=(val)
+    val = QueuedFeed.clean_url(val)
+    write_attribute(:url, val)
   end
 
-  def self.find_by_dirty_url(dirty_url)
-    self.find_by_url(self.clean_url(dirty_url))
-  end
-
-  def self.add_to_queue(dirty_url)
-    QueuedFeed.find_by_dirty_url(dirty_url) || QueuedFeed.create(:dirty_url => dirty_url)
-  end
 end

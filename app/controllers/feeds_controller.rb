@@ -12,9 +12,14 @@ class FeedsController < ApplicationController
   end
 
   def create
-    @queued_feed = QueuedFeed.add_to_queue(params[:feed][:url])
+    @queued_feed = QueuedFeed.find_or_initialize_by_url(params[:feed][:url])
 
-    remember_unclaimed_record(@queued_feed)
+    if @queued_feed.new_record?
+		  @queued_feed.save
+			remember_unclaimed_record(@queued_feed)
+    else
+      @queued_feed.save
+		end
 
     render :nothing => true
   end

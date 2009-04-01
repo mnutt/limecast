@@ -22,7 +22,7 @@ describe FeedProcessor, "being parsed" do
 
   before do
     @qf = QueuedFeed.create(:url => "http://google.com/rss.xml")
-    FeedProcessor.process(@qf)
+     FeedProcessor.new(@qf)
     @feed = @qf.feed
   end
 
@@ -42,6 +42,12 @@ describe FeedProcessor, "being parsed" do
     @feed.podcast.reload.language.should == "en-us"
   end
 
+  it 'should add tags' do
+    @feed.podcast.tag_string.should include('technology', 'gadgets', 'tvandfilm')
+    @feed.podcast.tags.size.should == 3
+    @feed.podcast.taggers.should include(@feed.podcast.owner)
+  end
+
 #  describe "when the submitting user is the podcast owner" do
 #    it 'should associate the podcast with the user as owner' do
 #      user = Factory.create(:user, :email => "john.doe@example.com")
@@ -49,7 +55,7 @@ describe FeedProcessor, "being parsed" do
 #      @feed = @podcast.feeds.first
 #      @feed.finder = user
 #
-#      @feed = FeedProcessor.process(@feed.url)
+#      @feed = FeedProcessor.new(@feed.url)
 #
 #      @feed.reload.finder.should == user
 #      @feed.podcast.should be_kind_of(Podcast)
@@ -63,7 +69,7 @@ describe FeedProcessor, "being reparsed" do
   before do
     @qf = Factory.create(:queued_feed)
 
-    FeedProcessor.process(@qf)
+    FeedProcessor.new(@qf)
 
     @feed = @qf.feed
   end
@@ -89,7 +95,7 @@ describe Feed, "updating episodes" do
   before do
     @qf = Factory.create(:queued_feed)
 
-    FeedProcessor.process(@qf)
+    FeedProcessor.new(@qf)
 
     @feed = @qf.feed
   end
@@ -101,7 +107,7 @@ describe Feed, "updating episodes" do
   it 'should not duplicate episodes that already exist' do
     @feed.podcast.episodes(true).count.should == 3
 
-    FeedProcessor.process(@qf)
+    FeedProcessor.new(@qf)
 
     @feed.podcast.episodes(true).count.should == 3
   end
@@ -132,7 +138,7 @@ describe Feed, "being updated" do
 
   it "should send an email out of if the podcast was changed at all" do
     setup_actionmailer
-    lambda { FeedProcessor.process(@qf) }.should change { ActionMailer::Base.deliveries.size }.by(1)
+    lambda { FeedProcessor.new(@qf) }.should change { ActionMailer::Base.deliveries.size }.by(1)
     ActionMailer::Base.deliveries.last.to_addrs.to_s.should == @podcast.editors.map(&:email).join(',')
     ActionMailer::Base.deliveries.last.body.should =~ /A podcast that you can edit has been updated because one of its feeds was changed/
     ActionMailer::Base.deliveries.last.body.should =~ /The Original Title was changed to All About Everything/
@@ -155,7 +161,7 @@ describe Feed, "being created" do
 
   describe 'with normal RSS feed' do
     it 'should save the error that the feed is not for a podcast' do
-      FeedProcessor.process(@qf)
+      FeedProcessor.new(@qf)
 
       @qf.error.should == "FeedProcessor::NoEnclosureException"
     end
@@ -163,7 +169,7 @@ describe Feed, "being created" do
 
 #   describe "when a weird server error occurs" do
 #     it 'should save the error that an unknown exception occurred' do
-#       FeedProcessor.process('http://localhost:7')
+#       FeedProcessor.new('http://localhost:7')
 # 
 #       @feed.reload.error.should == "Errno::ECONNREFUSED"
 #     end
@@ -174,7 +180,7 @@ describe Feed, "being created" do
       Blacklist.create!(:domain => "restrictedsite")
 
       @qf.update_attributes :url => "http://restrictedsite/bad/feed.xml"
-      FeedProcessor.process(@qf)
+      FeedProcessor.new(@qf)
 
       @qf.error.should == "FeedProcessor::BannedFeedException"
     end

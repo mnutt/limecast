@@ -29,7 +29,7 @@ class FeedsController < ApplicationController
     if @queued_feed.nil?
       render :partial => 'status_error'
     # Successes
-    elsif @podcast && @queued_feed.parsed? && feed_created_just_now_by_user?(@queued_feed)
+    elsif @podcast && @queued_feed.parsed? && queued_feed_created_just_now_by_user?(@queued_feed)
       render :partial => 'status_added'
     # Expected errors
     elsif @queued_feed.failed? || @queued_feed.blacklisted? || @podcast && @queued_feed.parsed?
@@ -108,16 +108,16 @@ class FeedsController < ApplicationController
 
   protected
 
-    def feed_in_session?(feed)
+    def queued_feed_in_session?(queued_feed)
       # XXX: Fix to mesh with tiegs code
-      (session[:feeds] and session[:feeds].include?(feed.id))
+      (session[:queued_feeds] and session[:queued_feeds].include?(queued_feed.id))
     end
 
-    def feed_created_by_user?(feed)
-      feed_in_session?(feed) or feed.writable_by?(current_user)
+    def queued_feed_created_by_user?(queued_feed)
+      queued_feed_in_session?(queued_feed) or queued_feed.user == current_user
     end
 
-    def feed_created_just_now_by_user?(feed)
-      feed_created_by_user?(feed) && feed.created_at > 2.minutes.ago
+    def queued_feed_created_just_now_by_user?(queued_feed)
+      queued_feed_created_by_user?(queued_feed) && queued_feed.created_at > 2.minutes.ago
     end
 end

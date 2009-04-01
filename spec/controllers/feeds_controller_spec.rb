@@ -56,25 +56,26 @@ describe FeedsController do
     end
 
     it 'should save the feed' do
-      assigns(:feed).should be_kind_of(Feed)
-      assigns(:feed).should_not be_new_record
+      assigns(:queued_feed).should be_kind_of(QueuedFeed)
+      assigns(:queued_feed).should_not be_new_record
     end
 
     it 'should associate the feed with the user' do
-      assigns(:feed).finder.should == @user
+      assigns(:queued_feed).user.should == @user
     end
 
     it 'should create a feed' do
-      assigns(:feed).should be_kind_of(Feed)
-      assigns(:feed).url.should == "http://mypodcast/feed.xml"
+      assigns(:queued_feed).should be_kind_of(QueuedFeed)
+      assigns(:queued_feed).url.should == "http://mypodcast/feed.xml"
     end
   end
 
   describe "POST /status" do
     describe "for a podcast that has not yet been parsed" do
       before(:each) do
-        @podcast = Factory.create(:podcast)
-        post :status, :feed => @podcast.feeds.first.url
+        @queued_feed = Factory.create(:queued_feed, :state => nil)
+        @podcast = Factory.create(:podcast, :feeds => [@queued_feed.feed])
+        post :status, :feed => {:url => @queued_feed.url}
       end
 
       it 'should render the loading template' do
@@ -84,10 +85,12 @@ describe FeedsController do
 
     describe "for a podcast that has been parsed" do
       before(:each) do
-        @podcast = Factory.create(:parsed_podcast)
-        controller.should_receive(:feed_created_just_now_by_user?).and_return(true)
+        @queued_feed = Factory.create(:queued_feed)
+        @podcast = Factory.create(:podcast, :feeds => [@queued_feed.feed])
 
-        post :status, :feed => @podcast.feeds.first.url
+        controller.should_receive(:queued_feed_created_just_now_by_user?).and_return(true)
+
+        post :status, :feed => {:url => @queued_feed.url}
       end
 
       it 'should render the added template' do
@@ -98,8 +101,10 @@ describe FeedsController do
     describe "for a podcast that has failed" do
       describe "because it was not a web address" do
         before(:each) do
-          @podcast = Factory.create(:failed_podcast)
-          post :status, :feed => @podcast.feeds.first.url
+          @queued_feed = Factory.create(:queued_feed, :state => "failed")
+          @podcast = Factory.create(:podcast, :feeds => [@queued_feed.feed])
+
+          post :status, :feed => {:url => @queued_feed.url}
         end
 
         it 'should render the error template' do

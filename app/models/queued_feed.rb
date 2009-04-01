@@ -26,6 +26,8 @@ class QueuedFeed < ActiveRecord::Base
   validates_uniqueness_of :url
   validates_length_of     :url, :maximum => 1024
 
+  named_scope :unclaimed, :conditions => {:user_id => nil}#"user_id IS NULL"
+  named_scope :claimed, :conditions => "user_id IS NOT NULL"
   named_scope :parsed, :conditions => {:state => 'parsed'}
   def pending?;     self.state == 'pending' || self.state.nil? end
   def parsed?;      self.state == 'parsed' end
@@ -46,6 +48,8 @@ class QueuedFeed < ActiveRecord::Base
   end
 
   def self.clean_url(url)
+    url ||= ""
+
     url.gsub!(%r{^feed://}, "http://")
     url.strip!
     url = 'http://' + url.to_s unless url.to_s =~ %r{://}

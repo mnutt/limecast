@@ -244,20 +244,20 @@ describe PodcastsController do
 
       it "should add the unclaimed favorite to the session" do
         do_post(@podcast)
-        session[:unclaimed_records].should include(['Favorite', assigns(:favorite).id])
+        session[:unclaimed_records]['Favorite'].should include(assigns(:favorite).id)
       end
 
       it "should not add unclaimed favorite if one already exists" do
         favorite = Factory.create(:favorite, :podcast => @podcast, :user => nil)
-        session[:unclaimed_records] = [['Favorite', favorite.id]]
+        @controller.send(:remember_unclaimed_record, favorite)
         
         lambda { 
           lambda { 
             do_post(@podcast) 
           }.should_not change { @podcast.favorites.count }
-        }.should_not change { session[:unclaimed_records].size }
+        }.should_not change { session[:unclaimed_records]['Favorite'].size }
 
-        session[:unclaimed_records].select { |rec| rec[0] == 'Favorite' }.size.should == 1
+        session[:unclaimed_records]['Favorite'].size.should == 1
       end
     end
   end

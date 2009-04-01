@@ -17,6 +17,7 @@ function podcastTagEdit() {
     var tag_form = $(this);
     var tag_url = tag_form.attr('action');
 
+    if(!LOGGED_IN) { $('#podcast_tag_form_cluetip_link').click(); }
     $.post(tag_url, 
            tag_form.serialize(), 
            function(resp) { 

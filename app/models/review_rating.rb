@@ -27,7 +27,8 @@ class ReviewRating < ActiveRecord::Base
   end
 
   def claim_by(user)
-    update_attribute(:user, user)
+    self.user = user
+    save
   end
 end
 

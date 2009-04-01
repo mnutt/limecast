@@ -41,14 +41,14 @@ describe ReviewsController do
       
       it "should add the unclaimed review to the session" do
         do_put
-        session[:unclaimed_records].should include(['Review', assigns(:review).id])
+        session[:unclaimed_records]['Review'].should include(assigns(:review).id)
       end
 
       it "should only be able to be reviewed one by a user" do
         @podcast = Factory.create(:podcast)
         @episode = Factory.create(:episode, :podcast => @podcast)
         review = Factory.create(:review, :reviewer => nil, :episode => @episode)
-        session[:unclaimed_records] = [['Review', review.id]]
+        @controller.send(:remember_unclaimed_record, review)
 
         lambda { do_put }.should_not change { Review.count }
         assigns[:review].should be_nil
@@ -119,12 +119,13 @@ describe ReviewsController do
       
       it "should add the unclaimed review to the session" do
         do_get(@review, 'insightful')
-        session[:unclaimed_records].should include(['ReviewRating', assigns[:rating].id])
+        session[:unclaimed_records]['ReviewRating'].should include(assigns[:rating].id)
+        @controller.send(:remember_unclaimed_record, @review)
       end
       
       it "should only be able to be reviewed one by a user" do
         review_rating = Factory.create(:review_rating, :review => @review, :user => nil)
-        session[:unclaimed_records] = [['ReviewRating', review_rating.id]]
+        @controller.send(:remember_unclaimed_record, review_rating)
 
         lambda { do_get(@review, 'insightful') }.should_not change { ReviewRating.count }
         assigns[:rating].should be_nil

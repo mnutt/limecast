@@ -23,11 +23,11 @@ function truncatedText() {
 }
 
 function favoriteLink() {
-  $('a.favorite_link').click(function() {
+  $('a.favorite_link, a.unfavorite_link').click(function() {
     var favorite_link = $(this);
     var favorite_url = favorite_link.attr('href');
 
-    $.post(favorite_url, {}, function(resp) { if(LOGGED_IN) window.location.reload(); }, 'json');
+    $.post(favorite_url, {}, function(resp) { if(resp.logged_in) window.location.reload(); }, 'json');
     return false;
   });
 }
@@ -39,8 +39,8 @@ function setupCluetips() {
   if(!LOGGED_IN) {
     default_options = $.extend({activation: 'click', sticky: true, onShow: function(){$.quickSignIn.setup()}}, default_options);
 
-    var options = $.extend({positionBy: 'auto', leftOffset: -50}, default_options);
-    $('#podcast_tag_form .submit').cluetip(options);
+    var options = $.extend({positionBy: 'auto', leftOffset: -10}, default_options);
+    $('#podcast_tag_form_cluetip_link').cluetip(options);
     
     default_options = $.extend({positionBy: 'bottomTop', topOffset: 25}, default_options);
     $('a.login').cluetip(default_options); 

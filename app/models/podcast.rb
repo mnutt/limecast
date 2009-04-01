@@ -103,6 +103,26 @@ class Podcast < ActiveRecord::Base
     i
   end
 
+  # All taggings that are either badges or tags that have been user_tagging'ed.
+  def claimed_taggings
+    taggings.all.reject { |t| !t.tag.badge? && t.user_taggings.claimed.empty? }
+  end
+  
+  # All taggings that are tags that have NOT been user_tagging'ed.
+  def unclaimed_taggings
+    taggings.all.reject { |t| t.tag.badge? || !t.user_taggings.claimed.empty? }
+  end
+  
+  # All badges, and tags that have been user_tagging'ed.
+  def claimed_tags
+    claimed_taggings.map(&:tag)
+  end
+
+  # All badges, and tags that have NOT been user_tagging'ed.
+  def unclaimed_tags
+    unclaimed_taggings.map(&:tag)
+  end
+
   def most_recent_episode
     self.episodes.newest.first
   end

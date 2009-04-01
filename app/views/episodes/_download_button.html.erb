@@ -2,11 +2,16 @@
   PODCAST_ID = <%= @episode.podcast_id -%>;
 </script>
 
-<div id="download_container">
-  <div id="download_button">
-    <a class="download" href="#">Download full version<span>dfdf | asdfasdf</span></a>
-    <a class="opener" href="#"><img src="../imgs/zonebar-downarrow.png" alt="dropdown" /></a>
+
+<div id="download_button">
+  <div id="dl_links">
+    <a href="#" class="download">
+      <h3>Download full version</h3>
+      <p><span>Web | MP4 - HD</span></p>
+    </a>
   </div>
+  
+  <a href="#" class="opener options">More download options</a>
   
   <div id="download_dropdown" class="rounded_corners">
     <% rounded_corners do -%>
@@ -15,10 +20,14 @@
         <input class="radio" id="w" name="download" type="radio" value="Web" checked="checked" /><label for="w">Web</label>
         <input class="radio" id="m" name="download" type="radio" value="LimeWire" /><label for="m">LimeWire</label>
       </span>
-    
       <ul>
         <%= render :partial => "download_button_options", :collection => @episode.sources.group_by(&:format) -%>
       </ul>
     <% end -%>
   </div>
+  
 </div>
+
+
+
+

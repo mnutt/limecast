@@ -1,30 +1,27 @@
-<div id="tags_hp" class="rounded_corners">
-  <% rounded_corners do -%>
+<% rounded_corner_tag(:id => "tags_hp") do -%>
 
-    <ul class="tag_cloud">
-      <!--<li class="size_1"><a href="">Size 1 Tag Cloud</a></li>
-      <li class="size_2"><a href="">Size 2 Tag Cloud</a></li>
-      <li class="size_3"><a href="">Size 3 Tag Cloud</a></li>
-      <li class="size_4"><a href="">Size 4 Tag Cloud</a></li>
-      <li class="size_5"><a href="">Size 5 Tag Cloud</a></li>
-      <li class="size_6"><a href="">Size 6 Tag Cloud</a></li>
-      <li class="size_7"><a href="">Size 7 Tag Cloud</a></li>
-      <li class="size_8"><a href="">Size 8 Tag Cloud</a></li>
-      <li class="size_9"><a href="">Size 9 Tag Cloud</a></li>
-      <li class="size_10"><a href="">Size 10 Tag Cloud</a></li> //-->
+  <ul class="tag_cloud">
+    <!--<li class="size_1"><a href="">Size 1 Tag Cloud</a></li>
+    <li class="size_2"><a href="">Size 2 Tag Cloud</a></li>
+    <li class="size_3"><a href="">Size 3 Tag Cloud</a></li>
+    <li class="size_4"><a href="">Size 4 Tag Cloud</a></li>
+    <li class="size_5"><a href="">Size 5 Tag Cloud</a></li>
+    <li class="size_6"><a href="">Size 6 Tag Cloud</a></li>
+    <li class="size_7"><a href="">Size 7 Tag Cloud</a></li>
+    <li class="size_8"><a href="">Size 8 Tag Cloud</a></li>
+    <li class="size_9"><a href="">Size 9 Tag Cloud</a></li>
+    <li class="size_10"><a href="">Size 10 Tag Cloud</a></li> //-->
 
-      <% @popular_tags.each do |tag| -%>
-      <li class="size_<%= tag.rating %>"><%= link_to tag.name, tag_url(:tag => tag.name), :title => "#{tag.taggings_count} Podcast" %></li>
-      <% end -%>
-    </ul>
+    <% @popular_tags.each do |tag| -%>
+    <li class="size_<%= tag.rating %>"><%= link_to tag.name, tag_url(:tag => tag.name), :title => "#{tag.taggings_count} Podcast" %></li>
+    <% end -%>
+  </ul>
 
-    <div class="callout"><ul><li><%= link_to "Browse tags", "/tags" -%></li></ul></div>
-   <% end -%>
+  <div class="callout"><ul><li><%= link_to "Browse tags", "/tags" -%></li></ul></div>
+ <% end -%>
 </div> <!-- /rounded_corners -->
 
-<div id="recent_reviews" class="rounded_corners">
-  <% rounded_corners do -%>
-  
+<% rounded_corner_tag(:id => "recent_reviews") do -%>
   <ul class="reviews">
   <% @reviews.each do |review| -%>
     <li id="<%=h dom_id(@review) -%>" class="review <%= @review.positive? ? "positive" : "negative" %> clearfix">
@@ -41,8 +38,5 @@
     </li>
   <% end -%>
   </ul>
-  <div class="callout"><ul><li><%= link_to "View all recent episodes", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>
-    
- <% end -%>
-</div> <!-- /rounded_corners -->
-
+  <div class="callout"><ul><li><%= link_to "View all recent episodes", podcast_url(:podcast_slug => @podcast), :title => "Subscribe to the series & view the episode list" -%></li></ul></div>  
+<% end -%> <!-- /rounded_corners -->

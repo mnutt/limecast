@@ -1,7 +1,5 @@
-<div id="recent_reviews" class="rounded_corners">
-  <% rounded_corners do -%>
-    <ul class="reviews">
-      <%= render :partial => "reviews/review", :collection => @recent_reviews, :locals => { :with_podcast_reference => true, :with_helpfulness => false, :truncate_length => 110 } -%>
-    </ul>
-  <% end -%>
-</div>
+<% rounded_corner_tag(:id => "recent_reviews") do -%>
+  <ul class="reviews">
+    <%= render :partial => "reviews/review", :collection => @recent_reviews, :locals => { :with_podcast_reference => true, :with_helpfulness => false, :truncate_length => 110 } -%>
+  </ul>
+<% end -%>

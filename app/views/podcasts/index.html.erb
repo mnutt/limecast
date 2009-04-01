@@ -5,7 +5,7 @@
 
     <h1>All podcasts</h1>
     
-    <div class="main rounded_corners">
+    <% rounded_corner_tag(:class => "main") do -%>
       <ul id="all_podcasts">
         <% @podcasts.each do |podcast| -%>
           <li id="<%=h dom_id(podcast) -%>" class="podcast">
@@ -13,7 +13,7 @@
           </li>
         <% end -%>
       </ul>
-    </div>
+    <% end -%>
 
   </div>
   

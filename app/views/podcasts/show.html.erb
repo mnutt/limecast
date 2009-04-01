@@ -41,11 +41,9 @@
   <%= google_ads -%>
 </div>
 
-<div class="related rounded_corners">
-  <% rounded_corners do -%>
-  <h3>Related podcasts</h3>
-  <ul id="all_podcasts">
-    <%= render :partial => "recommendations/recommendation", :collection => @related -%>
-  </ul>
-  <% end -%>
-</div>
+<% rounded_corner_tag(:class => "related") do -%>
+<h3>Related podcasts</h3>
+<ul id="all_podcasts">
+  <%= render :partial => "recommendations/recommendation", :collection => @related -%>
+</ul>
+<% end -%>

@@ -11,33 +11,28 @@
 
 <a href="#" class="options" id="s_options_toggle">Change subscription options</a>
 
-<div id="subscribe_options_container" class="rounded_corners clearfix">
-  <% rounded_corners do -%>
-    <script type="text/javascript">
-      PODCAST_ID = <%= @podcast.id -%>;
-    </script>  
+<% rounded_corner_tag(:id => "subscribe_options_container", :class => "clearfix") do -%>
+  <script type="text/javascript">
+    PODCAST_ID = <%= @podcast.id -%>;
+  </script>  
 
-    <div id="subscribe_options">
-      <ul>
-        <li><a href="#itunes" class="itunes"><span>iTunes</span></a></li>
-        <li><a href="#miro" class="miro"><span>miro</span></a></li>
-        <li><a href="#rss" class="rss"><span>RSS</span></a></li>
-      </ul>
+  <div id="subscribe_options">
+    <ul>
+      <li><a href="#itunes" class="itunes"><span>iTunes</span></a></li>
+      <li><a href="#miro" class="miro"><span>miro</span></a></li>
+      <li><a href="#rss" class="rss"><span>RSS</span></a></li>
+    </ul>
 
-      <div id="itunes" class="pane">
-        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| f.itunes_url } } -%>
-      </div>
-
-      <div id="miro" class="pane">
-        <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "miro", :url => lambda {|f| f.miro_url } } -%>
-      </div>
-
-      <div id="rss" class="pane">
-        <%= render :partial => "podcasts/subscribe_rss", :locals => {:feeds => @podcast.feeds} -%>
-      </div>
+    <div id="itunes" class="pane">
+      <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| f.itunes_url } } -%>
     </div>
-  <% end -%>
-  
 
-</div>
+    <div id="miro" class="pane">
+      <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "miro", :url => lambda {|f| f.miro_url } } -%>
+    </div>
 
+    <div id="rss" class="pane">
+      <%= render :partial => "podcasts/subscribe_rss", :locals => {:feeds => @podcast.feeds} -%>
+    </div>
+  </div>
+<% end -%>

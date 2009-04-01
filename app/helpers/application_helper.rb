@@ -23,9 +23,9 @@ module ApplicationHelper
     links = links.zip((0..links.size).to_a).map do |link, i|
       "<li#{' class="selected"' if i == selected_index}>#{link}</li>"
     end
-
+xx
     ul = "<ul>#{links}</ul>"
-    content_tag :div, "#{label}#{focuser}<div class=\"dropdown_wrap rounded_corners\">#{rounded_corners ul}</div>", {:class => options[:class]}.merge(options)
+    content_tag :div, "#{label}#{focuser}#{rounded_corner_tag(ul, :class => 'dropdown_wrap')}", {:class => options[:class]}.merge(options)
   end
 
   def comma_separated_list_items(arr)
@@ -184,15 +184,21 @@ module ApplicationHelper
   end
 
   # Important! You need to specity "rounded_corners" class on the element that wraps rounded_corners!!!!
-  def rounded_corners(text=nil, &block)
+  # Ex: rounded_corner_tag(:
+  def rounded_corner_tag(text_or_options = nil, options = nil, &block)
+    options = text_or_options if text_or_options.is_a?(Hash)
+    options ||= {}
+    options[:class] = options[:class].blank? ? "rounded_corners" : "#{options[:class]} rounded_corners"
+
     wrap = <<-ROUNDED
     <div class="bt"><div></div></div><div class="i1"><div class="i2"><div class="i3">%s</div></div></div><div class="bb"><div></div></div>
     ROUNDED
+
     if block_given?
-      rounded_content = wrap % capture(&block)
+      rounded_content = content_tag(:div, (wrap % capture(&block)), options)
       block_called_from_erb?(block) ? concat(rounded_content) : rounded_content
     else
-      wrap % text
+      content_tag(:div, (wrap % text_or_options), options)
     end
   end
 

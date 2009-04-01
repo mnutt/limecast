@@ -4,6 +4,7 @@ class CreateQueuedFeedsTable < ActiveRecord::Migration
       t.string :url
       t.string :error
       t.string :state
+      t.integer :user_id
       t.integer :feed_id
 
       t.timestamps

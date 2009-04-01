@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20090330155313) do
     t.string   "url"
     t.string   "error"
     t.string   "state"
+    t.integer  "user_id"
     t.integer  "feed_id"
     t.datetime "created_at"
     t.datetime "updated_at"

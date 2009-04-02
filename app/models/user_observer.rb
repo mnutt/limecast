@@ -5,7 +5,7 @@ class UserObserver < ActiveRecord::Observer
 
   def before_update(user)
     if user.email_changed? && !user.new_record? && !user.passive?
-      user.send(:make_pending)
+      user.make_pending
     end
   end
 end

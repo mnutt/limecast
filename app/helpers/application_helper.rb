@@ -183,8 +183,10 @@ xx
     text.strip.gsub(/\r\n?/, "\n").gsub(/\n+/, "&#182;")
   end
 
-  # Important! You need to specity "rounded_corners" class on the element that wraps rounded_corners!!!!
-  # Ex: rounded_corner_tag(:
+  # Ex: rounded_corner_tag('inside text', :class => "whatever")
+  # Ex: rounded_corner_tag(:class => "whatever") do
+  #       inside block text
+  #     end
   def rounded_corner_tag(text_or_options = nil, options = nil, &block)
     options = text_or_options if text_or_options.is_a?(Hash)
     options ||= {}

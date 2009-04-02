@@ -36,7 +36,7 @@ class UsersController < ApplicationController
       return
     end
     
-    @user = User.new(params[:user].keep_keys([:email, :password, :login]))
+    @user = User.new(params[:user].keep_keys([:password, :email, :login]))
     @user.state = 'pending'
     if @user.valid?
       @user.register!

@@ -7,14 +7,12 @@ $.quickSignIn = {
 
     // Makes the form use AJAX
     me.submit(function(event){
-      if(!me.find('.sign_up:visible').length)
-        me.find('.signin_signup_button').click();
-      else
-        me.find('.signin_signup_button').click();
-      return false; // this will all be handled through specific Form Element events
+      me.find('.signin_signup_button').click();
+      return false; // the form submission will be handled through specific Form Element events
     });
 
     me.find('.signin_signup_button').click(function(event){
+      me.find('.response_container').html('');
       if(!me.find('.sign_up:visible').length) { // if signup hasn't happened yet, just show full signup form
         $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
       } else {
@@ -64,10 +62,11 @@ $.quickSignIn = {
     } else { // no success
       $.quickSignIn.updateResponse(resp.html);
 
-      // If the user tried to signin with unknown creds
+      // Focus the correct input
+      if(/Please type your password/.test(resp.html)) me.find('#quicksignin_password').focus();
       if(/Please type your email address/.test(resp.html)) {
         $.quickSignIn.showSignUp();
-        me.find('input.email').focus();
+        me.find('#quicksignin_email').focus();
       }
 
       // attach event to 'Are you trying to Sign Up?' link
@@ -89,6 +88,10 @@ $.quickSignIn = {
 
       $.quickSignIn.updateResponse(resp.html);
 
+      // Focus the correct input
+      if(/Please type your email address/.test(resp.html)) me.find('#quicksignin_email').focus();
+      if(/Please choose a password/.test(resp.html)) me.find('#quicksignin_password').focus();
+
       // attach event to 'Are you trying to Sign Up?' link
       me.find('.inline_signup_button').click($.quickSignIn.showSignUp);
     }
@@ -98,7 +101,6 @@ $.quickSignIn = {
 
   reset: function() {
     var me = $("#cluetip").find("#quick_signin");
-    me.find('.message').html('');
     me.find('.sign_up').hide();
     me.find('.controls').show();
     me.find('.controls_signup').hide();
@@ -168,7 +170,7 @@ $.quickSignIn = {
   updateResponse: function(html) {
     var me = $("#cluetip").find("#quick_signin");
     resp_container = me.find('.response_container');
-    if(html == resp_container.html()) resp_container.hide().fadeIn();
-    else resp_container.html(html);
+    if(html == resp_container.html()) resp_container.fadeOut().fadeIn();
+    else resp_container.hide().html(html).fadeIn(150);
   }
 }

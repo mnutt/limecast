@@ -31,20 +31,25 @@ describe FeedProcessor, "being parsed" do
     @feed.podcast.taggers.should include(@feed.podcast.owner)
   end
 
-#  describe "when the submitting user is the podcast owner" do
-#    it 'should associate the podcast with the user as owner' do
-#      user = Factory.create(:user, :email => "john.doe@example.com")
-#      @podcast = Factory.create(:parsed_podcast, :site => "http://www.example.com/")
-#      @feed = @podcast.feeds.first
-#      @feed.finder = user
-#
-#      @feed = FeedProcessor.new(@feed.url)
-#
-#      @feed.reload.finder.should == user
-#      @feed.podcast.should be_kind_of(Podcast)
-#      @feed.podcast.owner.should == user
-#    end
-#  end
+  describe "when the submitting user is the podcast owner" do
+    it 'should associate the podcast with the user as owner' do
+      User.destroy_all
+
+      user = Factory.create(:user, :email => "tester1@podcasts.example.com")
+      @podcast = Factory.create(:podcast, :site => "http://www.example.com/")
+      @feed = @podcast.feeds.first
+      @feed.finder = user
+      @feed.save
+
+      @qf = QueuedFeed.create(:url => @feed.url, :feed_id => @feed.id)
+
+      FeedProcessor.process(@qf)
+
+      @feed.reload.finder.should == user
+      @feed.podcast.should be_kind_of(Podcast)
+      @feed.podcast.owner.should == user
+    end
+  end
 end
 
 # Feed is already in the system, looking it up by url.

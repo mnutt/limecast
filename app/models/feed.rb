@@ -27,7 +27,9 @@ class Feed < ActiveRecord::Base
   belongs_to :podcast
   belongs_to :finder, :class_name => 'User'
 
+  before_destroy :destroy_podcast_if_last_feed
   after_destroy :add_podcast_message
+  after_destroy :update_finder_score
 
   validates_presence_of   :url
   validates_uniqueness_of :url
@@ -143,11 +145,11 @@ class Feed < ActiveRecord::Base
 
   protected
 
-  def add_podcast_message
-    podcast.add_message "The #{apparent_format} feed has been removed." if podcast
+  def destroy_podcast_if_last_feed
+    self.podcast.destroy if self.podcast.feeds.size == 1
   end
 
-  def remove_empty_podcast
-    self.podcast.destroy if self.podcast && self.podcast.failed?
+  def add_podcast_message
+    podcast.add_message "The #{apparent_format} feed has been removed." if podcast
   end
 end

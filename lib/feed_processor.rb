@@ -17,11 +17,13 @@ class FeedProcessor
 
   attr_accessor :feed
 
+  def self.process(queued_feed)
+    self.new(queued_feed).process
+  end
+
   def initialize(queued_feed)
     @qf   = queued_feed
     @feed = queued_feed.feed || Feed.create(:url => @qf.url)
-
-    process
   end
 
   def process

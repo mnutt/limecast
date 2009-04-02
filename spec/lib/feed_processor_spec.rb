@@ -3,18 +3,30 @@ require File.dirname(__FILE__) + '/../spec_helper'
 module StopDownloadLogo
   def download_logo(*args); end
 end
-module StopFetch
-  def fetch
-  end
-end
-
-class FeedProcessor
+module FetchExample
   def fetch
     File.open("#{RAILS_ROOT}/spec/data/example.xml").read
   end
 end
+module FetchRegularFeed
+  def fetch
+    File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
+  end
+end
+
+# class FeedProcessor
+#   def fetch
+#     File.open("#{RAILS_ROOT}/spec/data/example.xml").read
+#   end
+# end
 class Podcast
   def download_log(*args); end
+end
+
+def mod_and_run_feed_processor(queued_feed, mod)
+  fp = FeedProcessor.new(queued_feed)
+  fp.extend(mod)
+  fp.process
 end
 
 # Feed is not in the system, creating it by url.
@@ -22,7 +34,7 @@ describe FeedProcessor, "being parsed" do
 
   before do
     @qf = QueuedFeed.create(:url => "http://google.com/rss.xml")
-     FeedProcessor.new(@qf)
+    mod_and_run_feed_processor(@qf, FetchExample)
     @feed = @qf.feed
   end
 
@@ -68,9 +80,7 @@ end
 describe FeedProcessor, "being reparsed" do
   before do
     @qf = Factory.create(:queued_feed)
-
-    FeedProcessor.new(@qf)
-
+    mod_and_run_feed_processor(@qf, FetchExample)
     @feed = @qf.feed
   end
 
@@ -94,9 +104,7 @@ end
 describe Feed, "updating episodes" do
   before do
     @qf = Factory.create(:queued_feed)
-
-    FeedProcessor.new(@qf)
-
+    mod_and_run_feed_processor(@qf, FetchExample)
     @feed = @qf.feed
   end
 
@@ -106,9 +114,7 @@ describe Feed, "updating episodes" do
 
   it 'should not duplicate episodes that already exist' do
     @feed.podcast.episodes(true).count.should == 3
-
-    FeedProcessor.new(@qf)
-
+    mod_and_run_feed_processor(@qf, FetchExample)
     @feed.podcast.episodes(true).count.should == 3
   end
 end
@@ -138,7 +144,7 @@ describe Feed, "being updated" do
 
   it "should send an email out of if the podcast was changed at all" do
     setup_actionmailer
-    lambda { FeedProcessor.new(@qf) }.should change { ActionMailer::Base.deliveries.size }.by(1)
+    lambda { mod_and_run_feed_processor(@qf, FetchExample) }.should change { ActionMailer::Base.deliveries.size }.by(1)
     ActionMailer::Base.deliveries.last.to_addrs.to_s.should == @podcast.editors.map(&:email).join(',')
     ActionMailer::Base.deliveries.last.body.should =~ /A podcast that you can edit has been updated because one of its feeds was changed/
     ActionMailer::Base.deliveries.last.body.should =~ /The Original Title was changed to All About Everything/
@@ -148,20 +154,15 @@ end
 
 describe Feed, "being created" do
   before do
-    class FeedProcessor
-      def fetch
-        File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
-      end
-    end
-
     @qf = Factory.create :queued_feed
+    mod_and_run_feed_processor(@qf, FetchRegularFeed)
     @podcast = Factory.create(:podcast, :feeds => [@qf.feed])
     @feed = @podcast.feeds.first
   end
 
   describe 'with normal RSS feed' do
     it 'should save the error that the feed is not for a podcast' do
-      FeedProcessor.new(@qf)
+      mod_and_run_feed_processor(@qf, FetchRegularFeed)
 
       @qf.error.should == "FeedProcessor::NoEnclosureException"
     end
@@ -180,7 +181,7 @@ describe Feed, "being created" do
       Blacklist.create!(:domain => "restrictedsite")
 
       @qf.update_attributes :url => "http://restrictedsite/bad/feed.xml"
-      FeedProcessor.new(@qf)
+      mod_and_run_feed_processor(@qf, FetchRegularFeed)
 
       @qf.error.should == "FeedProcessor::BannedFeedException"
     end

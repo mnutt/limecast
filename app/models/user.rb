@@ -25,7 +25,7 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  has_many :feeds, :foreign_key => 'finder_id', :conditions => {:state => 'parsed'}
+  has_many :feeds, :foreign_key => 'finder_id'
   has_many :podcasts, :through => :feeds, :uniq => true
   has_many :owned_podcasts, :class_name => 'Podcast', :foreign_key => 'owner_id'
   has_many :reviews, :dependent => :destroy

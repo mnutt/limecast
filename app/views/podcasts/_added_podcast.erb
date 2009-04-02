@@ -1,5 +1,5 @@
 <div class="status_message">
-  <% if @podcast.state == "failed" -%>
+  <% if @podcast.state == "failed" #XXX: Clean up failed states on podcasts -%>
     <%= @podcast.feed.error -%>
   <% else -%>
     <% if podcast_created_by_user?(@podcast) and @podcast.just_created? -%>

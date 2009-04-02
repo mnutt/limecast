@@ -104,6 +104,7 @@ class Podcast < ActiveRecord::Base
     i
   end
 
+	# XXX: Write spec for this
   def blacklist!
     self.feeds.each do |f|
     Blacklist.create(:domain => f.url)
@@ -180,10 +181,6 @@ class Podcast < ActiveRecord::Base
 
   def clean_site
     self.site ? self.site.to_url : ''
-  end
-
-  def failed?
-    feeds(true).all? { |f| f.failed? }
   end
 
   def primary_feed_with_default

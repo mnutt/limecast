@@ -130,6 +130,11 @@ form#quick_signin input.text {
 	outline: none;
 }
 
+form#quick_signin .response_container {
+	margin: 10px 0 0 0;
+	min-height: 20px;
+}
+
 form#quick_signin .response_container p {
 	color: red;
   font-size: 1em;
@@ -166,31 +171,30 @@ display: inline;
 
 }
 
-form#quick_signin .controls {
-  margin-top: 10px;
+form#quick_signin .controls,
+form#quick_signin .controls_signup {
+	margin-top: 20px;
+	width: 100%;
+	clear: left;
 }
 
 form#quick_signin .callout {
-	display: inline; 
-	font-size: .7em; float: right;
-text-align: right;
-margin-top: -16px;
+	font-size: .7em; 
+	float: left;
+	text-align: right;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
 form#quick_signin .callout {margin-top: 0px;}
 }
 
-form#quick_signin a.forgot {
-	display: inline; 
-  margin-left: 100px;
+form#quick_signin span.forgot {
 	padding-right: 2px;
+	float: left;
+	margin-left: 100px;
 }
 
-form#quick_signin span.forgot {
-	display: inline; 
-  margin-left: 135px;
-	padding-right: 2px;
+form#quick_signin span.forgot a {
 }
 
 

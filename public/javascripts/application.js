@@ -50,7 +50,7 @@ function setupCluetips() {
     $.extend(default_options, {positionBy: 'bottomTop'});
     $('a.cluetip_add_link').cluetip(default_options);
 
-    $.extend(default_options, {onShow: function(){$.quickSignIn.showSignUp(); $.quickSignIn.setup();}});
+    $.extend(default_options, {height: 350, onShow: function(){$.quickSignIn.showSignUp(); $.quickSignIn.setup();}});
     $('a.signup').cluetip(default_options);
   }
 }

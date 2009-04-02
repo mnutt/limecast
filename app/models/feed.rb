@@ -146,7 +146,7 @@ class Feed < ActiveRecord::Base
   protected
 
   def destroy_podcast_if_last_feed
-    self.podcast.destroy if self.podcast.feeds.size == 1
+    self.podcast.destroy if self.podcast && self.podcast.feeds.size == 1
   end
 
   def add_podcast_message

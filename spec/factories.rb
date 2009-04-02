@@ -17,7 +17,7 @@ end
 
 Factory.define :queued_feed do |q|
   q.feed  { Factory.create :feed }
-  q.url   { Factory.create(:feed).url }
+  q.url   { Factory.next :url }
   q.state "parsed"
 end
 
@@ -77,6 +77,9 @@ Factory.sequence :site do |n|
 end
 Factory.sequence :title do |n|
   "P#{'o'*n}dcast"
+end
+Factory.sequence :url do |n|
+  Factory.next(:site) + "/#{n}_feed.xml"
 end
 
 Factory.define :user do |u|

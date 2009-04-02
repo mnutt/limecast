@@ -313,7 +313,7 @@ class Podcast < ActiveRecord::Base
   def sanitize_url
     if (title.blank? || title_changed?)
       self.clean_url = self.title.to_s.clone.strip # Remove leading and trailing spaces
-      self.clean_url.gsub!(/[^A-Za-z0-9\s]/, "")     # Remove all non-alphanumeric non-space characters
+      self.clean_url.gsub!(/[^A-Za-z0-9\s-]/, "")     # Remove all non-alphanumeric non-space non-hyphen characters
       self.clean_url.gsub!(/[\s]+/, '-')             # Condense spaces and turn them into dashes
 
       i = 1 # Number to attach to the end of the title to make it unique

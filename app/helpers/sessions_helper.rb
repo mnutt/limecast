@@ -5,12 +5,12 @@ module SessionsHelper
 
     if params[:user][:login].blank?
       return "Please type your username."
+    elsif params[:user][:password].blank?
+      return "Please type your password."
     elsif @unknown_email
       return "This email is new to us. Are you trying to #{signup}?"
     elsif @unknown_user
       return "Please type your email address."
-    elsif params[:user][:password].blank?
-      return "Please type your password."
     else
       return "User and password don't match. #{forgot_password}"
     end

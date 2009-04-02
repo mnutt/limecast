@@ -58,7 +58,7 @@ form#search input {
 }
 
 .per_page {
-  text-align: center;
+
   font-size: 1em;
   margin-top: 10px;
 }
@@ -130,6 +130,11 @@ form#quick_signin input.text {
 	outline: none;
 }
 
+form#quick_signin .response_container {
+	margin: 10px 0 0 0;
+	min-height: 20px;
+}
+
 form#quick_signin .response_container p {
 	color: red;
   font-size: 1em;
@@ -166,36 +171,36 @@ display: inline;
 
 }
 
-form#quick_signin .controls {
-  margin-top: 10px;
+form#quick_signin .controls,
+form#quick_signin .controls_signup {
+	margin-top: 20px;
+	width: 100%;
+	clear: left;
 }
 
 form#quick_signin .callout {
-	display: inline; 
-	font-size: .7em; float: right;
-text-align: right;
-margin-top: -16px;
+	font-size: .7em; 
+	float: left;
+	text-align: right;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0){ /*Safari hack */
 form#quick_signin .callout {margin-top: 0px;}
 }
 
-form#quick_signin a.forgot {
-	display: inline; 
-  margin-left: 100px;
+form#quick_signin span.forgot {
 	padding-right: 2px;
+	float: left;
+	margin-left: 100px;
 }
 
-form#quick_signin span.forgot {
-	display: inline; 
-  margin-left: 135px;
-	padding-right: 2px;
+form#quick_signin span.forgot a {
 }
 
 
 .index h1, .index.search h1 {
 	margin-left: 15px;
+	float: left;
 }
 
 
@@ -330,6 +335,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
   top: 16px;
   padding: 0;40px 0 0;
   margin: 0;
+  float: none;
   line-height: 1em;
   font-size: 2.2em;
   background: #2B69B6; url('../imgs/intro.png') top left no-repeat;
@@ -508,11 +514,13 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 
 .summary h1 {
 	margin: 0;
-	width: 800px;
+	display: inline;
+	float: left;
 }
 .summary h2 {
 	width: 800px;
 }
+
 
 
 

@@ -28,6 +28,7 @@
 	margin: 20px 0 !important;
 	min-height: 350px;
 	overflow: hidden;
+	clear: left;
 }
 
 /**** =Main podcast block ***************/
@@ -245,12 +246,18 @@ input.radio {
 
 
 /* LimeCast form */
+
+#edit_actions {
+  float: left;
+  margin: 3px 0 0 5px;
+}
+ 
 .limecast_form {
 	position: relative;
 	padding: 5px;
 	min-width: 400px;
 	width: 650px;
-	clear: left;
+
 	margin: 10px 0;
 	font-size: 12px;
 	background-color: #E7EB99;

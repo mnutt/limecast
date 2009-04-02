@@ -4,9 +4,8 @@
 <% form_for :user, :url => session_path,
             :html => {:id => "quick_signin", :class => "clearfix"} do |f| -%>
             
-
   <h5 class="signup_heading">Sign in to LimeCast</h5>
-  <div class="message"></div>
+
   <div class="response_container"><!-- this is used for error messages, etc. //--></div>
 
   <div class="field">
@@ -36,15 +35,15 @@
   <input type="submit" value="Submit" style="display: none;" title="to force WebKit to submit on enter" />
 
 
-  <div class="controls">
-    <%= link_to "I forgot my password", forgot_password_path, :class => "forgot" -%> |
+  <div class="controls clearfix">
+    <span class="forgot"><%= link_to "I forgot my password", forgot_password_path -%> | </span>
     <div class="callout"><ul><li>
       <%= link_to "Sign up", signup_url, :class => "signup_button" %>
     </li></ul></div>
   </div>
   
 
-  <div class="controls_signup" style="display: none;">
+  <div class="controls_signup clearfix" style="display: none;">
     <span class="forgot">Already a member?</span>
     <div class="callout"><ul><li>
       <%= link_to "Sign in", signup_url,  :class => "signin_button" %>

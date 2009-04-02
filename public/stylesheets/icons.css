@@ -14,9 +14,10 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 .miro {background: url('../imgs/icons/miro.png') center left no-repeat;}
 .rss {background: url('../imgs/icons/rss.png') center left no-repeat;}
 
-#subscribe.itunes_feed { background: url('../imgs/subscribe_itunes.png') top left no-repeat; }
-#subscribe.miro_feed   { background: url('../imgs/subscribe_miro.png') top left no-repeat; }
-#subscribe.rss_feed    { background: url('../imgs/subscribe_rss.png') top left no-repeat; }
+#subscribe { background: url('../imgs/subscribe_left.png') top left no-repeat; }
+#subscribe.itunes_feed { background-position: 0px -144px; }
+#subscribe.miro_feed   { background-position: 0px -216px; }
+#subscribe.rss_feed    { background-position: 0px -72px; }
 
 .add  { padding-left: 18px; background: url('../imgs/icons/plus.png') center left no-repeat; }
 .is { padding: 4px 0 4px 18px; background: url('../imgs/icons/checkmark.png') center left no-repeat; }

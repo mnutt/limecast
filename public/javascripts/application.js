@@ -37,20 +37,20 @@ function setupCluetips() {
   $('a.tips').cluetip(default_options);
   
   if(!LOGGED_IN) {
-    default_options = $.extend({activation: 'click', sticky: true, onShow: function(){$.quickSignIn.setup()}}, default_options);
+    $.extend(default_options, {activation: 'click', sticky: true, onShow: function(){$.quickSignIn.setup()}});
 
-    var options = $.extend({positionBy: 'auto', leftOffset: -10}, default_options);
-    $('#podcast_tag_form_cluetip_link').cluetip(options);
+    $.extend(default_options, {positionBy: 'auto', leftOffset: -10});
+    $('#podcast_tag_form_cluetip_link').cluetip(default_options);
     
-    default_options = $.extend({positionBy: 'bottomTop', topOffset: 25}, default_options);
+    $.extend(default_options, {positionBy: 'bottomTop', topOffset: 25});
     $('a.login').cluetip(default_options); 
     $('a.favorite_link').cluetip(default_options); 
     $('a.unfavorite_link').cluetip(default_options); 
 
-    default_options = $.extend({positionBy: 'bottomTop'}, default_options);
+    $.extend(default_options, {positionBy: 'bottomTop'});
     $('a.cluetip_add_link').cluetip(default_options);
 
-    default_options = $.extend({onShow: function(){ $.quickSignIn.showSignUp(); $.quickSignIn.setup(); }}, default_options);
+    $.extend(default_options, {onShow: function(){$.quickSignIn.showSignUp(); $.quickSignIn.setup();}});
     $('a.signup').cluetip(default_options);
   }
 }

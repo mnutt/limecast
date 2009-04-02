@@ -64,10 +64,11 @@ $.quickSignIn = {
     } else { // no success
       $.quickSignIn.updateResponse(resp.html);
 
-      // If the user tried to signin with unknown creds
+      // Focus the correct input
+      if(/Please type your password/.test(resp.html)) me.find('#quicksignin_password').focus();
       if(/Please type your email address/.test(resp.html)) {
         $.quickSignIn.showSignUp();
-        me.find('input.email').focus();
+        me.find('#quicksignin_email').focus();
       }
 
       // attach event to 'Are you trying to Sign Up?' link
@@ -88,6 +89,10 @@ $.quickSignIn = {
       $.quickSignIn.showSignUp();
 
       $.quickSignIn.updateResponse(resp.html);
+
+      // Focus the correct input
+      if(/Please type your email address/.test(resp.html)) me.find('#quicksignin_email').focus();
+      if(/Please choose a password/.test(resp.html)) me.find('#quicksignin_password').focus();
 
       // attach event to 'Are you trying to Sign Up?' link
       me.find('.inline_signup_button').click($.quickSignIn.showSignUp);

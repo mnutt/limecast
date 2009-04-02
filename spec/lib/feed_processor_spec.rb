@@ -1,34 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-module StopDownloadLogo
-  def download_logo(*args); end
-end
-module FetchExample
-  def fetch
-    File.open("#{RAILS_ROOT}/spec/data/example.xml").read
-  end
-end
-module FetchRegularFeed
-  def fetch
-    File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
-  end
-end
-
-# class FeedProcessor
-#   def fetch
-#     File.open("#{RAILS_ROOT}/spec/data/example.xml").read
-#   end
-# end
-class Podcast
-  def download_log(*args); end
-end
-
-def mod_and_run_feed_processor(queued_feed, mod)
-  fp = FeedProcessor.new(queued_feed)
-  fp.extend(mod)
-  fp.process
-end
-
 # Feed is not in the system, creating it by url.
 describe FeedProcessor, "being parsed" do
 

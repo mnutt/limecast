@@ -208,7 +208,7 @@ xx
   def limecast_form_for record_or_name_or_array, *args, &proc #@podcast, } do |podcast_form|
     options = args.extract_options!
     (options[:html] ||= {})
-    options[:html][:class] = "#{options[:html][:class]} limecast_form clearfix"
+    options[:html][:class] = "#{options[:html][:class]} limecast_form clear"
     options[:html][:style] = "display: none; #{options[:html][:style]}" unless options[:show]
 
     form_for(record_or_name_or_array, *(args << options)) do |form_builder|

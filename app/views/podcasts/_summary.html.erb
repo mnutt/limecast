@@ -1,9 +1,10 @@
-<%= render :partial => 'podcasts/edit' if current_user && @podcast.writable_by?(current_user) %>
+
 
 <h1><%=h @podcast.title %></h1>
+<%= render :partial => 'podcasts/edit' if current_user && @podcast.writable_by?(current_user) %>
 <h6 id="page_type">PODCAST SERIES</h6>
 
-<div class="podcast_block">
+<div class="podcast_block clear">
   
   <div class="preview">
     <%= display_cover_art(@podcast) -%>

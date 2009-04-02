@@ -58,7 +58,7 @@ form#search input {
 }
 
 .per_page {
-  text-align: center;
+
   font-size: 1em;
   margin-top: 10px;
 }
@@ -200,6 +200,7 @@ form#quick_signin span.forgot a {
 
 .index h1, .index.search h1 {
 	margin-left: 15px;
+	float: left;
 }
 
 
@@ -334,6 +335,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
   top: 16px;
   padding: 0;40px 0 0;
   margin: 0;
+  float: none;
   line-height: 1em;
   font-size: 2.2em;
   background: #2B69B6; url('../imgs/intro.png') top left no-repeat;
@@ -512,11 +514,13 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 
 .summary h1 {
 	margin: 0;
-	width: 800px;
+	display: inline;
+	float: left;
 }
 .summary h2 {
 	width: 800px;
 }
+
 
 
 

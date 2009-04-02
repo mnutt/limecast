@@ -11,6 +11,7 @@ require 'spec/rails'
 require 'factory_girl'
 require 'thinking_sphinx'
 require 'factories'
+require 'rspec-rails-monkey-patch'
 
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
@@ -131,10 +132,10 @@ class Spec::Rails::Example::PluginExampleGroup < Spec::Rails::Example::ViewExamp
 end
 Spec::Example::ExampleGroupFactory.register(:plugin, Spec::Rails::Example::PluginExampleGroup)
 
-
 # Stub out ThinkingSphinx
 module ThinkingSphinx::ActiveRecord
   def in_core_index?
     false
   end
 end
+

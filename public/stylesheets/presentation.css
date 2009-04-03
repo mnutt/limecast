@@ -440,17 +440,23 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 #hp_tower, #hp_open {
 	margin: 10px 0 20px 0;
 	width: 464px;
-	height: 95px;
-}
-
-#hp_tower h3, #hp_open h3 {
-	margin: 35px 0 0 100px;
+	height: 110px;
 }
 
 #hp_tower p, #hp_open p {
-	font-size: 1.2em;
-	margin: 0px 30px 0 100px;
+  font-size: 1.2em;
+  margin:0;
 }
+
+#hp_tower div {
+	margin: 25px 0 0 120px;
+}
+
+#hp_open div {
+	margin: 25px 0 0 150px;
+}
+
+
 
 #hp_tower {
 	float: left;
@@ -459,7 +465,6 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 
 #hp_open {
 	float: right;
-
 	background: url('../imgs/hp_open.png');
 }
 

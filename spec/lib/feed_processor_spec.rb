@@ -31,26 +31,23 @@ describe FeedProcessor, "being parsed" do
     @feed.podcast.taggers.should include(@feed.podcast.owner)
   end
 
-  describe "when the submitting user is the podcast owner" do
-    it 'should associate the podcast with the user as owner' do
-      User.destroy_all
+  it 'should associate the podcast with the user as owner' do
+    User.destroy_all
 
-      user = Factory.create(:user, :email => "tester1@podcasts.example.com")
-      @podcast = Factory.create(:podcast, :site => "http://www.example.com/")
-      @feed = @podcast.feeds.first
-      @feed.finder = user
-      @feed.save
+    user = Factory.create(:user, :email => "john.doe@example.com")
+    @podcast = Factory.create(:podcast, :site => "http://www.example.com/")
+    @feed = @podcast.feeds.first
 
-      @qf = QueuedFeed.create(:url => @feed.url, :feed_id => @feed.id)
+    @qf = QueuedFeed.create(:url => @feed.url, :feed_id => @feed.id, :user => user)
 
-      FeedProcessor.process(@qf)
+    mod_and_run_feed_processor(@qf, FetchExample)
 
-      @feed.reload.finder.should == user
-      @feed.podcast.should be_kind_of(Podcast)
-      @feed.podcast.owner.should == user
-    end
+    @feed.reload.finder.should == user
+    @feed.podcast.should be_kind_of(Podcast)
+    @feed.podcast.owner.should == user
   end
 end
+
 
 # Feed is already in the system, looking it up by url.
 describe FeedProcessor, "being reparsed" do
@@ -128,6 +125,21 @@ describe Feed, "being updated" do
   end
 end
 
+
+describe Feed, "when a weird server error occurs" do
+  before do
+    @qf = Factory.create :queued_feed, :url => 'http://localhost:7'
+    @podcast = Factory.create(:podcast, :feeds => [@qf.feed])
+    @feed = @podcast.feeds.first
+  end
+
+  it 'should save the error that an unknown exception occurred' do
+    FeedProcessor.process(@qf)
+
+    @qf.error.should == "Errno::ECONNREFUSED"
+  end
+end
+
 describe Feed, "being created" do
   before do
     @qf = Factory.create :queued_feed
@@ -143,14 +155,6 @@ describe Feed, "being created" do
       @qf.error.should == "FeedProcessor::NoEnclosureException"
     end
   end
-
-#   describe "when a weird server error occurs" do
-#     it 'should save the error that an unknown exception occurred' do
-#       FeedProcessor.new('http://localhost:7')
-# 
-#       @feed.reload.error.should == "Errno::ECONNREFUSED"
-#     end
-#   end
 
   describe "with a site on the blacklist" do
     it 'should save the error that the site is on the blacklist' do

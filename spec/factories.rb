@@ -73,7 +73,7 @@ Factory.sequence :email do |n|
   "tester#{n}@podcasts.example.com"
 end
 Factory.sequence :site do |n|
-  "http://myp#{'o'*n}dcast.com"
+  "http://example.com/myp#{'o'*n}dcast"
 end
 Factory.sequence :title do |n|
   "P#{'o'*n}dcast"

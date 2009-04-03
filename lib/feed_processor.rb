@@ -136,9 +136,9 @@ class FeedProcessor
   end
 
   def update_feed!
+    @feed.finder_id = @qf.user_id if @qf.user_id
     @feed.update_attributes(
       :bitrate => @rpodcast_feed.bitrate.nearest_multiple_of(64),
-      :finder_id => @qf.user_id,
       :ability => ABILITY,
       :xml     => @content
     )

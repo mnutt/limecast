@@ -29,7 +29,7 @@ describe FeedsController do
 
   describe "handling POST /feeds when not logged in" do
     before(:each) do
-      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
+      post :create, :feed => {:url => "http://example.com/podcast/feed.xml"}
     end
 
     it 'should save an unclaimed feed' do
@@ -52,7 +52,7 @@ describe FeedsController do
     before(:each) do
       @user = Factory.create(:user)
       login(@user)
-      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
+      post :create, :feed => {:url => "http://example.com/podcast/feed.xml"}
     end
 
     it 'should save the feed' do
@@ -66,7 +66,7 @@ describe FeedsController do
 
     it 'should create a feed' do
       assigns(:queued_feed).should be_kind_of(QueuedFeed)
-      assigns(:queued_feed).url.should == "http://mypodcast/feed.xml"
+      assigns(:queued_feed).url.should == "http://example.com/podcast/feed.xml"
     end
   end
 

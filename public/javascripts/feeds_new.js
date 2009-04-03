@@ -3,16 +3,18 @@ $(document).ready(function(){
 
     var poll_for_status = function(response) {
       var feed_url = $('#feed_url').attr('value');
+
+      // clone the disabled form and append it
       var form_clone = $('#added_podcast').clone();
       form_clone.attr('id', null);
       form_clone.find('input[value=Add]').attr('disabled', 'disabled').unbind('click');
       form_clone.find('.text').attr('value', feed_url);
       form_clone.show();
-
-      $('#feed_url').val("");
       $('#added_podcast_list').append(form_clone);
-      $("#new_feed").find('label.default').text(''); // only first input should have the example url
 
+      // reset the form
+      $('#new_feed').hide();
+      $('#feed_url').unbind().val("").blur(); // unbind the jquery.default-text.js stuff, set val to empty, and blur it so focus works
 
       // FIX
       // if($('#inline_signin'))
@@ -23,11 +25,15 @@ $(document).ready(function(){
         var callback = function(response) {
           periodic_count += 1;
           form_clone.find('.status').html(response);
-          if(/finished/g.test(response))
+          if(/finished/g.test(response)) {
             controller.stop();
-          if(periodic_count > 20) {
+            $('#new_feed').show();
+            $('#feed_url').focus();
+          } else if(periodic_count > 20) {
             controller.stop();
-            form_clone.find('.status').html('<p class="status_message">Timeout error. Please try again later.</p>');
+            $('#new_feed').show();
+            $('#feed_url').focus();
+            form_clone.find('.status').html('<p class="status_message">Timeout error. Please try again.</p>');
           }
         };
 

@@ -189,6 +189,16 @@ class User < ActiveRecord::Base
   def podcaster?
     self.owned_podcasts.count > 0
   end
+  
+  def make_pending
+    self.state = 'pending'
+    make_activation_code
+
+    if !new_record? && email_changed?
+      self.messages << "Please check your email for a note from us."
+      UserMailer.deliver_reconfirm_notification(self)
+    end
+  end
 
   protected
     # before filter
@@ -205,19 +215,6 @@ class User < ActiveRecord::Base
     def make_activation_code
       self.deleted_at = nil
       self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
-    end
-
-    def make_pending
-      self.state = 'pending'
-      make_activation_code
-      if new_record?
-        UserMailer.deliver_signup_notification(self)
-      else
-        if email_changed?
-          self.messages << "Please check your email for a note from us."
-          UserMailer.deliver_reconfirm_notification(self)
-        end
-      end
     end
 
     def do_delete

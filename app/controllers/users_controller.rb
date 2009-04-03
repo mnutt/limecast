@@ -37,14 +37,14 @@ class UsersController < ApplicationController
     end
     
     @user = User.new(params[:user].keep_keys([:password, :email, :login]))
-    @user.state = 'pending'
+    @user.make_pending
+
     if @user.valid?
-      @user.register!
-      @user.save 
+      @user.save
+      UserMailer.deliver_signup_notification(@user)
     end
     
     respond_to do |format|
-    
       if @user.errors.empty? && @user.reload
         self.current_user = @user
         claim_records

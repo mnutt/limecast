@@ -446,6 +446,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 #hp_tower p, #hp_open p {
   font-size: 1.2em;
   margin:0;
+  padding-right: 10px;
 }
 
 #hp_tower div {
@@ -1216,7 +1217,7 @@ div.foot_wrapper {
 div#footer div.section {
 float:left;
 margin:0 22px 20px 0;
-width:305px;
+
 }
 
 div#footer div.info {

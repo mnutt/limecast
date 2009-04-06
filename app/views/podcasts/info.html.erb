@@ -46,7 +46,7 @@
   <tr>
     <td class="key">Found</td>
     <td>
-      <%= info_user_link(@podcast.primary_feed.finder) -%>
+      <%= non_blank { info_user_link(@podcast.primary_feed.finder) } -%>
     </td>
   </tr>
   <tr>
@@ -70,7 +70,7 @@
   <tr>
     <td class="key">iTunes</td>
     <td>
-      <%= non_blank @podcast.primary_feed.itunes_link -%>
+      <%= non_blank { @podcast.primary_feed.itunes_link } -%>
     </td>
   </tr>
   <tr>

@@ -62,7 +62,15 @@ class QueuedFeed < ActiveRecord::Base
     write_attribute(:url, val)
   end
 
+  def self.find_or_initialize_by_url(url)
+    self.find_by_url(self.clean_url(url)) || self.new(:url => url)
+  end
+
   def self.find_or_create_by_url(url)
     self.find_by_url(self.clean_url(url)) || self.create(:url => url)
+  end
+
+  def self.find_by_url(url)
+    super(self.clean_url(url))
   end
 end

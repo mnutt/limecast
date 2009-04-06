@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090330155313) do
+ActiveRecord::Schema.define(:version => 20090406194502) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(:version => 20090330155313) do
     t.integer  "podcast_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                             :default => "pending"
+    t.string   "state",                           :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
-    t.text     "xml",         :limit => 2147483647
-    t.integer  "ability",                           :default => 0
+    t.text     "xml",         :limit => 16777215
+    t.integer  "ability",                         :default => 0
     t.integer  "owner_id"
     t.string   "owner_email"
     t.string   "owner_name"
@@ -158,13 +158,13 @@ ActiveRecord::Schema.define(:version => 20090330155313) do
     t.string   "preview_content_type"
     t.string   "preview_file_size"
     t.integer  "size",                     :limit => 8
+    t.integer  "height"
+    t.integer  "width"
     t.text     "xml"
     t.datetime "downloaded_at"
     t.datetime "hashed_at"
     t.text     "curl_info"
     t.text     "ffmpeg_info"
-    t.integer  "height"
-    t.integer  "width"
     t.string   "file_name"
     t.string   "torrent_file_name"
     t.string   "torrent_content_type"
@@ -179,6 +179,21 @@ ActiveRecord::Schema.define(:version => 20090330155313) do
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"
   add_index "sources", ["feed_id"], :name => "index_sources_on_feed_id"
+
+  create_table "statistics", :force => true do |t|
+    t.integer  "podcasts_count"
+    t.integer  "podcasts_found_by_admins_count"
+    t.integer  "podcasts_found_by_nonadmins_count"
+    t.integer  "feeds_count"
+    t.integer  "feeds_found_by_admins_count"
+    t.integer  "feeds_found_by_nonadmins_count"
+    t.integer  "users_count"
+    t.integer  "users_active_count"
+    t.integer  "users_pending_count"
+    t.integer  "users_passive_count"
+    t.integer  "reviews_count"
+    t.datetime "created_at"
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer "tag_id"

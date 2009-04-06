@@ -187,6 +187,7 @@ namespace :limecast do
     desc 'Configure the crontab'
     task :crontab, :roles => :app do
       cron = "5,35 * * * * cd #{current_path} && RAILS_ENV=production rake ts:in\n"
+      cron << "0 0 * * 0-6 cd #{current_path} && RAILS_ENV=production script/create_statistic\n"
       run "rm -rf #{shared_path}/crontab"
       put cron, "#{shared_path}/crontab"
       run "crontab #{shared_path}/crontab"

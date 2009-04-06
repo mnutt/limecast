@@ -102,6 +102,7 @@ class FeedProcessor
       end
     end
   rescue NoMethodError
+    @state = "invalid_address"
     raise InvalidAddressException
   end
 

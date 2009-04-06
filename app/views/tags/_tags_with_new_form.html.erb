@@ -6,4 +6,4 @@
         [render(:partial => 'tags/new', :locals => {:podcast => @podcast})]) -%>
 </ul>
 
-<%= render :partial => "podcasts/edit_tags", :locals => {:podcast => @podcast} if current_user && @podcast.taggers.include?(current_user) -%>
+<%= render :partial => "podcasts/edit_tags", :locals => {:podcast => @podcast} if current_user && (@podcast.taggers.include?(current_user) || @podcast.editors.include?(current_user)) -%>

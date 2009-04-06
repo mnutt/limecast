@@ -13,11 +13,12 @@ class UserTaggingsController < ApplicationController
 
         # Try to add Tag, Tagging, and UserTagging for each tagstring
         Tag.connection.transaction do
-          tag = Tag.find_by_name(tag.strip) || Tag.create(:name => tag)
-          tagging = @podcast.taggings.find_by_tag_id(tag.id) || @podcast.taggings.create(:tag_id => tag.id)
-
-          user_tagging = UserTagging.create!(:tagging => tagging, :user => current_user) 
-          remember_unclaimed_record(user_tagging)
+          if tag = Tag.find_or_create_by_name(tag.strip.downcase)
+            if tagging = @podcast.taggings.find_or_create_by_tag_id(tag.id)
+              user_tagging = UserTagging.create!(:tagging => tagging, :user => current_user) 
+              remember_unclaimed_record(user_tagging)
+            end
+          end
         end
 
       end

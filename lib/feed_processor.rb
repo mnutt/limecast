@@ -53,6 +53,11 @@ class FeedProcessor
 
   rescue Exception
     exception = $!
+
+    if ActiveRecord::RecordInvalid === exception
+      @state = "invalid_xml"
+    end
+
     log_failed(exception)
     PodcastMailer.deliver_failed_feed(@feed, exception)
     # We saved the duplicate feed id to a variable so that we could point this feed to the correct one

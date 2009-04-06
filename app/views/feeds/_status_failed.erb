@@ -1,17 +1,15 @@
 <p class="status_message finished">
-  <% if @podcast && @feed && @feed.parsed? -%>
+  <% if @queued_feed.duplicate? -%>
     I've already got <%= link_to_podcast(@podcast) -%>!
-  <% elsif @feed.error == "RPodcast::InvalidXMLError" -%>
+  <% elsif @queued_feed.invalid_xml? -%>
     That's not an RSS feed.
-  <% elsif @feed.error == "RPodcast::NoEnclosureError" || @feed.error == "Feed::NoEnclosureException" -%>
+  <% elsif @queued_feed.no_enclosure? -%>
     That's a text RSS feed, not an audio or video podcast.
-  <% elsif @feed.error == "Feed::InvalidAddressException" -%>
+  <% elsif @queued_feed.invalid_address? -%>
     That's not a web address.
-  <% elsif @feed.error == "Feed::BannedFeedException" -%>
+  <% elsif @queued_feed.blacklisted? -%>
     I can't take feeds from that site!
-  <% elsif @feed.error == "Feed::FeedDoesNotMatchPodcast" -%>
-    This feed doesn't seem to match the podcast.
-  <% elsif %w(SocketError Timeout::Error Errno::ENETUNREACH OpenURI::HTTPError).include?(@feed.error) -%>
+  <% elsif %w(SocketError Timeout::Error Errno::ENETUNREACH OpenURI::HTTPError).include?(@queued_feed.error) -%>
     Not found.
   <% else -%>
     There was some sort of error adding the podcast.  It's probably a bug, and we're on it.  

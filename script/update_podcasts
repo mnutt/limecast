@@ -2,11 +2,10 @@
 root_path = File.join(File.dirname(__FILE__), '..')
 require "#{root_path}/config/environment.rb"
 
-Feed.find(:all, :conditions => {:state => 'parsed'}).each do |feed|
+QueuedFeed.parsed.each do |qf|
   begin
-    puts "Getting episodes for #{feed.podcast.title}"
-    feed.fetch
-    feed.update_from_feed
+    puts "Getting episodes for #{qf.feed.podcast.title}"
+    FeedProcessor.process(qf)
   rescue Exception => e
     puts "There was a problem: #{e.message}"
   end

@@ -1,12 +1,11 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-module StopRemoveEmptyPodcast
-  def remove_empty_podcast(*args); end
-end
 describe PodcastsController do
   describe "handling GET /" do
     before(:each) do
-      @podcast = Factory.create(:parsed_podcast)
+      qf = Factory.create(:queued_feed)
+      mod_and_run_feed_processor(qf)
+      @podcast = qf.feed.podcast
     end
 
     def do_get
@@ -31,9 +30,11 @@ describe PodcastsController do
 
   describe "handling GET /:podcast" do
     before(:each) do
-      @podcast = Factory.create(:parsed_podcast)
-      @podcast.feeds.first.extend(StopRemoveEmptyPodcast)
-      @podcast.feeds.first.refresh
+      qf = Factory.create(:queued_feed)
+      mod_and_run_feed_processor(qf)
+      @podcast = qf.feed.podcast
+
+      # @podcast.feeds.first.refresh
       @podcast.reload
     end
 
@@ -130,9 +131,9 @@ describe PodcastsController do
         @podcast.feeds.find_by_url(url).finder.should == @user
       end
 
-      it "should delete a feed (via nested form attributes)" do
+      it "should delete a podcast if the last feed is deleted (via nested form attributes)" do
         podcast_with_nested_attrs = {'feeds_attributes' => {"0" => {"id" => @podcast.feeds.first.id.to_s, "_delete" => "1"}}}
-        lambda { do_put(podcast_with_nested_attrs) }.should change{ @podcast.reload.feeds.size }.by(-1)
+        lambda { do_put(podcast_with_nested_attrs) }.should change{ Feed.count + Podcast.count }.by(-2)
       end
 
       it "should delete a podcast (via nested form attributes)" do

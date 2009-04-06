@@ -1,5 +1,4 @@
 class FeedsController < ApplicationController
-  before_filter :replace_feed_protocol, :only => [:create, :status, :update]
   skip_before_filter :verify_authenticity_token, :only => :status
 
   def new
@@ -13,35 +12,38 @@ class FeedsController < ApplicationController
   end
 
   def create
-    if @feed = Feed.find_by_url(params[:feed][:url])
-      @feed.update_attribute(:state, "pending") if @feed.state == "failed"
-      @feed.send_later(:refresh)
-    else
-      @feed = Feed.create(:url => params[:feed][:url])
-    end
+    @queued_feed = QueuedFeed.find_or_initialize_by_url(params[:feed][:url])
 
-    remember_unclaimed_record(@feed)
+    if @queued_feed.new_record?
+		  @queued_feed.save
+			remember_unclaimed_record(@queued_feed)
+    else
+      @queued_feed.save
+		end
 
     render :nothing => true
   end
 
   def status
-    @feed    = Feed.find_by_url(params[:feed])
-    @podcast = @feed.podcast unless @feed.nil?
+    @queued_feed = QueuedFeed.find_by_url(params[:feed])
+    @feed        = @queued_feed.feed if @queued_feed
+    @podcast     = @feed.podcast if @queued_feed && @feed
 
     # See http://wiki.limewire.org/index.php?title=LimeCast_Add#Messages
     # Unexpected errors
-    if @feed.nil?
+    if @queued_feed.nil?
       render :partial => 'status_error'
     # Successes
-    elsif @podcast && @feed.parsed? && feed_created_just_now_by_user?(@feed)
+    elsif @podcast && @queued_feed.parsed? && queued_feed_created_just_now_by_user?(@queued_feed)
       render :partial => 'status_added'
-    # Expected errors
-    elsif @feed.failed? || @podcast && @feed.parsed?
-      render :partial => 'status_failed'
+    elsif @podcast && @queued_feed.parsed?
+      render :partial => 'status_conflict'
     # Progress
-    elsif @feed.pending?
+    elsif @queued_feed.pending?
       render :partial => 'status_loading'
+    # Expected errors
+    elsif !@queued_feed.failed?
+      render :partial => 'status_failed'
     # Really unexpected errors
     else
       render :partial => 'status_error'
@@ -113,21 +115,15 @@ class FeedsController < ApplicationController
 
   protected
 
-    def feed_in_session?(feed)
-      (session[:feeds] and session[:feeds].include?(feed.id))
+    def queued_feed_in_session?(queued_feed)
+      has_unclaimed_record?(QueuedFeed, lambda {|i| i.id == queued_feed.id })
     end
 
-    def feed_created_by_user?(feed)
-      feed_in_session?(feed) or feed.writable_by?(current_user)
+    def queued_feed_created_by_user?(queued_feed)
+      queued_feed_in_session?(queued_feed) or queued_feed.user == current_user
     end
 
-    def feed_created_just_now_by_user?(feed)
-      feed_created_by_user?(feed) && feed.just_created?
-    end
-
-    # WebKit sneaks in feed:// sometimes, so we can take care of it here.
-    def replace_feed_protocol
-      params[:feed][:url] if params[:feed][:url]
-      params[:feed].gsub!(/^feed\:\/\//i, 'http://') if params[:feed].is_a?(String)
+    def queued_feed_created_just_now_by_user?(queued_feed)
+      queued_feed_created_by_user?(queued_feed) && queued_feed.created_at > 2.minutes.ago
     end
 end

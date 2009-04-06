@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+require 'yaml'
+require 'rubygems'
+require 'json'
+
+ROOT = ARGV[0] || File.expand_path(File.dirname(__FILE__) + "/../app/views")
+
+view_paths = Dir.glob(ROOT+"/**/*.erb")
+partials = []
+views = []
+view_paths.each do |view|
+  if view =~ /\/\_/
+    partials << view
+  end
+end
+
+def find_partials(file)
+  file.gsub!(/\.html/, '') unless File.exist?(file)
+  return "file not found: #{file}" unless File.exist?(file)
+  content = File.read(file)
+  found_partials = content.scan /render\s*\:partial\s*\=\>\s*[\"\']([^"']*)[\"\']/
+  return {file => nil} if found_partials.nil? || found_partials == []
+
+  {file =>  
+  found_partials.map {|partial|
+    partial_path = partial[0].split('/')
+    partial_path[partial_path.size - 1] = "_" + partial_path[partial_path.size - 1]
+    if partial_path.size > 1
+      partial = ROOT.sub(/views\/.*/, 'views') + "/" + partial_path.join('/') + ".html.erb"
+    else
+      partial = File.dirname(file) + "/" + partial_path.first + ".html.erb"
+    end
+    find_partials(partial)
+  }}
+end
+
+views = view_paths.map { |file|
+  partials.include?(file) ? nil : find_partials(file)
+}.compact
+
+def clean(k, v=nil)
+  if v.nil? or v == []
+    {k.gsub(/#{ROOT}\//, '') => v}
+  else
+    {k.gsub(/#{ROOT}\//, '') => v.map{|i| String === i ? i : clean(i.keys.first, i.values.first)} }
+  end
+end
+
+puts views.map{|v| clean(v.keys.first, v.values.first) }.to_yaml

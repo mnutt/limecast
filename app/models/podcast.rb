@@ -58,6 +58,7 @@ class Podcast < ActiveRecord::Base
                                  :large  => ["300x300>", :png],
                                  :icon   => ["25x25#", :png] }
 
+  named_scope :not_approved, :conditions => {:approved => false}
   named_scope :approved, :conditions => {:approved => true}
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
   named_scope :parsed, lambda {
@@ -101,6 +102,16 @@ class Podcast < ActiveRecord::Base
     i = self.find_by_clean_url(slug)
     raise ActiveRecord::RecordNotFound if i.nil? || slug.nil?
     i
+  end
+
+	# XXX: Write spec for this
+  def blacklist!
+    self.feeds.each do |f|
+    Blacklist.create(:domain => f.url)
+      f.update_attributes(:state => "blacklisted")
+    end
+    
+    self.destroy
   end
 
   # All taggings that are either badges or tags that have been user_tagging'ed.
@@ -159,6 +170,7 @@ class Podcast < ActiveRecord::Base
     end
 
     self.attachment_for(:logo).assign(file)
+  rescue OpenURI::HTTPError
   end
 
   def average_time_between_episodes
@@ -169,10 +181,6 @@ class Podcast < ActiveRecord::Base
 
   def clean_site
     self.site ? self.site.to_url : ''
-  end
-
-  def failed?
-    feeds(true).all? { |f| f.failed? }
   end
 
   def primary_feed_with_default
@@ -261,13 +269,25 @@ class Podcast < ActiveRecord::Base
     end
   end
 
-  protected
+	def new?
+		created_at == updated_at
+	end
+
+	def notify_users
+    if self.new?
+      PodcastMailer.deliver_new_podcast(self)
+    elsif !self.last_changes.blank?
+      PodcastMailer.deliver_updated_podcast_from_feed(self)
+    end
+  end
+
   def add_message(msg)
     # TODO this could probably be a one-liner
     # TODID i will verify that making this method a one-liner is possible
     self.messages << msg
   end
 
+  protected
   def sanitize_title
     if new_record?
       self.title = original_title if title.blank? # cache the original_title on create

@@ -12,7 +12,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :tags, :member => { :merge => :any }
     admin.resources :users
 
-    admin.approve_podcast '/podcast/:podcast_slug/approve', :action => "approve", :controller => "podcasts"
+    admin.approve_podcast   '/podcasts/approve', :action => "approve", :controller => "podcasts"
+    admin.blacklist_podcast '/podcasts/blacklist/:podcast_slug', :action => "blacklist", :controller => "podcasts"
   end
 
   map.resource  :session

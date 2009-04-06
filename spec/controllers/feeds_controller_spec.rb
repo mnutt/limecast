@@ -27,24 +27,24 @@ describe FeedsController do
     end
   end
 
-  describe "handling PUT /feeds when not logged in" do
+  describe "handling POST /feeds when not logged in" do
     before(:each) do
-      put :create, :feed => {:url => "http://mypodcast/feed.xml"}
+      post :create, :feed => {:url => "http://example.com/podcast/feed.xml"}
     end
 
     it 'should save an unclaimed feed' do
-      assigns[:feed].should be_kind_of(Feed)
-      assigns[:feed].should_not be_new_record
-      assigns[:feed].finder.should be_nil
-      Feed.unclaimed.should include(assigns[:feed])
+      assigns[:queued_feed].should be_kind_of(QueuedFeed)
+      assigns[:queued_feed].should_not be_new_record
+      assigns[:queued_feed].user.should be_nil
+      QueuedFeed.unclaimed.should include(assigns[:queued_feed])
     end
 
     it 'should add the feed to the session' do
-      session[:unclaimed_records]['Feed'].should include(assigns[:feed].id)
+      session[:unclaimed_records]['QueuedFeed'].should include(assigns[:queued_feed].id)
     end
 
     it 'should not associate the feed with a user' do
-      assigns[:feed].finder.should be_nil
+      assigns[:queued_feed].user.should be_nil
     end
   end
 
@@ -52,29 +52,30 @@ describe FeedsController do
     before(:each) do
       @user = Factory.create(:user)
       login(@user)
-      post :create, :feed => {:url => "http://mypodcast/feed.xml"}
+      post :create, :feed => {:url => "http://example.com/podcast/feed.xml"}
     end
 
     it 'should save the feed' do
-      assigns(:feed).should be_kind_of(Feed)
-      assigns(:feed).should_not be_new_record
+      assigns(:queued_feed).should be_kind_of(QueuedFeed)
+      assigns(:queued_feed).should_not be_new_record
     end
 
     it 'should associate the feed with the user' do
-      assigns(:feed).finder.should == @user
+      assigns(:queued_feed).user.should == @user
     end
 
     it 'should create a feed' do
-      assigns(:feed).should be_kind_of(Feed)
-      assigns(:feed).url.should == "http://mypodcast/feed.xml"
+      assigns(:queued_feed).should be_kind_of(QueuedFeed)
+      assigns(:queued_feed).url.should == "http://example.com/podcast/feed.xml"
     end
   end
 
   describe "POST /status" do
     describe "for a podcast that has not yet been parsed" do
       before(:each) do
-        @podcast = Factory.create(:podcast)
-        post :status, :feed => @podcast.feeds.first.url
+        @queued_feed = Factory.create(:queued_feed, :state => nil)
+        @podcast = Factory.create(:podcast, :feeds => [@queued_feed.feed])
+        post :status, :feed => {:url => @queued_feed.url}
       end
 
       it 'should render the loading template' do
@@ -84,10 +85,12 @@ describe FeedsController do
 
     describe "for a podcast that has been parsed" do
       before(:each) do
-        @podcast = Factory.create(:parsed_podcast)
-        controller.should_receive(:feed_created_just_now_by_user?).and_return(true)
+        @queued_feed = Factory.create(:queued_feed)
+        @podcast = Factory.create(:podcast, :feeds => [@queued_feed.feed])
 
-        post :status, :feed => @podcast.feeds.first.url
+        controller.should_receive(:queued_feed_created_just_now_by_user?).and_return(true)
+
+        post :status, :feed => {:url => @queued_feed.url}
       end
 
       it 'should render the added template' do
@@ -98,8 +101,10 @@ describe FeedsController do
     describe "for a podcast that has failed" do
       describe "because it was not a web address" do
         before(:each) do
-          @podcast = Factory.create(:failed_podcast)
-          post :status, :feed => @podcast.feeds.first.url
+          @queued_feed = Factory.create(:queued_feed, :state => "failed")
+          @podcast = Factory.create(:podcast, :feeds => [@queued_feed.feed])
+
+          post :status, :feed => {:url => @queued_feed.url}
         end
 
         it 'should render the error template' do

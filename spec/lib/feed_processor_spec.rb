@@ -48,6 +48,19 @@ describe FeedProcessor, "being parsed" do
   end
 end
 
+describe FeedProcessor, "failing" do
+  before do
+    @qf = QueuedFeed.create(:url => "http://google.com/rss.xml")
+    mod_and_run_feed_processor(@qf, FetchRegularFeed)
+  end
+
+  it 'should not create a Feed' do
+    FeedProcessor.process(@qf)
+
+    @qf.feed.should be_nil
+  end
+end
+
 
 # Feed is already in the system, looking it up by url.
 describe FeedProcessor, "being reparsed" do

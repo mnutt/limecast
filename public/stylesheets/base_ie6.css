@@ -11,6 +11,10 @@
 	width: 110px;
 	float: left;
 }
+.home .podcast_block .preview , .home .podcast_block .preview img {
+  width: 160px;
+}
+
 .podcast_block .description {
 	position: relative;
   overflow: auto;
@@ -47,6 +51,11 @@ ul.tabs {
   margin-right: 20px;
   float: left;
   width: 160px;
+}
+
+.home .social {
+  margin: 0;
+  width: auto;
 }
 
 #download_button a.download {

@@ -22,12 +22,13 @@ class FeedProcessor
   end
 
   def initialize(queued_feed)
-    @qf   = queued_feed
-    @feed = queued_feed.feed || Feed.create(:url => @qf.url)
+    @qf = queued_feed
   end
 
   def process
     ActiveRecord::Base.transaction do
+      @feed = @qf.feed || Feed.create(:url => @qf.url)
+
       raise InvalidAddressException if invalid_address?
       raise BannedFeedException     if banned?
 
@@ -54,7 +55,8 @@ class FeedProcessor
     exception = $!
     log_failed(exception)
     PodcastMailer.deliver_failed_feed(@feed, exception)
-    @qf.update_attributes(:state => 'failed', :error => exception.class.to_s)
+    # We saved the duplicate feed id to a variable so that we could point this feed to the correct one
+    @qf.update_attributes(:state => @state || 'failed', :feed_id => @duplicate_feed_id, :error => exception.class.to_s)
   end
 
   def log_failed(exception)
@@ -152,19 +154,27 @@ class FeedProcessor
   protected
 
   def invalid_address?
-    !@qf.url =~ %r{^([^/]*//)?([^/]+)}
+    invalid_address = !@qf.url =~ %r{^([^/]*//)?([^/]+)}
+    @state = "invalid_address" if invalid_address
+    invalid_address
   end
 
   def banned?
-    !!(Blacklist.find_by_domain($2) if @qf.url =~ %r{^([^/]*//)?([^/]+)})
+    banned = !!(Blacklist.find_by_domain($2) if @qf.url =~ %r{^([^/]*//)?([^/]+)})
+    @state = "blacklisted" if banned
+    banned
   end
 
   def no_enclosure?
-    !@rpodcast_feed.has_enclosure?
+    no_enclosure = !@rpodcast_feed.has_enclosure?
+    @state = "no_enclosure" if no_enclosure
+    no_enclosure
   end
 
   def invalid_xml?
-    !@rpodcast_feed.valid?
+    invalid_xml = !@rpodcast_feed.valid?
+    @state = "invalid_xml" if invalid_xml
+    invalid_xml
   end
 
   def duplicate_feed?
@@ -172,7 +182,11 @@ class FeedProcessor
       episode = @feed.podcast.episodes.find_by_title(e.title) || @feed.podcast.episodes.new
       source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => @feed)
     
-      return true if source.feed != @feed
+      if source.feed != @feed
+        @duplicate_feed_id = source.feed_id
+        @state = "duplicate"
+        return true
+      end
     end
 
     false

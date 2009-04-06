@@ -27,10 +27,14 @@ class QueuedFeed < ActiveRecord::Base
   named_scope :unclaimed, :conditions => {:user_id => nil}#"user_id IS NULL"
   named_scope :claimed, :conditions => "user_id IS NOT NULL"
   named_scope :parsed, :conditions => {:state => 'parsed'}
-  def pending?;     self.state == 'pending' || self.state.nil? end
-  def parsed?;      self.state == 'parsed' end
-  def failed?;      self.state == 'failed' end
-  def blacklisted?; self.state == 'blacklisted' end
+  def pending?;      self.state == 'pending' || self.state.nil? end
+  def parsed?;       self.state == 'parsed' end
+  def failed?;       self.state == 'failed' end
+  def blacklisted?;  self.state == 'blacklisted' end
+  def duplicate?;    self.state == 'duplicate' end
+  def invalid_xml?;  self.state == 'invalid_xml' end
+  def invalid_address?;  self.state == 'invalid_address' end
+  def no_enclosure?; self.state == 'no_enclosure' end
 
   attr_accessor :content
 

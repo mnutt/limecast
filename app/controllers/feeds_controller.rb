@@ -36,12 +36,12 @@ class FeedsController < ApplicationController
     # Successes
     elsif @podcast && @queued_feed.parsed? && queued_feed_created_just_now_by_user?(@queued_feed)
       render :partial => 'status_added'
-    # Expected errors
-    elsif @queued_feed.failed? || @queued_feed.blacklisted? || @podcast && @queued_feed.parsed?
-      render :partial => 'status_failed'
     # Progress
     elsif @queued_feed.pending?
       render :partial => 'status_loading'
+    # Expected errors
+    elsif !@queued_feed.failed?
+      render :partial => 'status_failed'
     # Really unexpected errors
     else
       render :partial => 'status_error'

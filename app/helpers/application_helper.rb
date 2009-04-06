@@ -232,8 +232,16 @@ xx
   end
 
   # Question mark on info pages, #non_blank also does #h
-  def non_blank(text)
-    text.blank? ? blankness : h(text)
+  def non_blank(text=nil, &block)
+    if block
+      begin
+        block.call
+      rescue
+        blankness
+      end
+    else
+      text.blank? ? blankness : h(text)
+    end
   end
   
   def blankness

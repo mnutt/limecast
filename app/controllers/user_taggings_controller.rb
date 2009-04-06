@@ -13,15 +13,11 @@ class UserTaggingsController < ApplicationController
 
         # Try to add Tag, Tagging, and UserTagging for each tagstring
         Tag.connection.transaction do
-          tag = Tag.find_by_name(tag.strip) || Tag.create(:name => tag)
-          tagging = Tagging.create(:podcast => @podcast, :tag => tag)
-
-          begin
-            user_tagging = UserTagging.create!(:tagging => tagging, :user => current_user) 
-            remember_unclaimed_record(user_tagging)
-          rescue ActiveRecord::RecordInvalid => e
-            flash[:notice] = "You are only allowed to add 8 tags for this podcast."
-            raise e # rollback Tag and Tagging if UserTagging not created
+          if tag = Tag.find_or_create_by_name(tag.strip.downcase)
+            if tagging = @podcast.taggings.find_or_create_by_tag_id(tag.id)
+              user_tagging = UserTagging.create!(:tagging => tagging, :user => current_user) 
+              remember_unclaimed_record(user_tagging)
+            end
           end
         end
 
@@ -34,8 +30,11 @@ class UserTaggingsController < ApplicationController
     end
   rescue ActiveRecord::RecordInvalid => e
     respond_to do |format|
-      format.html { redirect_to(@podcast) }
-      format.js { render :json => {:success => false } }
+      format.html { 
+        flash[:notice] = "You are only allowed to add 8 tags for this podcast."
+        redirect_to(@podcast)
+      }
+      format.js { render :json => {:success => false, :html => render_to_string(:partial => "tags/tags_with_new_form", :object => @podcast.reload.tags, :locals => {:podcast => @podcast.reload}) } }
     end
   end
   

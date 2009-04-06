@@ -21,10 +21,11 @@ function podcastTagEdit() {
     $.post(tag_url, 
            tag_form.serialize(), 
            function(resp) { 
-             $('#tags_block').html(resp.html); 
-             podcastTagEdit(); 
-             $("#user_tagging_tag_string").inputDefaultText(); 
+             $('#tags_block').html(resp.html); // update tags partial
+             podcastTagEdit(); // reattach events
+             $("#user_tagging_tag_string").inputDefaultText();
              $('#podcast_edit_tags_link a').click();
+             $("#user_tagging_tag_string").attr('value', '').blur();
            }, 
           'json');
     return false;

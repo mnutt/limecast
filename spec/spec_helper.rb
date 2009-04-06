@@ -11,7 +11,6 @@ require 'spec/rails'
 require 'factory_girl'
 require 'thinking_sphinx'
 require 'factories'
-require 'rspec-rails-monkey-patch'
 
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true

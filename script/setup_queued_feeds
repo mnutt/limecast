@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+root_path = File.join(File.dirname(__FILE__), '..')
+require "#{root_path}/config/environment.rb"
+
+Feed.all.each do |f|
+  qf = QueuedFeed.find_or_initialize_by_url(f.url)
+  qf.update_attributes(
+    :state   => f.state,
+    :error   => f.error,
+    :feed_id => f.id
+  )
+end
+

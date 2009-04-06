@@ -5,6 +5,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 include AuthenticatedTestHelper
 
 describe UsersController do
+  integrate_views
 
   it 'allows signup' do
     lambda do
@@ -48,6 +49,8 @@ describe UsersController do
 end
 
 describe UsersController, "handling POST /users" do
+  integrate_views
+
   describe "when the email is bad" do
     before do
       post :create, {:user => {:login => 'quire', :password => 'blah'}, :format => 'js'}
@@ -157,6 +160,8 @@ describe UsersController, "handling POST /users" do
 end
 
 describe UsersController, "handling PUT /user/:user" do
+  integrate_views
+
   describe "when user is the current user" do
 
     before(:each) do
@@ -217,6 +222,8 @@ describe UsersController, "handling PUT /user/:user" do
 end
 
 describe UsersController, "handling GET /user" do
+  integrate_views
+
   before(:each) do
     @user = Factory.create(:user)
     get :index
@@ -242,6 +249,8 @@ describe UsersController, "handling GET /claim" do
 end
 
 describe UsersController, "handling POST /claim" do
+  integrate_views
+
   before(:each) do
     @user = Factory.create(:passive_user)
   end
@@ -284,6 +293,8 @@ describe UsersController, "handling POST /claim" do
 end
 
 describe UsersController, "handling GET /claim/:code" do
+  integrate_views
+
   before(:each) do
     @user = Factory.create(:passive_user)
     @user.generate_reset_password_code
@@ -306,6 +317,8 @@ describe UsersController, "handling GET /claim/:code" do
 end
 
 describe UsersController, "handling POST /claim/:code" do
+  integrate_views
+
   before(:each) do
     @user = Factory.create(:passive_user)
     @user.generate_reset_password_code

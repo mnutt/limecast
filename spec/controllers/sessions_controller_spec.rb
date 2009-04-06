@@ -5,6 +5,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 include AuthenticatedTestHelper
 
 describe SessionsController do
+  integrate_views
 
   before do
     @user = Factory.create(:user, :logged_in_at => 2.days.ago)

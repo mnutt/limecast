@@ -29,23 +29,40 @@ class FeedProcessor
     ActiveRecord::Base.transaction do
       @feed = @qf.feed || Feed.create(:url => @qf.url)
 
-      raise InvalidAddressException if invalid_address?
-      raise BannedFeedException     if banned?
+      if invalid_address?
+        @state = "invalid_address"
+        raise InvalidAddressException
+      end
+      if banned?
+        @state = "blacklisted"
+        raise BannedFeedException
+      end
 
       @content = fetch
       @rpodcast_feed = RPodcast::Feed.new(@content)
 
-      raise InvalidFeedException if invalid_xml?
-      raise NoEnclosureException if no_enclosure?
+      if invalid_xml?
+        @state = "invalid_xml"
+        raise InvalidFeedException
+      end
+      if no_enclosure?
+        @state = "no_enclosure"
+        raise NoEnclosureException
+      end
 
       @rpodcast_feed.parse
 
-      raise InvalidFeedException if no_episodes?
+      if no_episodes?
+        raise InvalidFeedException
+      end
 
       update_podcast!
       update_tags!
 
-      raise DuplicateFeedExeption if duplicate_feed?
+      if duplicate_feed?
+        @state = "duplicate"
+        raise DuplicateFeedExeption
+      end
 
       update_episodes!
       update_feed!
@@ -85,6 +102,7 @@ class FeedProcessor
       end
     end
   rescue NoMethodError
+    @state = "invalid_address"
     raise InvalidAddressException
   end
 
@@ -159,27 +177,19 @@ class FeedProcessor
   protected
 
   def invalid_address?
-    invalid_address = !@qf.url =~ %r{^([^/]*//)?([^/]+)}
-    @state = "invalid_address" if invalid_address
-    invalid_address
+    !@qf.url =~ %r{^([^/]*//)?([^/]+)}
   end
 
   def banned?
-    banned = !!(Blacklist.find_by_domain($2) if @qf.url =~ %r{^([^/]*//)?([^/]+)})
-    @state = "blacklisted" if banned
-    banned
+    !!(Blacklist.find_by_domain($2) if @qf.url =~ %r{^([^/]*//)?([^/]+)})
   end
 
   def no_enclosure?
-    no_enclosure = !@rpodcast_feed.has_enclosure?
-    @state = "no_enclosure" if no_enclosure
-    no_enclosure
+    !@rpodcast_feed.has_enclosure?
   end
 
   def invalid_xml?
-    invalid_xml = !@rpodcast_feed.valid?
-    @state = "invalid_xml" if invalid_xml
-    invalid_xml
+    !@rpodcast_feed.valid?
   end
 
   def duplicate_feed?
@@ -189,7 +199,6 @@ class FeedProcessor
     
       if source.feed != @feed
         @duplicate_feed_id = source.feed_id
-        @state = "duplicate"
         return true
       end
     end

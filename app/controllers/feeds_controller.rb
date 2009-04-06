@@ -114,8 +114,7 @@ class FeedsController < ApplicationController
   protected
 
     def queued_feed_in_session?(queued_feed)
-      # XXX: Fix to mesh with tiegs code
-      (session[:queued_feeds] and session[:queued_feeds].include?(queued_feed.id))
+      has_unclaimed_record?(QueuedFeed, lambda {|i| i.id == queued_feed.id })
     end
 
     def queued_feed_created_by_user?(queued_feed)

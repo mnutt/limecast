@@ -36,6 +36,8 @@ class FeedsController < ApplicationController
     # Successes
     elsif @podcast && @queued_feed.parsed? && queued_feed_created_just_now_by_user?(@queued_feed)
       render :partial => 'status_added'
+    elsif @podcast && @queued_feed.parsed?
+      render :partial => 'status_conflict'
     # Progress
     elsif @queued_feed.pending?
       render :partial => 'status_loading'

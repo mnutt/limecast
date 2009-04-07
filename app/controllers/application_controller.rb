@@ -155,7 +155,7 @@ class ApplicationController < ActionController::Base
     # If +func+ is passed in, this only returns true if the func is true for at least one of the records
     # of this class in the session[:unclaimed_records]
     def has_unclaimed_record?(klass, func=nil)
-      if session[:unclaimed_records] && records = klass.find(session[:unclaimed_records][klass.to_s])
+      if session[:unclaimed_records] && session[:unclaimed_records][klass.to_s] && records = klass.find(session[:unclaimed_records][klass.to_s])
         return false if records.empty?
         return false if func && !records.any?(&func)
         return true

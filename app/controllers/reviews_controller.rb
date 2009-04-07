@@ -13,11 +13,11 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    review_params    = params[:review].keep_keys([:title, :body, :positive, :episode_id])
-    @podcast         = Podcast.find_by_slug(params[:podcast_slug])
+    review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
+    @podcast      = Podcast.find_by_slug(params[:podcast_slug])
 
     unless has_unclaimed_record?(Review, lambda {|r| r.episode.podcast == @podcast })
-      @review        = Review.create(review_params)
+      @review = Review.create(review_params)
       remember_unclaimed_record(@review) if @review
     end
     

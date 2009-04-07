@@ -1,21 +1,25 @@
 # == Schema Information
-# Schema version: 20090306193031
+# Schema version: 20090407191118
 #
 # Table name: feeds
 #
 #  id          :integer(4)    not null, primary key
-#  url         :string(255)
-#  error       :string(255)
-#  itunes_link :string(255)
-#  podcast_id  :integer(4)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  url         :string(255)   
+#  error       :string(255)   
+#  itunes_link :string(255)   
+#  podcast_id  :integer(4)    
+#  created_at  :datetime      
+#  updated_at  :datetime      
 #  state       :string(255)   default("pending")
-#  bitrate     :integer(4)
-#  finder_id   :integer(4)
-#  format      :string(255)
-#  xml         :text(16777215
+#  bitrate     :integer(4)    
+#  finder_id   :integer(4)    
+#  format      :string(255)   
+#  xml         :text(16777215 
 #  ability     :integer(4)    default(0)
+#  owner_id    :integer(4)    
+#  owner_email :string(255)   
+#  owner_name  :string(255)   
+#  generator   :string(255)   
 #
 
 require 'open-uri'
@@ -35,6 +39,7 @@ class Feed < ActiveRecord::Base
   validates_uniqueness_of :url
   validates_length_of     :url, :maximum => 1024
 
+  named_scope :from_limetracker, :conditions => ["feeds.generator LIKE ?", "%limecast.com/tracker%"]
   named_scope :with_itunes_link, :conditions => 'feeds.itunes_link IS NOT NULL and feeds.itunes_link <> ""'
   named_scope :parsed, :conditions => {:state => 'parsed'}
   named_scope :unclaimed, :conditions => "finder_id IS NULL"

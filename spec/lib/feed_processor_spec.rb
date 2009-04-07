@@ -25,6 +25,10 @@ describe FeedProcessor, "being parsed" do
     @feed.podcast.reload.language.should == "en-us"
   end
 
+  it 'should set the generator of the podcast' do
+    @feed.reload.generator.should == "http://limecast.com/tracker"
+  end
+
   it 'should add tags' do
     @feed.podcast.tag_string.should include('technology', 'gadgets', 'tvandfilm')
     @feed.podcast.tags.size.should == 3
@@ -84,6 +88,10 @@ describe FeedProcessor, "being reparsed" do
 
   it 'should set the language of the podcast' do
     @feed.podcast.reload.language.should == "en-us"
+  end
+
+  it 'should set the generator of the podcast' do
+    @feed.reload.generator.should == "http://limecast.com/tracker"
   end
 end
 

@@ -58,7 +58,7 @@ t.datetime :created_at -->
       <td>feeds added by non-admins</td>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.podcasts_count}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+  <p><%= @statistics.map { |s| "<b>#{s.podcasts_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>
 
 <div class="usage">
@@ -87,7 +87,7 @@ t.datetime :created_at -->
       <td>passive</td>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.users_active_count}/#{s.users_pending_count}/#{s.users_passive_count}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+  <p><%= @statistics.map { |s| "<b>#{s.users_active_count.to_i}/#{s.users_pending_count.to_i}/#{s.users_passive_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>
 
 <div class="usage">
@@ -99,5 +99,44 @@ t.datetime :created_at -->
       <td>total</td>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.reviews_count}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+  <p><%= @statistics.map { |s| "<b>#{s.reviews_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+</div>
+
+<div class="usage">
+  <h2>Tracker installs</h2>
+  <p>
+    This is the number of feeds we have that come from LimeTracker. <br />
+    These feeds include a &lt;generator&gt; tag with a value of "limecast.com/tracker".
+  </p>
+  <table>
+    <tr>
+      <td class="key"><%= Feed.from_limetracker.size %><%= sparkline(@statistics.map(&:feeds_from_trackers_count)) %></td>
+      <td>total</td>
+    </tr>
+  </table>
+  <p><%= @statistics.map { |s| "<b>#{s.feeds_from_trackers_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+</div>
+
+<div class="usage">
+  <h2>Button installs</h2>
+  <p>This is the number of podcasts that have a LimeCast button installed (not implemented yet).</p>
+  <table>
+    <tr>
+      <td class="key"><%= Podcast.find(:all, :conditions => {:button_installed => true}).size %><%= sparkline(@statistics.map(&:podcasts_with_buttons_count)) %></td>
+      <td>total</td>
+    </tr>
+  </table>
+  <p><%= @statistics.map { |s| "<b>#{s.podcasts_with_buttons_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+</div>
+
+<div class="usage">
+  <h2>Podcasts on first page results</h2>
+  <p>This is the number of podcasts that show up on the first page of Google results. (not implemented yet)</p>
+  <table>
+    <tr>
+      <td class="key"><%= "Not implemented yet" %><%= sparkline(@statistics.map(&:podcasts_on_google_first_page_count)) %></td>
+      <td>total</td>
+    </tr>
+  </table>
+  <p><%= @statistics.map { |s| "<b>#{s.podcasts_on_google_first_page_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>

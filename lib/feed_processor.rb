@@ -130,7 +130,7 @@ class FeedProcessor
     tags << "creativecommons" if @rpodcast_feed.creative_commons?
     tags << "explicit" if @rpodcast_feed.explicit?
 
-    @feed.podcast.tag_string = tags.join(" "), (@feed.podcast.owner || @qf.finder)
+    @feed.podcast.tag_string = tags.join(" "), (@feed.podcast.owner || @qf.user)
   end
 
   def update_episodes!

@@ -38,6 +38,7 @@ class Podcast < ActiveRecord::Base
   has_many :feeds, :include => :first_source,#:dependent => :destroy,
            :after_add => :set_primary_feed, :after_remove => :set_primary_feed,
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
+  has_one  :first_feed, :class_name => 'Feed', :order => "feeds.created_at ASC", :include => :finder
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
   has_many :reviews, :through => :episodes, :conditions => "user_id IS NOT NULL"
 
@@ -103,6 +104,14 @@ class Podcast < ActiveRecord::Base
     raise ActiveRecord::RecordNotFound if i.nil? || slug.nil?
     i
   end
+  
+  def self.found_by_admin
+    Podcast.all.select { |p| p.found_by && p.found_by.admin? }
+  end
+
+  def self.found_by_nonadmin
+    Podcast.all.select { |p| p.found_by && !p.found_by.admin? }
+  end
 
 	# XXX: Write spec for this
   def blacklist!
@@ -143,7 +152,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def found_by
-    feeds.first.finder rescue nil
+    first_feed.finder rescue nil
   end
 
   def owned_by

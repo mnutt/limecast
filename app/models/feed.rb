@@ -39,6 +39,8 @@ class Feed < ActiveRecord::Base
   named_scope :parsed, :conditions => {:state => 'parsed'}
   named_scope :unclaimed, :conditions => "finder_id IS NULL"
   named_scope :claimed, :conditions => "finder_id IS NOT NULL"
+  named_scope :found_by_admin, :include => :finder, :conditions => ["users.admin = ?", true]
+  named_scope :found_by_nonadmin, :include => :finder, :conditions => ["users.admin = ? OR users.admin IS NULL", false]
 
   attr_accessor :content
 

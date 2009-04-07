@@ -131,9 +131,16 @@
   </tr>
 
   <tr>
-    <td class="key">Size exact:</td>
+    <td class="key">Size from disk exact:</td>
     <td>
-      <%= non_blank @source.size -%>
+      <%= non_blank @source.size_from_disk -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key">Size from xml exact:</td>
+    <td>
+      <%= non_blank @source.size_from_xml -%>
     </td>
   </tr>
 

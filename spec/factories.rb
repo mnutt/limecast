@@ -59,7 +59,7 @@ Factory.define :source do |s|
   s.url  "http://example.com/source.mpg"
   s.guid { (Time.now.to_i * rand).to_s }
   s.xml ""
-  s.size 1234567890
+  s.size_from_disk 1234567890
 end
 
 Factory.sequence :tag do |n|

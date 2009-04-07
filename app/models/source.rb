@@ -98,4 +98,8 @@ class Source < ActiveRecord::Base
   def extension
     file_name.split('.').last
   end
+
+  def size
+    self.size_from_disk || self.size_from_xml || 0
+  end
 end

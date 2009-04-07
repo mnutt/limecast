@@ -148,14 +148,14 @@ class FeedProcessor
         :duration     => e.duration
       )
       source.update_attributes(
-        :guid       => e.guid,
-        :format     => e.enclosure.format.to_s,
-        :type       => e.enclosure.content_type,
-        :size       => e.enclosure.size,
-        :url        => e.enclosure.url,
-        :episode_id => episode.id,
-        :xml        => e.raw_xml,
-        :archived   => false
+        :guid          => e.guid,
+        :format        => e.enclosure.format.to_s,
+        :type          => e.enclosure.content_type,
+        :size_from_xml => e.enclosure.size,
+        :url           => e.enclosure.url,
+        :episode_id    => episode.id,
+        :xml           => e.raw_xml,
+        :archived      => false
       )
     end
   end

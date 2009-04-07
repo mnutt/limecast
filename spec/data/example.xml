@@ -5,6 +5,7 @@
     <title>All About Everything</title>
     <link>http://www.example.com/podcasts/everything/index.html</link>
     <language>en-us</language>
+    <generator>http://limecast.com/tracker</generator>
     <copyright>&#x2117; &amp; &#xA9; 2005 John Doe &amp; Family</copyright>
     <itunes:subtitle>A show about everything</itunes:subtitle>
     <itunes:author>John Doe</itunes:author>

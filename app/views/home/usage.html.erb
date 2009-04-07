@@ -13,7 +13,7 @@ Podcasts on first page of search results -->
 
 <div class="usage">
   <h2>Podcasts</h2>
-  <p>This is the number of podcasts in the system.</p>
+  <p>The number of podcasts in the system.</p>
   <table>
     <tr>
       <td class="key"><%= Podcast.all.size %></td>
@@ -41,4 +41,45 @@ Podcasts on first page of search results -->
     </tr>
   </table>
   <p><%= @statistics.map { |s| "<b>#{s.podcasts_count}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+</div>
+
+<div class="usage">
+  <h2>Users</h2>
+  <p>
+    The number of users in the system. <br />
+    <strong>Active</strong> users have been confirmed by email. <br />
+    <strong>Pending</strong> haven't confirmed their email, but are able to edit things. <br />
+    <strong>Passive</strong> users can't edit things, haven't confirmed their email, and are usually added automatically when a podcast is created (as its owner).
+  </p>
+  <table>
+    <tr>
+      <td class="key"><%= User.all.size %></td>
+      <td>total</td>
+    </tr>
+    <tr>
+      <td class="key"><%= User.active.size %></td>
+      <td>active</td>
+    </tr>
+    <tr>
+      <td class="key"><%= User.pending.size %></td>
+      <td>pending</td>
+    </tr>
+    <tr>
+      <td class="key"><%= User.passive.size %></td>
+      <td>passive</td>
+    </tr>
+  </table>
+  <p><%= @statistics.map { |s| "<b>#{s.users_active_count}/#{s.users_pending_count}/#{s.users_passive_count}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+</div>
+
+<div class="usage">
+  <h2>Reviews</h2>
+  <p>This is the number of reviews in the system.</p>
+  <table>
+    <tr>
+      <td class="key"><%= Review.all.size %></td>
+      <td>total</td>
+    </tr>
+  </table>
+  <p><%= @statistics.map { |s| "<b>#{s.reviews_count}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>

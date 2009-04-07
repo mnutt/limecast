@@ -7,6 +7,24 @@ Tracker installs
 Button installs
 Podcasts on first page of search results -->
 
+<!-- t.integer :podcasts_count
+t.integer :podcasts_found_by_admins_count
+t.integer :podcasts_found_by_nonadmins_count
+
+t.integer :feeds_count
+t.integer :feeds_found_by_admins_count
+t.integer :feeds_found_by_nonadmins_count
+
+t.integer :users_count
+t.integer :users_active_count
+t.integer :users_pending_count
+t.integer :users_passive_count
+
+t.integer :reviews_count
+
+t.datetime :created_at -->
+
+
 <% @title = "Use" -%>
 <h1>Use</h1>
 
@@ -16,27 +34,27 @@ Podcasts on first page of search results -->
   <p>The number of podcasts in the system.</p>
   <table>
     <tr>
-      <td class="key"><%= Podcast.all.size %></td>
+      <td class="key"><%= Podcast.all.size %><%= sparkline(@statistics.map(&:podcasts_count))%></td>
       <td>total</td>
     </tr>
     <tr>
-      <td class="key"><%= Podcast.found_by_admin.size %></td>
+      <td class="key"><%= Podcast.found_by_admin.size %><%= sparkline(@statistics.map(&:podcasts_found_by_admins_count))%></td>
       <td>podcasts added by admins</td>
     </tr>
     <tr>
-      <td class="key"><%= Podcast.found_by_nonadmin.size %></td>
+      <td class="key"><%= Podcast.found_by_nonadmin.size %><%= sparkline(@statistics.map(&:podcasts_found_by_nonadmins_count))%></td>
       <td>podcasts added by non-admins</td>
     </tr>
     <tr>
-      <td class="key"><%= Feed.all.size %></td>
+      <td class="key"><%= Feed.all.size %><%= sparkline(@statistics.map(&:feeds_count))%></td>
       <td>feeds total</td>
     </tr>
     <tr>
-      <td class="key"><%= Feed.found_by_admin.size %></td>
+      <td class="key"><%= Feed.found_by_admin.size %><%= sparkline(@statistics.map(&:feeds_found_by_admins_count))%></td>
       <td>feeds added by admins</td>
     </tr>
     <tr>
-      <td class="key"><%= Feed.found_by_nonadmin.size %></td>
+      <td class="key"><%= Feed.found_by_nonadmin.size %><%= sparkline(@statistics.map(&:feeds_found_by_nonadmins_count))%></td>
       <td>feeds added by non-admins</td>
     </tr>
   </table>
@@ -53,19 +71,19 @@ Podcasts on first page of search results -->
   </p>
   <table>
     <tr>
-      <td class="key"><%= User.all.size %></td>
+      <td class="key"><%= User.all.size %><%= sparkline(@statistics.map(&:users_count))%></td>
       <td>total</td>
     </tr>
     <tr>
-      <td class="key"><%= User.active.size %></td>
+      <td class="key"><%= User.active.size %><%= sparkline(@statistics.map(&:users_active_count))%></td>
       <td>active</td>
     </tr>
     <tr>
-      <td class="key"><%= User.pending.size %></td>
+      <td class="key"><%= User.pending.size %><%= sparkline(@statistics.map(&:users_pending_count))%></td>
       <td>pending</td>
     </tr>
     <tr>
-      <td class="key"><%= User.passive.size %></td>
+      <td class="key"><%= User.passive.size %><%= sparkline(@statistics.map(&:users_passive_count))%></td>
       <td>passive</td>
     </tr>
   </table>
@@ -77,7 +95,7 @@ Podcasts on first page of search results -->
   <p>This is the number of reviews in the system.</p>
   <table>
     <tr>
-      <td class="key"><%= Review.all.size %></td>
+      <td class="key"><%= Review.all.size %><%= sparkline(@statistics.map(&:reviews_count))%></td>
       <td>total</td>
     </tr>
   </table>

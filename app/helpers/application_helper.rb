@@ -263,4 +263,16 @@ xx
     [link_to(non_blank(source.feed.formatted_bitrate) + " " + non_blank(source.feed.apparent_format), info_source_url(source.episode.podcast, source.episode, source)),
      " ", (ability ? source.ability : nil), (source.archived? ? "a" : nil)].join
   end
+
+  # Takes an array of integers called +data_points+ and returns a URL to Google's Chart API
+  # that returns a 25x25 image graph
+  def sparkline_link(data_points=[])
+    "http://chart.apis.google.com/chart?cht=ls&chd=t:#{data_points.join(',')}&chs=15x13&chco=4D89F9"
+  end
+
+  # Takes an array of integers called +data_points+ and returns an image from Google's Chart API
+  # that returns a 25x25 image graph
+  def sparkline(data_points=[])
+    image_tag sparkline_link(data_points)
+  end
 end

@@ -15,7 +15,7 @@
 require 'open-uri'
 require 'timeout'
 
-# XXX: Rename to URL
+# XXX: Rename to FeedUrl
 class QueuedFeed < ActiveRecord::Base
   belongs_to :feed
   belongs_to :user

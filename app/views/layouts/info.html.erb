@@ -47,13 +47,26 @@
     span.unknown {
       color: red;
     }
+    .usage {
+      border: solid 1px #CCC;
+      padding: 5px;
+    }
+    .usage p {
+      margin-left: 25px;
+    }
+    .usage table {
+      margin-left: 25px;
+      border-width: 0;
+    }
+    .usage table th {
+      text-align: right !important;
+    }
   
     a:hover { color: #489CD0; }
     a:visited { color: #605CA8; }
     a:link { color: #3A7DA7; }
   </style>
 </head>
-
 <body>
 <%= yield -%>
 </body>

@@ -26,6 +26,12 @@ class HomeController < ApplicationController
     render :layout => 'info'
   end
 
+  # use() is already taken
+  def usage
+    @statistics = Statistic.all
+    render :layout => 'info'
+  end
+
   def icons
     render :layout => 'info'
   end

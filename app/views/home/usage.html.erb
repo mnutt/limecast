@@ -1,8 +1,44 @@
-Site
+<!-- Site
 
 Podcasts
 Users
 Reviews
 Tracker installs
 Button installs
-Podcasts on first page of search results
+Podcasts on first page of search results -->
+
+<% @title = "Use" -%>
+<h1>Use</h1>
+
+
+<div class="usage">
+  <h2>Podcasts</h2>
+  <p>This is the number of podcasts in the system.</p>
+  <table>
+    <tr>
+      <td class="key"><%= Podcast.all.size %></td>
+      <td>total</td>
+    </tr>
+    <tr>
+      <td class="key"><%= Podcast.found_by_admin.size %></td>
+      <td>podcasts added by admins</td>
+    </tr>
+    <tr>
+      <td class="key"><%= Podcast.found_by_nonadmin.size %></td>
+      <td>podcasts added by non-admins</td>
+    </tr>
+    <tr>
+      <td class="key"><%= Feed.all.size %></td>
+      <td>feeds total</td>
+    </tr>
+    <tr>
+      <td class="key"><%= Feed.found_by_admin.size %></td>
+      <td>feeds added by admins</td>
+    </tr>
+    <tr>
+      <td class="key"><%= Feed.found_by_nonadmin.size %></td>
+      <td>feeds added by non-admins</td>
+    </tr>
+  </table>
+  <p><%= @statistics.map { |s| "<b>#{s.podcasts_count}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+</div>

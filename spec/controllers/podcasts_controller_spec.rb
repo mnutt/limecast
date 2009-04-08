@@ -102,7 +102,6 @@ describe PodcastsController do
       it "should redirect to the podcasts list" do
         delete :destroy, :podcast_slug => 'mypodcast'
         response.should redirect_to('/')
-        flash[:notice].should == 'Sorry, you are not allowed to access that page.'
       end
     end
   end
@@ -188,7 +187,6 @@ describe PodcastsController do
       it "should redirect to the podcasts list" do
         put :update, :podcast_slug => @podcast.clean_url, :podcast => {:title => "Custom Title"}
         response.should redirect_to('/')
-        flash[:notice].should == 'Sorry, you are not allowed to access that page.'
       end
     end
 

@@ -70,7 +70,6 @@ class PodcastsController < ApplicationController
         PodcastMailer.deliver_updated_podcast_from_site(@podcast)
 
         format.html do
-          flash[:notice] = "#{@podcast.messages.join(' ')}"
           flash[:has_messages] = true unless @podcast.messages.empty?
           redirect_to @podcast
         end

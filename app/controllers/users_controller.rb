@@ -62,7 +62,6 @@ class UsersController < ApplicationController
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.active?
       current_user.activate!
-      flash[:notice] = "Your email is confirmed. Thanks again for joining LimeCast!"
     end
     redirect_to user_url(:user_slug => current_user)
   end
@@ -96,17 +95,14 @@ class UsersController < ApplicationController
   def claim
     unless params[:email].blank?
       @user = User.passive.find_by_email(params[:email])
-      flash[:notice] = "We could not find that email."
     end
 
     if @user
       if @user.reset_password_sent_at and @user.reset_password_sent_at > 10.minutes.ago then
-        flash[:notice] = "We have already sent you a note. Please check your email."
       else
         @user.generate_reset_password_code
         @user.save
         UserMailer.deliver_claim_account(@user)
-        flash[:notice] = "Got it. Check your email for a link to set your password."
       end
       redirect_to new_session_path
     else
@@ -128,10 +124,8 @@ class UsersController < ApplicationController
         @user.activate!
 
         self.current_user = @user
-        flash[:notice] = nil
         redirect_to user_url(@user)
       else
-        flash[:notice] = @user.errors.full_messages.to_sentence
         render
       end
     end
@@ -156,17 +150,14 @@ class UsersController < ApplicationController
   def send_password
     unless params[:email].blank?
       @user = User.find_by_email(params[:email]) || User.find_by_login(params[:email])
-      flash[:notice] = "We could not find that email."
     end
 
     if @user
       if @user.reset_password_sent_at and @user.reset_password_sent_at > 10.minutes.ago then
-        flash[:notice] = "We have already sent you a note. Please check your email."
       else
         @user.generate_reset_password_code
         @user.save
         UserMailer.deliver_reset_password(@user)
-        flash[:notice] = "Got it. Check your email for a link to reset your password."
       end
       redirect_to new_session_path
     else
@@ -188,19 +179,14 @@ class UsersController < ApplicationController
     if params[:user] && params[:user][:_delete] == '1'
       @user.destroy
       logout if @user == current_user
-      flash[:notice] = "#{@user.login} has been removed."
       redirect_to(podcasts_url) and return false
     end
 
     @user.attributes = params[:user].keep_keys([:email, :login, :password])
 
     if @user.save
-      flash[:notice] = 'User was successfully updated.'
-      flash[:notice] << " #{@user.messages.join(' ')}"
-
       redirect_to @user
     else
-      flash[:notice] = @user.errors.full_messages.join('. ')
       render :action => 'show'
     end
   end

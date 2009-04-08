@@ -53,7 +53,6 @@ describe UserTaggingsController do
           }.should change { Tagging.count }.by(8)
         }.should change { Tag.count }.by(8)
         response.should redirect_to(podcast_url(@podcast))
-        flash[:notice].should == "You are only allowed to add 8 tags for this podcast."
       end
       
     end

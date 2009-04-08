@@ -262,18 +262,15 @@ describe UsersController, "handling POST /claim" do
   it 'should succeed if passive email is found' do
     do_post(@user.email)
     response.should redirect_to(new_session_path)
-    flash[:notice].should == "Got it. Check your email for a link to set your password."
   end
 
   it 'should fail if passive email is not found' do
     do_post('jabberwocky@me.com')
     response.should render_template('claim')
-    flash[:notice].should == "We could not find that email."
   end
 
   it 'should fail if passive email is found but claimed twice in 10 minutes' do
     do_post(@user.email) and do_post(@user.email)
-    flash[:notice].should == "We have already sent you a note. Please check your email."
   end
 
   it 'should send an email if passive email is found' do

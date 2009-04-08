@@ -31,7 +31,6 @@ class UserTaggingsController < ApplicationController
   rescue ActiveRecord::RecordInvalid => e
     respond_to do |format|
       format.html { 
-        flash[:notice] = "You are only allowed to add 8 tags for this podcast."
         redirect_to(@podcast)
       }
       format.js { render :json => {:success => false, :html => render_to_string(:partial => "tags/tags_with_new_form", :object => @podcast.reload.tags, :locals => {:podcast => @podcast.reload}) } }

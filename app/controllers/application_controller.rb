@@ -119,7 +119,6 @@ class ApplicationController < ActionController::Base
     end
 
     def redirect_to_home(message)
-      flash[:notice] = message
       redirect_to "/"
     end
 

@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20090407210840) do
     t.integer  "owner_id"
     t.string   "owner_email"
     t.string   "owner_name"
+    t.string   "generator"
   end
 
   add_index "feeds", ["finder_id"], :name => "index_feeds_on_finder_id"
@@ -95,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20090407210840) do
     t.boolean  "has_previews",         :default => true
     t.boolean  "has_p2p_acceleration", :default => true
     t.boolean  "approved",             :default => false
+    t.boolean  "button_installed"
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
@@ -157,13 +159,13 @@ ActiveRecord::Schema.define(:version => 20090407210840) do
     t.string   "preview_file_name"
     t.string   "preview_content_type"
     t.string   "preview_file_size"
+    t.integer  "height"
+    t.integer  "width"
     t.text     "xml"
     t.datetime "downloaded_at"
     t.datetime "hashed_at"
     t.text     "curl_info"
     t.text     "ffmpeg_info"
-    t.integer  "height"
-    t.integer  "width"
     t.string   "file_name"
     t.string   "torrent_file_name"
     t.string   "torrent_content_type"
@@ -194,6 +196,9 @@ ActiveRecord::Schema.define(:version => 20090407210840) do
     t.integer  "users_passive_count"
     t.integer  "reviews_count"
     t.datetime "created_at"
+    t.integer  "feeds_from_trackers_count"
+    t.integer  "podcasts_with_buttons_count"
+    t.integer  "podcasts_on_google_first_page_count"
   end
 
   create_table "taggings", :force => true do |t|

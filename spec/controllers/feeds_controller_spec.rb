@@ -75,7 +75,7 @@ describe FeedsController do
       before(:each) do
         @queued_feed = Factory.create(:queued_feed, :state => nil)
         @podcast = Factory.create(:podcast, :feeds => [@queued_feed.feed])
-        post :status, :feed => {:url => @queued_feed.url}
+        post :status, :feed => @queued_feed.url
       end
 
       it 'should render the loading template' do
@@ -90,7 +90,7 @@ describe FeedsController do
 
         controller.should_receive(:queued_feed_created_just_now_by_user?).and_return(true)
 
-        post :status, :feed => {:url => @queued_feed.url}
+        post :status, :feed => @queued_feed.url
       end
 
       it 'should render the added template' do
@@ -104,11 +104,11 @@ describe FeedsController do
           @queued_feed = Factory.create(:queued_feed, :state => "failed")
           @podcast = Factory.create(:podcast, :feeds => [@queued_feed.feed])
 
-          post :status, :feed => {:url => @queued_feed.url}
+          post :status, :feed => @queued_feed.url
         end
 
         it 'should render the error template' do
-          response.should render_template('feeds/_status_failed')
+          response.should render_template('feeds/_status_error')
         end
       end
 
@@ -152,7 +152,6 @@ describe FeedsController do
       it "should not update the feed" do
         @feed = Factory.create(:feed, :format => "ipod")
         put 'update', :id => @feed.id, :feed => {:format => "quicktime hd"}
-        flash[:notice].should == 'Sorry, you are not allowed to access that page.'
         response.should redirect_to('/')
         @feed.reload.format.should == "ipod"
       end
@@ -184,7 +183,6 @@ describe FeedsController do
       it 'should not delete the feed' do
         @feed = Factory.create(:feed)
         delete 'destroy', :id => @feed.id
-        flash[:notice].should == 'Sorry, you are not allowed to access that page.'
         response.should redirect_to('/')
         Feed.count.should == 1
       end

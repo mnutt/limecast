@@ -1,14 +1,7 @@
 class UsersController < ApplicationController
-  # for create(:js)
-  #include ActionController::UrlWriter  
-  # include ActionView::Helpers::UrlHelper
-  # include ActionView::Helpers::TagHelper
-  # include UsersHelper
-  # include ApplicationHelper
-
   # Protect these actions behind an admin login
-  # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
+  # before_filter :admin_required, :only => [:destroy]
+  before_filter :find_user, :only => [:destroy]
 
   def new
   end
@@ -37,12 +30,7 @@ class UsersController < ApplicationController
     end
     
     @user = User.new(params[:user].keep_keys([:password, :email, :login]))
-    @user.make_pending
-
-    if @user.valid?
-      @user.save
-      UserMailer.deliver_signup_notification(@user)
-    end
+    @user.save if @user.valid?
     
     respond_to do |format|
       if @user.errors.empty? && @user.reload
@@ -60,28 +48,13 @@ class UsersController < ApplicationController
 
   def activate
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
-    if logged_in? && !current_user.active?
-      current_user.activate!
+    if logged_in? && !current_user.confirmed?
+      current_user.confirm
     end
     redirect_to user_url(:user_slug => current_user)
   end
 
-  def suspend
-    @user.suspend!
-    redirect_to users_path
-  end
-
-  def unsuspend
-    @user.unsuspend!
-    redirect_to users_path
-  end
-
   def destroy
-    @user.delete!
-    redirect_to users_path
-  end
-
-  def purge
     @user.destroy
     redirect_to users_path
   end
@@ -112,16 +85,17 @@ class UsersController < ApplicationController
 
   # GET /claim/:code
   # POST /claim/:code
+  # XXX
   def set_password
     @code = params[:code] or unauthorized
     @user = User.find_by_reset_password_code(@code) or unauthorized
-    @user.activate! unless @user.active?
+    @user.confirm unless @user.confirmed?
 
     if request.post?
       if @user.update_attributes(params[:user])
         @user.reset_password_code = nil
         @user.reset_password_sent_at = nil
-        @user.activate!
+        @user.confirm
 
         self.current_user = @user
         redirect_to user_url(@user)

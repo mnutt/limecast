@@ -42,12 +42,12 @@ describe UserMailer do
   it 'should send activation email' do
     lambda { UserMailer.deliver_activation(@user) }.should change { ActionMailer::Base.deliveries.size }.by(1)
     ActionMailer::Base.deliveries.first.to_addrs.map { |to| to.to_s }.should == [@user.email]
-    ActionMailer::Base.deliveries.first.subject.should == 'Your account has been activated!'
-    ActionMailer::Base.deliveries.first.body.should =~ /your account has been activated./
+    ActionMailer::Base.deliveries.first.subject.should == 'Your account has been confirmed!'
+    ActionMailer::Base.deliveries.first.body.should =~ /your account has been confirmed./
   end
 
   it 'should send a reconfirm notification email' do
-    @user.send(:make_pending)
+    @user.unconfirm
     lambda { UserMailer.deliver_reconfirm_notification(@user) }.should change { ActionMailer::Base.deliveries.size }.by(1)
     ActionMailer::Base.deliveries.first.to_addrs.map { |to| to.to_s }.should == [@user.email]
     ActionMailer::Base.deliveries.first.subject.should == 'Confirm new email'
@@ -55,7 +55,7 @@ describe UserMailer do
   end
 
   it 'should send a signup notification email' do
-    @user.send(:make_pending)
+    @user.unconfirm
     lambda { UserMailer.deliver_signup_notification(@user) }.should change { ActionMailer::Base.deliveries.size }.by(1)
     ActionMailer::Base.deliveries.first.to_addrs.map { |to| to.to_s }.should == [@user.email]
     ActionMailer::Base.deliveries.first.subject.should == 'Welcome to LimeCast!'

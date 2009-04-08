@@ -7,23 +7,6 @@ Tracker installs
 Button installs
 Podcasts on first page of search results -->
 
-<!-- t.integer :podcasts_count
-t.integer :podcasts_found_by_admins_count
-t.integer :podcasts_found_by_nonadmins_count
-
-t.integer :feeds_count
-t.integer :feeds_found_by_admins_count
-t.integer :feeds_found_by_nonadmins_count
-
-t.integer :users_count
-t.integer :users_active_count
-t.integer :users_pending_count
-t.integer :users_passive_count
-
-t.integer :reviews_count
-
-t.datetime :created_at -->
-
 
 <% @title = "Use" -%>
 <h1>Use</h1>
@@ -65,8 +48,8 @@ t.datetime :created_at -->
   <h2>Users</h2>
   <p>
     The number of users in the system. <br />
-    <strong>Active</strong> users have been confirmed by email. <br />
-    <strong>Pending</strong> haven't confirmed their email, but are able to edit things. <br />
+    <strong>Confirmed</strong> users have been confirmed by email. <br />
+    <strong>Unconfirmed</strong> haven't confirmed their email, but are able to edit things. <br />
     <strong>Passive</strong> users can't edit things, haven't confirmed their email, and are usually added automatically when a podcast is created (as its owner).
   </p>
   <table>
@@ -75,19 +58,19 @@ t.datetime :created_at -->
       <td>total</td>
     </tr>
     <tr>
-      <td class="key"><%= User.active.size %><%= sparkline(@statistics.map(&:users_active_count))%></td>
-      <td>active</td>
+      <td class="key"><%= User.confirmed.size %><%= sparkline(@statistics.map(&:users_confirmed_count))%></td>
+      <td>confirmed</td>
     </tr>
     <tr>
-      <td class="key"><%= User.pending.size %><%= sparkline(@statistics.map(&:users_pending_count))%></td>
-      <td>pending</td>
+      <td class="key"><%= User.unconfirmed.size %><%= sparkline(@statistics.map(&:users_unconfirmed_count))%></td>
+      <td>unconfirmed</td>
     </tr>
     <tr>
       <td class="key"><%= User.passive.size %><%= sparkline(@statistics.map(&:users_passive_count))%></td>
       <td>passive</td>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.users_active_count.to_i}/#{s.users_pending_count.to_i}/#{s.users_passive_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+  <p><%= @statistics.map { |s| "<b>#{s.users_confirmed_count.to_i}/#{s.users_unconfirmed_count.to_i}/#{s.users_passive_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>
 
 <div class="usage">

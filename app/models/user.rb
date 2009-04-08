@@ -52,51 +52,25 @@ class User < ActiveRecord::Base
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password
-
-  acts_as_state_machine :initial => :passive
-  state :passive
-  state :pending, :enter => :make_pending
-  state :active,  :enter => :do_activate
-  state :suspended
-  state :deleted, :enter => :do_delete
-
-  event :register do
-    transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
-  end
-
-  event :pending do
-    transitions :from => [:pending, :active, :passive], :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
-  end
-
-  event :activate do
-    transitions :from => [:passive, :pending], :to => :active
-  end
-
-  event :suspend do
-    transitions :from => [:passive, :pending, :active], :to => :suspended
-  end
-
-  event :delete do
-    transitions :from => [:passive, :pending, :active, :suspended], :to => :deleted
-  end
-
-  event :unsuspend do
-    transitions :from => :suspended, :to => :active,  :guard => Proc.new {|u| !u.activated_at.blank? }
-    transitions :from => :suspended, :to => :pending, :guard => Proc.new {|u| !u.activation_code.blank? }
-    transitions :from => :suspended, :to => :passive
-  end
+  attr_accessible :login, :email, :password, :state
 
   named_scope :older_than, lambda {|date| {:conditions => ["users.created_at < (?)", date]} }
-  named_scope :active,  {:conditions => {:state => 'active'}}
   named_scope :frequent_users, {:conditions => ["users.logged_in_at > (?)", 29.days.ago]}
   named_scope :admins, {:conditions => {:admin => true}}
+
+  # States 
+  %w(passive unconfirmed confirmed).each do |meth|
+    named_scope meth.to_sym, {:conditions => {:state => meth}}
+    define_method("#{meth}?") { state == meth.to_s }
+  end 
+  
 
   define_index do
     indexes :login, :email
 
     has :created_at
   end
+
 
   # Authenticates a user by their login name or email and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
@@ -162,7 +136,12 @@ class User < ActiveRecord::Base
     self.remember_token            = encrypt("#{email}--#{remember_token_expires_at}")
     save(false)
   end
-
+  
+  # Make sure the state is a string; symbols get serialized in the db
+  def state=(val)
+    write_attribute(:state, val.to_s)
+  end
+  
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
@@ -178,8 +157,8 @@ class User < ActiveRecord::Base
   end
 
   # Returns true if the user has just been activated.
-  def recently_activated?
-    @activated
+  def recently_confirmed?
+    @confirmed
   end
 
   def to_param
@@ -190,14 +169,23 @@ class User < ActiveRecord::Base
     self.owned_podcasts.count > 0
   end
   
-  def make_pending
-    self.state = 'pending'
-    make_activation_code
+  def unconfirm
+    self.state           = "unconfirmed"
+    self.deleted_at      = nil
+    self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+  end
 
-    if !new_record? && email_changed?
-      self.messages << "Please check your email for a note from us."
-      UserMailer.deliver_reconfirm_notification(self)
-    end
+  def confirm
+    @confirmed           = true
+    self.activated_at    = Time.now.utc
+    self.deleted_at      = nil
+    self.activation_code = nil
+    self.state           = 'confirmed'
+  end
+  
+  # This user has only been saved once.
+  def fresh?
+    created_at == updated_at
   end
 
   protected
@@ -210,20 +198,5 @@ class User < ActiveRecord::Base
 
     def password_required?
       (crypted_password.blank? || !password.blank?) && state != 'passive'
-    end
-
-    def make_activation_code
-      self.deleted_at = nil
-      self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
-    end
-
-    def do_delete
-      self.deleted_at = Time.now.utc
-    end
-
-    def do_activate
-      @activated = true
-      self.activated_at = Time.now.utc
-      self.deleted_at = self.activation_code = nil
     end
 end

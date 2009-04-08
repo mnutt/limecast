@@ -87,7 +87,7 @@ Factory.define :user do |u|
   u.email    { Factory.next :email }
   u.password 'password'
   u.salt     'NaCl'
-  u.state    'active'
+  u.state    'confirmed'
 end
 
 Factory.define :passive_user, :class => User do |u|
@@ -99,12 +99,12 @@ Factory.define :passive_user, :class => User do |u|
   u.admin true
 end
 
-Factory.define :pending_user, :class => User do |u|
+Factory.define :unconfirmed_user, :class => User do |u|
   u.login    { Factory.next :login }
   u.email    { Factory.next :email }
   u.password 'password'
   u.salt     'NaCl'
-  u.state    'pending'
+  u.state    'unconfirmed'
   u.activation_code { Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join ) }
 end
 
@@ -113,7 +113,7 @@ Factory.define :admin_user, :class => User do |u|
   u.email    'admin@podcasts.example.com'
   u.password 'password'
   u.salt     'NaCl'
-  u.state    'active'
+  u.state    'confirmed'
 
   u.admin true
 end

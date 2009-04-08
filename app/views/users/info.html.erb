@@ -46,7 +46,7 @@
   <tr>
     <td class="key">Confirmed:</td>
     <td>
-      <%= @user.active? ? @user.activated_at.to_s(:long_ordinal) : "Not yet." rescue "error" -%>
+      <%= @user.confirmed? ? @user.activated_at.to_s(:long_ordinal) : "Not yet." rescue "error" -%>
     </td>
   </tr>
 

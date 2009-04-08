@@ -180,7 +180,7 @@ describe UsersController, "handling PUT /user/:user" do
     end
 
     it "should set the user to pending" do
-      assigns(:user).state.should == "pending"
+      assigns(:user).should be_unconfirmed
       assigns(:user).activation_code.should_not be_nil
     end
 

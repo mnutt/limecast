@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090407210840) do
+ActiveRecord::Schema.define(:version => 20090408201441) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -191,8 +191,8 @@ ActiveRecord::Schema.define(:version => 20090407210840) do
     t.integer  "feeds_found_by_admins_count"
     t.integer  "feeds_found_by_nonadmins_count"
     t.integer  "users_count"
-    t.integer  "users_active_count"
-    t.integer  "users_pending_count"
+    t.integer  "users_confirmed_count"
+    t.integer  "users_unconfirmed_count"
     t.integer  "users_passive_count"
     t.integer  "reviews_count"
     t.datetime "created_at"

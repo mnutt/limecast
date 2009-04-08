@@ -123,7 +123,7 @@ class Feed < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    !!(user && user.active? && (self.finder_id == user.id || user.admin?))
+    !!(user && user.confirmed? && (self.finder_id == user.id || user.admin?))
   end
 
   def primary?

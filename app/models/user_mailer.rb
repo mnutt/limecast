@@ -20,7 +20,7 @@ class UserMailer < ActionMailer::Base
   # Successful Activation email
   def activation(user)
     setup_email(user)
-    subject       'Your account has been activated!'
+    subject       'Your account has been confirmed!'
     body :user => user, :host => FROM_HOST
   end
 

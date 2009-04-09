@@ -267,7 +267,7 @@ xx
   # Takes an array of integers called +data_points+ and returns a URL to Google's Chart API
   # that returns a 25x25 image graph
   def sparkline_link(data_points=[])
-    "http://chart.apis.google.com/chart?cht=ls&chd=t:#{data_points.join(',')}&chs=15x13&chco=4D89F9&chm=B,76A4FB,0,0,0"
+    "http://chart.apis.google.com/chart?cht=ls&chd=t:#{data_points.map(&:to_i).join(',')}&chs=20x20&chco=4D89F9&chm=B,76A4FB,0,0,0"
   end
 
   # Takes an array of integers called +data_points+ and returns an image from Google's Chart API

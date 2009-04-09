@@ -22,5 +22,15 @@
 #
 
 class Statistic < ActiveRecord::Base
-  named_scope :by_month_and_year, lambda { { :group => "DATE_FORMAT(created_at, '%b %y')", :order => "created_at" } }
+  named_scope :by_month_and_year, lambda { { :group => "DATE_FORMAT(created_at, '%b %y')", :order => "created_at DESC" } }
+
+  # Returns an array of Statistics; one for each month, and 
+  # each one is the earliest created for that month.
+  def self.all_earliest_days_of_each_month
+    all.group_by { |stat| 
+      stat.created_at.strftime("%b %y") 
+    }.map { |month_and_year, stats|
+      stats.sort_by(&:created_at).first
+    }
+  end
 end

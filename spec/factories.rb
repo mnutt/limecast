@@ -73,10 +73,10 @@ Factory.sequence :email do |n|
   "tester#{n}@podcasts.example.com"
 end
 Factory.sequence :site do |n|
-  "http://example.com/myp#{'o'*n}dcast"
+  "http://example.com/#{Factory.next(:title)}"
 end
 Factory.sequence :title do |n|
-  "P#{'o'*n}dcast"
+  Digest::SHA1.hexdigest "P#{'o'*n}dcast"
 end
 Factory.sequence :url do |n|
   Factory.next(:site) + "/#{n}_feed.xml"

@@ -1,6 +1,6 @@
 class Info::TagsController < InfoController
   def index
-    @tags = Tag.find(:all)
+    @tags = Tag.all
   end
 
   def show

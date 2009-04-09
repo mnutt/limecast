@@ -2,14 +2,16 @@ require 'open-uri'
 require 'hpricot'
 
 class GoogleSearchResult
-  attr_accessor :html
+  attr_accessor :html, :per_page
 
-  def initialize(query)
+  def initialize(query, options = {})
+    results = options[:per_page] || 50
+
     fetch!(URI.encode(query))
     @doc     = Hpricot(html)
     @results = (@doc/'body li')
     remove_extra_results!
-    @links   = @results.map { |li| (li/'a.l')[0]['href'] if (li/'a.l')[0] }
+    @links   = @results.map { |li| (li/'a.l')[0]['href'] if (li/'a.l')[0] }.reject(&:blank?)
   end
   
   def size
@@ -21,8 +23,10 @@ class GoogleSearchResult
   end
   
   def rank(host)
-      link = @links.find { |url| URI.parse(url).host =~ /#{Regexp.escape(host)}/ }
-      return @links.index(link) + 1 # convert from index to rank
+    return @rank if @rank
+
+    link = @links.find { |url| URI.parse(url).host =~ /#{Regexp.escape(host)}/ }
+    @rank = @links.index(link) ? @links.index(link) + 1 : nil  # convert from index to rank
   end
   
   protected
@@ -31,7 +35,6 @@ class GoogleSearchResult
     end
   
     def fetch!(query)
-      @html = open("http://www.google.com/search?hl=en&client=safari&rls=en-us&num=50&q=#{query}&btnG=Search").read
+      @html = open("http://www.google.com/search?hl=en&client=safari&rls=en-us&num=#{per_page}&q=#{query}&btnG=Search").read
     end
-
 end

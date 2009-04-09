@@ -28,7 +28,7 @@ class HomeController < ApplicationController
 
   # use() is already taken
   def usage
-    @statistics = Statistic.by_month_and_year
+    @statistics = Statistic.all_earliest_days_of_each_month
     render :layout => 'info'
   end
 

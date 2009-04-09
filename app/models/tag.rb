@@ -51,5 +51,9 @@ class Tag < ActiveRecord::Base
   def to_param
     name
   end
+  
+  def self.find_by_name!(name)
+    self.find_by_name(name) or raise ActiveRecord::RecordNotFound
+  end
 
 end

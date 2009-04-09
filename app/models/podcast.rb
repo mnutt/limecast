@@ -114,7 +114,7 @@ class Podcast < ActiveRecord::Base
     Podcast.all.select { |p| p.found_by && !p.found_by.admin? }
   end
 
-	# XXX: Write spec for this
+  # XXX: Write spec for this
   def blacklist!
     self.feeds.each do |f|
     Blacklist.create(:domain => f.url)
@@ -259,7 +259,7 @@ class Podcast < ActiveRecord::Base
       end
     end
   end
-
+  
   def tag_string
     self.tags.map(&:name).join(" ")
   end
@@ -286,7 +286,7 @@ class Podcast < ActiveRecord::Base
 	def notify_users
     if self.new?
       PodcastMailer.deliver_new_podcast(self)
-    elsif !self.last_changes.blank?
+    elsif !self.last_changes.except("logo_file_size").blank?
       PodcastMailer.deliver_updated_podcast_from_feed(self)
     end
   end

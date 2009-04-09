@@ -5,7 +5,7 @@ class GoogleSearchResult
   attr_accessor :html, :per_page
 
   def initialize(query, options = {})
-    results = options[:per_page] || 50
+    results = options[:per_page] || 100
 
     fetch!(URI.encode(query))
     @doc     = Hpricot(html)

@@ -27,8 +27,9 @@ ActionController::Routing::Routes.draw do |map|
   map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'
 
   map.namespace :info do |info|
-    info.tags 'tags',     :controller => 'tags', :action => 'index'
-    info.tag  'tag/:tag', :controller => 'tags', :action => 'show'
+    info.tags         'tags',     :controller => 'tags', :action => 'index'
+    info.tag          'tag/:tag', :controller => 'tags', :action => 'show'
+    info.info_podcast ':podcast_slug', :controller => 'podcasts', :action => 'show'
   end
 
   map.with_options :path_prefix => '/info' do |info|

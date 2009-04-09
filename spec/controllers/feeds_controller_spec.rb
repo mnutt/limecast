@@ -73,8 +73,7 @@ describe FeedsController do
   describe "POST /status" do
     describe "for a podcast that has not yet been parsed" do
       before(:each) do
-        @queued_feed = Factory.create(:queued_feed, :state => nil)
-        @podcast = Factory.create(:podcast, :feeds => [@queued_feed.feed])
+        @queued_feed = Factory.create(:queued_feed, :state => nil, :feed => nil)
         post :status, :feed => @queued_feed.url
       end
 

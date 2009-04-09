@@ -17,8 +17,8 @@ describe GoogleSearchResult, "being parsed" do
     @results.size.should be(50)
   end
   
-  it "should find limecast.com at 26th" do
-    @results.rank('limecast.com').should be(26)
+  it "should find limecast.com at 25th" do
+    @results.rank('limecast.com').should be(25)
   end
 
 end

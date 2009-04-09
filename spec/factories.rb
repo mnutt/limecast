@@ -73,7 +73,7 @@ Factory.sequence :email do |n|
   "tester#{n}@podcasts.example.com"
 end
 Factory.sequence :site do |n|
-  "http://example.com/myp#{'o'*n}dcast"
+  "http://example.com/#{Factory.next(:title)}"
 end
 Factory.sequence :title do |n|
   Digest::SHA1.hexdigest "P#{'o'*n}dcast"

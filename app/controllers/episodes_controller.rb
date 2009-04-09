@@ -29,15 +29,6 @@ class EpisodesController < ApplicationController
     @review = Review.new(:episode => @episode)
   end
 
-  def info
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @episode = @podcast.episodes.find_by_slug(params[:episode])
-    @newer   = @podcast.episodes.oldest.after(@episode).first
-    @older   = @podcast.episodes.newest.before(@episode).first
-
-    render :layout => "info"
-  end
-
   def destroy
     @episode = Episode.find(params[:id])
     unauthorized unless @episode.writable_by?(current_user)

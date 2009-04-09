@@ -26,6 +26,14 @@ ActionController::Routing::Routes.draw do |map|
   map.login     '/login',         :controller => 'sessions', :action => 'new'
   map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'
 
+  map.namespace :info do |info|
+    info.tags    'tags',     :controller => 'tags', :action => 'index'
+    info.tag     'tag/:tag', :controller => 'tags', :action => 'show'
+    info.source  ':podcast_slug/:episode/:id', :controller => 'sources', :action => 'show'
+    info.episode ':podcast_slug/:episode', :controller => 'episodes', :action => 'show'
+    info.podcast ':podcast_slug', :controller => 'podcasts', :action => 'show'
+  end
+
   map.with_options :path_prefix => '/info' do |info|
     info.root         :controller => 'home', :action => 'info'
     info.info_icons   'icons', :controller => 'home', :action => 'icons'
@@ -34,13 +42,8 @@ ActionController::Routing::Routes.draw do |map|
     info.info_hash    'hash', :controller => 'feeds', :action => 'hash_info'
     info.info_add     'add', :controller => 'feeds', :action => 'add_info'
     info.info_user    'user/:user_slug', :controller => 'users', :action => 'info', :user_slug => ''
-    info.info_tags    'tags', :controller => 'tags', :action => 'info_index'
-    info.info_tag     'tag/:tag', :controller => 'tags', :action => 'info'
     info.info_feed    ':podcast_slug/feed/:id', :controller => 'feeds', :action => 'info'
     info.info_review  ':podcast_slug/reviews/:id', :controller => 'reviews', :action => 'info'
-    info.info_episode ':podcast_slug/:episode', :controller => 'episodes', :action => 'info'
-    info.info_source  ':podcast_slug/:episode/:id', :controller => 'sources', :action => 'info'
-    info.info_podcast ':podcast_slug', :controller => 'podcasts', :action => 'info'
   end
   
 

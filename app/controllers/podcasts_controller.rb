@@ -24,12 +24,6 @@ class PodcastsController < ApplicationController
     @review   = Review.new(:episode => @most_recent_episode)
   end
 
-  def info
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-
-    render :layout => "info"
-  end
-
   def destroy
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
     authorize_write @podcast

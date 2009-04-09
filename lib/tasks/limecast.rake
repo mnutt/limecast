@@ -25,4 +25,32 @@ namespace :limecast do
       puts user.score
     end
   end
+  
+  desc "create a statistic record for today"
+  task :create_statistic do
+    # Find all podcasts that are on first page of google results
+    podcasts_on_google_first_page_count = Podcast.all.select { |p|
+      puts "Getting Google ranking for '#{p.title}' (##{p.id})"
+      search = GoogleSearchResult.new("#{p.original_title.blank? ? p.title : p.original_title}")
+      search.rank('limecast.com')
+    }.size
+
+    stat = Statistic.create({
+      :podcasts_count                      => Podcast.all.size,
+      :podcasts_found_by_admins_count      => Podcast.found_by_admin.size,
+      :podcasts_found_by_nonadmins_count   => Podcast.found_by_nonadmin.size,
+      :feeds_count                         => Feed.all.size,
+      :feeds_found_by_admins_count         => Feed.found_by_admin.size, 
+      :feeds_found_by_nonadmins_count      => Feed.found_by_nonadmin.size, 
+      :users_count                         => User.all.size,
+      :users_confirmed_count               => User.confirmed.size,
+      :users_unconfirmed_count             => User.unconfirmed.size,
+      :users_passive_count                 => User.passive.size,
+      :reviews_count                       => Review.all.size,
+      :feeds_from_trackers_count           => Feed.from_limetracker.size,
+      :podcasts_with_buttons_count         => Podcast.find_all_by_button_installed(true).size,
+      :podcasts_on_google_first_page_count => podcasts_on_google_first_page_count
+    })
+    
+  end
 end

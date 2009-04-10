@@ -279,14 +279,14 @@ class Podcast < ActiveRecord::Base
     end
   end
 
-	def new?
-		created_at == updated_at
-	end
+  def new?
+    created_at == updated_at
+  end
 
-	def notify_users
-    if self.new?
+  def notify_users
+    if new?
       PodcastMailer.deliver_new_podcast(self)
-    elsif !self.last_changes.except("logo_file_size").blank?
+    elsif last_changes && !last_changes.except("logo_file_size").blank?
       PodcastMailer.deliver_updated_podcast_from_feed(self)
     end
   end

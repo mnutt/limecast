@@ -225,6 +225,7 @@ xx
 
   # Should we show this object's edit form?
   def editing?(obj)
+    puts "\nobj errors are #{obj.errors.inspect}\n"
     logger.info "\napphelper:207: #{!obj.valid?} || #{!obj.messages.empty?} || #{!flash[:has_messages].blank?}\n"
     logger.info "\nthe flash is #{flash.inspect}\n"
     logger.info "\nthe podcast messages are #{@podcast.messages.inspect}\n" if @podcast
@@ -249,7 +250,7 @@ xx
   end
 
   def info_feed_link(feed, ability=true)
-    [link_to("Feed #{feed.id}", info_feed_url(feed.podcast, feed)), 
+    [link_to("feed#{feed.id}", info_feed_url(feed.podcast, feed)), 
      (ability ? feed.ability : nil)].join(" ")
   end
 

@@ -29,7 +29,7 @@
     <% podcast.feeds.each do |f| -%>
     <th>
       <% if f == feed -%>
-        <b>Feed <%= f.id -%><%= f.ability -%></b>
+        <b>feed<%= f.id -%> <%= f.ability -%></b>
       <% else -%>
         <%= info_feed_link(f) -%><br>
       <% end -%>
@@ -66,5 +66,18 @@
         <% end -%>
       </tr>
     <% end -%>
+  <% end -%>
+
+  <!-- all sources that don't have an episode //-->
+  <% Source.all(:conditions => ["feed_id IN (?) AND episode_id IS NULL", podcast.feed_ids]).each do |s| -%>
+    <tr>
+      <td class="extra"></td>
+      <td>
+        no episode
+      </td>
+      <% podcast.feeds.each do |f| -%>
+        <td><% if s.feed == f -%><%= f.formatted_bitrate -%> <%= f.apparent_format -%> <%= s.ability -%><%= "a" if s.archived? -%><% end -%></td>
+      <% end -%>
+    </tr>
   <% end -%>
 </table>

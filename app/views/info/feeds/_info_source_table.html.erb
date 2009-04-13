@@ -10,18 +10,21 @@
 
 <table>
   <tr>
-    <th></th>
+    <td></td>
+    <th><!-- Is this a primary feed? //--></th>
   <% podcast.feeds.each do |f| -%>
     <th><% if f.primary? -%>primary<% end -%></th>
   <% end -%>
   </tr>
   <tr>
-    <th></th>
+    <td></td>
+    <th><!-- Link to the original feed url //--></th>
   <% podcast.feeds.each do |f| -%>
     <th><%= link_to "rss", f.url %></th>
   <% end -%>
   </tr>
   <tr>
+    <td class="extra"><%= link_to "site", podcast.site %></td>
     <th><strong><%= link_to podcast.title, info_podcast_url(podcast) -%></strong></th>
     <% podcast.feeds.each do |f| -%>
     <th>
@@ -36,6 +39,7 @@
   <% if !feed -%>
     <% (episode ? [episode] : podcast.episodes).each do |e| -%>
       <tr>
+        <td class="extra"><%= link_to "site", podcast.site %></td>
         <td>
           <% if e == episode && !source -%>
             <b><%= e.date_title -%></b>

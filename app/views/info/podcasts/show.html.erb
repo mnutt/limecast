@@ -2,7 +2,7 @@
 <h1>Podcast</h1>
 
 <h2>Map</h2>
-<%= render :partial => 'feeds/info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
+<%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
 
 <ul>
   <li><b>primary</b> marks the primary feed</li>
@@ -28,12 +28,12 @@
 
 <h2>Feeds</h2>
 <table class="feeds">
-  <%= render :partial => 'feeds/info_line', :collection => @podcast.feeds -%>
+  <%= render :partial => 'info/feeds/info_line', :collection => @podcast.feeds -%>
 </table>
 
 <h2>Media (for latest Primary Source):</h2>
 <% if @podcast.primary_feed && source = @podcast.primary_feed.sources.sorted.first -%>
-  <%= render :partial => "sources/info_media", :locals => {:source => source} %>
+  <%= render :partial => "info/sources/info_media", :locals => {:source => source} %>
 <% end -%>
 
 <table cellpadding="0" cellspacing="0" border="0">

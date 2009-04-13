@@ -16,6 +16,12 @@
   <% end -%>
   </tr>
   <tr>
+    <th></th>
+  <% podcast.feeds.each do |f| -%>
+    <th><%= link_to "rss", f.url %></th>
+  <% end -%>
+  </tr>
+  <tr>
     <th><strong><%= link_to podcast.title, info_podcast_url(podcast) -%></strong></th>
     <% podcast.feeds.each do |f| -%>
     <th>

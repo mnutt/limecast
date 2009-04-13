@@ -95,6 +95,19 @@ describe FeedProcessor, "being reparsed" do
   end
 end
 
+describe FeedProcessor, "parsing a podcast's second feed (non-primary_feed)" do
+  before do
+    @qf = Factory.create(:queued_feed)
+    mod_and_run_feed_processor(@qf, FetchExample)
+    @podcast = @qf.feed.podcast.reload
+    @qf2 = QueuedFeed.create(:url => (@qf.url.split('/')[0..-2].join+'feed_two.xml'))
+  end
+  
+  it 'should not change the podcast' do
+    lambda { mod_and_run_feed_processor(@qf2, FetchExample) }.should_not change { @podcast.reload.updated_at}
+  end
+end
+
 describe Feed, "updating episodes" do
   before do
     @qf = Factory.create(:queued_feed)
@@ -174,6 +187,12 @@ describe Feed, "being created" do
       mod_and_run_feed_processor(@qf, FetchRegularFeed)
 
       @qf.error.should == "FeedProcessor::NoEnclosureException"
+    end
+
+    it 'should set the feed as the primary feed' do
+      mod_and_run_feed_processor(@qf, FetchRegularFeed)
+
+      @qf.feed.podcast.primary_feed_id.should be(@qf.feed.id)
     end
   end
 

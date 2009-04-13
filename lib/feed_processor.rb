@@ -109,16 +109,18 @@ class FeedProcessor
   def update_podcast!
     @feed.podcast = Podcast.find_or_initialize_by_site(@rpodcast_feed.link) if @feed.podcast.nil?
 
-    @feed.podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
-    @feed.podcast.update_attributes!(
-      :original_title => @rpodcast_feed.title,
-      :description    => @rpodcast_feed.summary,
-      :language       => @rpodcast_feed.language,
-      :owner_email    => @rpodcast_feed.owner_email,
-      :owner_name     => @rpodcast_feed.owner_name,
-      :site           => @rpodcast_feed.link
-    )
-    @feed.podcast.notify_users
+    if @feed.podcast.primary_feed.nil? || @feed.primary?
+      @feed.podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
+      @feed.podcast.update_attributes!(
+        :original_title => @rpodcast_feed.title,
+        :description    => @rpodcast_feed.summary,
+        :language       => @rpodcast_feed.language,
+        :owner_email    => @rpodcast_feed.owner_email,
+        :owner_name     => @rpodcast_feed.owner_name,
+        :site           => @rpodcast_feed.link
+      )
+      @feed.podcast.notify_users
+    end
   end
 
   def update_tags!

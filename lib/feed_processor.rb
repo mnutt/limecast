@@ -165,10 +165,12 @@ class FeedProcessor
   def update_feed!
     @feed.finder_id = @qf.user_id if @qf.user_id
     @feed.update_attributes(
-      :bitrate   => @rpodcast_feed.bitrate.nearest_multiple_of(64),
-      :generator => @rpodcast_feed.generator,
-      :ability   => ABILITY,
-      :xml       => @content
+      :bitrate     => @rpodcast_feed.bitrate.nearest_multiple_of(64),
+      :generator   => @rpodcast_feed.generator,
+      :ability     => ABILITY,
+      :xml         => @content,
+      :owner_email => @rpodcast_feed.owner_email,
+      :owner_name  => @rpodcast_feed.owner_name
     )
     @qf.update_attributes(
       :feed_id => @feed.id,

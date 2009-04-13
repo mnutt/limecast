@@ -29,11 +29,13 @@ class Feed < ActiveRecord::Base
   has_many :sources, :dependent => :destroy
   has_many :first_source, :class_name => 'Source', :limit => 1
   belongs_to :podcast
+  belongs_to :owner, :class_name => 'User'
   belongs_to :finder, :class_name => 'User'
 
   before_destroy :destroy_podcast_if_last_feed
   after_destroy :add_podcast_message
   after_destroy :update_finder_score
+  before_save :find_or_create_owner
 
   validates_presence_of   :url
   validates_uniqueness_of :url
@@ -158,5 +160,13 @@ class Feed < ActiveRecord::Base
 
   def add_podcast_message
     podcast.add_message "The #{apparent_format} feed has been removed." if podcast
+  end
+
+  def find_or_create_owner
+    return true if (!self.owner_id.blank? || self.owner_email.blank?) && !self.owner_email_changed?
+
+    self.owner = User.find_or_create_by_email(owner_email)
+
+    return true
   end
 end

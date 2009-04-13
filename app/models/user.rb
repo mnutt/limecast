@@ -87,6 +87,23 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest("--#{salt}--#{password}--")
   end
 
+  def self.find_or_create_by_email(email)
+    if user = User.find_by_email(email)
+      # Do nothing
+    else
+      login = email.blank? ? "user" : email.to_s.gsub(/[^A-Za-z0-9\s]/, "")[0..39]
+
+      login = "#{owner_login} 2" if User.exists?(:login => login)
+      login.next! while User.exists?(:login => login)
+
+      user = User.new(:state => 'passive', :email => email, :login => login)
+      user.generate_reset_password_code
+      user.save # fail gracefully if no owner
+    end
+    
+    return user
+  end
+
   def self.generate_code(salt)
     Digest::MD5.hexdigest("CODE FOR #{salt} at #{Time.now}")
   end
@@ -106,6 +123,10 @@ class User < ActiveRecord::Base
 
   def calculate_score!
     update_attribute :score, (podcasts(true).size + reviews(true).size)
+  end
+
+  def new?
+    created_at == updated_at
   end
 
   def rank(options={})

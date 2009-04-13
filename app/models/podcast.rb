@@ -194,8 +194,8 @@ class Podcast < ActiveRecord::Base
   end
 
   def primary_feed_with_default
-    set_primary_feed if primary_feed_id.blank?
-    primary_feed_without_default
+    set_primary_feed if primary_feed_without_default(true).nil?
+    primary_feed_without_default(true)
   end
   alias_method_chain :primary_feed, :default
 
@@ -341,32 +341,15 @@ class Podcast < ActiveRecord::Base
   def find_or_create_owner
     return true if (!self.owner_id.blank? || self.owner_email.blank?) && !self.owner_email_changed?
 
-    if self.owner = User.find_by_email(owner_email)
-      # don't do anything
-    else
-      owner_login = owner_email.blank? ? "user" : owner_email.to_s.gsub(/[^A-Za-z0-9\s]/, "")[0..39]
-      while User.exists?(:login => owner_login) do
-        i ||= 1
-        owner_login.chop! unless i == 1
-        owner_login = "#{owner_login}#{i += 1}"
-      end
+    self.owner = User.find_or_create_by_email(owner_email)
+    UserMailer.deliver_claim_podcast(owner, self) if owner.new?
 
-      o = build_owner(:state => 'passive', :email => owner_email, :login => owner_login)
-      o.generate_reset_password_code
-      o.save # fail gracefully if no owner
-      self.owner = o
-
-      UserMailer.deliver_claim_podcast(owner, self)
-    end
-
-    true
+    return true
   end
 
   # Making obj anonymous because this can be callback'ed for Podcast and Feed (from the association)
   def set_primary_feed(obj=nil)
-    if primary_feed_id.blank? && feeds.size > 0
-      self.primary_feed_id = feeds.first.id
-    end
+    update_attribute(:primary_feed, feeds.first) if primary_feed_without_default.nil? && feeds.size > 0
   end
 
   # Rails dirty objects stores the current changes only until the object is saved

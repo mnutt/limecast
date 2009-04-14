@@ -31,7 +31,7 @@ namespace :limecast do
     # Find all podcasts that are on first page of google results
     podcasts_on_google_first_page_count = Podcast.all.select { |p|
       puts "Getting Google ranking for '#{p.title}' (##{p.id})"
-      search = GoogleSearchResult.new("#{p.original_title.blank? ? p.title : p.original_title}")
+      search = GoogleSearchResult.new("#{p.primary_feed.title.blank? ? p.title : p.primary_feed.title}")
       search.rank('limecast.com')
     }.size
 

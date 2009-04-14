@@ -61,8 +61,6 @@ class PodcastsController < ApplicationController
     @podcast.feeds
     respond_to do |format|
       if @podcast.save
-        PodcastMailer.deliver_updated_podcast_from_site(@podcast)
-
         format.html do
           flash[:has_messages] = true unless @podcast.messages.empty?
           redirect_to @podcast

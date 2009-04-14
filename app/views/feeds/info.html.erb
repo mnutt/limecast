@@ -56,7 +56,7 @@
 
   <tr>
     <td>Title</td>
-    <td><%= non_blank @feed.podcast.original_title -%></td>
+    <td><%= non_blank @feed.title -%></td>
   </tr>
 
   <tr>
@@ -66,17 +66,17 @@
 
   <tr>
     <td>Line Description</td>
-    <td><%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@feed.podcast.description)) -%></td>
+    <td><%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@feed.description)) -%></td>
   </tr>
 
   <tr>
     <td>Page Description</td>
-    <td><%= non_blank sanitize_summary(@feed.podcast.description) -%></td>
+    <td><%= non_blank sanitize_summary(@feed.description) -%></td>
   </tr>
 
   <tr>
     <td>HTML Description</td>
-    <td><%= non_blank sanitize_lightly(@feed.podcast.description) -%></td>
+    <td><%= non_blank sanitize_lightly(@feed.description) -%></td>
   </tr>
 </table>
 

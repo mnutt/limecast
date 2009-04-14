@@ -23,31 +23,6 @@
 #  button_installed     :boolean(1)    
 #
 
- # == Schema Information
-# Schema version: 20090407191118
-#
-# Table name: podcasts
-#
-#  id                   :integer(4)    not null, primary key
-#  site                 :string(255)   
-#  logo_file_name       :string(255)   
-#  logo_content_type    :string(255)   
-#  logo_file_size       :string(255)   
-#  created_at           :datetime      
-#  updated_at           :datetime      
-#  category_id          :integer(4)    
-#  clean_url            :string(255)   
-#  owner_id             :integer(4)    
-#  owner_email          :string(255)   
-#  owner_name           :string(255)   
-#  title                :string(255)   
-#  primary_feed_id      :integer(4)    
-#  has_previews         :boolean(1)    default(TRUE)
-#  has_p2p_acceleration :boolean(1)    default(TRUE)
-#  approved             :boolean(1)    
-#  button_installed     :boolean(1)    
-#
-
 require 'paperclip_file'
 
 class Podcast < ActiveRecord::Base
@@ -365,12 +340,12 @@ class Podcast < ActiveRecord::Base
   def find_or_create_owner
     return true if (!self.owner_id.blank? || self.owner_email.blank?) && !self.owner_email_changed?
 
-    self.owner = User.find_or_initialize_by_email(owner_email)
-    
-    # Deliver the 'claim podcast' email if the user was just auto-created
-    if owner.new_record?
-      owner.save
-      UserMailer.deliver_claim_podcast(owner, self)
+    self.owner = returning(User.find_or_initialize_by_email(owner_email)) do |o|
+      # Deliver the 'claim podcast' email if the user was just auto-created
+      if o.new_record?
+        o.save
+        UserMailer.deliver_claim_podcast(o, self)
+      end
     end
 
     return true

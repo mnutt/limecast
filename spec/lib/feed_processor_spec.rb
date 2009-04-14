@@ -83,11 +83,11 @@ describe FeedProcessor, "being reparsed" do
   end
 
   it 'should set the description of the podcast' do
-    @feed.podcast.reload.description.should =~ /^All About Everything is a show about everything/
+    @feed.reload.description.should =~ /^All About Everything is a show about everything/
   end
 
   it 'should set the language of the podcast' do
-    @feed.podcast.reload.language.should == "en-us"
+    @feed.reload.language.should == "en-us"
   end
 
   it 'should set the generator of the podcast' do
@@ -116,6 +116,7 @@ describe Feed, "updating episodes" do
   end
 
   it 'should create some episodes' do
+    puts "The podcast is valid? #{@feed.podcast.valid?} and the errors are #{@feed.podcast.errors.inspect}"
     @feed.podcast.episodes(true).count.should == 3
   end
 
@@ -135,27 +136,6 @@ describe Feed, "downloading the logo for its podcast" do
   it 'should not set the logo_filename for a bad link' do
     @podcast.download_logo('http://google.com')
     @podcast.logo_file_name.should be_nil
-  end
-end
-
-describe Feed, "being updated" do
-  before do
-    @podcast = Factory.create(:parsed_podcast, :owner_email => "john.doe@example.com", :feeds => [], :site => "http://www.example.com")
-    @qf = Factory.create(:queued_feed)
-    @feed = @qf.feed
-    @feed.podcast_id = @podcast.id
-    @feed.save
-    @podcast.update_attributes :original_title => "The Whatever Podcast"
-    @podcast.reload
-  end
-
-  it "should send an email out of if the podcast was changed at all" do
-    setup_actionmailer
-    lambda { mod_and_run_feed_processor(@qf, FetchExample) }.should change { ActionMailer::Base.deliveries.size }.by(1)
-    ActionMailer::Base.deliveries.last.to_addrs.to_s.should == @podcast.editors.map(&:email).join(',')
-    ActionMailer::Base.deliveries.last.body.should =~ /A podcast that you can edit has been updated because one of its feeds was changed/
-    ActionMailer::Base.deliveries.last.body.should =~ /The Original Title was changed to All About Everything/
-    reset_actionmailer
   end
 end
 

@@ -114,9 +114,9 @@ class FeedProcessor
       @feed.podcast.update_attributes!(
         :owner_email    => @rpodcast_feed.owner_email,
         :owner_name     => @rpodcast_feed.owner_name,
-        :site           => @rpodcast_feed.link
+        :site           => @rpodcast_feed.link,
+        :title          => (@feed.podcast.title.blank? ? @rpodcast_feed.title : @feed.podcast.title)
       )
-      @feed.podcast.notify_users
     end
   end
 

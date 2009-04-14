@@ -312,10 +312,11 @@ class Podcast < ActiveRecord::Base
   def notify_users
     if new?
       PodcastMailer.deliver_new_podcast(self)
-    elsif last_changes && !last_changes.except("logo_file_size").blank?
-      PodcastMailer.deliver_updated_podcast_from_feed(self)
     end
   end
+
+  def description() primary_feed.description; end
+  def language() primary_feed.language; end
 
   def add_message(msg)
     # TODO this could probably be a one-liner

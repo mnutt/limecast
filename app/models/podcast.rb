@@ -1,18 +1,40 @@
 # == Schema Information
-# Schema version: 20090407191118
+# Schema version: 20090413212224
 #
 # Table name: podcasts
 #
 #  id                   :integer(4)    not null, primary key
-#  original_title       :string(255)   
 #  site                 :string(255)   
 #  logo_file_name       :string(255)   
 #  logo_content_type    :string(255)   
 #  logo_file_size       :string(255)   
 #  created_at           :datetime      
 #  updated_at           :datetime      
-#  description          :text          
-#  language             :string(255)   
+#  category_id          :integer(4)    
+#  clean_url            :string(255)   
+#  owner_id             :integer(4)    
+#  owner_email          :string(255)   
+#  owner_name           :string(255)   
+#  title                :string(255)   
+#  primary_feed_id      :integer(4)    
+#  has_previews         :boolean(1)    default(TRUE)
+#  has_p2p_acceleration :boolean(1)    default(TRUE)
+#  approved             :boolean(1)    
+#  button_installed     :boolean(1)    
+#
+
+ # == Schema Information
+# Schema version: 20090407191118
+#
+# Table name: podcasts
+#
+#  id                   :integer(4)    not null, primary key
+#  site                 :string(255)   
+#  logo_file_name       :string(255)   
+#  logo_content_type    :string(255)   
+#  logo_file_size       :string(255)   
+#  created_at           :datetime      
+#  updated_at           :datetime      
 #  category_id          :integer(4)    
 #  clean_url            :string(255)   
 #  owner_id             :integer(4)    
@@ -37,7 +59,7 @@ class Podcast < ActiveRecord::Base
   has_many :favoriters, :source => :user, :through => :favorites
 
   has_many :feeds, :include => :first_source,#:dependent => :destroy,
-           :after_add => :set_primary_feed, :after_remove => :set_primary_feed,
+           :after_add => :set_primary_feed_with_save, :after_remove => :set_primary_feed_with_save,
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_one  :first_feed, :class_name => 'Feed', :order => "feeds.created_at ASC", :include => :finder
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
@@ -81,7 +103,7 @@ class Podcast < ActiveRecord::Base
   before_validation :sanitize_title
   before_validation :sanitize_url
   before_save :find_or_create_owner
-  before_save :set_primary_feed
+  before_save :set_primary_feed_without_save
   before_save :store_last_changes
 
   validates_presence_of   :title, :unless => Proc.new { |podcast| podcast.new_record? }
@@ -194,7 +216,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def primary_feed_with_default
-    set_primary_feed if primary_feed_without_default(true).nil?
+    set_primary_feed_with_save if primary_feed_without_default(true).nil?
     primary_feed_without_default(true)
   end
   alias_method_chain :primary_feed, :default
@@ -269,7 +291,7 @@ class Podcast < ActiveRecord::Base
     return @additional_badges if @additional_badges && !reload
 
     @additional_badges = returning [] do |ab|
-      ab << language unless language.blank?
+      ab << primary_feed.language if primary_feed && !primary_feed.language.blank?
 
       if e = episodes.newest[0]
         ab << 'current' if e.published_at > 30.days.ago
@@ -299,21 +321,18 @@ class Podcast < ActiveRecord::Base
 
   protected
   def sanitize_title
-    if new_record?
-      self.title = original_title if title.blank? # cache the original_title on create
-    end
+    # cache the primary_feed's title or blank until next time
+    self.title = (primary_feed.nil? ? "" : primary_feed.title.to_s) if title.blank?
 
     desired_title = title
     # Second, sanitize "title"
     self.title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
     self.title.sub!(/^[\s]*-/, "") # Remove leading dashes
-    self.title.strip! # Remove leading and trailing space
+    self.title.strip!              # Remove leading and trailing space
 
-    i = 1 # Number to attach to the end of the title to make it unique
-    while(Podcast.exists?(["title = ? AND id != ?", title, id]))
-      self.title.chop!.chop! unless i == 1
-      self.title = "#{title} #{i += 1}"
-    end
+    # Increment the name until it's unique
+    self.title = "#{title} 1" if Podcast.exists?(["title = ? AND id != ?", title, id])
+    self.title.next! while Podcast.exists?(["title = ? AND id != ?", title, id])
 
     add_message "There was another podcast with the same title, so we have suggested a new title." if title != desired_title
 
@@ -341,14 +360,22 @@ class Podcast < ActiveRecord::Base
   def find_or_create_owner
     return true if (!self.owner_id.blank? || self.owner_email.blank?) && !self.owner_email_changed?
 
-    self.owner = User.find_or_create_by_email(owner_email)
-    UserMailer.deliver_claim_podcast(owner, self) if owner.new?
+    self.owner = User.find_or_initialize_by_email(owner_email)
+    
+    # Deliver the 'claim podcast' email if the user was just auto-created
+    if owner.new_record?
+      owner.save
+      UserMailer.deliver_claim_podcast(owner, self)
+    end
 
     return true
   end
 
-  # Making obj anonymous because this can be callback'ed for Podcast and Feed (from the association)
-  def set_primary_feed(obj=nil)
+  def set_primary_feed_without_save(obj=nil)
+    self.primary_feed.id = feeds.first.id if primary_feed_without_default.nil? && feeds.size > 0
+  end
+
+  def set_primary_feed_with_save(obj=nil)
     update_attribute(:primary_feed, feeds.first) if primary_feed_without_default.nil? && feeds.size > 0
   end
 

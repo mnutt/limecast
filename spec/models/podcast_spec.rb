@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Podcast do
   before do
     @user    = Factory.create(:user, :login => "podcast_spec_user")
-    @podcast = Factory.create(:podcast, :original_title => "My Podcast")
+    @podcast = Factory.create(:podcast, :feeds => [Factory.create(:feed, :content => nil, :title => "My Podcast")])
   end
 
   it "should be valid" do
@@ -21,7 +21,7 @@ describe Podcast do
     @podcast.clean_url.should == "My-Podcast"
   end
 
-  it 'should use the original_title if set' do
+  it 'should use the primary_feed title if set' do
     @podcast.title.should == "My Podcast"
   end
 
@@ -244,8 +244,7 @@ describe Podcast, "permissions" do
   describe "the finder" do
     before do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:parsed_podcast, :feeds => [])
-      @feed = Factory.create(:feed, :finder_id => @user.id, :podcast => @podcast, :url => "#{@podcast.site}/feed.xml")
+      @podcast = Factory.create(:parsed_podcast, :feeds => [Factory.create(:feed, :finder_id => @user.id, :url => "#{Factory.next(:site)}/feed.xml")])
       @podcast.reload
     end
 
@@ -282,7 +281,8 @@ describe Podcast, "permissions" do
     end
 
     it 'should create the owner User if not found' do
-      create_podcast = lambda { Podcast.create(:owner_email => 'foobar@baz.com', :original_title => 'foobar podcast') }
+      @feed = Factory.create(:feed, :title => "Fooobah")
+      create_podcast = lambda { p = Podcast.create(:owner_email => 'foobar@baz.com', :feeds =>[@feed]) }
       create_podcast.should change { User.count }.by(1)
     end
   end
@@ -345,7 +345,8 @@ end
 
 describe Podcast, "finding or creating owner" do
   before do
-    @podcast = Factory.build(:podcast)
+    @feed = Factory.create(:feed, :title => "FOoooooobar")
+    @podcast = Factory.build(:podcast, :feeds => [@feed], :owner_email => "john.doe@example.com")
     @save_podcast = lambda { @podcast.save }
   end
 
@@ -389,12 +390,12 @@ end
 
 describe Podcast, "additional badges" do
   before(:each) do
-    @podcast = Factory.create(:parsed_podcast, :language => 'es')
+    @podcast = Factory.create(:parsed_podcast, :feeds => [Factory.create(:feed, :content => nil, :language => 'es')])
   end
 
   it "should include language" do
     @podcast.additional_badges.should include('es')
-    @podcast.language = 'jp'
+    @podcast.primary_feed.update_attribute(:language, 'jp')
     @podcast.additional_badges(true).should include('jp')
   end
 

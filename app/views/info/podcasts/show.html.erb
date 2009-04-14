@@ -97,18 +97,6 @@
     </td>
   </tr>
   <tr>
-    <td class="key">Description</td>
-    <td>
-      <%= non_blank @podcast.description -%>
-    </td>
-  </tr>
-  <tr>
-    <td class="key">Language</td>
-    <td>
-      <%= non_blank @podcast.language -%>
-    </td>
-  </tr>
-  <tr>
     <td class="key">Logo</td>
     <td>
       <%= link_to @podcast.logo.url, @podcast.logo.url -%>
@@ -143,8 +131,8 @@
 <h2>Titles</h2>
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key">Original Title</td>
-    <td><code><%= @podcast.original_title %></code></td>
+    <td class="key">Primary Feed Title</td>
+    <td><code><%= @podcast.primary_feed.title %></code></td>
   </tr>
   <tr>
     <td class="key">Title (as shown on site)</td>

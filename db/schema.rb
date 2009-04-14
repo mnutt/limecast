@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090408201441) do
+ActiveRecord::Schema.define(:version => 20090413212224) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -61,31 +61,31 @@ ActiveRecord::Schema.define(:version => 20090408201441) do
     t.integer  "podcast_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                           :default => "pending"
+    t.string   "state",                             :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
-    t.text     "xml",         :limit => 16777215
-    t.integer  "ability",                         :default => 0
+    t.text     "xml",         :limit => 2147483647
+    t.integer  "ability",                           :default => 0
     t.integer  "owner_id"
     t.string   "owner_email"
     t.string   "owner_name"
     t.string   "generator"
+    t.string   "title"
+    t.string   "description"
+    t.string   "language"
   end
 
   add_index "feeds", ["finder_id"], :name => "index_feeds_on_finder_id"
   add_index "feeds", ["podcast_id"], :name => "index_feeds_on_podcast_id"
 
   create_table "podcasts", :force => true do |t|
-    t.string   "original_title"
     t.string   "site"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.string   "logo_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "description"
-    t.string   "language"
     t.integer  "category_id"
     t.string   "clean_url"
     t.integer  "owner_id"
@@ -159,13 +159,13 @@ ActiveRecord::Schema.define(:version => 20090408201441) do
     t.string   "preview_file_name"
     t.string   "preview_content_type"
     t.string   "preview_file_size"
+    t.integer  "height"
+    t.integer  "width"
     t.text     "xml"
     t.datetime "downloaded_at"
     t.datetime "hashed_at"
     t.text     "curl_info"
     t.text     "ffmpeg_info"
-    t.integer  "height"
-    t.integer  "width"
     t.string   "file_name"
     t.string   "torrent_file_name"
     t.string   "torrent_content_type"

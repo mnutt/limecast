@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090407191118
+# Schema version: 20090413212224
 #
 # Table name: sources
 #
@@ -17,7 +17,6 @@
 #  preview_file_name        :string(255)   
 #  preview_content_type     :string(255)   
 #  preview_file_size        :string(255)   
-#  size                     :integer(8)    
 #  height                   :integer(4)    
 #  width                    :integer(4)    
 #  xml                      :text          
@@ -35,6 +34,8 @@
 #  ability                  :integer(4)    default(0)
 #  archived                 :boolean(1)    
 #  framerate                :string(20)    
+#  size_from_xml            :integer(4)    
+#  size_from_disk           :integer(4)    
 #
 
 class Source < ActiveRecord::Base

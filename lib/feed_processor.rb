@@ -112,9 +112,6 @@ class FeedProcessor
     if @feed.podcast.primary_feed.nil? || @feed.primary?
       @feed.podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
       @feed.podcast.update_attributes!(
-        :original_title => @rpodcast_feed.title,
-        :description    => @rpodcast_feed.summary,
-        :language       => @rpodcast_feed.language,
         :owner_email    => @rpodcast_feed.owner_email,
         :owner_name     => @rpodcast_feed.owner_name,
         :site           => @rpodcast_feed.link
@@ -170,7 +167,10 @@ class FeedProcessor
       :ability     => ABILITY,
       :xml         => @content,
       :owner_email => @rpodcast_feed.owner_email,
-      :owner_name  => @rpodcast_feed.owner_name
+      :owner_name  => @rpodcast_feed.owner_name,
+      :title       => @rpodcast_feed.title,
+      :description => @rpodcast_feed.summary,
+      :language    => @rpodcast_feed.language
     )
     @qf.update_attributes(
       :feed_id => @feed.id,

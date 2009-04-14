@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090407191118
+# Schema version: 20090413212224
 #
 # Table name: users
 #
@@ -88,6 +88,13 @@ class User < ActiveRecord::Base
   end
 
   def self.find_or_create_by_email(email)
+    user = find_or_initialize_by_email(email)
+    user.save if user.new_record?
+
+    return user
+  end
+
+  def self.find_or_initialize_by_email(email)
     if user = User.find_by_email(email)
       # Do nothing
     else
@@ -98,11 +105,11 @@ class User < ActiveRecord::Base
 
       user = User.new(:state => 'passive', :email => email, :login => login)
       user.generate_reset_password_code
-      user.save # fail gracefully if no owner
     end
     
     return user
   end
+
 
   def self.generate_code(salt)
     Digest::MD5.hexdigest("CODE FOR #{salt} at #{Time.now}")

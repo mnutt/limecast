@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090407191118
+# Schema version: 20090413212224
 #
 # Table name: feeds
 #
@@ -20,6 +20,9 @@
 #  owner_email :string(255)   
 #  owner_name  :string(255)   
 #  generator   :string(255)   
+#  title       :string(255)   
+#  description :string(255)   
+#  language    :string(255)   
 #
 
 require 'open-uri'

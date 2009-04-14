@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090413212224) do
+ActiveRecord::Schema.define(:version => 20090414214358) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -152,20 +152,19 @@ ActiveRecord::Schema.define(:version => 20090413212224) do
     t.integer  "episode_id"
     t.string   "format"
     t.integer  "feed_id"
-    t.string   "sha1hash",                 :limit => 24
     t.string   "screenshot_file_name"
     t.string   "screenshot_content_type"
     t.string   "screenshot_file_size"
     t.string   "preview_file_name"
     t.string   "preview_content_type"
     t.string   "preview_file_size"
-    t.integer  "height"
-    t.integer  "width"
     t.text     "xml"
     t.datetime "downloaded_at"
     t.datetime "hashed_at"
     t.text     "curl_info"
     t.text     "ffmpeg_info"
+    t.integer  "height"
+    t.integer  "width"
     t.string   "file_name"
     t.string   "torrent_file_name"
     t.string   "torrent_content_type"
@@ -178,6 +177,7 @@ ActiveRecord::Schema.define(:version => 20090413212224) do
     t.string   "framerate",                :limit => 20
     t.integer  "size_from_xml"
     t.integer  "size_from_disk"
+    t.string   "sha1hash",                 :limit => 40
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

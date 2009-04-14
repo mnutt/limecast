@@ -23,7 +23,7 @@
       <%= link_to h(source.episode.podcast.title), info_podcast_url(source.episode.podcast) -%> &raquo;
       <%= link_to h(source.episode.date_title), info_feed_url(source.episode) -%> &raquo;
       <%= link_to "#{source.feed.formatted_bitrate} #{h source.feed.apparent_format}", info_source_url(source.episode.podcast, source.episode, source), :title => h(source.sha1hash) -%>
-      <%= source.hashed_at.to_s(:info) -%>
+      <%= source.hashed_at.to_s(:info) rescue "Unknown" -%>
     </li>
   <% end -%>
 </ul>

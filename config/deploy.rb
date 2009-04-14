@@ -188,7 +188,8 @@ namespace :limecast do
     task :crontab, :roles => :app do
       cron =  "5,35 * * * * cd #{current_path} && RAILS_ENV=production rake ts:in\n"
       cron << "10,40 * * * * cd #{current_path} && RAILS_ENV=production script/update_podcasts\n"
-      cron << "0 0 * * 0-6 cd #{current_path} && RAILS_ENV=production rake limecast:create_statistic\n"
+      # Wait for this until we proxy
+      # cron << "0 0 * * 0-6 cd #{current_path} && RAILS_ENV=production rake limecast:create_statistic\n"
       if domain == 'gv.limewire.com' 
         cron << "*/10 * * * * cd #{current_path} && RAILS_ENV=production script/check_dotcom 2> /dev/null\n"
       end

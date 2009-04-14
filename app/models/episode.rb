@@ -57,11 +57,11 @@ class Episode < ActiveRecord::Base
   end
 
   def next_episode
-    self.podcast.episodes.after(self).oldest.first rescue nil
+    Episode.oldest.after(self).find_by_podcast_id(podcast_id) rescue nil
   end
 
   def previous_episode
-    self.podcast.episodes.before(self).newest.first rescue nil
+    Episode.newest.before(self).find_by_podcast_id(podcast_id) rescue nil
   end
 
   def generate_url

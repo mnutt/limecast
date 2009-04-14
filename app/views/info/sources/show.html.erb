@@ -1,6 +1,6 @@
 <h1>Source</h1>
 
-<%= render :partial => 'feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
+<%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
 
 <p>
   <%= link_to "< Newer", info_source_url(@podcast, @newer.episode, @newer) if @newer %> 
@@ -105,7 +105,7 @@
   <tr>
     <td class="key">Bitrate result:</td>
     <td>
-      <%= non_blank @feed.bitrate.to_bitrate.to_s -%>
+      <%= @feed.bitrate == 0 ? blankness : @feed.bitrate.to_bitrate.to_s -%>
     </td>
   </tr>
 
@@ -119,7 +119,7 @@
   <tr>
     <td class="key">Duration result:</td>
     <td>
-      <%= non_blank @episode.duration.to_duration.to_s -%>
+      <%= @episode.duration == 0 ? blankness : @episode.duration.to_duration.to_s -%>
     </td>
   </tr>
 
@@ -342,5 +342,9 @@
 <%- end -%>
 </ul>
 
-<h2>XML:</h2>
-<pre class="formatted-xml"><%= @source.xml -%></pre>
+<h2>XML:</h2
+<% if @source.xml.blank? %>
+  <%= blankness -%>
+<% else %>
+  <pre class="formatted-xml"><%= @source.xml -%></pre>
+<% end %>

@@ -117,9 +117,9 @@ Podcasts on first page of search results -->
   <p>This is the number of podcasts that show up on the first page of Google results.</p>
   <table>
     <tr>
-      <td class="key"><%= @statistics.first.podcasts_on_google_first_page_count %><%= sparkline(@statistics.map(&:podcasts_on_google_first_page_count)) %></td>
+      <td class="key"><%= non_blank { @statistics.first.podcasts_on_google_first_page_count } %><%= non_blank { sparkline(@statistics.map(&:podcasts_on_google_first_page_count)) } %></td>
       <td>total (at last count)</td>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.podcasts_on_google_first_page_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
+  <p><%= non_blank { @statistics.map { |s| "<b>#{s.podcasts_on_google_first_page_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') } %></p>
 </div>

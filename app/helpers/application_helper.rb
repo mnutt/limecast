@@ -241,7 +241,7 @@ xx
         blankness
       end
     else
-      text.blank? ? blankness : h(text)
+      (text.blank? || text == 0) ? blankness : h(text)
     end
   end
   

@@ -107,7 +107,7 @@ class FeedProcessor
   end
 
   def update_podcast!
-    @feed.podcast = Podcast.find_or_initialize_by_site(@rpodcast_feed.link) if @feed.podcast.nil?
+    @feed.podcast ||= Podcast.find_or_initialize_by_site(@rpodcast_feed.link)
 
     if @feed.podcast.primary_feed.nil? || @feed.primary?
       @feed.podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
@@ -128,7 +128,6 @@ class FeedProcessor
     tags << "torrent" if @rpodcast_feed.torrent?
     tags << "creativecommons" if @rpodcast_feed.creative_commons?
     tags << "explicit" if @rpodcast_feed.explicit?
-
     @feed.podcast.tag_string = tags.join(" "), (@feed.podcast.owner || @qf.user)
   end
 

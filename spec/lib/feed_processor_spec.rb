@@ -116,7 +116,6 @@ describe Feed, "updating episodes" do
   end
 
   it 'should create some episodes' do
-    puts "The podcast is valid? #{@feed.podcast.valid?} and the errors are #{@feed.podcast.errors.inspect}"
     @feed.podcast.episodes(true).count.should == 3
   end
 

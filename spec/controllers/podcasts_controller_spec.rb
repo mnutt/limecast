@@ -141,13 +141,6 @@ describe PodcastsController do
         lambda { do_put(podcast_with_nested_attrs) }.should change{ Podcast.count }.by(-1)
       end
 
-      it "should send notifications to admins/finders/owners after a podcast is updated" do
-        ActionMailer::Base.deliveries = []
-        lambda { do_put(:title => "Foobarbaz") }.should change { ActionMailer::Base.deliveries.size }.by(@podcast.editors.size)
-        @podcast.reload.title.should == "Foobarbaz"
-        ActionMailer::Base.deliveries.last.body.should =~ /A podcast that you can edit has been changed./
-      end
-
       it "should find the podcast requested" do
         do_put
         assigns(:podcast).id.should == @podcast.id

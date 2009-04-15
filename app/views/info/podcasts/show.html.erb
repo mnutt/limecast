@@ -47,126 +47,78 @@
   <%= render :partial => "info/sources/info_media", :locals => {:source => source} %>
 <% end -%>
 
+<h2>Info:</h2>
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key">age</td>
+    <td class="key" title="Podcast title as written on pages">page&nbsp;title</td>
     <td>
-      <%= relative_time @podcast.created_at -%>
+      <%= @podcast.title -%>
     </td>
   </tr>
   <tr>
-    <td class="key">found</td>
+    <td class="key" title="Podcast title as appears in the address">url&nbsp;title</td>
     <td>
-      <%= non_blank { info_user_link(@podcast.primary_feed.finder) } -%>
+      <%= @podcast.clean_url -%>
     </td>
   </tr>
   <tr>
-    <td class="key">protected</td>
+    <td class="key" title="True if somebody has locked down the podcast so only the primary feed's maker can edit it">protected</td>
     <td>
       Not Implemented
     </td>
   </tr>
   <tr>
-    <td class="key">p2p&nbsp;enabled</td>
+    <td class="key" title="True if the user has enabled P2P acceleration for this podcast in LimeCast Edit">p2p&nbsp;enabled</td>
     <td>
       <%= @podcast.has_p2p_acceleration ? "true" : "false" -%>
     </td>
   </tr>
   <tr>
-    <td class="key">preview&nbsp;enabled</td>
+    <td class="key" title="True if the user has enabled media preview for this podcast">preview&nbsp;enabled</td>
     <td>
       <%= @podcast.has_previews ? "true" : "false" -%>
     </td>
   </tr>
+</table>
+
+<h2>Top:</h2>
+<table>
   <tr>
-    <td class="key">itunes</td>
+    <td class="key" title="The podcast ranking on the leaderboard">top</td>
     <td>
-      <%= non_blank { @podcast.primary_feed.itunes_link } -%>
+      <%= "NOT IMPLEMENTED YET" -%>
     </td>
   </tr>
   <tr>
-    <td class="key">top</td>
+    <td class="key" title="The users who have favorited this podcast">favorite</td>
     <td>
-      Not Implemented
+      <%= @podcast.favoriters.size -%>
     </td>
   </tr>
   <tr>
-    <td class="key">favorite</td>
+    <td class="key" title="The number of page views the podcast has">hits</td>
     <td>
-      <%= @podcast.favoriters.map{|u| info_user_link(u)}.to_sentence -%>
-    </td>
-  </tr>
-  <tr>
-    <td class="key">logo</td>
-    <td>
-      <%= link_to @podcast.logo.url, @podcast.logo.url -%>
-    </td>
-  </tr>
-  <tr>
-    <td class="key">owner&nbsp;email</td>
-    <td>
-      <%= non_blank @podcast.owner_email -%>
-    </td>
-  </tr>
-  <tr>
-    <td class="key">owner&nbsp;name</td>
-    <td>
-      <%= non_blank @podcast.owner_name -%>
-    </td>
-  </tr>
-  <tr>
-    <td class="key">site</td>
-    <td>
-      <%= non_blank @podcast.site -%>
-    </td>
-  </tr>
-  <tr>
-    <td class="key">last&nbsp;modified</td>
-    <td>
-      <%= relative_time @podcast.updated_at -%>
+      <%= "NOT IMPLEMENTED YET" -%>
     </td>
   </tr>
 </table>
-
-<h2>Titles</h2>
-<table cellpadding="0" cellspacing="0" border="0">
-  <tr>
-    <td class="key">primary&nbsp;feed&nbsp;title</td>
-    <td><code><%= non_blank { @podcast.primary_feed.title } %></code></td>
-  </tr>
-  <tr>
-    <td class="key">title&nbsp;(as&nbsp;shown&nbsp;on&nbsp;site)</td>
-    <td><code><%= @podcast.title %></code></td>
-  </tr>
-  <tr>
-    <td class="key">url&nbsp;slug</td>
-    <td><code><%= @podcast.clean_url %></code></td>
-  </tr>
-</table>
-
-<h2>Finders</h2>
-<ul>
-  <% @podcast.feeds.each do |f| -%>
-    <%= content_tag :li, link_to(f.finder.login, user_url(f.finder)) unless f.finder.nil? %>
-  <% end -%>
-</ul>
 
 <h2>Tags</h2>
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key">badges</td>
+    <td class="key" title="Badges the system has assigned this podcast">badges</td>
     <td><%= (@podcast.tags.badges.map{|b| b.name} + @podcast.additional_badges).join(", ") -%></td>
   </tr>
   <tr>
-    <td class="key">not&nbsp;badges</td>
+    <td class="key" title="Badges the system has not assigned this podcast">not&nbsp;badges</td>
     <td><%= (Tag.badges - @podcast.tags.badges).map{|b| b.name}.join(", ") -%></td>
   </tr>
   <tr>
-    <td class="key">itunes&nbsp;categories</td>
-    <td>No way to tell yet.</td>
+    <td class="key" title="iTunes category names parsed from the feeds that we turn into LimeCast tags">itunes&nbsp;categories</td>
+    <td>NOT IMPLEMENTED YET.</td>
   </tr>
   <tr>
-    <td class="key">tags</td>
+    <td class="key" title="Tags each user has assigned this podcast">tags</td>
     <td><%= @podcast.tags.without_badges.map{|b| b.name}.join(", ") -%></td>
   </tr>
 </table>
@@ -174,12 +126,40 @@
 <h2>Features</h2>
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key">related&nbsp;podcasts</td>
-    <td><%= @podcast.related_podcasts.map{|p| link_to h(p.title), info_podcast_url(p)}.join(", ") -%></td>
+    <td class="key" title="Subscribe and download table described below for the podcast's current episode">subscribe&nbsp;and&nbsp;download&nbsp;table</td>
+    <td>NOT IMPLEMENTED YET</td>
   </tr>
   <tr>
-    <td class="key">reviews</td>
-    <td><%= @podcast.reviews.map{|r| link_to(h(r.title), info_review_url(r)) rescue "" }.join(", ") -%></td>
+    <td class="key" title="Search this podcast box">search</td>
+    <td>NOT IMPLEMENTED YET</td>
+  </tr>
+  <tr>
+    <td class="key" title="List of links to review info pages">reviews</td>
+    <td><%= @podcast.reviews.empty? ? blankness : @podcast.reviews.map{|r| link_to(h(r.title), info_review_url(r)) rescue "" }.join(", ") -%></td>
+  </tr>
+  <tr>
+    <td class="key" title="Related podcasts">related&nbsp;podcasts</td>
+    <td><%= @podcast.related_podcasts.empty? ? blankness : @podcast.related_podcasts.map{|p| link_to h(p.title), info_podcast_url(p)}.join(", ") -%></td>
+  </tr>
+</table>
+
+<h2>Render</h2>
+<table cellpadding="0" cellspacing="0" border="0">
+  <tr>
+    <td class="key" title="The podcast rendered as a name">name&nbsp;render</td>
+    <td>NOT IMPLEMENTED YET</td>
+  </tr>
+  <tr>
+    <td class="key" title="The podcast rendered onto a single line">line&nbsp;render</td>
+    <td>NOT IMPLEMENTED YET</td>
+  </tr>
+  <tr>
+    <td class="key" title="The podcast rendered into a small tile">small&nbsp;tile&nbsp;render</td>
+    <td>NOT IMPLEMENTED YET</td>
+  </tr>
+  <tr>
+    <td class="key" title="The podcast rendered to a large tile that fills the central column width">large&nbsp;title&nbsp;render</td>
+    <td>NOT IMPLEMENTED YET</td>
   </tr>
 </table>
 

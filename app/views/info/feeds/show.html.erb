@@ -6,47 +6,52 @@
 <h2>Info</h2>
 <table>
   <tr>
-    <td class="key">maker</td>
-    <td><%= @feed.podcast.owner.nil? ? blankness : link_to(@feed.podcast.owner.login, @feed.podcast.owner) -%></td>
+    <td class="key" title="The user who makes this feed based on the current email address in the XML">makes</td>
+    <td><%= info_user_link(@feed.owner) -%></td>
   </tr>
 
   <tr>
-    <td class="key">rss</td>
+    <td class="key" title="The user who added this feed, if any">found</td>
+    <td><%= info_user_link(@feed.finder) -%></td>
+  </tr>
+
+  <tr>
+    <td class="key" title="Linked RSS address">rss</td>
     <td><%= link_to(@feed.url) -%></td>
   </tr>
 
   <tr>
-    <td class="key">magnet</td>
+    <td class="key" title="Link to LimeCast-produced feed remixed with magnet links">magnet</td>
     <td><%= link_to(magnet_feed_url(@feed.podcast, @feed)) -%></td>
   </tr>
 
   <tr>
-    <td class="key">torrent</td>
+    <td class="key" title="Link to LimeCast-produced feed remixed with torrents">torrent</td>
     <td><%= link_to(torrent_feed_url(@feed.podcast, @feed)) -%></td>
   </tr>
 
   <tr>
-    <td class="key">ability</td>
+    <td class="key" title="The ability version number that downloaded and parsed this feed">ability</td>
     <td><%= non_blank @feed.ability -%></td>
   </tr>
 
   <tr>
-    <td class="key">updated</td>
+    <td class="key" title="When the site last downloaded and parsed this feed">updated</td>
     <td><%= non_blank relative_time(@feed.updated_at) -%></td>
   </tr>
 
   <tr>
-    <td class="key">set&nbsp;itunes</td>
+    <td class="key" title="iTunes ID set by the user in LimeCast Edit">set&nbsp;itunes</td>
     <td><%= non_blank @feed.itunes_link -%></td>
   </tr>
   
   <tr>
-    <td class="key">parsed&nbsp;itunes</td>
+    <td class="key" title="iTunes ID parsed from a mention in the podcast description xml">parsed&nbsp;itunes</td>
     <td><%= "NOT IMPLEMENTED YET" -%></td>
   </tr>
 
   <tr>
-    <td class="key">cover</td>
+    <td class="key" title="Cover art in all the different sizes shown inline">cover</td>
     <td>
     <% @feed.podcast.logo.styles.keys.each do |size| -%>
       <%= image_tag @feed.podcast.logo(size) -%>
@@ -55,52 +60,32 @@
   </tr>
 
   <tr>
-    <td class="key">title</td>
+    <td class="key" title="The podcast title parsed from the XML of this feed">title</td>
     <td><%= non_blank @feed.title -%></td>
   </tr>
 
   <tr>
-    <td class="key">site</td>
+    <td class="key" title="Link anchor for the page, shortened and formatted, linked to the podcaster's website">site</td>
     <td><%= link_to(@feed.podcast.site) -%></td>
   </tr>
 
   <tr>
-    <td class="key">line&nbsp;description</td>
+    <td class="key" title="Podcast description formatted to a single line of text for summary display. Combines multiple paragraphs and unlinks links.">line&nbsp;description</td>
     <td><%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@feed.description)) -%></td>
   </tr>
 
   <tr>
-    <td class="key">page&nbsp;description</td>
+    <td class="key" title="Podcast description formatted for page display. Has multiple paragraphs and allows links.">page&nbsp;description</td>
     <td><%= non_blank sanitize_summary(@feed.description) -%></td>
   </tr>
 
   <tr>
-    <td class="key">html&nbsp;description</td>
+    <td class="key" title="Podcast description taken from the XML, letting all but the most dangerous HTML through.">html&nbsp;description</td>
     <td><%= non_blank sanitize_lightly(@feed.description) -%></td>
   </tr>
 </table>
-
-<h2>Tags</h2>
-<ul>
-<%- @feed.podcast.tags.without_badges.all.each do |t| -%>
-  <li><%= t.name %></li>
-<%- end -%>
-</ul>
-
-<h2>Sources</h2>
-<ul>
-  <% @feed.sources.each do |s| -%>
-    <li><%= link_to s.episode.date_title, info_source_url(@feed.podcast, s.episode, s) -%></li>
-  <% end -%>
-</ul>
 
 <h2>XML</h2>
 <pre class="formatted-xml">
   <%= @feed_xml %>
 </pre>
-
-<!-- <h2>Torrent XML</h2> -->
-<!-- <pre><%=h @feed.remixed_as_torrent -%></pre> -->
-
-<!-- <h2>Magnet XML</h2> -->
-<!-- <pre><%=h @feed.remixed_as_magnet -%></pre> -->

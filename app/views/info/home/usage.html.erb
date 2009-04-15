@@ -17,27 +17,27 @@ Podcasts on first page of search results -->
   <p>The number of podcasts in the system.</p>
   <table>
     <tr>
-      <td class="key"><%= Podcast.all.size %><%= sparkline(@statistics.map(&:podcasts_count))%></td>
+      <td class="key" title=""><%= Podcast.all.size %><%= sparkline(@statistics.map(&:podcasts_count))%></td>
       <td>total</td>
     </tr>
     <tr>
-      <td class="key"><%= Podcast.found_by_admin.size %><%= sparkline(@statistics.map(&:podcasts_found_by_admins_count))%></td>
+      <td class="key" title=""><%= Podcast.found_by_admin.size %><%= sparkline(@statistics.map(&:podcasts_found_by_admins_count))%></td>
       <td>podcasts added by admins</td>
     </tr>
     <tr>
-      <td class="key"><%= Podcast.found_by_nonadmin.size %><%= sparkline(@statistics.map(&:podcasts_found_by_nonadmins_count))%></td>
+      <td class="key" title=""><%= Podcast.found_by_nonadmin.size %><%= sparkline(@statistics.map(&:podcasts_found_by_nonadmins_count))%></td>
       <td>podcasts added by non-admins</td>
     </tr>
     <tr>
-      <td class="key"><%= Feed.all.size %><%= sparkline(@statistics.map(&:feeds_count))%></td>
+      <td class="key" title=""><%= Feed.all.size %><%= sparkline(@statistics.map(&:feeds_count))%></td>
       <td>feeds total</td>
     </tr>
     <tr>
-      <td class="key"><%= Feed.found_by_admin.size %><%= sparkline(@statistics.map(&:feeds_found_by_admins_count))%></td>
+      <td class="key" title=""><%= Feed.found_by_admin.size %><%= sparkline(@statistics.map(&:feeds_found_by_admins_count))%></td>
       <td>feeds added by admins</td>
     </tr>
     <tr>
-      <td class="key"><%= Feed.found_by_nonadmin.size %><%= sparkline(@statistics.map(&:feeds_found_by_nonadmins_count))%></td>
+      <td class="key" title=""><%= Feed.found_by_nonadmin.size %><%= sparkline(@statistics.map(&:feeds_found_by_nonadmins_count))%></td>
       <td>feeds added by non-admins</td>
     </tr>
   </table>
@@ -54,19 +54,19 @@ Podcasts on first page of search results -->
   </p>
   <table>
     <tr>
-      <td class="key"><%= User.all.size %><%= sparkline(@statistics.map(&:users_count))%></td>
+      <td class="key" title=""><%= User.all.size %><%= sparkline(@statistics.map(&:users_count))%></td>
       <td>total</td>
     </tr>
     <tr>
-      <td class="key"><%= User.confirmed.size %><%= sparkline(@statistics.map(&:users_confirmed_count))%></td>
+      <td class="key" title=""><%= User.confirmed.size %><%= sparkline(@statistics.map(&:users_confirmed_count))%></td>
       <td>confirmed</td>
     </tr>
     <tr>
-      <td class="key"><%= User.unconfirmed.size %><%= sparkline(@statistics.map(&:users_unconfirmed_count))%></td>
+      <td class="key" title=""><%= User.unconfirmed.size %><%= sparkline(@statistics.map(&:users_unconfirmed_count))%></td>
       <td>unconfirmed</td>
     </tr>
     <tr>
-      <td class="key"><%= User.passive.size %><%= sparkline(@statistics.map(&:users_passive_count))%></td>
+      <td class="key" title=""><%= User.passive.size %><%= sparkline(@statistics.map(&:users_passive_count))%></td>
       <td>passive</td>
     </tr>
   </table>
@@ -78,7 +78,7 @@ Podcasts on first page of search results -->
   <p>This is the number of reviews in the system.</p>
   <table>
     <tr>
-      <td class="key"><%= Review.all.size %><%= sparkline(@statistics.map(&:reviews_count))%></td>
+      <td class="key" title=""><%= Review.all.size %><%= sparkline(@statistics.map(&:reviews_count))%></td>
       <td>total</td>
     </tr>
   </table>
@@ -93,7 +93,7 @@ Podcasts on first page of search results -->
   </p>
   <table>
     <tr>
-      <td class="key"><%= Feed.from_limetracker.size %><%= sparkline(@statistics.map(&:feeds_from_trackers_count)) %></td>
+      <td class="key" title=""><%= Feed.from_limetracker.size %><%= sparkline(@statistics.map(&:feeds_from_trackers_count)) %></td>
       <td>total</td>
     </tr>
   </table>
@@ -105,7 +105,7 @@ Podcasts on first page of search results -->
   <p>This is the number of podcasts that have a LimeCast button installed.</p>
   <table>
     <tr>
-      <td class="key"><%= Podcast.find(:all, :conditions => {:button_installed => true}).size %><%= sparkline(@statistics.map(&:podcasts_with_buttons_count)) %></td>
+      <td class="key" title=""><%= Podcast.find(:all, :conditions => {:button_installed => true}).size %><%= sparkline(@statistics.map(&:podcasts_with_buttons_count)) %></td>
       <td>total</td>
     </tr>
   </table>
@@ -117,7 +117,7 @@ Podcasts on first page of search results -->
   <p>This is the number of podcasts that show up on the first page of Google results.</p>
   <table>
     <tr>
-      <td class="key"><%= non_blank { @statistics.first.podcasts_on_google_first_page_count } %><%= non_blank { sparkline(@statistics.map(&:podcasts_on_google_first_page_count)) } %></td>
+      <td class="key" title=""><%= non_blank { @statistics.first.podcasts_on_google_first_page_count } %><%= non_blank { sparkline(@statistics.map(&:podcasts_on_google_first_page_count)) } %></td>
       <td>total (at last count)</td>
     </tr>
   </table>

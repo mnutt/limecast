@@ -8,58 +8,59 @@
 
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
 
+<h2>Info:</h2>
 <table>
   <tr>
-    <td class="key">ability</td>
+    <td class="key" title="The ability version number of the site software that last parsed, downloaded, hashed, and opened this source">ability</td>
     <td>
       <%= @source.ability -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">archived</td>
+    <td class="key" title="True if this episode is still in the feed, false if it's archived in the site after falling off the feed's end">archived</td>
     <td>
       <%= @source.archived -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">name&nbsp;date</td>
+    <td class="key" title="The unique UTC day the system uses as the name of this episode">name&nbsp;date</td>
     <td>
       <%= @episode.clean_url -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">xml&nbsp;date</td>
+    <td class="key" title="The episode date and time according to the XML">xml&nbsp;date</td>
     <td>
       <%= relative_time @episode.published_at -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">found&nbsp;date</td>
+    <td class="key" title="When we first noticed this new episode in the feed">found&nbsp;date</td>
     <td>
       <%= relative_time @episode.created_at -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">age</td>
+    <td class="key" title="When this record was created">age</td>
     <td>
       <%= relative_time @episode.created_at -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">xml&nbsp;age</td>
+    <td class="key" title="When this XML was downloaded and parsed">xml&nbsp;age</td>
     <td>
       <%= @source.downloaded_at.blank? ? blankness: relative_time(@source.downloaded_at) -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">download&nbsp;age</td>
+    <td class="key" title="When the site downloaded, hashed, and opened this source">download&nbsp;age</td>
     <td>
       <%= @source.hashed_at.blank? ? blankness : relative_time(@source.hashed_at) -%>
     </td>
@@ -72,191 +73,168 @@
 
 <table>
   <tr>
-    <td class="key">extension&nbsp;result</td>
+    <td class="key" title="The chosen extension for the user">extension&nbsp;result</td>
     <td>
       <%= non_blank @source.extension -%>
     </td>
   </tr>
   <tr>
-    <td class="key">resolution&nbsp;result</td>
+    <td class="key" title="The result resolution for the user">resolution&nbsp;result</td>
     <td>
       <%= non_blank @source.resolution -%>
     </td>
   </tr>
   <tr>
-    <td class="key">frame&nbsp;rate&nbsp;result</td>
+    <td class="key" title="The result frame rate for the user">frame&nbsp;rate&nbsp;result</td>
     <td>
       <%= non_blank @source.framerate -%>
     </td>
   </tr>
   <tr>
-    <td class="key">hash&nbsp;result</td>
+    <td class="key" title="The SHA1 hash">hash&nbsp;result</td>
     <td>
       <%= non_blank @source.sha1hash -%>
     </td>
   </tr>
   <tr>
-    <td class="key">download&nbsp;file&nbsp;name&nbsp;result</td>
+    <td class="key" title="The chosen download file name for the user">download&nbsp;file&nbsp;name&nbsp;result</td>
     <td>
       <%= non_blank @source.file_name -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">bitrate&nbsp;result</td>
+    <td class="key" title="The calculated and adjusted bitrate to show to the user">bitrate&nbsp;result</td>
     <td>
       <%= @feed.bitrate == 0 ? blankness : @feed.bitrate.to_bitrate.to_s -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">size&nbsp;result</td>
+    <td class="key" title="The calculated size to show the user">size&nbsp;result</td>
     <td>
       <%= non_blank @source.size.to_file_size.to_s -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">duration&nbsp;result</td>
+    <td class="key" title="The chosen duration for the user">duration&nbsp;result</td>
     <td>
       <%= @episode.duration == 0 ? blankness : @episode.duration.to_duration.to_s -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">bitrate&nbsp;exact</td>
+    <td class="key" title="The calculated bitrate in bytes per second">bitrate&nbsp;exact</td>
     <td>
       <%= non_blank @feed.bitrate -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">size&nbsp;from&nbsp;disk&nbsp;exact</td>
+    <td class="key" title="The chosen size in bytes">size&nbsp;exact</td>
     <td>
       <%= non_blank @source.size_from_disk -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">size&nbsp;from&nbsp;xml&nbsp;exact</td>
-    <td>
-      <%= non_blank @source.size_from_xml -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="key">duration&nbsp;exact</td>
+    <td class="key" title="The chosen duration in seconds">duration&nbsp;exact</td>
     <td>
       <%= non_blank @episode.duration -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">xml&nbsp;size</td>
+    <td class="key" title="The size in bytes as parsed from the XML either of two places">xml&nbsp;size</td>
     <td>
       <%= @source.xml.blank? ? blankness : @source.xml.size -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">disk&nbsp;size</td>
+    <td class="key" title="The size in bytes as seen on the disk">disk&nbsp;size</td>
     <td>
       <%= non_blank @source.size -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">xml&nbsp;duration</td>
+    <td class="key" title="The duration in seconds as parsed from the XML">xml&nbsp;duration</td>
     <td>
       <%= non_blank @episode.duration -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">ffmpeg&nbsp;duration</td>
+    <td class="key" title="The duration in seconds according to FFmpeg">ffmpeg&nbsp;duration</td>
     <td>
       <%= non_blank @episode.duration -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">xml&nbsp;extension&nbsp;exact</td>
+    <td class="key" title="The file extension in the XML">xml&nbsp;extension&nbsp;exact</td>
     <td>
       <%= non_blank @source.extension -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">xml&nbsp;type</td>
+    <td class="key" title="The MIME type in the XML">xml&nbsp;type</td>
     <td>
       <%= non_blank @source.type -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">http&nbsp;extension</td>
+    <td class="key" title="The file extension in the XML">http&nbsp;extension</td>
     <td>
       <%= non_blank @source.extension -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">http&nbsp;type</td>
+    <td class="key" title="The MIME type cURL saw in response HTTP headers">http&nbsp;type</td>
     <td>
       <%= non_blank @source.type -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">disk&nbsp;extension</td>
+    <td class="key" title="The extension of the file saved to disk">disk&nbsp;extension</td>
     <td>
       <%= non_blank @source.extension -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">disk&nbsp;type</td>
+    <td class="key" title="The MIME type according to FFmpeg">disk&nbsp;type</td>
     <td>
       <%= non_blank @source.type -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">curl&nbsp;output</td>
+    <td class="key" title="Verbose debug output from cURL, including all the response headers it received. If the download 404ed, that should show up here.">curl&nbsp;output</td>
     <td>
       <%= @source.curl_info.blank? ? blankness : "<pre>#{@source.curl_info}</pre>" -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">ffmpeg&nbsp;output</td>
+    <td class="key" title="Verbose debug output from FFmpeg, including all the metadata it read. If it failed for any reason, the specifics of that should be kept here.">ffmpeg&nbsp;output</td>
     <td>
       <%= @source.ffmpeg_info.blank? ? blankness : "<pre>#{@source.ffmpeg_info}</pre>" -%>
     </td>
   </tr>
 
-  <!-- <tr>
-    <td class="key">Screenshot</td>
-    <td>
-      <%= link_to(@source.screenshot.url, @source.screenshot.url) -%>
-      (<%= FileSize.new(@source.screenshot_file_size.to_i || 0) -%>)
-    </td>
-  </tr>
-  
-  <tr>
-    <td class="key">Preview</td>
-    <td>
-      <%= link_to(@source.preview.url, @source.preview.url) -%>
-      (<%= FileSize.new(@source.preview_file_size.to_i || 0) -%>)
-    </td>
-  </tr>
-  -->
 </table>
 
 <h2>Preview</h2>
 <table>
   <tr>
-    <td class="key">preview</td>
+    <td class="key" title="Flash player presenting the video or audio preview">preview</td>
     <td>
     <% if @episode.audio_source -%>
       <%= render :partial => 'episodes/audio_player', :object => @episode %>
@@ -267,7 +245,7 @@
   </tr>
 
   <tr>
-    <td class="key">video still</td>
+    <td class="key" title="The video still image FFmpeg took from the episode shown inline">video still</td>
     <td>
     <%- if @source.screenshot? -%>
       <%= image_tag(@source.screenshot.url, {:rel => @source.preview.url, :alt => "#{@episode.title} cover art"}.merge(scaled_resolution(:width => @source.width, :height => @source.height))) -%>
@@ -278,69 +256,64 @@
   </tr>
 
   <tr>
-    <td class="key">video&nbsp;preview</td>
+    <td class="key" title="A link to the preview video FFmpeg clipped from the episode, and the file size">video&nbsp;preview</td>
     <td>
       <%= link_to(@source.preview.url, @source.preview.url) -%>
       (<%= FileSize.new(@source.preview_file_size.to_i || 0) -%>)
     </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="The file size in bytes of the video preview we're keeping">video&nbsp;size</td>
+    <td><%= @source.preview_file_size %></td>
   </tr>
 </table>
 
 <h2>Text</h2>
 <table>
   <tr>
-    <td class="key">itunes</td>
+    <td class="key" title="iTunes ID parsed from a mention in the XML">itunes</td>
     <td>
       <%= non_blank @feed.itunes_link %>
     </td>
   </tr>
 
   <tr>
-    <td class="key">title</td>
+    <td class="key" title="Episode title parsed and scrubbed from the XML">title</td>
     <td>
       <%= non_blank @episode.title %>
     </td>
   </tr>
 
   <tr>
-    <td class="key">line&nbsp;description</td>
+    <td class="key" title="Safe description on a single line with paragraph marks">line&nbsp;description</td>
     <td>
       <%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@episode.summary)) %>
     </td>
   </tr>
 
   <tr>
-    <td class="key">safe&nbsp;description</td>
+    <td class="key" title="Episode description parsed and scrubbed from the XML keeping paragraphs but removing links and HTML">safe&nbsp;description</td>
     <td>
       <%= non_blank unescape_entities(@episode.summary) %>
     </td>
   </tr>
 
   <tr>
-    <td class="key">page&nbsp;description</td>
+    <td class="key" title="Episode description parsed and scrubbed from the XML for page display, keeping paragraphs and links but removing HTML">page&nbsp;description</td>
     <td>
       <%= non_blank sanitize_summary @episode.summary %>
     </td>
   </tr>
 
   <tr>
-    <td class="key">html&nbsp;description</td>
+    <td class="key" title="Episode description parsed and lightly scrubbed from the XML, keeping all but the most dangerous HTML elements">html&nbsp;description</td>
     <td>
       <%= non_blank sanitize_lightly @episode.summary %>
     </td>
   </tr>
 </table>
 
-
-<h2>Media:</h2>
-<%= render :partial => "info/sources/info_media", :locals => {:source => @source} %>
-
-<h2>Badges:</h2>
-<ul>
-<%- @source.feed.podcast.tags.badges.each do |t| -%>
-  <li><%= t.name %></li>
-<%- end -%>
-</ul>
 
 <h2>XML:</h2
 <% if @source.xml.blank? %>

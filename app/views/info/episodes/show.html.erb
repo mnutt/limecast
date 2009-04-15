@@ -1,14 +1,13 @@
 <h1>Episode</h1>
 
-<h2>Map</h2>
-<%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:episode => @episode}} -%>
-
-<p>
+<% content_for :pagination do -%>
   <%= link_to "< Newer", info_episode_url(@podcast, @newer) if @newer %> 
   <%= @podcast.episodes.sorted.index(@episode) + 1 %> of <%= @podcast.episodes.count -%> 
   <%= link_to "Older >", info_episode_url(@podcast, @older) if @older %> 
-</p>
+<% end -%>
 
+<h2>Map</h2>
+<%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:episode => @episode}} -%>
 
 <h2>Media</h2>
 <% @episode.sources.sorted('bitrate').each do |source| -%>

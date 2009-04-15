@@ -13,12 +13,12 @@ describe PodcastMailer do
   #     :owner_id => @owner.id, :owner_email => @owner.email, :site => 'somewhere.com',
   #     :feeds => [Factory.create(:feed, :url => "http://somewhere.com/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read, :state => 'parsed', :finder_id => @finder.id)])
   # end
-  # 
+  #
   # before(:each) do
   #   setup_actionmailer
   # end
-  # 
-  # 
+  #
+  #
   # after(:each) do
   #   reset_actionmailer
   # end

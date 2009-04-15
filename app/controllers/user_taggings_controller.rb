@@ -15,7 +15,7 @@ class UserTaggingsController < ApplicationController
         Tag.connection.transaction do
           if tag = Tag.find_or_create_by_name(tag.strip.downcase)
             if tagging = @podcast.taggings.find_or_create_by_tag_id(tag.id)
-              user_tagging = UserTagging.create!(:tagging => tagging, :user => current_user) 
+              user_tagging = UserTagging.create!(:tagging => tagging, :user => current_user)
               remember_unclaimed_record(user_tagging)
             end
           end
@@ -30,19 +30,19 @@ class UserTaggingsController < ApplicationController
     end
   rescue ActiveRecord::RecordInvalid => e
     respond_to do |format|
-      format.html { 
+      format.html {
         redirect_to(@podcast)
       }
       format.js { render :json => {:success => false, :html => render_to_string(:partial => "tags/tags_with_new_form", :object => @podcast.reload.tags, :locals => {:podcast => @podcast.reload}) } }
     end
   end
-  
+
   # DELETE /user_tagging/:id
   def destroy
     @user_tagging = UserTagging.find(params[:id])
 
     authorize_write @user_tagging
-    
+
     respond_to do |format|
       if @user_tagging.destroy
         format.js { render :layout => false }

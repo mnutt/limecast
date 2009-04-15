@@ -4,13 +4,13 @@
 # Table name: reviews
 #
 #  id             :integer(4)    not null, primary key
-#  user_id        :integer(4)    
-#  body           :text          
-#  created_at     :datetime      
-#  updated_at     :datetime      
-#  title          :string(255)   
-#  positive       :boolean(1)    
-#  episode_id     :integer(4)    
+#  user_id        :integer(4)
+#  body           :text
+#  created_at     :datetime
+#  updated_at     :datetime
+#  title          :string(255)
+#  positive       :boolean(1)
+#  episode_id     :integer(4)
 #  insightful     :integer(4)    default(0)
 #  not_insightful :integer(4)    default(0)
 #
@@ -54,7 +54,7 @@ class Review < ActiveRecord::Base
   def rated_by?(user)
     user && self.review_ratings.exists?(:user_id => user.id)
   end
-  
+
   def claim_by(user)
     update_attribute(:reviewer, user)
   end

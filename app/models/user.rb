@@ -4,23 +4,23 @@
 # Table name: users
 #
 #  id                        :integer(4)    not null, primary key
-#  login                     :string(255)   
-#  email                     :string(255)   
-#  crypted_password          :string(40)    
-#  salt                      :string(40)    
-#  created_at                :datetime      
-#  updated_at                :datetime      
-#  remember_token            :string(255)   
-#  remember_token_expires_at :datetime      
-#  activation_code           :string(40)    
-#  activated_at              :datetime      
+#  login                     :string(255)
+#  email                     :string(255)
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  remember_token            :string(255)
+#  remember_token_expires_at :datetime
+#  activation_code           :string(40)
+#  activated_at              :datetime
 #  state                     :string(255)   default("passive")
-#  deleted_at                :datetime      
-#  admin                     :boolean(1)    
-#  reset_password_code       :string(255)   
-#  reset_password_sent_at    :datetime      
+#  deleted_at                :datetime
+#  admin                     :boolean(1)
+#  reset_password_code       :string(255)
+#  reset_password_sent_at    :datetime
 #  score                     :integer(4)    default(0)
-#  logged_in_at              :datetime      
+#  logged_in_at              :datetime
 #
 
 require 'digest/sha1'
@@ -58,12 +58,12 @@ class User < ActiveRecord::Base
   named_scope :frequent_users, {:conditions => ["users.logged_in_at > (?)", 29.days.ago]}
   named_scope :admins, {:conditions => {:admin => true}}
 
-  # States 
+  # States
   %w(passive unconfirmed confirmed).each do |meth|
     named_scope meth.to_sym, {:conditions => {:state => meth}}
     define_method("#{meth}?") { state == meth.to_s }
-  end 
-  
+  end
+
 
   define_index do
     indexes :login, :email
@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
       user = User.new(:state => 'passive', :email => email, :login => login)
       user.generate_reset_password_code
     end
-    
+
     return user
   end
 
@@ -164,12 +164,12 @@ class User < ActiveRecord::Base
     self.remember_token            = encrypt("#{email}--#{remember_token_expires_at}")
     save(false)
   end
-  
+
   # Make sure the state is a string; symbols get serialized in the db
   def state=(val)
     write_attribute(:state, val.to_s)
   end
-  
+
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
@@ -196,7 +196,7 @@ class User < ActiveRecord::Base
   def podcaster?
     self.owned_podcasts.count > 0
   end
-  
+
   def unconfirm
     self.state           = "unconfirmed"
     self.deleted_at      = nil
@@ -210,7 +210,7 @@ class User < ActiveRecord::Base
     self.activation_code = nil
     self.state           = 'confirmed'
   end
-  
+
   # This user has only been saved once.
   def fresh?
     created_at == updated_at

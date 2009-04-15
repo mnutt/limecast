@@ -124,17 +124,17 @@ describe UsersController, "handling POST /users" do
       decode(response)["html"].should =~ /Sorry/
     end
   end
-  
+
   describe "when the user name has already been taken" do
     before do
       @user = Factory.create(:user)
       post :create, :user => {:login => @user.login, :password => "goodpass", :email => "quire@example.com"}, :format => 'js'
     end
-  
+
     it 'should not succeed' do
       decode(response)["success"].should be_false
     end
-  
+
     it 'should report that the username has already been taken' do
       response.body.should =~ /Sorry, this user name is taken/
     end
@@ -148,11 +148,11 @@ describe UsersController, "handling POST /users" do
     before do
       post :create, :user => {:login => "quire", :password => "goodpass", :email => "quire@example.com"}, :format => 'js'
     end
-  
+
     it 'should succeed' do
       decode(response)["success"].should be_true
     end
-  
+
     it 'should return the link_to_user' do
       decode(response)["html"].should =~ /Successful signup\,.*quire/
     end

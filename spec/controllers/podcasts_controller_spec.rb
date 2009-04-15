@@ -124,7 +124,7 @@ describe PodcastsController do
       end
 
       it "should add a new feed (via nested form attributes)" do
-        # the nested attributes should build a new association model for every hash that doesn't have an id 
+        # the nested attributes should build a new association model for every hash that doesn't have an id
         url = "http://#{@podcast.clean_site}/newfeed.xml"
         podcast_with_nested_attrs = {'feeds_attributes' => {'new' => {"url" => url}}}
         lambda { do_put(podcast_with_nested_attrs) }.should change{ @podcast.reload.feeds.size }.by(1)
@@ -226,7 +226,7 @@ describe PodcastsController do
       lambda { do_post(@podcast) }.should change { @podcast.favorites.count }.by(1)
       lambda { do_post(@podcast) }.should change { @podcast.favorites.count }.by(-1)
     end
-    
+
     describe "when logged out" do
       before(:each) { logout }
 
@@ -243,10 +243,10 @@ describe PodcastsController do
       it "should not add unclaimed favorite if one already exists" do
         favorite = Factory.create(:favorite, :podcast => @podcast, :user => nil)
         @controller.send(:remember_unclaimed_record, favorite)
-        
-        lambda { 
-          lambda { 
-            do_post(@podcast) 
+
+        lambda {
+          lambda {
+            do_post(@podcast)
           }.should_not change { @podcast.favorites.count }
         }.should_not change { session[:unclaimed_records]['Favorite'].size }
 

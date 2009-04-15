@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
         current_user.calculate_score!
         current_user.update_attribute(:logged_in_at, Time.now)
         return true
-      else 
+      else
         return false
       end
     end
@@ -127,7 +127,7 @@ class ApplicationController < ActionController::Base
       cookies.delete :auth_token
       reset_session
     end
-    
+
     # Stores another 'ClassName' => [id] pair in the session for the person to claim when they signin
     def remember_unclaimed_record(record)
       if logged_in?
@@ -137,7 +137,7 @@ class ApplicationController < ActionController::Base
         (session[:unclaimed_records][record.class.to_s] ||= []) << record.id
       end
     end
-    
+
     # Claims the unclaimed records stored in the session
     def claim_records
       session[:unclaimed_records].each_pair do |klass, record_ids|
@@ -146,10 +146,10 @@ class ApplicationController < ActionController::Base
           record.claim_by(current_user) if record
         end
       end.clear if session[:unclaimed_records]
-      
+
       current_user.calculate_score!
     end
-    
+
     # Returns true if the non-logged-in user has the given class in their session's unclaimed_records.
     # If +func+ is passed in, this only returns true if the func is true for at least one of the records
     # of this class in the session[:unclaimed_records]

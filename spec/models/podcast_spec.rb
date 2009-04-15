@@ -50,8 +50,8 @@ describe Podcast, "getting the average time between episodes" do
   end
 
   it 'should be zero for podcasts with no episodes' do
-      f = Factory.create(:podcast)
-      f.average_time_between_episodes.should == 0
+    f = Factory.create(:podcast)
+    f.average_time_between_episodes.should == 0
   end
 end
 
@@ -422,11 +422,11 @@ describe Podcast, "taggers" do
     @user2 = Factory.create(:user)
     @user3 = Factory.create(:user)
   end
-  
+
   it "should be empty if podcast isn't tagged" do
     @podcast.taggers.should be_empty
   end
-  
+
   it "should only include the users who tagged it" do
     @podcast.tag_string = ["somebadge"]
     @podcast.tag_string = ["fromuser1", @user1]

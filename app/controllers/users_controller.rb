@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with request forgery protection. uncomment at your own risk
     # reset_session
-    
+
     if authenticate
       respond_to { |format|
         format.html { redirect_back_or_default('/') }
@@ -29,11 +29,11 @@ class UsersController < ApplicationController
       }
       return
     end
-    
+
     @user = User.new(params[:user].keep_keys([:password, :email, :login]))
     @user.unconfirm
     @user.save if @user.valid?
-    
+
     respond_to do |format|
       if @user.errors.empty? && @user.reload
         self.current_user = @user

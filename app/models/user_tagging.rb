@@ -4,8 +4,8 @@
 # Table name: user_taggings
 #
 #  id         :integer(4)    not null, primary key
-#  user_id    :integer(4)    
-#  tagging_id :integer(4)    
+#  user_id    :integer(4)
+#  tagging_id :integer(4)
 #
 
 # This is merely a denormalized table to track which users added taggings.
@@ -20,7 +20,7 @@ class UserTagging < ActiveRecord::Base
   validates_uniqueness_of :tagging_id, :scope => :user_id
   validate :allowable_user_taggings
 
-  
+
   def claim_by(user)
     self.user = user
     save if valid?

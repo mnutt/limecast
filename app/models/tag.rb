@@ -4,11 +4,11 @@
 # Table name: tags
 #
 #  id             :integer(4)    not null, primary key
-#  name           :string(255)   
-#  badge          :boolean(1)    
-#  blacklisted    :boolean(1)    
-#  map_to_id      :integer(4)    
-#  taggings_count :integer(4)    
+#  name           :string(255)
+#  badge          :boolean(1)
+#  blacklisted    :boolean(1)
+#  map_to_id      :integer(4)
+#  taggings_count :integer(4)
 #
 
 class Tag < ActiveRecord::Base
@@ -51,7 +51,7 @@ class Tag < ActiveRecord::Base
   def to_param
     name
   end
-  
+
   def self.find_by_name!(name)
     self.find_by_name(name) or raise ActiveRecord::RecordNotFound
   end

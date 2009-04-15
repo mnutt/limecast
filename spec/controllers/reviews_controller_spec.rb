@@ -30,15 +30,15 @@ describe ReviewsController do
       assigns(:review).title.should == 'new'
       assigns(:review).body.should == 'review'
     end
-    
+
     describe "when logged out" do
       before(:each) { logout }
-      
+
       it "should add unclaimed review" do
         lambda { do_put }.should change { Review.unclaimed.count }.by(1)
         assigns(:review).reviewer.should be_nil
       end
-      
+
       it "should add the unclaimed review to the session" do
         do_put
         session[:unclaimed_records]['Review'].should include(assigns(:review).id)
@@ -108,21 +108,21 @@ describe ReviewsController do
     it 'should up the not_insightful ratings if a review is rated as not_insightful' do
       lambda { do_get(@review, 'not_insightful') }.should change { @review.not_insightful }.by(1)
     end
-    
+
     describe "when logged out" do
       before(:each) { logout }
-      
+
       it "should add unclaimed review" do
         lambda { do_get(@review, 'insightful') }.should change { ReviewRating.unclaimed.count }.by(1)
         assigns[:rating].user.should be_nil
       end
-      
+
       it "should add the unclaimed review to the session" do
         do_get(@review, 'insightful')
         session[:unclaimed_records]['ReviewRating'].should include(assigns[:rating].id)
         @controller.send(:remember_unclaimed_record, @review)
       end
-      
+
       it "should only be able to be reviewed one by a user" do
         review_rating = Factory.create(:review_rating, :review => @review, :user => nil)
         @controller.send(:remember_unclaimed_record, review_rating)
@@ -131,6 +131,6 @@ describe ReviewsController do
         assigns[:rating].should be_nil
       end
     end
-    
+
   end
 end

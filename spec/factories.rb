@@ -128,7 +128,7 @@ end
 Factory.define :review_rating, :class => ReviewRating do |r|
   r.association :user, :factory => :user
   r.association :review, :factory => :review
-  
+
   r.insightful true
 end
 

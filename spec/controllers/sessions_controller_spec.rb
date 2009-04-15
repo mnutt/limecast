@@ -28,7 +28,7 @@ describe SessionsController do
     @user.reload.logged_in_at.to_i.should == Time.now.to_i
     response.should be_redirect
   end
-  
+
   it 'login and claim reviews' do
     @review = Factory.create(:review, :reviewer => nil)
     @podcast = @review.episode.podcast

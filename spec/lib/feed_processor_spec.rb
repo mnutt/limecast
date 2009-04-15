@@ -102,7 +102,7 @@ describe FeedProcessor, "parsing a podcast's second feed (non-primary_feed)" do
     @podcast = @qf.feed.podcast.reload
     @qf2 = QueuedFeed.create(:url => (@qf.url.split('/')[0..-2].join+'feed_two.xml'))
   end
-  
+
   it 'should not change the podcast' do
     lambda { mod_and_run_feed_processor(@qf2, FetchExample) }.should_not change { @podcast.reload.updated_at}
   end

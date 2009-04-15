@@ -6,11 +6,11 @@ describe UserTaggingsController do
       @user = Factory.create(:user)
       @podcast = Factory.create(:podcast)
     end
-    
+
     def do_post(tag_string="gutentag", podcast_id=@podcast.id)
       post :create, :user_tagging => {:tag_string => tag_string, :podcast_id => podcast_id}
     end
-    
+
     describe "not logged in" do
       it 'should save an unclaimed user_tagging' do
         lambda { do_post }.should change { UserTagging.count }.by(1)
@@ -25,11 +25,11 @@ describe UserTaggingsController do
       it "should be redirected to podcast" do
         do_post.should redirect_to(podcast_url(@podcast))
       end
-    
+
       it "should increment the taggings count by 1" do
         lambda { do_post }.should change { @podcast.taggings.count }.by(1)
       end
-    
+
       it "should increment the taggings count by 4" do
         lambda { do_post("one two three four") }.should change { @podcast.taggings.count }.by(4)
       end
@@ -40,21 +40,21 @@ describe UserTaggingsController do
         @podcast.tags.map(&:name).should include("master")
         @podcast.tags.map(&:name).should include("zelda")
       end
-      
+
       it "should redirect and not change the tagging if podcast not found" do
         lambda { do_post("gutentag", "not-a-podcast-id") }.should_not change { UserTagging.count }
         response.response_code.should be(404)
       end
-      
+
       it "should set a flash message if regular user tries to add more than 8 tags" do
-        lambda { 
+        lambda {
           lambda {
             lambda { do_post("t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12") }.should change { UserTagging.count }.by(8)
           }.should change { Tagging.count }.by(8)
         }.should change { Tag.count }.by(8)
         response.should redirect_to(podcast_url(@podcast))
       end
-      
+
     end
   end
 

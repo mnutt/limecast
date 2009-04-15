@@ -1,0 +1,9 @@
+<h1>Last Failed Feed</h1>
+
+<% if @exception -%>
+  <p>Feed: <%= link_to h(@exception[:feed]), @exception[:feed] -%></p>
+  <p>Error: <%= @exception[:klass] -%>: <%= @exception[:message] -%></p>
+  <p><%= @exception[:backtrace].join("<br>") -%></p>
+<% else %>
+  <p>No error file recorded</p>
+<% end %>

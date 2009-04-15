@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
+
+Tagging.
+  created_at_least(20.minutes.ago).
+  select(&:unclaimed?).
+  map(&:destroy)
+

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090414214358) do
+ActiveRecord::Schema.define(:version => 20090415181533) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -202,8 +202,10 @@ ActiveRecord::Schema.define(:version => 20090414214358) do
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer "tag_id"
-    t.integer "podcast_id"
+    t.integer  "tag_id"
+    t.integer  "podcast_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id_and_taggable_type"

@@ -1,54 +1,52 @@
 <h1>Feed</h1>
 
 <h2>Map</h2>
-<table>
-  <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:feed => @feed}} -%>
-</table>
+<%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:feed => @feed}} -%>
 
 <h2>Info</h2>
 <table>
   <tr>
-    <td class="key">Maker</td>
+    <td class="key">maker</td>
     <td><%= @feed.podcast.owner.nil? ? blankness : link_to(@feed.podcast.owner.login, @feed.podcast.owner) -%></td>
   </tr>
 
   <tr>
-    <td class="key">RSS</td>
+    <td class="key">rss</td>
     <td><%= link_to(@feed.url) -%></td>
   </tr>
 
   <tr>
-    <td class="key">Magnet</td>
+    <td class="key">magnet</td>
     <td><%= link_to(magnet_feed_url(@feed.podcast, @feed)) -%></td>
   </tr>
 
   <tr>
-    <td class="key">Torrent</td>
+    <td class="key">torrent</td>
     <td><%= link_to(torrent_feed_url(@feed.podcast, @feed)) -%></td>
   </tr>
 
   <tr>
-    <td class="key">Ability</td>
+    <td class="key">ability</td>
     <td><%= non_blank @feed.ability -%></td>
   </tr>
 
   <tr>
-    <td class="key">Updated</td>
+    <td class="key">updated</td>
     <td><%= non_blank relative_time(@feed.updated_at) -%></td>
   </tr>
 
   <tr>
-    <td class="key">set iTunes</td>
+    <td class="key">set&nbsp;itunes</td>
     <td><%= non_blank @feed.itunes_link -%></td>
   </tr>
   
   <tr>
-    <td class="key">parsed iTunes</td>
+    <td class="key">parsed&nbsp;itunes</td>
     <td><%= "NOT IMPLEMENTED YET" -%></td>
   </tr>
 
   <tr>
-    <td class="key">Cover</td>
+    <td class="key">cover</td>
     <td>
     <% @feed.podcast.logo.styles.keys.each do |size| -%>
       <%= image_tag @feed.podcast.logo(size) -%>
@@ -57,27 +55,27 @@
   </tr>
 
   <tr>
-    <td class="key">Title</td>
+    <td class="key">title</td>
     <td><%= non_blank @feed.title -%></td>
   </tr>
 
   <tr>
-    <td class="key">Site</td>
+    <td class="key">site</td>
     <td><%= link_to(@feed.podcast.site) -%></td>
   </tr>
 
   <tr>
-    <td class="key">Line Description</td>
+    <td class="key">line&nbsp;description</td>
     <td><%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@feed.description)) -%></td>
   </tr>
 
   <tr>
-    <td class="key">Page Description</td>
+    <td class="key">page&nbsp;description</td>
     <td><%= non_blank sanitize_summary(@feed.description) -%></td>
   </tr>
 
   <tr>
-    <td class="key">HTML Description</td>
+    <td class="key">html&nbsp;description</td>
     <td><%= non_blank sanitize_lightly(@feed.description) -%></td>
   </tr>
 </table>

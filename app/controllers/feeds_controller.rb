@@ -85,13 +85,6 @@ class FeedsController < ApplicationController
     end
   end
 
-  def info
-    @feed = Feed.find(params[:id])
-    @feed_xml = @feed.diagnostic_xml
-
-    render :layout => 'info'
-  end
-
   def add_info
     @exception = YAML.load_file("#{RAILS_ROOT}/log/last_add_failed.yml")
     render :layout => 'info'

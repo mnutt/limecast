@@ -49,79 +49,79 @@
 
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key">Age</td>
+    <td class="key">age</td>
     <td>
       <%= relative_time @podcast.created_at -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Found</td>
+    <td class="key">found</td>
     <td>
       <%= non_blank { info_user_link(@podcast.primary_feed.finder) } -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Protected</td>
+    <td class="key">protected</td>
     <td>
       Not Implemented
     </td>
   </tr>
   <tr>
-    <td class="key">P2P Enabled</td>
+    <td class="key">p2p&nbsp;enabled</td>
     <td>
       <%= @podcast.has_p2p_acceleration ? "true" : "false" -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Preview enabled</td>
+    <td class="key">preview&nbsp;enabled</td>
     <td>
       <%= @podcast.has_previews ? "true" : "false" -%>
     </td>
   </tr>
   <tr>
-    <td class="key">iTunes</td>
+    <td class="key">itunes</td>
     <td>
       <%= non_blank { @podcast.primary_feed.itunes_link } -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Top</td>
+    <td class="key">top</td>
     <td>
       Not Implemented
     </td>
   </tr>
   <tr>
-    <td class="key">Favorite</td>
+    <td class="key">favorite</td>
     <td>
       <%= @podcast.favoriters.map{|u| info_user_link(u)}.to_sentence -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Logo</td>
+    <td class="key">logo</td>
     <td>
       <%= link_to @podcast.logo.url, @podcast.logo.url -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Owner Email</td>
+    <td class="key">owner&nbsp;email</td>
     <td>
       <%= non_blank @podcast.owner_email -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Owner Name</td>
+    <td class="key">owner&nbsp;name</td>
     <td>
       <%= non_blank @podcast.owner_name -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Site</td>
+    <td class="key">site</td>
     <td>
       <%= non_blank @podcast.site -%>
     </td>
   </tr>
   <tr>
-    <td class="key">Last Modified</td>
+    <td class="key">last&nbsp;modified</td>
     <td>
       <%= relative_time @podcast.updated_at -%>
     </td>
@@ -131,15 +131,15 @@
 <h2>Titles</h2>
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key">Primary Feed Title</td>
+    <td class="key">primary&nbsp;feed&nbsp;title</td>
     <td><code><%= non_blank { @podcast.primary_feed.title } %></code></td>
   </tr>
   <tr>
-    <td class="key">Title (as shown on site)</td>
+    <td class="key">title&nbsp;(as&nbsp;shown&nbsp;on&nbsp;site)</td>
     <td><code><%= @podcast.title %></code></td>
   </tr>
   <tr>
-    <td class="key">URL Slug</td>
+    <td class="key">url&nbsp;slug</td>
     <td><code><%= @podcast.clean_url %></code></td>
   </tr>
 </table>
@@ -154,19 +154,19 @@
 <h2>Tags</h2>
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key">Badges</td>
+    <td class="key">badges</td>
     <td><%= (@podcast.tags.badges.map{|b| b.name} + @podcast.additional_badges).join(", ") -%></td>
   </tr>
   <tr>
-    <td class="key">Not Badges</td>
+    <td class="key">not&nbsp;badges</td>
     <td><%= (Tag.badges - @podcast.tags.badges).map{|b| b.name}.join(", ") -%></td>
   </tr>
   <tr>
-    <td class="key">iTunes Categories</td>
+    <td class="key">itunes&nbsp;categories</td>
     <td>No way to tell yet.</td>
   </tr>
   <tr>
-    <td class="key">Tags</td>
+    <td class="key">tags</td>
     <td><%= @podcast.tags.without_badges.map{|b| b.name}.join(", ") -%></td>
   </tr>
 </table>
@@ -174,11 +174,11 @@
 <h2>Features</h2>
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key">Related podcasts</td>
+    <td class="key">related&nbsp;podcasts</td>
     <td><%= @podcast.related_podcasts.map{|p| link_to h(p.title), info_podcast_url(p)}.join(", ") -%></td>
   </tr>
   <tr>
-    <td class="key">Reviews</td>
+    <td class="key">reviews</td>
     <td><%= @podcast.reviews.map{|r| link_to(h(r.title), info_review_url(r)) rescue "" }.join(", ") -%></td>
   </tr>
 </table>

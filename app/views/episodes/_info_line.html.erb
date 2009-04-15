@@ -4,5 +4,5 @@
   <%= link_to episode.date_title, info_episode_url(episode.podcast, episode) -%> 
   <%= h(episode.title) -%> 
   (<%= time_to_words(episode.duration) -%>) 
-  <%= truncate(non_blank(sanitize_condensed_summary(episode.summary)), 50) -%>
+  <%= (non_blank(truncate(sanitize_condensed_summary(episode.summary), 50))) -%>
 </li>

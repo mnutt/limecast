@@ -50,8 +50,8 @@ describe Podcast, "getting the average time between episodes" do
   end
 
   it 'should be zero for podcasts with no episodes' do
-      f = Factory.create(:podcast)
-      f.average_time_between_episodes.should == 0
+    f = Factory.create(:podcast)
+    f.average_time_between_episodes.should == 0
   end
 end
 

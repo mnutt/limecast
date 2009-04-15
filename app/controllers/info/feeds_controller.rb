@@ -7,12 +7,12 @@ class Info::FeedsController < ApplicationController
     render :layout => 'info'
   end
 
-  def add_info
+  def add
     @exception = YAML.load_file("#{RAILS_ROOT}/log/last_add_failed.yml")
     render :layout => 'info'
   end
 
-  def hash_info
+  def hash
     @sources = Source.find(:all, :conditions => ["hashed_at > ?", 3.days.ago],
                            :limit => 40,
                            :order => "hashed_at DESC")

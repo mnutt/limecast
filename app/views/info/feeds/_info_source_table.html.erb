@@ -80,4 +80,11 @@
       <% end -%>
     </tr>
   <% end -%>
+
+  <!-- pagination //-->
+  <% if @content_for_pagination -%>
+  <tr>
+    <td class="pagination" colspan="<%= podcast.feeds.size + 2 %>"><%= yield :pagination -%></td>
+  </tr>
+  <% end -%>
 </table>

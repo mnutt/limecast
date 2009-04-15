@@ -53,7 +53,7 @@
   <tr>
     <td class="key" title="Cover art in all the different sizes shown inline">cover</td>
     <td>
-    <% @feed.podcast.logo.styles.keys.each do |size| -%>
+    <% [:large, :small, :square, :icon].each do |size| -%>
       <%= image_tag @feed.podcast.logo(size) -%>
     <% end -%>
     </td>

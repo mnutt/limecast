@@ -85,6 +85,7 @@ xx
   
   # 2009 Jan 1 1:12p (2h 5m ago)
   def relative_time(date, abbr=true)
+    return nil unless date.is_a?(Time) or date.is_a?(DateTime) or date.is_a?(Date)
     time_ago = Time.now - date
     timestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%Y %b %d %I:%m%p").gsub(/(\s)0([1-9])/,'\1\2')
     "#{timestamp} (#{time_to_words(time_ago, abbr) + " ago)"}"

@@ -422,11 +422,11 @@ describe Podcast, "taggers" do
     @user2 = Factory.create(:user)
     @user3 = Factory.create(:user)
   end
-  
+
   it "should be empty if podcast isn't tagged" do
     @podcast.taggers.should be_empty
   end
-  
+
   it "should only include the users who tagged it" do
     @podcast.tag_string = ["somebadge"]
     @podcast.tag_string = ["fromuser1", @user1]

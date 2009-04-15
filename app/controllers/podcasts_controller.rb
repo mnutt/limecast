@@ -83,7 +83,7 @@ class PodcastsController < ApplicationController
       @favorite.new_record? ? @favorite.save : @favorite.destroy
       remember_unclaimed_record(@favorite)
     end
-    
+
     respond_to do |format|
       format.html { redirect_to :back }
       format.js { render :json => {:logged_in => logged_in?} }

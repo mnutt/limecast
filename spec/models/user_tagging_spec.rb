@@ -31,7 +31,7 @@ describe UserTagging, "being created" do
       tagging = Factory.create(:tagging, :tag => tag, :podcast => @podcast)
       lambda { UserTagging.create!(:tagging => tagging, :user => @user1) }.should change(UserTagging, :count).by(1)
     end
-    
+
     user_tagging = UserTagging.new(:tagging => @tagging, :user => @user1)
     user_tagging.should_not be_valid
     user_tagging.errors.on(:user).should include("is only allowed to make 8 tags for this podcast")

@@ -200,7 +200,7 @@ class FeedProcessor
     @rpodcast_feed.episodes.each do |e|
       episode = @feed.podcast.episodes.find_by_title(e.title) || @feed.podcast.episodes.new
       source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => @feed)
-    
+
       if source.feed != @feed
         @duplicate_feed_id = source.feed_id
         return true

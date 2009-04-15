@@ -20,8 +20,8 @@ class ReviewsController < ApplicationController
       @review = Review.create(review_params)
       remember_unclaimed_record(@review) if @review
     end
-    
-    if logged_in? 
+
+    if logged_in?
       save_response(@review, (@review && !@review.new_record?))
     else
       render :json => {:success => true, :login_required => true}
@@ -43,7 +43,7 @@ class ReviewsController < ApplicationController
       @rating = ReviewRating.create(:review => @review, :insightful => insightful)
       remember_unclaimed_record(@rating)
     end
-    
+
     render :json => {:logged_in => logged_in?}
   end
 

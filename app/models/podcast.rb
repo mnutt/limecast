@@ -4,23 +4,23 @@
 # Table name: podcasts
 #
 #  id                   :integer(4)    not null, primary key
-#  site                 :string(255)   
-#  logo_file_name       :string(255)   
-#  logo_content_type    :string(255)   
-#  logo_file_size       :string(255)   
-#  created_at           :datetime      
-#  updated_at           :datetime      
-#  category_id          :integer(4)    
-#  clean_url            :string(255)   
-#  owner_id             :integer(4)    
-#  owner_email          :string(255)   
-#  owner_name           :string(255)   
-#  title                :string(255)   
-#  primary_feed_id      :integer(4)    
+#  site                 :string(255)
+#  logo_file_name       :string(255)
+#  logo_content_type    :string(255)
+#  logo_file_size       :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  category_id          :integer(4)
+#  clean_url            :string(255)
+#  owner_id             :integer(4)
+#  owner_email          :string(255)
+#  owner_name           :string(255)
+#  title                :string(255)
+#  primary_feed_id      :integer(4)
 #  has_previews         :boolean(1)    default(TRUE)
 #  has_p2p_acceleration :boolean(1)    default(TRUE)
-#  approved             :boolean(1)    
-#  button_installed     :boolean(1)    
+#  approved             :boolean(1)
+#  button_installed     :boolean(1)
 #
 
 require 'paperclip_file'
@@ -102,7 +102,7 @@ class Podcast < ActiveRecord::Base
     raise ActiveRecord::RecordNotFound if i.nil? || slug.nil?
     i
   end
-  
+
   def self.found_by_admin
     Podcast.all.select { |p| p.found_by && p.found_by.admin? }
   end
@@ -117,7 +117,7 @@ class Podcast < ActiveRecord::Base
     Blacklist.create(:domain => f.url)
       f.update_attributes(:state => "blacklisted")
     end
-    
+
     self.destroy
   end
 
@@ -125,12 +125,12 @@ class Podcast < ActiveRecord::Base
   def claimed_taggings
     taggings.all.reject { |t| !t.tag.badge? && t.user_taggings.claimed.empty? }
   end
-  
+
   # All taggings that are tags that have NOT been user_tagging'ed.
   def unclaimed_taggings
     taggings.all.reject { |t| t.tag.badge? || !t.user_taggings.claimed.empty? }
   end
-  
+
   # All badges, and tags that have been user_tagging'ed.
   def claimed_tags
     claimed_taggings.map(&:tag)
@@ -260,7 +260,7 @@ class Podcast < ActiveRecord::Base
       end
     end
   end
-  
+
   def tag_string
     self.tags.map(&:name).join(" ")
   end

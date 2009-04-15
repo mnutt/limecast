@@ -55,7 +55,8 @@ class Podcast < ActiveRecord::Base
                     :styles => { :square => ["85x85#", :png],
                                  :small  => ["170x170#", :png],
                                  :large  => ["300x300>", :png],
-                                 :icon   => ["25x25#", :png] }
+                                 :icon   => ["25x25#", :png],
+                                 :thumb  => ["16x16#", :png] }
 
   named_scope :not_approved, :conditions => {:approved => false}
   named_scope :approved, :conditions => {:approved => true}

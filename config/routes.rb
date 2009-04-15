@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
     info.root                    :controller => 'home',  :action => 'info'
     info.stats      '/stats',    :controller => 'home',  :action => 'stats'
     info.stats      '/use',      :controller => 'home',  :action => 'usage' # use() is already used by the ToS page
-    info.ihash      '/hash',     :controller => 'feeds', :action => 'hash_info'
+    info.ihash      '/hash',     :controller => 'feeds', :action => 'index'
     info.add        '/add',      :controller => 'feeds', :action => 'add_info'
     info.icons      '/icons',    :controller => 'home',  :action => 'icons'
     info.tags       '/tags',     :controller => 'tags',  :action => 'index'

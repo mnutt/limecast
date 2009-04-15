@@ -8,47 +8,47 @@
 <h2>Info</h2>
 <table>
   <tr>
-    <td>Maker</td>
+    <td class="key">Maker</td>
     <td><%= @feed.podcast.owner.nil? ? blankness : link_to(@feed.podcast.owner.login, @feed.podcast.owner) -%></td>
   </tr>
 
   <tr>
-    <td>RSS</td>
+    <td class="key">RSS</td>
     <td><%= link_to(@feed.url) -%></td>
   </tr>
 
   <tr>
-    <td>Magnet</td>
+    <td class="key">Magnet</td>
     <td><%= link_to(magnet_feed_url(@feed.podcast, @feed)) -%></td>
   </tr>
 
   <tr>
-    <td>Torrent</td>
+    <td class="key">Torrent</td>
     <td><%= link_to(torrent_feed_url(@feed.podcast, @feed)) -%></td>
   </tr>
 
   <tr>
-    <td>Ability</td>
+    <td class="key">Ability</td>
     <td><%= non_blank @feed.ability -%></td>
   </tr>
 
   <tr>
-    <td>Updated</td>
+    <td class="key">Updated</td>
     <td><%= non_blank relative_time(@feed.updated_at) -%></td>
   </tr>
 
   <tr>
-    <td>set iTunes</td>
+    <td class="key">set iTunes</td>
     <td><%= non_blank @feed.itunes_link -%></td>
   </tr>
   
   <tr>
-    <td>parsed iTunes</td>
+    <td class="key">parsed iTunes</td>
     <td><%= "NOT IMPLEMENTED YET" -%></td>
   </tr>
 
   <tr>
-    <td>Cover</td>
+    <td class="key">Cover</td>
     <td>
     <% @feed.podcast.logo.styles.keys.each do |size| -%>
       <%= image_tag @feed.podcast.logo(size) -%>
@@ -57,27 +57,27 @@
   </tr>
 
   <tr>
-    <td>Title</td>
+    <td class="key">Title</td>
     <td><%= non_blank @feed.title -%></td>
   </tr>
 
   <tr>
-    <td>Site</td>
+    <td class="key">Site</td>
     <td><%= link_to(@feed.podcast.site) -%></td>
   </tr>
 
   <tr>
-    <td>Line Description</td>
+    <td class="key">Line Description</td>
     <td><%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@feed.description)) -%></td>
   </tr>
 
   <tr>
-    <td>Page Description</td>
+    <td class="key">Page Description</td>
     <td><%= non_blank sanitize_summary(@feed.description) -%></td>
   </tr>
 
   <tr>
-    <td>HTML Description</td>
+    <td class="key">HTML Description</td>
     <td><%= non_blank sanitize_lightly(@feed.description) -%></td>
   </tr>
 </table>

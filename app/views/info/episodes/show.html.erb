@@ -14,13 +14,6 @@
   <%= render :partial => "info/sources/info_media", :locals => {:source => source} %>
 <% end -%>
 
-<h2>Logos</h2>
-<ul>
-<%- @episode.thumbnail.styles.keys.each do |k| -%>
-  <li><%= link_to nil, @podcast.logo(k) -%></li>
-<%- end -%>
-</ul>
-
 <% if @episode.primary_source -%>
   <% @source = @episode.primary_source
      @feed = @source.feed

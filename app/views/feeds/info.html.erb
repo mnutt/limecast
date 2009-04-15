@@ -1,7 +1,9 @@
 <h1>Feed</h1>
 
 <h2>Map</h2>
-<%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:feed => @feed}} -%>
+<table>
+  <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:feed => @feed}} -%>
+</table>
 
 <h2>Info</h2>
 <table>

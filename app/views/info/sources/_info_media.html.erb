@@ -25,4 +25,8 @@
       <%= info_source_link(source, false) -%>
     </td>
   </tr>
+  
+  <!-- extra media stuff //-->
+  <%= yield :media if @content_for_media -%>
+
 </table>

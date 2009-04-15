@@ -68,10 +68,7 @@
 </table>
 
 
-<h2>Media:</h2>
-<%= render :partial => "info/sources/info_media", :locals => {:source => @source} %>
-
-<table>
+<% content_for :media do -%>
   <tr>
     <td class="key" title="The chosen extension for the user">extension&nbsp;result</td>
     <td>
@@ -228,8 +225,11 @@
       <%= @source.ffmpeg_info.blank? ? blankness : "<pre>#{@source.ffmpeg_info}</pre>" -%>
     </td>
   </tr>
+<% end -%>
 
-</table>
+<h2>Media:</h2>
+<%= render :partial => "info/sources/info_media", :locals => {:source => @source} %>
+
 
 <h2>Preview</h2>
 <table>

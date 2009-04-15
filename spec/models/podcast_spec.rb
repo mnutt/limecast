@@ -57,8 +57,8 @@ end
 
 describe Podcast, 'sorting' do
   before do
-    @podcasts = ["S Podcast", "O Podcast", "The Podcast", "A Podcast", "Z Podcast"].map {|name|
-      @podcast = Factory.create(:podcast, :title => name)
+    ["S Podcast", "O Podcast", "The Podcast", "A Podcast", "Z Podcast"].map {|name|
+      Factory.create(:podcast, :title => name)
     }
   end
 

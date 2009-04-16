@@ -24,7 +24,7 @@
   <% end -%>
   </tr>
   <tr>
-    <td class="extra"><%= link_to "site", podcast.site %></td>
+    <td class="extra"><%= link_to "site", podcast_url(podcast) %></td>
     <th><strong><%= controller.controller_name == "podcasts" ? podcast.title : link_to(podcast.title, info_podcast_url(podcast)) -%></strong></th>
     <% podcast.feeds.each do |f| -%>
     <th>
@@ -39,7 +39,7 @@
   <% if !feed -%>
     <% (episode ? [episode] : podcast.episodes).each do |e| -%>
       <tr>
-        <td class="extra"><%= link_to "site", podcast.site %></td>
+        <td class="extra"><%= link_to "site", episode_url(podcast, e) %></td>
         <td>
           <% if e == episode && !source -%>
             <b><%= e.date_title -%></b>

@@ -6,6 +6,10 @@
   <%= errors_for podcast, :title %>
 </div>  
 <div class="field">
+  <%= podcast_form.check_box :protected %>
+  <%= podcast_form.label :protected, "Only let the user whose email is in the primary feed in here" %>
+</div>
+<div class="field">
   <%= podcast_form.check_box :has_previews %>
   <%= podcast_form.label :has_previews, "Preview episodes" %>
 </div>

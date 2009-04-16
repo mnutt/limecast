@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090415181533) do
+ActiveRecord::Schema.define(:version => 20090416155459) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20090415181533) do
     t.boolean  "has_p2p_acceleration", :default => true
     t.boolean  "approved",             :default => false
     t.boolean  "button_installed"
+    t.boolean  "protected",            :default => false
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true

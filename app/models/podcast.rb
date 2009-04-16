@@ -214,9 +214,8 @@ class Podcast < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    return false unless user
-    return true if user.admin?
-    user_is_owner?(user) or user_is_finder?(user)
+    return false if user.nil?
+    return true if editors.include?(user)
   end
 
   def user_is_owner?(user)
@@ -239,7 +238,14 @@ class Podcast < ActiveRecord::Base
 
   # An array of users that may edit this podcast
   def editors
-    @editors ||= (User.admins.all + finders + [owner]).flatten.compact.uniq.reject { |u| u.passive? }
+    return @editors if @editors
+    @editors = returning([]) do |e|
+      e << User.admins.all
+      e << primary_feed.finder if primary_feed.finder && !protected?
+      e << owner if owner && owner.confirmed?
+      e.flatten!.reject!(&:passive?)
+    end
+    @editors
   end
 
   # Takes a string of space-delimited tags and tries to add them to the podcast's taggings.

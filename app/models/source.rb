@@ -106,7 +106,7 @@ class Source < ActiveRecord::Base
   
   # Returns "video" if video is available, "audio" if audio but not video is available, and nil if neither.
   def preview_type
-    return "video" if %w(mp4f m4v mov flv avi asf).include? format
+    return "video" if %w(mp4 m4v mov flv avi asf).include? format
     return "audio" if !format.blank?
     return nil
   end

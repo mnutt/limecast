@@ -5,5 +5,5 @@
   <%= h(episode.title) -%> 
   (<%= time_to_words(episode.duration) -%>) 
   <%= (non_blank(sanitize_condensed_summary(episode.summary))) -%>
-  (<%= episode.preview_type %>)
+  <%= "(#{episode.preview_type})" if episode.preview_type %>
 </li>

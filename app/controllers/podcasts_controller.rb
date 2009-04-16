@@ -54,8 +54,8 @@ class PodcastsController < ApplicationController
       end
     end if params[:podcast][:feeds_attributes].respond_to?(:each)
 
-    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, :tag_string,
-                                                      :feeds_attributes, :title, :primary_feed_id])
+    @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, :protected,
+                                                      :tag_string, :feeds_attributes, :title, :primary_feed_id])
 
 
     @podcast.feeds

@@ -3,6 +3,7 @@ class PodcastsController < ApplicationController
 
   def index
     @podcasts = Podcast.sorted
+    respond_to(:html, :xml)
   end
 
   def popular

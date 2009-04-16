@@ -131,7 +131,7 @@
   <tr>
     <td class="key" title="The chosen size in bytes">size&nbsp;exact</td>
     <td>
-      <%= non_blank @source.size_from_disk -%>
+      <%= non_blank (@source.size_from_disk.blank? ? @source.size_from_xml : @source.size_from_disk) -%>
     </td>
   </tr>
 
@@ -143,16 +143,16 @@
   </tr>
 
   <tr>
-    <td class="key" title="The size in bytes as parsed from the XML either of two places">xml&nbsp;size</td>
+    <td class="key" title="The enclosure size in bytes as parsed from the XML either of two places">xml&nbsp;size</td>
     <td>
-      <%= @source.xml.blank? ? blankness : @source.xml.size -%>
+      <%= non_blank @source.size_from_xml -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key" title="The size in bytes as seen on the disk">disk&nbsp;size</td>
+    <td class="key" title="The enclosure size in bytes as seen on the disk">disk&nbsp;size</td>
     <td>
-      <%= non_blank @source.size -%>
+      <%= non_blank @source.size_from_disk -%>
     </td>
   </tr>
 
@@ -166,7 +166,7 @@
   <tr>
     <td class="key" title="The duration in seconds according to FFmpeg">ffmpeg&nbsp;duration</td>
     <td>
-      <%= non_blank @episode.duration -%>
+      <%= blankness -%>
     </td>
   </tr>
 

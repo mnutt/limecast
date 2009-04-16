@@ -1,6 +1,34 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PodcastsController do
+
+  describe "handling GET /all.xml" do
+    before(:each) do
+      qf = Factory.create(:queued_feed)
+      mod_and_run_feed_processor(qf)
+      @podcast = qf.feed.podcast
+    end
+
+    def do_get
+      get :index, :format => "xml"
+    end
+
+    it "should be successful" do
+      do_get
+      response.should be_success
+    end
+
+    it 'should return xml as content_type' do
+      do_get
+      response.content_type.should eql('application/xml')
+    end
+
+    it "should render index template" do
+      do_get
+      response.should render_template('index.xml.builder')
+    end
+  end
+
   describe "handling GET /" do
     before(:each) do
       qf = Factory.create(:queued_feed)

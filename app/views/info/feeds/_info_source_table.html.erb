@@ -29,7 +29,7 @@
     <% podcast.feeds.each do |f| -%>
     <th>
       <% if f == feed -%>
-        <b>feed<%= f.id -%> <%= f.ability -%></b>
+        <b>feed</b><%= f.id -%> <%= f.ability -%>
       <% else -%>
         <%= info_feed_link(f) -%><br>
       <% end -%>

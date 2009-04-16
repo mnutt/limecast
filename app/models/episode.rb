@@ -101,4 +101,12 @@ class Episode < ActiveRecord::Base
   def open_for_reviews?
     self.podcast.episodes.newest.first.id == self.id
   end
+
+  # Returns "video" if video is available, "audio" if audio but not video is available, and nil if neither.
+  def preview_type
+    types = sources.with_preview.map(&:preview_type)
+    return "video" if types.any? { |t| t.preview_type == 'video' }
+    return "audio" if types.any? { |t| t.preview_type == 'audio' }
+    return nil
+  end
 end

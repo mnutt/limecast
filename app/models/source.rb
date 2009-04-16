@@ -103,4 +103,11 @@ class Source < ActiveRecord::Base
   def size
     self.size_from_disk || self.size_from_xml || 0
   end
+  
+  # Returns "video" if video is available, "audio" if audio but not video is available, and nil if neither.
+  def preview_type
+    return "video" if %w(mp4f m4v mov flv avi asf).include? format
+    return "audio" if !format.blank?
+    return nil
+  end
 end

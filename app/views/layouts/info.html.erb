@@ -7,10 +7,21 @@
   <%= javascript_include_tag 'jquery', 'info-pages' -%>
   
   <style type="text/css">
+    html { margin: 0; padding: 0; }
     body {
       font-family: Verdana,Arial,sans-serif;
       font-size: 11px;
       color: #333;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    #border {
+      min-height: 100%;
+      position: fixed;
+      right: 0px;
+      top: 0px;
+      border-left: solid 20px #FFF;
     }
     code {
       font-family: Verdana, Arial,sans-serif;
@@ -28,6 +39,9 @@
       word-wrap: break-word; /* IE 5.5+ */
       padding: 10px;
       border: 1px solid #CCC;
+    }
+    ul.episodes li.episode {
+      white-space: nowrap;
     }
     td, th{
       padding: 0 20px 0 0;
@@ -89,6 +103,7 @@
   </style>
 </head>
 <body>
-<%= yield -%>
+  <div id="border"><!-- //--></div>
+  <%= yield -%>
 </body>
 </html>

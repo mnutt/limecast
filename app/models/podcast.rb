@@ -349,13 +349,7 @@ class Podcast < ActiveRecord::Base
   def find_or_create_owner
     return true if (!self.owner_id.blank? || self.owner_email.blank?) && !self.owner_email_changed?
 
-    self.owner = returning(User.find_or_initialize_by_email(owner_email)) do |o|
-      # Deliver the 'claim podcast' email if the user was just auto-created
-      if o.new_record?
-        o.save
-        UserMailer.deliver_claim_podcast(o, self)
-      end
-    end
+    self.owner = User.find_or_create_by_email(owner_email)
 
     return true
   end

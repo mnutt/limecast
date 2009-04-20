@@ -5,7 +5,7 @@ describe FeedProcessor, "being parsed" do
 
   before do
     @qf = QueuedFeed.create(:url => "http://google.com/rss.xml")
-    mod_and_run_feed_processor(@qf, FetchExample)
+    lambda { mod_and_run_feed_processor(@qf, FetchExample) }.should change { Podcast.count }.by(1)
     @feed = @qf.feed
   end
 

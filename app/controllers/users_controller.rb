@@ -77,7 +77,6 @@ class UsersController < ApplicationController
       else
         @user.generate_reset_password_code
         @user.save
-        UserMailer.deliver_claim_account(@user)
       end
       redirect_to new_session_path
     else

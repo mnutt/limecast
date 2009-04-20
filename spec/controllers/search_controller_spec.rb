@@ -7,7 +7,7 @@ describe SearchController do
     end
 
     def do_get
-      get :index, :q => 'the'
+      get :index, :q => 'foooooobarrrr'
     end
 
     it "should be successful" do

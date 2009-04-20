@@ -117,6 +117,7 @@ class FeedProcessor
         :site           => @rpodcast_feed.link,
         :title          => (@feed.podcast.title.blank? ? @rpodcast_feed.title : @feed.podcast.title)
       )
+      @feed.update_attribute(:podcast, @feed.podcast) if @feed.podcast_id.blank?
     end
   end
 

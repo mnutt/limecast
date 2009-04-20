@@ -376,7 +376,7 @@ end
 describe Podcast, "finding or creating owner" do
   before do
     @feed = Factory.create(:feed, :title => "FOoooooobar")
-    @podcast = Factory.build(:podcast, :feeds => [@feed], :owner_email => "john.doe@example.com")
+    @podcast = Factory.build(:podcast, :feeds => [@feed], :owner_email => "some.random.owner@example.com")
     @save_podcast = lambda { @podcast.save }
   end
 
@@ -390,31 +390,6 @@ describe Podcast, "finding or creating owner" do
     owner = Factory.create(:user, :email => @podcast.owner_email)
     @save_podcast.should_not change { User.all.size }
     @podcast.owner.should == owner
-  end
-
-  describe 'email notifications' do
-    before(:each) do
-      setup_actionmailer
-    end
-
-    after(:each) do
-      reset_actionmailer
-    end
-
-    # Sending all to Kevin until launch
-    it 'should not send podcast notification if owner already existed' do
-      user = Factory.create(:user, :email => 'john.doe@example.com')
-      @podcast.owner_email = user.email
-      @save_podcast.should_not change { ActionMailer::Base.deliveries.size }
-      @podcast.owner.should == user
-    end
-
-    it 'should send claim podcast email if owner didn\'t already exist' do
-      podcast = Factory.build(:podcast, :owner_email => 'some.podcast.maker@me.com')
-      lambda { podcast.save }.should change { User.passive.count }.by(1)
-      ActionMailer::Base.deliveries.last.to_addrs[0].to_s.should == 'kfaaborg@limewire.com' # podcast.owner.email
-      ActionMailer::Base.deliveries.last.subject.should == "#{podcast.title} added to LimeCast"
-    end
   end
 end
 

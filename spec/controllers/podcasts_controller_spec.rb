@@ -56,14 +56,11 @@ describe PodcastsController do
     end
   end
 
-  describe "handling GET /:podcast" do
+  describe "handling GET /:podcast_slug" do
     before(:each) do
       qf = Factory.create(:queued_feed)
       mod_and_run_feed_processor(qf)
       @podcast = qf.feed.podcast
-
-      # @podcast.feeds.first.refresh
-      @podcast.reload
     end
 
     def do_get

@@ -4,20 +4,13 @@
 <!-- Map -->
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
 
-<ul>
-  <li><b>primary</b> marks the primary feed</li>
-  <li>Numbers like <b>5</b>, <b>6</b>, and <b>7</b> mark feeds and sources parsed and hashed by a site with that ability number</li>
-  <li><b>a</b> marks a source that wasn't found in the feed the last time the site downloaded the feed, making it part of the site's archive</li>
-</ul>
-
-
 <!-- Episodes -->
-
 <p class="episode_info">
-  New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.newest.first) -%> <%= relative_time(@podcast.episodes.newest.first.published_at, true) -%><br />
-  
+  New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.newest.first) -%> 
+  <%= relative_time(@podcast.episodes.first.published_at, false, false, false) %><br />
+
   <%= @podcast.episodes.count -%> episodes
-  since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.oldest.first) -%>
+  since <%= link_to Episode.oldest.find_by_podcast_id(@podcast.id).published_at.to_date, info_episode_url(@podcast, @podcast.episodes.oldest.first) -%>
   every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><br/>
   Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
 </p>

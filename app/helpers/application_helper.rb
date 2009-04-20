@@ -84,11 +84,13 @@ xx
   end
   
   # 2009 Jan 1 1:12p (2h 5m ago)
-  def relative_time(date, abbr=true)
+  def relative_time(date, abbr=true, with_time=true, with_parens=true)
     return nil unless date.is_a?(Time) or date.is_a?(DateTime) or date.is_a?(Date)
     time_ago = Time.now - date
-    timestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%Y %b %d %I:%m%p").gsub(/(\s)0([1-9])/,'\1\2')
-    "#{timestamp} (#{time_to_words(time_ago, abbr) + " ago)"}"
+    datestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%Y %b %d").gsub(/(\s)0([1-9])/,'\1\2')
+    timestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%m%p").gsub(/(\s)0([1-9])/,'\1\2')
+    ago = with_parens ? "(#{time_to_words(time_ago, abbr)} ago)" : "#{time_to_words(time_ago, abbr)} ago"
+    "#{datestamp}#{timestamp if with_time} #{ago}"
   end
 
   def unescape_entities(html)

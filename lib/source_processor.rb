@@ -173,15 +173,16 @@ class SourceProcessor
       :bitrate  => info.bitrate
     )
     source.update_attributes(
-      :ability        => ABILITY,
-      :format         => info.file_format || info.video_codec || info.audio_codec,
-      :sha1hash       => info.sha1hash,
-      :hashed_at      => Time.now,
-      :height         => info.resolution[1],
-      :width          => info.resolution[0],
-      :framerate      => info.framerate,
-      :size_from_disk => info.file_size,
-      :file_name      => info.file_name
+      :ability              => ABILITY,
+      :format               => info.file_format || info.video_codec || info.audio_codec,
+      :sha1hash             => info.sha1hash,
+      :hashed_at            => Time.now,
+      :height               => info.resolution[1],
+      :width                => info.resolution[0],
+      :framerate            => info.framerate,
+      :size_from_disk       => info.file_size,
+      :file_name            => info.file_name,
+      :duration_from_ffmpeg => info.duration
     )
   end
 

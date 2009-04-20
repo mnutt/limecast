@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090418015040) do
+ActiveRecord::Schema.define(:version => 20090420181014) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -180,6 +180,8 @@ ActiveRecord::Schema.define(:version => 20090418015040) do
     t.integer  "size_from_disk"
     t.string   "sha1hash",                 :limit => 40
     t.text     "torrent_info"
+    t.integer  "duration_from_ffmpeg"
+    t.integer  "duration_from_feed"
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

@@ -23,8 +23,8 @@ class SourceProcessor
     rescue
       logger.fatal $!
       logger.fatal $!.backtrace.join("\n")
-    ensure
       processor.update_source
+    ensure
       processor.remove_tmp_files
     end
   end

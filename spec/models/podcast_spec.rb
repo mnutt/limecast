@@ -268,6 +268,8 @@ describe Podcast, "permissions" do
     before do
       @podcast = Factory.create(:podcast)
       @user = @podcast.owner
+      @user.confirm
+      @user.save
     end
 
     it 'should have write access' do
@@ -275,9 +277,9 @@ describe Podcast, "permissions" do
       @podcast.writable_by?(@user).should == true
     end
 
-    it 'should have write access if owner is unconfirmed' do
+    it 'should NOT have write access if owner is unconfirmed' do
       @user.state = "pending"
-      @podcast.should be_writable_by(@user)
+      @podcast.should_not be_writable_by(@user)
     end
 
     it 'should create the owner User if not found' do

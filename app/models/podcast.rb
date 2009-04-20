@@ -214,8 +214,8 @@ class Podcast < ActiveRecord::Base
   end
 
   def writable_by?(user)
-    return false if user.nil?
     return true if editors.include?(user)
+    return false
   end
 
   def user_is_owner?(user)
@@ -243,7 +243,9 @@ class Podcast < ActiveRecord::Base
       e << User.admins.all
       e << primary_feed.finder if primary_feed.finder && !protected?
       e << owner if owner && owner.confirmed?
-      e.flatten!.reject!(&:passive?)
+      e.flatten!
+      e.compact!
+      e.reject!(&:passive?)
     end
     @editors
   end

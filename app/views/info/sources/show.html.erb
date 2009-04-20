@@ -8,7 +8,7 @@
 
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
 
-<h2>Info:</h2>
+<!-- Info: -->
 <table>
   <tr>
     <td class="key" title="The ability version number of the site software that last parsed, downloaded, hashed, and opened this source">ability</td>
@@ -227,11 +227,11 @@
   </tr>
 <% end -%>
 
-<h2>Media:</h2>
+<!-- Media: -->
 <%= render :partial => "info/sources/info_media", :locals => {:source => @source} %>
 
 
-<h2>Preview</h2>
+<!-- Preview -->
 <table>
   <tr>
     <td class="key" title="Flash player presenting the video or audio preview">preview</td>
@@ -268,7 +268,7 @@
   </tr>
 </table>
 
-<h2>Text</h2>
+<!-- Text -->
 <table>
   <tr>
     <td class="key" title="iTunes ID parsed from a mention in the XML">itunes</td>
@@ -314,7 +314,7 @@
 </table>
 
 
-<h2>XML:</h2
+<!-- XML -->
 <% if @source.xml.blank? %>
   <%= blankness -%>
 <% else %>

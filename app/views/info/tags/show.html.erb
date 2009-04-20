@@ -1,6 +1,6 @@
 <h1>Tag</h1>
 
-<h2>Taggings</h2>
+<!-- Taggings -->
 <ul>
   <% @tag.taggings.sorted_by_podcast.select{|t| t.podcast}.each do |tagging| -%>
     <li>

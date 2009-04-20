@@ -35,13 +35,17 @@ class SourceProcessor
     
     get_video_info
     
-    generate_torrent
+    t0 = Time.now
+      generate_torrent
+    logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
     
     unless lacking_video?
       take_screen_shot
       
       # Create flv
-      encode_preview_video
+      t0 = Time.now
+        encode_preview_video
+      logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
       # XXX: we are going to wait for a while to turn this on
       # encode_random_video(source, info)
     end

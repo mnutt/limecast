@@ -24,6 +24,7 @@ class SourceProcessor
       logger.fatal $!
       logger.fatal $!.backtrace.join("\n")
     ensure
+      processor.update_source
       processor.remove_tmp_files
     end
   end

@@ -61,6 +61,11 @@ class Source < ActiveRecord::Base
                     :url  => "/:attachment/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
 
+  def diagnostic_xml
+    doc = Hpricot.XML(self.xml)
+    PrettyPrinter.indent_xml(doc)
+  end
+
   def file_name?
     !!read_attribute('file_name')
   end

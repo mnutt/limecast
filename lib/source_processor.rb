@@ -16,6 +16,7 @@ class SourceProcessor
     def process_source(source, logger=nil)
       logger.info ""
       logger.info "Working on source #{source.id}"
+      logger.info Time.now.to_formatted_s(:info)
 
       processor = self.new(source, logger)
 

@@ -43,7 +43,7 @@
   <tr>
     <td class="key" title="True if somebody has locked down the podcast so only the primary feed's maker can edit it">protected</td>
     <td>
-      Not Implemented
+      <%= @podcast.protected? ? "true" : "false" %>
     </td>
   </tr>
   <tr>

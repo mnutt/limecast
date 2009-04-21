@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20090413212224
+# Schema version: 20090421203934
 #
 # Table name: blacklists
 #
 #  id         :integer(4)    not null, primary key
-#  domain     :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  domain     :string(255)   
+#  created_at :datetime      
+#  updated_at :datetime      
 #
 
 class Blacklist < ActiveRecord::Base

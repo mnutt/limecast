@@ -43,7 +43,7 @@ class Source < ActiveRecord::Base
   belongs_to :episode
 
   named_scope :stale,    :conditions => ["sources.ability < ?", ABILITY]
-  named_scope :approved, lambda { {:conditions => ["episode_id IN (?)", Podcast.approved.map(&:episode_ids).flatten]} }
+  named_scope :approved, :conditions => ["podcasts.approved = ?", true], :joins => [:feed => [:podcast]]
   named_scope :sorted, lambda {|*col| {:order => "#{col[0] || 'episodes.published_at'} DESC", :include => :episode} }
   named_scope :with_preview, :conditions => "sources.preview_file_size IS NOT NULL && sources.preview_file_size > 1023"
   named_scope :with_screenshot, :conditions => "sources.screenshot_file_size IS NOT NULL && sources.screenshot_file_size > 0"

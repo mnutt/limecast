@@ -34,6 +34,7 @@ class SourceProcessor
       download_file
     logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
     
+    get_http_info
     get_video_info
     
     t0 = Time.now
@@ -68,6 +69,13 @@ class SourceProcessor
     source.update_attributes(:downloaded_at => Time.now, :curl_info => @curl_info)
   end
 
+  def get_http_info
+    curl_output = `curl -L -I '#{source.url.gsub("'", "")}'`
+    headers = curl_output.split(/[\r\n]/)
+    content_types = headers.select{|h| h =~ /^Content-Type/}
+    @content_type_from_http = content_types.empty? ? '' : content_types.last.split(": ").last rescue nil
+  end
+
   def get_video_info
     raise "Source file not present: #{self.tmp_file}" unless File.exist?(self.tmp_file)
 
@@ -78,6 +86,11 @@ class SourceProcessor
     @info.file_size = `ls -l #{self.tmp_file} | awk '{print $5}'`.strip.to_i
     @info.file_name = self.tmp_file
     @info.sha1hash  = `sha1 #{self.tmp_file} | cut -f1 -d" "`.strip
+    if(`uname`.chomp == "Darwin")
+      @info.content_type = `file -Ib '#{self.tmp_file}'`.chomp
+    else
+      @info.content_type = `file -ib '#{self.tmp_file}'`.chomp
+    end
     
     logger.info "Got: #{@info.inspect}"
   end
@@ -165,15 +178,29 @@ class SourceProcessor
 
   def update_source
     logger.info "Updating source"
-    source.episode.update_attributes(
-      :duration => info.duration
-    )
-    source.feed.update_attributes(
-      :format   => info.file_format || info.video_codec || info.audio_codec,
-      :bitrate  => info.bitrate
-    )
+    begin
+      source.episode.update_attributes(
+        :duration => info.duration
+      )
+    rescue Exception => e
+      logger.fatal $!
+      logger.fatal $!.backtrace.join("\n")
+    end
+
+    begin
+      source.feed.update_attributes(
+        :format   => info.file_format || info.video_codec || info.audio_codec,
+        :bitrate  => info.bitrate
+      )
+    rescue Exception => e
+      logger.fatal $!
+      logger.fatal $!.backtrace.join("\n")
+    end
+    
+    # do this first in case there is an issue updating the other data
+    source.update_attribute(:ability, ABILITY) 
+
     source.update_attributes(
-      :ability              => ABILITY,
       :format               => info.file_format || info.video_codec || info.audio_codec,
       :sha1hash             => info.sha1hash,
       :hashed_at            => Time.now,
@@ -182,7 +209,10 @@ class SourceProcessor
       :framerate            => info.framerate,
       :size_from_disk       => info.file_size,
       :file_name            => info.file_name,
-      :duration_from_ffmpeg => info.duration
+      :extension_from_disk  => self.disk_extension,
+      :duration_from_ffmpeg => info.duration,
+      :content_type_from_http => @content_type_from_http,
+      :content_type_from_disk => info.content_type
     )
   end
 
@@ -200,6 +230,11 @@ class SourceProcessor
 
   def tmp_file
     "/tmp/source/#{source.id}/#{tmp_filename}" if tmp_filename
+  end
+
+  def disk_extension
+    filename_array = tmp_filename.split(".")
+    filename_array.size > 1 ? filename_array.last : ''
   end
 
   def remove_tmp_files

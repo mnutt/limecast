@@ -103,6 +103,14 @@ class Source < ActiveRecord::Base
   def size
     self.size_from_disk || self.size_from_xml || 0
   end
+
+  def duration
+    if(duration_from_ffmpeg && duration_from_ffmpeg > 0)
+      duration_from_ffmpeg
+    else
+      duration_from_feed || 0
+    end
+  end
   
   # Returns "video" if video is available, "audio" if audio but not video is available, and nil if neither.
   def preview_type

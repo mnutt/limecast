@@ -36,9 +36,7 @@
 </table>
 
 <!-- Media (for latest Primary Source): -->
-<% if @podcast.primary_feed && source = @podcast.primary_feed.sources.sorted.first -%>
-  <%= render :partial => "info/sources/info_media", :locals => {:source => source} %>
-<% end -%>
+<%= render :partial => "info/sources/info_media", :collection => @podcast.most_recent_episode.sources if @podcast.most_recent_episodes %>
 
 <!-- Info: -->
 <table cellpadding="0" cellspacing="0" border="0">

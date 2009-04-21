@@ -82,15 +82,15 @@
     </td>
   </tr>
   <tr>
-    <td class="key" title="The result frame rate for the user">frame&nbsp;rate&nbsp;result</td>
-    <td>
-      <%= non_blank @source.framerate -%>
-    </td>
-  </tr>
-  <tr>
     <td class="key" title="The SHA1 hash">hash&nbsp;result</td>
     <td>
       <%= non_blank @source.sha1hash -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key" title="The result frame rate for the user">frame&nbsp;rate&nbsp;result</td>
+    <td>
+      <%= non_blank @source.framerate -%>
     </td>
   </tr>
   <tr>
@@ -131,14 +131,14 @@
   <tr>
     <td class="key" title="The chosen size in bytes">size&nbsp;exact</td>
     <td>
-      <%= non_blank (@source.size_from_disk.blank? ? @source.size_from_xml : @source.size_from_disk) -%>
+      <%= non_blank @source.size -%>
     </td>
   </tr>
 
   <tr>
     <td class="key" title="The chosen duration in seconds">duration&nbsp;exact</td>
     <td>
-      <%= non_blank @episode.duration -%>
+      <%= non_blank @source.duration -%>
     </td>
   </tr>
 
@@ -159,42 +159,42 @@
   <tr>
     <td class="key" title="The duration in seconds as parsed from the XML">xml&nbsp;duration</td>
     <td>
-      <%= non_blank @episode.duration -%>
+      <%= non_blank @source.duration_from_feed -%>
     </td>
   </tr>
 
   <tr>
     <td class="key" title="The duration in seconds according to FFmpeg">ffmpeg&nbsp;duration</td>
     <td>
-      <%= blankness -%>
+      <%= non_blank @source.duration_from_ffmpeg -%>
     </td>
   </tr>
 
   <tr>
     <td class="key" title="The file extension in the XML">xml&nbsp;extension&nbsp;exact</td>
     <td>
-      <%= non_blank @source.extension -%>
+      <%= non_blank @source.extension_from_feed -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key" title="The MIME type in the XML">xml&nbsp;type</td>
+    <td class="key" title="The MIME type in the XML">xml&nbsp;content-type</td>
     <td>
-      <%= non_blank @source.type -%>
+      <%= non_blank @source.content_type_from_feed -%>
     </td>
   </tr>
 
   <tr>
     <td class="key" title="The file extension in the XML">http&nbsp;extension</td>
     <td>
-      <%= non_blank @source.extension -%>
+      <%= non_blank @source.extension_from_disk -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key" title="The MIME type cURL saw in response HTTP headers">http&nbsp;type</td>
+    <td class="key" title="The MIME type cURL saw in response HTTP headers">http&nbsp;content-type</td>
     <td>
-      <%= non_blank @source.type -%>
+      <%= non_blank @source.content_type_from_http -%>
     </td>
   </tr>
 
@@ -206,9 +206,9 @@
   </tr>
 
   <tr>
-    <td class="key" title="The MIME type according to FFmpeg">disk&nbsp;type</td>
+    <td class="key" title="The MIME type according to FFmpeg">disk&nbsp;content-type</td>
     <td>
-      <%= non_blank @source.type -%>
+      <%= non_blank @source.content_type_from_disk -%>
     </td>
   </tr>
 
@@ -318,5 +318,5 @@
 <% if @source.xml.blank? %>
   <%= blankness -%>
 <% else %>
-  <pre class="formatted-xml"><%= @source.xml -%></pre>
+  <pre class="formatted-xml"><%=h @source.xml -%></pre>
 <% end %>

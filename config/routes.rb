@@ -96,9 +96,13 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.with_options :controller => 'feeds' do |f|
-    f.plain_feed   '/:podcast_slug/plain/:id.xml',   :action => 'show', :type => :plain
-    f.magnet_feed  '/:podcast_slug/magnet/:id.xml',  :action => 'show', :type => :magnet
-    f.torrent_feed '/:podcast_slug/torrent/:id.xml', :action => 'show', :type => :torrent
+    f.plain_feed   '/plain_feed/:id.xml',   :action => 'show', :type => :plain
+    f.magnet_feed  '/magnet_feed/:id.xml',  :action => 'show', :type => :magnet
+    f.torrent_feed '/torrent_feed/:id.xml', :action => 'show', :type => :torrent
+  end
+  
+  map.with_options :controller => 'sources' do |f|
+    f.torrent_file '/torrent_file/:id.torrent', :action => 'show', :format => 'torrent'
   end
 
   map.with_options :controller => 'episodes' do |e|

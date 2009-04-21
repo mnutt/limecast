@@ -105,7 +105,7 @@ class Feed < ActiveRecord::Base
 
   def remixed_as_torrent
     remix_feed do |s|
-      s.torrent_url if s.torrent?
+      s.torrent.url if s.torrent?
     end
   end
 

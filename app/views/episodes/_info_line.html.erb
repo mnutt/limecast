@@ -1,6 +1,7 @@
 <% episode = info_line -%>
 
 <li class="episode">
+  <%= link_to "site", episode_url(episode.podcast, episode) %>
   <%= link_to episode.date_title, info_episode_url(episode.podcast, episode) -%> 
   <%= h(episode.title) -%> 
   (<%= time_to_words(episode.duration) -%>) 

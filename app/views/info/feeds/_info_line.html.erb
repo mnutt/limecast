@@ -10,8 +10,8 @@
   </td>
   <td><%= link_to info_user_link(feed.owner) %></td>
   <td><%= link_to info_user_link(feed.finder) %></td>
-  <td><%= link_to "itunes", feed.itunes_link -%></td>
+  <td><%= link_to "itunes", feed.itunes_url unless feed.itunes_link.blank?-%></td>
   <td><%= link_to "magnet", magnet_feed_url(feed.podcast, feed) -%></td>
   <td><%= link_to "torrent", torrent_feed_url(feed.podcast, feed) -%></td>
-  <td><%= link_to feed.url -%></td>
+  <td><%= link_to feed.url, feed.url -%></td>
 </tr>

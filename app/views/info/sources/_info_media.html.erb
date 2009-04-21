@@ -13,7 +13,7 @@
     <td>
       <%= source.sha1hash.blank? ? blankness : link_to("magnet", source.magnet_url) -%>
       <%= source.sha1hash.blank? ? blankness : source.sha1hash[0..7] -%>
-      <%= source.sha1hash.blank? ? blankness : link_to(source.torrent_url.split('/').last, source.torrent_url) -%>
+      <%= source.sha1hash.blank? ? blankness : link_to(source.torrent.url.split('/').last, source.torrent.url) -%>
     </td>
   </tr>
   <tr>

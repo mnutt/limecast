@@ -58,15 +58,27 @@ class Source < ActiveRecord::Base
                     :url  => "/:attachment/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
   has_attached_file :torrent,
-                    :url  => "/:attachment/:id/:style/:basename.:extension",
-                    :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
+                    :url  => "/:attachment/:id.torrent",
+                    :path => ":rails_root/public/:attachment/:id.torrent"
+                    
 
+  # Only check if we set a :file_name from "update_sources"; the File.basename method
+  # might not be reliable because some places use weird urls
   def file_name?
-    !!read_attribute('file_name')
+    !read_attribute('file_name').blank?
   end
 
   def file_name
     read_attribute('file_name') || File.basename(self.url)
+  end
+
+  def to_param
+    podcast_name = self.episode.podcast.clean_url
+    episode_date = self.episode.clean_url
+    bitrate      = self.feed.bitrate.to_bitrate.to_s
+    format       = read_attribute('format')
+  
+    "#{id}-#{podcast_name}-#{episode_date}-#{bitrate}-#{format}"
   end
 
   def magnet_url
@@ -77,15 +89,6 @@ class Source < ActiveRecord::Base
    ].compact.join("&")
 
    "magnet:?#{params}"
-  end
-
-  def torrent_url
-    podcast_name = self.episode.podcast.clean_url
-    episode_date = self.episode.clean_url
-    bitrate      = self.feed.bitrate.to_bitrate.to_s
-    format       = read_attribute('format')
-
-    "http://limecast.com/#{podcast_name}/#{episode_date}/#{podcast_name}-#{episode_date}-#{bitrate}-#{format}.torrent"
   end
 
   def resolution

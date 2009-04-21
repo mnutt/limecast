@@ -62,6 +62,11 @@ class Source < ActiveRecord::Base
                     :path => ":rails_root/public/:attachment/:id.torrent"
                     
 
+  def diagnostic_xml
+    doc = Hpricot.XML(self.xml)
+    PrettyPrinter.indent_xml(doc)
+  end
+
   # Only check if we set a :file_name from "update_sources"; the File.basename method
   # might not be reliable because some places use weird urls
   def file_name?

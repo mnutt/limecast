@@ -67,7 +67,7 @@ class Feed < ActiveRecord::Base
   def diagnostic_xml
     doc = Hpricot.XML(self.xml)
     doc.search("item").remove
-    doc.to_s.gsub(/\n\s*\n/, "\n")
+    PrettyPrinter.indent_xml(doc)
   end
 
   def as(type)

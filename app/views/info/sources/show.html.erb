@@ -315,8 +315,8 @@
 
 
 <!-- XML -->
-<% if @source.xml.blank? %>
+<% if @source.diagnostic_xml.blank? %>
   <%= blankness -%>
 <% else %>
-  <pre class="formatted-xml"><%=h @source.xml -%></pre>
+  <pre class="formatted-xml"><%=h @source.diagnostic_xml -%></pre>
 <% end %>

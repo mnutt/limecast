@@ -156,6 +156,7 @@ class FeedProcessor
         :url                    => e.enclosure.url,
         :episode_id             => episode.id,
         :xml                    => e.raw_xml,
+        :published_at           => e.published_at,
         :archived               => false
       )
     end

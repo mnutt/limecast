@@ -93,10 +93,6 @@
     <td><%= (Tag.badges - @podcast.tags.badges).map{|b| b.name}.join(", ") -%></td>
   </tr>
   <tr>
-    <td class="key" title="iTunes category names parsed from the feeds that we turn into LimeCast tags">itunes&nbsp;categories</td>
-    <td>NOT IMPLEMENTED YET.</td>
-  </tr>
-  <tr>
     <td class="key" title="Tags each user has assigned this podcast">tags</td>
     <td><%= @podcast.tags.without_badges.map{|b| b.name}.join(", ") -%></td>
   </tr>
@@ -119,26 +115,6 @@
   <tr>
     <td class="key" title="Related podcasts">related&nbsp;podcasts</td>
     <td><%= @podcast.related_podcasts.empty? ? blankness : @podcast.related_podcasts.map{|p| link_to h(p.title), info_podcast_url(p)}.join(", ") -%></td>
-  </tr>
-</table>
-
-<!-- Render -->
-<table cellpadding="0" cellspacing="0" border="0">
-  <tr>
-    <td class="key" title="The podcast rendered as a name">name&nbsp;render</td>
-    <td>NOT IMPLEMENTED YET</td>
-  </tr>
-  <tr>
-    <td class="key" title="The podcast rendered onto a single line">line&nbsp;render</td>
-    <td>NOT IMPLEMENTED YET</td>
-  </tr>
-  <tr>
-    <td class="key" title="The podcast rendered into a small tile">small&nbsp;tile&nbsp;render</td>
-    <td>NOT IMPLEMENTED YET</td>
-  </tr>
-  <tr>
-    <td class="key" title="The podcast rendered to a large tile that fills the central column width">large&nbsp;title&nbsp;render</td>
-    <td>NOT IMPLEMENTED YET</td>
   </tr>
 </table>
 

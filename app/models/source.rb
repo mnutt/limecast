@@ -1,41 +1,50 @@
 # == Schema Information
-# Schema version: 20090413212224
+# Schema version: 20090421203934
 #
 # Table name: sources
 #
 #  id                       :integer(4)    not null, primary key
-#  url                      :string(255)
-#  type                     :string(255)
-#  guid                     :string(255)
-#  episode_id               :integer(4)
-#  format                   :string(255)
-#  feed_id                  :integer(4)
-#  sha1hash                 :string(24)
-#  screenshot_file_name     :string(255)
-#  screenshot_content_type  :string(255)
-#  screenshot_file_size     :string(255)
-#  preview_file_name        :string(255)
-#  preview_content_type     :string(255)
-#  preview_file_size        :string(255)
-#  height                   :integer(4)
-#  width                    :integer(4)
-#  xml                      :text
-#  downloaded_at            :datetime
-#  hashed_at                :datetime
-#  curl_info                :text
-#  ffmpeg_info              :text
-#  file_name                :string(255)
-#  torrent_file_name        :string(255)
-#  torrent_content_type     :string(255)
-#  torrent_file_size        :string(255)
-#  random_clip_file_name    :string(255)
-#  random_clip_content_type :string(255)
-#  random_clip_file_size    :string(255)
+#  url                      :string(255)   
+#  type                     :string(255)   
+#  guid                     :string(255)   
+#  episode_id               :integer(4)    
+#  format                   :string(255)   
+#  feed_id                  :integer(4)    
+#  screenshot_file_name     :string(255)   
+#  screenshot_content_type  :string(255)   
+#  screenshot_file_size     :string(255)   
+#  preview_file_name        :string(255)   
+#  preview_content_type     :string(255)   
+#  preview_file_size        :string(255)   
+#  height                   :integer(4)    
+#  width                    :integer(4)    
+#  xml                      :text          
+#  downloaded_at            :datetime      
+#  hashed_at                :datetime      
+#  curl_info                :text          
+#  ffmpeg_info              :text          
+#  file_name                :string(255)   
+#  torrent_file_name        :string(255)   
+#  torrent_content_type     :string(255)   
+#  torrent_file_size        :string(255)   
+#  random_clip_file_name    :string(255)   
+#  random_clip_content_type :string(255)   
+#  random_clip_file_size    :string(255)   
 #  ability                  :integer(4)    default(0)
-#  archived                 :boolean(1)
-#  framerate                :string(20)
-#  size_from_xml            :integer(4)
-#  size_from_disk           :integer(4)
+#  archived                 :boolean(1)    
+#  framerate                :string(20)    
+#  size_from_xml            :integer(4)    
+#  size_from_disk           :integer(4)    
+#  sha1hash                 :string(40)    
+#  torrent_info             :text          
+#  duration_from_ffmpeg     :integer(4)    
+#  duration_from_feed       :integer(4)    
+#  extension_from_feed      :string(255)   
+#  extension_from_disk      :string(255)   
+#  content_type_from_http   :string(255)   
+#  content_type_from_disk   :string(255)   
+#  content_type_from_feed   :string(255)   
+#  published_at             :datetime      
 #
 
 class Source < ActiveRecord::Base

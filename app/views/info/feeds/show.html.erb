@@ -22,12 +22,12 @@
 
   <tr>
     <td class="key" title="Link to LimeCast-produced feed remixed with magnet links">magnet</td>
-    <td><%= link_to(magnet_feed_url(@feed.podcast, @feed)) -%></td>
+    <td><%= link_to(magnet_feed_url(@feed)) -%></td>
   </tr>
 
   <tr>
     <td class="key" title="Link to LimeCast-produced feed remixed with torrents">torrent</td>
-    <td><%= link_to(torrent_feed_url(@feed.podcast, @feed)) -%></td>
+    <td><%= link_to(torrent_feed_url(@feed)) -%></td>
   </tr>
 
   <tr>

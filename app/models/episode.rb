@@ -1,20 +1,20 @@
 # == Schema Information
-# Schema version: 20090413212224
+# Schema version: 20090421203934
 #
 # Table name: episodes
 #
 #  id                     :integer(4)    not null, primary key
-#  podcast_id             :integer(4)
-#  summary                :text
-#  published_at           :datetime
-#  created_at             :datetime
-#  updated_at             :datetime
-#  thumbnail_file_size    :integer(4)
-#  thumbnail_file_name    :string(255)
-#  thumbnail_content_type :string(255)
-#  duration               :integer(4)
-#  title                  :string(255)
-#  clean_url              :string(255)
+#  podcast_id             :integer(4)    
+#  summary                :text          
+#  published_at           :datetime      
+#  created_at             :datetime      
+#  updated_at             :datetime      
+#  thumbnail_file_size    :integer(4)    
+#  thumbnail_file_name    :string(255)   
+#  thumbnail_content_type :string(255)   
+#  duration               :integer(4)    
+#  title                  :string(255)   
+#  clean_url              :string(255)   
 #
 
 class Episode < ActiveRecord::Base
@@ -29,7 +29,7 @@ class Episode < ActiveRecord::Base
 
   has_many :reviews, :dependent => :destroy
   has_many :reviewers, :through => :reviews
-  has_many :sources, :dependent => :destroy, :include => [:feed], :order => "sources.format ASC, feeds.bitrate ASC"
+  has_many :sources, :dependent => :destroy, :include => [:feed], :order => "feeds.bitrate ASC, sources.format ASC"
   has_one :primary_source, :class_name => "Source", :conditions => '`sources`.`feed_id` = #{podcast.primary_feed_id || 0}'
 
   validates_presence_of :podcast_id, :published_at

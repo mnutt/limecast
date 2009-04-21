@@ -1,26 +1,27 @@
 # == Schema Information
-# Schema version: 20090413212224
+# Schema version: 20090421203934
 #
 # Table name: podcasts
 #
 #  id                   :integer(4)    not null, primary key
-#  site                 :string(255)
-#  logo_file_name       :string(255)
-#  logo_content_type    :string(255)
-#  logo_file_size       :string(255)
-#  created_at           :datetime
-#  updated_at           :datetime
-#  category_id          :integer(4)
-#  clean_url            :string(255)
-#  owner_id             :integer(4)
-#  owner_email          :string(255)
-#  owner_name           :string(255)
-#  title                :string(255)
-#  primary_feed_id      :integer(4)
+#  site                 :string(255)   
+#  logo_file_name       :string(255)   
+#  logo_content_type    :string(255)   
+#  logo_file_size       :string(255)   
+#  created_at           :datetime      
+#  updated_at           :datetime      
+#  category_id          :integer(4)    
+#  clean_url            :string(255)   
+#  owner_id             :integer(4)    
+#  owner_email          :string(255)   
+#  owner_name           :string(255)   
+#  title                :string(255)   
+#  primary_feed_id      :integer(4)    
 #  has_previews         :boolean(1)    default(TRUE)
 #  has_p2p_acceleration :boolean(1)    default(TRUE)
-#  approved             :boolean(1)
-#  button_installed     :boolean(1)
+#  approved             :boolean(1)    
+#  button_installed     :boolean(1)    
+#  protected            :boolean(1)    
 #
 
 require 'paperclip_file'

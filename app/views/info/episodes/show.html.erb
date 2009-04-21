@@ -9,7 +9,7 @@
 <!-- Map -->
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:episode => @episode}} -%>
 
-<!-- Media -->
+<h2>Media</h2>
 <% @episode.sources.sorted('bitrate').each do |source| -%>
   <%= render :partial => "info/sources/info_media", :locals => {:source => source} %>
 <% end -%>

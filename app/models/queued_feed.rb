@@ -1,16 +1,16 @@
 # == Schema Information
-# Schema version: 20090413212224
+# Schema version: 20090421203934
 #
 # Table name: queued_feeds
 #
 #  id         :integer(4)    not null, primary key
-#  url        :string(255)
-#  error      :string(255)
-#  state      :string(255)
-#  user_id    :integer(4)
-#  feed_id    :integer(4)
-#  created_at :datetime
-#  updated_at :datetime
+#  url        :string(255)   
+#  error      :string(255)   
+#  state      :string(255)   
+#  user_id    :integer(4)    
+#  feed_id    :integer(4)    
+#  created_at :datetime      
+#  updated_at :datetime      
 #
 
 require 'open-uri'

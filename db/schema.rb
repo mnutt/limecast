@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090420233322) do
+ActiveRecord::Schema.define(:version => 20090421203934) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(:version => 20090420233322) do
     t.integer  "podcast_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                             :default => "pending"
+    t.string   "state",                           :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
-    t.text     "xml",         :limit => 2147483647
-    t.integer  "ability",                           :default => 0
+    t.text     "xml",         :limit => 16777215
+    t.integer  "ability",                         :default => 0
     t.integer  "owner_id"
     t.string   "owner_email"
     t.string   "owner_name"
@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(:version => 20090420233322) do
     t.string   "content_type_from_http"
     t.string   "content_type_from_disk"
     t.string   "content_type_from_feed"
+    t.datetime "published_at"
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

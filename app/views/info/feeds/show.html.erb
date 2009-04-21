@@ -1,9 +1,9 @@
 <h1>Feed</h1>
 
-<h2>Map</h2>
+<!-- Map -->
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:feed => @feed}} -%>
 
-<h2>Info</h2>
+<!-- Info -->
 <table>
   <tr>
     <td class="key" title="The user who makes this feed based on the current email address in the XML">makes</td>
@@ -85,7 +85,7 @@
   </tr>
 </table>
 
-<h2>XML</h2>
+<!-- XML -->
 <pre class="formatted-xml">
   <%= @feed_xml %>
 </pre>

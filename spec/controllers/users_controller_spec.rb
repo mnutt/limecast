@@ -273,19 +273,9 @@ describe UsersController, "handling POST /claim" do
     do_post(@user.email) and do_post(@user.email)
   end
 
-  it 'should send an email if passive email is found' do
-    lambda { do_post(@user.email) }.should change { ActionMailer::Base.deliveries.size }.by(1)
-    ActionMailer::Base.deliveries.last.subject.should == "Claim your podcasts on LimeCast"
-  end
-
   it 'should set user\'s reset_password_code if passive email is found' do
     lambda { do_post(@user.email) }.should change { @user.reload.reset_password_code }
     @user.reload.reset_password_sent_at.change(:sec => 0).should == Time.now.change(:sec => 0)
-  end
-
-  it "should not send email if passive email is not found" do
-    lambda { do_post('jabberwocky@me.com') }.should_not change { ActionMailer::Base.deliveries.size }
-    @user.reload.reset_password_sent_at.should be_nil
   end
 end
 

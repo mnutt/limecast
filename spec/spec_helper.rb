@@ -150,7 +150,7 @@ module FetchRegularFeed
 end
 
 class Podcast
-  def download_log(*args); end
+  def download_logo(*args); end
 end
 
 def mod_and_run_feed_processor(queued_feed, mod = FetchExample)

@@ -1,23 +1,16 @@
 <% @title = "Podcast" -%>
 <h1>Podcast</h1>
 
-<h2>Map</h2>
+<!-- Map -->
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
 
-<ul>
-  <li><b>primary</b> marks the primary feed</li>
-  <li>Numbers like <b>5</b>, <b>6</b>, and <b>7</b> mark feeds and sources parsed and hashed by a site with that ability number</li>
-  <li><b>a</b> marks a source that wasn't found in the feed the last time the site downloaded the feed, making it part of the site's archive</li>
-</ul>
-
-
-<h2>Episodes</h2>
-
+<!-- Episodes -->
 <p class="episode_info">
-  New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.newest.first) -%> <%= relative_time(@podcast.episodes.newest.first.published_at, true) -%><br />
-  
+  New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.newest.first) -%> 
+  <%= relative_time(@podcast.episodes.first.published_at, false, false, false) %><br />
+
   <%= @podcast.episodes.count -%> episodes
-  since <%= link_to @podcast.episodes.oldest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.oldest.first) -%>
+  since <%= link_to Episode.oldest.find_by_podcast_id(@podcast.id).published_at.to_date, info_episode_url(@podcast, @podcast.episodes.oldest.first) -%>
   every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><br/>
   Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
 </p>
@@ -26,7 +19,7 @@
   <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes -%>
 </ul>
 
-<h2>Feeds</h2>
+<!-- Feeds -->
 <table class="feeds">
   <tr>
     <th>primary</th>
@@ -42,12 +35,12 @@
   <%= render :partial => 'info/feeds/info_line', :collection => @podcast.feeds -%>
 </table>
 
-<h2>Media (for latest Primary Source):</h2>
+<!-- Media (for latest Primary Source): -->
 <% if @podcast.primary_feed && source = @podcast.primary_feed.sources.sorted.first -%>
   <%= render :partial => "info/sources/info_media", :locals => {:source => source} %>
 <% end -%>
 
-<h2>Info:</h2>
+<!-- Info: -->
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key" title="Podcast title as written on pages">page&nbsp;title</td>
@@ -81,7 +74,7 @@
   </tr>
 </table>
 
-<h2>Top:</h2>
+<!-- Top: -->
 <table>
   <tr>
     <td class="key" title="The podcast ranking on the leaderboard">top</td>
@@ -103,7 +96,7 @@
   </tr>
 </table>
 
-<h2>Tags</h2>
+<!-- Tags -->
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key" title="Badges the system has assigned this podcast">badges</td>
@@ -123,7 +116,7 @@
   </tr>
 </table>
 
-<h2>Features</h2>
+<!-- Features -->
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key" title="Subscribe and download table described below for the podcast's current episode">subscribe&nbsp;and&nbsp;download&nbsp;table</td>
@@ -143,7 +136,7 @@
   </tr>
 </table>
 
-<h2>Render</h2>
+<!-- Render -->
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key" title="The podcast rendered as a name">name&nbsp;render</td>

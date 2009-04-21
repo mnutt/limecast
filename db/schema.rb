@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(:version => 20090420233322) do
     t.integer  "podcast_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                           :default => "pending"
+    t.string   "state",                             :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
-    t.text     "xml",         :limit => 16777215
-    t.integer  "ability",                         :default => 0
+    t.text     "xml",         :limit => 2147483647
+    t.integer  "ability",                           :default => 0
     t.integer  "owner_id"
     t.string   "owner_email"
     t.string   "owner_name"

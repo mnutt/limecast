@@ -1,28 +1,31 @@
 # == Schema Information
-# Schema version: 20090421203934
+# Schema version: 20090422190922
 #
 # Table name: feeds
 #
-#  id          :integer(4)    not null, primary key
-#  url         :string(255)   
-#  error       :string(255)   
-#  itunes_link :string(255)   
-#  podcast_id  :integer(4)    
-#  created_at  :datetime      
-#  updated_at  :datetime      
-#  state       :string(255)   default("pending")
-#  bitrate     :integer(4)    
-#  finder_id   :integer(4)    
-#  format      :string(255)   
-#  xml         :text(16777215 
-#  ability     :integer(4)    default(0)
-#  owner_id    :integer(4)    
-#  owner_email :string(255)   
-#  owner_name  :string(255)   
-#  generator   :string(255)   
-#  title       :string(255)   
-#  description :string(255)   
-#  language    :string(255)   
+#  id                :integer(4)    not null, primary key
+#  url               :string(255)   
+#  error             :string(255)   
+#  itunes_link       :string(255)   
+#  podcast_id        :integer(4)    
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  state             :string(255)   default("pending")
+#  bitrate           :integer(4)    
+#  finder_id         :integer(4)    
+#  format            :string(255)   
+#  xml               :text(16777215 
+#  ability           :integer(4)    default(0)
+#  owner_id          :integer(4)    
+#  owner_email       :string(255)   
+#  owner_name        :string(255)   
+#  generator         :string(255)   
+#  title             :string(255)   
+#  description       :string(255)   
+#  language          :string(255)   
+#  logo_file_name    :string(255)   
+#  logo_content_type :string(255)   
+#  logo_file_size    :string(255)   
 #
 
 require 'open-uri'

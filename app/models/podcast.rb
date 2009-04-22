@@ -1,13 +1,10 @@
 # == Schema Information
-# Schema version: 20090421203934
+# Schema version: 20090422190922
 #
 # Table name: podcasts
 #
 #  id                   :integer(4)    not null, primary key
 #  site                 :string(255)   
-#  logo_file_name       :string(255)   
-#  logo_content_type    :string(255)   
-#  logo_file_size       :string(255)   
 #  created_at           :datetime      
 #  updated_at           :datetime      
 #  category_id          :integer(4)    
@@ -22,6 +19,10 @@
 #  approved             :boolean(1)    
 #  button_installed     :boolean(1)    
 #  protected            :boolean(1)    
+#  favorites_count      :integer(4)    default(0)
+#  logo_file_name       :string(255)   
+#  logo_content_type    :string(255)   
+#  logo_file_size       :string(255)   
 #
 
 require 'paperclip_file'
@@ -49,16 +50,6 @@ class Podcast < ActiveRecord::Base
   has_many :badges, :source => :tag, :through => :taggings, :conditions => {:badge => true}, :order => 'name ASC'
 
   accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? }
-
-  # DEPRECATED (being moved to Feed)
-  has_attached_file :logo,
-                    :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension",
-                    :url  => "/:attachment/:id/:style/:basename.:extension",
-                    :styles => { :square => ["85x85#", :png],
-                                 :small  => ["170x170#", :png],
-                                 :large  => ["300x300>", :png],
-                                 :icon   => ["25x25#", :png],
-                                 :thumb  => ["16x16#", :png] }
 
   named_scope :not_approved, :conditions => {:approved => false}
   named_scope :approved, :conditions => {:approved => true}
@@ -189,7 +180,6 @@ class Podcast < ActiveRecord::Base
     self.created_at > 2.minutes.ago
   end
   
-  # paperclip's :logo is being deprecated in favor of these methods
   def logo(*args)
     primary_feed.logo(*args) if primary_feed
   end

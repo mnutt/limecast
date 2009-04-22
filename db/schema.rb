@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090422190922) do
+ActiveRecord::Schema.define(:version => 20090422210924) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -99,9 +99,6 @@ ActiveRecord::Schema.define(:version => 20090422190922) do
     t.boolean  "button_installed"
     t.boolean  "protected",            :default => false
     t.integer  "favorites_count",      :default => 0
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.string   "logo_file_size"
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true

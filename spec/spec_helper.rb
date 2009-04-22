@@ -149,7 +149,7 @@ module FetchRegularFeed
   end
 end
 
-class Podcast
+class Feed
   def download_logo(*args); end
 end
 

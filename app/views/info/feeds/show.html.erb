@@ -55,11 +55,6 @@
   </tr>
 
   <tr>
-    <td class="key" title="The podcast title parsed from the XML of this feed">title</td>
-    <td><%= non_blank @feed.title -%></td>
-  </tr>
-
-  <tr>
     <td class="key" title="Link anchor for the page, shortened and formatted, linked to the podcaster's website">site</td>
     <td><%= link_to(@feed.podcast.site) -%></td>
   </tr>

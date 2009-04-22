@@ -1,13 +1,10 @@
 # == Schema Information
-# Schema version: 20090421203934
+# Schema version: 20090422190922
 #
 # Table name: podcasts
 #
 #  id                   :integer(4)    not null, primary key
 #  site                 :string(255)   
-#  logo_file_name       :string(255)   
-#  logo_content_type    :string(255)   
-#  logo_file_size       :string(255)   
 #  created_at           :datetime      
 #  updated_at           :datetime      
 #  category_id          :integer(4)    
@@ -22,6 +19,10 @@
 #  approved             :boolean(1)    
 #  button_installed     :boolean(1)    
 #  protected            :boolean(1)    
+#  favorites_count      :integer(4)    default(0)
+#  logo_file_name       :string(255)   
+#  logo_content_type    :string(255)   
+#  logo_file_size       :string(255)   
 #
 
 require 'paperclip_file'
@@ -49,15 +50,6 @@ class Podcast < ActiveRecord::Base
   has_many :badges, :source => :tag, :through => :taggings, :conditions => {:badge => true}, :order => 'name ASC'
 
   accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? }
-
-  has_attached_file :logo,
-                    :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension",
-                    :url  => "/:attachment/:id/:style/:basename.:extension",
-                    :styles => { :square => ["85x85#", :png],
-                                 :small  => ["170x170#", :png],
-                                 :large  => ["300x300>", :png],
-                                 :icon   => ["25x25#", :png],
-                                 :thumb  => ["16x16#", :png] }
 
   named_scope :not_approved, :conditions => {:approved => false}
   named_scope :approved, :conditions => {:approved => true}
@@ -168,25 +160,6 @@ class Podcast < ActiveRecord::Base
     primary_feed.description
   end
 
-  def download_logo(link)
-    file = PaperClipFile.new
-    file.original_filename = File.basename(link)
-
-    open(link) do |f|
-      return unless f.content_type =~ /^image/
-
-      file.content_type = f.content_type
-      file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
-        tmp.write(f.read)
-        tmp.rewind
-        tmp
-      end
-    end
-
-    self.attachment_for(:logo).assign(file)
-  rescue OpenURI::HTTPError
-  end
-
   def average_time_between_episodes
     return 0 if self.episodes.count < 2
     time_span = self.episodes.first.published_at - self.episodes.last.published_at
@@ -205,6 +178,13 @@ class Podcast < ActiveRecord::Base
 
   def just_created?
     self.created_at > 2.minutes.ago
+  end
+  
+  def logo(*args)
+    primary_feed.logo(*args) if primary_feed
+  end
+  def logo?
+    primary_feed.logo? if primary_feed
   end
 
   def total_run_time

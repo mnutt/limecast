@@ -133,8 +133,8 @@ describe Feed, "downloading the logo for its podcast" do
   end
 
   it 'should not set the logo_filename for a bad link' do
-    @podcast.download_logo('http://google.com')
-    @podcast.logo_file_name.should be_nil
+    @feed.download_logo('http://google.com')
+    @feed.logo_file_name.should be_nil
   end
 end
 

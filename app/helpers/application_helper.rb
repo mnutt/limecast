@@ -23,7 +23,7 @@ module ApplicationHelper
     links = links.zip((0..links.size).to_a).map do |link, i|
       "<li#{' class="selected"' if i == selected_index}>#{link}</li>"
     end
-xx
+
     ul = "<ul>#{links}</ul>"
     content_tag :div, "#{label}#{focuser}#{rounded_corner_tag(ul, :class => 'dropdown_wrap')}", {:class => options[:class]}.merge(options)
   end
@@ -87,10 +87,10 @@ xx
   def relative_time(date, abbr=true, with_time=true, with_parens=true)
     return nil unless date.is_a?(Time) or date.is_a?(DateTime) or date.is_a?(Date)
     time_ago = Time.now - date
-    datestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%Y %b %d").gsub(/(\s)0([1-9])/,'\1\2')
-    timestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%m%p").gsub(/(\s)0([1-9])/,'\1\2')
+    datestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%Y %b %d").gsub(/(^|\s)0([1-9])/,'\1\2')
+    timestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%m%p").gsub(/(^|\s)0([1-9])/,'\1\2').gsub(/AM|PM/) {|m| m.first.downcase}
     ago = with_parens ? "(#{time_to_words(time_ago, abbr)} ago)" : "#{time_to_words(time_ago, abbr)} ago"
-    "#{datestamp} #{timestamp if with_time} #{ago}"
+    "#{datestamp}#{' '+timestamp if with_time} #{ago}"
   end
 
   def unescape_entities(html)

@@ -110,7 +110,6 @@ class FeedProcessor
     @feed.podcast ||= Podcast.find_or_initialize_by_site(@rpodcast_feed.link)
 
     if @feed.podcast.primary_feed.nil? || @feed.primary?
-      @feed.podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
       @feed.podcast.update_attributes!(
         :owner_email    => @rpodcast_feed.owner_email,
         :owner_name     => @rpodcast_feed.owner_name,
@@ -164,6 +163,7 @@ class FeedProcessor
 
   def update_feed!
     @feed.finder_id = @qf.user_id if @qf.user_id
+    @feed.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
     @feed.update_attributes(
       :bitrate     => @rpodcast_feed.bitrate.nearest_multiple_of(64),
       :generator   => @rpodcast_feed.generator,

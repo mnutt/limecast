@@ -1,28 +1,31 @@
 # == Schema Information
-# Schema version: 20090421203934
+# Schema version: 20090422190922
 #
 # Table name: feeds
 #
-#  id          :integer(4)    not null, primary key
-#  url         :string(255)   
-#  error       :string(255)   
-#  itunes_link :string(255)   
-#  podcast_id  :integer(4)    
-#  created_at  :datetime      
-#  updated_at  :datetime      
-#  state       :string(255)   default("pending")
-#  bitrate     :integer(4)    
-#  finder_id   :integer(4)    
-#  format      :string(255)   
-#  xml         :text(16777215 
-#  ability     :integer(4)    default(0)
-#  owner_id    :integer(4)    
-#  owner_email :string(255)   
-#  owner_name  :string(255)   
-#  generator   :string(255)   
-#  title       :string(255)   
-#  description :string(255)   
-#  language    :string(255)   
+#  id                :integer(4)    not null, primary key
+#  url               :string(255)   
+#  error             :string(255)   
+#  itunes_link       :string(255)   
+#  podcast_id        :integer(4)    
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  state             :string(255)   default("pending")
+#  bitrate           :integer(4)    
+#  finder_id         :integer(4)    
+#  format            :string(255)   
+#  xml               :text(16777215 
+#  ability           :integer(4)    default(0)
+#  owner_id          :integer(4)    
+#  owner_email       :string(255)   
+#  owner_name        :string(255)   
+#  generator         :string(255)   
+#  title             :string(255)   
+#  description       :string(255)   
+#  language          :string(255)   
+#  logo_file_name    :string(255)   
+#  logo_content_type :string(255)   
+#  logo_file_size    :string(255)   
 #
 
 require 'open-uri'
@@ -54,6 +57,15 @@ class Feed < ActiveRecord::Base
   named_scope :found_by_admin, :include => :finder, :conditions => ["users.admin = ?", true]
   named_scope :found_by_nonadmin, :include => :finder, :conditions => ["users.admin = ? OR users.admin IS NULL", false]
 
+  has_attached_file :logo,
+                    :path => ":rails_root/public/feed_:attachment/:id/:style/:basename.:extension",
+                    :url  => "/feed_:attachment/:id/:style/:basename.:extension",
+                    :styles => { :square => ["85x85#", :png],
+                                 :small  => ["170x170#", :png],
+                                 :large  => ["300x300>", :png],
+                                 :icon   => ["25x25#", :png],
+                                 :thumb  => ["16x16#", :png] }
+
   attr_accessor :content
 
   define_index do
@@ -70,6 +82,25 @@ class Feed < ActiveRecord::Base
     doc = Hpricot.XML(self.xml)
     doc.search("item").remove
     PrettyPrinter.indent_xml(doc)
+  end
+  
+  def download_logo(link)
+    file = PaperClipFile.new
+    file.original_filename = File.basename(link)
+
+    open(link) do |f|
+      return unless f.content_type =~ /^image/
+
+      file.content_type = f.content_type
+      file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
+        tmp.write(f.read)
+        tmp.rewind
+        tmp
+      end
+    end
+
+    self.attachment_for(:logo).assign(file)
+  rescue OpenURI::HTTPError
   end
 
   def as(type)

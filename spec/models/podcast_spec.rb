@@ -13,7 +13,7 @@ describe Podcast do
   it 'should have a logo' do
     @file = PaperClipFile.new
     @file.to_tempfile = Tempfile.new('tmp')
-    @podcast.attachment_for(:logo).assign(@file)
+    @podcast.primary_feed.attachment_for(:logo).assign(@file)
     @podcast.logo.should_not be_nil
   end
 

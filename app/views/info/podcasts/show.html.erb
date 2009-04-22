@@ -101,14 +101,6 @@
 <!-- Features -->
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td class="key" title="Subscribe and download table described below for the podcast's current episode">subscribe&nbsp;and&nbsp;download&nbsp;table</td>
-    <td>NOT IMPLEMENTED YET</td>
-  </tr>
-  <tr>
-    <td class="key" title="Search this podcast box">search</td>
-    <td>NOT IMPLEMENTED YET</td>
-  </tr>
-  <tr>
     <td class="key" title="List of links to review info pages">reviews</td>
     <td><%= @podcast.reviews.empty? ? blankness : @podcast.reviews.map{|r| link_to(h(r.title), info_review_url(r)) rescue "" }.join(", ") -%></td>
   </tr>

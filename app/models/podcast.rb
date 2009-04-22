@@ -73,6 +73,7 @@ class Podcast < ActiveRecord::Base
     { :conditions => { :id => podcast_ids } }
   }
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
+  named_scope :popular, :order => "favorites_count DESC"
 
   attr_accessor :has_episodes, :last_changes
   attr_accessor_with_default :messages, []

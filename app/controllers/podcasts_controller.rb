@@ -2,12 +2,14 @@ class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
 
   def index
-    @podcasts = Podcast.sorted
-    respond_to(:html, :xml)
+    respond_to do |format|
+      format.html { @podcasts = Podcast.sorted }
+      format.xml  { @podcasts = Podcast.popular }
+    end
   end
 
   def popular
-    @podcasts = Podcast.sorted.paginate(
+    @podcasts = Podcast.popular.paginate(
       :page => (params[:page] || 1),
       :per_page => params[:limit] || 10
     )

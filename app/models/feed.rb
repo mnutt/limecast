@@ -31,6 +31,8 @@ require 'timeout'
 class Feed < ActiveRecord::Base
   has_many :sources, :dependent => :destroy
   has_many :first_source, :class_name => 'Source', :limit => 1
+  has_one  :newest_source, :class_name => 'Source', :include => :episode, :order => "episodes.published_at DESC"
+  
   belongs_to :podcast
   belongs_to :owner, :class_name => 'User'
   belongs_to :finder, :class_name => 'User'

@@ -12,7 +12,7 @@
 
 class Favorite < ActiveRecord::Base
   belongs_to :user
-  belongs_to :podcast
+  belongs_to :podcast, :counter_cache => true
 
   validates_uniqueness_of :user_id, :scope => :podcast_id, :allow_nil => true
 

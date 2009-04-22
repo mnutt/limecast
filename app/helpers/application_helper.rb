@@ -90,7 +90,7 @@ xx
     datestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%Y %b %d").gsub(/(\s)0([1-9])/,'\1\2')
     timestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%m%p").gsub(/(\s)0([1-9])/,'\1\2')
     ago = with_parens ? "(#{time_to_words(time_ago, abbr)} ago)" : "#{time_to_words(time_ago, abbr)} ago"
-    "#{datestamp}#{timestamp if with_time} #{ago}"
+    "#{datestamp} #{timestamp if with_time} #{ago}"
   end
 
   def unescape_entities(html)

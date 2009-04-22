@@ -23,7 +23,7 @@ module ApplicationHelper
     links = links.zip((0..links.size).to_a).map do |link, i|
       "<li#{' class="selected"' if i == selected_index}>#{link}</li>"
     end
-xx
+
     ul = "<ul>#{links}</ul>"
     content_tag :div, "#{label}#{focuser}#{rounded_corner_tag(ul, :class => 'dropdown_wrap')}", {:class => options[:class]}.merge(options)
   end

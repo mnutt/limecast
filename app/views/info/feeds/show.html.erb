@@ -37,17 +37,12 @@
 
   <tr>
     <td class="key" title="When the site last downloaded and parsed this feed">updated</td>
-    <td><%= non_blank relative_time(@feed.updated_at) -%></td>
+    <td><%= non_blank relative_time(@feed.updated_at, true) -%></td>
   </tr>
 
   <tr>
     <td class="key" title="iTunes ID set by the user in LimeCast Edit">set&nbsp;itunes</td>
     <td><%= non_blank @feed.itunes_link -%></td>
-  </tr>
-  
-  <tr>
-    <td class="key" title="iTunes ID parsed from a mention in the podcast description xml">parsed&nbsp;itunes</td>
-    <td><%= "NOT IMPLEMENTED YET" -%></td>
   </tr>
 
   <tr>

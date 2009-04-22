@@ -88,7 +88,7 @@ xx
     return nil unless date.is_a?(Time) or date.is_a?(DateTime) or date.is_a?(Date)
     time_ago = Time.now - date
     datestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%Y %b %d").gsub(/(^|\s)0([1-9])/,'\1\2')
-    timestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%m%p").gsub(/(^|\s)0([1-9])/,'\1\2')
+    timestamp = date.in_time_zone('Eastern Time (US & Canada)').strftime("%I:%m%p").gsub(/(^|\s)0([1-9])/,'\1\2').gsub(/AM|PM/) {|m| m.first.downcase}
     ago = with_parens ? "(#{time_to_words(time_ago, abbr)} ago)" : "#{time_to_words(time_ago, abbr)} ago"
     "#{datestamp}#{' '+timestamp if with_time} #{ago}"
   end

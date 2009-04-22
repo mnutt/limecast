@@ -50,6 +50,7 @@ class Podcast < ActiveRecord::Base
 
   accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? }
 
+  # DEPRECATED (being moved to Feed)
   has_attached_file :logo,
                     :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension",
                     :url  => "/:attachment/:id/:style/:basename.:extension",
@@ -168,25 +169,6 @@ class Podcast < ActiveRecord::Base
     primary_feed.description
   end
 
-  def download_logo(link)
-    file = PaperClipFile.new
-    file.original_filename = File.basename(link)
-
-    open(link) do |f|
-      return unless f.content_type =~ /^image/
-
-      file.content_type = f.content_type
-      file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
-        tmp.write(f.read)
-        tmp.rewind
-        tmp
-      end
-    end
-
-    self.attachment_for(:logo).assign(file)
-  rescue OpenURI::HTTPError
-  end
-
   def average_time_between_episodes
     return 0 if self.episodes.count < 2
     time_span = self.episodes.first.published_at - self.episodes.last.published_at
@@ -205,6 +187,14 @@ class Podcast < ActiveRecord::Base
 
   def just_created?
     self.created_at > 2.minutes.ago
+  end
+  
+  # paperclip's :logo is being deprecated in favor of these methods
+  def logo(*args)
+    primary_feed.logo(*args) if primary_feed
+  end
+  def logo?
+    primary_feed.logo? if primary_feed
   end
 
   def total_run_time

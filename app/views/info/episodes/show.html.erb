@@ -5,14 +5,11 @@
   <%= @podcast.episodes.sorted.index(@episode) + 1 %> of <%= @podcast.episodes.count -%> 
   <%= link_to "Older >", info_episode_url(@podcast, @older) if @older %> 
 <% end -%>
-
 <!-- Map -->
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:episode => @episode}} -%>
 
-<h2>Media</h2>
-<% @episode.sources.sorted('bitrate').each do |source| -%>
-  <%= render :partial => "info/sources/info_media", :locals => {:source => source} %>
-<% end -%>
+<!-- Media -->
+<%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted('bitrate')} %>
 
 <% if @episode.primary_source -%>
   <% @source = @episode.primary_source

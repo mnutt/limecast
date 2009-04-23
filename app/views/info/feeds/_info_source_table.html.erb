@@ -86,5 +86,6 @@
   <tr>
     <td class="pagination" colspan="<%= podcast.feeds.size + 2 %>"><%= yield :pagination -%></td>
   </tr>
+  <% @content_for_pagination = nil # reset this in case there are more content_for()'s -%>
   <% end -%>
 </table>

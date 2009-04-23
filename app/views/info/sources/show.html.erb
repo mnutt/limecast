@@ -1,9 +1,9 @@
 <h1>Source</h1>
 
 <% content_for :pagination do -%>
-  <%= link_to "< Newer", info_source_url(@podcast, @newer.episode, @newer) if @newer %> 
+  <%= link_to "< Newer", info_source_url(@podcast, @newer.episode, @newer.id) if @newer %> 
   <%= @feed.sources.sorted.index(@source) + 1 %> of <%= @feed.sources.count -%> 
-  <%= link_to "Older >", info_source_url(@podcast, @older.episode, @older) if @older %> 
+  <%= link_to "Older >", info_source_url(@podcast, @older.episode, @older.id) if @older %> 
 <% end -%>
 
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
@@ -228,7 +228,7 @@
 <% end -%>
 
 <!-- Media: -->
-<%= render :partial => "info/sources/info_media", :locals => {:source => @source} %>
+<%= render :partial => "info/sources/info_medias", :locals => {:sources => [@source]} %>
 
 
 <!-- Preview -->

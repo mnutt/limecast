@@ -176,6 +176,7 @@ namespace :limecast do
         mkdir #{shared_path}/sphinx &&
         mkdir #{shared_path}/vendor &&
         mkdir #{shared_path}/logos &&
+        mkdir #{shared_path}/feed_logos &&
         mkdir #{shared_path}/screenshots &&
         mkdir #{shared_path}/previews &&
         mkdir #{shared_path}/random_clips &&
@@ -214,6 +215,7 @@ namespace :limecast do
       symlinks = { 'sphinx'         => 'sphinx',
                    'database.yml'   => 'config/database.yml',
                    'logos'          => 'public/logos',
+                   'feed_logos'     => 'public/feed_logos',
                    'screenshots'    => 'public/screenshots',
                    'previews'       => 'public/previews',
                    'random_clips'   => 'public/random_clips',

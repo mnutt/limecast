@@ -137,7 +137,11 @@ class Podcast < ActiveRecord::Base
   end
 
   def most_recent_episode
-    self.episodes.newest.first
+    @most_recent_episode ||= self.episodes.newest.first
+  end
+
+  def most_recent_source
+    @most_recent_source ||= (most_recent_episode ? most_recent_episode.sources.find_by_feed_id(primary_feed.id) : nil)
   end
 
   def related_podcasts

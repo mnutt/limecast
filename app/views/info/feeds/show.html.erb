@@ -56,7 +56,7 @@
 
   <tr>
     <td class="key" title="Link anchor for the page, shortened and formatted, linked to the podcaster's website">site</td>
-    <td><%= link_to(@feed.podcast.site) -%></td>
+    <td><%= link_to_podcast_home(@feed.podcast) -%></td>
   </tr>
 
   <tr>
@@ -67,11 +67,6 @@
   <tr>
     <td class="key" title="Podcast description formatted for page display. Has multiple paragraphs and allows links.">page&nbsp;description</td>
     <td><%= non_blank sanitize_summary(@feed.description) -%></td>
-  </tr>
-
-  <tr>
-    <td class="key" title="Podcast description taken from the XML, letting all but the most dangerous HTML through.">html&nbsp;description</td>
-    <td><%= non_blank sanitize_lightly(@feed.description) -%></td>
   </tr>
 </table>
 

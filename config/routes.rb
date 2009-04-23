@@ -78,7 +78,7 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => 'podcasts' do |p|
     p.podcasts         '/all.:format',            :action => 'index'
     p.all              '/all',                    :action => 'index'
-    p.popular          '/popular',                :action => 'popular'
+    p.popular          '/popular.:format',        :action => 'popular'
     p.podcast          '/:podcast_slug',          :action => 'destroy', :conditions => {:method => :delete}
     p.podcast          '/:podcast_slug',          :action => 'show',    :conditions => {:method => :get}
     p.podcast          '/:podcast_slug',          :action => 'update',  :conditions => {:method => :put}

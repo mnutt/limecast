@@ -25,13 +25,6 @@
   </tr>
 
   <tr>
-    <td class="key" title="The unique UTC day the system uses as the name of this episode">name&nbsp;date</td>
-    <td>
-      <%= @episode.clean_url -%>
-    </td>
-  </tr>
-
-  <tr>
     <td class="key" title="The episode date and time according to the XML">xml&nbsp;date</td>
     <td>
       <%= relative_time @episode.published_at -%>

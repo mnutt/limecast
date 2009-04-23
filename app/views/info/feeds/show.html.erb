@@ -16,6 +16,11 @@
   </tr>
 
   <tr>
+    <td class="key" title="iTunes ID set by the user in LimeCast Edit">itunes</td>
+    <td><%= non_blank @feed.itunes_link -%></td>
+  </tr>
+
+  <tr>
     <td class="key" title="Linked RSS address">rss</td>
     <td><%= link_to(@feed.url) -%></td>
   </tr>
@@ -30,10 +35,7 @@
     <td><%= link_to(torrent_feed_url(@feed)) -%></td>
   </tr>
 
-  <tr>
-    <td class="key" title="The ability version number that downloaded and parsed this feed">ability</td>
-    <td><%= non_blank @feed.ability -%></td>
-  </tr>
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
     <td class="key" title="When the site last downloaded and parsed this feed">updated</td>
@@ -41,9 +43,11 @@
   </tr>
 
   <tr>
-    <td class="key" title="iTunes ID set by the user in LimeCast Edit">set&nbsp;itunes</td>
-    <td><%= non_blank @feed.itunes_link -%></td>
+    <td class="key" title="The ability version number that downloaded and parsed this feed">ability</td>
+    <td><%= non_blank @feed.ability -%></td>
   </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
     <td class="key" title="Cover art in all the different sizes shown inline">cover</td>
@@ -54,32 +58,37 @@
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
     <td class="key" title="Link anchor for the page, shortened and formatted, linked to the podcaster's website">site</td>
     <td><%= link_to_podcast_home(@feed.podcast) -%></td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
-    <td class="key" title="Podcast description formatted to a single line of text for summary display. Combines multiple paragraphs and unlinks links.">line&nbsp;description</td>
+    <td class="key" title="Podcast description sanitized and formatted to a single line of text for summary display. Runs multiple paragraphs together and doesn't allow links, formatting, or any other HTML.">feed&nbsp;description&nbsp;line</td>
     <td>
       <%= non_blank line_description(@feed.description), false %>
-      <%#= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@feed.description)) -%>
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
-    <td class="key" title="Podcast description formatted for page display. Has multiple paragraphs and allows links.">page&nbsp;description</td>
+    <td class="key" title="Podcast description sanitized and formatted for page display. Allows multiple paragraphs and links, but removes HTML formatting.">feed&nbsp;description&nbsp;page</td>
     <td>
       <%= non_blank page_description(@feed.description), false %>
-      <%#= non_blank sanitize_summary(@feed.description) -%>
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
-    <td class="key" title="Podcast description formatted for page display. Has multiple paragraphs and allows links.">html&nbsp;description</td>
+    <td class="key" title="The HTML behind feed description page">feed&nbsp;description&nbsp;page&nbsp;source</td>
     <td>
       <%= non_blank @feed.description %>
-      <%#= non_blank sanitize_summary(@feed.description) -%>
     </td>
   </tr>
 </table>

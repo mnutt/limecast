@@ -61,12 +61,26 @@
 
   <tr>
     <td class="key" title="Podcast description formatted to a single line of text for summary display. Combines multiple paragraphs and unlinks links.">line&nbsp;description</td>
-    <td><%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@feed.description)) -%></td>
+    <td>
+      <%= non_blank line_description(@feed.description), false %>
+      <%#= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@feed.description)) -%>
+    </td>
   </tr>
 
   <tr>
     <td class="key" title="Podcast description formatted for page display. Has multiple paragraphs and allows links.">page&nbsp;description</td>
-    <td><%= non_blank sanitize_summary(@feed.description) -%></td>
+    <td>
+      <%= non_blank page_description(@feed.description), false %>
+      <%#= non_blank sanitize_summary(@feed.description) -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="Podcast description formatted for page display. Has multiple paragraphs and allows links.">html&nbsp;description</td>
+    <td>
+      <%= non_blank @feed.description %>
+      <%#= non_blank sanitize_summary(@feed.description) -%>
+    </td>
   </tr>
 </table>
 

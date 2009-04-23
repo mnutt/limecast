@@ -47,6 +47,16 @@ module ApplicationHelper
     time.to_i.to_duration.to_s(abbr)
   end
 
+  # All the text on a single line and no links. 
+  def line_description(html)
+    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(), :attributes => %w())
+  end
+
+  # Allows only links and separate paragraphs.
+  def page_description(html)
+    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(a br p), :attributes => %w(href))
+  end
+
   def link_to_profile(user)
     link_text = h(user.login)
     link_text += "" unless user.podcaster?
@@ -236,7 +246,7 @@ module ApplicationHelper
   end
 
   # Question mark on info pages, #non_blank also does #h
-  def non_blank(text=nil, &block)
+  def non_blank(text=nil, escape=true, &block)
     if block
       begin
         block.call
@@ -244,7 +254,7 @@ module ApplicationHelper
         blankness
       end
     else
-      (text.blank? || text == 0) ? blankness : h(text)
+      (text.blank? || text == 0) ? blankness : (escape ? h(text) : text)
     end
   end
   

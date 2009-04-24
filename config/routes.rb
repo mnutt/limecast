@@ -74,17 +74,18 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.with_options :controller => 'podcasts' do |p|
-    p.podcasts         '/all.:format',            :action => 'index'
-    p.all              '/all',                    :action => 'index'
-    p.popular          '/popular.:format',        :action => 'popular'
-    p.podcast          '/:podcast_slug',          :action => 'destroy', :conditions => {:method => :delete}
-    p.podcast          '/:podcast_slug',          :action => 'show',    :conditions => {:method => :get}
-    p.podcast          '/:podcast_slug',          :action => 'update',  :conditions => {:method => :put}
-    p.edit_podcast     '/:podcast_slug/edit',     :action => 'edit',    :conditions => {:method => :get}
-    p.favorite_podcast '/:podcast_slug/favorite', :action => 'favorite',:conditions => {:method => :post}
-    p.cover            '/:podcast_slug/cover',    :action => 'cover'
-    p.recs             '/:podcast_slug/recs',     :action => 'recs'
-    p.podcast_info     '/:podcast_slug/info',     :action => 'info'
+    p.podcasts         '/all.:format',              :action => 'index'
+    p.all              '/all',                      :action => 'index'
+    p.popular          '/popular.:format',          :action => 'popular'
+    p.recently_updated '/recently_updated.:format', :action => 'recently_updated'
+    p.podcast          '/:podcast_slug',            :action => 'destroy', :conditions => {:method => :delete}
+    p.podcast          '/:podcast_slug',            :action => 'show',    :conditions => {:method => :get}
+    p.podcast          '/:podcast_slug',            :action => 'update',  :conditions => {:method => :put}
+    p.edit_podcast     '/:podcast_slug/edit',       :action => 'edit',    :conditions => {:method => :get}
+    p.favorite_podcast '/:podcast_slug/favorite',   :action => 'favorite',:conditions => {:method => :post}
+    p.cover            '/:podcast_slug/cover',      :action => 'cover'
+    p.recs             '/:podcast_slug/recs',       :action => 'recs'
+    p.podcast_info     '/:podcast_slug/info',       :action => 'info'
   end
 
   map.positive_reviews '/:podcast_slug/reviews/positive', :controller => 'reviews', :filter => 'positive'

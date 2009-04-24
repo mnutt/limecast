@@ -40,6 +40,8 @@ class Podcast < ActiveRecord::Base
            :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
   has_one  :first_feed, :class_name => 'Feed', :order => "feeds.created_at ASC", :include => :finder
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
+  has_one  :newest_episode, :class_name => 'Episode', :order => "published_at DESC"
+  has_one  :newest_source, :through => :newest_episode, :conditions => 'sources.feed_id = #{primary_feed.id}'
   has_many :reviews, :through => :episodes, :conditions => "user_id IS NOT NULL"
 
   has_many :recommendations, :order => 'weight DESC'
@@ -66,6 +68,7 @@ class Podcast < ActiveRecord::Base
   }
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
   named_scope :popular, :order => "favorites_count DESC"
+  named_scope :sorted_by_newest_episode, :include => :newest_episode, :order => "episodes.published_at DESC"
 
   attr_accessor :has_episodes, :last_changes
   attr_accessor_with_default :messages, []
@@ -134,14 +137,6 @@ class Podcast < ActiveRecord::Base
   # All badges, and tags that have NOT been user_tagging'ed.
   def unclaimed_tags
     unclaimed_taggings.map(&:tag)
-  end
-
-  def most_recent_episode
-    @most_recent_episode ||= self.episodes.newest.first
-  end
-
-  def most_recent_source
-    @most_recent_source ||= (most_recent_episode ? most_recent_episode.sources.find_by_feed_id(primary_feed.id) : nil)
   end
 
   def related_podcasts

@@ -30,7 +30,8 @@ class Episode < ActiveRecord::Base
   has_many :reviews, :dependent => :destroy
   has_many :reviewers, :through => :reviews
   has_many :sources, :dependent => :destroy, :include => [:feed], :order => "feeds.bitrate ASC, sources.format ASC"
-  has_one :primary_source, :class_name => "Source", :conditions => '`sources`.`feed_id` = #{podcast.primary_feed_id || 0}'
+  has_one  :primary_source, :class_name => "Source", :conditions => 'sources.feed_id = #{podcast.primary_feed_id || 0}'
+  has_many :newest_source, :class_name => "Source", :order => "sources.published_at DESC", :limit => 1
 
   validates_presence_of :podcast_id, :published_at
 

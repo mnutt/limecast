@@ -1,11 +1,13 @@
 class PodcastsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :destroy]
 
+  # GET /all.xml
   def index
     @podcasts = Podcast.sorted
     respond_to(:html, :xml)
   end
 
+  # GET /popular.xml
   def popular
     @podcasts = Podcast.popular.paginate(
       :page => (params[:page] || 1),
@@ -17,17 +19,29 @@ class PodcastsController < ApplicationController
       format.xml { render :index }
     end
   end
+  
+  # GET /recently_updated.xml
+  def recently_updated
+    @podcasts = Podcast.sorted_by_newest_episode.paginate(
+      :page => (params[:page] || 1),
+      :per_page => params[:limit] || 10
+    )
+
+    respond_to do |format|
+      format.xml { render :index }
+    end
+  end
 
   def show
     @podcast ||= Podcast.find_by_slug(params[:podcast_slug])
 
-    @most_recent_episode = @podcast.most_recent_episode
+    @newest_episode = @podcast.newest_episode
 
     @episodes = @podcast.episodes
     @feeds    = @podcast.feeds
     @related  = @podcast.related_podcasts
     @reviews  = @podcast.reviews
-    @review   = Review.new(:episode => @most_recent_episode)
+    @review   = Review.new(:episode => @newest_episode)
   end
 
   def destroy

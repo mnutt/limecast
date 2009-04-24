@@ -373,26 +373,6 @@ describe Podcast, "primary feed" do
   end
 end
 
-describe Podcast, "finding or creating owner" do
-  before do
-    @feed = Factory.create(:feed, :title => "FOoooooobar")
-    @podcast = Factory.build(:podcast, :feeds => [@feed], :owner_email => "some.random.owner@example.com")
-    @save_podcast = lambda { @podcast.save }
-  end
-
-  it "should set and create the passive owner if the owner doesn't exist" do
-    @save_podcast.should change { User.all.size }.by(1)
-    @podcast.owner.should == User.last
-    @podcast.owner.should be_passive
-  end
-
-  it "should find and set the owner if owner exists" do
-    owner = Factory.create(:user, :email => @podcast.owner_email)
-    @save_podcast.should_not change { User.all.size }
-    @podcast.owner.should == owner
-  end
-end
-
 describe Podcast, "additional badges" do
   before(:each) do
     @podcast = Factory.create(:parsed_podcast, :feeds => [Factory.create(:feed, :content => nil, :language => 'es')])

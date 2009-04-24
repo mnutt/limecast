@@ -110,9 +110,9 @@ class User < ActiveRecord::Base
     return user
   end
 
-
+  # Returns the first 6 bytes from a salted hexdigest (the full string is unnecessary)
   def self.generate_code(salt)
-    Digest::MD5.hexdigest("CODE FOR #{salt} at #{Time.now}")
+    Digest::MD5.hexdigest("CODE FOR #{salt} at #{Time.now}")[0..5]
   end
 
   # Encrypts the password with the user salt

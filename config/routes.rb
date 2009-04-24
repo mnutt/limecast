@@ -56,8 +56,6 @@ ActionController::Routing::Routes.draw do |map|
     u.activate        '/activate/:activation_code', :action => 'activate'
     u.send_password   '/send_password',             :action => 'send_password'
     u.reset_password  '/reset_password/:code',      :action => 'reset_password', :code => nil
-    u.claim           '/claim',                     :action => 'claim'                       # claim & set_password are like send_password
-    u.set_password    '/claim/:code',               :action => 'set_password', :code => nil  # & reset_password, but with different wording
     u.forgot_password '/forgot',                    :action => 'forgot_password'
     u.all_users       '/user',                      :action => 'index'
     u.user            '/user/:user_slug',           :action => 'show', :conditions => {:method => :get}

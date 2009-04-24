@@ -37,3 +37,23 @@ describe Feed, "attributes" do
     Feed.from_limetracker.all.should == [@feed, @feed2]
   end
 end
+
+
+describe Feed, "finding or creating owner" do
+  before do
+    @feed = Factory.build(:feed, :title => "FOoooooobar", :owner_email => "some.owner@here.com")
+    @save_feed = lambda { @feed.save }
+  end
+
+  it "should set and create the passive owner if the owner doesn't exist" do
+    @save_feed.should change { User.all.size }.by(1)
+    @feed.owner.should == User.last
+    @feed.owner.should be_passive
+  end
+
+  it "should find and set the owner if owner exists" do
+    owner = Factory.create(:user, :email => @feed.owner_email)
+    @save_feed.should_not change { User.all.size }
+    @feed.owner.should == owner
+  end
+end

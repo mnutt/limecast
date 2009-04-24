@@ -65,47 +65,6 @@ class UsersController < ApplicationController
     render
   end
 
-  # GET /claim
-  # POST /claim?email=...
-  def claim
-    unless params[:email].blank?
-      @user = User.passive.find_by_email(params[:email])
-    end
-
-    if @user
-      if @user.reset_password_sent_at and @user.reset_password_sent_at > 10.minutes.ago then
-      else
-        @user.generate_reset_password_code
-        @user.save
-      end
-      redirect_to new_session_path
-    else
-      render
-    end
-  end
-
-  # GET /claim/:code
-  # POST /claim/:code
-  # XXX
-  def set_password
-    @code = params[:code] or unauthorized
-    @user = User.find_by_reset_password_code(@code) or unauthorized
-    @user.confirm unless @user.confirmed?
-
-    if request.post?
-      if @user.update_attributes(params[:user])
-        @user.reset_password_code = nil
-        @user.reset_password_sent_at = nil
-        @user.confirm
-
-        self.current_user = @user
-        redirect_to user_url(@user)
-      else
-        render
-      end
-    end
-  end
-
   def reset_password
     @code = params[:code] or unauthorized
     @user = User.find_by_reset_password_code(@code) or unauthorized

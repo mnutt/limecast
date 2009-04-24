@@ -1,0 +1,40 @@
+<% sources ||= info_medias -%>
+
+<table class="medias">
+
+<% sources.each do |source| -%>
+  <tr>
+    <td>
+      <table class="media">
+        <tr>
+          <td>
+            <%= non_blank source.feed.formatted_bitrate -%> 
+            <%= non_blank source.size.to_file_size.to_s(true, false).downcase -%> 
+            <%= non_blank source.format -%> 
+            <%= non_blank source.resolution -%> 
+            <%= non_blank source.framerate -%> 
+            <%= source.episode.duration == 0 ? blankness : source.episode.duration.to_i.to_duration -%>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= source.sha1hash.blank? ? blankness : link_to("magnet", source.magnet_url) -%>
+            <%= source.sha1hash.blank? ? blankness : source.sha1hash[0..7] -%>
+            <%= source.sha1hash.blank? ? blankness : link_to(source.torrent.url.split('/').last, source.torrent.url) -%>
+          </td>
+        </tr>
+        <tr>
+          <td><%= link_to(h(source.file_name), source.url) -%></td>
+        </tr>
+        <tr>
+          <td>
+            <%= info_feed_link(source.feed, false) -%> 
+            <%= info_source_link(source, false) -%>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+<% end -%>
+
+</div>

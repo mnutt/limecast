@@ -70,7 +70,7 @@ class SourceProcessor
     
     source.update_attributes(:downloaded_at => Time.now, :curl_info => @curl_info)
   end
-  
+
   def get_http_info
     curl_output = `curl -L -I '#{source.url.gsub("'", "")}'`
     headers = curl_output.split(/[\r\n]/)
@@ -79,7 +79,7 @@ class SourceProcessor
     @file_name_from_http = filename_from_http_content_disposition(headers)
     @file_name_from_http ||= filename_from_http_location(headers)
   end
-  
+
   def filename_from_http_content_disposition(headers)
     disposition = headers.select{|h| h =~ /^Content-Disposition/}.last || ""
     disposition =~ /filename=\"([^\"]+)\"/
@@ -103,7 +103,7 @@ class SourceProcessor
     raw_info = `ffmpeg -i #{self.tmp_file} 2>&1`
     @info = SourceInfo.new(raw_info, source)
     @info.file_size = `ls -l #{self.tmp_file} | awk '{print $5}'`.strip.to_i
-    @info.file_name = @file_name_from_http || self.tmp_file
+    @info.file_name = self.tmp_filename
     @info.sha1hash  = `sha1 #{self.tmp_file} | cut -f1 -d" "`.strip
     if(`uname`.chomp == "Darwin")
       @info.content_type = `file -Ib '#{self.tmp_file}'`.chomp

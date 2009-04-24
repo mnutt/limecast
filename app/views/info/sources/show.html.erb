@@ -1,9 +1,9 @@
 <h1>Source</h1>
 
 <% content_for :pagination do -%>
-  <%= link_to "< Newer", info_source_url(@podcast, @newer.episode, @newer) if @newer %> 
+  <%= link_to "< Newer", info_source_url(@podcast, @newer.episode, @newer.id) if @newer %> 
   <%= @feed.sources.sorted.index(@source) + 1 %> of <%= @feed.sources.count -%> 
-  <%= link_to "Older >", info_source_url(@podcast, @older.episode, @older) if @older %> 
+  <%= link_to "Older >", info_source_url(@podcast, @older.episode, @older.id) if @older %> 
 <% end -%>
 
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
@@ -18,18 +18,13 @@
   </tr>
 
   <tr>
-    <td class="key" title="True if this episode is still in the feed, false if it's archived in the site after falling off the feed's end">archived</td>
+    <td class="key" title="True if this episode is still in the feed, false if it's archived in the site after falling off the feed's end">archive</td>
     <td>
       <%= @source.archived -%>
     </td>
   </tr>
 
-  <tr>
-    <td class="key" title="The unique UTC day the system uses as the name of this episode">name&nbsp;date</td>
-    <td>
-      <%= @episode.clean_url -%>
-    </td>
-  </tr>
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
     <td class="key" title="The episode date and time according to the XML">xml&nbsp;date</td>
@@ -44,6 +39,8 @@
       <%= relative_time @episode.created_at -%>
     </td>
   </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
     <td class="key" title="When this record was created">age</td>
@@ -67,8 +64,9 @@
   </tr>
 </table>
 
-
-<% content_for :media do -%>
+<!-- Media: -->
+<%= render :partial => "info/sources/info_medias", :locals => {:sources => [@source]} %>
+<table>
   <tr>
     <td class="key" title="The chosen extension for the user">extension&nbsp;result</td>
     <td>
@@ -100,6 +98,8 @@
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
     <td class="key" title="The calculated and adjusted bitrate to show to the user">bitrate&nbsp;result</td>
     <td>
@@ -120,6 +120,8 @@
       <%= @episode.duration == 0 ? blankness : @episode.duration.to_duration.to_s -%>
     </td>
   </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
     <td class="key" title="The calculated bitrate in bytes per second">bitrate&nbsp;exact</td>
@@ -142,6 +144,8 @@
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
     <td class="key" title="The enclosure size in bytes as parsed from the XML either of two places">xml&nbsp;size</td>
     <td>
@@ -156,6 +160,8 @@
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
     <td class="key" title="The duration in seconds as parsed from the XML">xml&nbsp;duration</td>
     <td>
@@ -169,6 +175,8 @@
       <%= non_blank @source.duration_from_ffmpeg -%>
     </td>
   </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
     <td class="key" title="The file extension in the XML">xml&nbsp;extension&nbsp;exact</td>
@@ -212,6 +220,8 @@
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
     <td class="key" title="Verbose debug output from cURL, including all the response headers it received. If the download 404ed, that should show up here.">curl&nbsp;output</td>
     <td>
@@ -225,11 +235,7 @@
       <%= @source.ffmpeg_info.blank? ? blankness : "<pre>#{@source.ffmpeg_info}</pre>" -%>
     </td>
   </tr>
-<% end -%>
-
-<!-- Media: -->
-<%= render :partial => "info/sources/info_media", :locals => {:source => @source} %>
-
+</table>
 
 <!-- Preview -->
 <table>
@@ -271,44 +277,36 @@
 <!-- Text -->
 <table>
   <tr>
-    <td class="key" title="iTunes ID parsed from a mention in the XML">itunes</td>
-    <td>
-      <%= non_blank @feed.itunes_link %>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="key" title="Episode title parsed and scrubbed from the XML">title</td>
+    <td class="key" title="Episode title parsed and scrubbed from the XML">item&nbsp;title</td>
     <td>
       <%= non_blank @episode.title %>
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
-    <td class="key" title="Safe description on a single line with paragraph marks">line&nbsp;description</td>
+    <td class="key" title="Episode description sanitized and formatted to a single line of text for summary display. Runs multiple paragraphs together and doesn't allow links, formatting, or any other HTML.">item&nbsp;description&nbsp;line</td>
     <td>
-      <%= non_blank format_with_paragraph_entity(sanitize_condensed_summary(@episode.summary)) %>
+      <%= non_blank line_description(@episode.summary), false %>
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
-    <td class="key" title="Episode description parsed and scrubbed from the XML keeping paragraphs but removing links and HTML">safe&nbsp;description</td>
+    <td class="key" title="Episode description sanitized and formatted for page display. Allows multiple paragraphs and links, but removes HTML formatting.">item&nbsp;description&nbsp;page</td>
     <td>
-      <%= non_blank unescape_entities(@episode.summary) %>
+      <%= non_blank page_description(@episode.summary), false %>
     </td>
   </tr>
 
-  <tr>
-    <td class="key" title="Episode description parsed and scrubbed from the XML for page display, keeping paragraphs and links but removing HTML">page&nbsp;description</td>
-    <td>
-      <%= non_blank sanitize_summary @episode.summary %>
-    </td>
-  </tr>
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
-    <td class="key" title="Episode description parsed and lightly scrubbed from the XML, keeping all but the most dangerous HTML elements">html&nbsp;description</td>
+    <td class="key" title="The HTML behind item description page">item&nbsp;description&nbsp;page&nbsp;source</td>
     <td>
-      <%= non_blank sanitize_lightly @episode.summary %>
+      <%= non_blank page_description(@episode.summary) %>
     </td>
   </tr>
 </table>

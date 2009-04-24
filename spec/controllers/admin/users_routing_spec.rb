@@ -3,9 +3,6 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Admin::UsersController do
   describe "route generation" do
 
-    it "should map { :controller => 'users', :action => 'claim' } to /claim" do
-      route_for(:controller => "users", :action => "claim").should == "/claim"
-    end
     # it "should map { :controller => 'admin_users', :action => 'index' } to /admin_users" do
     #   route_for(:controller => "admin_users", :action => "index").should == "/admin_users"
     # end
@@ -32,10 +29,6 @@ describe Admin::UsersController do
   end
 
   describe "route recognition" do
-
-    it "should generate params { :controller => 'users', :action => 'claim' } from GET /claim" do
-      params_from(:get, "/claim").should == {:controller => "users", :action => "claim"}
-    end
 
     # it "should generate params { :controller => 'admin_users', action => 'index' } from GET /admin_users" do
     #   params_from(:get, "/admin_users").should == {:controller => "admin_users", :action => "index"}

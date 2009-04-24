@@ -4,8 +4,6 @@
 <% javascript_include "reviews", "podcast_edit", "limecast_form", "jquery.dataTables.min" -%>
  
 
-<%= render :partial => 'users/claim' if !current_user && @user.passive? -%>
-
 <h1><%=h @user.login -%><%= "" unless @user.podcaster? %>'s profile</h1>
 <%= render :partial => 'users/edit' if current_user && (current_user == @user || current_user.admin?) %>
 

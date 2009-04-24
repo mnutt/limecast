@@ -31,11 +31,12 @@ class SourceProcessor
   end
 
   def process!
+    get_http_info
+
     t0 = Time.now
       download_file
     logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
     
-    get_http_info
     get_video_info
     
     t0 = Time.now
@@ -75,6 +76,23 @@ class SourceProcessor
     headers = curl_output.split(/[\r\n]/)
     content_types = headers.select{|h| h =~ /^Content-Type/}
     @content_type_from_http = content_types.empty? ? '' : content_types.last.split(": ").last rescue nil
+    @file_name_from_http = filename_from_http_content_disposition(headers)
+    @file_name_from_http ||= filename_from_http_location(headers)
+  end
+
+  def filename_from_http_content_disposition(headers)
+    disposition = headers.select{|h| h =~ /^Content-Disposition/}.last || ""
+    disposition =~ /filename=\"([^\"]+)\"/
+    $1
+  rescue
+    nil
+  end
+
+  def filename_from_http_location(headers)
+    location = headers.select{|h| h =~ /^Location/}.last || ""
+    File.basename(location.split(": ").last)
+  rescue
+    nil
   end
 
   def get_video_info

@@ -103,7 +103,7 @@ class SourceProcessor
     raw_info = `ffmpeg -i #{self.tmp_file} 2>&1`
     @info = SourceInfo.new(raw_info, source)
     @info.file_size = `ls -l #{self.tmp_file} | awk '{print $5}'`.strip.to_i
-    @info.file_name = self.tmp_filename
+    @info.file_name = @file_name_from_http || self.tmp_filename
     @info.sha1hash  = `sha1 #{self.tmp_file} | cut -f1 -d" "`.strip
     if(`uname`.chomp == "Darwin")
       @info.content_type = `file -Ib '#{self.tmp_file}'`.chomp

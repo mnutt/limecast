@@ -31,11 +31,12 @@ class SourceProcessor
   end
 
   def process!
+    get_http_info
+
     t0 = Time.now
       download_file
     logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
     
-    get_http_info
     get_video_info
     
     t0 = Time.now
@@ -69,12 +70,29 @@ class SourceProcessor
     
     source.update_attributes(:downloaded_at => Time.now, :curl_info => @curl_info)
   end
-
+  
   def get_http_info
     curl_output = `curl -L -I '#{source.url.gsub("'", "")}'`
     headers = curl_output.split(/[\r\n]/)
     content_types = headers.select{|h| h =~ /^Content-Type/}
     @content_type_from_http = content_types.empty? ? '' : content_types.last.split(": ").last rescue nil
+    @file_name_from_http = filename_from_http_content_disposition(headers)
+    @file_name_from_http ||= filename_from_http_location(headers)
+  end
+  
+  def filename_from_http_content_disposition(headers)
+    disposition = headers.select{|h| h =~ /^Content-Disposition/}.last || ""
+    disposition =~ /filename=\"([^\"]+)\"/
+    $1
+  rescue
+    nil
+  end
+
+  def filename_from_http_location(headers)
+    location = headers.select{|h| h =~ /^Location/}.last || ""
+    File.basename(location.split(": ").last)
+  rescue
+    nil
   end
 
   def get_video_info
@@ -85,7 +103,7 @@ class SourceProcessor
     raw_info = `ffmpeg -i #{self.tmp_file} 2>&1`
     @info = SourceInfo.new(raw_info, source)
     @info.file_size = `ls -l #{self.tmp_file} | awk '{print $5}'`.strip.to_i
-    @info.file_name = self.tmp_file
+    @info.file_name = @file_name_from_http || self.tmp_file
     @info.sha1hash  = `sha1 #{self.tmp_file} | cut -f1 -d" "`.strip
     if(`uname`.chomp == "Darwin")
       @info.content_type = `file -Ib '#{self.tmp_file}'`.chomp

@@ -9,7 +9,7 @@
 <%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:episode => @episode}} -%>
 
 <!-- Media -->
-<%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted('bitrate')} %>
+<%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted_by_bitrate} %>
 
 <% if @episode.primary_source -%>
   <% @source = @episode.primary_source

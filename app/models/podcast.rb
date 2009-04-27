@@ -35,9 +35,8 @@ class Podcast < ActiveRecord::Base
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites
 
-  has_many :feeds, :include => :first_source,#:dependent => :destroy,
-           :after_add => :set_primary_feed_with_save, :after_remove => :set_primary_feed_with_save,
-           :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
+  has_many :feeds, #:dependent => :destroy,
+           :after_add => :set_primary_feed_with_save, :after_remove => :set_primary_feed_with_save
   has_one  :first_feed, :class_name => 'Feed', :order => "feeds.created_at ASC", :include => :finder
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
   has_one  :newest_episode, :class_name => 'Episode', :order => "published_at DESC"
@@ -69,6 +68,7 @@ class Podcast < ActiveRecord::Base
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
   named_scope :popular, :order => "favorites_count DESC"
   named_scope :sorted_by_newest_episode, :include => :newest_episode, :order => "episodes.published_at DESC"
+  named_scope :sorted_by_first_source, :include => :first_source, :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
 
   attr_accessor :has_episodes, :last_changes
   attr_accessor_with_default :messages, []

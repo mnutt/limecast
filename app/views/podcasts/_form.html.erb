@@ -24,10 +24,8 @@
 
 <br />
 <label><strong>Feeds &ndash; <%= link_to "add more", add_feed_url %></strong></label>
-<% podcast_form.fields_for :feeds do |feed_form| %>
-  <% feed = feed_form.object -%>
-
-  <% unless feed.new_record? -%>
+<% podcast.feeds.sorted_by_bitrate_and_format.each do |feed| -%>
+  <% podcast_form.fields_for :feeds, feed do |feed_form| -%>
   <fieldset class="feed">
     <div class="feed_details">
       <%= feed.formatted_bitrate -%> 
@@ -49,6 +47,6 @@
     </div>
     <% end -%>
   </fieldset>
-  <% end -%>
+  <% end unless feed.new_record? -%>
 <% end -%>
 <br />

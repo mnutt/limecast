@@ -56,6 +56,8 @@ class Feed < ActiveRecord::Base
   named_scope :claimed, :conditions => "finder_id IS NOT NULL"
   named_scope :found_by_admin, :include => :finder, :conditions => ["users.admin = ?", true]
   named_scope :found_by_nonadmin, :include => :finder, :conditions => ["users.admin = ? OR users.admin IS NULL", false]
+  named_scope :sorted_by_bitrate_and_format, :order => "feeds.bitrate ASC, feeds.format ASC"
+  
 
   has_attached_file :logo,
                     :path => ":rails_root/public/feed_:attachment/:id/:style/:basename.:extension",

@@ -79,7 +79,7 @@ class Feed < ActiveRecord::Base
   end
 
   def diagnostic_xml
-    doc = Hpricot.XML(self.xml)
+    doc = Hpricot.XML(self.xml.to_s)
     doc.search("item").remove
     PrettyPrinter.indent_xml(doc)
   end
@@ -117,7 +117,7 @@ class Feed < ActiveRecord::Base
   def remix_feed
     xml = self.xml.to_s.dup
 
-    h = Hpricot(self.xml)
+    h = Hpricot(self.xml.to_s)
     (h / 'item').each do |item|
       enclosure     = (item % 'enclosure') || {}
       media_content = (item % 'media:content') || {}

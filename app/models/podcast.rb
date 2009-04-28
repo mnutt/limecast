@@ -68,7 +68,6 @@ class Podcast < ActiveRecord::Base
   named_scope :sorted, :order => "REPLACE(title, 'The ', '')"
   named_scope :popular, :order => "favorites_count DESC"
   named_scope :sorted_by_newest_episode, :include => :newest_episode, :order => "episodes.published_at DESC"
-  named_scope :sorted_by_first_source, :include => :first_source, :group => "feeds.id", :order => "sources.format ASC, feeds.bitrate ASC"
 
   attr_accessor :has_episodes, :last_changes
   attr_accessor_with_default :messages, []

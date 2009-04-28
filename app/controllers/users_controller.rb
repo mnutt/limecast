@@ -125,17 +125,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def info
-    raise Unauthenticated unless current_user && current_user.admin?
-    if params[:user_slug].blank?
-      @users = User.find(:all, :order => 'login ASC')
-      render :template => 'users/info_all', :layout => 'info'
-    else
-      @user = User.find_by_login(params[:user_slug]) or raise ActiveRecord::RecordNotFound
-      render :layout => 'info'
-    end
-  end
-
 protected
   def find_user
     @user = User.find(params[:id])

@@ -9,7 +9,7 @@
     <%- if show_owner && podcast.owned_by -%>
       <li><%= link_to_made_by(podcast) -%></li>
     <%- end -%>
-    <li><%= link_to "Favorited by <span>#{pluralize(podcast.favoriters.count, "person")}</span>", favoriters_url(:podcast_slug => podcast) -%></li>
+    <li><%= link_to "Favorited&nbsp;by&nbsp;<span>#{pluralize(podcast.favoriters.count, "person").gsub(/ /,'&nbsp;')}</span>", favoriters_url(:podcast_slug => podcast) -%></li>
   </ul>
 </div>
 

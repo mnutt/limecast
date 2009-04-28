@@ -6,11 +6,15 @@
 
 <!-- Episodes -->
 <p class="episode_info">
-  New episode <%= link_to @podcast.episodes.newest.first.published_at.to_date, info_episode_url(@podcast, @podcast.episodes.newest.first) -%> 
-  <%= relative_time(@podcast.episodes.first.published_at, false, false, false) %><br />
+<% if newest_episode = @podcast.episodes.newest.first -%>
+  New episode <%= link_to newest_episode.published_at.to_date, info_episode_url(@podcast, newest_episode) -%> 
+  <%= relative_time(newest_episode.published_at, false, false, false) %><br />
+  <% end -%>
 
   <%= @podcast.episodes.count -%> episodes
-  since <%= link_to Episode.oldest.find_by_podcast_id(@podcast.id).published_at.to_date, info_episode_url(@podcast, @podcast.episodes.oldest.first) -%>
+<% if oldest_episode = Episode.oldest.find_by_podcast_id(@podcast.id) -%>
+  since <%= link_to oldest_episode.published_at.to_date, info_episode_url(@podcast, oldest_episode) -%>
+<% end -%>
   every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><br/>
   Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
 </p>

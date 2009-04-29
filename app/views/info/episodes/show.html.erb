@@ -1,4 +1,4 @@
-<h1>Episode</h1>
+<h1>episode</h1>
 
 <% content_for :pagination do -%>
   <%= link_to "< Newer", info_episode_url(@podcast, @newer) if @newer %> 
@@ -10,7 +10,6 @@
 
 <!-- Media -->
 <%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted_by_bitrate} %>
-
 <% if @episode.primary_source -%>
   <% @source = @episode.primary_source
      @feed = @source.feed

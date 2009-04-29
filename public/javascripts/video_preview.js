@@ -20,7 +20,8 @@ var hook_up_preview = function(){
     var h = (scaleToWidth / width) * height;
     return {height: h + 2, width: Math.round(scaleToWidth)};
   }
-  var scaledSize = scale(preview.height(), preview.width());
+  var size = {height: preview.height(), width: preview.width()};
+  var scaledSize = preview.hasClass('scale') ? scale(size.height, size.width) : size;
 
   var flashvars = {
     previewURL: preview.attr('src'),

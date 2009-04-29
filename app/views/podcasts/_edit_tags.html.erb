@@ -1,7 +1,7 @@
 <p id="podcast_edit_tags_link"><%= link_to "(edit)", "#" %></p>
 
 <div id="podcast_edit_tags" style="display: none;">
-  <ul class="tags"><%= podcast.tags.compact.badges.map { |tag| "<li>#{link_to h(tag.name), tag_url(tag)}</li>" }.join(' ') -%></ul>
+  <ul class="tags"><%= podcast.tags.badges.map { |tag| "<li>#{link_to h(tag.name), tag_url(tag)}</li>" }.join(' ') -%></ul>
 
   <h6>Unclaimed Tags</h6>
   <ul class="tags"><%= podcast.unclaimed_taggings.empty? ? "<li>none</li>" : podcast.unclaimed_taggings.map { |t| 

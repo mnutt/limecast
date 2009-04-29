@@ -1,3 +1,5 @@
+<% javascript_include "jquery.flash", "video_preview" -%>
+
 <h1>source</h1>
 
 <% content_for :pagination do -%>
@@ -186,13 +188,6 @@
   </tr>
 
   <tr>
-    <td class="key" title="The MIME type in the XML">xml&nbsp;content-type</td>
-    <td>
-      <%= non_blank @source.content_type_from_feed -%>
-    </td>
-  </tr>
-
-  <tr>
     <td class="key" title="The file extension in the XML">http&nbsp;extension</td>
     <td>
       <%= non_blank @source.extension_from_disk -%>
@@ -200,23 +195,9 @@
   </tr>
 
   <tr>
-    <td class="key" title="The MIME type cURL saw in response HTTP headers">http&nbsp;content-type</td>
-    <td>
-      <%= non_blank @source.content_type_from_http -%>
-    </td>
-  </tr>
-
-  <tr>
     <td class="key" title="The extension of the file saved to disk">disk&nbsp;extension</td>
     <td>
       <%= non_blank @source.extension -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="key" title="The MIME type according to FFmpeg">disk&nbsp;content-type</td>
-    <td>
-      <%= non_blank @source.content_type_from_disk -%>
     </td>
   </tr>
 
@@ -241,12 +222,14 @@
 <table>
   <tr>
     <td class="key" title="Flash player presenting the video or audio preview">preview</td>
-    <td>
-    <% if @episode.audio_source -%>
-      <%= render :partial => 'info/episodes/audio_player', :object => @episode %>
+    <td class="preview">
+      <div>
+    <% if @source.preview_type == 'video' -%>
+      <%= render :partial => 'info/episodes/video_player', :object => @source -%>
     <% else -%>
-      <%= render :partial => 'info/episodes/video_player', :object => @episode -%>
+      <%= render :partial => 'info/episodes/audio_player', :object => @source %>
     <% end -%>
+      </div>
     </td>
   </tr>
 
@@ -254,7 +237,7 @@
     <td class="key" title="The video still image FFmpeg took from the episode shown inline">video still</td>
     <td>
     <%- if @source.screenshot? -%>
-      <%= image_tag(@source.screenshot.url, {:rel => @source.preview.url, :alt => "#{@episode.title} cover art"}.merge(scaled_resolution(:width => @source.width, :height => @source.height))) -%>
+      <%= image_tag(@source.screenshot.url, {:rel => @source.preview.url, :alt => "#{@episode.title} cover art"}) -%>
     <%- else -%>
        <%= blankness -%>
     <%- end -%>
@@ -264,14 +247,10 @@
   <tr>
     <td class="key" title="A link to the preview video FFmpeg clipped from the episode, and the file size">video&nbsp;preview</td>
     <td>
-      <%= @source.preview.url =~ /missing\.png$/ ? blankness : link_to(@source.preview.url, @source.preview.url) + "(#{FileSize.new(@source.preview_file_size.to_i || 0)})"-%>
+      <%= @source.preview.url =~ /missing\.png$/ ? blankness : link_to(@source.preview.url, @source.preview.url) + " #{FileSize.new(@source.preview_file_size.to_i || 0)}"-%>
     </td>
   </tr>
 
-  <tr>
-    <td class="key" title="The file size in bytes of the video preview we're keeping">video&nbsp;size</td>
-    <td><%= non_blank @source.preview_file_size %></td>
-  </tr>
 </table>
 
 <!-- Text -->

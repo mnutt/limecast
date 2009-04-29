@@ -25,14 +25,8 @@ class PodcastsController < ApplicationController
     @podcasts = Episode.sorted.paginate(
       :per_page => 10, 
       :page => 1, 
-      :include => :podcast, 
       :group => :podcast_id
     ).map(&:podcast)
-    
-    # @podcasts = Podcast.sorted_by_newest_episode.paginate(
-    #   :page => (params[:page] || 1),
-    #   :per_page => params[:limit] || 10
-    # )
 
     respond_to do |format|
       format.xml { render :index }

@@ -5,9 +5,9 @@ xml.podcasts do
     xml.podcast do
       xml.title h(podcast.title)
       xml.primary_feed :url => podcast.primary_feed.url do
-        xml.newest_episode :url => podcast.newest_source.url, 
-          :size => podcast.newest_source.size, 
-          :published_at => podcast.newest_source.episode.published_at.to_s(:rfc822) if podcast.newest_source
+        xml.newest_episode :url => podcast.newest_episode.newest_source.url, 
+          :size => podcast.newest_episode.newest_source.size, 
+          :published_at => podcast.newest_episode.published_at.to_s(:rfc822) if podcast.newest_episode && podcast.newest_episode.newest_source
       end
       xml.logo :url => "http://limecast.com#{podcast.logo.url}"
       xml.description h(podcast.description)

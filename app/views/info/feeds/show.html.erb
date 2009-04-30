@@ -20,19 +20,26 @@
     <td><%= non_blank @feed.itunes_link -%></td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
-    <td class="key" title="Linked RSS address">rss</td>
-    <td><%= link_to(@feed.url) -%></td>
+    <td class="key" title="Linked original RSS address">rss</td>
+    <td><%= link_to(@feed.url, @feed.url) -%></td>
+  </tr>
+
+  <tr>
+    <td class="key" title="Link to LimeCast's hosted RSS feed">plain</td>
+    <td><%= link_to(plain_feed_url(@feed), plain_feed_url(@feed)) -%></td>
   </tr>
 
   <tr>
     <td class="key" title="Link to LimeCast-produced feed remixed with magnet links">magnet</td>
-    <td><%= link_to(magnet_feed_url(@feed)) -%></td>
+    <td><%= link_to(magnet_feed_url(@feed), magnet_feed_url(@feed)) -%></td>
   </tr>
 
   <tr>
     <td class="key" title="Link to LimeCast-produced feed remixed with torrents">torrent</td>
-    <td><%= link_to(torrent_feed_url(@feed)) -%></td>
+    <td><%= link_to(torrent_feed_url(@feed), torrent_feed_url(@feed)) -%></td>
   </tr>
 
   <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>

@@ -68,8 +68,8 @@ class Source < ActiveRecord::Base
                     :url  => "/:attachment/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
   has_attached_file :torrent,
-                    :url  => "/:attachment/:id.torrent",
-                    :path => ":rails_root/public/:attachment/:id.torrent"
+                    :url  => "/:attachment/:to_param.torrent",
+                    :path => ":rails_root/public/:attachment/:to_param.torrent"
                     
 
   def diagnostic_xml

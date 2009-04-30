@@ -10,6 +10,7 @@
   <td><%= link_to info_user_link(feed.owner) %></td>
   <td><%= link_to info_user_link(feed.finder) %></td>
   <td><%= link_to "itunes", feed.itunes_url unless feed.itunes_link.blank?-%></td>
+  <td><%= link_to "plain", plain_feed_url(feed) -%></td>
   <td><%= link_to "magnet", magnet_feed_url(feed) -%></td>
   <td><%= link_to "torrent", torrent_feed_url(feed) -%></td>
   <td><%= link_to feed.url, feed.url -%></td>

@@ -35,11 +35,12 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
   <%= render :partial => 'info/feeds/info_line', :collection => @podcast.feeds -%>
 </table>
 
-<h2>Media (newest episode)</h2>
+<!-- Media (newest episode) -->
 <%= render :partial => "info/sources/info_medias", :locals => {:sources => @podcast.newest_episode.sources} if @podcast.newest_episode %>
 
 <!-- Info: -->

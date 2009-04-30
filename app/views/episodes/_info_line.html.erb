@@ -5,6 +5,6 @@
   <%= link_to episode.date_title, info_episode_url(episode.podcast, episode) -%> 
   <%= h(episode.title) -%> 
   (<%= time_to_words(episode.duration) -%>) 
-  <%= (non_blank(sanitize_condensed_summary(episode.summary))) -%>
+  <%= non_blank page_description(episode.summary), false -%>
   <%= "(#{episode.preview_type})" if episode.preview_type %>
 </li>

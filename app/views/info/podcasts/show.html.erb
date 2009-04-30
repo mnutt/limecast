@@ -7,8 +7,8 @@
 <!-- Episodes -->
 <p class="episode_info">
 <% if newest_episode = @podcast.episodes.newest.first -%>
-  New episode <%= link_to newest_episode.published_at.to_date, info_episode_url(@podcast, newest_episode) -%> 
-  <%= relative_time(newest_episode.published_at, false, false, false) %><br />
+  New episode <%= link_to newest_episode.published_at.to_date, episode_url(@podcast, newest_episode) -%> 
+  <%= time_to_words(Time.now - newest_episode.published_at, false) %> ago<br />
   <% end -%>
 
   <%= @podcast.episodes.count -%> episodes
@@ -29,9 +29,9 @@
     <th></th>
     <th></th>
     <th></th>
-    <th>make</th>
-    <th>find</th>
-    <th>itunes</th>
+    <th class="key">make</th>
+    <th class="key">find</th>
+    <th class="key">itunes</th>
     <th></th>
     <th></th>
     <th></th>

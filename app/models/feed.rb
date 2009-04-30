@@ -148,6 +148,14 @@ class Feed < ActiveRecord::Base
       s.magnet_url
     end
   end
+  
+  def to_param
+    podcast_name = podcast.clean_url
+    bitrate      = formatted_bitrate 
+    format       = apparent_format
+  
+    "#{id}-#{podcast_name}-#{bitrate}-#{format}"
+  end
 
   def itunes_url
     "http://www.itunes.com/podcast?id=#{self.itunes_link}"

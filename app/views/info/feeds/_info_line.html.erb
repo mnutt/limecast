@@ -2,8 +2,7 @@
 <tr class="feed">
   <td><%= "primary" if feed.primary? %></td>
   <td>
-    <%= non_blank feed.formatted_bitrate -%>
-    <%= non_blank feed.apparent_format -%>
+    <%= non_blank feed.formatted_bitrate -%>&nbsp;<%= non_blank feed.apparent_format -%>
   </td>
   <td>
     <%= info_feed_link(feed, false) -%>

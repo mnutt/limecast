@@ -937,7 +937,7 @@ h6#page_type {
 #dl_links a {
 	color: #fff;
 	padding-top: 5px;
-	padding-left: 45px;
+	margin-left: 45px;
 	display: block;
 	width: 183px;
 	outline: none;

@@ -33,11 +33,13 @@ form div.huge div input.text {
 
 .popular .podcast_block {width: 640px;}
 
-
 #download_button a.download {
 	padding: 8px 40px 0 8px;
 }
 
+#dl_links h3 {
+	margin: -5px 0 0 0;
+}
 
 #download_button a.opener {
   margin-top: 4px;

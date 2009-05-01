@@ -3,6 +3,7 @@
 <div class="field">
   <%= podcast_form.label :title, "<strong>Title</strong>" -%>
   <%= podcast_form.text_field :title, :class => "text" -%>
+  <span class="note">Changing the title also changes the URL of this page</span>
   <%= errors_for podcast, :title %>
 </div>  
 <div class="field">

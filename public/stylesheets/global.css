@@ -284,6 +284,12 @@ input.radio {
 .limecast_form .field {
 	margin-bottom: 5px;
 } 
+.limecast_form .field span.note {
+	display: block;
+	font-style: italic;
+	margin: 5px 0 5px 15px;
+	color: #999;
+}
 .limecast_form ul.tags {
   margin: 5px 0 5px 10px;
 }

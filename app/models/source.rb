@@ -73,7 +73,7 @@ class Source < ActiveRecord::Base
                     
 
   def diagnostic_xml
-    doc = Hpricot.XML(self.xml)
+    doc = Hpricot.XML(self.xml.to_s)
     PrettyPrinter.indent_xml(doc)
   end
 

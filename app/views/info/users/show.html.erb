@@ -102,14 +102,14 @@
   <tr>
     <td class="key">Insightful:</td>
     <td>
-      <%= @user.review_ratings.insightful.map(&:review).map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
+      <%= @user.review_ratings.insightful.map(&:review).compact.map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
     <td class="key">Not Insightful:</td>
     <td>
-      <%= @user.review_ratings.not_insightful.map(&:review).map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
+      <%= @user.review_ratings.not_insightful.map(&:review).compact.map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 

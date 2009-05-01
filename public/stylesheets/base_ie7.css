@@ -80,3 +80,11 @@ button {
    }
 
 img { -ms-interpolation-mode:bicubic; }
+
+#new_feed input#feed_url {
+	margin-top: 0;
+}
+
+#new_feed button.addme {
+  top: -15px;
+}

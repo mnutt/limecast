@@ -1358,6 +1358,8 @@ display: inline;
   display: none;
 }
 
+
+
 #added_podcast_list form {
   margin: 10px 0 20px 0;
 }
@@ -1374,7 +1376,8 @@ display: inline;
 
 #added_podcast_list input.button {
   background: #a9a9a9; 
-  height: 35px; width: 75px; 
+  height: 35px; 
+	width: 75px; 
   border: none;
   position: relative;
   top: -2px;
@@ -1383,7 +1386,6 @@ display: inline;
 #new_feed button.addme {
   position: relative;
   top: -3px;
-
 }
 
 #new_feed input#feed_url {

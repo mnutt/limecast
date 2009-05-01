@@ -5,13 +5,6 @@ class ReviewsController < ApplicationController
     redirect_to :action => :show, :controller => :podcasts
   end
 
-  def info
-    @podcast = Podcast.find_by_slug(params[:podcast_slug])
-    @review = @podcast.reviews.find(params[:id])
-
-    render :layout => 'info'
-  end
-
   def create
     review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
     @podcast      = Podcast.find_by_slug(params[:podcast_slug])

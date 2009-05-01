@@ -40,7 +40,7 @@ class Podcast < ActiveRecord::Base
   has_one  :first_feed, :class_name => 'Feed', :order => "feeds.created_at ASC", :include => :finder
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
   has_one  :newest_episode, :class_name => 'Episode', :order => "published_at DESC"
-  has_many :reviews, :through => :episodes, :conditions => "user_id IS NOT NULL"
+  has_many :reviews, :through => :episodes, :conditions => "reviews.user_id IS NOT NULL"
 
   has_many :recommendations, :order => 'weight DESC'
   has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast

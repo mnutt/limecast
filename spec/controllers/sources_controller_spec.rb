@@ -1,13 +1,16 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SourcesController do
-  describe "handling GET /torrent_file/:id.torrent" do
+  describe "handling GET /torrent_files/:id.torrent" do
     before(:each) do
-      @source = Factory.create(:source, :torrent_file_name => "foobar.torrent")
+      @feed    = Factory.create(:feed)
+      @podcast = Factory.create(:podcast, :feeds => [@feed])
+      @episode = Factory.create(:episode, :podcast => @podcast)
+      @source  = Factory.create(:source, :feed => @feed, :episode => @episode, :torrent_file_name => "foobar.torrent")
     end
 
     def do_get
-      get :show, :id => @source.id, :format => "torrent"
+      get :show, :id => @source.to_param, :format => "torrent"
     end
 
     it "should show 404 for a source without torrent" do

@@ -38,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
     info.user       '/users', :controller => 'users', :action => 'index'
     info.user       '/user/:user_slug', :controller => 'users', :action => 'show'
     info.feed       '/:podcast_slug/feed/:id', :controller => 'feeds', :action => 'show'
-    info.review     '/:podcast_slug/reviews/:id', :controller => 'reviews', :action => 'info'
+    info.review     '/:podcast_slug/reviews/:id', :controller => 'reviews', :action => 'show'
     info.episode    '/:podcast_slug/:episode', :controller => 'episodes', :action => 'show'
     info.source     '/:podcast_slug/:episode/:id', :controller => 'sources', :action => 'show'
     info.podcast    '/:podcast_slug', :controller => 'podcasts', :action => 'show'

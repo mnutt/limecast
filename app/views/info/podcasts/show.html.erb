@@ -107,7 +107,7 @@
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key" title="List of links to review info pages">reviews</td>
-    <td><%= @podcast.reviews.empty? ? blankness : @podcast.reviews.map{|r| link_to(h(r.title), info_review_url(r)) rescue "" }.join(", ") -%></td>
+    <td><%= @podcast.reviews.empty? ? blankness : @podcast.reviews.map{|r| link_to(h(r.reviewer.login), info_review_url(r, :podcast_slug => @podcast)) }.join(", ") -%></td>
   </tr>
   <tr>
     <td class="key" title="Related podcasts">related&nbsp;podcasts</td>

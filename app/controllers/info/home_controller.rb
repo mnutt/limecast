@@ -17,7 +17,7 @@ class Info::HomeController < ApplicationController
 
   # use() is already taken
   def usage
-    @statistics = Statistic.all_earliest_days_of_each_month
+    @statistics = Statistic.all_earliest_days_of_each_month.sort_by(&:created_at)
     render :layout => 'info'
   end
 

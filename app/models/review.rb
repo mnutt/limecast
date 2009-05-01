@@ -36,6 +36,8 @@ class Review < ActiveRecord::Base
   named_scope :with_episode, :conditions => "reviews.episode_id IS NOT null"
   named_scope :unclaimed, :conditions => "user_id IS NULL"
   named_scope :claimed, :conditions => "user_id IS NOT NULL"
+  named_scope :by_admin, :conditions => "users.admin = 1", :include => :reviewer
+  named_scope :by_nonadmin, :conditions => "users.admin IS NULL OR users.admin = 0", :include => :reviewer
 
   define_index do
     indexes :title, :body

@@ -16,32 +16,38 @@ Podcasts on first page of search results -->
   <h2>podcasts</h2>
   <p>The number of podcasts in the system.</p>
   <table>
+    <!-- date //-->
     <tr>
-      <td class="key" title=""><%= Podcast.all.size %><%= sparkline(@statistics.map(&:podcasts_count))%></td>
-      <td>total</td>
+    <% @statistics.each do |s| -%>
+      <th class="key"><%= s.created_at.strftime("%b %d") %></th>
+    <% end -%>
+      <td><!-- today //--></td>
     </tr>
+    <!-- added by community //-->
     <tr>
-      <td class="key" title=""><%= Podcast.found_by_admin.size %><%= sparkline(@statistics.map(&:podcasts_found_by_admins_count))%></td>
-      <td>podcasts added by admins</td>
+    <% @statistics.each do |s| -%>
+      <td><%= s.podcasts_found_by_nonadmins_count %></td>
+    <% end -%>
+      <td><%= Podcast.found_by_nonadmin.size %></td>
+      <th class="key">Added by community <%= sparkline(@statistics.map(&:podcasts_found_by_admins_count))%></th>
     </tr>
+    <!-- added by staff //-->
     <tr>
-      <td class="key" title=""><%= Podcast.found_by_nonadmin.size %><%= sparkline(@statistics.map(&:podcasts_found_by_nonadmins_count))%></td>
-      <td>podcasts added by non-admins</td>
+    <% @statistics.each do |s| -%>
+      <td><%= s.podcasts_found_by_admins_count %></td>
+    <% end -%>
+      <td><%= Podcast.found_by_admin.size %></td>
+      <th class="key">Added by staff <%= sparkline(@statistics.map(&:podcasts_found_by_nonadmins_count))%></th>
     </tr>
+    <!-- total //-->
     <tr>
-      <td class="key" title=""><%= Feed.all.size %><%= sparkline(@statistics.map(&:feeds_count))%></td>
-      <td>feeds total</td>
-    </tr>
-    <tr>
-      <td class="key" title=""><%= Feed.found_by_admin.size %><%= sparkline(@statistics.map(&:feeds_found_by_admins_count))%></td>
-      <td>feeds added by admins</td>
-    </tr>
-    <tr>
-      <td class="key" title=""><%= Feed.found_by_nonadmin.size %><%= sparkline(@statistics.map(&:feeds_found_by_nonadmins_count))%></td>
-      <td>feeds added by non-admins</td>
+      <% @statistics.each do |s| -%>
+      <td><!-- empty //--></td>
+      <% end -%>
+      <td class="gigantic_font"><%= Podcast.count %></td>
+      <th class="key">Podcasts</th>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.podcasts_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>
 
 <div class="usage">
@@ -52,37 +58,86 @@ Podcasts on first page of search results -->
     <strong>Unconfirmed</strong> haven't confirmed their email, but are able to edit things. <br />
     <strong>Passive</strong> users can't edit things, haven't confirmed their email, and are usually added automatically when a podcast is created (as its owner).
   </p>
+
   <table>
+    <!-- date //-->
     <tr>
-      <td class="key" title=""><%= User.all.size %><%= sparkline(@statistics.map(&:users_count))%></td>
-      <td>total</td>
+    <% @statistics.each do |s| -%>
+      <th class="key"><%= s.created_at.strftime("%b %d") %></th>
+    <% end -%>
+      <td><!-- today //--></td>
     </tr>
+    <!-- community //-->
     <tr>
-      <td class="key" title=""><%= User.confirmed.size %><%= sparkline(@statistics.map(&:users_confirmed_count))%></td>
-      <td>confirmed</td>
+    <% @statistics.each do |s| -%>
+      <td><%= s.users_nonadmins_count %></td>
+    <% end -%>
+      <td><%= User.nonadmins.all.size %></td>
+      <th class="key">Community <%= sparkline(@statistics.map(&:users_nonadmins_count))%></th>
     </tr>
+    <!-- podcasters //-->
     <tr>
-      <td class="key" title=""><%= User.unconfirmed.size %><%= sparkline(@statistics.map(&:users_unconfirmed_count))%></td>
-      <td>unconfirmed</td>
+    <% @statistics.each do |s| -%>
+      <td><%= s.users_makers_count %></td>
+    <% end -%>
+      <td><%= User.makers.all.size %></td>
+      <th class="key">Podcasters <%= sparkline(@statistics.map(&:users_makers_count))%></th>
     </tr>
+    <!-- staff //-->
     <tr>
-      <td class="key" title=""><%= User.passive.size %><%= sparkline(@statistics.map(&:users_passive_count))%></td>
-      <td>passive</td>
+    <% @statistics.each do |s| -%>
+      <td><%= s.users_admins_count %></td>
+    <% end -%>
+      <td><%= User.admins.all.size %></td>
+      <th class="key">Staff <%= sparkline(@statistics.map(&:users_admins_count))%></th>
+    </tr>
+    <!-- total //-->
+    <tr>
+    <% @statistics.each do |s| -%>
+      <td><!-- empty //--></td>
+    <% end -%>
+      <td class="gigantic_font"><%= User.all.size %></td>
+      <th class="key">Users</th>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.users_confirmed_count.to_i}/#{s.users_unconfirmed_count.to_i}/#{s.users_passive_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>
 
 <div class="usage">
   <h2>reviews</h2>
   <p>This is the number of reviews in the system.</p>
   <table>
+    <!-- date //-->
     <tr>
-      <td class="key" title=""><%= Review.all.size %><%= sparkline(@statistics.map(&:reviews_count))%></td>
-      <td>total</td>
+    <% @statistics.each do |s| -%>
+      <th class="key"><%= s.created_at.strftime("%b %d") %></th>
+    <% end -%>
+      <td><!-- today //--></td>
+    </tr>
+    <!-- written by community //-->
+    <tr>
+    <% @statistics.each do |s| -%>
+      <td><%= s.reviews_by_nonadmins_count %></td>
+    <% end -%>
+      <td><%= Review.by_nonadmin.all.size %></td>
+      <th class="key">Written by community <%= sparkline(@statistics.map(&:reviews_by_nonadmins_count))%></th>
+    </tr>
+    <!-- written by staff //-->
+    <tr>
+    <% @statistics.each do |s| -%>
+      <td><%= s.reviews_by_admins_count %></td>
+    <% end -%>
+      <td><%= Review.by_admin.all.size %></td>
+      <th class="key">Written by staff <%= sparkline(@statistics.map(&:reviews_by_admins_count))%></th>
+    </tr>
+    <!-- total //-->
+    <tr>
+    <% @statistics.each do |s| -%>
+      <td><%= s.reviews_count %></td>
+    <% end -%>
+      <td class="gigantic_font"><%= Review.all.size %></td>
+      <th class="key">Reviews</th>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.reviews_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>
 
 <div class="usage">
@@ -92,34 +147,65 @@ Podcasts on first page of search results -->
     These feeds include a &lt;generator&gt; tag with a value of "limecast.com/tracker".
   </p>
   <table>
+    <!-- date //-->
     <tr>
-      <td class="key" title=""><%= Feed.from_limetracker.size %><%= sparkline(@statistics.map(&:feeds_from_trackers_count)) %></td>
-      <td>total</td>
+    <% @statistics.each do |s| -%>
+      <th class="key"><%= s.created_at.strftime("%b %d") %></th>
+    <% end -%>
+      <td><!-- today //--></td>
+    </tr>
+   <!-- total //-->
+    <tr>
+    <% @statistics.each do |s| -%>
+      <td><%= s.feeds_from_trackers_count %></td>
+    <% end -%>
+      <td class="gigantic_font"><%= Feed.from_limetracker.size %></td>
+      <th class="key">Tracker installs <%= sparkline(@statistics.map(&:feeds_from_trackers_count)) %></th>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.feeds_from_trackers_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>
 
 <div class="usage">
   <h2>button installs <em>[NOT IMPLEMENTED YET]</em></h2>
   <p>This is the number of podcasts that have a LimeCast button installed.</p>
   <table>
+    <!-- date //-->
     <tr>
-      <td class="key" title=""><%= Podcast.find(:all, :conditions => {:button_installed => true}).size %><%= sparkline(@statistics.map(&:podcasts_with_buttons_count)) %></td>
-      <td>total</td>
+    <% @statistics.each do |s| -%>
+      <th class="key"><%= s.created_at.strftime("%b %d") %></th>
+    <% end -%>
+      <td><!-- today //--></td>
+    </tr>
+   <!-- total //-->
+    <tr>
+    <% @statistics.each do |s| -%>
+      <td><%= s.podcasts_with_buttons_count %></td>
+    <% end -%>
+      <td class="gigantic_font"><%= Podcast.find(:all, :conditions => {:button_installed => true}).size %></td>
+      <th class="key">Button installs <%= sparkline(@statistics.map(&:podcasts_with_buttons_count)) %></th>
     </tr>
   </table>
-  <p><%= @statistics.map { |s| "<b>#{s.podcasts_with_buttons_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') %></p>
 </div>
 
 <div class="usage">
   <h2>podcasts on first page results</h2>
   <p>This is the number of podcasts that show up on the first page of Google results.</p>
+
   <table>
+    <!-- date //-->
     <tr>
-      <td class="key" title=""><%= non_blank { @statistics.first.podcasts_on_google_first_page_count } %><%= non_blank { sparkline(@statistics.map(&:podcasts_on_google_first_page_count)) } %></td>
-      <td>total (at last count)</td>
+    <% @statistics.each do |s| -%>
+      <th class="key"><%= s.created_at.strftime("%b %d") %></th>
+    <% end -%>
+      <td><!-- today //--></td>
+    </tr>
+   <!-- total //-->
+    <tr>
+    <% @statistics.each do |s| -%>
+      <td><%= s.podcasts_on_google_first_page_count %></td>
+    <% end -%>
+      <td class="gigantic_font"><%= @statistics.last.podcasts_on_google_first_page_count.to_i %></td>
+      <th class="key">First page hits <%= sparkline(@statistics.map(&:podcasts_with_buttons_count)) %></th>
     </tr>
   </table>
-  <p><%= non_blank { @statistics.map { |s| "<b>#{s.podcasts_on_google_first_page_count.to_i}</b> (#{s.created_at.strftime("%b '%y")})" }.join(', ') } %></p>
 </div>

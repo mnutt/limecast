@@ -189,10 +189,16 @@ form#quick_signin .callout {
 form#quick_signin .callout {margin-top: 0px;}
 }
 
-form#quick_signin span.forgot {
+form#quick_signin .controls_signup span.forgot {
 	padding-right: 2px;
 	float: left;
-	margin-left: 100px;
+	margin-left: 90px;
+}
+
+form#quick_signin .controls span.forgot {
+	padding-right: 2px;
+	float: left;
+	margin-left: 50px;
 }
 
 form#quick_signin span.forgot a {

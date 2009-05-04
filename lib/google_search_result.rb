@@ -31,7 +31,7 @@ class GoogleSearchResult
 
   protected
     def remove_extra_results!
-      @results.reject! { |li| (li/'a')[0].inner_html =~ /(Video|Image) results for/ }
+      @results.reject! { |li| (li/'a').empty? || (li/'a')[0].inner_html =~ /(Video|Image) results for/ }
     end
 
     def fetch!(query)

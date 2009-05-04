@@ -204,7 +204,7 @@ Podcasts on first page of search results -->
     <% @statistics.each do |s| -%>
       <td><%= s.podcasts_on_google_first_page_count %></td>
     <% end -%>
-      <td class="gigantic_font"><%= @statistics.last.podcasts_on_google_first_page_count.to_i %></td>
+      <td class="gigantic_font"><%= @statistics.last.podcasts_on_google_first_page_count.to_i if @statistics.last %></td>
       <th class="key">First page hits <%= sparkline(@statistics.map(&:podcasts_with_buttons_count)) %></th>
     </tr>
   </table>

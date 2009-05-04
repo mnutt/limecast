@@ -110,8 +110,10 @@ class Feed < ActiveRecord::Base
       self.remixed_as_torrent
     when :magnet
       self.remixed_as_magnet
+    when :plain
+      self.xml.to_s
     else
-      self.xml
+      self.xml.to_s
     end
   end
 

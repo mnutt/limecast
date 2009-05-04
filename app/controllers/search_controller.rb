@@ -18,7 +18,7 @@ class SearchController < ApplicationController
     @tag      = Tag.find_by_name(@parsed_q) unless @only && @only != :tag
     @feeds    = (@podcast ? @podcast.feeds : Feed).search(@parsed_q).compact.uniq unless @only && @only != :feeds
     @episodes = (@podcast ? @podcast.episodes : Episode).search(@parsed_q).compact.uniq unless @only && @only != :episodes
-    @reviews  = (@podcast ? Review.for_podcast(@podcast) : Review).search(@parsed_q).compact.uniq  unless @only && @only != :reviews
+    @reviews  = (@podcast ? Review.for_podcast(@podcast) : Review).claimed.search(@parsed_q).compact.uniq  unless @only && @only != :reviews
     @podcasts = @podcast ? [@podcast] : Podcast.search(@parsed_q).compact.uniq unless @only && @only != :podcasts
   rescue => e
     throw e.inspect

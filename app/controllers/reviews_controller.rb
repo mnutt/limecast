@@ -52,7 +52,7 @@ class ReviewsController < ApplicationController
 
   def save_response(review, success)
     if success
-      render :json => {:success => true, :html => render_to_string(:partial => 'reviews/reviews', :object => @podcast.reviews, :locals => {:podcast => @podcast, :editable => true})}
+      render :json => {:success => true, :html => render_to_string(:partial => 'reviews/reviews', :object => @podcast.reviews.claimed, :locals => {:podcast => @podcast, :editable => true})}
     else
       render :json => {:success => false, :errors => "There was a problem:<br /> #{review.errors.full_messages.join('.<br /> ')}."}
     end

@@ -1,6 +1,6 @@
 <% if episode ||= podcast.episodes.newest.first -%>
   <div class="reviews list">
-    <h2>Reviews <span>(<%= @podcast.reviews.count(:select => "*") %>)</span></h2>
+    <h2>Reviews <span>(<%= @podcast.reviews.claimed.count(:select => "*") %>)</span></h2>
 
     <div id="r_view">
       <p>

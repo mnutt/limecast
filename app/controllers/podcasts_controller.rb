@@ -40,7 +40,7 @@ class PodcastsController < ApplicationController
 
     @episodes = @podcast.episodes.all(:include => :sources)
     @related  = @podcast.related_podcasts
-    @reviews  = @podcast.reviews.all
+    @reviews  = @podcast.reviews.claimed.all
     @review   = Review.new(:episode => @newest_episode)
   end
 

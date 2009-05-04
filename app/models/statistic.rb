@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090422190922
+# Schema version: 20090501160126
 #
 # Table name: statistics
 #
@@ -19,6 +19,11 @@
 #  feeds_from_trackers_count           :integer(4)    
 #  podcasts_with_buttons_count         :integer(4)    
 #  podcasts_on_google_first_page_count :integer(4)    
+#  users_admins_count                  :integer(4)    
+#  users_nonadmins_count               :integer(4)    
+#  users_makers_count                  :integer(4)    
+#  reviews_by_admins_count             :integer(4)    
+#  reviews_by_nonadmins_count          :integer(4)    
 #
 
 class Statistic < ActiveRecord::Base
@@ -32,5 +37,10 @@ class Statistic < ActiveRecord::Base
     }.map { |month_and_year, stats|
       stats.sort_by(&:created_at).first
     }
+  end
+
+  # Returns number of users who aren't admins or makers.
+  def users_community_count
+    users_count.to_i - (users_makers_count.to_i + users_admins_count.to_i)
   end
 end

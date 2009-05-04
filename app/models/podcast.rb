@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090422190922
+# Schema version: 20090501160126
 #
 # Table name: podcasts
 #
@@ -20,9 +20,6 @@
 #  button_installed     :boolean(1)    
 #  protected            :boolean(1)    
 #  favorites_count      :integer(4)    default(0)
-#  logo_file_name       :string(255)   
-#  logo_content_type    :string(255)   
-#  logo_file_size       :string(255)   
 #
 
 require 'paperclip_file'
@@ -104,7 +101,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def self.found_by_nonadmin
-    Podcast.all.select { |p| p.found_by && !p.found_by.admin? }
+    Podcast.all.select { |p| !p.found_by || !p.found_by.admin? }
   end
 
   # XXX: Write spec for this

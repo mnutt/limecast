@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090422190922
+# Schema version: 20090501160126
 #
 # Table name: tags
 #

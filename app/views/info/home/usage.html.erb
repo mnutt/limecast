@@ -105,7 +105,7 @@ Podcasts on first page of search results -->
     <% @statistics.each do |s| -%>
       <td><%= s.reviews_by_nonadmins_count %></td>
     <% end -%>
-      <td><%= Review.by_nonadmin.all.size %></td>
+      <td><%= Review.claimed.by_nonadmin.all.size %></td>
       <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:reviews_by_nonadmins_count)) %>) no-repeat 50% right;">Written by community</th>
     </tr>
     <!-- written by staff //-->
@@ -113,7 +113,7 @@ Podcasts on first page of search results -->
     <% @statistics.each do |s| -%>
       <td><%= s.reviews_by_admins_count %></td>
     <% end -%>
-      <td><%= Review.by_admin.all.size %></td>
+      <td><%= Review.claimed.by_admin.all.size %></td>
       <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:reviews_by_admins_count)) %>) no-repeat 50% right;">Written by staff</th>
     </tr>
     <!-- total //-->
@@ -121,7 +121,7 @@ Podcasts on first page of search results -->
     <% @statistics.each do |s| -%>
       <td></td>
     <% end -%>
-      <td class="gigantic_font"><%= Review.all.size %></td>
+      <td class="gigantic_font"><%= Review.claimed.all.size %></td>
       <th class="key">Reviews</th>
     </tr>
   </table>

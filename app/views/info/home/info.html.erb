@@ -3,35 +3,56 @@
 
 <table>
   <tr>
-    <td class="key" title="">Released</td>
+    <td class="key" title="The local New York date and time this version of the site software was put online">released</td>
     <td>
       <%= non_blank relative_time(@release) -%>
     </td>
   </tr>
   
   <tr>
-    <td class="key" title="">Commit</td>
+    <td class="key" title="The Git revision hash that identifies this version of the site software">commit</td>
     <td>
       <%= @commit -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key" title="">Message</td>
+    <td class="key" title="The Git commit message">message</td>
     <td>
       <%= @message -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key" title="">Ability</td>
+    <td class="key" title="">&nbsp;</td>
+    <td>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="Site software version number">version</td>
+    <td>
+      1.0.8
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="The version number of the site software's ability to parse feeds and hash downloads">ability</td>
     <td>
       <%= ABILITY -%>
     </td>
   </tr>
+
+  <tr>
+    <td class="key" title="Whether the site is sending emails for real or not">email</td>
+    <td>
+      <%=  -%>
+    </td>
+  </tr>
+
 </table>
 
-<p>Site time: <%= Time.now.to_s(:info) -%></p>
+<p>Site time: <%= Time.now.to_s(:info).gsub(/(^|\s)0([1-9])/,'\1\2').gsub(/AM|PM/) {|m| m.first.downcase} -%></p>
 
 <ul>
   <li><%= link_to "Icons", info_icons_url -%></li>

@@ -1018,11 +1018,11 @@ h6#page_type {
 
 #download_dropdown {
 	position: absolute;
-  display: none;
+	display: none;
 	top: 40px;
 	left: -3px;
 	width: 250px;
-	z-index: 2;
+	z-index: 1;
 }
 
 #download_dropdown .delivery_method {
@@ -1342,14 +1342,10 @@ ul.v_options_list li .selected_vid {
   min-height: 120px;
 }
 
-#epsiode_goog {
+#episode_goog {
   text-align: center;
-  margin: 20px auto 20px auto;
+  margin: 180px auto 20px auto;
 }
-
-
-
-
 
 #edit_form label {
   float: left;

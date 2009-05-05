@@ -60,10 +60,10 @@
 </head>
 
 <body class="<%= @classes -%><%= " status_#@error" if @error %>">
+  <div id="wrapper">
 
-    <div id="wrapper">
       <div id="header">
-        
+    
         <div id="utility_nav">
           <%= render :partial => "layouts/sign_in_area" -%>
         </div>
@@ -76,7 +76,7 @@
             <li><a href="/add" id="add_podcast"><span>Add podcast</span></a><li>
           </ul>
         </div> <!-- /global_nav -->
-        
+    
         <form action="/search" method="get" id="search" class="search">            
           <label for="q" style="display: none;">Search LimeCast</label>
           <input class="text search" id="q" name="q" size="15" type="text" value="Search LimeCast" tabindex="1" />
@@ -84,40 +84,42 @@
             <span>Search</span>
           </button>
         </form>
-        
+    
       </div> <!-- /header -->
-  
+      
       <!-- HACK Use content wrapper so we can use margin on #content div. -->
       <div id="content_wrapper">
-        <div id="content">
+        <div id="content" class="clearfix">
           <%= yield %>
         </div> <!-- /content -->
+        <div class="push"><!-- ^_^ //--></div>
       </div> <!-- /content_wrapper -->
-    </div> <!-- /wrapper -->
 
-    <div class="foot_wrapper">
-      <div id="footer">
+  </div> <!-- /wrapper -->
 
-        <div class="section">
-          <ul>
-            <li class="blog">
-              <a href="http://limecast.limespot.com/"><span>Blog</span></a>
-            </li>
-            <li class="use">
-              <a href="/use"><span>Terms of use</span></a>
-            </li>
-            <li class="privacy">
-              <a href="/privacy"><span>Privacy</span></a>
-            </li>
-            <li class="opensource">
-              <a href="http://wiki.limewire.org/index.php?title=LimeCast"><span>Open source</span></a>
-            </li>
-          </ul>
-        </div>
+  <div id="foot_wrapper">
+    <div id="footer">
 
-      </div> <!-- /footer -->
-    </div> <!-- /foot_wrapper -->
+      <div class="section">
+        <ul>
+          <li class="blog">
+            <a href="http://limecast.limespot.com/"><span>Blog</span></a>
+          </li>
+          <li class="use">
+            <a href="/use"><span>Terms of use</span></a>
+          </li>
+          <li class="privacy">
+            <a href="/privacy"><span>Privacy</span></a>
+          </li>
+          <li class="opensource">
+            <a href="http://wiki.limewire.org/index.php?title=LimeCast"><span>Open source</span></a>
+          </li>
+        </ul>
+      </div>
 
-    <%= render :partial => 'users/quick_signin', :locals => { }  -%>
+    </div> <!-- /footer -->
+  </div> <!-- /foot_wrapper -->
+
+  <%= render :partial => 'users/quick_signin', :locals => { }  -%>
 </body>
 </html>

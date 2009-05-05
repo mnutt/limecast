@@ -1,13 +1,88 @@
-body {text-align: center;height: 100%;}
-
-#wrapper {
-	width: 980px; 
-	margin: 0 auto;
-	text-align: left; 
-	overflow: auto;
+html { 
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
+body {
+	height: 100%;
+	text-align: center;
+	background: #313131 url('../imgs/header.png') top left repeat-x; 
+}
+
+
+#wrapper {
+	background: #f1f1f1 url('../imgs/bg_content.png') top center repeat-x;
+	text-align: left; 
+	position: relative; 
+	z-index: 1;
+	min-height: 100%;
+	width: 980px;
+	margin: 0 auto;
+}
+
+#header { 
+	position: relative;
+	height: 35px; 
+	z-index: 99; 
+	background: #313131 url('../imgs/header.png') top left repeat-x; 
+	
+}
+
+#content_wrapper {
+	width: 980px; 
+	margin: 0 auto;
+	position: relative;
+	z-index: 0;
+}
+
+
 .push {height: 70px;}
+
+
+#content {
+	margin: 20px;
+}
+
+#foot_wrapper {
+	margin-top: -70px;
+	min-height: 70px;
+	width: 100%;
+	position: relative;
+	z-index: 1;
+	background: #313131 url('../imgs/bg_footer.png') top left repeat-x;
+}
+
+#footer {
+	text-align: left;
+	color:#fff;
+	width: 980px;
+	margin: 0px auto 0 auto;
+	font-size:0.9em;
+	padding: 20px;
+}
+
+#footer a, #footer h4 {
+	color:#fff;
+}
+
+div#footer div.section {
+	float: left;
+	margin: 0 22px 20px 0;
+}
+
+div#footer div.info {
+	clear:both;
+	padding:20px 0 0;
+}
+
+div#footer div.section ul li {
+	padding:0 10px;
+	font-size: 1.2em;
+	display: inline;
+}
+
+
 
 #notice { 
 	font-weight: bold;
@@ -217,19 +292,6 @@ ul li {display: inline;}
 
 */
 
-body {background: #313131 url('../imgs/header.png') top left repeat-x; }
-
-#wrapper {position: relative; margin: auto;}
-#header {position: relative; margin: 0; height: 35px;overflow: ;}
-#content_wrapper {
-	overflow: hidden;
-	position: relative;
-	height: 1%;
-	background: #f1f1f1 url('../imgs/bg_content.png') top left repeat-x;
-}
-#content {
-	margin: 20px;
-}
 
 /**** Header **************/
 
@@ -314,6 +376,9 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 
 /* Show specific */
 .summary { overflow: visible;}
+.popular .summary,
+.podcast.index .summary,
+.user.show .summary { float: left; width: 690px; }
 .supplemental {float: left; overflow: hidden; position:  relative; margin: 20px 0; width: 670px;}
 
 
@@ -528,15 +593,11 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 .summary h1 {
 	margin: 0;
 	display: inline;
-	float: left;
 }
+
 .summary h2 {
 	width: 800px;
 }
-
-
-
-
 
 .episode.summary h2 {
 	margin-bottom: 15px;
@@ -677,10 +738,6 @@ h6#page_type {
 .reviews.list {position: relative;}
 .reviews.list img {margin: 0 -7px 0 20px;}
 
-.wrapper {
-	margin-top: -5px;
-	margin-bottom: 20px;
-}
 
 .home li.review:last-child {
 	border-bottom: none;
@@ -1202,48 +1259,7 @@ ul.v_options_list li .selected_vid {
 
 
 
-#footer {
-	text-align: left;
-	color:#fff;
-	width: 980px;
-	margin: 0px auto 0 auto;
-	font-size:0.9em;
-	padding: 20px;
-}
-
-#footer a, #footer h4 {
-	color:#fff;
-}
-
-div.foot_wrapper {
-	width: 100%;
-	min-height: 70px;
-	background: #313131 url('../imgs/bg_footer.png') top left repeat-x;
-}
-
-div#footer div.section {
-float:left;
-margin:0 22px 20px 0;
-
-}
-
-div#footer div.info {
-
-clear:both;
-padding:20px 0 0;
-}
-
-div#footer div.section ul li {
-padding:0 10px;
-font-size: 1.2em;
-display: inline;
-}
-
-
-/* Brwose page **/
-
-
-
+/* Browse page **/
 #browse .calloutlight {
   float: right;
   margin-top: 12px;
@@ -1253,11 +1269,6 @@ display: inline;
   margin-top: 12px;
   font-size: .9em;
 }
-
-
-
-
-
 
 .popular .social, .tags .social {
   margin-top: 12px;
@@ -1269,14 +1280,10 @@ display: inline;
 }
 
 
-
-
-
-
-
 /**** Profile page **************/
-
-
+#member_profile {
+	float: left;
+}
 
 #member_profile .addit {
 	margin-top: 12px;

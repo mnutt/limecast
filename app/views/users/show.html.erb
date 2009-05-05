@@ -1,56 +1,56 @@
 <% @title = h(@user.login) -%>
-<% @classes = %{podcast index show} -%>
+<% @classes = %{user show} -%>
 <% @show_ads = true if @user.reviews.count > 0 -%>
 <% javascript_include "reviews", "podcast_edit", "limecast_form", "jquery.dataTables.min" -%>
  
 
-<h1><%=h @user.login -%><%= "" unless @user.podcaster? %>'s profile</h1>
-<%= render :partial => 'users/edit' if current_user && (current_user == @user || current_user.admin?) %>
+<div class="summary">
+  <h1><%=h @user.login -%><%= "" unless @user.podcaster? %>'s profile</h1>
+  <%= render :partial => 'users/edit' if current_user && (current_user == @user || current_user.admin?) %>
 
-<div id="member_profile" class="tabify main">
-  <ul class="tabs">
-    <% if @user.favorite_podcasts.size > 0 -%>
-      <li><a href="#profile_favorites"><h4>Favorites <span>(<%= @user.favorite_podcasts.size %>)</span></h4></a></li>
-    <% end -%>
-    <% if @user.podcasts.size > 0 -%>
-      <li><a href="#profile_found"><h4>Found <span>(<%= @user.podcasts.size %>)</span></h4></a></li>
-    <% end -%>
-    <% if @user.owned_podcasts.count > 0 -%>
-      <li><a href="#profile_owned"><h4>Owned</h4></a></li>
-    <% end -%>
-    <% if @user.reviews.count > 0 -%>
-      <li><a href="#profile_reviews"><h4>Reviews <span>(<%= @user.reviews.count %>)</span></h4></a></li>
-    <% end -%>
-  </ul>
-
-  <% rounded_corner_tag(:id => "profile_favorites") do -%>
-    <ul class="podcasts clearfix">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :show_favorite => (@user == current_user)} -%>
+  <div id="member_profile" class="tabify main">
+    <ul class="tabs">
+      <% if @user.favorite_podcasts.size > 0 -%>
+        <li><a href="#profile_favorites"><h4>Favorites <span>(<%= @user.favorite_podcasts.size %>)</span></h4></a></li>
+      <% end -%>
+      <% if @user.podcasts.size > 0 -%>
+        <li><a href="#profile_found"><h4>Found <span>(<%= @user.podcasts.size %>)</span></h4></a></li>
+      <% end -%>
+      <% if @user.owned_podcasts.count > 0 -%>
+        <li><a href="#profile_owned"><h4>Owned</h4></a></li>
+      <% end -%>
+      <% if @user.reviews.count > 0 -%>
+        <li><a href="#profile_reviews"><h4>Reviews <span>(<%= @user.reviews.count %>)</span></h4></a></li>
+      <% end -%>
     </ul>
-  <% end if @user.favorite_podcasts.size > 0 -%>
+
+    <% rounded_corner_tag(:id => "profile_favorites") do -%>
+      <ul class="podcasts clearfix">
+        <%= render :partial => 'podcasts/podcast', :collection => @user.favorite_podcasts, :locals => {:user => @user, :show_favorite => (@user == current_user)} -%>
+      </ul>
+    <% end if @user.favorite_podcasts.size > 0 -%>
   
-  <% rounded_corner_tag(:id => "profile_found") do -%>
-    <ul class="podcasts clearfix">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
-    </ul>
-  <% end if @user.podcasts.size > 0 -%>
+    <% rounded_corner_tag(:id => "profile_found") do -%>
+      <ul class="podcasts clearfix">
+        <%= render :partial => 'podcasts/podcast', :collection => @user.podcasts -%>
+      </ul>
+    <% end if @user.podcasts.size > 0 -%>
   
-  <% rounded_corner_tag(:id => "profile_owned") do -%>
-    <ul class="podcasts clearfix">
-      <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
-    </ul>
-  <% end if @user.owned_podcasts.count > 0 -%>
+    <% rounded_corner_tag(:id => "profile_owned") do -%>
+      <ul class="podcasts clearfix">
+        <%= render :partial => 'podcasts/podcast', :collection => @user.owned_podcasts -%>
+      </ul>
+    <% end if @user.owned_podcasts.count > 0 -%>
   
-  <% rounded_corner_tag(:id => "profile_reviews") do -%>
-    <h2>Reviewed</h2>
-    <ul class="reviews clearfix">
-      <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast_reference => true} -%>
-    </ul>
-  <% end if @user.reviews.count > 0 -%>
+    <% rounded_corner_tag(:id => "profile_reviews") do -%>
+      <h2>Reviewed</h2>
+      <ul class="reviews clearfix">
+        <%= render :partial => 'reviews/review', :collection => @user.reviews, :locals => {:with_podcast_reference => true} -%>
+      </ul>
+    <% end if @user.reviews.count > 0 -%>
 
-</div> <!--/memeber_profile-->
-
-<div id="profile_goog">
-  <%= google_ads -%>
+  </div> <!--/member_profile-->
 </div>
+
+<%= google_ads -%>
 

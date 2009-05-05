@@ -248,7 +248,6 @@ input.radio {
 /* LimeCast form */
 
 #edit_actions {
-  float: left;
   margin: 3px 0 0 5px;
 }
  
@@ -394,9 +393,6 @@ a#comment_add {
 
 
 /**** call out links (with arrow) **************/
-
-
-
 .callout li {
 	float:left;
 	display:block;
@@ -788,16 +784,11 @@ li.review p {
 	margin: 15px 0 0 0px;
 }
 
-
-				
-
-
-
 .googleads {
 	overflow: hidden;
 	width: 250px;
 	float: right;
-	margin: 20px 0;
+	margin: 43px 0 20px 0;
 }
 
 .googleads iframe {
@@ -807,14 +798,6 @@ li.review p {
 #series_page_goog  {
 	margin-top: 65px;
 }
-
-#profile_goog  {
-	margin-top: 57px;
-}
-
-
-
-
 
 /* global */
 #cluetip-close img {

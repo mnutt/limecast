@@ -159,6 +159,11 @@ describe Podcast, "generating the clean url" do
     @podcast.title = ' my $title '
     @podcast.send(:sanitize_url).should == 'my-title'
   end
+
+  it "should not add extra hyphens" do
+    @podcast.title = "Advice Line with Roy Masters - Radio Archive | Blog Talk Radio Feed"
+    @podcast.send(:sanitize_url).should == "Advice-Line-with-Roy-Masters-Radio-Archive-Blog-Talk-Radio-Feed"
+  end
 end
 
 describe Podcast, "being saved with tag_string" do

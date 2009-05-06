@@ -2,44 +2,9 @@
 
 <table>
   <tr>
-    <td class="key">Created:</td>
-    <td>
-      <%= @user.created_at.to_s(:long_ordinal) rescue "error" -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="key">Arrived:</td>
-    <td>
-      <%= @user.arrived_at.to_s(:long_ordinal) rescue "NOT IMPLEMENTED YET" -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="key">Visited:</td>
-    <td>
-      <%= @user.logged_in_at.to_s(:long_ordinal) rescue "error" -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="key">Name:</td>
-    <td>
-      <%= @user.login -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="key">URL:</td>
-    <td>
-      <%= link_to @user -%>
-    </td>
-  </tr>
-
-  <tr>
     <td class="key">Email:</td>
     <td>
-      <%= @user.email -%>
+      <%= logged_in? && current_user.admin? ? @user.email : @user.email.gsub(/[^@]/, '*') -%>
     </td>
   </tr>
 
@@ -50,73 +15,98 @@
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
-    <td class="key">Contact:</td>
+    <td class="key" title="When the user last visited the site signed in">Visited:</td>
+    <td>
+      <%= @user.logged_in_at.to_s(:long_ordinal) rescue "error" -%>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="User name, like User Name">Name:</td>
+    <td>
+      <%= @user.login -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="User name as it appears in the address, like User-Name">URL:</td>
+    <td>
+      <%= link_to @user.login, @user -%>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="False if the user has turned off email notifications">Contact:</td>
     <td>
       <%= "NOT IMPLEMENTED YET" -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">Score:</td>
+    <td class="key" title="Current score number">Score:</td>
     <td>
       <%= @user.score -%>
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
-    <td class="key">Makes:</td>
+    <td class="key" title="Feeds the user makes">Makes:</td>
     <td>
       <%= @user.owned_podcasts.map { |p| link_to h(p.title), info_podcast_url(p) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">Finds:</td>
+    <td class="key" title="Feeds the user found">Finds:</td>
     <td>
       <%= @user.feeds.map(&:podcast).uniq.compact.map { |p| link_to h(p.title), info_podcast_url(p) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">Favorites:</td>
+    <td class="key" title="Podcasts the user favorited">Favorites:</td>
     <td>
       <%= @user.favorite_podcasts.map { |p| link_to h(p.title), info_podcast_url(p) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">Tagged:</td>
+    <td class="key" title="Podcasts the user tagged">Tagged:</td>
     <td>
       <%= @user.taggings.map(&:podcast).uniq.map { |p| link_to h(p.title), info_podcast_url(p) }.to_sentence -%>
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
-    <td class="key">Reviews:</td>
+    <td class="key" title="Reviews the user wrote">Reviewed:</td>
     <td>
       <%= @user.reviews.map { |r| link_to h(r.title), info_review_url(r.episode.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">Insightful:</td>
+    <td class="key" title="Reviews the user found insightful">Insightful:</td>
     <td>
       <%= @user.review_ratings.insightful.map(&:review).compact.map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
-    <td class="key">Not Insightful:</td>
+    <td class="key" title="Reviews the user found not insightful">Not Insightful:</td>
     <td>
       <%= @user.review_ratings.not_insightful.map(&:review).compact.map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 
-  <tr>
-    <td class="key">Admin?:</td>
-    <td>
-      <%= @user.admin? ? "Yes" : "No" -%>
-    </td>
-  </tr>
 </table>

@@ -5,6 +5,9 @@
       <%= link_to user.login, info_user_url(user) -%>
       (<%= user.score -%>)
       <% if user.admin? -%>god <% end -%>
+      <% if user.owned_podcasts.all.size > 0 -%>
+        makes <%= user.owned_podcasts.all.map { |p| link_to_podcast(p) }.to_sentence %>
+      <% end -%>
     </li>
   <% end -%>
 </ul>

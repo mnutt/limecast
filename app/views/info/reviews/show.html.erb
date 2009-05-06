@@ -1,59 +1,56 @@
-<h1>Review</h1>
-
-
 <table>
   <tr>
-    <td>Date</td>
+    <td class="key">Date</td>
     <td><%= @review.created_at %></td>
   </tr>
 
   <tr>
-    <td>Episode</td>
+    <td class="key">Episode</td>
     <td><%= link_to h(@review.title), info_episode_url(@review.episode.podcast, @review) %></td>
   </tr>
 
   <tr>
-    <td>User</td>
+    <td class="key">User</td>
     <td><%= link_to h(@review.reviewer.login), info_user_url(@review.reviewer.login)  %></td>
   </tr>
 
   <tr>
-    <td>Insightful</td>
+    <td class="key">Insightful</td>
     <td><%= @review.review_ratings.insightful.map(&:user).map { |u| link_to h(u.login), info_user_url(u) } -%></td>
   </tr>
 
   <tr>
-    <td>Not Insightful</td>
+    <td class="key">Not Insightful</td>
     <td><%= @review.review_ratings.not_insightful.map(&:user).map { |u| link_to h(u.login), info_user_url(u) } -%></td>
   </tr>
 
   <tr>
-    <td>Rating</td>
+    <td class="key">Rating</td>
     <td><%= @review.positive? ? 'positive' : 'negative' -%></td>
   </tr>
 
   <tr>
-    <td>Title edit</td>
+    <td class="key">Title edit</td>
     <td><pre><%= h @review.title -%></pre></td>
   </tr>
 
   <tr>
-    <td>Title page</td>
+    <td class="key">Title page</td>
     <td><pre><%= h unescape_entities(@review.title) -%></pre></td>
   </tr>
 
   <tr>
-    <td>Body edit</td>
+    <td class="key">Body edit</td>
     <td><pre><%= h @review.body -%></pre></td>
   </tr>
 
   <tr>
-    <td>Body page</td>
+    <td class="key">Body page</td>
     <td><pre><%= sanitize_condensed_summary(@review.body) -%></pre></td>
   </tr>
   
   <tr>
-    <td>Body line</td>
+    <td class="key">Body line</td>
     <td><pre><%= format_with_paragraph_entity sanitize_condensed_summary(@review.body) -%></pre></td>
   </tr>  
 </table>

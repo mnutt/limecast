@@ -121,7 +121,7 @@ class FeedProcessor
   end
 
   def update_tags!
-    tags = @rpodcast_feed.categories.map { |t| Tag.tagize(t) }
+    tags = @rpodcast_feed.categories.compact.map { |t| Tag.tagize(t) }
     tags << "hd" if @rpodcast_feed.hd?
     tags << "video" if @rpodcast_feed.video?
     tags << "audio" if @rpodcast_feed.audio?

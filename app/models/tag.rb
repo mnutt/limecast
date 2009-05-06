@@ -30,7 +30,7 @@ class Tag < ActiveRecord::Base
   end
 
   # Turns normal string into tag
-  def self.tagize(str)
+  def self.tagize(str="")
     str.
       gsub("&", "and").
       gsub(/\s+/, "").

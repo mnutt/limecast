@@ -39,12 +39,6 @@ class QueuedFeed < ActiveRecord::Base
 
   attr_accessor :content
 
-  define_index do
-    indexes :url
-
-    has :created_at
-  end
-
   def claim_by(user)
     self.update_attributes(:user => user)
     self.feed.update_attributes(:finder => user) if self.feed

@@ -6,6 +6,7 @@ tmp/**/*
 doc/api
 doc/app
 config/database.yml
+config/remote_server.yml
 config/development.sphinx.conf
 config/test.sphinx.conf
 private/*.txt

@@ -1,4 +1,5 @@
 require 'app/models/podcast'
+
 namespace :limecast do
   desc "update all podcast episodes"
   task :update do
@@ -25,15 +26,31 @@ namespace :limecast do
       puts user.score
     end
   end
-  
+
   desc "create a statistic record for today"
-  task :create_statistic do
-    # Find all podcasts that are on first page of google results
-    podcasts_on_google_first_page_count = Podcast.all.select { |p|
-      puts "Getting Google ranking for '#{p.title}' (##{p.id})"
-      search = GoogleSearchResult.new("#{p.primary_feed.title.blank? ? p.title : p.primary_feed.title}")
-      search.rank('limecast.com')
-    }.size
+  task :create_statistic => :environment do
+    require 'net/ssh'
+    # Can this part be done in Cap instead?
+    begin
+      remote = YAML.load(File.open("config/remote_server.yml"))[RAILS_ENV]
+
+      podcast_google_ranks = []
+
+      # Connect to remote server
+      Net::SSH.start(remote['host'], remote['username'], :password => remote['password']) do |ssh|
+        Podcast.all.each do |p| 
+          puts "Getting Google ranking for '#{p.title}' (##{p.id})"
+          
+          title = (p.primary_feed.title.blank? ? p.title : p.primary_feed.title).delete("'")
+          ssh.exec!(%Q!cd #{remote['dir']}/lib && ruby -r rubygems -r google_search_result -e "puts GoogleSearchResult.new('#{title}').rank('limecast.com')"!) do |channel, stream, data|
+            podcast_google_ranks << data.strip.to_i
+          end
+        end
+      end
+      podcasts_on_google_first_page_count = podcast_google_ranks.reject(&:zero?).size
+    rescue => e
+      podcasts_on_google_first_page_count = 0
+    end
 
     stat = Statistic.create({
       :podcasts_count                      => Podcast.all.size,

@@ -1,0 +1,18 @@
+# a remote server that has a copy of limecast
+development:
+  username: username
+  password: password
+  host:     localhost
+  dir:      ~/Sites/limecast/
+
+test:
+  username: username
+  password: password
+  host:     localhost
+  dir:      ~/Sites/limecast/
+
+production:
+  username: username
+  password: password
+  host:     0.0.0.0
+  dir:      /var/www/apps/limecast

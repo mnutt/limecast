@@ -211,15 +211,16 @@ namespace :limecast do
     desc 'Creates symlinks for shared resources'
     task :symlink_shared, :roles => :app do
       # Symlink    from shared_path => to current
-      symlinks = { 'sphinx'         => 'sphinx',
-                   'database.yml'   => 'config/database.yml',
-                   'logos'          => 'public/logos',
-                   'feed_logos'     => 'public/feed_logos',
-                   'screenshots'    => 'public/screenshots',
-                   'previews'       => 'public/previews',
-                   'random_clips'   => 'public/random_clips',
-                   'torrents'       => 'public/torrents',
-                   'private'        => 'private' }
+      symlinks = { 'sphinx'            => 'sphinx',
+                   'database.yml'      => 'config/database.yml',
+                   'remote_server.yml' => 'config/remote_server.yml',
+                   'logos'             => 'public/logos',
+                   'feed_logos'        => 'public/feed_logos',
+                   'screenshots'       => 'public/screenshots',
+                   'previews'          => 'public/previews',
+                   'random_clips'      => 'public/random_clips',
+                   'torrents'          => 'public/torrents',
+                   'private'           => 'private' }
 
       symlinks.each do |shared, current|
         run "rm -rf #{latest_release}/#{current}"

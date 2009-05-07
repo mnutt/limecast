@@ -85,7 +85,7 @@ Podcasts on first page of search results -->
     <% @statistics.each do |s| -%>
       <td><!-- empty //--></td>
     <% end -%>
-      <td class="gigantic_font"><%= User.all.nonpassive.size %></td>
+      <td class="gigantic_font"><%= User.nonpassive.all.size %></td>
       <th class="key">Users</th>
     </tr>
   </table>

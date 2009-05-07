@@ -1,11 +1,12 @@
 require 'open-uri'
 require 'hpricot'
+require 'active_support'
 
 class GoogleSearchResult
   attr_accessor :html, :per_page
 
   def initialize(query, options = {})
-    results = options[:per_page] || 100
+    @per_page = options[:per_page] || 100
 
     fetch!(URI.encode(query))
     @doc     = Hpricot(html)

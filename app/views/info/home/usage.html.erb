@@ -61,7 +61,7 @@ Podcasts on first page of search results -->
     <% @statistics.each do |s| -%>
       <td><%= s.users_community_count %></td>
     <% end -%>
-      <td><%= User.all.size - (User.makers.nonadmins.all.size + User.admins.all.size) %></td>
+      <td><%= User.all.size - (User.makers.nonadmins.nonpassive.all.size + User.admins.all.size) %></td>
       <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:users_community_count)) %>) no-repeat 50% right;">Community</th>
     </tr>
     <!-- podcasters //-->
@@ -69,7 +69,7 @@ Podcasts on first page of search results -->
     <% @statistics.each do |s| -%>
       <td><%= s.users_makers_count %></td>
     <% end -%>
-      <td><%= User.makers.nonadmins.all.size %></td>
+      <td><%= User.makers.nonadmins.nonpassive.all.size %></td>
       <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:users_makers_count)) %>) no-repeat 50% right;">Podcasters</th>
     </tr>
     <!-- staff //-->

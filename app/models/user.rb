@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
   named_scope :frequent_users, {:conditions => ["users.logged_in_at > (?)", 29.days.ago]}
   named_scope :admins, {:conditions => {:admin => true}}
   named_scope :nonadmins, {:conditions => "admin IS NULL OR admin IS FALSE"}
+  named_scope :nonpassive, { :conditions => "users.state IS NULL OR users.state != 'passive'" }
   named_scope :makers, { :select => "users.*, count(podcasts.id) as podcast_count", :joins => :owned_podcasts, :group => "users.id", :having => "podcast_count > 0" }
 
   # States

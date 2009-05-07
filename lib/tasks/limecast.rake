@@ -65,7 +65,7 @@ namespace :limecast do
       :users_passive_count                 => User.passive.all.size,
       :users_admins_count                  => User.admins.all.size,
       :users_nonadmins_count               => User.nonadmins.size,
-      :users_makers_count                  => User.makers.nonadmins.all.size,
+      :users_makers_count                  => User.makers.nonadmins.nonpassive.all.size,
       :reviews_by_admins_count             => Review.claimed.by_admin.all.size,
       :reviews_by_nonadmins_count          => Review.claimed.by_nonadmin.all.size,
       :reviews_count                       => Review.all.size,

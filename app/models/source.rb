@@ -48,8 +48,9 @@
 #
 
 class Source < ActiveRecord::Base
-  belongs_to :feed
+  belongs_to :feed # deprecated
   belongs_to :episode
+  belongs_to :podcast
 
   named_scope :stale,    :conditions => ["sources.ability < ?", ABILITY]
   named_scope :approved, :conditions => ["podcasts.approved = ?", true], :joins => [:feed => [:podcast]], :readonly => false

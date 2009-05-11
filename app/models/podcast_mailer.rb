@@ -1,22 +1,22 @@
 class PodcastMailer < ActionMailer::Base
   FROM_HOST = "limecast.com"
 
-  def new_feed(queued_feed)
+  def new_queued_feed(queued_feed)
     @recipients = ExceptionNotifier.exception_recipients
     @from       = "LimeCast <podcasts@limewire.com>"
     @sent_on    = Time.now
 
-    subject "[LimeCast] Added feed: #{queued_feed.url}"
+    subject "[LimeCast] Added queued feed: #{queued_feed.url}"
     body    :queued_feed => queued_feed, :host => FROM_HOST
   end
 
-  def failed_feed(feed, exception)
+  def failed_queued_feed(queued_feed, exception)
     @recipients = ExceptionNotifier.exception_recipients
     @from       = "LimeCast <podcasts@limewire.com>"
     @sent_on    = Time.now
 
-    subject "[LimeCast] Failed feed: #{feed.url}"
-    body    :feed => feed, :exception => exception, :host => FROM_HOST
+    subject "[LimeCast] Failed queued feed: #{queued_feed.url}"
+    body    :queued_feed => queued_feed, :exception => exception, :host => FROM_HOST
   end
 
   def new_podcast(podcast)

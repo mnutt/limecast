@@ -23,18 +23,56 @@
 #
 
 require 'paperclip_file'
+require 'open-uri'
+require 'timeout'
 
 class Podcast < ActiveRecord::Base
-
+  # -- NEW STUFF FROM FEED
+  has_many :sources, :dependent => :destroy
+  has_one  :newest_source, :class_name => 'Source', :include => :episode, :order => "episodes.published_at DESC"
+  has_one  :queued_feed
   belongs_to :owner, :class_name => 'User'
+  belongs_to :finder, :class_name => 'User'
+  after_destroy :update_finder_score
+  named_scope :from_limetracker, :conditions => ["podcasts.generator LIKE ?", "%limecast.com/tracker%"]
+  named_scope :with_itunes_link, :conditions => 'podcasts.itunes_link IS NOT NULL and podcasts.itunes_link <> ""'
+  named_scope :parsed, :conditions => {:state => 'parsed'}
+  named_scope :unclaimed, :conditions => "finder_id IS NULL"
+  named_scope :claimed, :conditions => "finder_id IS NOT NULL"
+  named_scope :found_by_admin, :include => :finder, :conditions => ["users.admin = ?", true]
+  named_scope :found_by_nonadmin, :include => :finder, :conditions => ["users.admin = ? OR users.admin IS NULL", false]
+  named_scope :sorted_by_bitrate_and_format, :order => "podcasts.bitrate ASC, podcasts.format ASC"
+
+  def download_logo(link)
+    file = PaperClipFile.new
+    file.original_filename = File.basename(link)
+
+    open(link) do |f|
+      return unless f.content_type =~ /^image/
+
+      file.content_type = f.content_type
+      file.to_tempfile = with(Tempfile.new('logo')) do |tmp|
+        tmp.write(f.read)
+        tmp.rewind
+        tmp
+      end
+    end
+
+    self.attachment_for(:logo).assign(file)
+  rescue OpenURI::HTTPError
+  end
+
+  # END NEW STUFF
+
   belongs_to :category
-  belongs_to :primary_feed, :class_name => 'Feed'
+  belongs_to :primary_feed, :class_name => 'Feed' # deprecated
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites
 
-  has_many :feeds, #:dependent => :destroy,
-           :after_add => :set_primary_feed_with_save, :after_remove => :set_primary_feed_with_save
-  has_one  :first_feed, :class_name => 'Feed', :order => "feeds.created_at ASC", :include => :finder
+  has_many :feeds  # deprecated
+  #, :dependent => :destroy,
+#           :after_add => :set_primary_feed_with_save, :after_remove => :set_primary_feed_with_save
+  has_one  :first_feed, :class_name => 'Feed', :order => "feeds.created_at ASC", :include => :finder # deprecated
   has_many :episodes, :order => "published_at DESC", :dependent => :destroy
   has_one  :newest_episode, :class_name => 'Episode', :order => "published_at DESC"
   has_many :reviews, :through => :episodes, :conditions => "reviews.user_id IS NOT NULL"
@@ -46,14 +84,21 @@ class Podcast < ActiveRecord::Base
   has_many :tags, :through => :taggings, :order => 'tags.name ASC'
   has_many :badges, :source => :tag, :through => :taggings, :conditions => {:badge => true}, :order => 'name ASC'
 
-  accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? }
+  has_attached_file :logo,
+                    :path => ":rails_root/public/podcast_:attachment/:id/:style/:basename.:extension",
+                    :url  => "/podcast_:attachment/:id/:style/:basename.:extension",
+                    :styles => { :square => ["85x85#", :png],
+                                 :small  => ["170x170#", :png],
+                                 :large  => ["300x300>", :png],
+                                 :icon   => ["25x25#", :png],
+                                 :thumb  => ["16x16#", :png] }
+
+  accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? } # deprecated
 
   named_scope :not_approved, :conditions => {:approved => false}
   named_scope :approved, :conditions => {:approved => true}
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
-  named_scope :parsed, lambda {
-    { :conditions => { :id => Feed.parsed.map(&:podcast_id).uniq } }
-  }
+  named_scope :parsed, :conditions => {:state => 'parsed'}
   named_scope :tagged_with, lambda { |*tags|
     # NOTE this does an OR search on the tags; needs to be refactored if all podcasts will include *all* tags
     # TODO This named_scope could definitely be simplified and optimized with some straight SQL
@@ -71,19 +116,21 @@ class Podcast < ActiveRecord::Base
   before_validation :sanitize_title
   before_validation :sanitize_url
   before_save :find_or_create_owner
-  before_save :set_primary_feed_without_save
+#  before_save :set_primary_feed_without_save
   before_save :store_last_changes
 
   validates_presence_of   :title, :unless => Proc.new { |podcast| podcast.new_record? }
   validates_format_of     :title, :with => /[A-Za-z0-9]+/, :message => "must include at least 1 letter (a-z, A-Z)"
+  validates_presence_of   :url
+  validates_uniqueness_of :url
+  validates_length_of     :url, :maximum => 1024
 
   # Search
   define_index do
-    indexes :title, :site, :description, :owner_name, :owner_email
+    indexes :title, :site, :description, :owner_name, :owner_email, :url
     indexes owner.login, :as => :owner
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary
-    indexes feeds.url, :as => :feed_url
     indexes tags.name, :as => :tag # includes badges
 
     has taggings.tag_id, :as => :tagged_ids
@@ -150,9 +197,10 @@ class Podcast < ActiveRecord::Base
     user && user.favorite_podcasts.include?(self)
   end
 
-  def description
-    primary_feed.description
-  end
+  # deprecated
+  # def description
+  #   primary_feed.description
+  # end
 
   def average_time_between_episodes
     return 0 if self.episodes.count < 2
@@ -173,13 +221,14 @@ class Podcast < ActiveRecord::Base
   def just_created?
     self.created_at > 2.minutes.ago
   end
-  
-  def logo(*args)
-    primary_feed.logo(*args) if primary_feed
-  end
-  def logo?
-    primary_feed.logo? if primary_feed
-  end
+
+  # deprecated
+  # def logo(*args)
+  #   primary_feed.logo(*args) if primary_feed
+  # end
+  # def logo?
+  #   primary_feed.logo? if primary_feed
+  # end
 
   def total_run_time
     self.episodes.sum(:duration) || 0
@@ -217,7 +266,7 @@ class Podcast < ActiveRecord::Base
     return @editors if @editors
     @editors = returning([]) do |e|
       e << User.admins.all
-      e << primary_feed.finder if primary_feed.finder && !protected?
+      e << finder if finder && !protected?
       e << owner if owner && owner.confirmed?
       e.flatten!
       e.compact!
@@ -255,7 +304,7 @@ class Podcast < ActiveRecord::Base
     return @additional_badges if @additional_badges && !reload
 
     @additional_badges = returning [] do |ab|
-      ab << primary_feed.language if primary_feed && !primary_feed.language.blank?
+      ab << language unless language.blank?
 
       if e = episodes.newest[0]
         ab << 'current' if e.published_at > 30.days.ago
@@ -275,9 +324,6 @@ class Podcast < ActiveRecord::Base
     end
   end
 
-  def description() primary_feed.description; end
-  def language() primary_feed.language; end
-
   def add_message(msg)
     # TODO this could probably be a one-liner
     # TODID i will verify that making this method a one-liner is possible
@@ -286,8 +332,8 @@ class Podcast < ActiveRecord::Base
 
   protected
   def sanitize_title
-    # cache the primary_feed's title or blank until next time
-    self.title = (primary_feed.nil? ? "" : primary_feed.title.to_s) if title.blank?
+    # cache the xml_title or blank until next time
+    self.title = xml_title.to_s if title.blank?
 
     desired_title = title
     # Second, sanitize "title"
@@ -344,4 +390,7 @@ class Podcast < ActiveRecord::Base
     @last_changes = changes
   end
 
+  def update_finder_score
+    finder.calculate_score! if finder
+  end
 end

@@ -16,9 +16,10 @@ Factory.define :user_tagging do |t|
 end
 
 Factory.define :queued_feed do |q|
-  q.feed  { Factory.create :feed }
-  q.url   { Factory.next :url }
-  q.state "parsed"
+  #q.feed  { Factory.create :feed }
+  q.podcast { Factory.create :podcast }
+  q.url     { Factory.next :url }
+  q.state   "parsed"
 end
 
 Factory.define :feed do |f|
@@ -30,17 +31,28 @@ end
 
 Factory.define :podcast, :class => Podcast do |p|
   p.site  { Factory.next :site }
-  p.feeds { [Factory.create(:feed, :content => nil)] }
+  # p.feeds { [Factory.create(:feed, :content => nil)] }
   p.clean_url { Factory.next :title }
   p.owner_email { Factory.next :email }
+
+  # new attrs taken from Feed during Podcast/Feed merge
+  p.url { "#{Factory.next :site}/feed.xml" }
+  p.xml ""
+  p.bitrate 64
+  p.xml_title { Factory.next :title }
 end
 
 Factory.define :parsed_podcast, :class => Podcast do |p|
   p.site  { Factory.next :site }
-  p.feeds {|a| [Factory.create(:feed, :url => "#{a.site}/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read)] }
+#  p.feeds {|a| [Factory.create(:feed, :url => "#{a.site}/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read)] }
   p.owner_email { Factory.next :email }
 
+  # new attrs taken from Feed uring Podcast/Feed merge
   p.clean_url { Factory.next :title }
+  p.url { "#{Factory.next :site}/feed.xml" }
+  p.xml ""
+  p.bitrate 64
+  p.title { Factory.next :title }
 end
 
 Factory.define :episode do |e|

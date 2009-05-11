@@ -3,10 +3,10 @@ root_path = File.join(File.dirname(__FILE__), '..')
 require "#{root_path}/config/environment.rb"
 
 if(ARGV[0])
-  feed = Feed.find(ARGV[0])
+  podcast = Podcast.find(ARGV[0])
   begin
-    puts "Getting episodes for #{feed.podcast.title}"
-    FeedProcessor.process(QueuedFeed.find_by_url(feed.url))
+    puts "Getting episodes for #{podcast.title}"
+    PodcastProcessor.process(QueuedFeed.find_by_url(podcast.url))
   rescue Exception => e
     puts "There was a problem: #{e.message}"
   end
@@ -16,8 +16,8 @@ end
 
 QueuedFeed.parsed.each do |qf|
   begin
-    puts "Getting episodes for #{qf.feed.podcast.title}"
-    FeedProcessor.process(qf)
+    puts "Getting episodes for #{qf.podcast.title}"
+    PodcastProcessor.process(qf)
   rescue Exception => e
     puts "There was a problem: #{e.message}"
   end

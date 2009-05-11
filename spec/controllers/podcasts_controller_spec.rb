@@ -5,7 +5,7 @@ describe PodcastsController do
   describe "handling GET /all.xml" do
     before(:each) do
       qf = Factory.create(:queued_feed)
-      mod_and_run_feed_processor(qf)
+      mod_and_run_podcast_processor(qf)
       @podcast = qf.feed.podcast
     end
 
@@ -32,7 +32,7 @@ describe PodcastsController do
   describe "handling GET /" do
     before(:each) do
       qf = Factory.create(:queued_feed)
-      mod_and_run_feed_processor(qf)
+      mod_and_run_podcast_processor(qf)
       @podcast = qf.feed.podcast
     end
 
@@ -59,7 +59,7 @@ describe PodcastsController do
   describe "handling GET /:podcast_slug" do
     before(:each) do
       qf = Factory.create(:queued_feed)
-      mod_and_run_feed_processor(qf)
+      mod_and_run_podcast_processor(qf)
       @podcast = qf.feed.podcast
     end
 

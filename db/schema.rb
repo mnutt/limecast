@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090501160126) do
+ActiveRecord::Schema.define(:version => 20090507172652) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -63,12 +63,12 @@ ActiveRecord::Schema.define(:version => 20090501160126) do
     t.integer  "podcast_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                                   :default => "pending"
+    t.string   "state",                                 :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
-    t.text     "xml",               :limit => 2147483647
-    t.integer  "ability",                                 :default => 0
+    t.text     "xml",               :limit => 16777215
+    t.integer  "ability",                               :default => 0
     t.integer  "owner_id"
     t.string   "owner_email"
     t.string   "owner_name"
@@ -101,6 +101,21 @@ ActiveRecord::Schema.define(:version => 20090501160126) do
     t.boolean  "button_installed"
     t.boolean  "protected",            :default => false
     t.integer  "favorites_count",      :default => 0
+    t.string   "url"
+    t.string   "itunes_link"
+    t.string   "state",                :default => "pending"
+    t.integer  "bitrate"
+    t.integer  "finder_id"
+    t.string   "format"
+    t.text     "xml"
+    t.integer  "ability",              :default => 0
+    t.string   "generator"
+    t.string   "xml_title"
+    t.string   "description"
+    t.string   "language"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.string   "logo_file_size"
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
@@ -114,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20090501160126) do
     t.integer  "feed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "podcast_id"
   end
 
   create_table "recommendations", :force => true do |t|
@@ -191,6 +207,7 @@ ActiveRecord::Schema.define(:version => 20090501160126) do
     t.string   "content_type_from_disk"
     t.string   "content_type_from_feed"
     t.datetime "published_at"
+    t.integer  "podcast_id"
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

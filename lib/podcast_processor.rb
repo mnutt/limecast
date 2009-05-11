@@ -1,4 +1,4 @@
-class FeedProcessor
+class PodcastProcessor
   class BannedFeedException     < Exception; def message; "This feed site is not allowed." end end
   class InvalidAddressException < Exception; def message; "That's not a web address." end end
   class NoEnclosureException    < Exception; def message; "That's a text RSS feed, not an audio or video podcast." end end
@@ -15,7 +15,7 @@ class FeedProcessor
   #     @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
   #   end
 
-  attr_accessor :feed
+  attr_accessor :podcast
 
   def self.process(queued_feed)
     self.new(queued_feed).process
@@ -27,7 +27,7 @@ class FeedProcessor
 
   def process
     ActiveRecord::Base.transaction do
-      @feed = @qf.feed || Feed.create(:url => @qf.url)
+      @podcast = @qf.podcast || Podcast.new(:url => @qf.url)
 
       if invalid_address?
         @state = "invalid_address"
@@ -76,14 +76,14 @@ class FeedProcessor
     end
 
     log_failed(exception)
-    PodcastMailer.deliver_failed_feed(@feed, exception)
+    PodcastMailer.deliver_failed_queued_feed(@qf, exception)
     # We saved the duplicate feed id to a variable so that we could point this feed to the correct one
-    @qf.update_attributes(:state => @state || 'failed', :feed_id => @duplicate_feed_id, :error => exception.class.to_s)
+    @qf.update_attributes(:state => @state || 'failed', :podcast_id => @duplicate_podcast_id, :error => exception.class.to_s)
   end
 
   def log_failed(exception)
     stored_exception = {
-      :feed => @qf.url,
+      :podcast => @qf.url,
       :klass => exception.class.to_s,
       :message => exception.to_s,
       :backtrace => exception.backtrace
@@ -107,17 +107,28 @@ class FeedProcessor
   end
 
   def update_podcast!
-    @feed.podcast ||= Podcast.find_or_initialize_by_site(@rpodcast_feed.link)
+    @podcast.finder = @qf.user if @qf.user
+    @podcast.update_attributes!(
+      :bitrate     => @rpodcast_feed.bitrate.nearest_multiple_of(64),
+      :generator   => @rpodcast_feed.generator,
+      :ability     => ABILITY,
+      :xml         => @content,
+      :owner_email => @rpodcast_feed.owner_email,
+      :owner_name  => @rpodcast_feed.owner_name,
+      :xml_title   => @rpodcast_feed.title,
+      :description => @rpodcast_feed.summary,
+      :language    => @rpodcast_feed.language,
+      :owner_email => @rpodcast_feed.owner_email,
+      :owner_name  => @rpodcast_feed.owner_name,
+      :site        => @rpodcast_feed.link
+    )
+    @podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
 
-    if @feed.podcast.primary_feed.nil? || @feed.primary?
-      @feed.podcast.update_attributes!(
-        :owner_email    => @rpodcast_feed.owner_email,
-        :owner_name     => @rpodcast_feed.owner_name,
-        :site           => @rpodcast_feed.link,
-        :title          => (@feed.podcast.title.blank? ? @rpodcast_feed.title : @feed.podcast.title)
-      )
-      @feed.update_attribute(:podcast, @feed.podcast) if @feed.podcast_id.blank?
-    end
+    @qf.update_attributes(
+      :podcast_id => @podcast.id,
+      :error      => '',
+      :state      => 'parsed'
+    )
   end
 
   def update_tags!
@@ -128,16 +139,16 @@ class FeedProcessor
     tags << "torrent" if @rpodcast_feed.torrent?
     tags << "creativecommons" if @rpodcast_feed.creative_commons?
     tags << "explicit" if @rpodcast_feed.explicit?
-    @feed.podcast.tag_string = tags.join(" "), (@feed.podcast.owner || @qf.user)
+    @podcast.tag_string = tags.join(" "), (@podcast.owner || @qf.user)
   end
 
   def update_episodes!
-    @feed.sources.update_all :archived => true
+    @podcast.sources.update_all :archived => true
 
     @rpodcast_feed.episodes.each do |e|
       # XXX: Definitely need to figure out something better for this.
-      episode = @feed.podcast.episodes.find_or_initialize_by_title(e.title)
-      source = @feed.sources.find_or_initialize_by_guid_and_episode_id(e.guid, episode.id)
+      episode = @podcast.episodes.find_or_initialize_by_title(e.title)
+      source = @podcast.sources.find_or_initialize_by_guid_and_episode_id(e.guid, episode.id)
 
       episode.update_attributes(
         :summary      => e.summary,
@@ -161,25 +172,26 @@ class FeedProcessor
     end
   end
 
+  # can we move this into update_podcast!
   def update_feed!
-    @feed.finder_id = @qf.user_id if @qf.user_id
-    @feed.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
-    @feed.update_attributes(
-      :bitrate     => @rpodcast_feed.bitrate.nearest_multiple_of(64),
-      :generator   => @rpodcast_feed.generator,
-      :ability     => ABILITY,
-      :xml         => @content,
-      :owner_email => @rpodcast_feed.owner_email,
-      :owner_name  => @rpodcast_feed.owner_name,
-      :title       => @rpodcast_feed.title,
-      :description => @rpodcast_feed.summary,
-      :language    => @rpodcast_feed.language
-    )
-    @qf.update_attributes(
-      :feed_id => @feed.id,
-      :error   => '',
-      :state   => 'parsed'
-    )
+    # @podcast.finder_id = @qf.user_id if @qf.user_id
+    # @podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
+    # @podcast.update_attributes(
+    #   :bitrate     => @rpodcast_feed.bitrate.nearest_multiple_of(64),
+    #   :generator   => @rpodcast_feed.generator,
+    #   :ability     => ABILITY,
+    #   :xml         => @content,
+    #   :owner_email => @rpodcast_feed.owner_email,
+    #   :owner_name  => @rpodcast_feed.owner_name,
+    #   :title       => @rpodcast_feed.title,
+    #   :description => @rpodcast_feed.summary,
+    #   :language    => @rpodcast_feed.language
+    # )
+    # @qf.update_attributes(
+    #   :podcast_id => @podcast.id,
+    #   :error      => '',
+    #   :state      => 'parsed'
+    # )
   end
 
   protected
@@ -202,11 +214,11 @@ class FeedProcessor
 
   def duplicate_feed?
     @rpodcast_feed.episodes.each do |e|
-      episode = @feed.podcast.episodes.find_by_title(e.title) || @feed.podcast.episodes.new
-      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:feed => @feed)
+      episode = @podcast.episodes.find_by_title(e.title) || @podcast.episodes.new
+      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:podcast => @podcast)
 
-      if source.feed != @feed
-        @duplicate_feed_id = source.feed_id
+      if source.podcast != @podcast
+        @duplicate_podcast_id = source.podcast_id
         return true
       end
     end

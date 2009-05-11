@@ -3,18 +3,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Podcast do
   before do
     @user    = Factory.create(:user, :login => "podcast_spec_user")
-    @podcast = Factory.create(:podcast, :feeds => [Factory.create(:feed, :content => nil, :title => "My Podcast")])
+    @podcast = Factory.create(:podcast, :xml_title => "My Podcast")
   end
 
   it "should be valid" do
     @podcast.should be_valid
-  end
-
-  it 'should have a logo' do
-    @file = PaperClipFile.new
-    @file.to_tempfile = Tempfile.new('tmp')
-    @podcast.primary_feed.attachment_for(:logo).assign(@file)
-    @podcast.logo.should_not be_nil
   end
 
   it 'should have a param with the name in it' do
@@ -249,7 +242,7 @@ describe Podcast, "permissions" do
   describe "the finder" do
     before do
       @user = Factory.create(:user)
-      @podcast = Factory.create(:parsed_podcast, :feeds => [Factory.create(:feed, :finder_id => @user.id, :url => "#{Factory.next(:site)}/feed.xml")])
+      @podcast = Factory.create(:parsed_podcast, :finder_id => @user.id, :url => "#{Factory.next(:site)}/feed.xml")
       @podcast.reload
     end
 
@@ -288,8 +281,7 @@ describe Podcast, "permissions" do
     end
 
     it 'should create the owner User if not found' do
-      @feed = Factory.create(:feed, :title => "Fooobah")
-      create_podcast = lambda { p = Podcast.create(:owner_email => 'foobar@baz.com', :feeds =>[@feed]) }
+      create_podcast = lambda { p = Factory.create(:podcast, :owner_email => 'foobar@baz.com') }
       create_podcast.should change { User.count }.by(1)
     end
   end
@@ -307,53 +299,42 @@ describe Podcast, "permissions" do
 
   describe "all editors" do
     before do
-      @primary_finder = Factory.create(:user)
-      @other_finder = Factory.create(:user)
+      @finder = Factory.create(:user)
       @admin = Factory.create(:admin_user)
-      @podcast = Factory.create(:podcast)
+      @podcast = Factory.create(:podcast, :owner_email => "the.owner@email.com", :finder_id => @finder.id)
       @owner = @podcast.owner
-      @primary_feed = @podcast.primary_feed
-      @primary_feed.update_attribute(:finder_id, @primary_finder.id)
-      @other_feed = Factory.create(:feed, :podcast_id => @podcast.id, :finder_id => @other_finder.id)
     end
 
     # Gods can edit everything
     # A user can edit himself
-    # If the podcast is not protected, the primary feed's finder can edit the podcast and its episodes
-    # If the email is confirmed, the primary feed's maker can edit the podcast and its episodes
+    # If the podcast is not protected, the podcast's finder can edit the podcast and its episodes
+    # If the email is confirmed, the podcast's maker can edit the podcast and its episodes
 
-    it "should never an unconfirmed non-primary finder" do
-      %w(passive unconfirmed confirmed).each do |state|
-        @other_finder.update_attribute(:state, state)
-        @podcast.editors.should_not include(@other_finder)
-      end
+    it "should include admins" do
+      @podcast.editors.should include(@admin)
     end
 
-    it "should include the confirmed primary feed finder" do
-      @podcast.editors.should include(@primary_finder)
+    it "should include the confirmed finder" do
+      @podcast.editors.should include(@finder)
     end
 
-    it "should not include the unconfirmed primary feed finder" do
-      @primary_finder.update_attribute(:state, :unconfirmed)
-      @podcast.editors.should include(@primary_finder)
+    it "should not include the finder" do
+      @podcast.update_attribute(:protected, true)
+      @podcast.editors.should_not include(@finder)
     end
 
-    it "should not include an passive owner" do
+    it "should not include a passive finder" do
+      @finder.update_attribute(:state, 'passive')
       @podcast.editors.should_not include(@owner)
     end
 
-    it "should not include an unconfirmed owner" do
+    it "should not include a passive owner" do
       @podcast.editors.should_not include(@owner)
     end
 
     it "should include a confirmed owner" do
-      @owner.update_attribute(:state, :confirmed)
+      @owner.update_attribute(:state, 'confirmed')
       @podcast.editors.should include(@owner)
-    end
-
-    it "should not include passive users" do
-      @owner.update_attribute(:state, :passive)
-      @podcast.editors.should_not include(@owner)
     end
   end
 end
@@ -361,8 +342,9 @@ end
 describe Podcast, "primary feed" do
   before do
     @podcast = Factory.create(:parsed_podcast)
-    @feed = @podcast.feeds.first
+    @feed = Factory.create(:feed, :state => "parsed")
     @feed2 = Factory.create(:feed, :state => "parsed")
+    @podcast.feeds << @feed
     @podcast.feeds << @feed2
   end
 
@@ -380,12 +362,12 @@ end
 
 describe Podcast, "additional badges" do
   before(:each) do
-    @podcast = Factory.create(:parsed_podcast, :feeds => [Factory.create(:feed, :content => nil, :language => 'es')])
+    @podcast = Factory.create(:parsed_podcast, :language => 'es')
   end
 
   it "should include language" do
     @podcast.additional_badges.should include('es')
-    @podcast.primary_feed.update_attribute(:language, 'jp')
+    @podcast.update_attribute(:language, 'jp')
     @podcast.additional_badges(true).should include('jp')
   end
 
@@ -422,5 +404,37 @@ describe Podcast, "taggers" do
     @podcast.tag_string = ["fromuser1", @user1]
     @podcast.tag_string = ["fromuser2", @user2]
     @podcast.reload.taggers.should == [@user1, @user2]
+  end
+end
+
+describe Podcast, "detecting LimeTracker" do
+  before do
+    @podcast = Factory.create(:podcast, :generator => "limecast.com/tracker")
+    @podcast2 = Factory.create(:podcast, :generator => "http://limecast.com/tracker")
+    @podcast3 = Factory.create(:podcast, :generator => "something else")
+  end
+
+  it "should select all LimeTracker feeds" do
+    Podcast.from_limetracker.all.should == [@podcast, @podcast2]
+  end
+end
+
+
+describe Podcast, "finding or creating owner" do
+  before do
+    @podcast = Factory.build(:podcast, :title => "FOoooooobar", :owner_email => "some.owner@here.com")
+    @save_podcast = lambda { @podcast.save }
+  end
+
+  it "should set and create the passive owner if the owner doesn't exist" do
+    @save_podcast.should change { User.all.size }.by(1)
+    @podcast.owner.should == User.last
+    @podcast.owner.should be_passive
+  end
+
+  it "should find and set the owner if owner exists" do
+    owner = Factory.create(:user, :email => @podcast.owner_email)
+    @save_podcast.should_not change { User.all.size }
+    @podcast.owner.should == owner
   end
 end

@@ -153,8 +153,8 @@ class Feed
   def download_logo(*args); end
 end
 
-def mod_and_run_feed_processor(queued_feed, mod = FetchExample)
-  fp = FeedProcessor.new(queued_feed)
+def mod_and_run_podcast_processor(queued_feed, mod = FetchExample)
+  fp = PodcastProcessor.new(queued_feed)
   fp.extend(mod)
   fp.process
 end

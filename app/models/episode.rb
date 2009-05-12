@@ -30,7 +30,8 @@ class Episode < ActiveRecord::Base
   has_many :reviews, :dependent => :destroy
   has_many :reviewers, :through => :reviews
   has_many :sources, :dependent => :destroy
-  has_one  :primary_source, :class_name => "Source", :conditions => 'sources.feed_id = #{podcast.primary_feed_id || 0}'
+  # deprecated
+  # has_one  :primary_source, :class_name => "Source", :conditions => 'sources.feed_id = #{podcast.primary_feed_id || 0}'
   has_one  :newest_source, :class_name => "Source", :order => "sources.published_at DESC"
 
   validates_presence_of :podcast_id, :published_at
@@ -44,7 +45,7 @@ class Episode < ActiveRecord::Base
   named_scope :after,  lambda {|other| {:conditions => ["published_at > ?", other.published_at]} }
   named_scope :before, lambda {|other| {:conditions => ["published_at < ?", other.published_at]} }
   named_scope :sorted, {:order => "published_at DESC"}
-  named_scope :sorted_by_bitrate_and_format, :include => [:feed], :order => "feeds.bitrate ASC, sources.format ASC"
+  named_scope :sorted_by_bitrate_and_format, :include => [:podcast], :order => "podcasts.bitrate ASC, sources.format ASC"
 
   define_index do
     indexes :title, :summary

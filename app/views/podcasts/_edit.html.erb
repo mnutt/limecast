@@ -1,5 +1,5 @@
 <div id="edit_actions" class="clearfix" style="display: none;">
-  <% if current_user.admin? && !@podcast.user_is_finder?(current_user) && !@podcast.user_is_owner?(current_user) -%>
+  <% if current_user.admin? && current_user != @podcast.finder && !@podcast.user_is_owner?(current_user) -%>
     <span class="label">I can do anything!</span>
   <% else -%>
     <span class="label">This is mine!</span>

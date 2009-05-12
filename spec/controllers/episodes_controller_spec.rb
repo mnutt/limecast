@@ -7,9 +7,8 @@ describe EpisodesController do
   before(:each) do
     @episode = Factory.create(:episode, :published_at => Time.now, :sources => [])
     @podcast = @episode.podcast
-    @feed = @podcast.feeds.first
-    @feed.extend(StopParse)
-    @source = Factory.create(:source, :episode => @episode, :feed => @feed)
+    @podcast.extend(StopParse)
+    @source = Factory.create(:source, :episode => @episode, :podcast => @podcast)
   end
 
   describe "handling GET /:podcast_slug/episodes" do
@@ -41,7 +40,7 @@ describe EpisodesController do
   describe "handling GET /:podcast_slug/episodes/search" do
     before(:each) do
       @episode2 = Factory.create(:episode, :published_at => 2.days.ago, :summary => "blah blah")
-      @source = Factory.create(:source, :episode => @episode2, :feed => @feed)
+      @source = Factory.create(:source, :episode => @episode2, :podcast => @podcast)
     end
 
     def do_get(podcast, query='')

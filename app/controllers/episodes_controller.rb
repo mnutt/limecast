@@ -7,14 +7,12 @@ class EpisodesController < ApplicationController
     @episodes = @podcast.episodes.find(:all, :include => [:podcast], :order => "published_at DESC")
     @newest_episode = @episodes.first
     @oldest_episode = @episodes.last if @episodes.size > 1
-    @feeds    = @podcast.feeds
   end
 
   def search
     @q        = params[:q]
     @podcast  = Podcast.find_by_slug(params[:podcast_slug])
     @episodes = @podcast.episodes.search(@q, :include => [:podcast]).compact.uniq.sort_by(&:published_at)
-    @feeds    = @podcast.feeds
     render :action => 'index'
   end
 
@@ -25,7 +23,6 @@ class EpisodesController < ApplicationController
     @episode = @podcast.episodes.find_by_slug(params[:episode])
     raise ActiveRecord::RecordNotFound if @episode.nil? || params[:episode].nil?
 
-    @feeds   = @podcast.feeds
     @review = Review.new(:episode => @episode)
   end
 

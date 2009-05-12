@@ -63,7 +63,7 @@ describe UserTaggingsController do
       @tagger = Factory.create(:user)
       @tag = Factory.create(:tag)
       @podcast = Factory.create(:podcast)
-      @podcast.feeds.first.update_attribute(:finder_id, Factory.create(:user).id) # setup the finder
+      @podcast.update_attribute(:finder_id, @tagger.id) # setup the finder
       @tagging = Factory.create(:tagging, :tag => @tag, :podcast => @podcast)
       @user_tagging = Factory.create(:user_tagging, :tagging => @tagging, :user => @tagger)
     end
@@ -103,7 +103,7 @@ describe UserTaggingsController do
     end
 
     it "should delete the UserTagging as finder" do
-      login(@podcast.finders.first)
+      login(@podcast.finder)
       lambda { do_delete }.should change { UserTagging.count }.by(-1)
     end
 

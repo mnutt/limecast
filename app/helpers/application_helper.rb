@@ -157,12 +157,12 @@ module ApplicationHelper
     highlight(excerpted, query.split, :highlighter => '<span class="search_term">\1</span>')
   end
 
-  # Put the primary feed/source at top (if one exists)
+  # Put the primary podcast/source at top (if one exists)
   # TODO isn't there an easier way in Ruby to do this?
-  def sorted_by_primary(feeds_or_sources=[])
-    feeds_or_sources.sort_by { |f| f.primary? ? 0 : 1 }
+  def sorted_by_primary(podcasts_or_sources=[])
+    podcasts_or_sources.sort_by { |f| f.primary? ? 0 : 1 }
   rescue
-    feeds_or_sources
+    podcasts_or_sources
   end
 
   def smart_truncate(string, length)
@@ -262,10 +262,11 @@ module ApplicationHelper
     "<span class='unknown'>?</span>"
   end
 
-  def info_feed_link(feed, ability=true)
-    [link_to("feed#{feed.id}", info_feed_url(feed.podcast, feed)), 
-     (ability ? feed.ability : nil)].join(" ")
-  end
+  # deprecated
+  # def info_feed_link(feed, ability=true)
+  #   [link_to("feed#{feed.id}", info_feed_url(feed.podcast, feed)), 
+  #    (ability ? feed.ability : nil)].join(" ")
+  # end
 
   def info_user_link(user)
     link_to(h(user.login), info_user_url(user))
@@ -274,7 +275,7 @@ module ApplicationHelper
   end
 
   def info_source_link(source, ability=true)
-    [link_to(non_blank(source.feed.formatted_bitrate) + " " + non_blank(source.feed.apparent_format), info_source_url(source.episode.podcast, source.episode, source.id)),
+    [link_to(non_blank(source.podcast.formatted_bitrate) + " " + non_blank(source.podcast.apparent_format), info_source_url(source.episode.podcast, source.episode, source.id)),
      " ", (ability ? source.ability : nil), (source.archived? ? "a" : nil)].join
   end
 

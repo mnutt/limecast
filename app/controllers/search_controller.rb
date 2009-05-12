@@ -13,10 +13,9 @@ class SearchController < ApplicationController
 
     raise ActiveRecord::RecordNotFound if instance_variable_defined?(:@podcast) && @podcast.nil?
 
-    # get all possible results from User, Tag, Feed, Episode, Review, and Podcast.
+    # get all possible results from User, Tag, Episode, Review, and Podcast.
     @user     = User.find_by_login(@parsed_q) unless @only && @only != :user
     @tag      = Tag.find_by_name(@parsed_q) unless @only && @only != :tag
-    @feeds    = (@podcast ? @podcast.feeds : Feed).search(@parsed_q).compact.uniq unless @only && @only != :feeds
     @episodes = (@podcast ? @podcast.episodes : Episode).search(@parsed_q).compact.uniq unless @only && @only != :episodes
     @reviews  = (@podcast ? Review.for_podcast(@podcast) : Review).claimed.search(@parsed_q).compact.uniq  unless @only && @only != :reviews
     @podcasts = @podcast ? [@podcast] : Podcast.search(@parsed_q).compact.uniq unless @only && @only != :podcasts
@@ -45,10 +44,10 @@ class SearchController < ApplicationController
       @tags = $2.split(',') unless $2.blank?
     end
 
-    # match Only, ex: "games only:feed" to get only feeds
+    # match Only, ex: "games only:review" to get only reviews
     def extract_only!
       @parsed_q.gsub!(/(\b)*only\:(\S*)(\b)*/i, "")
-      @only = [:feeds, :episodes, :reviews, :podcasts, :tag, :user].detect{|o| o == $2.to_sym} unless $2.blank?
+      @only = [:episodes, :reviews, :podcasts, :tag, :user].detect{|o| o == $2.to_sym} unless $2.blank?
     end
 
 end

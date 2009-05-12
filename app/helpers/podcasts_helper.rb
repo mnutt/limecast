@@ -1,10 +1,11 @@
 module PodcastsHelper
-  def rss_link(feed)
-    %{<link rel="alternate" type="application/rss+xml" title="#{feed.formatted_bitrate} #{feed.apparent_format}" href="#{feed.url}" />}
+  def rss_link(podcast)
+    return nil unless podcast
+    %{<link rel="alternate" type="application/rss+xml" title="#{podcast.formatted_bitrate} #{podcast.apparent_format}" href="#{podcast.url}" />}
   end
 
-  def rss_links(feeds)
-    (feeds || []).map {|f| rss_link(f) }
+  def rss_links(podcasts)
+    (podcasts || []).map {|p| rss_link(p) }
   end
 
   def paginate_podcasts(podcasts)

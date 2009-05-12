@@ -16,6 +16,7 @@ Factory.define :user_tagging do |t|
 end
 
 Factory.define :queued_feed do |q|
+  # deprecated
   #q.feed  { Factory.create :feed }
   q.podcast { Factory.create :podcast }
   q.url     { Factory.next :url }
@@ -31,6 +32,7 @@ end
 
 Factory.define :podcast, :class => Podcast do |p|
   p.site  { Factory.next :site }
+  # deprecated
   # p.feeds { [Factory.create(:feed, :content => nil)] }
   p.clean_url { Factory.next :title }
   p.owner_email { Factory.next :email }
@@ -44,6 +46,7 @@ end
 
 Factory.define :parsed_podcast, :class => Podcast do |p|
   p.site  { Factory.next :site }
+# deprecated
 #  p.feeds {|a| [Factory.create(:feed, :url => "#{a.site}/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read)] }
   p.owner_email { Factory.next :email }
 

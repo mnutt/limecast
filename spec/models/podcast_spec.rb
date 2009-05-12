@@ -133,6 +133,23 @@ describe Podcast, "cleaning up the title" do
   end
 end
 
+describe Podcast, "with duplicate titles" do
+  before do 
+    @podcast = Factory.create(:podcast, :xml_title => "Spectacular Spectacular")
+    @podcast2 = Factory.create(:podcast, :xml_title => "Spectacular Spectacular")
+  end
+
+  it 'should increment the title' do
+    @podcast.title.should == "Spectacular Spectacular"
+    @podcast2.title.should == "Spectacular Spectacular 2"
+  end
+  
+  it 'should increment the url as well' do
+    @podcast.clean_url.should == "Spectacular-Spectacular"
+    @podcast2.clean_url.should == "Spectacular-Spectacular-2"
+  end
+end
+
 describe Podcast, "generating the clean url" do
   before do
     @podcast = Factory.create(:parsed_podcast)

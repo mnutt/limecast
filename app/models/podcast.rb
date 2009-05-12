@@ -152,14 +152,31 @@ class Podcast < ActiveRecord::Base
     Podcast.all.select { |p| !p.found_by || !p.found_by.admin? }
   end
 
+  def apparent_format
+    sources.first.attributes['format'].to_s unless sources.blank?
+  end
+
+  def apparent_resolution
+    sources.first.resolution unless sources.blank?
+  end
+
+  # takes the name of the Podcast url (ie "http://me.com/feeds/quicktime-small" -> "Quicktime Small")
+  def apparent_format_long
+    url.split("/").last.titleize
+
+    # Uncomment this to get the official format from the Source extension
+    # ::FileExtensions::All[apparent_format.intern]
+  end
+  
+  def formatted_bitrate
+    self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
+  end
+
   # XXX: Write spec for this
   def blacklist!
-    self.feeds.each do |f|
-    Blacklist.create(:domain => f.url)
-      f.update_attributes(:state => "blacklisted")
-    end
-
-    self.destroy
+    Blacklist.create(:domain => url)
+    update_attributes(:state => "blacklisted")
+    destroy
   end
 
   # All taggings that are either badges or tags that have been user_tagging'ed.
@@ -249,14 +266,6 @@ class Podcast < ActiveRecord::Base
     owner.id == user.id
   end
 
-  def user_is_finder?(user)
-    self.feeds && self.feeds.map{|f| f.finder_id}.include?(user.id)
-  end
-
-  def finders
-    self.feeds.map { |f| f.finder }.compact
-  end
-
  # An array of users that tagged this podcast
  def taggers
    taggings.map { |t| t.users }.flatten.compact.uniq
@@ -343,8 +352,8 @@ class Podcast < ActiveRecord::Base
     self.title.strip!              # Remove leading and trailing space
 
     # Increment the name until it's unique
-    self.title = "#{title} 1" if Podcast.exists?(["title = ? AND id != ?", title, id])
-    self.title.next! while Podcast.exists?(["title = ? AND id != ?", title, id])
+    self.title = "#{title} 2" if Podcast.exists?(["title = ? AND id != ?", title, id.to_i])
+    self.title.next! while Podcast.exists?(["title = ? AND id != ?", title, id.to_i])
 
     add_message "There was another podcast with the same title, so we have suggested a new title." if title != desired_title
 
@@ -356,13 +365,11 @@ class Podcast < ActiveRecord::Base
       self.clean_url = self.title.to_s.clone.strip # Remove leading and trailing spaces
       self.clean_url.gsub!(/[^A-Za-z0-9\s-]/, "")  # Remove all non-alphanumeric non-space non-hyphen characters
       self.clean_url.gsub!(/\s+/, '-')             # Condense spaces and turn them into dashes
-      self.clean_url.gsub!(/\-{2,}/, '-')                     # Replaces multiple sequential hyphens with one hyphen
+      self.clean_url.gsub!(/\-{2,}/, '-')          # Replaces multiple sequential hyphens with one hyphen
 
       i = 1 # Number to attach to the end of the title to make it unique
-      while(Podcast.exists?(["clean_url = ? AND id != ?", clean_url, id]))
-        self.clean_url.chop!.chop! unless i == 1
-        self.clean_url = "#{clean_url}-#{i += 1}"
-      end
+      self.clean_url = "#{clean_url}-2" if Podcast.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
+      self.clean_url.next! while Podcast.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
 
       add_message "The podcast url has changed." if clean_url_changed?
     end

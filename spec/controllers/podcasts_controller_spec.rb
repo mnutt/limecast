@@ -6,7 +6,7 @@ describe PodcastsController do
     before(:each) do
       qf = Factory.create(:queued_feed)
       mod_and_run_podcast_processor(qf)
-      @podcast = qf.feed.podcast
+      @podcast = qf.podcast
     end
 
     def do_get
@@ -33,7 +33,7 @@ describe PodcastsController do
     before(:each) do
       qf = Factory.create(:queued_feed)
       mod_and_run_podcast_processor(qf)
-      @podcast = qf.feed.podcast
+      @podcast = qf.podcast
     end
 
     def do_get
@@ -60,7 +60,7 @@ describe PodcastsController do
     before(:each) do
       qf = Factory.create(:queued_feed)
       mod_and_run_podcast_processor(qf)
-      @podcast = qf.feed.podcast
+      @podcast = qf.podcast
     end
 
     def do_get
@@ -140,25 +140,11 @@ describe PodcastsController do
 
       before(:each) do
         @user = Factory.create(:user)
-        @feed = Factory.create(:feed, :state => 'parsed')
-        @podcast = Factory.create(:parsed_podcast, :feeds => [@feed], :owner_email => @user.email, :owner_id => @user.id)
+        @podcast = Factory.create(:parsed_podcast, :state => 'parsed', :owner_email => @user.email, :owner_id => @user.id)
 
         Podcast.stub!(:find_by_slug).and_return(@podcast)
         @podcast.should_receive(:writable_by?).and_return(true)
         login(@user)
-      end
-
-      it "should add a new feed (via nested form attributes)" do
-        # the nested attributes should build a new association model for every hash that doesn't have an id
-        url = "http://#{@podcast.clean_site}/newfeed.xml"
-        podcast_with_nested_attrs = {'feeds_attributes' => {'new' => {"url" => url}}}
-        lambda { do_put(podcast_with_nested_attrs) }.should change{ @podcast.reload.feeds.size }.by(1)
-        @podcast.feeds.find_by_url(url).finder.should == @user
-      end
-
-      it "should delete a podcast if the last feed is deleted (via nested form attributes)" do
-        podcast_with_nested_attrs = {'feeds_attributes' => {"0" => {"id" => @podcast.feeds.first.id.to_s, "_delete" => "1"}}}
-        lambda { do_put(podcast_with_nested_attrs) }.should change{ Feed.count + Podcast.count }.by(-2)
       end
 
       it "should delete a podcast (via nested form attributes)" do
@@ -179,11 +165,6 @@ describe PodcastsController do
       it "should redirect to the podcasts list" do
         do_put
         response.should redirect_to(podcast_url(:podcast_slug => @podcast))
-      end
-
-      it "should make a feed the primary feed" do
-        do_put(:primary_feed_id => @feed.id)
-        @podcast.reload.primary_feed.should == @feed
       end
 
       it "should add a user tagging for tag 'good'" do
@@ -213,7 +194,7 @@ describe PodcastsController do
 
       before(:each) do
         @user = Factory.create(:user)
-        @podcast = Factory.create(:podcast, :feeds => [Factory.create(:feed, :finder => @user)], :owner_email => "test@example.com")
+        @podcast = Factory.create(:podcast, :finder => @user, :owner_email => "test@example.com")
         login(@user)
 
         put :update, :podcast_slug => @podcast.clean_url, :podcast => {:owner_email => "malicious@example.com"}
@@ -279,4 +260,195 @@ describe PodcastsController do
       end
     end
   end
+
+
+
+
+
+
+
+
+  # specs taken from FeedControllerSpec
+  describe "handling GET /add" do
+    def do_get
+      get :new
+    end
+
+    it "should be successful" do
+      do_get
+      response.should be_success
+    end
+
+    it "should render new template" do
+      do_get
+      response.should render_template('new')
+    end
+
+    it "should assign the new podcast" do
+      do_get
+      assigns[:podcast].should be_new_record
+    end
+  end
+
+  describe "handling POST /podcasts when not logged in" do
+    before(:each) do
+      post :create, :podcast => {:url => "http://example.com/podcast/feed.xml"}
+    end
+
+    it 'should save an unclaimed feed' do
+      assigns[:queued_feed].should be_kind_of(QueuedFeed)
+      assigns[:queued_feed].should_not be_new_record
+      assigns[:queued_feed].user.should be_nil
+      QueuedFeed.unclaimed.should include(assigns[:queued_feed])
+    end
+
+    it 'should add the feed to the session' do
+      session[:unclaimed_records]['QueuedFeed'].should include(assigns[:queued_feed].id)
+    end
+
+    it 'should not associate the feed with a user' do
+      assigns[:queued_feed].user.should be_nil
+    end
+  end
+
+  describe "handling POST /podcasts when logged in" do
+    before(:each) do
+      @user = Factory.create(:user)
+      login(@user)
+      post :create, :podcast => {:url => "http://example.com/podcast/feed.xml"}
+    end
+
+    it 'should save the feed' do
+      assigns(:queued_feed).should be_kind_of(QueuedFeed)
+      assigns(:queued_feed).should_not be_new_record
+    end
+
+    it 'should associate the feed with the user' do
+      assigns(:queued_feed).user.should == @user
+    end
+
+    it 'should create a feed' do
+      assigns(:queued_feed).should be_kind_of(QueuedFeed)
+      assigns(:queued_feed).url.should == "http://example.com/podcast/feed.xml"
+    end
+  end
+
+  describe "POST /status" do
+    describe "for a podcast that has not yet been parsed" do
+      before(:each) do
+        @queued_feed = Factory.create(:queued_feed, :state => nil, :feed => nil)
+        post :status, :podcast => @queued_feed.url
+      end
+
+      it 'should render the loading template' do
+        response.should render_template('podcasts/_status_loading')
+      end
+    end
+
+    describe "for a podcast that has been parsed" do
+      before(:each) do
+        @podcast = Factory.create(:podcast)
+        @queued_feed = Factory.create(:queued_feed, :podcast => @podcast)
+
+        controller.should_receive(:queued_feed_created_just_now_by_user?).and_return(true)
+
+        post :status, :podcast => @queued_feed.url
+      end
+
+      it 'should render the added template' do
+        response.should render_template('podcasts/_status_added')
+      end
+    end
+
+    describe "for a podcast that has failed" do
+      describe "because it was not a web address" do
+        before(:each) do
+          @podcast = Factory.create(:podcast)
+          @queued_feed = Factory.create(:queued_feed, :podcast => @podcast, :state => "failed")
+
+          post :status, :podcast => @queued_feed.url
+        end
+
+        it 'should render the error template' do
+          response.should render_template('podcasts/_status_error')
+        end
+      end
+
+      describe "because it was not found" do
+      end
+
+      describe "because it had a weird server error" do
+      end
+
+      describe "because it is on the blacklist" do
+      end
+
+      describe "because it is not an RSS feed" do
+      end
+
+      describe "because it is a text feed" do
+      end
+    end
+  end
+
+  describe "PUT /podcasts (update)'" do
+    describe "when the user is logged in" do
+      before do
+        @user = Factory.create(:user)
+        @podcast = Factory.create(:podcast, :finder => @user, :format => "ipod")
+
+        login(@user)
+        put 'update', :podcast_slug => @podcast.to_param, :podcast => {:format => "quicktime hd"}
+      end
+
+      it "should update the feed" do
+        @podcast.reload.format.should == "quicktime hd"
+      end
+
+      it "should redirect to the podcast" do
+        response.should redirect_to(podcast_url(@podcast))
+      end
+    end
+
+    describe "when the user is unauthorized" do
+      it "should not update the podcast" do
+        @podcast = Factory.create(:podcast, :format => "ipod")
+        put 'update', :podcast_slug => @podcast, :podcast => {:format => "quicktime hd"}
+        response.should redirect_to('/')
+        @podcast.reload.format.should == "ipod"
+      end
+    end
+  end
+
+  describe "DELETE /:podcast_slug (destroy)" do
+    describe "when user is logged in" do
+      before do
+        @user = Factory.create(:user)
+        @podcast = Factory.create(:podcast, :finder => @user)
+
+        login(@user)
+        @destroy_podcast = lambda { delete :destroy, :podcast_slug => @podcast.clean_url }
+      end
+
+      it "should remove the podcast" do
+        @destroy_podcast.should change(Podcast, :count).by(-1)
+      end
+
+      it 'should redirect to all podcasts' do
+        @destroy_podcast.call
+        response.should redirect_to(podcasts_url)
+      end
+    end
+
+    describe "when user is unauthorized" do
+      it 'should not delete the podcast' do
+        @podcast = Factory.create(:podcast)
+        lambda { 
+          delete :destroy, :podcast_slug => @podcast.clean_url 
+        }.should_not change(Podcast, :count)
+        response.should redirect_to('/')
+      end
+    end
+  end
 end
+

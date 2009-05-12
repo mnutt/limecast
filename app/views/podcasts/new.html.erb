@@ -1,5 +1,5 @@
 <% @title = "Add Podcast" -%>
-<% javascript_include "feeds_new" -%>
+<% javascript_include "podcasts_new" -%>
 <% @full_width = true -%>
 <% @classes = %{show addpage} -%>
 <div class="summary">
@@ -12,14 +12,14 @@
   <div id="added_podcast_list"></div>
   
 
-  <form method="post" id="new_feed" action="/feeds">
+  <form method="post" id="new_podcast" action="/podcasts">
     <% if protect_against_forgery? -%>
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token -%>" />
     <% end -%>
  
     <div>
-      <label for="feed_url" style="display: none;">http://example.com/rss.xml</label>
-      <input type="text" class="text" id="feed_url" name="feed[url]" />
+      <label for="podcast_url" style="display: none;">http://example.com/rss.xml</label>
+      <input type="text" class="text" id="podcast_url" name="podcast[url]" />
       <button type="submit" class="addme">
         <span>Feed me!</span>
       </button>
@@ -38,7 +38,7 @@
 
     </form>
     <div class="status">
-      <%= render :partial => 'feeds/status_loading' -%>
+      <%= render :partial => 'podcasts/status_loading' -%>
     </div>
   </div>
 </div>

@@ -3,7 +3,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :categories
   map.resources :reviews, :path_prefix => '/:podcast_slug'
   map.resources :episodes
-  map.resources :feeds
+  #  map.resources :feeds   # deprecated 
+
   
   map.admin '/admin', :controller => 'admin', :action => 'index'
   map.namespace :admin do |admin|
@@ -30,14 +31,14 @@ ActionController::Routing::Routes.draw do |map|
     info.root                    :controller => 'home',  :action => 'info'
     info.stats      '/stats',    :controller => 'home',  :action => 'stats'
     info.stats      '/use',      :controller => 'home',  :action => 'usage' # use() is already used by the ToS page
-    info.ihash      '/hash',     :controller => 'feeds', :action => 'hash'
-    info.add        '/add',      :controller => 'feeds', :action => 'add'
+    info.ihash      '/hash',     :controller => 'podcasts', :action => 'hash'
+    info.add        '/add',      :controller => 'podcasts', :action => 'add'
     info.icons      '/icons',    :controller => 'home',  :action => 'icons'
     info.tags       '/tags',     :controller => 'tags',  :action => 'index'
     info.tag        '/tag/:tag', :controller => 'tags',  :action => 'show'
     info.user       '/users', :controller => 'users', :action => 'index'
     info.user       '/user/:user_slug', :controller => 'users', :action => 'show'
-    info.feed       '/:podcast_slug/feed/:id', :controller => 'feeds', :action => 'show'
+    info.feed       '/:podcast_slug/feed/:id', :controller => 'podcasts', :action => 'show'
     info.review     '/:podcast_slug/reviews/:id', :controller => 'reviews', :action => 'show'
     info.episode    '/:podcast_slug/:episode', :controller => 'episodes', :action => 'show'
     info.source     '/:podcast_slug/:episode/:id', :controller => 'sources', :action => 'show'
@@ -63,9 +64,6 @@ ActionController::Routing::Routes.draw do |map|
     u.user            '/user/:user_slug',           :action => 'update', :conditions => {:method => :put}
   end
 
-  map.add_feed    '/add',         :controller => 'feeds',      :action => 'new'
-  map.status      '/status',      :controller => 'feeds',      :action => 'status'
-
   map.with_options :controller => 'home' do |h|
     h.root                        :action => 'home'
     h.use         '/use',         :action => 'use'
@@ -79,6 +77,9 @@ ActionController::Routing::Routes.draw do |map|
     p.all              '/all',                      :action => 'index'
     p.popular          '/popular.:format',          :action => 'popular'
     p.recently_updated '/recently_updated.:format', :action => 'recently_updated'
+    p.add              '/add',                      :action => 'new'
+    p.status           '/status',                   :action => 'status'
+    p.podcast          '/podcasts',                 :action => 'create',  :conditions => {:method => :post}
     p.podcast          '/:podcast_slug',            :action => 'destroy', :conditions => {:method => :delete}
     p.podcast          '/:podcast_slug',            :action => 'show',    :conditions => {:method => :get}
     p.podcast          '/:podcast_slug',            :action => 'update',  :conditions => {:method => :put}
@@ -95,7 +96,7 @@ ActionController::Routing::Routes.draw do |map|
     r.rate_review '/:podcast_slug/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
   end
 
-  map.with_options :controller => 'feeds' do |f|
+  map.with_options :controller => 'podcasts' do |f|
     f.plain_feed   '/plain_feeds/:id.xml',   :action => 'show', :type => :plain
     f.magnet_feed  '/magnet_feeds/:id.xml',  :action => 'show', :type => :magnet
     f.torrent_feed '/torrent_feeds/:id.xml', :action => 'show', :type => :torrent

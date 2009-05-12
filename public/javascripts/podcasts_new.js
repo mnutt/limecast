@@ -1,20 +1,20 @@
 $(document).ready(function(){
-  $('form#new_feed').submit(function(){
+  $('form#new_podcast').submit(function(){
 
     var poll_for_status = function(response) {
-      var feed_url = $('#feed_url').attr('value');
+      var podcast_url = $('#podcast_url').attr('value');
 
       // clone the disabled form and append it
       var form_clone = $('#added_podcast').clone();
       form_clone.attr('id', null);
       form_clone.find('input[type=submit]').attr('disabled', 'disabled').unbind('click');
-      form_clone.find('.text').attr('value', feed_url);
+      form_clone.find('.text').attr('value', podcast_url);
       form_clone.show();
       $('#added_podcast_list').append(form_clone);
 
       // reset the form
-      $('#new_feed').hide();
-      $('#feed_url').unbind().val("").blur(); // unbind the jquery.default-text.js stuff, set val to empty, and blur it so focus works
+      $('#new_podcast').hide();
+      $('#podcast_url').unbind().val("").blur(); // unbind the jquery.default-text.js stuff, set val to empty, and blur it so focus works
 
       // FIX
       // if($('#inline_signin'))
@@ -27,12 +27,12 @@ $(document).ready(function(){
           form_clone.find('.status').html(response);
           if(/finished/g.test(response)) {
             controller.stop();
-            $('#new_feed').show();
-            $('#feed_url').focus();
+            $('#new_podcast').show();
+            $('#podcast_url').focus();
           } else if(periodic_count > 20) {
             controller.stop();
-            $('#new_feed').show();
-            $('#feed_url').focus();
+            $('#new_podcast').show();
+            $('#podcast_url').focus();
             form_clone.find('.status').html('<p class="status_message">Timeout error. Please try again.</p>');
           }
         };
@@ -40,7 +40,7 @@ $(document).ready(function(){
         $.ajax({
           url:      '/status',
           type:     'post',
-          data:     {feed: feed_url},
+          data:     {podcast: podcast_url},
           dataType: 'html',
           success:  callback,
           error:    callback
@@ -54,7 +54,7 @@ $(document).ready(function(){
       data:     $(this).serialize(),
       dataType: 'script',
       type:     'post',
-      url:      '/feeds',
+      url:      '/podcasts',
       success:  poll_for_status
     });
     // Keep form from submitting

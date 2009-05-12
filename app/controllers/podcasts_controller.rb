@@ -1,4 +1,5 @@
 class PodcastsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => :status
   before_filter :login_required, :only => [:edit, :update, :destroy]
 
   # GET /all.xml
@@ -33,6 +34,12 @@ class PodcastsController < ApplicationController
     end
   end
 
+  # GET /add
+  def new
+    @podcast = Podcast.new
+  end
+
+  # GET /:podcast_slug
   def show
     @podcast ||= Podcast.find_by_slug(params[:podcast_slug])
 
@@ -44,6 +51,48 @@ class PodcastsController < ApplicationController
     @review   = Review.new(:episode => @newest_episode)
   end
 
+  # GET /:podcast_slug
+  def status
+    @queued_feed = QueuedFeed.find_by_url(params[:podcast])
+    @podcast     = @queued_feed.podcast if @queued_feed
+
+    # See http://wiki.limewire.org/index.php?title=LimeCast_Add#Messages
+    # Unexpected errors
+    if @queued_feed.nil?
+      render :partial => 'status_error'
+    # Successes
+    elsif @podcast && @queued_feed.parsed? && queued_feed_created_just_now_by_user?(@queued_feed)
+      render :partial => 'status_added'
+    elsif @podcast && @queued_feed.parsed?
+      render :partial => 'status_conflict'
+    # Progress
+    elsif @queued_feed.pending?
+      render :partial => 'status_loading'
+    # Expected errors
+    elsif !@queued_feed.failed?
+      render :partial => 'status_failed'
+    # Really unexpected errors
+    else
+      render :partial => 'status_error'
+    end
+  end
+  
+  # POST /podcasts?url=...
+  def create
+    @queued_feed = QueuedFeed.find_or_initialize_by_url(params[:podcast][:url])
+
+    if @queued_feed.new_record?
+      @queued_feed.save
+      remember_unclaimed_record(@queued_feed)
+    else
+      @queued_feed.save
+    end
+
+    render :nothing => true
+  end
+
+  
+  # DELETE /:podcast_slug
   def destroy
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
     authorize_write @podcast
@@ -68,17 +117,11 @@ class PodcastsController < ApplicationController
 
     # Set user-specific Podcast attributes if necessary
     params[:podcast][:tag_string] = [params[:podcast][:tag_string], current_user] if params[:podcast][:tag_string]
-    params[:podcast][:feeds_attributes].each do |key,value|
-      unless params[:podcast][:feeds_attributes][key].has_key?('id')
-        params[:podcast][:feeds_attributes][key][:finder_id] = current_user.id
-      end
-    end if params[:podcast][:feeds_attributes].respond_to?(:each)
 
     @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, :protected,
-                                                      :tag_string, :feeds_attributes, :title, :primary_feed_id])
+                                                      :tag_string, :title, :format])
 
 
-    @podcast.feeds
     respond_to do |format|
       if @podcast.save
         format.html do
@@ -109,4 +152,19 @@ class PodcastsController < ApplicationController
       format.js { render :json => {:logged_in => logged_in?} }
     end
   end
+
+
+  protected
+
+    def queued_feed_in_session?(queued_feed)
+      has_unclaimed_record?(QueuedFeed, lambda {|i| i.id == queued_feed.id })
+    end
+
+    def queued_feed_created_by_user?(queued_feed)
+      queued_feed_in_session?(queued_feed) or queued_feed.user == current_user
+    end
+
+    def queued_feed_created_just_now_by_user?(queued_feed)
+      queued_feed_created_by_user?(queued_feed) && queued_feed.created_at > 2.minutes.ago
+    end
 end

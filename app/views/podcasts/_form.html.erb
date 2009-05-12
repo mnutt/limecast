@@ -8,7 +8,7 @@
 </div>  
 <div class="field">
   <%= podcast_form.check_box :protected %>
-  <%= podcast_form.label :protected, "Only let the user whose email is in the primary feed in here" %>
+  <%= podcast_form.label :protected, "Only let the maker edit" %>
 </div>
 <div class="field">
   <%= podcast_form.check_box :has_previews %>
@@ -22,32 +22,3 @@
   <%= podcast_form.check_box :_delete %>
   <%= podcast_form.label :_delete, 'Delete podcast' %>
 </div>
-
-<br />
-<label><strong>Feeds &ndash; <%= link_to "add more", add_feed_url %></strong></label>
-<% podcast.feeds.sorted_by_bitrate_and_format.each do |feed| -%>
-  <% podcast_form.fields_for :feeds, feed do |feed_form| -%>
-  <fieldset class="feed">
-    <div class="feed_details">
-      <%= feed.formatted_bitrate -%> 
-      <%= feed.apparent_format %> 
-      <%= link_to feed.url, feed.url %>
-    </div>
-    <div class="field">
-      <%= feed_form.label :itunes_link, "iTunes ID" -%>
-      <%= feed_form.text_field :itunes_link, :value => (feed.itunes_link.split("?id=").last if feed.itunes_link), :size => 10 -%>
-    </div>
-    <% unless podcast.feeds.count < 2 -%>
-    <div class="field">
-      <%= podcast_form.radio_button :primary_feed_id, feed.id %>
-      <%= podcast_form.label "primary_feed_id_#{feed.id}", "Primary" %>
-    </div>
-    <div>
-      <%= feed_form.check_box :_delete %>
-      <%= feed_form.label :_delete, 'Remove' %>
-    </div>
-    <% end -%>
-  </fieldset>
-  <% end unless feed.new_record? -%>
-<% end -%>
-<br />

@@ -30,7 +30,7 @@ class Podcast < ActiveRecord::Base
   # -- NEW STUFF FROM FEED
   has_many :sources, :dependent => :destroy
   has_one  :newest_source, :class_name => 'Source', :include => :episode, :order => "episodes.published_at DESC"
-  has_one  :queued_feed
+  has_one  :queued_feed, :dependent => :destroy
   belongs_to :owner, :class_name => 'User'
   belongs_to :finder, :class_name => 'User'
   after_destroy :update_finder_score
@@ -93,7 +93,8 @@ class Podcast < ActiveRecord::Base
                                  :icon   => ["25x25#", :png],
                                  :thumb  => ["16x16#", :png] }
 
-  accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? } # deprecated
+# deprecated
+#  accepts_nested_attributes_for :feeds, :allow_destroy => true, :reject_if => proc { |attrs| attrs['url'].blank? } # deprecated
 
   named_scope :not_approved, :conditions => {:approved => false}
   named_scope :approved, :conditions => {:approved => true}

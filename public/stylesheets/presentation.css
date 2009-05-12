@@ -1359,11 +1359,11 @@ ul.v_options_list li .selected_vid {
   float: left; display: inline;
 }
 
-#new_feed {
+#new_podcast {
   margin: 10px 0;
 }
 
-#new_feed label {
+#new_podcast label {
   display: none;
 }
 
@@ -1392,12 +1392,12 @@ ul.v_options_list li .selected_vid {
   top: -2px;
 }
 
-#new_feed button.addme {
+#new_podcast button.addme {
   position: relative;
   top: -3px;
 }
 
-#new_feed input#feed_url {
+#new_podcast input#podcast_url {
   border: none;
 	background: url('../imgs/feed_input.png') top left no-repeat;
 	padding: 6px 8px 5px 8px;

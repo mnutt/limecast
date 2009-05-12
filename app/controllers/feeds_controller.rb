@@ -1,54 +1,10 @@
 class FeedsController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => :status
-
-  def new
-    @feed = Feed.new
-  end
-
   def show
     @feed = Feed.find params[:id]
 
     render :xml => @feed.as(params[:type])
   end
 
-  def create
-    @queued_feed = QueuedFeed.find_or_initialize_by_url(params[:feed][:url])
-
-    if @queued_feed.new_record?
-      @queued_feed.save
-      remember_unclaimed_record(@queued_feed)
-    else
-      @queued_feed.save
-    end
-
-    render :nothing => true
-  end
-
-  def status
-    @queued_feed = QueuedFeed.find_by_url(params[:feed])
-    @feed        = @queued_feed.feed if @queued_feed
-    @podcast     = @feed.podcast if @queued_feed && @feed
-
-    # See http://wiki.limewire.org/index.php?title=LimeCast_Add#Messages
-    # Unexpected errors
-    if @queued_feed.nil?
-      render :partial => 'status_error'
-    # Successes
-    elsif @podcast && @queued_feed.parsed? && queued_feed_created_just_now_by_user?(@queued_feed)
-      render :partial => 'status_added'
-    elsif @podcast && @queued_feed.parsed?
-      render :partial => 'status_conflict'
-    # Progress
-    elsif @queued_feed.pending?
-      render :partial => 'status_loading'
-    # Expected errors
-    elsif !@queued_feed.failed?
-      render :partial => 'status_failed'
-    # Really unexpected errors
-    else
-      render :partial => 'status_error'
-    end
-  end
 
   def update
     @feed = Feed.find params[:id]
@@ -105,18 +61,4 @@ class FeedsController < ApplicationController
 
     render :layout => 'info'
   end
-
-  protected
-
-    def queued_feed_in_session?(queued_feed)
-      has_unclaimed_record?(QueuedFeed, lambda {|i| i.id == queued_feed.id })
-    end
-
-    def queued_feed_created_by_user?(queued_feed)
-      queued_feed_in_session?(queued_feed) or queued_feed.user == current_user
-    end
-
-    def queued_feed_created_just_now_by_user?(queued_feed)
-      queued_feed_created_by_user?(queued_feed) && queued_feed.created_at > 2.minutes.ago
-    end
 end

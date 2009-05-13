@@ -18,7 +18,6 @@ describe SearchController do
     it "should assign expected variables" do
       do_get
       assigns(:podcasts).should == []
-      assigns(:feeds).should == []
       assigns(:episodes).should == []
       assigns(:reviews).should == []
     end

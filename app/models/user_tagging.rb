@@ -35,7 +35,6 @@ class UserTagging < ActiveRecord::Base
   end
 
   def writable_by?(u)
-    puts "The podcast's editors are #{tagging.podcast.editors.inspect}"
     user == u || tagging.podcast.editors.include?(u)
   end
 

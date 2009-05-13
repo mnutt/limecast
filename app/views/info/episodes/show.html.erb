@@ -10,16 +10,15 @@
 
 <!-- Media -->
 <%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted_by_bitrate} %>
-<% if @episode.primary_source -%>
-  <% @source = @episode.primary_source
-     @feed = @source.feed
+
+<% if @source = @episode.newest_source -%>
+  <% @feed = @source.feed
      if newer_episode = @podcast.episodes.oldest.after(@episode).first
-       @newer = newer_episode.sources.find_by_feed_id(@feed.id)
+       @newer = newer_episode.sources.first
      end
      if older_episode = @podcast.episodes.newest.before(@episode).first
-       @older = older_episode.sources.find_by_feed_id(@feed.id)
-     end
+       @older = older_episode.sources.first
+     end 
   -%>
   <%= render :file => 'info/sources/show.html.erb', :layout => false -%>
-  
 <% end -%>

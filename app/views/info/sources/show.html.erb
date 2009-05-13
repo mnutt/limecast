@@ -4,7 +4,7 @@
 
 <% content_for :pagination do -%>
   <%= link_to "< Newer", info_source_url(@podcast, @newer.episode, @newer.id) if @newer %> 
-  <%= @feed.sources.sorted.index(@source) + 1 %> of <%= @feed.sources.count -%> 
+  <%= @podcast.sources.sorted.index(@source) + 1 %> of <%= @podcast.sources.count -%> 
   <%= link_to "Older >", info_source_url(@podcast, @older.episode, @older.id) if @older %> 
 <% end -%>
 
@@ -105,7 +105,7 @@
   <tr>
     <td class="key" title="The calculated and adjusted bitrate to show to the user">bitrate&nbsp;result</td>
     <td>
-      <%= @feed.bitrate.blank? || @feed.bitrate == 0 ? blankness : @feed.bitrate.to_bitrate.to_s -%>
+      <%= @podcast.bitrate.blank? || @podcast.bitrate == 0 ? blankness : @podcast.bitrate.to_bitrate.to_s -%>
     </td>
   </tr>
 
@@ -128,7 +128,7 @@
   <tr>
     <td class="key" title="The calculated bitrate in bytes per second">bitrate&nbsp;exact</td>
     <td>
-      <%= non_blank @feed.bitrate -%>
+      <%= non_blank @podcast.bitrate -%>
     </td>
   </tr>
 

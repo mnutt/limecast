@@ -8,7 +8,7 @@
       <table class="media">
         <tr>
           <td>
-            <%= non_blank source.feed.formatted_bitrate -%> 
+            <%= non_blank source.podcast.formatted_bitrate -%> 
             <%= non_blank source.size.to_file_size.to_s(true, false).downcase -%> 
             <%= non_blank source.format -%> 
             <%= non_blank source.resolution -%> 
@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <td>
-            <%= info_feed_link(source.feed, false) -%> 
+            <%= info_podcast_url(source.podcast) -%> 
             <%= info_source_link(source, false) -%>
           </td>
         </tr>

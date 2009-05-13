@@ -28,16 +28,16 @@ ActionController::Routing::Routes.draw do |map|
   map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'
 
   map.namespace :info do |info|
-    info.root                    :controller => 'home',  :action => 'info'
-    info.stats      '/stats',    :controller => 'home',  :action => 'stats'
-    info.stats      '/use',      :controller => 'home',  :action => 'usage' # use() is already used by the ToS page
-    info.ihash      '/hash',     :controller => 'podcasts', :action => 'hash'
-    info.add        '/add',      :controller => 'podcasts', :action => 'add'
-    info.icons      '/icons',    :controller => 'home',  :action => 'icons'
-    info.tags       '/tags',     :controller => 'tags',  :action => 'index'
-    info.tag        '/tag/:tag', :controller => 'tags',  :action => 'show'
-    info.user       '/users', :controller => 'users', :action => 'index'
+    info.root                           :controller => 'home',  :action => 'info'
+    info.stats      '/stats',           :controller => 'home',  :action => 'stats'
+    info.stats      '/use',             :controller => 'home',  :action => 'usage' # use() is already used by the ToS page
+    info.icons      '/icons',           :controller => 'home',  :action => 'icons'
+    info.tags       '/tags',            :controller => 'tags',  :action => 'index'
+    info.tag        '/tag/:tag',        :controller => 'tags',  :action => 'show'
+    info.user       '/users',           :controller => 'users', :action => 'index'
     info.user       '/user/:user_slug', :controller => 'users', :action => 'show'
+    info.ihash       '/hash',            :controller => 'podcasts', :action => 'hash'
+    info.add        '/add',             :controller => 'podcasts', :action => 'add'
     info.feed       '/:podcast_slug/feed/:id', :controller => 'podcasts', :action => 'show'
     info.review     '/:podcast_slug/reviews/:id', :controller => 'reviews', :action => 'show'
     info.episode    '/:podcast_slug/:episode', :controller => 'episodes', :action => 'show'

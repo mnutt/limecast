@@ -108,7 +108,7 @@ class PodcastProcessor
 
   def update_podcast!
     @podcast.finder = @qf.user if @qf.user
-    @podcast.update_attributes!(
+    @podcast.attributes = {
       :bitrate     => @rpodcast_feed.bitrate.nearest_multiple_of(64),
       :generator   => @rpodcast_feed.generator,
       :ability     => ABILITY,
@@ -121,8 +121,9 @@ class PodcastProcessor
       :owner_email => @rpodcast_feed.owner_email,
       :owner_name  => @rpodcast_feed.owner_name,
       :site        => @rpodcast_feed.link
-    )
+    }
     @podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
+    @podcast.save!
 
     @qf.update_attributes(
       :podcast_id => @podcast.id,

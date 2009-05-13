@@ -1,4 +1,11 @@
 module PodcastsHelper
+  def podcasts_label_from_format(format)
+    {
+      "mov" => "Quicktime",
+      nil   => "Unknown"
+    }[format] || format.upcase
+  end
+
   def rss_link(podcast)
     return nil unless podcast
     %{<link rel="alternate" type="application/rss+xml" title="#{podcast.formatted_bitrate} #{podcast.apparent_format}" href="#{podcast.url}" />}

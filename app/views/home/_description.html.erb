@@ -7,7 +7,7 @@
   
   <div class="description">
     <h3><%= link_to_podcast(podcast) -%></h3>
-    <p><%= truncated_text sanitize_condensed_summary(podcast.primary_feed.description), 100 -%></p>
+    <p><%= truncated_text sanitize_condensed_summary(podcast.description), 100 -%></p>
     
     <%= render :partial => "podcasts/social_favs", :locals => {:podcast => podcast} -%>
 

@@ -112,9 +112,10 @@ class Source < ActiveRecord::Base
     [self.width, self.height].join("x") if self.width && self.height
   end
 
-  def primary?
-    feed.primary?
-  end
+  # deprecated
+  # def primary?
+  #   feed.primary?
+  # end
 
   def extension
     file_name.split('.').last

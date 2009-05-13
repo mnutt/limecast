@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090501160126
+# Schema version: 20090507172652
 #
 # Table name: users
 #
@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
       login = email.blank? ? "user" : email.to_s.gsub(/[^A-Za-z0-9\s]/, "")[0..39]
 
       login = "#{owner_login} 2" if User.exists?(:login => login)
-      login.next! while User.exists?(:login => login)
+      login.increment! while User.exists?(:login => login)
 
       user = User.new(:state => 'passive', :email => email, :login => login)
       user.generate_reset_password_code

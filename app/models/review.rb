@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090501160126
+# Schema version: 20090507172652
 #
 # Table name: reviews
 #

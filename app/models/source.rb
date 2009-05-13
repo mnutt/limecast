@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090501160126
+# Schema version: 20090507172652
 #
 # Table name: sources
 #
@@ -45,6 +45,7 @@
 #  content_type_from_disk   :string(255)   
 #  content_type_from_feed   :string(255)   
 #  published_at             :datetime      
+#  podcast_id               :integer(4)    
 #
 
 class Source < ActiveRecord::Base

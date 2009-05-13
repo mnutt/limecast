@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090501160126
+# Schema version: 20090507172652
 #
 # Table name: queued_feeds
 #
@@ -11,6 +11,7 @@
 #  feed_id    :integer(4)    
 #  created_at :datetime      
 #  updated_at :datetime      
+#  podcast_id :integer(4)    
 #
 
 require 'open-uri'

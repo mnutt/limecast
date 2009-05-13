@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090501160126
+# Schema version: 20090507172652
 #
 # Table name: podcasts
 #
@@ -20,6 +20,21 @@
 #  button_installed     :boolean(1)    
 #  protected            :boolean(1)    
 #  favorites_count      :integer(4)    default(0)
+#  url                  :string(255)   
+#  itunes_link          :string(255)   
+#  state                :string(255)   default("pending")
+#  bitrate              :integer(4)    
+#  finder_id            :integer(4)    
+#  format               :string(255)   
+#  xml                  :text          
+#  ability              :integer(4)    default(0)
+#  generator            :string(255)   
+#  xml_title            :string(255)   
+#  description          :string(255)   
+#  language             :string(255)   
+#  logo_file_name       :string(255)   
+#  logo_content_type    :string(255)   
+#  logo_file_size       :string(255)   
 #
 
 require 'paperclip_file'
@@ -59,7 +74,7 @@ class Podcast < ActiveRecord::Base
     end
 
     self.attachment_for(:logo).assign(file)
-  rescue OpenURI::HTTPError
+  rescue OpenURI::HTTPError => e
   end
 
   # END NEW STUFF
@@ -353,7 +368,7 @@ class Podcast < ActiveRecord::Base
 
     # Increment the name until it's unique
     self.title = "#{title} 2" if Podcast.exists?(["title = ? AND id != ?", title, id.to_i])
-    self.title.next! while Podcast.exists?(["title = ? AND id != ?", title, id.to_i])
+    self.title.increment! while Podcast.exists?(["title = ? AND id != ?", title, id.to_i])
 
     add_message "There was another podcast with the same title, so we have suggested a new title." if title != desired_title
 
@@ -369,7 +384,7 @@ class Podcast < ActiveRecord::Base
 
       i = 1 # Number to attach to the end of the title to make it unique
       self.clean_url = "#{clean_url}-2" if Podcast.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
-      self.clean_url.next! while Podcast.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
+      self.clean_url.increment! while Podcast.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
 
       add_message "The podcast url has changed." if clean_url_changed?
     end

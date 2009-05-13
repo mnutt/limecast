@@ -28,5 +28,29 @@ describe String do
     end
   end
 
+  describe "#increment and #increment!" do
+    it 'should increment nothing to 1' do
+      "Something".increment.should == "Something1"
+    end
+    
+    it 'should increment the digits in the string' do
+      "789".increment.should == "790"
+    end
+
+    it 'should pay attention to spacing' do
+      "Foo bar 3".increment.should == "Foo bar 4"
+    end
+
+    it 'should increment digits' do
+      " whateverrrr 99".increment.should == " whateverrrr 100"
+    end
+    
+    it 'should set the original value with bang' do
+      x = " foobar 123".increment!
+      x.should == " foobar 124"
+    end
+    
+  end
+
 end
 

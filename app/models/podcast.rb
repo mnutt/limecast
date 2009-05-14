@@ -187,6 +187,14 @@ class Podcast < ActiveRecord::Base
     self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
   end
 
+  def itunes_url
+    "http://www.itunes.com/podcast?id=#{itunes_link}"
+  end
+
+  def miro_url
+    "http://subscribe.getmiro.com/?url1=#{url}"
+  end
+
   # XXX: Write spec for this
   def blacklist!
     Blacklist.create(:domain => url)

@@ -6,6 +6,30 @@ module PodcastsHelper
     }[format] || format.upcase
   end
 
+  def default_bitrate_label(bitrate)
+    bitrate ||= 0
+    if bitrate > 1.5 * 1024
+      "HD"
+    elsif bitrate > 1 * 1024
+      "Large"
+    elsif bitrate > 0.5 * 1024
+      "Medium"
+    else
+      "Small"
+    end
+  end
+
+  def link_to_podcast_size(podcast, type, &url)
+    link_to default_bitrate_label(podcast.bitrate),
+      url.call(podcast),
+      :id    => "podcast_#{podcast.id}_#{type}",
+      :title => subscribe_title(podcast)
+  end
+  
+  def subscribe_title(podcast)
+    [podcast.apparent_resolution, "bitrate: #{podcast.formatted_bitrate}"].compact.join(" | ")
+  end
+
   def rss_link(podcast)
     return nil unless podcast
     %{<link rel="alternate" type="application/rss+xml" title="#{podcast.formatted_bitrate} #{podcast.apparent_format}" href="#{podcast.url}" />}

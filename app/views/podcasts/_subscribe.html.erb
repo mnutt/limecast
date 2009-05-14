@@ -24,15 +24,15 @@
     </ul>
 
     <div id="itunes" class="pane">
-      <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds.with_itunes_link, :type => "itunes", :url => lambda {|f| f.itunes_url } } -%>
+      <%= render :partial => "podcasts/subscribe_pane", :locals => {:podcast => @podcast, :type => "itunes", :url => lambda {|p| p.itunes_url } } -%>
     </div>
 
     <div id="miro" class="pane">
-      <%= render :partial => "podcasts/subscribe_pane", :locals => {:feeds => @podcast.feeds, :type => "miro", :url => lambda {|f| f.miro_url } } -%>
+      <%= render :partial => "podcasts/subscribe_pane", :locals => {:podcast => @podcast, :type => "miro", :url => lambda {|p| p.miro_url } } -%>
     </div>
 
     <div id="rss" class="pane">
-      <%= render :partial => "podcasts/subscribe_rss", :locals => {:feeds => @podcast.feeds} -%>
-    </div>
+      <%= render :partial => "podcasts/subscribe_rss", :locals => {:podcast => @podcast} -%>
+    </div> 
   </div>
 <% end -%>

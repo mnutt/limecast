@@ -88,6 +88,9 @@ ActionController::Routing::Routes.draw do |map|
     p.cover            '/:podcast_slug/cover',      :action => 'cover'
     p.recs             '/:podcast_slug/recs',       :action => 'recs'
     p.podcast_info     '/:podcast_slug/info',       :action => 'info'
+    p.plain_feed       '/plain_feeds/:id.xml',   :action => 'show', :type => :plain
+    p.magnet_feed      '/magnet_feeds/:id.xml',  :action => 'show', :type => :magnet
+    p.torrent_feed     '/torrent_feeds/:id.xml', :action => 'show', :type => :torrent
   end
 
   map.positive_reviews '/:podcast_slug/reviews/positive', :controller => 'reviews', :filter => 'positive'
@@ -96,12 +99,6 @@ ActionController::Routing::Routes.draw do |map|
     r.rate_review '/:podcast_slug/reviews/:id/rate/:rating', :controller => 'reviews', :action => 'rate'
   end
 
-  map.with_options :controller => 'podcasts' do |f|
-    f.plain_feed   '/plain_feeds/:id.xml',   :action => 'show', :type => :plain
-    f.magnet_feed  '/magnet_feeds/:id.xml',  :action => 'show', :type => :magnet
-    f.torrent_feed '/torrent_feeds/:id.xml', :action => 'show', :type => :torrent
-  end
-  
   map.with_options :controller => 'sources' do |f|
     f.torrent_file '/torrent_file/:id.torrent', :action => 'show', :format => 'torrent'
   end

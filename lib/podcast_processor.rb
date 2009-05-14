@@ -173,27 +173,6 @@ class PodcastProcessor
     end
   end
 
-  # can we move this into update_podcast!
-  def update_feed!
-    # @podcast.finder_id = @qf.user_id if @qf.user_id
-    # @podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
-    # @podcast.update_attributes(
-    #   :bitrate     => @rpodcast_feed.bitrate.nearest_multiple_of(64),
-    #   :generator   => @rpodcast_feed.generator,
-    #   :ability     => ABILITY,
-    #   :xml         => @content,
-    #   :owner_email => @rpodcast_feed.owner_email,
-    #   :owner_name  => @rpodcast_feed.owner_name,
-    #   :title       => @rpodcast_feed.title,
-    #   :description => @rpodcast_feed.summary,
-    #   :language    => @rpodcast_feed.language
-    # )
-    # @qf.update_attributes(
-    #   :podcast_id => @podcast.id,
-    #   :error      => '',
-    #   :state      => 'parsed'
-    # )
-  end
 
   protected
 

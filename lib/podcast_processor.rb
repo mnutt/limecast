@@ -65,7 +65,6 @@ class PodcastProcessor
       end
 
       update_episodes!
-      update_feed!
     end
 
   rescue Exception
@@ -151,25 +150,27 @@ class PodcastProcessor
       episode = @podcast.episodes.find_or_initialize_by_title(e.title)
       source = @podcast.sources.find_or_initialize_by_guid_and_episode_id(e.guid, episode.id)
 
-      episode.update_attributes(
+      # Make sure the episode saves in order to save the source
+      if episode.update_attributes(
         :summary      => e.summary,
         :published_at => e.published_at,
         :title        => e.title,
         :duration     => e.duration
       )
-      source.update_attributes(
-        :guid                   => e.guid,
-        :format                 => e.enclosure.format.to_s,
-        :content_type_from_feed => e.enclosure.content_type,
-        :duration_from_feed     => e.duration,
-        :extension_from_feed    => e.enclosure.extension,
-        :size_from_xml          => e.enclosure.size,
-        :url                    => e.enclosure.url,
-        :episode_id             => episode.id,
-        :xml                    => e.raw_xml,
-        :published_at           => e.published_at,
-        :archived               => false
-      )
+        source.update_attributes(
+          :guid                   => e.guid,
+          :format                 => e.enclosure.format.to_s,
+          :content_type_from_feed => e.enclosure.content_type,
+          :duration_from_feed     => e.duration,
+          :extension_from_feed    => e.enclosure.extension,
+          :size_from_xml          => e.enclosure.size,
+          :url                    => e.enclosure.url,
+          :episode_id             => episode.id,
+          :xml                    => e.raw_xml,
+          :published_at           => e.published_at,
+          :archived               => false
+        )
+      end
     end
   end
 

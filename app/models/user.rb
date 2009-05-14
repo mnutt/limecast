@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
     else
       login = email.blank? ? "user" : email.to_s.gsub(/[^A-Za-z0-9\s]/, "")[0..39]
 
-      login = "#{owner_login} 2" if User.exists?(:login => login)
+      login = "#{login} 2" if User.exists?(:login => login)
       login.increment! while User.exists?(:login => login)
 
       user = User.new(:state => 'passive', :email => email, :login => login)

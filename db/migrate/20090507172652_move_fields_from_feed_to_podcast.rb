@@ -50,7 +50,6 @@ class MoveFieldsFromFeedToPodcast < ActiveRecord::Migration
           f.queued_feed.destroy if f.queued_feed
           f.sources.destroy_all
           QueuedFeed.create(:url => f.url, :user => f.finder)
-          puts 
         end
       end
       

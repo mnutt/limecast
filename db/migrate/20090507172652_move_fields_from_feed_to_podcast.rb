@@ -45,7 +45,10 @@ class MoveFieldsFromFeedToPodcast < ActiveRecord::Migration
       end
 
       say_with_time "  Creating a queued_feed for the rest of #{podcast.title}'s feeds w/out callbacks" do
-        QueuedFeed.create(feeds.map { |f| {:url => f.url, :user_id => f.finder_id} })
+        feeds.each do |f| 
+          say "  new podcast for #{f.url}"
+          QueuedFeed.create(:url => f.url, :user => f.finder)
+        end
       end
       
       # If all goes well, you may now create a migration to delete Feeds :)

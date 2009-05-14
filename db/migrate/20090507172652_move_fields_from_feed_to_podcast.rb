@@ -44,10 +44,12 @@ class MoveFieldsFromFeedToPodcast < ActiveRecord::Migration
         qf.update_attribute :podcast_id, podcast.id
       end
 
-      say_with_time "  Creating a queued_feed for the rest of #{podcast.title}'s feeds w/out callbacks" do
+      say_with_time "  Creating a queued_feed for the rest of #{podcast.title}'s feeds" do
         feeds.each do |f| 
-          say "  new podcast for #{f.url}"
+          say "  setting up new queued_feed for #{f.url}"
+          f.queued_feed.destroy if f.queued_feed
           QueuedFeed.create(:url => f.url, :user => f.finder)
+          puts 
         end
       end
       
@@ -59,15 +61,15 @@ class MoveFieldsFromFeedToPodcast < ActiveRecord::Migration
     change_table :podcasts do |t|
       t.remove :url
       t.remove :itunes_link
-      t.remove :state, :default => "pending"
+      t.remove :state
       t.remove :bitrate
       t.remove :finder_id
       t.remove :format
       t.remove :xml
-      t.remove :ability, :default => 0
-      t.remove :owner_id
-      t.remove :owner_email
-      t.remove :owner_name
+      t.remove :ability
+      # t.remove :owner_id
+      # t.remove :owner_email
+      # t.remove :owner_name
       t.remove :generator
       t.remove :title
       t.remove :xml_title # aka original_title
@@ -77,5 +79,8 @@ class MoveFieldsFromFeedToPodcast < ActiveRecord::Migration
       t.remove :logo_content_type
       t.remove :logo_file_size
     end
+    
+    remove_column :queued_feeds, :podcast_id
+    remove_column :sources, :podcast_id
   end
 end

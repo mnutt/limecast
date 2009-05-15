@@ -177,6 +177,7 @@ namespace :limecast do
         mkdir #{shared_path}/vendor &&
         mkdir #{shared_path}/logos &&
         mkdir #{shared_path}/feed_logos &&
+        mkdir #{shared_path}/podcast_logos &&
         mkdir #{shared_path}/screenshots &&
         mkdir #{shared_path}/previews &&
         mkdir #{shared_path}/random_clips &&
@@ -217,6 +218,7 @@ namespace :limecast do
                    'remote_server.yml' => 'config/remote_server.yml',
                    'logos'             => 'public/logos',
                    'feed_logos'        => 'public/feed_logos',
+                   'podcast_logos'     => 'public/podcast_logos',
                    'screenshots'       => 'public/screenshots',
                    'previews'          => 'public/previews',
                    'random_clips'      => 'public/random_clips',

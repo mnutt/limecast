@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090507172652) do
+ActiveRecord::Schema.define(:version => 20090515205946) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -63,12 +63,12 @@ ActiveRecord::Schema.define(:version => 20090507172652) do
     t.integer  "podcast_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state",                                 :default => "pending"
+    t.string   "state",                                   :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
-    t.text     "xml",               :limit => 16777215
-    t.integer  "ability",                               :default => 0
+    t.text     "xml",               :limit => 2147483647
+    t.integer  "ability",                                 :default => 0
     t.integer  "owner_id"
     t.string   "owner_email"
     t.string   "owner_name"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20090507172652) do
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.string   "logo_file_size"
+    t.string   "error"
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
@@ -178,13 +179,13 @@ ActiveRecord::Schema.define(:version => 20090507172652) do
     t.string   "preview_file_name"
     t.string   "preview_content_type"
     t.string   "preview_file_size"
+    t.integer  "height"
+    t.integer  "width"
     t.text     "xml"
     t.datetime "downloaded_at"
     t.datetime "hashed_at"
     t.text     "curl_info"
     t.text     "ffmpeg_info"
-    t.integer  "height"
-    t.integer  "width"
     t.string   "file_name"
     t.string   "torrent_file_name"
     t.string   "torrent_content_type"

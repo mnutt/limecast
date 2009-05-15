@@ -1,4 +1,4 @@
-set :domain, 'gv.limewire.com'
+set :domain, 'limecast.com'
 
 role :web, domain
 role :app, domain

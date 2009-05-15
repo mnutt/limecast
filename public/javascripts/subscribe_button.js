@@ -23,7 +23,7 @@ $(function(){
     var type = link.parents('div').attr('id');
     var info = link.parents('li:first').find('p').text() + " - " + link.text();
 
-    button.attr("class", type + "_feed");
+    button.attr("class", type + "_podcast");
     button.find("a").attr("href", url);
     button.find("p").html(type + " <span>(" + info + ")</span>");
   }
@@ -48,7 +48,7 @@ $(function(){
     $('.delivery_method input#'+name).attr('checked', 'checked');
   }
 
-  var default_link = "rss .web a.primary";
+  var default_link = "rss .web a";
   var name = "#" + (read_cookie() || default_link);
 
   var link = $(name);

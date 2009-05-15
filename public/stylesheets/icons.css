@@ -15,9 +15,9 @@ a.popup:hover { padding: 5px 24px 5px 0; background: url('../images/icons/audio_
 .rss {background: url('../imgs/icons/rss.png') center left no-repeat;}
 
 #subscribe { background: url('../imgs/subscribe_left.png') top left no-repeat; }
-#subscribe.itunes_feed { background-position: 0px -144px; }
-#subscribe.miro_feed   { background-position: 0px -216px; }
-#subscribe.rss_feed    { background-position: 0px -72px; }
+#subscribe.itunes_podcast { background-position: 0px -144px; }
+#subscribe.miro_podcast   { background-position: 0px -216px; }
+#subscribe.rss_podcast    { background-position: 0px -72px; }
 
 .add  { padding-left: 18px; background: url('../imgs/icons/plus.png') center left no-repeat; }
 .is { padding: 4px 0 4px 18px; background: url('../imgs/icons/checkmark.png') center left no-repeat; }

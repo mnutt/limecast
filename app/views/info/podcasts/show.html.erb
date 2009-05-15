@@ -23,10 +23,9 @@
   <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes -%>
 </ul>
 
-<!-- Feeds -->
+<!-- Feed -->
 <table class="feeds">
   <tr>
-    <th></th>
     <th></th>
     <th></th>
     <th class="key">make</th>
@@ -37,7 +36,7 @@
     <th></th>
     <th></th>
   </tr>
-  <%= render :partial => 'info/feeds/info_line', :collection => @podcast.feeds -%>
+  <%= render :partial => 'info/podcasts/info_line', :object => @podcast -%>
 </table>
 
 <!-- Media (newest episode) -->
@@ -107,7 +106,7 @@
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key" title="List of links to review info pages">reviews</td>
-    <td><%= @podcast.reviews.empty? ? blankness : @podcast.reviews.map{|r| link_to(h(r.reviewer.login), info_review_url(r, :podcast_slug => @podcast)) }.join(", ") -%></td>
+    <td><%= @podcast.reviews.empty? ? blankness : @podcast.reviews.map{|r| link_to(h(r.reviewer.login), info_review_url(@podcast, r)) }.join(", ") -%></td>
   </tr>
   <tr>
     <td class="key" title="Related podcasts">related&nbsp;podcasts</td>

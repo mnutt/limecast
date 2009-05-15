@@ -16,12 +16,12 @@
 
   <tr>
     <td class="key">Insightful</td>
-    <td><%= @review.review_ratings.insightful.map(&:user).map { |u| link_to h(u.login), info_user_url(u) } -%></td>
+    <td><%= @review.review_ratings.insightful.map(&:user).compact.map { |u| link_to h(u.login), info_user_url(u) }.to_sentence -%></td>
   </tr>
 
   <tr>
     <td class="key">Not Insightful</td>
-    <td><%= @review.review_ratings.not_insightful.map(&:user).map { |u| link_to h(u.login), info_user_url(u) } -%></td>
+    <td><%= @review.review_ratings.not_insightful.map(&:user).compact.map { |u| link_to h(u.login), info_user_url(u) }.to_sentence -%></td>
   </tr>
 
   <tr>

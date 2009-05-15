@@ -36,13 +36,13 @@ ActionController::Routing::Routes.draw do |map|
     info.tag        '/tag/:tag',        :controller => 'tags',  :action => 'show'
     info.user       '/users',           :controller => 'users', :action => 'index'
     info.user       '/user/:user_slug', :controller => 'users', :action => 'show'
-    info.ihash       '/hash',            :controller => 'podcasts', :action => 'hash'
+    info.ihash       '/hash',           :controller => 'podcasts', :action => 'hash'
     info.add        '/add',             :controller => 'podcasts', :action => 'add'
     info.feed       '/:podcast_slug/feed/:id', :controller => 'podcasts', :action => 'show'
     info.review     '/:podcast_slug/reviews/:id', :controller => 'reviews', :action => 'show'
     info.episode    '/:podcast_slug/:episode', :controller => 'episodes', :action => 'show'
     info.source     '/:podcast_slug/:episode/:id', :controller => 'sources', :action => 'show'
-    info.podcast    '/:podcast_slug', :controller => 'podcasts', :action => 'show'
+    info.podcast    '/:podcast_slug',   :controller => 'podcasts', :action => 'show'
   end
 
   map.with_options :controller => 'tags' do |t|

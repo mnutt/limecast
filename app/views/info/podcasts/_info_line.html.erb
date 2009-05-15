@@ -1,0 +1,16 @@
+<% podcast = info_line -%>
+<tr class="podcast">
+  <td>
+    <%= non_blank podcast.formatted_bitrate -%>&nbsp;<%= non_blank podcast.apparent_format -%>
+  </td>
+  <td>
+    <%= info_podcast_url(podcast) -%>
+  </td>
+  <td><%= link_to info_user_link(podcast.owner) %></td>
+  <td><%= link_to info_user_link(podcast.finder) %></td>
+  <td><%= link_to "itunes", podcast.itunes_url unless podcast.itunes_link.blank?-%></td>
+  <td><%= link_to "plain", plain_feed_url(podcast) -%></td>
+  <td><%= link_to "magnet", magnet_feed_url(podcast) -%></td>
+  <td><%= link_to "torrent", torrent_feed_url(podcast) -%></td>
+  <td><%= link_to podcast.url, podcast.url -%></td>
+</tr>

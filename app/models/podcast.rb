@@ -370,7 +370,6 @@ class Podcast < ActiveRecord::Base
 
     desired_title = title
     # Second, sanitize "title"
-    self.title.gsub!(/\(.*\)/, "") # Remove anything in parentheses
     self.title.sub!(/^[\s]*-/, "") # Remove leading dashes
     self.title.strip!              # Remove leading and trailing space
 

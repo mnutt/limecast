@@ -134,7 +134,7 @@ describe PodcastsController do
   describe "handling PUT /:podcast" do
     describe "when user is the podcast owner" do
 
-      def do_put(options={:title => "Custom Title"})
+      def do_put(options={:custom_title => "Custom Title"})
         put :update, :podcast_slug => @podcast.clean_url, :podcast => options
       end
 

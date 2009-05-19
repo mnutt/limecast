@@ -129,6 +129,7 @@ class Podcast < ActiveRecord::Base
   attr_accessor :has_episodes, :last_changes
   attr_accessor_with_default :messages, []
 
+  before_validation :set_title
   before_validation :sanitize_title
   before_validation :sanitize_url
   before_save :find_or_create_owner
@@ -364,9 +365,15 @@ class Podcast < ActiveRecord::Base
   end
 
   protected
+  def set_title
+    self.title = custom_title if title.blank? || custom_title_changed?
+    self.title = xml_title if title.blank? || (xml_title_changed? && custom_title.blank?)
+    self.title = "Untitled" if title.blank?
+  end
+  
   def sanitize_title
-    # cache the xml_title or blank until next time
-    self.title = xml_title.to_s if title.blank?
+    # # cache the xml_title or blank until next time
+    # self.title = xml_title.to_s if title.blank?
 
     desired_title = title
     # Second, sanitize "title"
@@ -374,8 +381,8 @@ class Podcast < ActiveRecord::Base
     self.title.strip!              # Remove leading and trailing space
 
     # Increment the name until it's unique
-    self.title = "#{title} 2" if Podcast.exists?(["title = ? AND id != ?", title, id.to_i])
-    self.title.increment! while Podcast.exists?(["title = ? AND id != ?", title, id.to_i])
+    self.title = "#{title} (2)" if Podcast.exists?(["title = ? AND id != ?", title, id.to_i])
+    self.title.increment!("(%s)") while Podcast.exists?(["title = ? AND id != ?", title, id.to_i])
 
     add_message "There was another podcast with the same title, so we have suggested a new title." if title != desired_title
 

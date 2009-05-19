@@ -1,10 +1,10 @@
 <% podcast = podcast_form.object %>
 
 <div class="field">
-  <%= podcast_form.label :title, "<strong>Title</strong>" -%>
-  <%= podcast_form.text_field :title, :class => "text" -%>
-  <span class="note">Changing the title also changes the URL of this page</span>
-  <%= errors_for podcast, :title %>
+  <%= podcast_form.label :custom_title, "<strong>Custom Title</strong>" -%>
+  <%= podcast_form.text_field :custom_title, :class => "text" -%>
+  <span class="note">Changing the custom title also changes the URL of this page</span>
+  <%= errors_for podcast, :custom_title %>
 </div>  
 <div class="field">
   <%= podcast_form.check_box :protected %>

@@ -46,10 +46,24 @@ describe String do
     end
     
     it 'should set the original value with bang' do
-      x = " foobar 123".increment!
+      x = " foobar 123"
+      x.increment!
       x.should == " foobar 124"
     end
     
+    it 'should follow the format if given' do
+      " foobar ".increment("(%s)").should == " foobar (1)"
+      " foobar (134)".increment("(%s)").should == " foobar (135)"
+      " foobar(134) ".increment("(%s)").should == " foobar(134) (1)"
+      " foobar [789]".increment.should == " foobar [789]1"
+      " foobar [789]".increment("[%s]").should == " foobar [790]"
+    end
+
+    it 'should set the original value with bang' do
+      x = " foobar (123)"
+      x.increment!("(%s)")
+      x.should == " foobar (124)"
+    end
   end
 
 end

@@ -24,14 +24,28 @@ class String
   #   "***".increment       #=> "***1"
   #   "123".increment       #=> "124"
   #   " 123 ".increment     #=> " 123 1"
-  def increment
-    parts = split(/(\D)/)
-    parts.push("0") unless parts[-1] =~ /\d/
-    parts[-1] = Integer(parts[-1]) + 1
+  #   " 123 ".increment     #=> " 123 1"
+  #
+  # You can pass in an optional format for the numbers where %s is the placeholder
+  # for the digits:
+  #
+  #   " foobar (1)".increment #=> " foobar (2)"
+  #   " foobar (789) ".increment #=> " foobar (789) (1)"
+  #
+  def increment(format=nil) 
+    regexp = format ? Regexp.new(Regexp.escape(format).gsub('%s', '\d+')) : /\d/
+    parts = format ? split(/(#{regexp})|(\D)/) : split(/(\D)/)
+    num = (format || "%s") % 0
+    parts.push(num) unless parts[-1] =~ regexp
+    parts[-1] = if format 
+                  parts[-1].sub(/(\d+)/) { |m| Integer(m) + 1  }
+                else
+                  Integer(parts[-1]) + 1
+                end
     parts.join
   end
   
-  def increment!
-    replace(increment)
+  def increment!(format=nil)
+    replace(increment(format))
   end
 end

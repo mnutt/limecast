@@ -51,7 +51,7 @@ end
 describe Podcast, 'sorting' do
   before do
     ["S Podcast", "O Podcast", "The Podcast", "A Podcast", "Z Podcast"].map {|name|
-      Factory.create(:podcast, :title => name)
+      Factory.create(:podcast, :xml_title => name)
     }
   end
 
@@ -112,24 +112,66 @@ describe Podcast, "cleaning up the site url" do
   end
 end
 
+describe Podcast, "setting the title" do
+  before do 
+    @podcast = Factory.create(:podcast, :xml_title => "A Tale of Tales")
+  end
+  
+  describe "with no custom_title" do
+    it 'should use the xml_title by default' do
+      @podcast.title.should == "A Tale of Tales"
+    end
+
+    it 'should update the title if xml_title is changed' do
+      @podcast.reload
+      @podcast.xml_title = "Another Tale of Tales"
+      @podcast.save
+      @podcast.title.should == "Another Tale of Tales"
+    end
+  end
+  
+  describe "with custom_title" do
+    before do 
+      @podcast.custom_title = "My Tale"
+      @podcast.save
+    end
+
+    it 'should favor the custom_title over the xml_title' do
+      @podcast.title.should == "My Tale"
+    end
+    
+    it 'should update the title if custom_title is changed' do
+      @podcast.custom_title = "Your Tale"
+      @podcast.save
+      @podcast.title.should == "Your Tale"
+    end
+    
+    it 'should fall back to the xml_title if custom_title is blank' do
+      @podcast.custom_title = "  "
+      @podcast.save
+      @podcast.title.should == "A Tale of Tales"
+    end
+  end
+end
+
 describe Podcast, "cleaning up the title" do
   before do
-    @podcast = Factory.create(:podcast)
-  end
-
-  it 'should remove things in parentheses' do
-    @podcast.title = "Podcast (junk)"
-    @podcast.send(:sanitize_title).should == "Podcast"
+    @podcast = Factory.create(:podcast, :xml_title => "A Tale of Tales")
   end
 
   it 'should remove extra space' do
-    @podcast.title = " Podcast "
-    @podcast.send(:sanitize_title).should == "Podcast"
+    @podcast.title = " Podcast (HD Version) "
+    @podcast.send(:sanitize_title).should == "Podcast (HD Version)"
   end
 
   it 'should remove leading dashes' do
     @podcast.title = " - Podcast"
     @podcast.send(:sanitize_title).should == "Podcast"
+  end
+  
+  it 'should increment the title if another podcast exists w/same title' do
+    @podcast2 = Factory.create(:podcast, :xml_title => "A Tale of Tales")
+    @podcast2.title.should == "A Tale of Tales (2)"
   end
 end
 
@@ -141,7 +183,7 @@ describe Podcast, "with duplicate titles" do
 
   it 'should increment the title' do
     @podcast.title.should == "Spectacular Spectacular"
-    @podcast2.title.should == "Spectacular Spectacular 2"
+    @podcast2.title.should == "Spectacular Spectacular (2)"
   end
   
   it 'should increment the url as well' do

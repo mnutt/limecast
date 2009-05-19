@@ -119,7 +119,7 @@ class PodcastsController < ApplicationController
     params[:podcast][:tag_string] = [params[:podcast][:tag_string], current_user] if params[:podcast][:tag_string]
 
     @podcast.attributes = params[:podcast].keep_keys([:has_p2p_acceleration, :has_previews, :protected,
-                                                      :tag_string, :title, :format])
+                                                      :tag_string, :custom_title, :format])
 
 
     respond_to do |format|

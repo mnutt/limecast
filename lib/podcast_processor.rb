@@ -119,7 +119,8 @@ class PodcastProcessor
       :language    => @rpodcast_feed.language,
       :owner_email => @rpodcast_feed.owner_email,
       :owner_name  => @rpodcast_feed.owner_name,
-      :site        => @rpodcast_feed.link
+      :site        => @rpodcast_feed.link,
+      :state       => "parsed"
     }
     @podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
     @podcast.save!

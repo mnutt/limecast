@@ -21,5 +21,9 @@ class Info::PodcastsController < InfoController
     @probably_next_source = Source.stale.find(:first, :order => "id DESC")
     @hashing_tail = `tail -n 40 #{RAILS_ROOT}/log/update_sources.log`
   end
+
+  def titles
+    @podcasts = Podcast.parsed.sorted
+  end
 end
 

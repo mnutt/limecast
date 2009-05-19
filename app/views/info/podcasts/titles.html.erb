@@ -1,0 +1,22 @@
+<% @title = "Podcast Titles" -%>
+<h1>titles</h1>
+
+<table>
+  <tr>
+    <th class="key" title="Custom title text entered by the user, blank if none">custom</th>
+    <th class="key" title="Raw XML title from the feed">xml</th>
+    <th class="key" title="Sanitized and unique podcast title for pages, linked to info page">page</th>
+    <th class="key" title="Sanitized and unique podcast title for the URL">url</th>
+  </tr>
+  
+  <% @podcasts.each do |podcast| -%>
+  <tr>
+    <td><%= podcast.custom_title.gsub(/\s/, "&nbsp;") %></td>
+    <td><%= podcast.xml_title %></td>
+    <td><%= podcast.title %></td>
+    <td><%= podcast.clean_url %></td>
+  </tr>
+  <% end -%>
+
+</table>
+

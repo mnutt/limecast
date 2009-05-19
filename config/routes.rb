@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
     info.tag        '/tag/:tag',        :controller => 'tags',  :action => 'show'
     info.user       '/users',           :controller => 'users', :action => 'index'
     info.user       '/user/:user_slug', :controller => 'users', :action => 'show'
-    info.icons      '/titles',          :controller => 'podcasts', :action => 'titles'
+    info.titles     '/titles',          :controller => 'podcasts', :action => 'titles'
     info.ihash      '/hash',            :controller => 'podcasts', :action => 'hash'
     info.add        '/add',             :controller => 'podcasts', :action => 'add'
     info.feed       '/:podcast_slug/feed/:id', :controller => 'podcasts', :action => 'show'

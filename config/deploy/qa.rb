@@ -1,5 +1,5 @@
 set :branch, "working_master"
-set :domain, "172.17.1.101"
+set :domain, "172.17.128.11"
 set :user, "limecast"
 set :remote_home, "/var/www"
 set :deploy_to, "/var/www/limecast"

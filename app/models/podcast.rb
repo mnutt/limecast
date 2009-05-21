@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090507172652
+# Schema version: 20090519211736
 #
 # Table name: podcasts
 #
@@ -13,7 +13,6 @@
 #  owner_email          :string(255)   
 #  owner_name           :string(255)   
 #  title                :string(255)   
-#  primary_feed_id      :integer(4)    
 #  has_previews         :boolean(1)    default(TRUE)
 #  has_p2p_acceleration :boolean(1)    default(TRUE)
 #  approved             :boolean(1)    
@@ -35,6 +34,8 @@
 #  logo_file_name       :string(255)   
 #  logo_content_type    :string(255)   
 #  logo_file_size       :string(255)   
+#  error                :string(255)   
+#  custom_title         :string(255)   default("")
 #
 
 require 'paperclip_file'

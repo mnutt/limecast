@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090507172652
+# Schema version: 20090519211736
 #
 # Table name: episodes
 #
@@ -30,8 +30,6 @@ class Episode < ActiveRecord::Base
   has_many :reviews, :dependent => :destroy
   has_many :reviewers, :through => :reviews
   has_many :sources, :dependent => :destroy
-  # deprecated
-  # has_one  :primary_source, :class_name => "Source", :conditions => 'sources.feed_id = #{podcast.primary_feed_id || 0}'
   has_one  :newest_source, :class_name => "Source", :order => "sources.published_at DESC"
 
   validates_presence_of :podcast_id, :published_at

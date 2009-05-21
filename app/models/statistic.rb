@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090507172652
+# Schema version: 20090519211736
 #
 # Table name: statistics
 #
@@ -7,8 +7,6 @@
 #  podcasts_count                      :integer(4)    
 #  podcasts_found_by_admins_count      :integer(4)    
 #  podcasts_found_by_nonadmins_count   :integer(4)    
-#  feeds_count                         :integer(4)    
-#  feeds_found_by_admins_count         :integer(4)    
 #  feeds_found_by_nonadmins_count      :integer(4)    
 #  users_count                         :integer(4)    
 #  users_confirmed_count               :integer(4)    
@@ -16,7 +14,7 @@
 #  users_passive_count                 :integer(4)    
 #  reviews_count                       :integer(4)    
 #  created_at                          :datetime      
-#  feeds_from_trackers_count           :integer(4)    
+#  podcasts_from_trackers_count        :integer(4)    
 #  podcasts_with_buttons_count         :integer(4)    
 #  podcasts_on_google_first_page_count :integer(4)    
 #  users_admins_count                  :integer(4)    

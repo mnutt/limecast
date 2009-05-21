@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090507172652
+# Schema version: 20090519211736
 #
 # Table name: queued_feeds
 #
@@ -8,7 +8,6 @@
 #  error      :string(255)   
 #  state      :string(255)   
 #  user_id    :integer(4)    
-#  feed_id    :integer(4)    
 #  created_at :datetime      
 #  updated_at :datetime      
 #  podcast_id :integer(4)    
@@ -19,7 +18,6 @@ require 'timeout'
 
 # XXX: Rename to FeedUrl
 class QueuedFeed < ActiveRecord::Base
-  belongs_to :feed
   belongs_to :user
   belongs_to :podcast
 
@@ -43,7 +41,7 @@ class QueuedFeed < ActiveRecord::Base
 
   def claim_by(user)
     self.update_attributes(:user => user)
-    self.feed.update_attributes(:finder => user) if self.feed
+    self.podcast.update_attributes(:finder => user) if self.podcast
   end
 
   def self.clean_url(url)

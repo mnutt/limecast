@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090507172652
+# Schema version: 20090519211736
 #
 # Table name: users
 #
@@ -25,8 +25,7 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  has_many :feeds, :foreign_key => 'finder_id'
-  has_many :podcasts, :through => :feeds, :uniq => true
+  has_many :podcasts, :foreign_key => 'finder_id', :uniq => true
   has_many :owned_podcasts, :class_name => 'Podcast', :foreign_key => 'owner_id'
   has_many :reviews, :dependent => :destroy
   has_many :review_ratings, :dependent => :destroy

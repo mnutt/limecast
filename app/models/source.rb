@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090507172652
+# Schema version: 20090519211736
 #
 # Table name: sources
 #
@@ -9,20 +9,19 @@
 #  guid                     :string(255)   
 #  episode_id               :integer(4)    
 #  format                   :string(255)   
-#  feed_id                  :integer(4)    
 #  screenshot_file_name     :string(255)   
 #  screenshot_content_type  :string(255)   
 #  screenshot_file_size     :string(255)   
 #  preview_file_name        :string(255)   
 #  preview_content_type     :string(255)   
 #  preview_file_size        :string(255)   
-#  height                   :integer(4)    
-#  width                    :integer(4)    
 #  xml                      :text          
 #  downloaded_at            :datetime      
 #  hashed_at                :datetime      
 #  curl_info                :text          
 #  ffmpeg_info              :text          
+#  height                   :integer(4)    
+#  width                    :integer(4)    
 #  file_name                :string(255)   
 #  torrent_file_name        :string(255)   
 #  torrent_content_type     :string(255)   

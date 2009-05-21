@@ -8,7 +8,7 @@
   <%= link_to "Older >", info_source_url(@podcast, @older.episode, @older.id) if @older %> 
 <% end -%>
 
-<%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:source => @source}} -%>
+<%= render :partial => 'info/podcasts/info_source_table', :locals => {:options => {:source => @source}} -%>
 
 <!-- Info: -->
 <table>

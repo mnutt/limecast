@@ -51,6 +51,15 @@ class PodcastsController < ApplicationController
     @review   = Review.new(:episode => @newest_episode)
   end
 
+  # GET /plain_feeds/:id.xml
+  # GET /torrent_feeds/:id.xml
+  # GET /magnet_feeds/:id.xml
+  def feed
+    @podcast = Podcast.find(params[:id])
+
+    render :xml => @podcast.as(params[:type])
+  end
+
   # GET /:podcast_slug
   def status
     @queued_feed = QueuedFeed.find_by_url(params[:podcast])

@@ -6,14 +6,13 @@
   <%= link_to "Older >", info_episode_url(@podcast, @older) if @older %> 
 <% end -%>
 <!-- Map -->
-<%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:episode => @episode}} -%>
+<%= render :partial => 'info/podcasts/info_source_table', :locals => {:options => {:episode => @episode}} -%>
 
 <!-- Media -->
 <%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted_by_bitrate} %>
 
 <% if @source = @episode.newest_source -%>
-  <% @feed = @source.feed
-     if newer_episode = @podcast.episodes.oldest.after(@episode).first
+  <% if newer_episode = @podcast.episodes.oldest.after(@episode).first
        @newer = newer_episode.sources.first
      end
      if older_episode = @podcast.episodes.newest.before(@episode).first

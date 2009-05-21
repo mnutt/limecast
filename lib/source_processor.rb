@@ -208,7 +208,7 @@ class SourceProcessor
     end
 
     begin
-      source.feed.update_attributes(
+      source.podcast.update_attributes(
         :format   => info.file_format || info.video_codec || info.audio_codec,
         :bitrate  => info.bitrate
       )

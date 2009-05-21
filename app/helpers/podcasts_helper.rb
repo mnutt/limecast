@@ -58,11 +58,11 @@ module PodcastsHelper
   end
 
   def link_to_found_by(podcast)
-    link_to "Found by <span>#{podcast.found_by.login}</span>", user_url(podcast.found_by)
+    link_to "Found by <span>#{podcast.finder.login}</span>", user_url(podcast.finder)
   end
 
   def link_to_made_by(podcast)
-    link_to "Made by <span>#{podcast.owned_by.login}</span>", user_url(podcast.owned_by)
+    link_to "Made by <span>#{podcast.owner.login}</span>", user_url(podcast.owner)
   end
 
   def cover_art(podcast, size = :small)

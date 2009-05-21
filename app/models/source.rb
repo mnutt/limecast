@@ -49,16 +49,15 @@
 #
 
 class Source < ActiveRecord::Base
-  belongs_to :feed # deprecated
   belongs_to :episode
   belongs_to :podcast
 
   named_scope :stale,    :conditions => ["sources.ability < ?", ABILITY]
-  named_scope :approved, :conditions => ["podcasts.approved = ?", true], :joins => [:feed => [:podcast]], :readonly => false
+  named_scope :approved, :conditions => ["podcasts.approved = ?", true], :joins => :podcast, :readonly => false
   named_scope :sorted, lambda {|*col| {:order => "#{col[0] || 'episodes.published_at'} DESC", :include => :episode} }
   named_scope :with_preview, :conditions => "sources.preview_file_size IS NOT NULL && sources.preview_file_size > 1023"
   named_scope :with_screenshot, :conditions => "sources.screenshot_file_size IS NOT NULL && sources.screenshot_file_size > 0"
-  named_scope :sorted_by_bitrate, :include => :feed, :order => "feeds.bitrate"
+  named_scope :sorted_by_bitrate, :include => :podcast, :order => "podcasts.bitrate"
 
   has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] },
                     :url  => "/:attachment/:id/:style/:basename.:extension",
@@ -92,7 +91,7 @@ class Source < ActiveRecord::Base
   def to_param
     podcast_name = self.episode.podcast.clean_url
     episode_date = self.episode.clean_url
-    bitrate      = self.feed.formatted_bitrate 
+    bitrate      = self.podcast.formatted_bitrate 
     format       = read_attribute('format')
   
     "#{id}-#{podcast_name}-#{episode_date}-#{bitrate}-#{format}"
@@ -111,11 +110,6 @@ class Source < ActiveRecord::Base
   def resolution
     [self.width, self.height].join("x") if self.width && self.height
   end
-
-  # deprecated
-  # def primary?
-  #   feed.primary?
-  # end
 
   def extension
     file_name.split('.').last

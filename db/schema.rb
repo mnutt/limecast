@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090518184422) do
+ActiveRecord::Schema.define(:version => 20090519211736) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -56,34 +56,6 @@ ActiveRecord::Schema.define(:version => 20090518184422) do
   add_index "favorites", ["podcast_id"], :name => "index_favorites_on_episode_id"
   add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
 
-  create_table "feeds", :force => true do |t|
-    t.string   "url"
-    t.string   "error"
-    t.string   "itunes_link"
-    t.integer  "podcast_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "state",                                 :default => "pending"
-    t.integer  "bitrate"
-    t.integer  "finder_id"
-    t.string   "format"
-    t.text     "xml",               :limit => 16777215
-    t.integer  "ability",                               :default => 0
-    t.integer  "owner_id"
-    t.string   "owner_email"
-    t.string   "owner_name"
-    t.string   "generator"
-    t.string   "title"
-    t.string   "description"
-    t.string   "language"
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.string   "logo_file_size"
-  end
-
-  add_index "feeds", ["finder_id"], :name => "index_feeds_on_finder_id"
-  add_index "feeds", ["podcast_id"], :name => "index_feeds_on_podcast_id"
-
   create_table "podcasts", :force => true do |t|
     t.string   "site"
     t.datetime "created_at"
@@ -94,7 +66,6 @@ ActiveRecord::Schema.define(:version => 20090518184422) do
     t.string   "owner_email"
     t.string   "owner_name"
     t.string   "title"
-    t.integer  "primary_feed_id"
     t.boolean  "has_previews",         :default => true
     t.boolean  "has_p2p_acceleration", :default => true
     t.boolean  "approved",             :default => false
@@ -128,7 +99,6 @@ ActiveRecord::Schema.define(:version => 20090518184422) do
     t.string   "error"
     t.string   "state"
     t.integer  "user_id"
-    t.integer  "feed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "podcast_id"
@@ -173,7 +143,6 @@ ActiveRecord::Schema.define(:version => 20090518184422) do
     t.string   "guid"
     t.integer  "episode_id"
     t.string   "format"
-    t.integer  "feed_id"
     t.string   "screenshot_file_name"
     t.string   "screenshot_content_type"
     t.string   "screenshot_file_size"
@@ -213,14 +182,12 @@ ActiveRecord::Schema.define(:version => 20090518184422) do
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"
-  add_index "sources", ["feed_id"], :name => "index_sources_on_feed_id"
+  add_index "sources", ["podcast_id"], :name => "index_sources_on_podcast_id"
 
   create_table "statistics", :force => true do |t|
     t.integer  "podcasts_count"
     t.integer  "podcasts_found_by_admins_count"
     t.integer  "podcasts_found_by_nonadmins_count"
-    t.integer  "feeds_count"
-    t.integer  "feeds_found_by_admins_count"
     t.integer  "feeds_found_by_nonadmins_count"
     t.integer  "users_count"
     t.integer  "users_confirmed_count"
@@ -228,7 +195,7 @@ ActiveRecord::Schema.define(:version => 20090518184422) do
     t.integer  "users_passive_count"
     t.integer  "reviews_count"
     t.datetime "created_at"
-    t.integer  "feeds_from_trackers_count"
+    t.integer  "podcasts_from_trackers_count"
     t.integer  "podcasts_with_buttons_count"
     t.integer  "podcasts_on_google_first_page_count"
     t.integer  "users_admins_count"

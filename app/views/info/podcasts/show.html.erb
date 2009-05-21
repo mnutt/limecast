@@ -2,7 +2,7 @@
 <h1>podcast</h1>
 
 <!-- Map -->
-<%= render :partial => 'info/feeds/info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
+<%= render :partial => 'info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
 
 <!-- Episodes -->
 <p class="episode_info">
@@ -23,7 +23,7 @@
   <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes -%>
 </ul>
 
-<!-- Feed -->
+<!-- podcast -->
 <table class="feeds">
   <tr>
     <th></th>
@@ -45,6 +45,36 @@
 <!-- Info: -->
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
+    <td class="key" title="The podcast title sanitized for pages and made unique">title&nbsp;page</td>
+    <td>
+      <%= non_blank @podcast.title %>
+    </td>
+  </tr>
+  <tr>
+    <td class="key" title="The podcast title sanitized for URLs and made unique">title&nbsp;url</td>
+    <td>
+      <%= non_blank @podcast.clean_url %>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Raw title text the user typed in edit">custom&nbsp;title</td>
+    <td>
+      <%= non_blank @podcast.custom_title %>
+    </td>
+  </tr>
+  <tr>
+    <td class="key" title="Current raw title from XML source">xml&nbsp;title</td>
+    <td>
+      <%= non_blank @podcast.xml_title %>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
     <td class="key" title="True if somebody has locked down the podcast so only the primary feed's maker can edit it">protected</td>
     <td>
       <%= @podcast.protected? ? "true" : "false" %>
@@ -60,6 +90,12 @@
     <td class="key" title="True if the user has enabled media preview for this podcast">preview&nbsp;enabled</td>
     <td>
       <%= @podcast.has_previews ? "true" : "false" -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key" title="iTunes ID linked to iTunes directory, if set">itunes</td>
+    <td>
+      <%= non_blank @podcast.itunes_url -%>
     </td>
   </tr>
 </table>
@@ -80,6 +116,12 @@
   </tr>
   <tr>
     <td class="key" title="The number of page views the podcast has">hits</td>
+    <td>
+      <%= blankness -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="key" title="Most recent rank of podcast page in search results, link to try the search yourself, and date and time statistic was gathered">google</td>
     <td>
       <%= blankness -%>
     </td>
@@ -105,6 +147,10 @@
 <!-- Features -->
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
+    <td class="key" title="Search this podcast box">search</td>
+    <td><%= blankness -%></td>
+  </tr>
+  <tr>
     <td class="key" title="List of links to review info pages">reviews</td>
     <td><%= @podcast.reviews.empty? ? blankness : @podcast.reviews.map{|r| link_to(h(r.reviewer.login), info_review_url(@podcast, r)) }.join(", ") -%></td>
   </tr>
@@ -112,10 +158,95 @@
     <td class="key" title="Related podcasts">related&nbsp;podcasts</td>
     <td><%= @podcast.related_podcasts.empty? ? blankness : @podcast.related_podcasts.map{|p| link_to h(p.title), info_podcast_url(p)}.join(", ") -%></td>
   </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Cover art in all the different sizes shown inline">cover</td>
+    <td>
+    <% [:large, :small, :square, :icon, :thumb].each do |size| -%>
+      <%= @podcast.logo && @podcast.logo.file? ? image_tag(@podcast.logo(size)) : blankness -%>
+    <% end -%>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Link anchor for the page, shortened and formatted, linked to the podcaster's website">site</td>
+    <td><%= link_to_podcast_home(@podcast) -%></td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="When the site last downloaded and parsed this feed">updated</td>
+    <td><%= non_blank relative_time(@podcast.updated_at, true) -%></td>
+  </tr>
+  <tr>
+    <td class="key" title="Linked original RSS address">rss</td>
+    <td><%= link_to(@podcast.url, @podcast.url) -%></td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Link to LimeCast's hosted RSS feed">plain</td>
+    <td><%= link_to(plain_feed_url(@podcast), plain_feed_url(@podcast)) -%></td>
+  </tr>
+  <tr>
+    <td class="key" title="Link to LimeCast-produced podcast remixed with magnet links">magnet</td>
+    <td><%= link_to(magnet_feed_url(@podcast), magnet_feed_url(@podcast)) -%></td>
+  </tr>
+  <tr>
+    <td class="key" title="Link to LimeCast-produced podcast remixed with torrents">torrent</td>
+    <td><%= link_to(torrent_feed_url(@podcast), torrent_feed_url(@podcast)) -%></td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Link to author page">author</td>
+    <td><%= blankness -%></td>
+  </tr>
+  <tr>
+    <td class="key" title="The user who makes this podcast based on the current email address in the XML">makes</td>
+    <td><%= info_user_link(@podcast.owner) -%></td>
+  </tr>
+  <tr>
+    <td class="key" title="The user who added this feed, if any">found</td>
+    <td><%= info_user_link(@podcast.finder) -%></td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Podcast description sanitized and formatted to a single line of text for summary display. Runs multiple paragraphs together and doesn't allow links, formatting, or any other HTML.">feed&nbsp;description&nbsp;line</td>
+    <td>
+      <%= non_blank line_description(@podcast .description), false %>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Podcast description sanitized and formatted for page display. Allows multiple paragraphs and links, but removes HTML formatting.">feed&nbsp;description&nbsp;page</td>
+    <td class="shaded">
+      <%= non_blank page_description(@podcast .description), false %>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="The HTML behind podcast description page">feed&nbsp;description&nbsp;page&nbsp;source</td>
+    <td>
+      <%= non_blank @podcast .description %>
+    </td>
+  </tr>
 </table>
 
-<% if @podcast.primary_feed -%>
-  <% @feed = @podcast.primary_feed -%>
-
-  <%= render :file => 'info/feeds/show.html.erb' -%>
-<% end -%>
+<!-- XML -->
+<pre class="formatted-xml">
+<%=h @podcast.diagnostic_xml %>
+</pre>

@@ -3,7 +3,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :categories
   map.resources :reviews, :path_prefix => '/:podcast_slug'
   map.resources :episodes
-  #  map.resources :feeds   # deprecated 
 
   
   map.admin '/admin', :controller => 'admin', :action => 'index'

@@ -262,12 +262,6 @@ module ApplicationHelper
     "<span class='unknown'>?</span>"
   end
 
-  # deprecated
-  # def info_feed_link(feed, ability=true)
-  #   [link_to("feed#{feed.id}", info_feed_url(feed.podcast, feed)), 
-  #    (ability ? feed.ability : nil)].join(" ")
-  # end
-
   def info_user_link(user)
     link_to(h(user.login), info_user_url(user))
   rescue

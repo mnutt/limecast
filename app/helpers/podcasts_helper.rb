@@ -57,6 +57,11 @@ module PodcastsHelper
     link_to h(podcast.clean_site), h(podcast.site)
   end
 
+  def link_to_itunes(podcast)
+    url = "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{podcast.itunes_link}"
+    link_to("iTunes", url, :class => "itunes", :title => "View #{podcast.title} in iTunes")
+  end
+  
   def link_to_found_by(podcast)
     link_to "Found by <span>#{podcast.finder.login}</span>", user_url(podcast.finder)
   end

@@ -143,6 +143,11 @@ module FetchExample
     File.open("#{RAILS_ROOT}/spec/data/example.xml").read
   end
 end
+module FetchExampleWithMRSS
+  def fetch
+    File.open("#{RAILS_ROOT}/spec/data/example_with_mrss.xml").read
+  end
+end
 module FetchRegularFeed
   def fetch
     File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read

@@ -16,24 +16,13 @@ Factory.define :user_tagging do |t|
 end
 
 Factory.define :queued_feed do |q|
-  # deprecated
-  #q.feed  { Factory.create :feed }
   q.podcast { Factory.create :podcast }
   q.url     { Factory.next :url }
   q.state   "parsed"
 end
 
-Factory.define :feed do |f|
-  f.url { "#{Factory.next :site}/feed.xml" }
-  f.xml ""
-  f.bitrate 64
-  f.title { Factory.next :title }
-end
-
 Factory.define :podcast, :class => Podcast do |p|
   p.site  { Factory.next :site }
-  # deprecated
-  # p.feeds { [Factory.create(:feed, :content => nil)] }
   p.clean_url { Factory.next :title }
   p.owner_email { Factory.next :email }
 
@@ -46,8 +35,6 @@ end
 
 Factory.define :parsed_podcast, :class => Podcast do |p|
   p.site  { Factory.next :site }
-# deprecated
-#  p.feeds {|a| [Factory.create(:feed, :url => "#{a.site}/feed.xml", :content => File.open("#{RAILS_ROOT}/spec/data/example.xml").read)] }
   p.owner_email { Factory.next :email }
 
   # new attrs taken from Feed uring Podcast/Feed merge
@@ -65,13 +52,13 @@ Factory.define :episode do |e|
   e.clean_url   '2008-Aug-1'
   e.duration    60
   e.sources     { [Factory.create(:source)] }
+  e.guid        { (Time.now.to_i * rand).to_s }
 
   e.published_at Time.parse("Aug 1, 2008")
 end
 
 Factory.define :source do |s|
   s.url  "http://example.com/source.mpg"
-  s.guid { (Time.now.to_i * rand).to_s }
   s.xml ""
   s.size_from_disk 1234567890
 end

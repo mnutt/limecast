@@ -42,7 +42,6 @@ describe PodcastProcessor, "being parsed" do
     @podcast = Factory.create(:podcast, :site => "http://www.example.com/")
 
     @qf = QueuedFeed.create(:url => @podcast.url, :podcast_id => @podcast.id, :user => user)
-
     mod_and_run_podcast_processor(@qf, FetchExample)
 
     @podcast.reload.finder.should == user
@@ -94,7 +93,7 @@ describe PodcastProcessor, "being reparsed" do
   end
 end
 
-describe PodcastProcessor, "parsing a podcast's second feed (non-primary_feed)" do
+describe PodcastProcessor, "parsing a podcast's second feed" do
   before do
     @qf = Factory.create(:queued_feed)
     mod_and_run_podcast_processor(@qf, FetchExample)
@@ -105,12 +104,16 @@ describe PodcastProcessor, "parsing a podcast's second feed (non-primary_feed)" 
   it 'should not change the podcast' do
     lambda { mod_and_run_podcast_processor(@qf2, FetchExample) }.should_not change { @podcast.reload.updated_at}
   end
+
+  it 'should increment podcasts' do
+    lambda { mod_and_run_podcast_processor(@qf2, FetchExample) }.should change(Podcast, :count).by(1)
+  end
 end
 
 describe Podcast, "updating episodes" do
   before do
     @qf = Factory.create(:queued_feed)
-    mod_and_run_podcast_processor(@qf, FetchExample)
+    mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS)
     @podcast = @qf.podcast
   end
 
@@ -120,8 +123,29 @@ describe Podcast, "updating episodes" do
 
   it 'should not duplicate episodes that already exist' do
     @podcast.episodes(true).count.should == 3
-    mod_and_run_podcast_processor(@qf, FetchExample)
+    mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS)
     @podcast.episodes(true).count.should == 3
+  end
+  
+  it 'should create 4 sources for any given episode (from enclosure + mrss)' do
+    @podcast.episodes[0].sources.count.should == 4
+  end
+
+  it 'should create sources with the proper urls (from enclosure + mrss)' do
+    @podcast.episodes[0].sources.map(&:url).should == [
+      "http://example.com/podcasts/everything/AllAboutEverythingEpisode3.m4a",
+      "http://example.com/podcasts/everything/AllAboutEverythingEpisode3.mov",
+      "http://example.com/podcasts/everything/AllAboutEverythingEpisode3.flv",
+      "http://example.com/podcasts/everything/AllAboutEverythingEpisode3.m4v"
+      ]
+  end
+
+  it 'should create sources with the proper format (from enclosure + mrss)' do
+    @podcast.episodes[0].sources.map(&:format).should == ['m4a', 'mov', 'flv', 'm4v']
+  end
+
+  it 'should create sources with the proper sizes (from enclosure + mrss)' do
+    @podcast.episodes[0].sources.map(&:size).should == [8727310, 767302043, 18320136, 57167895]
   end
 end
 

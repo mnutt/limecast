@@ -106,8 +106,8 @@ class PodcastProcessor
   end
 
   def update_podcast!
-    @podcast.finder = @qf.user if @qf.user
     @podcast.attributes = {
+      :finder      => @qf.user,
       :bitrate     => @rpodcast_feed.bitrate.nearest_multiple_of(64),
       :generator   => @rpodcast_feed.generator,
       :ability     => ABILITY,
@@ -147,30 +147,29 @@ class PodcastProcessor
     @podcast.sources.update_all :archived => true
 
     @rpodcast_feed.episodes.each do |e|
-      # XXX: Definitely need to figure out something better for this.
+      # XXX: Definitely need to figure out something better for this. Maybe use guid instead of title?
       episode = @podcast.episodes.find_or_initialize_by_title(e.title)
-      source = @podcast.sources.find_or_initialize_by_guid_and_episode_id(e.guid, episode.id)
 
-      # Make sure the episode saves in order to save the source
-      if episode.update_attributes(
-        :summary      => e.summary,
-        :published_at => e.published_at,
-        :title        => e.title,
-        :duration     => e.duration
-      )
-        source.update_attributes(
-          :guid                   => e.guid,
-          :format                 => e.enclosure.format.to_s,
-          :content_type_from_feed => e.enclosure.content_type,
-          :duration_from_feed     => e.duration,
-          :extension_from_feed    => e.enclosure.extension,
-          :size_from_xml          => e.enclosure.size,
-          :url                    => e.enclosure.url,
-          :episode_id             => episode.id,
-          :xml                    => e.raw_xml,
-          :published_at           => e.published_at,
-          :archived               => false
-        )
+      episode.attributes = { :summary      => e.summary,
+                             :published_at => e.published_at,
+                             :title        => e.title,
+                             :duration     => e.duration,
+                             :guid         => e.guid }
+      if episode.save
+        ([e.enclosure] + e.media_contents).each do |s|
+          source = @podcast.sources(true).find_or_initialize_by_url_and_episode_id(s.url, episode.id)
+          source.attributes = { :archived               => false,
+                                :duration_from_feed     => e.duration,
+                                :episode_id             => episode.id,
+                                :xml                    => e.raw_xml,
+                                :published_at           => e.published_at,
+                                :format                 => s.format.to_s,
+                                :content_type_from_feed => s.content_type,
+                                :extension_from_feed    => s.extension,
+                                :size_from_xml          => s.size,
+                                :url                    => s.url }
+          source.save
+        end
       end
     end
   end
@@ -187,7 +186,7 @@ class PodcastProcessor
   end
 
   def no_enclosure?
-    !@rpodcast_feed.has_enclosure?
+    !@rpodcast_feed.has_enclosure? && !@rpodcast_feed.has_media_content?
   end
 
   def invalid_xml?
@@ -196,12 +195,13 @@ class PodcastProcessor
 
   def duplicate_feed?
     @rpodcast_feed.episodes.each do |e|
-      episode = @podcast.episodes.find_by_title(e.title) || @podcast.episodes.new
-      source = Source.find_by_guid_and_episode_id(e.guid, episode.id) || Source.new(:podcast => @podcast)
-
-      if source.podcast != @podcast
-        @duplicate_podcast_id = source.podcast_id
-        return true
+      # XXX Refactor?
+      episode = @podcast.episodes.find_by_guid(e.guid) || Episode.new(:podcast => @podcast)
+      episode.sources.each do |source|
+        if source.podcast.id != @podcast.id
+          @duplicate_podcast_id = source.podcast_id
+          return true
+        end
       end
     end
 

@@ -3,10 +3,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe SourcesController do
   describe "handling GET /torrent_files/:id.torrent" do
     before(:each) do
-      @feed    = Factory.create(:feed)
-      @podcast = Factory.create(:podcast, :feeds => [@feed])
+      @podcast = Factory.create(:podcast)
       @episode = Factory.create(:episode, :podcast => @podcast)
-      @source  = Factory.create(:source, :feed => @feed, :episode => @episode, :torrent_file_name => "foobar.torrent")
+      @source  = Factory.create(:source, :podcast => @podcast, :episode => @episode, :torrent_file_name => "foobar.torrent")
     end
 
     def do_get

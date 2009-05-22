@@ -17,17 +17,12 @@ describe User do
     end
   end
 
-  describe 'adding a Feed' do
+  describe 'adding a Podcast' do
     it 'should increase score' do
       lambda do
-        @feed    = Factory.create(:feed)
-        @podcast = Factory.create(:parsed_podcast, :feeds => [@feed])
-        @feed2   = Factory.create(:feed,
-                                  :finder => @user,
-                                  :state => 'parsed',
-                                  :url => "#{@podcast.site}/feed.xml",
-                                  :podcast_id => @podcast.id)
-        @feed2.update_finder_score
+        @podcast  = Factory.create(:parsed_podcast)
+        @podcast2 = Factory.create(:parsed_podcast, :finder => @user)
+        @podcast2.send(:update_finder_score)
       end.should change { @user.reload.score }.by(1)
     end
   end

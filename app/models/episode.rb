@@ -47,8 +47,9 @@ class Episode < ActiveRecord::Base
 
   define_index do
     indexes :title, :summary
-
-    has :created_at, :podcast_id
+    
+    has :podcast_id    
+    has :published_at
   end
 
   def self.find_by_slug(slug)

@@ -14,10 +14,6 @@ describe Podcast do
     @podcast.clean_url.should == "My-Podcast"
   end
 
-  it 'should use the primary_feed title if set' do
-    @podcast.title.should == "My Podcast"
-  end
-
   it "should not be valid with no alphanumeric chars" do
     @podcast.title = "?????"
     @podcast.should_not be_valid
@@ -395,27 +391,6 @@ describe Podcast, "permissions" do
       @owner.update_attribute(:state, 'confirmed')
       @podcast.editors.should include(@owner)
     end
-  end
-end
-
-describe Podcast, "primary feed" do
-  before do
-    @podcast = Factory.create(:parsed_podcast)
-    @feed = Factory.create(:feed, :state => "parsed")
-    @feed2 = Factory.create(:feed, :state => "parsed")
-    @podcast.feeds << @feed
-    @podcast.feeds << @feed2
-  end
-
-  it 'should have the first feed be the primary feed' do
-    @podcast.primary_feed.should == @feed
-  end
-
-  it 'should make the second feed be the primary feed' do
-    @podcast.update_attribute(:primary_feed_id, @feed2.id)
-    @podcast.primary_feed.should == @feed2
-    @feed2.reload
-    @feed2.should be_primary
   end
 end
 

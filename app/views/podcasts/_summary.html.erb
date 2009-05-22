@@ -14,7 +14,7 @@
     <h4>About this podcast</h4>
     <p>
       <%= link_to_podcast_home(@podcast) unless @podcast.clean_site.blank? %> 
-      <%= " &ndash; " + link_to_itunes(@podcast.primary_feed) if @podcast.primary_feed && !@podcast.primary_feed.itunes_link.blank? -%>
+      <%= " &ndash; " + link_to_itunes(@podcast) if !@podcast.itunes_link.blank? -%>
       <%= " &ndash; " + truncated_text(unescape_entities(h(@podcast.description)), 110) unless @podcast.description.blank? -%>
     </p>
     <br />

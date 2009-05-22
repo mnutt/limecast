@@ -55,15 +55,15 @@ describe PodcastsController do
     end
 
     it "should generate params { :controller => 'podcasts', action => 'show', :id => '785-Diggnation-256k-mp3.xml'} from GET /plain_feeds/785-Diggnation-256k-mp3.xml" do
-      params_from(:get, "/plain_feeds/785-Diggnation-256k-mp3.xml").should == {:controller => "podcasts", :action => "show", :type => :plain, :id => "785-Diggnation-256k-mp3"}
+      params_from(:get, "/plain_feeds/785-Diggnation-256k-mp3.xml").should == {:controller => "podcasts", :action => "feed", :type => :plain, :id => "785-Diggnation-256k-mp3"}
     end
 
     it "should generate params { :controller => 'podcasts', action => 'show', :id => '785-Diggnation-256k-mp3-magnet.xml'} from GET /magnet_feeds/785-Diggnation-256k-mp3-magnet.xml" do
-      params_from(:get, "/magnet_feeds/785-Diggnation-256k-mp3-magnet.xml").should == {:controller => "podcasts", :action => "show", :type => :magnet, :id => "785-Diggnation-256k-mp3-magnet"}
+      params_from(:get, "/magnet_feeds/785-Diggnation-256k-mp3-magnet.xml").should == {:controller => "podcasts", :action => "feed", :type => :magnet, :id => "785-Diggnation-256k-mp3-magnet"}
     end
 
     it "should generate params { :controller => 'podcasts', action => 'show', :id => '785-Diggnation-256k-mp3-torrent.xml'} from GET /torrent_feeds/785-Diggnation-256k-mp3-torrent.xml" do
-      params_from(:get, "/torrent_feeds/785-Diggnation-256k-mp3-torrent.xml").should == {:controller => "podcasts", :action => "show", :type => :torrent, :id => "785-Diggnation-256k-mp3-torrent"}
+      params_from(:get, "/torrent_feeds/785-Diggnation-256k-mp3-torrent.xml").should == {:controller => "podcasts", :action => "feed", :type => :torrent, :id => "785-Diggnation-256k-mp3-torrent"}
     end
     
     it "should generate params { :controller => 'podcasts', action => 'new' } from GET /add" do

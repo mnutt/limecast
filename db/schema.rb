@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090519211736) do
+ActiveRecord::Schema.define(:version => 20090522185334) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20090519211736) do
     t.integer  "duration"
     t.string   "title"
     t.string   "clean_url"
+    t.string   "guid"
   end
 
   add_index "episodes", ["podcast_id"], :name => "index_episodes_on_podcast_id"
@@ -140,7 +141,6 @@ ActiveRecord::Schema.define(:version => 20090519211736) do
   create_table "sources", :force => true do |t|
     t.string   "url"
     t.string   "type"
-    t.string   "guid"
     t.integer  "episode_id"
     t.string   "format"
     t.string   "screenshot_file_name"
@@ -188,7 +188,6 @@ ActiveRecord::Schema.define(:version => 20090519211736) do
     t.integer  "podcasts_count"
     t.integer  "podcasts_found_by_admins_count"
     t.integer  "podcasts_found_by_nonadmins_count"
-    t.integer  "feeds_found_by_nonadmins_count"
     t.integer  "users_count"
     t.integer  "users_confirmed_count"
     t.integer  "users_unconfirmed_count"

@@ -118,7 +118,6 @@ class Podcast < ActiveRecord::Base
     indexes tags.name, :as => :tag # includes badges
 
     has taggings.tag_id, :as => :tagged_ids
-    has :created_at
   end
 
   def self.find_by_slug(slug)

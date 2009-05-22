@@ -69,8 +69,6 @@ class User < ActiveRecord::Base
 
   define_index do
     indexes :login, :email
-
-    has :created_at
   end
 
 

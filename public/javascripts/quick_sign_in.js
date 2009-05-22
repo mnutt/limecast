@@ -5,6 +5,12 @@ $.quickSignIn = {
   setup: function() {
     var me = $("#cluetip").find("#quick_signin");
 
+    // AJAX won't work w/out AUTH_TOKEN so redirect to regular signup page
+    if(!AUTH_TOKEN) { 
+      window.location = "/sessions/new";
+      return false;
+    }
+
     // Makes the form use AJAX
     me.submit(function(event){
       me.find('.signin_signup_button').click();

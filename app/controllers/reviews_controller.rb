@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    review_params = params[:review].keep_keys([:title, :body, :positive, :episode_id])
+    review_params = params[:review].slice(:title, :body, :positive, :episode_id)
     @podcast      = Podcast.find_by_slug(params[:podcast_slug])
 
     unless has_unclaimed_record?(Review, lambda {|r| r.episode.podcast == @podcast })

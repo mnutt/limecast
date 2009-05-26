@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       return
     end
 
-    @user = User.new(params[:user].keep_keys([:password, :email, :login]))
+    @user = User.new(params[:user].slice(:password, :email, :login))
     @user.unconfirm
     @user.save if @user.valid?
 
@@ -116,7 +116,7 @@ class UsersController < ApplicationController
       redirect_to(podcasts_url) and return false
     end
 
-    @user.attributes = params[:user].keep_keys([:email, :login, :password])
+    @user.attributes = params[:user].slice(:email, :login, :password)
 
     if @user.save
       redirect_to @user

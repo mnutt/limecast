@@ -112,13 +112,11 @@ class PodcastProcessor
       :generator   => @rpodcast_feed.generator,
       :ability     => ABILITY,
       :xml         => @content,
-      :owner_email => @rpodcast_feed.owner_email,
+      :owner_email => @rpodcast_feed.owner_email.gsub(/\(.*\)/, '').strip,
       :owner_name  => @rpodcast_feed.owner_name,
       :xml_title   => @rpodcast_feed.title,
       :description => @rpodcast_feed.summary,
       :language    => @rpodcast_feed.language,
-      :owner_email => @rpodcast_feed.owner_email,
-      :owner_name  => @rpodcast_feed.owner_name,
       :site        => @rpodcast_feed.link,
       :state       => "parsed"
     }

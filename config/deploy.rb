@@ -173,8 +173,8 @@ namespace :limecast do
     task :create_shared, :roles => :app do
       run <<-CMD
         mkdir #{shared_path}/log/sphinx &&
-        mkdir #{shared_path}/sphinx &&
         mkdir #{shared_path}/vendor &&
+        mkdir #{shared_path}/vendor/sphinx &&
         mkdir #{shared_path}/logos &&
         mkdir #{shared_path}/feed_logos &&
         mkdir #{shared_path}/podcast_logos &&
@@ -213,7 +213,7 @@ namespace :limecast do
     desc 'Creates symlinks for shared resources'
     task :symlink_shared, :roles => :app do
       # Symlink    from shared_path => to current
-      symlinks = { 'sphinx'            => 'sphinx',
+      symlinks = { 'sphinx'            => 'vendor/sphinx',
                    'database.yml'      => 'config/database.yml',
                    'remote_server.yml' => 'config/remote_server.yml',
                    'logos'             => 'public/logos',
@@ -237,7 +237,7 @@ namespace :limecast do
     task :sphinx, :roles => :app do
       run <<-CMD
         test -d #{shared_path}/sphinx || \
-        (cd #{latest_release} && SPHINX_INSTALL_DIR=#{shared_path}/vendor/sphinx rake limecast:build_sphinx)
+        (cd #{latest_release} && SPHINX_INSTALL_DIR=#{shared_path}/sphinx rake limecast:build_sphinx)
       CMD
       run "ln -s #{shared_path}/vendor/sphinx #{latest_release}/vendor/sphinx"
     end

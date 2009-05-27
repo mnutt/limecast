@@ -16,7 +16,7 @@ end
 
 QueuedFeed.parsed.each do |qf|
   begin
-    puts "Getting episodes for #{qf.podcast.title}"
+    puts "Getting episodes for #{qf.podcast ? qf.podcast.title : qf.url}"
     PodcastProcessor.process(qf)
   rescue Exception => e
     puts "There was a problem: #{e.message}"

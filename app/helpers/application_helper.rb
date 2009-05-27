@@ -157,14 +157,6 @@ module ApplicationHelper
     highlight(excerpted, query.split, :highlighter => '<span class="search_term">\1</span>')
   end
 
-  # Put the primary podcast/source at top (if one exists)
-  # TODO isn't there an easier way in Ruby to do this?
-  def sorted_by_primary(podcasts_or_sources=[])
-    podcasts_or_sources.sort_by { |f| f.primary? ? 0 : 1 }
-  rescue
-    podcasts_or_sources
-  end
-
   def smart_truncate(string, length)
     return string if string.length <= length
     string[0..(length/2)] + "..." + string[-(length/2)..-1]

@@ -1,8 +1,8 @@
-set :branch, "working_master"
+set :branch, "master"
 set :domain, "172.17.128.11"
 set :user, "limecast"
 set :remote_home, "/var/www"
-set :deploy_to, "/var/www/limecast"
+set :deploy_to, "/var/www/html"
 
 set :deploy_via,      :copy
 set :copy_cache, true

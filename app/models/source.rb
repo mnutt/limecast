@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20090519211736
+# Schema version: 20090528153509
 #
 # Table name: sources
 #
 #  id                       :integer(4)    not null, primary key
 #  url                      :string(255)   
 #  type                     :string(255)   
-#  guid                     :string(255)   
 #  episode_id               :integer(4)    
 #  format                   :string(255)   
 #  screenshot_file_name     :string(255)   
@@ -45,6 +44,8 @@
 #  content_type_from_feed   :string(255)   
 #  published_at             :datetime      
 #  podcast_id               :integer(4)    
+#  bitrate_from_feed        :integer(4)    
+#  bitrate_from_ffmpeg      :integer(4)    
 #
 
 class Source < ActiveRecord::Base

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090519211736
+# Schema version: 20090528153509
 #
 # Table name: episodes
 #
@@ -15,6 +15,7 @@
 #  duration               :integer(4)    
 #  title                  :string(255)   
 #  clean_url              :string(255)   
+#  guid                   :string(255)   
 #
 
 class Episode < ActiveRecord::Base

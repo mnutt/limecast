@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090519211736
+# Schema version: 20090528153509
 #
 # Table name: statistics
 #
@@ -7,7 +7,6 @@
 #  podcasts_count                      :integer(4)    
 #  podcasts_found_by_admins_count      :integer(4)    
 #  podcasts_found_by_nonadmins_count   :integer(4)    
-#  feeds_found_by_nonadmins_count      :integer(4)    
 #  users_count                         :integer(4)    
 #  users_confirmed_count               :integer(4)    
 #  users_unconfirmed_count             :integer(4)    

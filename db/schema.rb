@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090522185334) do
+ActiveRecord::Schema.define(:version => 20090528153509) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -179,6 +179,8 @@ ActiveRecord::Schema.define(:version => 20090522185334) do
     t.string   "content_type_from_feed"
     t.datetime "published_at"
     t.integer  "podcast_id"
+    t.integer  "bitrate_from_feed"
+    t.integer  "bitrate_from_ffmpeg"
   end
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"

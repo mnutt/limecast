@@ -233,14 +233,14 @@ namespace :limecast do
 
     # Sphinx runs after :update, not :setup, because it depends upon the
     # project's Rakefile being present
-    desc 'Builds Sphinx into shared/ (if necessary) and links it to vendor/sphinx/'
-    task :sphinx, :roles => :app do
-      run <<-CMD
-        test -d #{shared_path}/sphinx || \
-        (cd #{latest_release} && SPHINX_INSTALL_DIR=#{shared_path}/sphinx rake limecast:build_sphinx)
-      CMD
-      run "ln -s #{shared_path}/vendor/sphinx #{latest_release}/vendor/sphinx"
-    end
+    # desc 'Builds Sphinx into shared/ (if necessary) and links it to vendor/sphinx/'
+    # task :sphinx, :roles => :app do
+    #   run <<-CMD
+    #     test -d #{shared_path}/sphinx || \
+    #     (cd #{latest_release} && SPHINX_INSTALL_DIR=#{shared_path}/sphinx rake limecast:build_sphinx)
+    #   CMD
+    #   run "ln -s #{shared_path}/vendor/sphinx #{latest_release}/vendor/sphinx"
+    # end
   end
 
   # Sphinx tasks

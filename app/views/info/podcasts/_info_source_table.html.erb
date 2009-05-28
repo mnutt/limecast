@@ -11,7 +11,7 @@
   <tr>
     <td class="extra"><%= link_to "site", podcast_url(podcast) %></td>
     <th><%= controller.controller_name == "podcasts" ? content_tag(:strong, podcast.title) : link_to(podcast.title, info_podcast_url(podcast)) -%></th>
-    <th><%= link_to "rss", podcast.url %></th>
+    <th><%= link_to "rss", podcast.url %> <%= podcast.ability -%></th>
   </tr>
   <% (episode ? [episode] : podcast.episodes).each do |e| -%>
     <tr>
@@ -28,8 +28,8 @@
         <% e.sources.each do |s| -%>
           <% if s == source -%>
             <b>
-              <%= s.podcast.formatted_bitrate -%>
-              <%= s.podcast.apparent_format -%>
+              <%= s.bitrate -%>
+              <%= s.format -%>
               <%= s.ability -%><%= "a" if s.archived? -%>
             </b>
           <% else -%>

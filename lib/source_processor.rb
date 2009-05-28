@@ -232,7 +232,8 @@ class SourceProcessor
       :extension_from_disk  => self.disk_extension,
       :duration_from_ffmpeg => info.duration,
       :content_type_from_http => @content_type_from_http,
-      :content_type_from_disk => info.content_type
+      :content_type_from_disk => info.content_type,
+      :bitrate              => info.bitrate
     )
   end
 

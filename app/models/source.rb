@@ -125,6 +125,18 @@ class Source < ActiveRecord::Base
       duration_from_feed || 0
     end
   end
+
+  def formatted_bitrate
+    bitrate.to_bitrate.to_s if bitrate and bitrate > 0
+  end
+  
+  def bitrate
+    if(bitrate_from_ffmpeg && bitrate_from_ffmpeg > 0)
+      bitrate_from_ffmpeg
+    else
+      bitrate_from_feed || 0
+    end
+  end
   
   # Returns "video" if video is available, "audio" if audio but not video is available, and nil if neither.
   def preview_type

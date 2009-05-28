@@ -147,6 +147,14 @@ describe Podcast, "updating episodes" do
   it 'should create sources with the proper sizes (from enclosure + mrss)' do
     @podcast.episodes[0].sources.map(&:size).should == [8727310, 767302043, 18320136, 57167895]
   end
+
+  it 'should create sources with the proper bitrates (from enclosure + mrss)' do
+    @podcast.episodes[0].sources.map(&:bitrate).should == [192, 192, 192, 192]
+  end
+
+  it 'should create sources with the proper durations (from enclosure + mrss)' do
+    @podcast.episodes[0].sources.map(&:duration).should == [424, 424, 424, 424]
+  end
 end
 
 describe Podcast, "downloading the logo for its podcast" do

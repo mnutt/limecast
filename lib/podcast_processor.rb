@@ -112,10 +112,10 @@ class PodcastProcessor
       :generator   => @rpodcast_feed.generator,
       :ability     => ABILITY,
       :xml         => @content,
-      :owner_email => @rpodcast_feed.owner_email.gsub(/\(.*\)/, '').strip,
+      :owner_email => @rpodcast_feed.owner_email.to_s.gsub(/\(.*\)/, '').strip,
       :owner_name  => @rpodcast_feed.owner_name,
-      :xml_title   => @rpodcast_feed.title,
-      :description => @rpodcast_feed.summary,
+      :xml_title   => @rpodcast_feed.title.to_s.strip,
+      :description => @rpodcast_feed.summary.to_s.strip,
       :language    => @rpodcast_feed.language,
       :site        => @rpodcast_feed.link,
       :state       => "parsed"
@@ -148,16 +148,17 @@ class PodcastProcessor
       # XXX: Definitely need to figure out something better for this. Maybe use guid instead of title?
       episode = @podcast.episodes.find_or_initialize_by_title(e.title)
 
-      episode.attributes = { :summary      => e.summary,
+      episode.attributes = { :summary      => e.summary.to_s.strip,
                              :published_at => e.published_at,
-                             :title        => e.title,
+                             :title        => e.title.to_s.strip,
                              :duration     => e.duration,
                              :guid         => e.guid }
       if episode.save
         ([e.enclosure] + e.media_contents).each do |s|
           source = @podcast.sources(true).find_or_initialize_by_url_and_episode_id(s.url, episode.id)
           source.attributes = { :archived               => false,
-                                :duration_from_feed     => e.duration,
+                                :duration_from_feed     => (s.duration.to_i == 0 ? e.duration : s.duration),
+                                :bitrate_from_feed      => (s.bitrate.to_i == 0 ? e.bitrate : s.bitrate).nearest_multiple_of(64),
                                 :episode_id             => episode.id,
                                 :xml                    => e.raw_xml,
                                 :published_at           => e.published_at,

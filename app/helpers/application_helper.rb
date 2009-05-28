@@ -49,12 +49,12 @@ module ApplicationHelper
 
   # All the text on a single line and no links. 
   def line_description(html)
-    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(), :attributes => %w())
+    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(), :attributes => %w()).strip
   end
 
   # Allows only links and separate paragraphs.
   def page_description(html)
-    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(a br p), :attributes => %w(href))
+    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(a br p), :attributes => %w(href)).strip
   end
 
   def link_to_profile(user)
@@ -261,7 +261,7 @@ module ApplicationHelper
   end
 
   def info_source_link(source, ability=true)
-    [link_to(non_blank(source.podcast.formatted_bitrate) + " " + non_blank(source.podcast.apparent_format), info_source_url(source.episode.podcast, source.episode, source.id)),
+    [link_to(non_blank(source.formatted_bitrate) + " " + non_blank(source.format), info_source_url(source.episode.podcast, source.episode, source.id)),
      " ", (ability ? source.ability : nil), (source.archived? ? "a" : nil)].join
   end
 

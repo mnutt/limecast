@@ -13,12 +13,6 @@ describe Podcast do
   it 'should have a param with the name in it' do
     @podcast.clean_url.should == "My-Podcast"
   end
-
-  it "should not be valid with no alphanumeric chars" do
-    @podcast.title = "?????"
-    @podcast.should_not be_valid
-    @podcast.errors.on(:title).should include("must include at least 1 letter (a-z, A-Z)")
-  end
 end
 
 describe Podcast, "with non-ASCII title" do
@@ -38,6 +32,13 @@ describe Podcast, "with non-ASCII title" do
     @podcast.xml_title = "Exçéß"
     @podcast.save
     @podcast.clean_url.should == "Excess"
+  end
+  
+  it "should transliterate the title into a clean_url and use 'untitled' if blank" do
+    @podcast.xml_title = "香港電台：視像新聞"
+    @podcast.save
+    @podcast.title.should == '香港電台：視像新聞'
+    @podcast.clean_url.should == 'untitled'
   end
   
 end

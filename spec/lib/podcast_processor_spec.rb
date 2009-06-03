@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 # Podcast is not in the system, creating it by url.
-describe PodcastProcessor, "being parsed" do
+describe PodcastProcessor, "parsing" do
 
   before do
     @qf = QueuedFeed.create(:url => "http://google.com/rss.xml")
@@ -47,6 +47,37 @@ describe PodcastProcessor, "being parsed" do
     @podcast.reload.finder.should == user
     @podcast.should be_kind_of(Podcast)
     @podcast.owner.should == user
+  end
+end
+
+describe PodcastProcessor, "parsing Chinese Feed" do
+  before do
+    @qf = QueuedFeed.create(:url => "http://google.com/rss.xml")
+    lambda { mod_and_run_podcast_processor(@qf, FetchChineseFeed) }.should change { Podcast.count }.by(1)
+    @podcast = @qf.podcast
+  end
+  
+  
+  it 'should set the title of the podcast' do
+    @podcast.reload.title.should == "香港電台：視像新聞"
+  end
+
+  it 'should set the site link of the podcast' do
+    @podcast.reload.site.should == "http://podcast.rthk.org.hk/podcast/item.php?pid=113"
+  end
+
+  it 'should set the description of the podcast' do
+    @podcast.reload.description.should =~ /^/
+  end
+
+  it 'should set the language of the podcast' do
+    @podcast.reload.language.should == "zh-CN"
+  end
+
+  it 'should add tags' do
+    @podcast.tag_string.should include('gadgets', 'hd', 'newsandpolitics')
+    @podcast.tags.size.should == 3
+    @podcast.taggers.should include(@podcast.owner)
   end
 end
 

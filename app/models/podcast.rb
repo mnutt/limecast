@@ -104,7 +104,6 @@ class Podcast < ActiveRecord::Base
   after_destroy :update_finder_score
 
   validates_presence_of   :title, :unless => Proc.new { |podcast| podcast.new_record? }
-  validates_format_of     :title, :with => /[A-Za-z0-9]+/, :message => "must include at least 1 letter (a-z, A-Z)"
   validates_presence_of   :url
   validates_uniqueness_of :url
   validates_length_of     :url, :maximum => 1024
@@ -386,9 +385,6 @@ class Podcast < ActiveRecord::Base
   end
   
   def sanitize_title
-    # # cache the xml_title or blank until next time
-    # self.title = xml_title.to_s if title.blank?
-
     desired_title = title
     # Second, sanitize "title"
     self.title.sub!(/^[\s]*-/, "") # Remove leading dashes
@@ -409,8 +405,8 @@ class Podcast < ActiveRecord::Base
       self.clean_url.gsub!(/[^A-Za-z0-9\s-]/, "")  # Remove all non-alphanumeric non-space non-hyphen characters
       self.clean_url.gsub!(/\s+/, '-')             # Condense spaces and turn them into dashes
       self.clean_url.gsub!(/\-{2,}/, '-')          # Replaces multiple sequential hyphens with one hyphen
+      self.clean_url = 'untitled' if clean_url.empty?
 
-      i = 1 # Number to attach to the end of the title to make it unique
       self.clean_url = "#{clean_url}-2" if Podcast.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
       self.clean_url.increment! while Podcast.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
 

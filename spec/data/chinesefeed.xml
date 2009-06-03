@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--   must include xmlns tag --> 
+<rss xmlns:itunes="http://www.itunes.com/DTDs/Podcast-1.0.dtd" version="2.0">
+<channel>
+        <title>香港電台：視像新聞</title> 
+        <itunes:author>RTHK ON INTERNET</itunes:author> 
+        <link>http://podcast.rthk.org.hk/podcast/item.php?pid=113</link> 
+        <itunes:subtitle>「視像新聞」由新聞部編製，為大家精選當天新聞，探討時事，每晚十一時更新。</itunes:subtitle> 
+        <itunes:summary></itunes:summary> 
+        <language>zh-CN</language> 
+        <copyright>Radio Television Hong Kong</copyright> 
+        <itunes:owner>
+        <itunes:name>RTHK ON INTERNET</itunes:name> 
+        <itunes:email>webmaster@rthk.org.hk</itunes:email> 
+        </itunes:owner>
+        <!--   iTunes Browse Podcasts Category --> 
+        <itunes:category text="News &amp; Politics">
+        </itunes:category>
+        <!--   iTunes Browse Podcasts Subcategory  --> 
+        <itunes:category text="Gadgets" > 
+        </itunes:category>
+        <itunes:keywords>香港電台, 港台, 新聞, 視像新聞</itunes:keywords> 
+        <itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_113.jpg">RTHK Podcast</itunes:image>
+		<item>
+	<title><![CDATA[奧巴馬抵達利雅得　展開訪問中東 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[美國總統奧巴馬抵達沙特阿拉伯首都利雅得，展開中東訪問行程，稍後會和沙特國王阿卜杜拉會面，預料將談及以巴、伊朗和石油問題。
+
+奧巴馬訪問期間，會在埃及開羅發表演說。他說希望與伊斯蘭世界展開建設性對話，但不要期望一次演說，能夠解決所有問題。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[美國總統奧巴馬抵達沙特阿拉伯首都利雅得，展開中東訪問行程，稍後會和沙特國王阿卜杜拉會面，預料將談及以巴、伊朗和石油問題。
+
+奧巴馬訪問期間，會在埃及開羅發表演說。他說希望與伊斯蘭世界展開建設性對話，但不要期望一次演說，能夠解決所有問題。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586412_2.avi" length="6205352" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586412_2.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:01</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[梁淑貞晤教育局代表　稱過去多日休息及靈修 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[基督教臻美黃乾亨學校的校監梁淑貞，傍晚與教育局代表會面。
+
+梁淑貞表示，昨日上午與局方聯絡，再安排雙方商討交回辦學權的事宜。
+
+她又表示，過去多日沒有露面，是要進行靈修及休息，只曾在星期一收過教育局的電郵。
+
+對於教育局表示，不排除撤換學校校監，梁淑貞表示不要緊，最重要是做好教育工作。
+
+另外，教育局訂出接辦「基督教臻美黃乾亨學校」的條件，日後學校要保留直資模式，但初中班級，就要逐步停辦。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[基督教臻美黃乾亨學校的校監梁淑貞，傍晚與教育局代表會面。
+
+梁淑貞表示，昨日上午與局方聯絡，再安排雙方商討交回辦學權的事宜。
+
+她又表示，過去多日沒有露面，是要進行靈修及休息，只曾在星期一收過教育局的電郵。
+
+對於教育局表示，不排除撤換學校校監，梁淑貞表示不要緊，最重要是做好教育工作。
+
+另外，教育局訂出接辦「基督教臻美黃乾亨學校」的條件，日後學校要保留直資模式，但初中班級，就要逐步停辦。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586398_3.avi" length="2735274" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586398_3.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:00:27</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[龔因心：龔如心曾疏遠陳振聰 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[高等法院繼續聆訊已故華懋集團主席龔如心的遺囑認證案，龔如心胞妹龔因心作供說，不認同陳振聰與龔如心是情侶，又形容兩人的關係有如太后和太監。龔如心接受雌激素治療，是要保持青春，不是要為陳振聰生小孩。
+
+龔因心又說，龔如心曾經指陳振聰的行為神神化化，有一段時間無找他看風水。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[高等法院繼續聆訊已故華懋集團主席龔如心的遺囑認證案，龔如心胞妹龔因心作供說，不認同陳振聰與龔如心是情侶，又形容兩人的關係有如太后和太監。龔如心接受雌激素治療，是要保持青春，不是要為陳振聰生小孩。
+
+龔因心又說，龔如心曾經指陳振聰的行為神神化化，有一段時間無找他看風水。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586380_2.avi" length="8266178" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586380_2.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:21</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[臻美黃乾亨學校初中班級要逐步停辦 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[教育局訂出接辦「基督教臻美黃乾亨學校」的條件，日後學校要保留直資模式，但初中班級要逐步停辦。
+
+有家長感到徬徨；亦有議員關注，教職員士氣低落，影響教學質素。
+
+而近日沒有公開露面的校監梁淑貞，今晚會與教育局開會，商討交接安排。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[教育局訂出接辦「基督教臻美黃乾亨學校」的條件，日後學校要保留直資模式，但初中班級要逐步停辦。
+
+有家長感到徬徨；亦有議員關注，教職員士氣低落，影響教學質素。
+
+而近日沒有公開露面的校監梁淑貞，今晚會與教育局開會，商討交接安排。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586374_2.avi" length="6803604" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586374_2.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:10</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[台灣京劇團在港演出新型京劇 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[台灣一個京劇團，獲本港康文署邀請來港，以湛新的方式表演傳統京劇，名為《老戲新唱》。
+
+劇團團長李寶春表示，今次演出將重新包裝傳統京劇，包括《大鬧天宮》和《奇冤報》等，在保留傳統精華之餘，亦會加入舞蹈及水袖等新元素，增強視覺效果，希望觀眾欣賞時可得到更大樂趣。
+
+該劇會在星期五及星期六上演，約2300張門票已公開發售。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[台灣一個京劇團，獲本港康文署邀請來港，以湛新的方式表演傳統京劇，名為《老戲新唱》。
+
+劇團團長李寶春表示，今次演出將重新包裝傳統京劇，包括《大鬧天宮》和《奇冤報》等，在保留傳統精華之餘，亦會加入舞蹈及水袖等新元素，增強視覺效果，希望觀眾欣賞時可得到更大樂趣。
+
+該劇會在星期五及星期六上演，約2300張門票已公開發售。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586349_1.avi" length="7341600" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586349_1.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:16</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[「六四」20周年前夕　港大學生重髹太古橋 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[40名香港大學學生會成員與港大學生，下午重新為校內印有平反六四標語的太古橋，髹上油漆，以紀念六四事件20周年。
+
+參與的學生全部穿上印有「平反六四」字眼的黑色上衣，並為事件中的死難者默哀。
+
+學生會代表指出，雖然近年中國經濟發展迅速，但言論自由及法治等方面，仍未獲政府正視，要求中央政府為事件道歉、公開事件真相，及對89民運給予正面評價。
+
+被問到會否歡迎因為評論六四事件而被罷免的前會長陳一鍔參加活動時，學生會代表表示，若對方希望出席，亦會歡迎。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[40名香港大學學生會成員與港大學生，下午重新為校內印有平反六四標語的太古橋，髹上油漆，以紀念六四事件20周年。
+
+參與的學生全部穿上印有「平反六四」字眼的黑色上衣，並為事件中的死難者默哀。
+
+學生會代表指出，雖然近年中國經濟發展迅速，但言論自由及法治等方面，仍未獲政府正視，要求中央政府為事件道歉、公開事件真相，及對89民運給予正面評價。
+
+被問到會否歡迎因為評論六四事件而被罷免的前會長陳一鍔參加活動時，學生會代表表示，若對方希望出席，亦會歡迎。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586346_1.avi" length="8012622" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586346_1.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:19</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[以色列女子躺火車軌自殺僅受輕傷 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[以色列一名女子企圖自殺，越過交通燈，躺在路軌中間，及後一輛正以高速行駛的列車駛過，該名女人事後奇蹟生還。
+
+警方其後尋獲這名女子，她只是頭部受輕傷，在當地醫院接受治療後，已被送往精神病院接受進一步檢驗。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[以色列一名女子企圖自殺，越過交通燈，躺在路軌中間，及後一輛正以高速行駛的列車駛過，該名女人事後奇蹟生還。
+
+警方其後尋獲這名女子，她只是頭部受輕傷，在當地醫院接受治療後，已被送往精神病院接受進一步檢驗。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586336_1.avi" length="4129574" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586336_1.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:00:44</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[立法會表決時議員對罵　主席宣布暫時休會 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[立法會動議辯論全面檢討問責制的議案，提出議案的社民連主席黃毓民，只有一分鐘時間總結，黃毓民表示，官員回應時都有10多分鐘，安排不公平，黃毓民到發言時限過後，仍在批評官員。
+
+到記名表決時，金融服務界的議員詹培忠突然發言，不滿主席曾鈺成的安排，表明如果他主持會議時不公平，要後果自負，其後他忠告議員，應該互相尊重，否則亦需要後果自負。
+
+社民連的梁國雄要求詹培忠澄清，解釋何謂後果自負，雙方互相對質，梁國雄拒絕坐下，主席曾鈺成宣布暫時休會。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[立法會動議辯論全面檢討問責制的議案，提出議案的社民連主席黃毓民，只有一分鐘時間總結，黃毓民表示，官員回應時都有10多分鐘，安排不公平，黃毓民到發言時限過後，仍在批評官員。
+
+到記名表決時，金融服務界的議員詹培忠突然發言，不滿主席曾鈺成的安排，表明如果他主持會議時不公平，要後果自負，其後他忠告議員，應該互相尊重，否則亦需要後果自負。
+
+社民連的梁國雄要求詹培忠澄清，解釋何謂後果自負，雙方互相對質，梁國雄拒絕坐下，主席曾鈺成宣布暫時休會。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586332_2.avi" length="8632894" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586332_2.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:27</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[拉合爾炸彈襲擊片段曝光　涉三恐怖份子 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[巴基斯坦傳媒取得上星期三，塔利班武裝份子在拉合爾策動炸彈襲擊的閉路電視片段。
+
+當時三名武裝份子，駕駛一輛白色客貨車至一個檢查站，然後下車向警?亂槍掃射，期間一名武裝份子被擊斃，最後客貨車駛至另一道閘門後發生爆炸。
+
+由於爆炸威力強大，導致警局及附近的情報機構大樓倒塌，多人被埋，事件造成最少3死，27人受傷。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[巴基斯坦傳媒取得上星期三，塔利班武裝份子在拉合爾策動炸彈襲擊的閉路電視片段。
+
+當時三名武裝份子，駕駛一輛白色客貨車至一個檢查站，然後下車向警?亂槍掃射，期間一名武裝份子被擊斃，最後客貨車駛至另一道閘門後發生爆炸。
+
+由於爆炸威力強大，導致警局及附近的情報機構大樓倒塌，多人被埋，事件造成最少3死，27人受傷。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586313_1.avi" length="5004708" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586313_1.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:00:53</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[林瑞麟：問責制留待下任行政長官檢討 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[立法會動議辯論全面檢討問責制。
+
+政制及內地事務局局長林瑞麟表示，問責制令官員分工配合，與各界加強聯繫，部分官員例如馬時亨因為仙股事件致歉，楊永強亦因沙士事件辭職，體現問責精神。
+
+林瑞麟又說，拓展政治委任制度，可為未來普選立法會及特首培訓政治人才，由於有關制度每5年一任，檢討工作交由下任行政長官。
+
+職工盟的李卓人批評制度只是「問責道歉制」，涉嫌失職官員只是道歉了事。
+
+自由黨的劉健儀亦質疑，前財政司司長梁錦松及前保安局局長葉劉淑儀，以私人理由辭職，無法體現問責制精神。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[立法會動議辯論全面檢討問責制。
+
+政制及內地事務局局長林瑞麟表示，問責制令官員分工配合，與各界加強聯繫，部分官員例如馬時亨因為仙股事件致歉，楊永強亦因沙士事件辭職，體現問責精神。
+
+林瑞麟又說，拓展政治委任制度，可為未來普選立法會及特首培訓政治人才，由於有關制度每5年一任，檢討工作交由下任行政長官。
+
+職工盟的李卓人批評制度只是「問責道歉制」，涉嫌失職官員只是道歉了事。
+
+自由黨的劉健儀亦質疑，前財政司司長梁錦松及前保安局局長葉劉淑儀，以私人理由辭職，無法體現問責制精神。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586297_2.avi" length="6363766" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586297_2.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:06</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[李少光：入境處並無一概不可入境的黑名單 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[保安局局長李少光表示，入境處並無一概不可入境的黑名單，處方是按每次入境，作出決定，考慮的因素包括，該入境人士是否持有有效旅行證件、是否有返回原居地的安排，以及來港的目的是否存疑等。
+
+至於國殤之柱創作人高志活，和前學運領袖項小吉，被拒入境的原因，李少光表示，不會評論個別個案，強調入境處有權有責任，做好入境管制的工作。
+
+李少光在立法會回應議員有關民運人士被拒入境的質詢時指出，過去三年，每年有約四萬人被拒入境，七成來自內地，其餘來自亞洲及非洲，如果被拒入境人士不滿，亦有渠道上訴。
+
+他又說，入境處的確有監察名單，主要是通緝犯、曾經被定罪的非法勞工，及被阻止離境的人士等，名單會不時更新，亦不會公開，主要用作做好入境管制工作。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[保安局局長李少光表示，入境處並無一概不可入境的黑名單，處方是按每次入境，作出決定，考慮的因素包括，該入境人士是否持有有效旅行證件、是否有返回原居地的安排，以及來港的目的是否存疑等。
+
+至於國殤之柱創作人高志活，和前學運領袖項小吉，被拒入境的原因，李少光表示，不會評論個別個案，強調入境處有權有責任，做好入境管制的工作。
+
+李少光在立法會回應議員有關民運人士被拒入境的質詢時指出，過去三年，每年有約四萬人被拒入境，七成來自內地，其餘來自亞洲及非洲，如果被拒入境人士不滿，亦有渠道上訴。
+
+他又說，入境處的確有監察名單，主要是通緝犯、曾經被定罪的非法勞工，及被阻止離境的人士等，名單會不時更新，亦不會公開，主要用作做好入境管制工作。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586262_2.avi" length="5896620" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586262_2.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:01</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[政府為中西區40幢舊樓清潔公眾地方 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[政府聘請承辦商，為中西區40幢無業主立案法團或管理公司的舊樓清潔，預計一星期內完成。
+
+清潔範圍包括樓梯及天台等公眾地方，民政署會派人監察及突擊巡查清潔狀況。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[政府聘請承辦商，為中西區40幢無業主立案法團或管理公司的舊樓清潔，預計一星期內完成。
+
+清潔範圍包括樓梯及天台等公眾地方，民政署會派人監察及突擊巡查清潔狀況。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586243_1.avi" length="5827106" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586243_1.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:00</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[美國國會通過決議案促北京調查六四事件 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[明日是六四事件20周年，美國國會眾議院以大比數通過決議案，促請北京當局全面調查六四事件，並釋放被囚的異見人士。
+
+眾議院以396票贊成，1票反對通過議案。決議案同時要求北京政府，停止干擾包括天安門母親等組織。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[明日是六四事件20周年，美國國會眾議院以大比數通過決議案，促請北京當局全面調查六四事件，並釋放被囚的異見人士。
+
+眾議院以396票贊成，1票反對通過議案。決議案同時要求北京政府，停止干擾包括天安門母親等組織。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586215_1.avi" length="6162344" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586215_1.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:03</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+<item>
+	<title><![CDATA[巴西證實發現失蹤法航客機殘骸 (2009-06-03)]]></title>
+	<itunes:author>Radio Television Hong Kong</itunes:author>
+	<itunes:subtitle><![CDATA[巴西國防部長說，空軍在大西洋海域，發現失蹤法航客機的殘骸，證實客機在大西洋墜毀。
+
+他說，發現的殘骸，有金屬和非金屬物件，無發現屍體。他又說，飛機黑盒可能在2000至3000米深的海底，搜尋很困難。
+
+法國傳媒報道，失蹤客機的黑盒可以抵抗海底6000米深的壓力，並可以在一個月內，持續向外界發射信號。
+
+空軍飛機較早時在費爾南多-迪諾羅尼亞島東北650公里海面，發現飛機殘骸，分佈5公里，包括飛機座椅、白色碎片、一個救生圈和燃油痕跡。 (2009-06-03)]]></itunes:subtitle>
+	<itunes:image href="http://podcast.rthk.org.hk/podcast/upload_photo/item_photo/170x170_videonews.jpg">RTHK Podcast</itunes:image>
+	<itunes:summary><![CDATA[巴西國防部長說，空軍在大西洋海域，發現失蹤法航客機的殘骸，證實客機在大西洋墜毀。
+
+他說，發現的殘骸，有金屬和非金屬物件，無發現屍體。他又說，飛機黑盒可能在2000至3000米深的海底，搜尋很困難。
+
+法國傳媒報道，失蹤客機的黑盒可以抵抗海底6000米深的壓力，並可以在一個月內，持續向外界發射信號。
+
+空軍飛機較早時在費爾南多-迪諾羅尼亞島東北650公里海面，發現飛機殘骸，分佈5公里，包括飛機座椅、白色碎片、一個救生圈和燃油痕跡。 (2009-06-03)]]></itunes:summary>
+	<enclosure url="http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586191_3.avi" length="10502552" type="video/avi" />
+	<guid>http://podcast.rthk.org.hk/podcast/media/videonews/videonews_586191_3.avi</guid>
+	<pubDate>Wed, 3 Jun 2009 23:10:02 +0800</pubDate>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:01:45</itunes:duration>
+	<itunes:keywords>RTHK HONG KONG</itunes:keywords>
+</item>
+
+
+</channel>
+</rss>

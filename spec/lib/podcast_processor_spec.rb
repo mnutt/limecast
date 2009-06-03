@@ -149,7 +149,7 @@ describe Podcast, "updating episodes" do
   end
 
   it 'should create sources with the proper bitrates (from enclosure + mrss)' do
-    @podcast.episodes[0].sources.map(&:bitrate).should == [192, 192, 192, 192]
+    @podcast.episodes[0].sources.map(&:bitrate).should == [192, 14464, 320, 1088]
   end
 
   it 'should create sources with the proper durations (from enclosure + mrss)' do

@@ -21,6 +21,27 @@ describe Podcast do
   end
 end
 
+describe Podcast, "with non-ASCII title" do
+  before do
+    @podcast = Factory.create(:podcast, :xml_title => "El extraño sólido durante el día")
+  end
+
+  it "should keep the xml_title the same" do
+    @podcast.title.should == 'El extraño sólido durante el día'
+  end
+  
+  it "should transliterate the title into a clean_url" do
+    @podcast.clean_url.should == 'El-extrano-solido-durante-el-dia'
+  end
+
+  it "should transliterate the title into a clean_url again" do
+    @podcast.xml_title = "Exçéß"
+    @podcast.save
+    @podcast.clean_url.should == "Excess"
+  end
+  
+end
+
 describe Podcast, "getting the average time between episodes" do
   before do
     @podcast = Factory.create(:podcast)

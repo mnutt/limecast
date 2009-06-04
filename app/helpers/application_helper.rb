@@ -49,12 +49,12 @@ module ApplicationHelper
 
   # All the text on a single line and no links. 
   def line_description(html)
-    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(), :attributes => %w()).strip
+    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(), :attributes => %w()).to_s.strip
   end
 
   # Allows only links and separate paragraphs.
   def page_description(html)
-    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(a br p), :attributes => %w(href)).strip
+    HTML::WhiteListSanitizer.new.sanitize(html, :tags => %w(a br p), :attributes => %w(href)).to_s.strip
   end
 
   def link_to_profile(user)

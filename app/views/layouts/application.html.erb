@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="description" content="Open podcast directory and archive"/>
 
-<% if @podcast -%>
+<% if @podcast && !@podcast.new_record? -%>
   <link rel="shortcut icon" type="image/png" href="<%= @podcast.logo.url(:icon) -%>" />
   <link rel="icon" type="image/png" href="<%= @podcast.logo.url(:icon) -%>" />
 <% end -%>

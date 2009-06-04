@@ -1,4 +1,5 @@
 module SessionsHelper
+  # TODO refactor this; can we somehow move it somewhere where we can test it?
   def create_session_error(params)
     forgot_password = link_to("I forgot my password", forgot_password_url)
     signup          = link_to('Sign Up', '#', :class => 'inline_signup_button')

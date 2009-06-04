@@ -14,7 +14,8 @@ module UsersHelper
       return 'Password must be 4 characters or longer.'                  if user.errors[:password].include?("is too short (minimum is 4 characters)")
       return 'Password must be 40 characters or less.'                   if user.errors[:password].include?("is too long (maximum is 40 characters)")
     elsif user.errors[:email]
-      return 'Please type your email address.'                           if user.errors[:email].include?("can't be blank") or user.errors[:email].include?("is invalid")
+      return 'Please type your email address.'                           if user.errors[:email].include?("can't be blank")
+      return 'Not a valid email address.'                                if user.errors[:email].include?("is invalid")
       return 'Email must be 3 characters or longer.'                     if user.errors[:email].include?("is too short (minimum is 3 characters)")
       return 'Email must be 100 characters or less.'                     if user.errors[:email].include?("is too long (maximum is 100 characters)")
       return "User and password don't match. <br>#{forgot_password}"     if user.errors[:email].include?("email and password don't match")

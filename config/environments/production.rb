@@ -24,6 +24,6 @@ config.action_mailer.smtp_settings = {
   :address => "cyrus.limewire.com",
   :perform_deliveries => true,
   :port    => 25,
-  :domain  => "podcasts.limewire.com"
+  :domain  => "limecast.com"
 }
 

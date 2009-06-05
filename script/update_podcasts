@@ -12,6 +12,8 @@ if(ARGV[0])
   end
 
   exit
+else
+  `echo '#{Time.now.to_s}' > LAST_UPDATE_PODCASTS`
 end
 
 QueuedFeed.parsed.each do |qf|

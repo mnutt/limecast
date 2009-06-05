@@ -237,6 +237,14 @@ module ApplicationHelper
     !obj.valid? || !flash[:has_messages].blank?
   end
 
+  def running_text
+    "<span style=\"color: green; font-size: 20px;\">&#8226;</span>"
+  end
+
+  def not_running_text
+    "<span style=\"color: red; font-size: 20px;\">&#8226;</span>"
+  end
+
   # Question mark on info pages, #non_blank also does #h
   def non_blank(text=nil, escape=true, &block)
     if block

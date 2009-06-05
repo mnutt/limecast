@@ -139,10 +139,10 @@ Podcasts on first page of search results -->
    <!-- total //-->
     <tr>
     <% @statistics.each do |s| -%>
-      <td><%= s.feeds_from_trackers_count %></td>
+      <td><%= s.podcasts_from_trackers_count %></td>
     <% end -%>
-      <td class="gigantic_font"><%= Feed.from_limetracker.size %></td>
-      <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:feeds_from_trackers_count)) %>) no-repeat 50% right;">Tracker installs</th>
+      <td class="gigantic_font"><%= Podcast.from_limetracker.all.size %></td>
+      <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:podcasts_from_trackers_count)) %>) no-repeat 50% right;">Tracker installs</th>
     </tr>
   </table>
 </div>

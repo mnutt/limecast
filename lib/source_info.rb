@@ -1,6 +1,6 @@
 class SourceInfo
   attr_reader :raw_info, :source
-  attr_accessor :file_size, :file_name, :sha1hash, :content_type
+  attr_accessor :file_size, :file_name, :sha1hash, :content_type, :bitrate
 
   def initialize(raw_info, source)
     @raw_info = raw_info

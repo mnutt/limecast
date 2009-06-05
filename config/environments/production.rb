@@ -20,10 +20,4 @@ config.action_controller.perform_caching             = true
 
 config.action_mailer.raise_delivery_errors  = false
 config.action_mailer.delivery_method        = :smtp
-config.action_mailer.smtp_settings = {
-  :address => "10.254.192.25",
-  :perform_deliveries => true,
-  :port    => 25,
-  :domain  => "limecast.com"
-}
-
+config.action_mailer.smtp_settings          = YAML.load(File.open('config/mail.yml'))['production'] rescue {}

@@ -215,6 +215,7 @@ namespace :limecast do
       # Symlink    from shared_path => to current
       symlinks = { 'sphinx'            => 'vendor/sphinx',
                    'database.yml'      => 'config/database.yml',
+                   'mail.yml'          => 'config/mail.yml',
                    'remote_server.yml' => 'config/remote_server.yml',
                    'logos'             => 'public/logos',
                    'feed_logos'        => 'public/feed_logos',

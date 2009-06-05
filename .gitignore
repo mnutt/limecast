@@ -5,6 +5,7 @@ tmp/**/*
 .DS_Store
 doc/api
 doc/app
+config/mail.yml
 config/database.yml
 config/remote_server.yml
 config/development.sphinx.conf

@@ -1,0 +1,5 @@
+production:
+  address: limewire.com
+  perform_deliveries: true
+  port: 25
+  domain: limecast.com

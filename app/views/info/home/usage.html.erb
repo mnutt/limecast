@@ -26,7 +26,7 @@ Podcasts on first page of search results -->
       <td><%= s.podcasts_found_by_nonadmins_count %></td>
     <% end -%>
       <td><%= Podcast.found_by_nonadmin.size %></td>
-      <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:podcasts_found_by_admins_count)) %>) no-repeat 50% right;">Added by community</th>
+      <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:podcasts_found_by_nonadmins_count)) %>) no-repeat 50% right;">Added by community</th>
     </tr>
     <!-- added by staff //-->
     <tr>
@@ -34,7 +34,7 @@ Podcasts on first page of search results -->
       <td><%= s.podcasts_found_by_admins_count %></td>
     <% end -%>
       <td><%= Podcast.found_by_admin.size %></td>
-      <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:podcasts_found_by_nonadmins_count)) %>) no-repeat 50% right;">Added by staff</th>
+      <th class="key" style="background: url(<%= sparkline_link(@statistics.map(&:podcasts_found_by_admins_count)) %>) no-repeat 50% right;">Added by staff</th>
     </tr>
     <!-- total //-->
     <tr>

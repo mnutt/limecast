@@ -20,4 +20,4 @@ config.action_controller.perform_caching             = true
 
 config.action_mailer.raise_delivery_errors  = false
 config.action_mailer.delivery_method        = :smtp
-config.action_mailer.smtp_settings          = YAML.load(File.open('config/mail.yml'))['production'] rescue {}
+config.action_mailer.smtp_settings          = HashWithIndifferentAccess.new(YAML.load(File.open('config/mail.yml'))['production']) rescue {}

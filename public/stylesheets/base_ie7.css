@@ -81,10 +81,10 @@ button {
 
 img { -ms-interpolation-mode:bicubic; }
 
-#new_feed input#feed_url {
+#new_podcast input#podcast_url {
 	margin-top: 0;
 }
 
-#new_feed button.addme {
+#new_podcast button.addme {
   top: -15px;
 }

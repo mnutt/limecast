@@ -94,9 +94,9 @@ form#search button {
 	padding-left: 45px;
 }
 
-.itunes_feed { background: url('../imgs/subscribe_itunes.png') top left no-repeat; }
-.miro_feed   { background: url('../imgs/subscribe_miro.png') top left no-repeat; }
-.rss_feed    { background: url('../imgs/subscribe_rss.png') top left no-repeat; }
+.itunes_podcast { background: url('../imgs/subscribe_itunes.png') top left no-repeat; }
+.miro_podcast   { background: url('../imgs/subscribe_miro.png') top left no-repeat; }
+.rss_podcast    { background: url('../imgs/subscribe_rss.png') top left no-repeat; }
 
 /* Subscribe dropdown **/
 

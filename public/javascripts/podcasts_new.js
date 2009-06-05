@@ -9,7 +9,7 @@ $(document).ready(function(){
         // clone the disabled form and append it
         var form_clone = $('#added_podcast').clone();
         form_clone.attr('id', null);
-        form_clone.find('input[type=submit]').attr('disabled', 'disabled').unbind('click');
+        form_clone.find('input[type=submit]').attr('disabled', 'disabled').unbind('click').css('color', '#333');
         form_clone.find('.text').attr('value', podcast_url);
         form_clone.show();
         $('#added_podcast_list').append(form_clone);

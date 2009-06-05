@@ -64,11 +64,12 @@ class Podcast < ActiveRecord::Base
   has_attached_file :logo,
                     :path => ":rails_root/public/podcast_:attachment/:id/:style/:basename.:extension",
                     :url  => "/podcast_:attachment/:id/:style/:basename.:extension",
-                    :styles => { :square => ["85x85#", :png],
-                                 :small  => ["170x170#", :png],
-                                 :large  => ["300x300>", :png],
-                                 :icon   => ["25x25#", :png],
-                                 :thumb  => ["16x16#", :png] }
+                    :styles => { :square  => ["85x85#", :png],
+                                 :small   => ["170x170#", :png],
+                                 :large   => ["300x300>", :png],
+                                 :icon    => ["25x25#", :png],
+                                 :favicon => ["16x16#", :ico],
+                                 :thumb   => ["16x16#", :png] }
 
   named_scope :not_approved, :conditions => {:approved => false}
   named_scope :approved, :conditions => {:approved => true}

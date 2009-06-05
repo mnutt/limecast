@@ -53,7 +53,7 @@
 </table>
 
 <p>
-  Jobs: 
+  Jobs running: 
   Add Podcast (<%= (p = (`cat #{RAILS_ROOT}/tmp/pids/dj.pid`)[/\d+/] and `ps -p #{p} | wc -l`.to_i > 1) ? running_text : not_running_text %>),
   Update Podcast (<%= t = `cat LAST_UPDATE_PODCASTS`; !t.blank? && (Time.parse(t) > 30.minutes.ago) ? running_text : not_running_text %>),
   Update Sources (<%= t = `cat LAST_UPDATE_SOURCES`; !t.blank? && (Time.parse(t) > 30.minutes.ago) ? running_text : not_running_text %>)

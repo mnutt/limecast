@@ -8,8 +8,8 @@
   <meta name="description" content="Open podcast directory and archive"/>
 
 <% if @podcast && !@podcast.new_record? -%>
-  <link rel="shortcut icon" type="image/png" href="<%= @podcast.logo.url(:icon) -%>" />
-  <link rel="icon" type="image/png" href="<%= @podcast.logo.url(:icon) -%>" />
+  <link rel="shortcut icon" type="image/x-icon" href="<%= @podcast.logo.url(:favicon) -%>" />
+  <link rel="icon" type="<%= @podcast.logo.content_type %>" href="<%= @podcast.logo.url(:icon) -%>" />
 <% end -%>
 
   <%= rss_link(@podcast) -%>

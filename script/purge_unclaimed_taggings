@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
+root_path = File.join(File.dirname(__FILE__), '..')
+require "#{root_path}/config/environment.rb"
 
 Tagging.
   created_at_least(20.minutes.ago).

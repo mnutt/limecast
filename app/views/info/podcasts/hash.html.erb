@@ -9,7 +9,7 @@
   <% begin -%>
     <%= link_to h(@probably_next_source.podcast.title), info_podcast_url(@probably_next_source.podcast) -%> &raquo;
     <%= link_to h(@probably_next_source.episode.date_title), info_episode_url(@probably_next_source.podcast, @probably_next_source.episode) -%> &raquo;
-    <%= link_to "#{@probably_next_source.formatted_bitrate} #{h @probably_next_source.format}", info_source_url(@probably_next_source.podcast, @probably_next_source.episode, @probably_next_source) -%>
+    <%= link_to "#{@probably_next_source.formatted_bitrate} #{h @probably_next_source.extension}", info_source_url(@probably_next_source.podcast, @probably_next_source.episode, @probably_next_source) -%>
   <% rescue -%> 
     Not quite sure
   <% end -%>
@@ -22,7 +22,7 @@
     <li>
       <%= link_to h(source.podcast.title), info_podcast_url(source.podcast) -%> &raquo;
       <%= link_to h(source.episode.date_title), info_episode_url(source.podcast, source.episode) -%> &raquo;
-      <%= link_to "#{source.formatted_bitrate} #{h source.format}", info_source_url(source.podcast, source.episode, source), :title => h(source.sha1hash) -%>
+      <%= link_to "#{source.formatted_bitrate} #{h source.extension}", info_source_url(source.podcast, source.episode, source), :title => h(source.sha1hash) -%>
       <%= relative_time(source.hashed_at) -%>
     </li>
   <% end -%>

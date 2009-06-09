@@ -2,9 +2,9 @@
 <table>
   <tr>
     <td>
-      <%= non_blank source.feed.formatted_bitrate -%> 
+      <%= non_blank source.formatted_bitrate -%> 
       <%= non_blank source.size.to_file_size.to_s(true, false).downcase -%> 
-      <%= non_blank source.format -%> 
+      <%= non_blank source.extension -%> 
       <%= non_blank source.resolution -%> 
       <%= non_blank source.framerate -%> 
       <%= source.episode.duration == 0 ? blankness : source.episode.duration.to_i.to_duration -%>
@@ -22,7 +22,6 @@
   </tr>
   <tr>
     <td>
-      <%= info_feed_link(source.feed, false) -%> 
       <%= info_source_link(source, false) -%>
     </td>
   </tr>

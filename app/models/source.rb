@@ -95,9 +95,14 @@ class Source < ActiveRecord::Base
     podcast_name = self.episode.podcast.clean_url
     episode_date = self.episode.clean_url
     bitrate      = self.podcast.formatted_bitrate 
-    format       = read_attribute('format')
   
-    "#{id}-#{podcast_name}-#{episode_date}-#{bitrate}-#{format}"
+    "#{id}-#{podcast_name}-#{episode_date}-#{bitrate}-#{extension}"
+  end
+  
+  # Note: we'll use this as the defacto format instead of format() because
+  # format() is derived from ffmpeg output, which has been wrong in some cases
+  def extension
+    extension_from_disk.blank? ? extension_from_feed : extension_from_disk
   end
 
   def magnet_url

@@ -88,7 +88,7 @@ class Episode < ActiveRecord::Base
   end
 
   def audio_source
-    self.sources.select{|s| s.format == "mp3"}.first
+    self.sources.select{|s| s.extension == "mp3"}.first
   end
 
   def to_param

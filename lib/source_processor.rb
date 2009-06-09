@@ -73,7 +73,7 @@ class SourceProcessor
   end
 
   def get_http_info
-    curl_output = `curl -L -I '#{source.url.gsub("'", "")}'`
+    curl_output = `curl -L -I '#{source.url.to_s.gsub("'", "")}'`
     headers = curl_output.split(/[\r\n]/)
     content_types = headers.select{|h| h =~ /^Content-Type/}
     @content_type_from_http = content_types.empty? ? '' : content_types.last.split(": ").last rescue nil

@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20090528153509
+# Schema version: 20090608194923
 #
 # Table name: reviews
 #
 #  id             :integer(4)    not null, primary key
 #  user_id        :integer(4)    
-#  body           :text          
+#  body           :text(16777215 
 #  created_at     :datetime      
 #  updated_at     :datetime      
 #  title          :string(255)   

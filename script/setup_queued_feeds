@@ -9,5 +9,6 @@ Podcast.all.each do |p|
     :error      => p.error,
     :podcast_id => p.id
   )
+  puts "QF setup for #{p.title}: errors? #{qf.errors.inspect}\n"
 end
 

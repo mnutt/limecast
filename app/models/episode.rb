@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20090528153509
+# Schema version: 20090608194923
 #
 # Table name: episodes
 #
 #  id                     :integer(4)    not null, primary key
 #  podcast_id             :integer(4)    
-#  summary                :text          
+#  summary                :text(16777215 
 #  published_at           :datetime      
 #  created_at             :datetime      
 #  updated_at             :datetime      
@@ -16,6 +16,8 @@
 #  title                  :string(255)   
 #  clean_url              :string(255)   
 #  guid                   :string(255)   
+#  xml                    :text          
+#  archived               :boolean(1)    
 #
 
 class Episode < ActiveRecord::Base
@@ -37,6 +39,7 @@ class Episode < ActiveRecord::Base
 
   before_create :generate_url
 
+  named_scope :archived, {:conditions => {:archived => true}}
   named_scope :with_same_title_as, lambda {|who| {:conditions => {:podcast_id => who.podcast.id, :clean_url => who.clean_url}} }
   named_scope :without, lambda {|who| (who.nil?||who.id.nil?) ? {} : {:conditions => ["episodes.id NOT IN (?)", who.id]} }
   named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at DESC"} }

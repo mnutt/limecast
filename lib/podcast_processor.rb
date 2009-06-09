@@ -21,10 +21,14 @@ class PodcastProcessor
     self.new(queued_feed).process
   end
 
+  def self.process_archives(queued_feed)
+    self.new(queued_feed).process_archives
+  end
+
   def initialize(queued_feed)
     @qf = queued_feed
   end
-
+  
   def process
     ActiveRecord::Base.transaction do
       @podcast = @qf.podcast || Podcast.new(:url => @qf.url)
@@ -78,6 +82,23 @@ class PodcastProcessor
     PodcastMailer.deliver_failed_queued_feed(@qf, exception)
     # We saved the duplicate feed id to a variable so that we could point this feed to the correct one
     @qf.update_attributes(:state => @state || 'failed', :podcast_id => @duplicate_podcast_id, :error => exception.class.to_s)
+  end
+
+  def process_archives
+    @podcast = @qf.podcast || Podcast.new(:url => @qf.url)
+    
+    begin
+      update_archives!
+    rescue => exception
+      if ActiveRecord::RecordInvalid === exception
+        @state = "invalid_xml"
+      end
+
+      log_failed(exception)
+      PodcastMailer.deliver_failed_queued_feed(@qf, exception)
+      # We saved the duplicate feed id to a variable so that we could point this feed to the correct one
+      @qf.update_attributes(:state => @state || 'failed', :podcast_id => @duplicate_podcast_id, :error => exception.class.to_s)
+    end
   end
 
   def log_failed(exception)
@@ -142,25 +163,25 @@ class PodcastProcessor
   end
 
   def update_episodes!
-    @podcast.sources.update_all :archived => true
+    @podcast.episodes.update_all :archived => true
 
     @rpodcast_feed.episodes.each do |e|
       # XXX: Definitely need to figure out something better for this. Maybe use guid instead of title?
       episode = @podcast.episodes.find_or_initialize_by_title(e.title)
 
-      episode.attributes = { :summary      => e.summary.to_s.strip,
+      episode.attributes = { :archived     => false,
+                             :summary      => e.summary.to_s.strip,
                              :published_at => e.published_at,
                              :title        => e.title.to_s.strip,
                              :duration     => e.duration,
+                             :xml          => e.raw_xml,
                              :guid         => e.guid }
       if episode.save
         ([e.enclosure] + e.media_contents).each do |s|
           source = @podcast.sources(true).find_or_initialize_by_url_and_episode_id(s.url, episode.id)
-          source.attributes = { :archived               => false,
-                                :duration_from_feed     => (s.duration.to_i == 0 ? e.duration : s.duration),
+          source.attributes = { :duration_from_feed     => (s.duration.to_i == 0 ? e.duration : s.duration),
                                 :bitrate_from_feed      => (s.bitrate.to_i == 0 ? e.bitrate : s.bitrate).nearest_multiple_of(64),
                                 :episode_id             => episode.id,
-                                :xml                    => e.raw_xml,
                                 :published_at           => e.published_at,
                                 :format                 => s.format.to_s,
                                 :content_type_from_feed => s.content_type,
@@ -169,6 +190,40 @@ class PodcastProcessor
                                 :url                    => s.url }
           source.save
         end
+      end
+    end
+  end
+  
+   # Ensure archived xml is reparsed (eg in case code changes)
+  def update_archives!
+    @podcast.episodes.all(:conditions => {:archived => true}).each do |episode|
+      doc = Hpricot.XML(episode.xml.to_s)
+      e = RPodcast::Episode.new(doc) 
+    
+      unless e.guid.blank? && e.title.blank?
+        episode.attributes = { :summary      => e.summary.to_s.strip,
+                               :published_at => e.published_at,
+                               :title        => e.title.to_s.strip,
+                               :duration     => e.duration,
+                               :xml          => e.raw_xml,
+                               :guid         => e.guid }
+        if episode.save
+          ([e.enclosure] + e.media_contents).each do |s|
+            source = episode.sources(true).find_or_initialize_by_url(s.url)
+            source.attributes = { :duration_from_feed     => (s.duration.to_i == 0 ? e.duration : s.duration),
+                                  :bitrate_from_feed      => (s.bitrate.to_i == 0 ? e.bitrate : s.bitrate).nearest_multiple_of(64),
+                                  :published_at           => e.published_at,
+                                  :format                 => s.format.to_s,
+                                  :content_type_from_feed => s.content_type,
+                                  :extension_from_feed    => s.extension,
+                                  :size_from_xml          => s.size,
+                                  :url                    => s.url }
+            source.save
+          end
+        end
+
+        # Destroy if url is not present
+        episode.sources(true).each { |s| s.destroy if s.url.blank? }
       end
     end
   end

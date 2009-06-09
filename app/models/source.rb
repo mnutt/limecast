@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090528153509
+# Schema version: 20090608194923
 #
 # Table name: sources
 #
@@ -14,11 +14,10 @@
 #  preview_file_name        :string(255)   
 #  preview_content_type     :string(255)   
 #  preview_file_size        :string(255)   
-#  xml                      :text          
 #  downloaded_at            :datetime      
 #  hashed_at                :datetime      
-#  curl_info                :text          
-#  ffmpeg_info              :text          
+#  curl_info                :text(16777215 
+#  ffmpeg_info              :text(16777215 
 #  height                   :integer(4)    
 #  width                    :integer(4)    
 #  file_name                :string(255)   
@@ -29,12 +28,11 @@
 #  random_clip_content_type :string(255)   
 #  random_clip_file_size    :string(255)   
 #  ability                  :integer(4)    default(0)
-#  archived                 :boolean(1)    
 #  framerate                :string(20)    
 #  size_from_xml            :integer(4)    
 #  size_from_disk           :integer(4)    
 #  sha1hash                 :string(40)    
-#  torrent_info             :text          
+#  torrent_info             :text(16777215 
 #  duration_from_ffmpeg     :integer(4)    
 #  duration_from_feed       :integer(4)    
 #  extension_from_feed      :string(255)   
@@ -73,8 +71,13 @@ class Source < ActiveRecord::Base
                     :path => ":rails_root/public/:attachment/:to_param.torrent"
                     
 
+  def archived?
+    episode.archived?
+  end
+  alias :archived :archived?
+
   def diagnostic_xml
-    doc = Hpricot.XML(self.xml.to_s)
+    doc = Hpricot.XML(episode.xml.to_s)
     PrettyPrinter.indent_xml(doc)
   end
 
@@ -132,11 +135,15 @@ class Source < ActiveRecord::Base
   end
   
   def bitrate
-    if(bitrate_from_ffmpeg && bitrate_from_ffmpeg > 0)
-      bitrate_from_ffmpeg
-    else
-      bitrate_from_feed || 0
-    end
+    @bitrate ||= if(bitrate_from_ffmpeg && bitrate_from_ffmpeg > 0)
+                   bitrate_from_ffmpeg
+                 elsif(bitrate_from_feed && bitrate_from_feed > 0)
+                   bitrate_from_feed
+                 elsif(size > 0 && duration > 0)
+                   (((size || 0) * 8) / 1000.0) / duration.to_f
+                 else
+                   0
+                 end.to_i
   end
   
   # Returns "video" if video is available, "audio" if audio but not video is available, and nil if neither.

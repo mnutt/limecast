@@ -53,13 +53,13 @@ Factory.define :episode do |e|
   e.duration    60
   e.sources     { [Factory.create(:source)] }
   e.guid        { (Time.now.to_i * rand).to_s }
+  e.xml ""
 
   e.published_at Time.parse("Aug 1, 2008")
 end
 
 Factory.define :source do |s|
   s.url  "http://example.com/source.mpg"
-  s.xml ""
   s.size_from_disk 1234567890
 end
 

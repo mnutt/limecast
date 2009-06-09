@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090528153509
+# Schema version: 20090608194923
 #
 # Table name: podcasts
 #
@@ -25,7 +25,7 @@
 #  bitrate              :integer(4)    
 #  finder_id            :integer(4)    
 #  format               :string(255)   
-#  xml                  :text          
+#  xml                  :text(16777215 
 #  ability              :integer(4)    default(0)
 #  generator            :string(255)   
 #  xml_title            :string(255)   

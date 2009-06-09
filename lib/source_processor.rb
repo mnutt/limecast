@@ -220,21 +220,26 @@ class SourceProcessor
     # do this first in case there is an issue updating the other data
     source.update_attribute(:ability, ABILITY) 
 
-    source.update_attributes(
-      :format               => info.file_format || info.video_codec || info.audio_codec,
-      :sha1hash             => info.sha1hash,
-      :hashed_at            => Time.now,
-      :height               => info.resolution[1],
-      :width                => info.resolution[0],
-      :framerate            => info.framerate,
-      :size_from_disk       => info.file_size,
-      :file_name            => info.file_name,
-      :extension_from_disk  => self.disk_extension,
-      :duration_from_ffmpeg => info.duration,
-      :content_type_from_http => @content_type_from_http,
-      :content_type_from_disk => info.content_type,
-      :bitrate_from_feed    => info.bitrate
-    )
+    begin
+      source.update_attributes(
+        :format               => info.file_format || info.video_codec || info.audio_codec,
+        :sha1hash             => info.sha1hash,
+        :hashed_at            => Time.now,
+        :height               => info.resolution[1],
+        :width                => info.resolution[0],
+        :framerate            => info.framerate,
+        :size_from_disk       => info.file_size,
+        :file_name            => info.file_name,
+        :extension_from_disk  => self.disk_extension,
+        :duration_from_ffmpeg => info.duration,
+        :content_type_from_http => @content_type_from_http,
+        :content_type_from_disk => info.content_type,
+        :bitrate_from_feed    => info.bitrate
+      )
+    rescue Exception => e
+      logger.fatal $!
+      logger.fatal $!.backtrace.join("\n")
+    end
   end
 
   def torrent_tmp_file

@@ -28,9 +28,9 @@
         <% e.sources.each do |s| -%>
           <% if s == source -%>
             <b>
-              <%= s.bitrate -%>
-              <%= s.format -%>
-              <%= s.ability -%><%= "a" if s.archived? -%>
+              <%= non_blank s.formatted_bitrate -%>
+              <%= non_blank s.format -%>
+              <%= non_blank s.ability -%><%= "a" if s.archived? -%>
             </b>
           <% else -%>
             <%= info_source_link(s) -%>

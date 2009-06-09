@@ -105,7 +105,7 @@
   <tr>
     <td class="key" title="The calculated and adjusted bitrate to show to the user">bitrate&nbsp;result</td>
     <td>
-      <%= @podcast.bitrate.blank? || @podcast.bitrate == 0 ? blankness : @podcast.bitrate.to_bitrate.to_s -%>
+      <%= @source.bitrate == 0 ? blankness : @source.bitrate.to_bitrate.to_s -%>
     </td>
   </tr>
 

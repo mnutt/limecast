@@ -18,10 +18,12 @@
       <td class="extra"><%= link_to "site", episode_url(podcast, e) %></td>
       <td>
         <% if e == episode && !source -%>
-          <b><%= e.date_title -%></b>
+          <b><%= e.date_title -%> <%= "a" if e.archived? -%></b>
         <% else -%>
           <%= link_to e.date_title, info_episode_url(podcast, e) -%>
+          <%= "a" if e.archived? -%>
         <% end -%>
+        
       </td>
 
       <td>
@@ -30,7 +32,7 @@
             <b>
               <%= non_blank s.formatted_bitrate -%>
               <%= non_blank s.extension -%>
-              <%= non_blank s.ability -%><%= "a" if s.archived? -%>
+              <%= non_blank s.ability -%>
             </b>
           <% else -%>
             <%= info_source_link(s) -%>
@@ -47,7 +49,7 @@
       <td>
         no episode
       </td>
-      <td><%= podcast.formatted_bitrate -%> <%= podcast.apparent_format -%> <%= s.ability -%><%= "a" if s.archived? -%></td>
+      <td><%= podcast.formatted_bitrate -%> <%= podcast.apparent_format -%> <%= s.ability -%></td>
     </tr>
   <% end -%>
 

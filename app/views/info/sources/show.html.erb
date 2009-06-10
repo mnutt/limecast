@@ -31,7 +31,7 @@
   <tr>
     <td class="key" title="The episode date and time according to the XML">xml&nbsp;date</td>
     <td>
-      <%= relative_time @episode.published_at -%>
+      <%= relative_time @source.published_at -%>
     </td>
   </tr>
 
@@ -47,7 +47,7 @@
   <tr>
     <td class="key" title="When this record was created">age</td>
     <td>
-      <%= relative_time @episode.created_at -%>
+      <%= @source.created_at.blank? ? blankness : relative_time(@source.created_at) -%>
     </td>
   </tr>
 
@@ -119,7 +119,7 @@
   <tr>
     <td class="key" title="The chosen duration for the user">duration&nbsp;result</td>
     <td>
-      <%= @episode.duration.blank? || @episode.duration == 0 ? blankness : @episode.duration.to_duration.to_s -%>
+      <%= @source.duration. == 0 ? blankness : @source.duration.to_duration.to_s -%>
     </td>
   </tr>
 

@@ -119,10 +119,6 @@ class Source < ActiveRecord::Base
     [self.width, self.height].join("x") if self.width && self.height
   end
 
-  def extension
-    file_name.split('.').last
-  end
-
   def size
     self.size_from_disk || self.size_from_xml || 0
   end

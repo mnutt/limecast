@@ -260,7 +260,12 @@ class SourceProcessor
 
   def disk_extension
     filename_array = tmp_filename.split(".")
-    filename_array.size > 1 ? filename_array.last : ''
+
+    if filename_array.size > 0
+      $1 if filename_array.last =~ /([a-z0-9]*)/i rescue ""
+    else
+      ''
+    end
   end
 
   def remove_tmp_files

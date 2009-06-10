@@ -130,6 +130,7 @@ namespace :limecast do
     desc 'Setup initial shared resources'
     task :default, :roles => :app do
       database_config
+      mail_config
       create_shared
       encryption_key
       crontab
@@ -157,6 +158,11 @@ namespace :limecast do
       }
 
       put YAML::dump(database_config), "#{shared_path}/database.yml", :mode => 0664
+    end
+    
+    desc 'Populate a new mail.yml in shared'
+    task :mail_config, :roles => :app do
+      run "cp #{latest_release}/config/mail.example.yml #{shared_path}/mail.yml"
     end
 
     desc 'Creates an encryption key (if necessary) and links it to config/encryption_key'

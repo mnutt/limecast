@@ -136,6 +136,7 @@ class PodcastProcessor
       :owner_email => @rpodcast_feed.owner_email.to_s.gsub(/\(.*\)/, '').strip,
       :owner_name  => @rpodcast_feed.owner_name,
       :xml_title   => @rpodcast_feed.title.to_s.strip,
+      :subtitle    => @rpodcast_feed.subtitle.to_s.strip,
       :description => @rpodcast_feed.summary.to_s.strip,
       :language    => @rpodcast_feed.language,
       :site        => @rpodcast_feed.link,
@@ -173,6 +174,7 @@ class PodcastProcessor
                              :summary      => e.summary.to_s.strip,
                              :published_at => e.published_at,
                              :title        => e.title.to_s.strip,
+                             :subtitle     => e.subtitle.to_s.strip,
                              :duration     => e.duration,
                              :xml          => e.raw_xml,
                              :guid         => e.guid }
@@ -204,6 +206,7 @@ class PodcastProcessor
         episode.attributes = { :summary      => e.summary.to_s.strip,
                                :published_at => e.published_at,
                                :title        => e.title.to_s.strip,
+                               :subtitle     => e.subtitle.to_s.strip,
                                :duration     => e.duration,
                                :xml          => e.raw_xml,
                                :guid         => e.guid }

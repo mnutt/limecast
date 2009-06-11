@@ -66,7 +66,7 @@
     </td>
   </tr>
   <tr>
-    <td class="key" title="Current raw title from XML source">xml&nbsp;title</td>
+    <td class="key" title="Current raw title from XML source">feed&nbsp;title</td>
     <td>
       <%= non_blank @podcast.xml_title %>
     </td>
@@ -95,7 +95,7 @@
   <tr>
     <td class="key" title="iTunes ID linked to iTunes directory, if set">itunes</td>
     <td>
-      <%= non_blank @podcast.itunes_url -%>
+      <%= @podcast.itunes_link.blank? ? blankness : link_to_itunes(@podcast) -%>
     </td>
   </tr>
 </table>
@@ -155,7 +155,7 @@
     <td><%= @podcast.reviews.empty? ? blankness : @podcast.reviews.map{|r| link_to(h(r.reviewer.login), info_review_url(@podcast, r)) }.join(", ") -%></td>
   </tr>
   <tr>
-    <td class="key" title="Related podcasts">related&nbsp;podcasts</td>
+    <td class="key" title="Related podcasts">related</td>
     <td><%= @podcast.related_podcasts.empty? ? blankness : @podcast.related_podcasts.map{|p| link_to h(p.title), info_podcast_url(p)}.join(", ") -%></td>
   </tr>
 
@@ -232,7 +232,7 @@
   <tr>
     <td class="key" title="Podcast description sanitized and formatted to a single line of text for summary display. Runs multiple paragraphs together and doesn't allow links, formatting, or any other HTML.">feed&nbsp;description&nbsp;line</td>
     <td>
-      <%= non_blank line_description(@podcast .description), false %>
+      <%= non_blank line_description(@podcast.description), false %>
     </td>
   </tr>
 

@@ -27,7 +27,7 @@
       </td>
 
       <td>
-        <% e.sources.each do |s| -%>
+        <% e.sources.sort_by(&:bitrate).each do |s| -%>
           <% if s == source -%>
             <b>
               <%= non_blank s.formatted_bitrate -%>

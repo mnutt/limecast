@@ -51,21 +51,22 @@ end
 
 describe Episode, "generating a URL" do
   before(:each) do
+    Episode.destroy_all
     @episode = Factory.create(:episode)
   end
 
   it 'should generate a URL from the published date' do
-    @episode.generate_url.should == "2008-Aug-1"
+    @episode.clean_url.should == "2008-Aug-1"
   end
 
   it 'should generate a URL with an extra number when there is a conflict' do
-    e = Factory.create(:episode, :podcast => @episode.podcast)
+    e = Factory.build(:episode, :podcast => @episode.podcast)
     e.generate_url.should == "2008-Aug-1-2"
   end
 
   it 'should generate a URL with an extra number when there are multiple conflicts' do
     Factory.create(:episode, :podcast => @episode.podcast)
-    e = Factory.create(:episode, :podcast => @episode.podcast)
+    e = Factory.build(:episode, :podcast => @episode.podcast)
     e.generate_url.should == "2008-Aug-1-3"
   end
 
@@ -74,3 +75,30 @@ describe Episode, "generating a URL" do
     @episode.generate_url.should == "2008-Aug-1"
   end
 end
+
+describe Episode, "generating a date title" do
+  before(:each) do
+    @episode = Factory.create(:episode)
+  end
+
+  it 'should generate a date title from the published date' do
+    @episode.generate_date_title.should == "2008 Aug 1"
+  end
+
+  it 'should generate a  date title with an extra number when there is a conflict' do
+    e = Factory.build(:episode, :podcast => @episode.podcast)
+    e.generate_date_title.should == "2008 Aug 1 (2)"
+  end
+
+  it 'should generate a date title with an extra number when there are multiple conflicts' do
+    Factory.create(:episode, :podcast => @episode.podcast)
+    e = Factory.build(:episode, :podcast => @episode.podcast)
+    e.generate_date_title.should == "2008 Aug 1 (3)"
+  end
+
+  it 'should not add an extra number when the conflict is with itself' do
+    @episode.published_at = Date.new(2007, 9, 5)
+    @episode.generate_date_title.should == "2007 Sep 5"
+  end
+end
+

@@ -11,7 +11,7 @@
 <!-- Media -->
 <%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted_by_bitrate} %>
 
-<% if @source = @episode.newest_source -%>
+<!-- <% if @source = @episode.newest_source -%>
   <% if newer_episode = @podcast.episodes.oldest.after(@episode).first
        @newer = newer_episode.sources.first
      end
@@ -19,5 +19,98 @@
        @older = older_episode.sources.first
      end 
   -%>
-  <%= render :file => 'info/sources/show.html.erb', :layout => false -%>
-<% end -%>
+  <%#= render :file => 'info/sources/show.html.erb', :layout => false -%>
+<% end -%> -->
+
+<!-- Text -->
+<table>
+  <tr>
+    <td class="key" title="Unique date for page text">page&nbsp;date</td>
+    <td>
+      <%= non_blank @episode.date_title %>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="Episode title parsed and scrubbed from the XML">url&nbsp;date</td>
+    <td>
+      <%= non_blank @episode.clean_url %>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="Episode title parsed and scrubbed from the XML">item&nbsp;title</td>
+    <td>
+      <%= non_blank @episode.title %>
+    </td>
+  </tr>
+  
+  
+  <tr>
+    <td class="key" title="Podcast subtitle, not currently used on front-end.">subtitle</td>
+    <td>
+      <%= non_blank @podcast.subtitle %>
+    </td>
+  </tr>
+  
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Episode description sanitized and formatted to a single line of text for summary display. Runs multiple paragraphs together and doesn't allow links, formatting, or any other HTML.">description&nbsp;line</td>
+    <td>
+      <%= non_blank line_description(@episode.summary), false %>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Episode description sanitized and formatted for page display. Allows multiple paragraphs and links, but removes HTML formatting.">description&nbsp;page</td>
+    <td class="shaded">
+      <%= non_blank page_description(@episode.summary), false %>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="The HTML behind item description page">description&nbsp;page&nbsp;source</td>
+    <td>
+      <%= non_blank page_description(@episode.summary) %>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Raw XML item GUID">xml&nbsp;guid</td>
+    <td>
+      <%= non_blank @episode.guid -%>
+    </td>
+  </tr>
+  
+  <tr>
+    <td class="key" title="Raw XML item title">xml&nbsp;title</td>
+    <td>
+      <%= non_blank @episode.title -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="Raw XML item date and time">xml&nbsp;date</td>
+    <td>
+      <%= relative_time @episode.published_at -%>
+    </td>
+  </tr>
+</table>
+
+
+<!-- XML -->
+<% if @episode.diagnostic_xml.blank? %>
+  <%= blankness -%>
+<% else %>
+  <pre class="formatted-xml"><%=h @episode.diagnostic_xml -%></pre>
+<% end %>

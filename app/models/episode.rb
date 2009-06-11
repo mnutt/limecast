@@ -37,6 +37,7 @@ class Episode < ActiveRecord::Base
 
   validates_presence_of :podcast_id, :published_at
 
+  before_create :generate_date_title
   before_create :generate_url
 
   named_scope :archived, {:conditions => {:archived => true}}
@@ -69,22 +70,24 @@ class Episode < ActiveRecord::Base
   def previous_episode
     Episode.newest.before(self).find_by_podcast_id(podcast_id) rescue nil
   end
-
-  def generate_url
-    base_title = self.published_at.to_date.to_s(:url)
-
-    iterate(1) do |i|
-      self.clean_url = base_title.dup
-      self.clean_url << "-#{i}" unless i == 1
-
-      Episode.with_same_title_as(self).without(self).count > 0
-    end
-
-    self.clean_url
+  
+  def generate_date_title
+    self.date_title = published_at.to_date.to_s(:title)
+    self.date_title = date_title + " (2)" if podcast.episodes.exists?(["date_title = ? AND id != ?", date_title, id.to_i])
+    self.date_title.increment!(" (%s)", 2) while podcast.episodes.exists?(["date_title = ? AND id != ?", date_title, id.to_i])
+    date_title
   end
 
-  def date_title
-    self.published_at.to_date
+  def generate_url
+    self.clean_url = published_at.to_date.to_s(:url)
+    self.clean_url += "-2" if podcast.episodes.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
+    self.clean_url.increment!("-%s", 2) while podcast.episodes.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
+    clean_url
+  end
+
+  def diagnostic_xml
+    doc = Hpricot.XML(xml.to_s)
+    PrettyPrinter.indent_xml(doc)
   end
 
   def audio_source

@@ -221,6 +221,15 @@
   <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
+    <td class="key" title="Podcast subtitle, not currently used on front-end.">subtitle</td>
+    <td>
+      <%= non_blank @podcast.subtitle %>
+    </td>
+  </tr>
+  
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
     <td class="key" title="Podcast description sanitized and formatted to a single line of text for summary display. Runs multiple paragraphs together and doesn't allow links, formatting, or any other HTML.">feed&nbsp;description&nbsp;line</td>
     <td>
       <%= non_blank line_description(@podcast .description), false %>

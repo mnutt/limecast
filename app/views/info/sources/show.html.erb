@@ -29,13 +29,6 @@
   <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
-    <td class="key" title="The episode date and time according to the XML">xml&nbsp;date</td>
-    <td>
-      <%= relative_time @source.published_at -%>
-    </td>
-  </tr>
-
-  <tr>
     <td class="key" title="When we first noticed this new episode in the feed">found&nbsp;date</td>
     <td>
       <%= relative_time @episode.created_at -%>
@@ -252,48 +245,3 @@
   </tr>
 
 </table>
-
-<!-- Text -->
-<table>
-  <tr>
-    <td class="key" title="Episode title parsed and scrubbed from the XML">item&nbsp;title</td>
-    <td>
-      <%= non_blank @episode.title %>
-    </td>
-  </tr>
-
-  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
-
-  <tr>
-    <td class="key" title="Episode description sanitized and formatted to a single line of text for summary display. Runs multiple paragraphs together and doesn't allow links, formatting, or any other HTML.">item&nbsp;description&nbsp;line</td>
-    <td>
-      <%= non_blank line_description(@episode.summary), false %>
-    </td>
-  </tr>
-
-  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
-
-  <tr>
-    <td class="key" title="Episode description sanitized and formatted for page display. Allows multiple paragraphs and links, but removes HTML formatting.">item&nbsp;description&nbsp;page</td>
-    <td class="shaded">
-      <%= non_blank page_description(@episode.summary), false %>
-    </td>
-  </tr>
-
-  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
-
-  <tr>
-    <td class="key" title="The HTML behind item description page">item&nbsp;description&nbsp;page&nbsp;source</td>
-    <td>
-      <%= non_blank page_description(@episode.summary) %>
-    </td>
-  </tr>
-</table>
-
-
-<!-- XML -->
-<% if @source.diagnostic_xml.blank? %>
-  <%= blankness -%>
-<% else %>
-  <pre class="formatted-xml"><%=h @source.diagnostic_xml -%></pre>
-<% end %>

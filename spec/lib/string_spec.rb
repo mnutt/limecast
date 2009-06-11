@@ -57,6 +57,27 @@ describe String do
       " foobar(134) ".increment("(%s)").should == " foobar(134) (1)"
       " foobar [789]".increment.should == " foobar [789]1"
       " foobar [789]".increment("[%s]").should == " foobar [790]"
+      "2009-Jun-10".increment(" (%s)").should == "2009-Jun-10 (1)"
+    end
+
+    it 'should pay attention to the initial increment number' do
+      x = "foobar".increment(" %s", 2)
+      x.should == "foobar 2"
+      x.increment!("%s", 2)
+      x.should == "foobar 3"
+
+      y = "foobar".increment(" %s", 987)
+      y.should == "foobar 987"
+      y.increment!(" %s", 987)
+      y.should == "foobar 988"
+      y.increment!(" %s", 987)
+      y.should == "foobar 989"
+      
+      z = " foobar "
+      z.increment!(nil, 7)
+      z.should == " foobar 7"
+      z.increment!(nil, 7)
+      z.should == " foobar 8"
     end
 
     it 'should set the original value with bang' do

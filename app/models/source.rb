@@ -76,11 +76,6 @@ class Source < ActiveRecord::Base
   end
   alias :archived :archived?
 
-  def diagnostic_xml
-    doc = Hpricot.XML(episode.xml.to_s)
-    PrettyPrinter.indent_xml(doc)
-  end
-
   # Only check if we set a :file_name from "update_sources"; the File.basename method
   # might not be reliable because some places use weird urls
   def file_name?

@@ -50,6 +50,7 @@ Factory.define :episode do |e|
   e.summary     'This is the first episode of a show! w0000t'
   e.title       'Episode One'
   e.clean_url   '2008-Aug-1'
+  e.date_title  '2008 Aug 1'
   e.duration    60
   e.sources     { [Factory.create(:source)] }
   e.guid        { (Time.now.to_i * rand).to_s }

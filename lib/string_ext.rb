@@ -32,20 +32,27 @@ class String
   #   " foobar (1)".increment #=> " foobar (2)"
   #   " foobar (789) ".increment #=> " foobar (789) (1)"
   #
-  def increment(format=nil) 
+  # And you can pass in an initial number to increment with besides 1:
+  #
+  #   " foobar ".increment(nil, 7) #=> " foobar (7)"
+  #   " foobar (7)".increment(nil, 7) #=> " foobar (8)"
+  #
+  def increment(format=nil, initial=1) 
     regexp = format ? Regexp.new(Regexp.escape(format).gsub('%s', '\d+')) : /\d/
     parts = format ? split(/(#{regexp})|(\D)/) : split(/(\D)/)
     num = (format || "%s") % 0
     parts.push(num) unless parts[-1] =~ regexp
     parts[-1] = if format 
-                  parts[-1].sub(/(\d+)/) { |m| Integer(m) + 1  }
+                  parts[-1].sub(/(\d+)/) { |m| 
+                    (Integer(m).zero? ? initial : Integer(m) + 1)
+                  }
                 else
-                  Integer(parts[-1]) + 1
+                  Integer(parts[-1]).zero? ? initial : Integer(parts[-1]) + 1
                 end
     parts.join
   end
   
-  def increment!(format=nil)
-    replace(increment(format))
+  def increment!(format=nil, initial=1)
+    replace(increment(format, initial))
   end
 end

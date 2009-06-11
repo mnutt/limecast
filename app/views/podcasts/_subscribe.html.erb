@@ -24,7 +24,7 @@
     </ul>
 
     <div id="itunes" class="pane">
-      <%= render :partial => "podcasts/subscribe_pane", :locals => {:podcast => @podcast, :type => "itunes", :url => lambda {|p| p.itunes_url } } -%>
+      <%= @podcast.itunes_link.blank? ? "<p>No link for iTunes yet.</p>" : render(:partial => "podcasts/subscribe_pane", :locals => {:podcast => @podcast, :type => "itunes", :url => lambda {|p| p.itunes_url } }) -%>
     </div>
 
     <div id="miro" class="pane">

@@ -203,9 +203,10 @@ class Podcast < ActiveRecord::Base
     xml
   end
 
+  # TODO figure out a better way to get the host?
   def remixed_as_torrent
     remix_feed do |s|
-      s.torrent.url if s.torrent?
+      "http://limecast.com" + s.torrent.url if s.torrent?
     end
   end
 

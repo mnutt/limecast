@@ -7,6 +7,12 @@
   <%= errors_for podcast, :custom_title %>
 </div>  
 <div class="field">
+  <%= podcast_form.label :itunes_link, "<strong>iTunes</strong>" -%>
+  <%= podcast_form.text_field :itunes_link, :class => "text" -%>
+  <span class="note">Enter the iTunes podcast ID like 123456789 to link to it in iTunes<span>
+</div>
+
+<div class="field">
   <%= podcast_form.check_box :protected %>
   <%= podcast_form.label :protected, "Only let the maker edit" %>
 </div>

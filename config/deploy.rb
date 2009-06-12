@@ -5,7 +5,7 @@ set :keep_releases, 5
 set :application,   "limecast"
 set :user,          "limecast"
 set :remote_home,   "/home/#{user}"
-set :deploy_to,     "#{remote_home}/limecast.com"
+set :deploy_to,     "/var/www/html"
 set :use_sudo,      false
 
 set :scm, :git

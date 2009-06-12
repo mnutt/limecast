@@ -195,15 +195,15 @@ form#quick_signin div.field {
 }
 
 form#quick_signin input.text {
-  float: right;
+	float: right;
 	border: none;
-	background: url('../imgs/input.png') top left no-repeat;
-	width: 168px;
+	overflow: hidden;
+	background: url('../imgs/input.png') top right no-repeat;
+	width: 165px;
 	height: 24px;
 	font-size: 1.4em;
 	padding: 5px;
 	display: block;
-	outline: none;
 }
 
 form#quick_signin .response_container {

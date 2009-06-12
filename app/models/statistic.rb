@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090608194923
+# Schema version: 20090611152951
 #
 # Table name: statistics
 #

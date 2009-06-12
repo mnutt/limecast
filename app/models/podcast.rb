@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090608194923
+# Schema version: 20090611152951
 #
 # Table name: podcasts
 #
@@ -36,6 +36,7 @@
 #  logo_file_size       :string(255)   
 #  error                :string(255)   
 #  custom_title         :string(255)   default("")
+#  subtitle             :string(255)   
 #
 
 require 'paperclip_file'
@@ -111,7 +112,8 @@ class Podcast < ActiveRecord::Base
 
   # Search
   define_index do
-    indexes :title, :site, :description, :owner_name, :owner_email, :url
+    indexes :title, :site, :description, :owner_name, 
+            :owner_email, :url, :subtitle, :language
     indexes owner.login, :as => :owner
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary

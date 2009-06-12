@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090608194923
+# Schema version: 20090611152951
 #
 # Table name: episodes
 #
@@ -18,6 +18,8 @@
 #  guid                   :string(255)   
 #  xml                    :text          
 #  archived               :boolean(1)    
+#  subtitle               :string(255)   
+#  date_title             :string(255)   
 #
 
 class Episode < ActiveRecord::Base
@@ -51,7 +53,7 @@ class Episode < ActiveRecord::Base
   named_scope :sorted_by_bitrate_and_format, :include => [:podcast], :order => "podcasts.bitrate ASC, sources.format ASC"
 
   define_index do
-    indexes :title, :summary
+    indexes :title, :summary, :subtitle
     
     has :podcast_id    
     has :published_at

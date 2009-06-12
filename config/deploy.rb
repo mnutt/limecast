@@ -197,7 +197,7 @@ namespace :limecast do
       cron =  "5,35 * * * * cd #{current_path} && RAILS_ENV=production rake ts:in > /dev/null\n"
       cron << "10 * * * * cd #{current_path} && RAILS_ENV=production script/update_podcasts > /dev/null\n"
       cron << "0,20,40 * * * * cd #{current_path} && RAILS_ENV=production script/purge_unclaimed_taggings > /dev/null\n"
-      if domain == 'limecast.com' 
+      if ['limecast.com', 'beta.limecast.com', 'gv.limewire.com'].include?(domain)
         cron << "*/10 * * * * cd #{current_path} && RAILS_ENV=production script/check_dotcom 2> /dev/null\n"
         cron << "0 0 * * 0-6 cd #{current_path} && RAILS_ENV=production rake limecast:create_statistic > /dev/null\n"
       end

@@ -641,24 +641,6 @@ a.truncate_more_link {
 
 
 
-.review .helpfulness {
-	color: #a9a9a9;
-	font-size: 1.2em;
-	position: absolute;
-	right: 128px;
-	bottom: 18px;
-}
-
-.review div.social {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	width: auto;
-	margin: 0;
-	padding: 0;
-  font-size: 1.4em;
-}
-
 #r_view {
 	position: absolute;
 	top: -40px;

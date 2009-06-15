@@ -1,27 +1,32 @@
 #!/usr/bin/env ruby
-root_path = File.join(File.dirname(__FILE__), '..')
-require "#{root_path}/config/environment.rb"
+require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
+require 'logger'
+@logger = Logger.new(RAILS_ROOT + "/log/update_podcasts.log")
 
 if(ARGV[0])
-  podcast = Podcast.find(ARGV[0])
   begin
-    puts "Getting episodes for #{podcast.title}"
+    podcast = Podcast.find(ARGV[0])
+    @logger.info "Getting episodes for #{podcast.title}"
     qf = podcast.queued_feed || podcast.create_queued_feed
-    PodcastProcessor.process(qf)
+    PodcastProcessor.process(qf, @logger)
   rescue Exception => e
-    puts "There was a problem: #{e.message}"
+    @logger.fatal "There was a problem: #{e.message}"
   end
-
   exit
-else
-  `echo '#{Time.now.to_s}' > LAST_UPDATE_PODCASTS`
 end
 
-QueuedFeed.parsed.each do |qf|
-  begin
-    puts "Getting episodes for #{qf.podcast ? qf.podcast.title : qf.url}"
-    PodcastProcessor.process(qf)
-  rescue Exception => e
-    puts "There was a problem: #{e.message}"
+sleeptime = 60
+
+while true
+  QueuedFeed.parsed.each do |qf|
+    begin
+      @logger.info "Getting episodes for #{qf.podcast ? qf.podcast.title : qf.url}"
+      PodcastProcessor.process(qf, @logger)
+    rescue Exception => e
+      @logger.fatal "There was a problem: #{e.message}"
+    end
   end
+  # Sleep N minutes until we refresh podcasts
+  sleep sleeptime.minutes.to_i
+  @logger.info "Sleeping #{sleeptime} minutes..."
 end

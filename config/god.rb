@@ -31,6 +31,19 @@ God.watch do |w|
   w.behavior(:clean_pid_file)
 end
 
+God.watch do |w|
+  default_conditions(w)
+
+  script = File.join(RAILS_ROOT, "script/update_podcasts_control")
+
+  w.name     = "update_podcasts"
+  w.start    = cd_and("RAILS_ENV=#{RAILS_ENV} #{script} start")
+  w.stop     = cd_and("RAILS_ENV=#{RAILS_ENV} #{script} stop")
+  w.pid_file = File.join(RAILS_ROOT, "tmp/pids/update_podcasts.pid")
+  
+  w.behavior(:clean_pid_file)
+end
+
 rakefile = File.join(RAILS_ROOT, "Rakefile")
 
 God.watch do |w|

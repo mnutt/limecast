@@ -15,18 +15,19 @@ class PodcastProcessor
   #     @feed = Feed.create(:url => params[:feed][:url], :finder => current_user)
   #   end
 
-  attr_accessor :podcast
+  attr_accessor :podcast, :logger
 
-  def self.process(queued_feed)
-    self.new(queued_feed).process
+  def self.process(queued_feed, logger=nil)
+    self.new(queued_feed, logger).process
   end
 
-  def self.process_archives(queued_feed)
-    self.new(queued_feed).process_archives
+  def self.process_archives(queued_feed, logger=nil)
+    self.new(queued_feed, logger).process_archives
   end
 
-  def initialize(queued_feed)
+  def initialize(queued_feed, logger)
     @qf = queued_feed
+    @logger = logger
   end
   
   def process
@@ -102,6 +103,8 @@ class PodcastProcessor
   end
 
   def log_failed(exception)
+    logger.fatal exception
+    logger.fatal exception.backtrace.join("\n")
     stored_exception = {
       :podcast => @qf.url,
       :klass => exception.class.to_s,

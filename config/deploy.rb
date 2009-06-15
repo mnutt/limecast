@@ -290,6 +290,13 @@ namespace :limecast do
     end
   end
 
+  namespace :update_podcasts do
+    desc 'Stops the update_podcasts worker'
+    task :stop do
+      run "function t { cd #{latest_release} && RAILS_ENV=production script/update_podcasts_control stop; return 0; }; t"
+    end
+  end
+
   namespace :god do
     desc 'Stops god'
     task :stop do
@@ -367,5 +374,6 @@ after 'deploy', 'limecast:sphinx:configure'
 after 'deploy', 'limecast:sphinx:index'
 after 'deploy', 'limecast:jobs:stop'
 after 'deploy', 'limecast:update_sources:stop'
+after 'deploy', 'limecast:update_podcasts:stop'
 after 'deploy', 'limecast:god:start'
 

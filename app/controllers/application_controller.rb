@@ -146,8 +146,6 @@ class ApplicationController < ActionController::Base
           record.claim_by(current_user) if record
         end
       end.clear if session[:unclaimed_records]
-
-      current_user.calculate_score!
     end
 
     # Returns true if the non-logged-in user has the given class in their session's unclaimed_records.

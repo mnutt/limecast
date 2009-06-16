@@ -48,7 +48,7 @@ end
 
 desc "Restore database"
 task :restore, :roles => :db, :only => { :primary => true } do
-  raise "DO NOT DROP PRODUCTION DATABASE!" if stage == "production"
+  raise "DO NOT DROP PRODUCTION DATABASE!" if stage == "prod"
 
   set :database do
     run "cd #{shared_path}; cat database.yml" do |channel, stream, data|

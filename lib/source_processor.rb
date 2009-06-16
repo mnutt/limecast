@@ -206,6 +206,9 @@ class SourceProcessor
   def update_source
     logger.info "Updating source"
     begin
+      source.update_attribute( # do this first in case there is an issue updating the other data
+        :ability, ABILITY
+      )  
       if info
         source.episode.update_attributes(
           :duration => info.duration
@@ -214,9 +217,6 @@ class SourceProcessor
           :format   => info.file_format || info.video_codec || info.audio_codec,
           :bitrate  => info.bitrate
         )
-        source.update_attribute( # do this first in case there is an issue updating the other data
-          :ability, ABILITY
-        )  
         source.update_attributes(
           :format               => info.file_format || info.video_codec || info.audio_codec,
           :sha1hash             => info.sha1hash,

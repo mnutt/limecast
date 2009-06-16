@@ -163,8 +163,15 @@ class Feed
   def download_logo(*args); end
 end
 
+class MockLogger
+  def method_missing(*args)
+    # fail silently
+  end
+end
+
 def mod_and_run_podcast_processor(queued_feed, mod = FetchExample)
-  fp = PodcastProcessor.new(queued_feed)
+  logger = MockLogger.new
+  fp = PodcastProcessor.new(queued_feed, logger)
   fp.extend(mod)
   fp.process
 end

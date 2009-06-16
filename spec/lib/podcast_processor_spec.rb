@@ -88,7 +88,7 @@ describe PodcastProcessor, "failing" do
   end
 
   it 'should not create a Feed' do
-    PodcastProcessor.process(@qf)
+    PodcastProcessor.process(@qf, MockLogger.new)
 
     @qf.podcast.should be_nil
   end
@@ -207,7 +207,7 @@ describe Podcast, "when a weird server error occurs" do
   end
 
   it 'should save the error that an unknown exception occurred' do
-    PodcastProcessor.process(@qf)
+    PodcastProcessor.process(@qf, MockLogger.new)
 
     @qf.error.should == "Errno::ECONNREFUSED"
   end

@@ -20,6 +20,8 @@ class SourceProcessor
 
       processor = self.new(source, logger)
 
+      raise "No url for source #{source.id}!" if source.url.blank?
+
       processor.process!
     rescue
       logger.fatal $!
@@ -73,7 +75,7 @@ class SourceProcessor
   end
 
   def get_http_info
-    curl_output = `curl -L -I '#{source.url.to_s.gsub("'", "")}'`
+    curl_output = `curl -L -I '#{source.url.gsub("'", "")}'`
     headers = curl_output.split(/[\r\n]/)
     content_types = headers.select{|h| h =~ /^Content-Type/}
     @content_type_from_http = content_types.empty? ? '' : content_types.last.split(": ").last rescue nil
@@ -166,17 +168,22 @@ class SourceProcessor
   def take_screen_shot
     logger.info "Screenshotting"
     
-    size = info.resized_size_of_video
+    begin
+      size = info.resized_size_of_video
     
-    t = info.screenshot_time(info.duration)
-    screenshot_cmd = "ffmpeg -y -i #{self.tmp_file} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{self.screenshot_tmp_file}"
-    logger.info screenshot_cmd
-    `#{screenshot_cmd}`
+      t = info.screenshot_time(info.duration)
+      screenshot_cmd = "ffmpeg -y -i #{self.tmp_file} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{self.screenshot_tmp_file}"
+      logger.info screenshot_cmd
+      `#{screenshot_cmd}`
     
-    if File.exists?(self.screenshot_tmp_file)
-      logger.info "Generated screenshot #{self.screenshot_tmp_file}"
-      source.attachment_for(:screenshot).assign(File.open(self.screenshot_tmp_file))
-      source.save!
+      if File.exists?(self.screenshot_tmp_file)
+        logger.info "Generated screenshot #{self.screenshot_tmp_file}"
+        source.attachment_for(:screenshot).assign(File.open(self.screenshot_tmp_file))
+        source.save!
+      end
+    rescue Exception => e
+      logger.fatal $!
+      logger.fatal $!.backtrace.join("\n")
     end
   end
   
@@ -199,43 +206,35 @@ class SourceProcessor
   def update_source
     logger.info "Updating source"
     begin
-      source.episode.update_attributes(
-        :duration => info.duration
-      )
-    rescue Exception => e
-      logger.fatal $!
-      logger.fatal $!.backtrace.join("\n")
-    end
-
-    begin
-      source.podcast.update_attributes(
-        :format   => info.file_format || info.video_codec || info.audio_codec,
-        :bitrate  => info.bitrate
-      )
-    rescue Exception => e
-      logger.fatal $!
-      logger.fatal $!.backtrace.join("\n")
-    end
-    
-    # do this first in case there is an issue updating the other data
-    source.update_attribute(:ability, ABILITY) 
-
-    begin
-      source.update_attributes(
-        :format               => info.file_format || info.video_codec || info.audio_codec,
-        :sha1hash             => info.sha1hash,
-        :hashed_at            => Time.now,
-        :height               => info.resolution[1],
-        :width                => info.resolution[0],
-        :framerate            => info.framerate,
-        :size_from_disk       => info.file_size,
-        :file_name            => info.file_name,
-        :extension_from_disk  => self.disk_extension,
-        :duration_from_ffmpeg => info.duration,
-        :content_type_from_http => @content_type_from_http,
-        :content_type_from_disk => info.content_type,
-        :bitrate_from_feed    => info.bitrate
-      )
+      if info
+        source.episode.update_attributes(
+          :duration => info.duration
+        )
+        source.podcast.update_attributes(
+          :format   => info.file_format || info.video_codec || info.audio_codec,
+          :bitrate  => info.bitrate
+        )
+        source.update_attribute( # do this first in case there is an issue updating the other data
+          :ability, ABILITY
+        )  
+        source.update_attributes(
+          :format               => info.file_format || info.video_codec || info.audio_codec,
+          :sha1hash             => info.sha1hash,
+          :hashed_at            => Time.now,
+          :height               => info.resolution[1],
+          :width                => info.resolution[0],
+          :framerate            => info.framerate,
+          :size_from_disk       => info.file_size,
+          :file_name            => info.file_name,
+          :extension_from_disk  => self.disk_extension,
+          :duration_from_ffmpeg => info.duration,
+          :content_type_from_http => @content_type_from_http,
+          :content_type_from_disk => info.content_type,
+          :bitrate_from_feed    => info.bitrate
+        )
+      else
+        logger.fatal "No info variable available."
+      end
     rescue Exception => e
       logger.fatal $!
       logger.fatal $!.backtrace.join("\n")

@@ -1,4 +1,4 @@
-set :domain, 'beta.limecast.com'
+set :domain, 'limecast.com'
 
 role :web, domain
 role :app, domain

@@ -2,13 +2,7 @@ class Admin::PodcastsController < AdminController
   layout "info"
 
   def index
-    @podcasts = Podcast.not_approved
-  end
-
-  def approve
-    @podcasts = Podcast.update_all({:approved => true}, {:id => params[:podcast][:id]})
-
-    redirect_to :action => :index
+    @podcasts = Podcast.all
   end
 
   def blacklist

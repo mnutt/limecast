@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090611152951
+# Schema version: 20090617220532
 #
 # Table name: podcasts
 #
@@ -15,7 +15,6 @@
 #  title                :string(255)   
 #  has_previews         :boolean(1)    default(TRUE)
 #  has_p2p_acceleration :boolean(1)    default(TRUE)
-#  approved             :boolean(1)    
 #  button_installed     :boolean(1)    
 #  protected            :boolean(1)    
 #  favorites_count      :integer(4)    default(0)
@@ -72,8 +71,6 @@ class Podcast < ActiveRecord::Base
                                  :favicon => ["16x16#", :ico],
                                  :thumb   => ["16x16#", :png] }
 
-  named_scope :not_approved, :conditions => {:approved => false}
-  named_scope :approved, :conditions => {:approved => true}
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
   named_scope :parsed, :conditions => {:state => 'parsed'}
   named_scope :tagged_with, lambda { |*tags|

@@ -4,8 +4,9 @@ require(File.dirname(__FILE__) + "/../../config/environment") unless defined?(Ra
 class DeprecateWWW
   def self.call(env)
     if env['HTTP_HOST'].slice!(/^www\./)
-      RAILS_DEFAULT_LOGGER.info "DeprecateWWW: Redirecting to http://#{env['HTTP_HOST']}#{env['REQUEST_URI']}"
-      [302, {'Location' => "http://#{env['HTTP_HOST']}#{env['REQUEST_URI']}"}, []]
+      location = "#{env['rack.url_scheme']}://#{env['HTTP_HOST']}#{env['REQUEST_URI']}"
+      RAILS_DEFAULT_LOGGER.info "DeprecateWWW: Redirecting to #{location}"
+      [302, {'Location' => location}, []]
     else
      # A 400 status (Not Found) passes the call on to the next piece in the stack,
      # which can be another metal piece, or your rails application.

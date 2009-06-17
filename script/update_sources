@@ -12,6 +12,6 @@ end
 
 while true
   # Sleep 30 minutes until a source is found
-  sleep 30.minutes.to_i until source = Source.stale.approved.find(:first, :order => "published_at DESC")
+  sleep 30.minutes.to_i until source = Source.stale.find(:first, :order => "published_at DESC")
   SourceProcessor.process_source(source, @logger)
 end

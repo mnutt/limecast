@@ -1,17 +1,3 @@
-function podcastEpisodeSorting() {
-  var title = { "bSortable": false };
-  var description = { "bVisible": false, "bSortable": false };
-  var runtime = { "bSortable": false };
-  var date_released = null;
-
-  $('#podcast_episodes').dataTable({
-    "aaSorting": [[ 3, "desc" ]],
-    "aoColumns": [ title, description, runtime, date_released ],
-    "bStateSave": true,
-    "bProcessing": true
-  });
-}
-
 function podcastTagEdit() {
   $('#podcast_tag_form').submit(function(){
     var tag_form = $(this);
@@ -38,9 +24,28 @@ function podcastTagEdit() {
   $('.tags .delete').restfulDelete({ confirmed:function(link){ link.parent().fadeOut(); } });
 }
 
+function podcastEpisodesLinks() {
+  $('.expanded a.toggle').click(function(){
+    var parent = $(this).parents('.expanded');
+    parent.hide();
+    var collapsed_id = parent.attr('id').replace(/expanded/, 'collapsed');
+    $("#"+collapsed_id).show();
+    return false;
+  });
+  $('.collapsed a.toggle').click(function(){
+    var parent = $(this).parents('.collapsed');
+    parent.hide();
+    var expanded_id = parent.attr('id').replace(/collapsed/, 'expanded');
+    var expanded = $("#"+expanded_id);
+    expanded.show();
+    hook_up_preview(expanded.find('.preview .container img')); // FIXME
+    return false;
+  });
+}
+
 $(document).ready(function() {
-  podcastEpisodeSorting();
   podcastTagEdit();
+  podcastEpisodesLinks();
   
   $("#subscribe_options li a").click(function(){ return false; });
   $("#s_options_toggle").click(function(e){

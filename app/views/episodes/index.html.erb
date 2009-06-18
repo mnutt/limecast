@@ -1,44 +1,16 @@
 <% @title = "#{h(@podcast.title)} Episodes" -%>
 <% @show_ads = true -%>
+<% stylesheet_link "podcast_show" -%>
 
-<div class="podcast">
+<h1><%= link_to h(@podcast.title), podcast_url(@podcast) %></h1>
 
-  <%#= render :partial => 'podcasts/small_cover', :locals => { :url => podcast_url(@podcast) } -%>
-
-  <p class="heading podcast_link"><%= link_to h(@podcast.title), @podcast -%><%= " episodes that match '#@q'" if @q %></p>
-  <h1 class="heading">Episodes</h1>
-
-  <!-- Stats and Misc //-->
-
-  <p class="episode_info">
-    <% if @newest_episode-%>
-      New episode 
-      <%= link_to @newest_episode.published_at.to_date, episode_url(@podcast, @newest_episode) -%> 
-      <%= relative_time(@newest_episode.published_at, false) -%><br />
-    <% end -%>
-
-    <% link_to(podcast_episodes_url(@podcast)) do -%><%= @podcast.episodes.count -%> episodes<% end -%>
-    <% if @oldest_episode -%>since <%= link_to @oldest_episode.published_at.to_date, episode_url(@podcast, @oldest_episode) -%><% end -%>
-    <% if @podcast.episodes.size > 1 -%>every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><% end -%>
-
-    <% if @podcast.total_run_time > 60 -%>
-      <br/>Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
-    <% end -%>
-  </p>
-
-  <!-- Search //-->
-
-  <% form_for :search, :url => search_url, :html => {:method => :get, :class => "search" } do |form| -%>
-    <%= hidden_field_tag :podcast, @podcast.clean_url %>
-    <label for="search_podcast_q" class="default search">Search in <%= @podcast.title %>&hellip;</label>
-    <%= text_field_tag "q", params[:q], :id => "search_podcast_q", :size => 15, :class => "text search" %>
-    <%= submit_tag 'Search', :type => 'image', :src => '/images/content/button_search.png', :class => 'image_button' %>
-  <% end -%>
-
-  <!-- Episodes //-->
+<div id="podcast_content">
   
-  <ul class="episodes">
-    <%= render :partial => "episodes/episode", :collection => @episodes -%>
-  </ul>
-</div>
-<% reset_cycle('row_class') %>
+  <h2>Episodes<span>(<%= @podcast.episodes.count -%>)</span></h2>
+
+  <div id="episode_list">
+    <%= render :partial => 'episodes/episodes', :object => @episodes, :locals => {:podcast => @podcast} %>
+  </div>
+
+</div> <!-- /podcast_content -->
+

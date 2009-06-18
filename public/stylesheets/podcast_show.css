@@ -85,7 +85,7 @@
 
 #podcast_content h2 {
   border-bottom: 1px solid #171717;
-  margin: 60px 0 15px 0;
+  margin: 10px 0 15px 0;
   padding-bottom: 3px;
 }
 
@@ -150,6 +150,13 @@ table#podcast_episodes {
   width: 100%;
 }
 
+table#podcast_episodes td {
+	padding: 5px;
+}
+
+table#podcast_episodes .preview {
+	margin: 5px;
+}
 
 
 /* audio_player */

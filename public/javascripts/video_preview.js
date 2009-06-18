@@ -10,8 +10,8 @@ var imgLoaded = function(img){
 }
 
 var hook_up_preview = function(preview){
-  var func = function(preview) {
-    var preview = $(this);
+  var func = function(i, preview) {
+    var preview = (typeof i == 'number') ? $(preview) : $(i);
     var url = window.location.href;
 
     if(!imgLoaded(preview)) { return };

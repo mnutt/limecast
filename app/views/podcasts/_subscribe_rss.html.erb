@@ -11,7 +11,7 @@
     <p><%= podcasts_label_from_format(podcast.format) -%></p>
     <span class="v_options">
       <% delimited_items([podcast], "|") do |podcast, delimiter| -%>
-        <%= link_to_podcast_size(podcast, "rss") {|p| p.url } -%>
+        <%= link_to_podcast_size(podcast, "rss") {|p| plain_feed_url(p.to_filename_param) } -%>
         <%= delimiter -%>
       <% end %>
     </span>
@@ -23,7 +23,7 @@
     <p><%= podcasts_label_from_format(podcast.format) -%></p>
     <span class="v_options">
       <% delimited_items([podcast], "|") do |podcast, delimiter| -%>
-        <%= link_to_podcast_size(podcast, "rss_torrent") {|p| torrent_feed_url(p.id) } -%>
+        <%= link_to_podcast_size(podcast, "rss_torrent") {|p| torrent_feed_url(p.to_filename_param('torrent')) } -%>
         <%= delimiter -%>
       <% end %>
     </span>
@@ -35,7 +35,7 @@
     <p><%= podcasts_label_from_format(podcast.format) -%></p>
     <span class="v_options">
       <% delimited_items([podcast], "|") do |podcast, delimiter| -%>
-        <%= link_to_podcast_size(podcast, "rss_magnet") {|p| magnet_feed_url(p.id) } -%>
+        <%= link_to_podcast_size(podcast, "rss_magnet") {|p| magnet_feed_url(p.to_filename_param('magnet')) } -%>
         <%= delimiter -%>
       <% end %>
     </span>

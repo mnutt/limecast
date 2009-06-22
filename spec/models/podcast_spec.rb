@@ -13,6 +13,14 @@ describe Podcast do
   it 'should have a param with the name in it' do
     @podcast.clean_url.should == "My-Podcast"
   end
+
+  it 'should have use the clean_url for to_param' do
+    @podcast.to_param.should == "My-Podcast"
+  end
+  
+  it 'should generate a filename-ish string for to_filename_param' do
+    @podcast.to_filename_param.should == "#{@podcast.id}-#{@podcast.clean_url}-#{@podcast.formatted_bitrate}-#{@podcast.apparent_format}"
+  end
 end
 
 describe Podcast, "with non-ASCII title" do

@@ -192,15 +192,15 @@
 
   <tr>
     <td class="key" title="Link to LimeCast's hosted RSS feed">plain</td>
-    <td><%= link_to(plain_feed_url(@podcast), plain_feed_url(@podcast)) -%></td>
+    <td><%= link_to(plain_feed_url(@podcast.to_filename_param), plain_feed_url(@podcast.to_filename_param)) -%></td>
   </tr>
   <tr>
     <td class="key" title="Link to LimeCast-produced podcast remixed with magnet links">magnet</td>
-    <td><%= link_to(magnet_feed_url(@podcast), magnet_feed_url(@podcast)) -%></td>
+    <td><%= link_to(magnet_feed_url(@podcast.to_filename_param('magnet')), magnet_feed_url(@podcast.to_filename_param('magnet'))) -%></td>
   </tr>
   <tr>
     <td class="key" title="Link to LimeCast-produced podcast remixed with torrents">torrent</td>
-    <td><%= link_to(torrent_feed_url(@podcast), torrent_feed_url(@podcast)) -%></td>
+    <td><%= link_to(torrent_feed_url(@podcast.to_filename_param('torrent')), torrent_feed_url(@podcast.to_filename_param('torrent'))) -%></td>
   </tr>
 
   <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>

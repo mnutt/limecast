@@ -126,7 +126,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def apparent_format
-    sources.first.attributes['format'].to_s unless sources.blank?
+    sources.first.extension.to_s unless sources.blank?
   end
 
   def apparent_resolution
@@ -263,36 +263,31 @@ class Podcast < ActiveRecord::Base
   end
 
   def average_time_between_episodes
-    return 0 if self.episodes.count < 2
-    time_span = self.episodes.first.published_at - self.episodes.last.published_at
-    time_span / (self.episodes.count - 1)
+    return 0 if episodes.count < 2
+    time_span = episodes.first.published_at - episodes.last.published_at
+    time_span / (episodes.count - 1)
   end
 
   def clean_site
-    self.site ? self.site.to_url : ''
+    site ? site.to_url : ''
   end
 
   def just_created?
-    self.created_at > 2.minutes.ago
+    created_at > 2.minutes.ago
   end
 
   def total_run_time
-    self.episodes.sum(:duration) || 0
+    episodes.sum(:duration) || 0
   end
 
   def to_param
     clean_url
   end
-  
-  # Salvaged from Feed
-  # def to_param
-  #   podcast_name = podcast.clean_url
-  #   bitrate      = formatted_bitrate 
-  #   format       = apparent_format
-  # 
-  #   "#{id}-#{podcast_name}-#{bitrate}-#{format}"
-  # end
 
+  def to_filename_param(extra=nil)
+    extra = "-#{extra}" if extra
+    "#{id}-#{clean_url}-#{formatted_bitrate}-#{apparent_format}#{extra}"
+  end
 
   def writable_by?(user)
     return true if editors.include?(user)

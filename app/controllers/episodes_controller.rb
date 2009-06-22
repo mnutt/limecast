@@ -24,6 +24,7 @@ class EpisodesController < ApplicationController
     raise ActiveRecord::RecordNotFound if @episode.nil? || params[:episode].nil?
 
     @review = Review.new(:episode => @episode)
+    render :layout => "new_application"
   end
 
   def destroy

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>
+    <%= "#{@title} &mdash; " if @title -%> LimeCast
+  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="description" content="Open podcast directory and archive"/>
+
+<% if @podcast && !@podcast.new_record? -%>
+  <link rel="shortcut icon" type="image/x-icon" href="<%= @podcast.logo.url(:favicon) -%>" />
+  <link rel="icon" type="<%= @podcast.logo.content_type %>" href="<%= @podcast.logo.url(:icon) -%>" />
+<% end -%>
+
+  <%= rss_link(@podcast) -%>
+
+  <%= stylesheet_link_tag "reset", "new_typography", "layout", :cache => 'all' -%>
+  <%= stylesheet_link_actions -%>
+  <%= javascript_include_tag 'jquery', :cache => 'jquery-all' -%>
+
+  <%= javascript_include_tag 'nbga-1.0', 'application' -%>
+
+</head>
+
+<body class="<%= @classes -%><%= " status_#@error" if @error %>">
+  <div id="content">
+    <div id="header">
+      <h1><%= link_to "LimeCast", root_url %></h1>
+      <ul id="nav">
+        <li id="nav_signin">signin</li>
+        <li id="nav_search">search</li>
+        <li id="nav_all"><%= link_to "All", all_url %></li>
+        <li id="nav_popular"><%= link_to "Popular", popular_url %></li>
+        <li id="nav_add"><%= link_to "Add Podcast", add_url %></li>
+      </ul>
+    </div>
+    This is the text
+  </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+/**********/
+/* General */
+/**********/
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	background: #313131 url('../imgs/background.png') top left repeat-x; 
+	padding: 0 100px;
+}
+
+/**********/
+/* Header */
+/**********/
+#header {
+	background: green;
+	height: 35px;
+	position: relative;
+}
+
+#header h1 {
+	float: left;
+	height: 35px;
+	margin-top: 5px;
+}
+
+#header h1 a {
+	background: url('../imgs/logo.png') top left no-repeat;
+	display: block;
+	width: 125px;
+	height: 24px;
+	margin-right: 10px;
+	text-indent: -5000px;
+}
+
+#header h1 a:hover {
+	background: url('../imgs/logo_over.png') top left no-repeat;
+}
+
+#header #nav {
+	padding-top: 5px;
+}
+
+#header #nav li {
+	display: inline;
+}
+
+#header #nav #signin,
+#header #nav #search {
+	float: right;
+}
+
+#header #nav #nav_all a,
+#header #nav #nav_popular a,
+#header #nav #nav_add a {
+	width: 60px;
+	height: 15px;
+	display: block;
+}
+
+#header #nav #nav_all a { background: url('../imgs/all.png') top left no-repeat; }
+#header #nav #nav_all a:hover { background: url('../imgs/all.png') top left no-repeat; }
+
+#header #nav #nav_popular a { background: url('../imgs/popular.png') top left no-repeat; }
+#header #nav #nav_popular a:hover { background: url('../imgs/popular.png') top left no-repeat; }
+
+#header #nav li #nav_add a { background: url('../imgs/add_podcast.png') top left no-repeat;}
+
+a#nav_home:hover {
+	background: url('../imgs/home_o.png') top left no-repeat;
+}
+
+a#nav_browse:hover {
+	background: url('../imgs/browse_o.png') top left no-repeat;
+}
+
+a#nav_pop:hover {
+	background: url('../imgs/popular_o.png') top left no-repeat;
+}
+
+a#add_podcast:hover {
+	background: url('../imgs/add_podcast_over.png') top left no-repeat;
+}
+
+
+a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop span {
+	margin-left: -5000px;
+}
+
+
+
+
+
+
+
+/***********/
+/* Content */
+/***********/
+#content {
+	background: red;
+	height: 100%;
+}

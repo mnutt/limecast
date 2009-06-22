@@ -83,7 +83,7 @@ class Source < ActiveRecord::Base
   end
 
   def file_name
-    read_attribute('file_name') || File.basename(self.url)
+    read_attribute('file_name') || File.basename(url.to_s)
   end
 
   def to_param

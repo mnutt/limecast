@@ -14,8 +14,6 @@ var hook_up_preview = function(preview){
     var preview = (typeof i == 'number') ? $(preview) : $(i);
     var url = window.location.href;
 
-    if(!imgLoaded(preview)) { return };
-
     function scale(height,width) {
       var scaleToWidth = 460;
       var h = (scaleToWidth / width) * height;
@@ -40,6 +38,7 @@ var hook_up_preview = function(preview){
   
   if(preview) {
     func(preview);
+    window.clearInterval(preview.attr('interval'));
   } else {
     $(".preview .container img").each(func);
   };
@@ -47,11 +46,11 @@ var hook_up_preview = function(preview){
 
 
 $(function(){  
-  // Video Preview
-  // XXX: Hack. We call this method twice because if the image is already cached,
-  // load never gets executed. I added imgLoaded(img) so that the code is only executed
-  // once, but we could probably make a much less hacky script if we add a random number
-  // as a query string to the img request so that the img is never cached.
-  $(".preview .container img").load(hook_up_preview);
-  hook_up_preview();
+  $(".preview .container img").each(function(i, img){ 
+    img = $(img);
+    img.attr('interval', setInterval(function(){
+      if(imgLoaded(img)) hook_up_preview(img);
+    }, 100));
+  });
+
 });

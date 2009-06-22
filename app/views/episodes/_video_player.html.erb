@@ -7,7 +7,7 @@
 
 <%- if source -%>
   <div class="container">
-    <%= image_tag(source.screenshot.url, attrs) -%>
+    <%= image_tag(source.screenshot.url+"?#{(rand(100) * 100).to_i}", attrs) -%>
   </div>
 <%- else -%>
   <%= image_tag('/imgs/video_placeholder.png', :alt => "#{episode.title} cover art is missing", :width => 460) unless options[:hide_broken_previews] -%>

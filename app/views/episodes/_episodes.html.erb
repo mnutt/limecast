@@ -1,6 +1,12 @@
 <table id="podcast_episodes">
   <tbody>
     <%= render :partial => "episodes/episode", :collection => episodes -%>
+    <tr>
+     <td>
+       <br />
+       <h4><%= link_to "View All Episodes", podcast_episodes_url(@podcast) %></h4>
+     </td> 
+    </tr>
   </tbody>
 </table>
 

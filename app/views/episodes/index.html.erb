@@ -1,6 +1,7 @@
 <% @title = "#{h(@podcast.title)} Episodes" -%>
 <% @show_ads = true -%>
 <% stylesheet_link "podcast_show" -%>
+<% javascript_include "podcast" -%>
 
 <h1><%= link_to h(@podcast.title), podcast_url(@podcast) %></h1>
 

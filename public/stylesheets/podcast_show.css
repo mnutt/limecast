@@ -145,19 +145,42 @@ form#podcast_search {
 }
 
 
-table#podcast_episodes {
+ul#podcast_episodes {
   table-layout: auto;
   width: 100%;
 }
 
-table#podcast_episodes td {
-	padding: 5px;
+ul#podcast_episodes li {
+	position: relative;
+	padding: 5px 5px 5px 20px;
+	margin: 0px 0px 0px 0px;
 }
 
-table#podcast_episodes .preview {
-	margin: 5px;
+ul#podcast_episodes li.collapsed .details {
+	display: none;
 }
 
+ul#podcast_episodes li p {
+	font-size: 13px;
+}
+
+ul#podcast_episodes li span {
+	font-size: 13px;
+}
+
+ul#podcast_episodes .preview {
+	margin: 5px 5px 5px 0px;
+}
+
+ul#podcast_episodes li .toggle {
+	/* uncomment this after new layout */
+	position: absolute;
+	left: 0px;  
+	top: 3px;
+	margin-right: 5px; 
+	font-size: 1.6em;
+	float: left;
+}
 
 /* audio_player */
 .podcast.show .episode > div.audio_player {

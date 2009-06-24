@@ -1,24 +1,15 @@
-<tr class="expanded" id="episode_<%= episode.id %>_expanded" <%= 'style="display: none"' if episode_counter > 0 %>>
-  <td colspan="2">
-    <h3>
-      <%= link_to "▼", "#", :class => "toggle" %>&nbsp;<%= link_to episode.published_at.strftime("%b&nbsp;%d&nbsp;%Y"), episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips" -%>
-    </h3>
-  </td>
-  <td colspan="2">
-    <h3 style="display: inline"><%= episode.title %></h3>&nbsp;(<%= time_to_words(episode.duration, true).gsub(/ /, '&nbsp;') -%>)<br />
-    <%= page_description(episode.summary) %>
+<% is_expanded = episode_counter.zero? %>
+
+<li class="episode <%= is_expanded ? 'expanded' : 'collapsed' %>">
+  <%= link_to "#{is_expanded ? '▼' : '►'}", "#", :class => "toggle" %>
+  <h3>
+    <%= link_to episode.date_title, episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips" -%>
+    <%= episode.title %>&nbsp;<span>(<%= time_to_words(episode.duration, true).gsub(/ /, '&nbsp;') -%>)</span>
+  </h3>
+  <div class="details">
+    <p><%= page_description(episode.summary) -%></p>
     <% if episode.sources.with_screenshot.with_preview.first -%>
-    <div class="preview"><%= render :partial => 'episodes/video_player', :object => episode, :locals => {:attrs => {:width => 200, :class => ""}} -%></div>
+    <div class="preview"><%= render :partial => 'episodes/video_player', :object => episode, :locals => {:attrs => {:width => 540}} -%></div>
     <% end -%>
-  </td>
-</tr>
-<tr class="collapsed" id="episode_<%= episode.id %>_collapsed" <%= 'style="display: none"' if episode_counter == 0 %>>
-  <td colspan="2">
-    <h3>
-      <%= link_to "►", "#", :class => "toggle" %>&nbsp;<%= link_to(episode.published_at.strftime("%b&nbsp;%d&nbsp;%Y"), episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips") %>
-    </h3>
-  </td>
-  <td colspan="2">
-    <h3 style="display: inline;"><%= episode.title %></h3>&nbsp;(<%= time_to_words(episode.duration, true).gsub(/ /, '&nbsp;') -%>)&nbsp;<%= truncate(line_description(episode.summary), 40) %>
-  </td>
-</tr>
+  </div>
+</li>

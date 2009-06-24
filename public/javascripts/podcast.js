@@ -25,22 +25,22 @@ function podcastTagEdit() {
 }
 
 function podcastEpisodesLinks() {
-  $('.expanded a.toggle').click(function(){
-    var parent = $(this).parents('.expanded');
-    parent.hide();
-    var collapsed_id = parent.attr('id').replace(/expanded/, 'collapsed');
-    $("#"+collapsed_id).show();
+  $('a.toggle').mousedown(function(){
+    var parent = $(this).parents('li.episode');
+    if(parent.hasClass('expanded')) {
+      parent.removeClass('expanded').addClass('collapsed');
+    } else {
+      var parent = $(this).parents('.collapsed');
+      var preview = parent.find('.preview');
+      var container = preview.find('.container');
+      parent.removeClass('collapsed').addClass('expanded');
+      if(container.length == 1 && container.find('img').length == 0 && container.attr('poster')) {
+        hook_up_preview(preview.find('.container'));
+        preview.removeClass('delayed');
+      }
+    }
     return false;
-  });
-  $('.collapsed a.toggle').click(function(){
-    var parent = $(this).parents('.collapsed');
-    parent.hide();
-    var expanded_id = parent.attr('id').replace(/collapsed/, 'expanded');
-    var expanded = $("#"+expanded_id);
-    expanded.show();
-    hook_up_preview(expanded.find('.preview .container img')); // FIXME
-    return false;
-  });
+  }).click(function(){return false;});
 }
 
 $(document).ready(function() {

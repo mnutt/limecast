@@ -9,48 +9,50 @@ var imgLoaded = function(img){
   return true;
 }
 
-var hook_up_preview = function(preview){
-  var func = function(i, preview) {
-    var preview = (typeof i == 'number') ? $(preview) : $(i);
-    var url = window.location.href;
+var hook_up_preview = function(container){
+  var container = $(container);
+  var screenshot = container.attr('poster');
+  container.html('<img style="visibility: hidden;" alt="' + screenshot + '" src="' + screenshot + '" />');
+  var img = container.find('img');
 
-    function scale(height,width) {
+  var checkForImgLoaded = function(img) {
+    setTimeout(function(){
+      if(!imgLoaded(img)) checkForImgLoaded(img);
+      else loadSwf(img);
+      return false;
+    }, 10);
+  }
+
+  var loadSwf = function(img) {
+    if(container.hasClass('scale')) {
       var scaleToWidth = 460;
-      var h = (scaleToWidth / width) * height;
-      return {height: h + 2, width: Math.round(scaleToWidth)};
+      var h = (scaleToWidth / img.attr('width')) * img.attr('height');
+      var size = {height: h + 2, width: Math.round(scaleToWidth)};
+    } else {
+      var size = {height: img.attr('height'), width: img.attr('width')};
     }
-    var size = {height: preview.height(), width: preview.width()};
-    var scaledSize = preview.hasClass('scale') ? scale(size.height, size.width) : size;
 
     var flashvars = {
-      previewURL: preview.attr('src'),
-      videoURL:   preview.attr('rel'),
+      previewURL: container.attr('poster'),
+      videoURL:   container.attr('rel'),
       totalTime:  5 * 60
     };
 
-    preview.parent('div').empty().flash({
+    container.empty().flash({
       src:       "/flash/CastPlayer.swf",
-      width:     scaledSize.width,
-      height:    scaledSize.height,
+      width:     size.width,
+      height:    size.height,
       flashvars: flashvars
     });
   }
-  
-  if(preview) {
-    func(preview);
-    window.clearInterval(preview.attr('interval'));
-  } else {
-    $(".preview .container img").each(func);
-  };
+
+  checkForImgLoaded(img);
 };
 
 
-$(function(){  
-  $(".preview .container img").each(function(i, img){ 
-    img = $(img);
-    img.attr('interval', setInterval(function(){
-      if(imgLoaded(img)) hook_up_preview(img);
-    }, 100));
+$(document).ready(function () {
+  $(".expanded .preview .container").each(function(i, container){ 
+    container = $(container);
+    hook_up_preview(container);
   });
-
 });

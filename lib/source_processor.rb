@@ -35,29 +35,30 @@ class SourceProcessor
   def process!
     get_http_info
 
-    t0 = Time.now
-      download_file
-    logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
+    log_time { download_file }
     
     get_video_info
     
-    t0 = Time.now
-      generate_torrent
-    logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
+    log_time { generate_torrent }
     
     unless lacking_video?
       take_screen_shot
       
       # Create flv
-      t0 = Time.now
-        encode_preview_video
-      logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
+      log_time { encode_preview_video }
       # XXX: we are going to wait for a while to turn this on
-      # encode_random_video(source, info)
+      # log_time { encode_random_video(source, info) }
+      
     end
     
     # Updates database with info taken from the video
     update_source
+  end
+
+  def log_time
+    t0 = Time.now
+    yield
+    logger.info "  * Took #{(Time.now - t0).to_i.to_duration}"
   end
 
   def download_file
@@ -118,7 +119,7 @@ class SourceProcessor
   end
 
   # ffmpeg -i diggnation--0184--clipshow2008--small.h264.mp4 -vcodec libx264 -acodec libfaac -b 256k -r 20 -ab 64k -ar 22050 -s 320x240 -t 30 a.h264.mp4
-  def encode_video(field, start_offset=0)
+  def encode_video(field, start_offset = 0)
     raise "No file to encode from" unless File.exist?(self.tmp_file)
 
     logger.info "FLV'ing to #{self.encoded_tmp_file}"
@@ -131,12 +132,13 @@ class SourceProcessor
     size = info.resized_size_of_video
     
     options = {
-      :i  => self.tmp_file,   :f  => :flv,
+      :i  => self.tmp_file,     :f  => :flv,
       :ac => 1,                 :b  => video_bitrate,
       :r  => video_frame_rate,  :ab => audio_bitrate,
       :ar => audio_sample_rate, :t  => length,
       :s  => size,              :ss => info.screenshot_time(start_offset || 0)
-    }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
+    }
+    options.map! {|k,v| ["-#{k}", v] }.flatten.join(" ")
     
     encode_cmd = "ffmpeg -y #{options} #{self.encoded_tmp_file}"
     logger.info encode_cmd

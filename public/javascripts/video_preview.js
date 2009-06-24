@@ -51,7 +51,9 @@ var hook_up_preview = function(container){
 
 
 $(document).ready(function () {
-  $(".expanded .preview .container").each(function(i, container){ 
+  $("body.episode.show .preview .container, \
+     li.expanded .preview .container, \
+     td.preview .container").each(function(i, container){ 
     container = $(container);
     hook_up_preview(container);
   });

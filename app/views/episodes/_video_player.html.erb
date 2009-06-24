@@ -3,8 +3,8 @@
 <% source  = episode.sources.with_screenshot.with_preview.first -%>
 <% attrs ||= {} %>
 <% attrs.reverse_merge! :class => "scale", :rel => source.preview.url, :poster => source.screenshot.url, 
-                        :width => source.width, :height => source.height %>
-<% attrs[:class] += " container" %>
+                        :width => source.width, :height => source.height if source %>
+<% (attrs[:class] ||= "") << " container" %>
 <% javascript_include "video_preview" -%>
 
 <%- if source -%>

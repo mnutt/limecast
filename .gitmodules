@@ -33,7 +33,7 @@
 	url = git://github.com/dchelimsky/rspec.git
 [submodule "vendor/plugins/action_assets_helper"]
 	path = vendor/plugins/action_assets_helper
-	url = git://github.com/tiegz/action_assets_helper.git
+	url = git://github.com/mnutt/action_assets_helper.git
 [submodule "vendor/plugins/paperclip"]
 	path = vendor/plugins/paperclip
 	url = git://github.com/thoughtbot/paperclip.git

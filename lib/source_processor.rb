@@ -124,7 +124,7 @@ class SourceProcessor
     logger.info "FLV'ing to #{self.encoded_tmp_file}"
     length            = "00:05:00"
     video_bitrate     = 512.kilobytes
-    audio_bitrate     = 96.kilobytes
+    audio_bitrate     = 64.kilobytes # 96.kilobytes
     video_frame_rate  = 20
     audio_sample_rate = 44100
     
@@ -133,7 +133,7 @@ class SourceProcessor
     options = {
       :i  => self.tmp_file,     :f  => :flv,
       :ac => 1,                 :b  => video_bitrate,
-      :r  => video_frame_rate,  :ab => audio_bitrate,
+      :r  => video_frame_rate,  #:ab => audio_bitrate,
       :ar => audio_sample_rate, :t  => length,
       :s  => size,              :ss => info.screenshot_time(start_offset || 0)
     }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")

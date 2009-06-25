@@ -68,7 +68,7 @@ class SourceProcessor
     `mkdir -p /tmp/source/#{source.id}`
     @curl_info = `cd /tmp/source/#{source.id} && curl -I -L '#{source.url.gsub("'", "")}'`
     @curl_info << `cd /tmp/source/#{source.id} && curl -L -O '#{source.url.gsub("'", "")}' 2>&1`
-    source.update_attribute(:downloaded_at => Time.now, :curl_info => @curl_info)
+    source.update_attributes(:downloaded_at => Time.now, :curl_info => @curl_info)
     self.tmp_filename  = `cd /tmp/source/#{source.id} && ls | tail -n 1`.strip
     raise "File not downloaded" if self.tmp_filename.blank?
     logger.info "Saved original to #{self.tmp_file}"

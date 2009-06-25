@@ -22,7 +22,7 @@
     <li>
       <%= link_to h(source.podcast.title), info_podcast_url(source.podcast) -%> &raquo;
       <%= link_to h(source.episode.date_title), info_episode_url(source.podcast, source.episode) -%> &raquo;
-      <%= link_to "#{source.formatted_bitrate} #{h source.extension}", info_source_url(source.podcast, source.episode, source), :title => h(source.sha1hash) -%>
+      <%= link_to "#{source.formatted_bitrate} #{h source.extension}", info_source_url(source.podcast, source.episode, source.id), :title => h(source.sha1hash) -%>
       <%= relative_time(source.hashed_at) -%>
     </li>
   <% end -%>

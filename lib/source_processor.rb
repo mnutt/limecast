@@ -137,8 +137,7 @@ class SourceProcessor
       :r  => video_frame_rate,  :ab => audio_bitrate,
       :ar => audio_sample_rate, :t  => length,
       :s  => size,              :ss => info.screenshot_time(start_offset || 0)
-    }
-    options.map! {|k,v| ["-#{k}", v] }.flatten.join(" ")
+    }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
     
     encode_cmd = "ffmpeg -y #{options} #{self.encoded_tmp_file}"
     logger.info encode_cmd

@@ -9,8 +9,7 @@
   <%= render :partial => 'podcasts/summary' -%>
 </div>
 
-<div id="podcast_content">
-  
+<div id="podcast_content" class="clearfix">
   <h2>Latest Episodes <span>(<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</span></h2>
 
   <div id="episode_list">

@@ -146,7 +146,6 @@ form#podcast_search {
 
 
 ul#podcast_episodes {
-  table-layout: auto;
   width: 100%;
 }
 

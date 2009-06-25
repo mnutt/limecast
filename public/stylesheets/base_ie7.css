@@ -85,3 +85,11 @@ img { -ms-interpolation-mode:bicubic; }
 #new_podcast button.addme {
   top: -15px;
 }
+
+.podcast.show .summary {
+	padding-bottom: 20px;	
+}
+
+#podcast_content h2 {
+	margin-top: 20px;
+}

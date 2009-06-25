@@ -375,7 +375,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 
 
 /* Show specific */
-.summary { overflow: visible;}
+.summary { overflow: visible; }
 .popular .summary,
 .podcast.index .summary,
 .user.show .summary { float: left; width: 690px; }
@@ -723,10 +723,6 @@ h6#page_type {
 
 .episode .supplemental  {
 	margin-top: 20px;
-}
-
-#podcast_episodes tr td {
-	vertical-align: top;
 }
 
 /* Abstraction for a set of links that use regular text if 'current' */

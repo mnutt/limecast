@@ -171,7 +171,7 @@ class PodcastProcessor
 
     @rpodcast_feed.episodes.each do |e|
       # XXX: Definitely need to figure out something better for this. Maybe use guid instead of title?
-      episode = @podcast.episodes.find_or_initialize_by_title(e.title)
+      episode = @podcast.episodes.find_or_initialize_by_title(e.title.to_s.strip)
 
       episode.attributes = { :archived     => false,
                              :summary      => e.summary.to_s.strip,
@@ -183,7 +183,7 @@ class PodcastProcessor
                              :guid         => e.guid }
       if episode.save
         ([e.enclosure] + e.media_contents).each do |s|
-          source = @podcast.sources(true).find_or_initialize_by_url_and_episode_id(s.url, episode.id)
+          source = @podcast.sources(true).find_or_initialize_by_url_and_episode_id(s.url.to_s.strip, episode.id)
           source.attributes = { :duration_from_feed     => (s.duration.to_i == 0 ? e.duration : s.duration),
                                 :bitrate_from_feed      => (s.bitrate.to_i == 0 ? e.bitrate : s.bitrate).nearest_multiple_of(64),
                                 :episode_id             => episode.id,
@@ -192,7 +192,7 @@ class PodcastProcessor
                                 :content_type_from_feed => s.content_type,
                                 :extension_from_feed    => s.extension,
                                 :size_from_xml          => s.size,
-                                :url                    => s.url }
+                                :url                    => s.url.to_s.strip }
           source.save
         end
       end
@@ -215,7 +215,7 @@ class PodcastProcessor
                                :guid         => e.guid }
         if episode.save
           ([e.enclosure] + e.media_contents).each do |s|
-            source = episode.sources(true).find_or_initialize_by_url(s.url)
+            source = episode.sources(true).find_or_initialize_by_url(s.url.to_s.strip)
             source.attributes = { :duration_from_feed     => (s.duration.to_i == 0 ? e.duration : s.duration),
                                   :bitrate_from_feed      => (s.bitrate.to_i == 0 ? e.bitrate : s.bitrate).nearest_multiple_of(64),
                                   :published_at           => e.published_at,
@@ -223,7 +223,7 @@ class PodcastProcessor
                                   :content_type_from_feed => s.content_type,
                                   :extension_from_feed    => s.extension,
                                   :size_from_xml          => s.size,
-                                  :url                    => s.url }
+                                  :url                    => s.url.to_s.strip }
             source.save
           end
         end

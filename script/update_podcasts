@@ -15,7 +15,7 @@ if(ARGV[0])
   exit
 end
 
-sleeptime = 60
+sleeptime = 4.hours
 
 while true
   QueuedFeed.parsed.each do |qf|
@@ -26,7 +26,7 @@ while true
       @logger.fatal "There was a problem: #{e.message}"
     end
   end
-  # Sleep N minutes until we refresh podcasts
-  sleep sleeptime.minutes.to_i
-  @logger.info "Sleeping #{sleeptime} minutes..."
+  # Sleep N seconds until we refresh podcasts
+  sleep sleeptime
+  @logger.info "Sleeping #{sleeptime} seconds..."
 end

@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+root_path = File.join(File.dirname(__FILE__), '..')
+require "#{root_path}/config/environment.rb"
+
+
+begin 
+  Podcast.all.each do |podcast|
+    puts "Getting duplicate episodes for #{podcast.title}"
+    episodes = podcast.episodes.all(:include => :sources)
+    episodes.each do |episode|
+      episode.sources.each do |source|
+        # Delete all archived episodes that contain sources w/a size similar to another episode's source
+        if source.size_from_xml.to_i > 0 &&
+           podcast.sources.exists?(["episode_id != ? AND size_from_xml = ?", episode.id, source.size_from_xml])
+           puts "--> Destroying episode '#{episode.title}' (#{episode.date_title})"
+           episode.destroy
+           break
+         end
+      end if episode.archived?
+    end
+  end
+rescue Exception => e
+  puts "There was a problem: #{e.message}"
+end

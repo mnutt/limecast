@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Info</title>
+  <title><%= "#{@title} &mdash; Limecast Info" -%></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   
   <%= javascript_include_tag 'jquery', 'info-pages' -%>
@@ -135,6 +135,11 @@
 </head>
 <body>
   <div id="border"><!-- //--></div>
+  <p>
+    <%= link_to "limecast.com", root_url %> 
+    <%= link_to @podcast.title, @podcast.site if @podcast %> 
+    <%= link_to @podcast.url, @podcast.url if @podcast%>
+  </p>
   <%= yield -%>
 </body>
 </html>

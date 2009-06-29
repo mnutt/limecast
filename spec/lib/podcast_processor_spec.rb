@@ -157,6 +157,16 @@ describe Podcast, "updating episodes" do
     mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS)
     @podcast.episodes(true).count.should == 3
   end
+
+  it 'should not duplicate episodes that have sources with the same file size' do
+    @podcast.episodes.destroy_all
+    @episode = Factory.create(:episode, :podcast => @podcast)
+    Factory.create(:source, :episode => @episode,  # same size as a media:content from the xml
+                   :podcast => @podcast, 
+                   :size_from_xml => "8727310")
+    @podcast.episodes(true).count.should == 1
+    lambda { mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS) }.should change { @podcast.episodes.count }.by(2)
+  end
   
   it 'should create 4 sources for any given episode (from enclosure + mrss)' do
     @podcast.episodes[0].sources.count.should == 4
@@ -239,4 +249,5 @@ describe Podcast, "being created" do
     end
   end
 end
+
 

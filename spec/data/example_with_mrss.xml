@@ -47,9 +47,9 @@
       <enclosure url="http://example.com/podcasts/everything/AllAboutEverythingEpisode2.mp3" length="5650889" type="audio/mpeg" />
       <media:group>
         <media:content fileSize="5650889" type="audio/mpeg" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode2.mp3"></media:content>
-        <media:content fileSize="767302043" type="video/quicktime" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode2.mov"></media:content>
-        <media:content fileSize="18320136" type="video/x-flv" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode2.flv"></media:content>
-        <media:content fileSize="57167895" type="video/x-m4v" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode2.m4v"></media:content>
+        <media:content fileSize="767302044" type="video/quicktime" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode2.mov"></media:content>
+        <media:content fileSize="18320137" type="video/x-flv" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode2.flv"></media:content>
+        <media:content fileSize="57167896" type="video/x-m4v" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode2.m4v"></media:content>
       </media:group>
       <guid>http://example.com/podcasts/archive/aae20050608.mp3</guid>
       <pubDate>Wed, 8 Jun 2005 19:00:00 GMT</pubDate>
@@ -65,9 +65,9 @@
       <enclosure url="http://example.com/podcasts/everything/AllAboutEverythingEpisode1.mp3" length="4989537" type="audio/mpeg" />
       <media:group>
         <media:content fileSize="4989537" type="audio/mpeg" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode1.mp3"></media:content>
-        <media:content fileSize="767302043" type="video/quicktime" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode1.mov"></media:content>
-        <media:content fileSize="18320136" type="video/x-flv" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode1.flv"></media:content>
-        <media:content fileSize="57167895" type="video/x-m4v" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode1.m4v"></media:content>
+        <media:content fileSize="767302045" type="video/quicktime" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode1.mov"></media:content>
+        <media:content fileSize="18320138" type="video/x-flv" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode1.flv"></media:content>
+        <media:content fileSize="57167897" type="video/x-m4v" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode1.m4v"></media:content>
       </media:group>
       <guid>http://example.com/podcasts/archive/aae20050601.mp3</guid>
       <pubDate>Wed, 1 Jun 2005 19:00:00 GMT</pubDate>

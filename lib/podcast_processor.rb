@@ -170,8 +170,15 @@ class PodcastProcessor
     @podcast.episodes.update_all :archived => true
 
     @rpodcast_feed.episodes.each do |e|
-      # XXX: Definitely need to figure out something better for this. Maybe use guid instead of title?
       episode = @podcast.episodes.find_or_initialize_by_title(e.title.to_s.strip)
+
+      ss = ([e.enclosure] + e.media_contents)
+
+      # Skip if this might be a duplicate episode (where title changed)
+      next if episode.new_record? &&
+              @podcast.sources.all.map(&:size_from_xml).any? { |size| 
+                size.to_i > 0 && @podcast.sources.exists?(["size_from_xml IN (?)", ss.map(&:size)])
+              }
 
       episode.attributes = { :archived     => false,
                              :summary      => e.summary.to_s.strip,
@@ -182,8 +189,9 @@ class PodcastProcessor
                              :xml          => e.raw_xml,
                              :guid         => e.guid }
       if episode.save
-        ([e.enclosure] + e.media_contents).each do |s|
+        ss.each do |s|
           source = @podcast.sources(true).find_or_initialize_by_url_and_episode_id(s.url.to_s.strip, episode.id)
+
           source.attributes = { :duration_from_feed     => (s.duration.to_i == 0 ? e.duration : s.duration),
                                 :bitrate_from_feed      => (s.bitrate.to_i == 0 ? e.bitrate : s.bitrate).nearest_multiple_of(64),
                                 :episode_id             => episode.id,

@@ -15,7 +15,7 @@ begin
            puts "--> Destroying episode '#{episode.title}' (#{episode.date_title})"
            episode.destroy
            break
-         end
+        end
       end if episode.archived?
     end
   end

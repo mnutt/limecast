@@ -2,12 +2,6 @@
 
 <h1>source</h1>
 
-<% content_for :pagination do -%>
-  <%= link_to "< Newer", info_source_url(@podcast, @newer.episode, @newer.id) if @newer %> 
-  <%= @podcast.sources.sorted.index(@source) + 1 %> of <%= @podcast.sources.count -%> 
-  <%= link_to "Older >", info_source_url(@podcast, @older.episode, @older.id) if @older %> 
-<% end -%>
-
 <%= render :partial => 'info/podcasts/info_source_table', :locals => {:options => {:source => @source}} -%>
 
 <!-- Info: -->

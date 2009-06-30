@@ -5,6 +5,7 @@ require 'daemons'
 
 Daemons.run(
   File.join(File.dirname(__FILE__), 'update_sources'),
+  :mode => :exec,
   :dir_mode => :script,
   :dir      => '../tmp/pids'
 )

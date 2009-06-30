@@ -286,7 +286,7 @@ class Podcast < ActiveRecord::Base
 
   def to_filename_param(extra=nil)
     extra = "-#{extra}" if extra
-    "#{id}-#{clean_url}-#{formatted_bitrate}-#{apparent_format}#{extra}"
+    "#{id}-#{clean_url}-#{formatted_bitrate}-#{apparent_format}#{extra}".delete(".")
   end
 
   def writable_by?(user)

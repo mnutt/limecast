@@ -129,7 +129,13 @@
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key" title="Search this podcast box">search</td>
-    <td><%= blankness -%></td>
+    <td>
+      <% form_for :podcast, :url => { :controller => "/search", :action => "index" }, 
+                  :html => {:method => :get, :onsubmit => "if(!this.q.value.match(/podcast\:#{@podcast.clean_url}/gi)) this.q.value = this.q.value + \" podcast:#{@podcast.clean_url}\""} do |f| %>
+      <input class="text search" id="q" name="q" size="15" type="text" value="" tabindex="1" />
+      <input type="submit" value="search" />
+      <% end %>
+    </td>
   </tr>
   <tr>
     <td class="key" title="List of links to review info pages">reviews</td>
@@ -148,6 +154,7 @@
     <% [:large, :small, :square, :icon, :thumb].each do |size| -%>
       <%= @podcast.logo && @podcast.logo.file? ? image_tag(@podcast.logo(size)) : blankness -%>
     <% end -%>
+      <%= link_to "original", @podcast.logo.url %>
     </td>
   </tr>
 

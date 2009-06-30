@@ -6,6 +6,7 @@ class SearchController < ApplicationController
     @parsed_q = (@q = params[:q]).dup
 
     extract_podcast!
+    logger.info "\n\nPODCAST IS #{@podcast.inspect}\n\n"
     extract_tags!
     extract_only!
 
@@ -16,7 +17,10 @@ class SearchController < ApplicationController
     # get all possible results from User, Tag, Episode, Review, and Podcast.
     @user     = User.find_by_login(@parsed_q) unless @only && @only != :user
     @tag      = Tag.find_by_name(@parsed_q) unless @only && @only != :tag
-    @episodes = (@podcast ? @podcast.episodes : Episode).search(@parsed_q).compact.uniq unless @only && @only != :episodes
+    logger.info "\n\n\nEOPISDEOS,"
+    options = @podcast ? {:podcast_id => @podcast.id} : nil
+    @episodes = Episode.search(@parsed_q, :with => options).compact.uniq unless @only && @only != :episodes
+    logger.info "\n\n\n"
     @reviews  = (@podcast ? Review.for_podcast(@podcast) : Review).claimed.search(@parsed_q).compact.uniq  unless @only && @only != :reviews
     @podcasts = @podcast ? [@podcast] : Podcast.search(@parsed_q).compact.uniq unless @only && @only != :podcasts
   rescue => e

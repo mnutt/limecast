@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090617220532) do
+ActiveRecord::Schema.define(:version => 20090630211103) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20090617220532) do
     t.string   "guid"
     t.text     "xml"
     t.boolean  "archived",                                     :default => false
-    t.string   "subtitle"
+    t.text     "subtitle",               :limit => 2147483647
     t.string   "date_title"
   end
 
@@ -86,14 +86,14 @@ ActiveRecord::Schema.define(:version => 20090617220532) do
     t.integer  "ability",                                    :default => 0
     t.string   "generator"
     t.string   "xml_title"
-    t.string   "description"
+    t.text     "description",          :limit => 2147483647
     t.string   "language"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.string   "logo_file_size"
     t.string   "error"
     t.string   "custom_title",                               :default => ""
-    t.string   "subtitle"
+    t.text     "subtitle",             :limit => 2147483647
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true

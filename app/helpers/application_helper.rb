@@ -269,7 +269,7 @@ module ApplicationHelper
   end
 
   def info_source_link(source, ability=true)
-    [(content_tag(:sup, ability ? source.ability : nil)), " ", link_to(non_blank(source.formatted_bitrate) + " " + non_blank(source.extension), info_source_url(source.podcast, source.episode, source.id))].join
+    [(content_tag(:sup, ability ? source.ability : nil)), "", link_to(non_blank(source.formatted_bitrate) + " " + non_blank(source.extension), info_source_url(source.podcast, source.episode, source.id))].join
   end
 
   # Takes an array of integers called +data_points+ and returns a URL to Google's Chart API

@@ -43,7 +43,7 @@
   <tr>
     <td class="key" title="Raw title text the user typed in edit">custom&nbsp;title</td>
     <td>
-      <%= non_blank @podcast.custom_title %>
+      <%= @podcast.custom_title %>
     </td>
   </tr>
   <tr>
@@ -113,15 +113,15 @@
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key" title="Badges the system has assigned this podcast">badges</td>
-    <td><%= (@podcast.tags.badges.map{|b| b.name} + @podcast.additional_badges).join(", ") -%></td>
+    <td><%= (@podcast.tags.badges.map{|b| link_to b.name, info_tag_url(b) } + @podcast.additional_badges).join(", ") -%></td>
   </tr>
   <tr>
     <td class="key" title="Badges the system has not assigned this podcast">not&nbsp;badges</td>
-    <td><%= (Tag.badges - @podcast.tags.badges).map{|b| b.name}.join(", ") -%></td>
+    <td><%= (Tag.badges - @podcast.tags.badges).map{|b| link_to b.name, info_tag_url(b) }.join(" ") -%></td>
   </tr>
   <tr>
     <td class="key" title="Tags each user has assigned this podcast">tags</td>
-    <td><%= @podcast.tags.without_badges.map{|b| b.name}.join(", ") -%></td>
+    <td><%= @podcast.tags.without_badges.map{|b| link_to b.name, info_tag_url(b) }.join(" ") -%></td>
   </tr>
 </table>
 

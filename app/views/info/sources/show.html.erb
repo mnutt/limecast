@@ -1,5 +1,6 @@
 <% javascript_include "jquery.flash", "video_preview" -%>
 
+<% @title = @podcast.title -%>
 <h1>source</h1>
 
 <%= render :partial => 'info/podcasts/info_source_table', :locals => {:options => {:source => @source}} -%>

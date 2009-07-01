@@ -102,9 +102,9 @@ class Source < ActiveRecord::Base
 
   def magnet_url
    params = [
-     ("xt=urn:sha1:#{self.sha1hash}" if self.sha1hash),
-     ("dn=#{self.file_name}" if self.file_name?),
-     "xs=#{self.url}"
+     ("xt=urn:sha1:#{sha1hash}" unless sha1hash.blank?),
+     ("dn=#{file_name}" if file_name?),
+     "xs=#{url}"
    ].compact.join("&")
 
    "magnet:?#{params}"

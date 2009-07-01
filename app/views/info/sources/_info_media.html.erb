@@ -2,14 +2,12 @@
 <table>
   <tr>
     <td>
-      <%= link_to 'info', info_source_url(source.podcast, source.episode, source.id) %>
-      <%= non_blank source.podcast.formatted_bitrate -%> 
+      <% link_to info_source_url(source.podcast, source.episode, source.id) do -%><%= non_blank source.podcast.formatted_bitrate -%> <%= non_blank source.extension -%><% end -%>
       <%= non_blank source.size.to_file_size.to_s(true, false).downcase -%> 
-      <%= non_blank source.extension -%> 
       <%= non_blank source.resolution -%> 
       <%= non_blank source.framerate.to_s.split(' ').first -%> 
       <%= source.episode.duration == 0 ? blankness : source.episode.duration.to_i.to_duration -%>
-      <%= source.sha1hash.blank? ? blankness : link_to("magnet #{source.sha1hash[0..7]}", source.magnet_url) -%>
+      <%= link_to("magnet #{(source.sha1hash || blankness)[0..7]}", source.magnet_url) -%>
       <%= source.sha1hash.blank? ? blankness : link_to(source.torrent.url.split('/').last, source.torrent.url) -%>
       <%= link_to(h(source.file_name), source.url) -%>
     </td>

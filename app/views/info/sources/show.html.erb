@@ -57,14 +57,15 @@
   <tr>
     <td class="key" title="">framerate</td>
     <td>
-      <%= non_blank @source.resolution -%>
+      <%= non_blank @source.framerate.to_f -%>
     </td>
   </tr>
   
   <tr>
     <td class="key" title="">duration</td>
     <td>
-      <%= @source.duration == 0 ? blankness : @source.duration.to_duration.to_s -%>
+      <%= @source.duration == 0 ? blankness : @source.duration.to_duration.to_s -%> 
+      (<%= @source.duration %> seconds)
     </td>
   </tr>
   
@@ -80,14 +81,14 @@
   <tr>
     <td class="key" title="">magnet</td>
     <td>
-      <%= non_blank @source.magnet_url -%>
+      <%= link_to @source.magnet_url.gsub(/&/, '<br />&'), @source.magnet_url -%>
     </td>
   </tr>
 
   <tr>
     <td class="key" title="">torrent</td>
     <td>
-      <%= non_blank @source.torrent.url -%>
+      <%= @source.torrent.file? ? link_to(@source.torrent.url, @source.torrent.url) : blankness -%>
     </td>
   </tr>
 

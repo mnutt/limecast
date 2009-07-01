@@ -104,6 +104,7 @@ class Source < ActiveRecord::Base
    params = [
      ("xt=urn:sha1:#{sha1hash}" unless sha1hash.blank?),
      ("dn=#{file_name}" if file_name?),
+     "xl=#{size}",
      "xs=#{url}"
    ].compact.join("&")
 

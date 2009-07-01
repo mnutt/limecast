@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(:version => 20090630211103) do
   end
 
   create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",                         :default => 0
-    t.integer  "attempts",                         :default => 0
-    t.text     "handler",    :limit => 2147483647
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
     t.string   "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20090630211103) do
 
   create_table "episodes", :force => true do |t|
     t.integer  "podcast_id"
-    t.text     "summary",                :limit => 2147483647
+    t.text     "summary"
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(:version => 20090630211103) do
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
-    t.text     "xml",                  :limit => 2147483647
+    t.text     "xml"
     t.integer  "ability",                                    :default => 0
     t.string   "generator"
     t.string   "xml_title"
@@ -129,14 +129,14 @@ ActiveRecord::Schema.define(:version => 20090630211103) do
 
   create_table "reviews", :force => true do |t|
     t.integer  "user_id"
-    t.text     "body",           :limit => 2147483647
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
     t.boolean  "positive"
     t.integer  "episode_id"
-    t.integer  "insightful",                           :default => 0
-    t.integer  "not_insightful",                       :default => 0
+    t.integer  "insightful",     :default => 0
+    t.integer  "not_insightful", :default => 0
   end
 
   add_index "reviews", ["episode_id"], :name => "index_reviews_on_episode_id"
@@ -153,12 +153,12 @@ ActiveRecord::Schema.define(:version => 20090630211103) do
     t.string   "preview_file_name"
     t.string   "preview_content_type"
     t.string   "preview_file_size"
-    t.datetime "downloaded_at"
-    t.datetime "hashed_at"
-    t.text     "curl_info",                :limit => 2147483647
-    t.text     "ffmpeg_info",              :limit => 2147483647
     t.integer  "height"
     t.integer  "width"
+    t.datetime "downloaded_at"
+    t.datetime "hashed_at"
+    t.text     "curl_info"
+    t.text     "ffmpeg_info"
     t.string   "file_name"
     t.string   "torrent_file_name"
     t.string   "torrent_content_type"
@@ -166,12 +166,12 @@ ActiveRecord::Schema.define(:version => 20090630211103) do
     t.string   "random_clip_file_name"
     t.string   "random_clip_content_type"
     t.string   "random_clip_file_size"
-    t.integer  "ability",                                        :default => 0
+    t.integer  "ability",                                :default => 0
     t.string   "framerate",                :limit => 20
     t.integer  "size_from_xml"
     t.integer  "size_from_disk"
     t.string   "sha1hash",                 :limit => 40
-    t.text     "torrent_info",             :limit => 2147483647
+    t.text     "torrent_info"
     t.integer  "duration_from_ffmpeg"
     t.integer  "duration_from_feed"
     t.string   "extension_from_feed"

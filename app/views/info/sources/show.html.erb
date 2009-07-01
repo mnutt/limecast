@@ -10,7 +10,7 @@
   <tr>
     <td class="key" title="The download URL that defines this source">url</td>
     <td>
-      <%= non_blank @source.url -%>
+      <%= @source.url.blank? ? blankness : link_to(@source.url, @source.url) -%>
     </td>
   </tr>
 
@@ -27,14 +27,16 @@
   <tr>
     <td class="key" title="">bitrate</td>
     <td>
-      <%= @source.bitrate == 0 ? blankness : @source.bitrate.to_bitrate.to_s -%>
+      <%= @source.bitrate == 0 ? blankness : @source.bitrate.to_bitrate.to_s -%> 
+      (<%= @source.bitrate == 0 ? blankness : (@source.bitrate * 1000).to_formatted_s %> bytes/second)
     </td>
   </tr>
 
   <tr>
     <td class="key" title="">size</td>
     <td>
-      <%= non_blank @source.size.to_file_size.to_s -%>
+      <%= non_blank @source.size.to_file_size.to_s(true, false) -%> 
+      (<%= non_blank @source.size.to_formatted_s %> bytes)
     </td>
   </tr>
   

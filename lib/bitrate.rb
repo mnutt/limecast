@@ -6,7 +6,7 @@ class Bitrate
   def to_s
     h = self.to_hash
 
-    [:mbps, :kbps].map do |unit|
+    [:mbps, :kbps, :bps].map do |unit|
       "#{format(h[unit])}#{label(unit)}" if h.has_key?(unit)
     end.compact.join(" ")
   end
@@ -38,7 +38,11 @@ class Bitrate
     size / 1000
   end
 
+  def to_bps(size)
+    size * 1000
+  end
+
   def label(unit)
-    {:mbps => "m", :kbps => "k"}[unit]
+    {:mbps => "m", :kbps => "k", :bps => "b"}[unit]
   end
 end

@@ -49,6 +49,6 @@ class FileSize
   end
 
   def label(unit)
-    {:gigabytes => "GB", :megabytes => "MB", :kilobytes => "KB"}[unit]
+    {:gigabytes => "gb", :megabytes => "mb", :kilobytes => "kb"}[unit]
   end
 end

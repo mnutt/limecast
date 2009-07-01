@@ -11,7 +11,7 @@
     <p><%= podcasts_label_from_format(podcast.format) -%></p>
     <span class="v_options">
       <% delimited_items([podcast], "|") do |podcast, delimiter| -%>
-        <%= link_to_podcast_size(podcast, "rss") {|p| plain_feed_url(p.to_filename_param) } -%>
+        <%= link_to_podcast_size(podcast, "rss") {|p| p.url } -%>
         <%= delimiter -%>
       <% end %>
     </span>

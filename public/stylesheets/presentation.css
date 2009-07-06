@@ -524,10 +524,12 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 }
 
 #hp_open div {
-	margin: 25px 0 0 150px;
+	white-space: nowrap;
+	margin: 25px 0 0 145px;
 }
 
-#hp_open ul { }
+#hp_open ul li { 
+}
 
 
 #hp_tower {

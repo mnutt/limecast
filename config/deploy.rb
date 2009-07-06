@@ -181,6 +181,7 @@ namespace :limecast do
         mkdir #{shared_path}/podcast_logos &&
         mkdir #{shared_path}/screenshots &&
         mkdir #{shared_path}/previews &&
+        mkdir #{shared_path}/ogg_previews &&
         mkdir #{shared_path}/random_clips &&
         mkdir #{shared_path}/torrents &&
         mkdir #{shared_path}/private
@@ -220,11 +221,14 @@ namespace :limecast do
                    'database.yml'      => 'config/database.yml',
                    'mail.yml'          => 'config/mail.yml',
                    'remote_server.yml' => 'config/remote_server.yml',
+                   'LimeCast.dmg'      => 'public/LimeCast.dmg',
+                   'LimeCast.exe'      => 'public/LimeCast.exe',
                    'logos'             => 'public/logos',
                    'feed_logos'        => 'public/feed_logos',
                    'podcast_logos'     => 'public/podcast_logos',
                    'screenshots'       => 'public/screenshots',
                    'previews'          => 'public/previews',
+                   'ogg_previews'      => 'public/ogg_previews',
                    'random_clips'      => 'public/random_clips',
                    'torrents'          => 'public/torrents',
                    'private'           => 'private' }

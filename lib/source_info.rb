@@ -73,6 +73,10 @@ class SourceInfo
     # Use fancy mathematics to keep videos from being stretched into 320x240
     width  = 320
     height = width.to_f / resolution[0] * resolution[1]
+
+    # Ensure that the dimensions are multiples of 2 (so ffmpeg doesn't whine)
+    height = (height / 2).to_i * 2
+
     size   = [width, height].join("x")
   rescue
     "320x240"
@@ -84,7 +88,7 @@ class SourceInfo
     m = (time - h * 60 * 60) / 60
     s = time - h * 60 * 60 - m * 60
     
-    [h,m,s].join(":")
+    [h.to_i, m.to_i, s.to_i].join(":")
   end
 
 end

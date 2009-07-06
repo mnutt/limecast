@@ -121,36 +121,62 @@ class SourceProcessor
   def encode_video(field, start_offset = 0)
     raise "No file to encode from" unless File.exist?(self.tmp_file)
 
-    logger.info "FLV'ing to #{self.encoded_tmp_file}"
+    logger.info "FFMPEG'ing to #{encoded_tmp_file}"
     length            = "00:05:00"
-    video_bitrate     = 512.kilobytes
+    video_bitrate     = 256.kilobytes
     audio_bitrate     = 64.kilobytes # 96.kilobytes
     video_frame_rate  = 20
     audio_sample_rate = 44100
-    
-    size = info.resized_size_of_video
-    
+    size              = info.resized_size_of_video
+    start             = info.screenshot_time(start_offset || 0)
+
     options = {
-      :i  => self.tmp_file,     :f  => :flv,
-      :ac => 1,                 :b  => video_bitrate,
-      :r  => video_frame_rate,  #:ab => audio_bitrate,
-      :ar => audio_sample_rate, :t  => length,
-      :s  => size,              :ss => info.screenshot_time(start_offset || 0)
-    }.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
-    
-    encode_cmd = "ffmpeg -y #{options} #{self.encoded_tmp_file}"
-    logger.info encode_cmd
-    `#{encode_cmd}`
-    
-    if File.exists?(self.encoded_tmp_file)
-      source.attachment_for(field).assign(File.open(self.encoded_tmp_file))
+      :i  => tmp_file,          # input
+      :ac => 1,                 # audio channels
+      :b  => video_bitrate,     # video bitrate
+      :r  => video_frame_rate,  # video framerate
+      # :ab => audio_bitrate,    # audio bitrate (had some troubles with this earlier)
+      :ar => audio_sample_rate, # audio sample rate
+      :s  => size,              # resolution
+      :ss => start,             # start time
+      :t  => length             # length
+    }
+
+    case field
+    when :preview 
+      filename = encoded_tmp_file(:mp4)
+      options.merge!(
+        :f      => :mp4,         # format (container)
+        :vcodec => :libx264,     # video codec
+        :acodec => :libfaac,     # audio codec
+        :crf    => 22            # for h264 processing
+      )
+    when :ogg_preview
+      filename = encoded_tmp_file(:ogg)
+      options.merge!(
+        :b      => 512.kilobytes,
+        :f      => :ogg,
+        :vcodec => :libtheora,
+        :acodec => :libvorbis,
+        :s      => info.resized_size_of_video(16), # FF3.5 needs OGG w/resolution in mult. of 16
+        :ac     => 2              # due to a bug in ffmpeg?
+      )
+    end
+
+    options = options.map {|k,v| ["-#{k}", v] }.flatten.join(" ")
+
+    "ffmpeg -y #{options} #{filename}".tap { |cmd| logger.info(cmd) and `#{cmd}` }
+
+    if File.exists?(filename)
+      source.attachment_for(field).assign(File.open(filename))
       source.save!
     end
   end
 
   def encode_preview_video
-    logger.info "Encoding preview video"
+    logger.info "Encoding preview videos"
     encode_video(:preview)
+    encode_video(:ogg_preview)
   end
 
   def encode_random_video
@@ -249,8 +275,8 @@ class SourceProcessor
     "#{tmp_file}_screenshot.png" if tmp_file
   end
   
-  def encoded_tmp_file
-    "#{tmp_file}_encoded" if tmp_file
+  def encoded_tmp_file(ext=nil)
+    "#{tmp_file}_encoded#{'.' + ext.to_s if ext}" if tmp_file
   end
 
   def tmp_file

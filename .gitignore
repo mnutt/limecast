@@ -23,10 +23,13 @@ tmp/restart.txt
 backups/*
 public/screenshots
 public/previews
+public/ogg_previews
 public/logos
 public/torrents
 public/feed_logos
 public/podcast_logos
+public/LimeCast.exe
+public/LimeCast.dmg
 LAST_UPDATE_PODCASTS
 LAST_UPDATE_SOURCES
 

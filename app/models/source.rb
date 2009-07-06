@@ -63,7 +63,10 @@ class Source < ActiveRecord::Base
   has_attached_file :preview,
                     :url  => "/:attachment/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
-  has_attached_file :random_clip,
+  has_attached_file :ogg_preview, 
+                    :url  => "/:attachment/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
+  has_attached_file :random_clip, # not currently being generated
                     :url  => "/:attachment/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
   has_attached_file :torrent,

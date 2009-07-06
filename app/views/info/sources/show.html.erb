@@ -95,11 +95,11 @@
   <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
-    <td class="key" title="Flash player presenting the video or audio preview">preview</td>
+    <td class="key" title="Flash player presenting the video or audio preview">preview (h.264 mp4)</td>
     <td class="preview">
       <div>
     <% if @source.preview_type == 'video' -%>
-      <%= render :partial => 'info/episodes/video_player', :object => @source, :locals => {:attrs => {:class => "scale", :width => 540}} -%>
+      <%= render :partial => 'info/episodes/video_player', :object => @source, :locals => {:format => :mp4, :attrs => {:class => "scale", :width => 540}} -%>
     <% else -%>
       <%= render :partial => 'info/episodes/audio_player', :object => @source %>
     <% end -%>
@@ -119,9 +119,16 @@
   </tr>
 
   <tr>
-    <td class="key" title="A link to the preview video FFmpeg clipped from the episode, and the file size">video&nbsp;preview</td>
+    <td class="key" title="A link to the mp4 preview video FFmpeg clipped from the episode, and the file size">mp4&nbsp;video&nbsp;preview</td>
     <td>
       <%= @source.preview.url =~ /missing\.png$/ ? blankness : link_to(@source.preview.url, @source.preview.url) + " #{FileSize.new(@source.preview_file_size.to_i || 0)}"-%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="A link to the ogg preview video FFmpeg clipped from the episode, and the file size">ogg&nbsp;video&nbsp;preview</td>
+    <td>
+      <%= @source.ogg_preview.url =~ /missing\.png$/ ? blankness : link_to(@source.ogg_preview.url, @source.ogg_preview.url) + " #{FileSize.new(@source.ogg_preview_file_size.to_i || 0)}"-%>
     </td>
   </tr>
 

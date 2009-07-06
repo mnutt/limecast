@@ -176,8 +176,6 @@ namespace :limecast do
         mkdir #{shared_path}/log/sphinx &&
         mkdir #{shared_path}/vendor &&
         mkdir #{shared_path}/vendor/sphinx &&
-        mkdir #{shared_path}/logos &&
-        mkdir #{shared_path}/feed_logos &&
         mkdir #{shared_path}/podcast_logos &&
         mkdir #{shared_path}/screenshots &&
         mkdir #{shared_path}/previews &&
@@ -223,8 +221,6 @@ namespace :limecast do
                    'remote_server.yml' => 'config/remote_server.yml',
                    'LimeCast.dmg'      => 'public/LimeCast.dmg',
                    'LimeCast.exe'      => 'public/LimeCast.exe',
-                   'logos'             => 'public/logos',
-                   'feed_logos'        => 'public/feed_logos',
                    'podcast_logos'     => 'public/podcast_logos',
                    'screenshots'       => 'public/screenshots',
                    'previews'          => 'public/previews',
@@ -374,4 +370,3 @@ after 'deploy', 'limecast:jobs:stop'
 after 'deploy', 'limecast:update_sources:stop'
 after 'deploy', 'limecast:update_podcasts:stop'
 after 'deploy', 'limecast:god:start'
-

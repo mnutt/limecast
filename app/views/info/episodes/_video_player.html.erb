@@ -1,7 +1,8 @@
 <% options ||= {} -%>
 <% source ||= video_player -%>
 <% attrs ||= {} %>
-<% attrs.reverse_merge! :rel => source.preview.url, :poster => source.screenshot.url, 
+<% attrs.reverse_merge! :rel => (format == :ogg ? source.ogg_preview.url : source.preview.url), 
+                        :poster => source.screenshot.url, 
                         :width => source.width, :height => source.height if source %>
 <% (attrs[:class] ||= "") << " container" %>
 <% javascript_include "video_preview" -%>

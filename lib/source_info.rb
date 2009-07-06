@@ -69,13 +69,14 @@ class SourceInfo
     nil
   end
 
-  def resized_size_of_video
+  def resized_size_of_video(multiple=2)
     # Use fancy mathematics to keep videos from being stretched into 320x240
     width  = 320
     height = width.to_f / resolution[0] * resolution[1]
 
-    # Ensure that the dimensions are multiples of 2 (so ffmpeg doesn't whine)
-    height = (height / 2).to_i * 2
+    # Ensure that the dimensions are multiples of 2 (so ffmpeg doesn't whine),
+    # or another given multiple
+    height = height.nearest_multiple_of(multiple)
 
     size   = [width, height].join("x")
   rescue

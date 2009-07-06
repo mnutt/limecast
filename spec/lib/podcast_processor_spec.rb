@@ -56,8 +56,7 @@ describe PodcastProcessor, "parsing Chinese Feed" do
     lambda { mod_and_run_podcast_processor(@qf, FetchChineseFeed) }.should change { Podcast.count }.by(1)
     @podcast = @qf.podcast
   end
-  
-  
+
   it 'should set the title of the podcast' do
     @podcast.reload.title.should == "香港電台：視像新聞"
   end
@@ -87,7 +86,7 @@ describe PodcastProcessor, "failing" do
     mod_and_run_podcast_processor(@qf, FetchRegularFeed)
   end
 
-  it 'should not create a Feed' do
+  it 'should not create a Podcast' do
     PodcastProcessor.process(@qf, MockLogger.new)
 
     @qf.podcast.should be_nil
@@ -95,7 +94,7 @@ describe PodcastProcessor, "failing" do
 end
 
 
-# Feed is already in the system, looking it up by url.
+# Podcast is already in the system, looking it up by url.
 describe PodcastProcessor, "being reparsed" do
   before do
     @qf = Factory.create(:queued_feed)

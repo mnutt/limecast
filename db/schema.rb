@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(:version => 20090702200647) do
     t.string   "clean_url"
     t.string   "guid"
     t.text     "xml"
-    t.boolean  "archived",                                     :default => false
-    t.text     "subtitle",               :limit => 2147483647
+    t.boolean  "archived",               :default => false
+    t.string   "subtitle"
     t.string   "date_title"
   end
 
@@ -71,29 +71,29 @@ ActiveRecord::Schema.define(:version => 20090702200647) do
     t.string   "owner_email"
     t.string   "owner_name"
     t.string   "title"
-    t.boolean  "has_previews",                               :default => true
-    t.boolean  "has_p2p_acceleration",                       :default => true
+    t.boolean  "has_previews",         :default => true
+    t.boolean  "has_p2p_acceleration", :default => true
     t.boolean  "button_installed"
-    t.boolean  "protected",                                  :default => false
-    t.integer  "favorites_count",                            :default => 0
+    t.boolean  "protected",            :default => false
+    t.integer  "favorites_count",      :default => 0
     t.string   "url"
     t.string   "itunes_link"
-    t.string   "state",                                      :default => "pending"
+    t.string   "state",                :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
     t.text     "xml"
-    t.integer  "ability",                                    :default => 0
+    t.integer  "ability",              :default => 0
     t.string   "generator"
     t.string   "xml_title"
-    t.text     "description",          :limit => 2147483647
+    t.string   "description"
     t.string   "language"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.string   "logo_file_size"
     t.string   "error"
-    t.string   "custom_title",                               :default => ""
-    t.text     "subtitle",             :limit => 2147483647
+    t.string   "custom_title",         :default => ""
+    t.string   "subtitle"
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true

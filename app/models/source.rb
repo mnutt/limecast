@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090617220532
+# Schema version: 20090706195830
 #
 # Table name: sources
 #
@@ -14,12 +14,12 @@
 #  preview_file_name        :string(255)   
 #  preview_content_type     :string(255)   
 #  preview_file_size        :string(255)   
-#  downloaded_at            :datetime      
-#  hashed_at                :datetime      
-#  curl_info                :text(16777215 
-#  ffmpeg_info              :text(16777215 
 #  height                   :integer(4)    
 #  width                    :integer(4)    
+#  downloaded_at            :datetime      
+#  hashed_at                :datetime      
+#  curl_info                :text          
+#  ffmpeg_info              :text          
 #  file_name                :string(255)   
 #  torrent_file_name        :string(255)   
 #  torrent_content_type     :string(255)   
@@ -32,7 +32,7 @@
 #  size_from_xml            :integer(4)    
 #  size_from_disk           :integer(4)    
 #  sha1hash                 :string(40)    
-#  torrent_info             :text(16777215 
+#  torrent_info             :text          
 #  duration_from_ffmpeg     :integer(4)    
 #  duration_from_feed       :integer(4)    
 #  extension_from_feed      :string(255)   
@@ -45,6 +45,10 @@
 #  bitrate_from_feed        :integer(4)    
 #  bitrate_from_ffmpeg      :integer(4)    
 #  created_at               :datetime      
+#  ogg_preview_file_name    :string(255)   
+#  ogg_preview_content_type :string(255)   
+#  ogg_preview_file_size    :integer(4)    
+#  ogg_preview_updated_at   :datetime      
 #
 
 class Source < ActiveRecord::Base

@@ -205,6 +205,15 @@ class PodcastProcessor
         end
       end
     end
+    
+
+    # Update the daily orders
+    @podcast.episodes.all(:order => "published_at ASC").group_by(&:clean_url).each do |day, episodes|
+      episodes.inject(1) do |order, ep|
+        ep.update_attribute(:daily_order, order)
+        order += 1 
+      end
+    end
   end
   
    # Ensure archived xml is reparsed (eg in case code changes)

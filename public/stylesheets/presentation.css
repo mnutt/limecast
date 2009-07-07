@@ -382,7 +382,6 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 .supplemental {float: left; overflow: hidden; position:  relative; margin: 20px 0; width: 670px;}
 
 
-
 /**** homepage **************/
 
 .home #content {
@@ -593,7 +592,7 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 
 .summary h1 {
 	margin: 0;
-	display: inline;
+	padding: 0;
 }
 
 .summary h2 {
@@ -684,7 +683,7 @@ h6#page_type {
 }
 
 
-.episode .summary h1 {float: left; width: auto;}
+.episode .summary h1 {float: left; width: auto; }
 .episode .summary h2 {float: left; width: auto; margin: -20px 0 20px 0;}
 .episode #episode_head {width: 735px;}
 

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090617220532
+# Schema version: 20090706195830
 #
 # Table name: podcasts
 #
@@ -24,18 +24,18 @@
 #  bitrate              :integer(4)    
 #  finder_id            :integer(4)    
 #  format               :string(255)   
-#  xml                  :text(16777215 
+#  xml                  :text          
 #  ability              :integer(4)    default(0)
 #  generator            :string(255)   
 #  xml_title            :string(255)   
-#  description          :string(255)   
+#  description          :text(21474836 
 #  language             :string(255)   
 #  logo_file_name       :string(255)   
 #  logo_content_type    :string(255)   
 #  logo_file_size       :string(255)   
 #  error                :string(255)   
 #  custom_title         :string(255)   default("")
-#  subtitle             :string(255)   
+#  subtitle             :text(21474836 
 #
 
 require 'paperclip_file'
@@ -45,7 +45,7 @@ require 'timeout'
 class Podcast < ActiveRecord::Base
   has_many :recommendations, :order => 'weight DESC'
   has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast
-  has_many :episodes, :order => "published_at DESC", :dependent => :destroy
+  has_many :episodes, :order => "published_at DESC, daily_order DESC", :dependent => :destroy
   has_many :reviews, :through => :episodes, :conditions => "reviews.user_id IS NOT NULL"
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites

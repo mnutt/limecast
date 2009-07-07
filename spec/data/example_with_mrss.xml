@@ -75,5 +75,24 @@
       <itunes:keywords>politics, red, blue, state</itunes:keywords>
     </item>
 
+
+    <item>
+      <title>Green, Yellow &amp; Blue</title>
+      <itunes:author>Various</itunes:author>
+      <itunes:subtitle>Green Yellow Blue</itunes:subtitle>
+      <itunes:summary>Not really sure what this one's about.</itunes:summary>
+      <enclosure url="http://example.com/podcasts/everything/AllAboutEverythingEpisode0.mp3" length="49835" type="audio/mpeg" />
+      <media:group>
+        <media:content fileSize="49835" type="audio/mpeg" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode0.mp3"></media:content>
+        <media:content fileSize="7673045" type="video/quicktime" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode0.mov"></media:content>
+        <media:content fileSize="180138" type="video/x-flv" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode0.flv"></media:content>
+        <media:content fileSize="5897" type="video/x-m4v" url="http://example.com/podcasts/everything/AllAboutEverythingEpisode0.m4v"></media:content>
+      </media:group>
+      <guid>http://example.com/podcasts/archive/aae20050601a.mp3</guid>
+      <pubDate>Wed, 1 Jun 2005 13:00:00 GMT</pubDate>
+      <itunes:duration>1:29</itunes:duration>
+      <itunes:keywords>politics, red, blue, state</itunes:keywords>
+    </item>
+
   </channel>
 </rss>

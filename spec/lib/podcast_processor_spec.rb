@@ -148,13 +148,13 @@ describe Podcast, "updating episodes" do
   end
 
   it 'should create some episodes' do
-    @podcast.episodes(true).count.should == 3
+    @podcast.episodes(true).count.should == 4
   end
 
   it 'should not duplicate episodes that already exist' do
-    @podcast.episodes(true).count.should == 3
+    @podcast.episodes(true).count.should == 4
     mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS)
-    @podcast.episodes(true).count.should == 3
+    @podcast.episodes(true).count.should == 4
   end
 
   it 'should not duplicate episodes that have sources with the same file size' do
@@ -164,7 +164,7 @@ describe Podcast, "updating episodes" do
                    :podcast => @podcast, 
                    :size_from_xml => "8727310")
     @podcast.episodes(true).count.should == 1
-    lambda { mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS) }.should change { @podcast.episodes.count }.by(2)
+    lambda { mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS) }.should change { @podcast.episodes.count }.by(3)
   end
   
   it 'should create 4 sources for any given episode (from enclosure + mrss)' do
@@ -194,6 +194,10 @@ describe Podcast, "updating episodes" do
 
   it 'should create sources with the proper durations (from enclosure + mrss)' do
     @podcast.episodes[0].sources.map(&:duration).should == [424, 424, 424, 424]
+  end
+  
+  it 'should set daily order for each episode' do
+    @podcast.episodes.map(&:daily_order).should == [1,1,2,1]
   end
 end
 

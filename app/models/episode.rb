@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20090617220532
+# Schema version: 20090706195830
 #
 # Table name: episodes
 #
 #  id                     :integer(4)    not null, primary key
 #  podcast_id             :integer(4)    
-#  summary                :text(16777215 
+#  summary                :text          
 #  published_at           :datetime      
 #  created_at             :datetime      
 #  updated_at             :datetime      
@@ -14,12 +14,11 @@
 #  thumbnail_content_type :string(255)   
 #  duration               :integer(4)    
 #  title                  :string(255)   
-#  clean_url              :string(255)   
 #  guid                   :string(255)   
 #  xml                    :text          
 #  archived               :boolean(1)    
-#  subtitle               :string(255)   
-#  date_title             :string(255)   
+#  subtitle               :text(21474836 
+#  daily_order            :integer(4)    default(1)
 #
 
 class Episode < ActiveRecord::Base
@@ -39,9 +38,6 @@ class Episode < ActiveRecord::Base
 
   validates_presence_of :podcast_id, :published_at
 
-  before_create :generate_date_title
-  before_create :generate_url
-
   named_scope :archived, {:conditions => {:archived => true}}
   named_scope :with_same_title_as, lambda {|who| {:conditions => {:podcast_id => who.podcast.id, :clean_url => who.clean_url}} }
   named_scope :without, lambda {|who| (who.nil?||who.id.nil?) ? {} : {:conditions => ["episodes.id NOT IN (?)", who.id]} }
@@ -60,7 +56,13 @@ class Episode < ActiveRecord::Base
   end
 
   def self.find_by_slug(slug)
-    i = self.find_by_clean_url(slug)
+    episode_slug = slug.split('-')
+    date         = episode_slug[0..2]
+    date[1]      = Date::ABBR_MONTHNAMES.index date[1]
+    date         = date.join('-')
+    daily_order  = episode_slug[3] || 1
+
+    i = find(:first, :conditions => ["DATE(published_at) = ? AND daily_order = ?", date, daily_order.to_i])
     raise ActiveRecord::RecordNotFound if i.nil? || slug.nil?
     i
   end
@@ -73,19 +75,27 @@ class Episode < ActiveRecord::Base
     Episode.newest.before(self).find_by_podcast_id(podcast_id) rescue nil
   end
   
-  def generate_date_title
-    self.date_title = published_at.to_date.to_s(:title)
-    self.date_title = date_title + " (2)" if podcast.episodes.exists?(["date_title = ? AND id != ?", date_title, id.to_i])
-    self.date_title.increment!(" (%s)", 2) while podcast.episodes.exists?(["date_title = ? AND id != ?", date_title, id.to_i])
-    date_title
+  def clean_url
+    daily_order > 1 ? "#{published_at.to_date.to_s(:url)}-#{daily_order}" : published_at.to_date.to_s(:url)
   end
+  
+  def date_title
+    daily_order > 1 ? "#{published_at.to_date.to_s(:title)} (#{daily_order})" : published_at.to_date.to_s(:title)
+  end
+  
+  # def generate_date_title
+  #   self.date_title = published_at.to_date.to_s(:title)
+  #   self.date_title = date_title + " (2)" if podcast.episodes.exists?(["date_title = ? AND id != ?", date_title, id.to_i])
+  #   self.date_title.increment!(" (%s)", 2) while podcast.episodes.exists?(["date_title = ? AND id != ?", date_title, id.to_i])
+  #   date_title
+  # end
 
-  def generate_url
-    self.clean_url = published_at.to_date.to_s(:url)
-    self.clean_url += "-2" if podcast.episodes.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
-    self.clean_url.increment!("-%s", 2) while podcast.episodes.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
-    clean_url
-  end
+  # def generate_url
+  #   self.clean_url = 
+  #   self.clean_url += "-2" if podcast.episodes.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
+  #   self.clean_url.increment!("-%s", 2) while podcast.episodes.exists?(["clean_url = ? AND id != ?", clean_url, id.to_i])
+  #   clean_url
+  # end
 
   def diagnostic_xml
     doc = Hpricot.XML(xml.to_s)

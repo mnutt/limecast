@@ -27,14 +27,35 @@
     <div id="header">
       <h1><%= link_to "LimeCast", root_url %></h1>
       <ul id="nav">
-        <li id="nav_signin">signin</li>
-        <li id="nav_search">search</li>
-        <li id="nav_all"><%= link_to "All", all_url %></li>
+        <li id="nav_search">
+          <form action="/search" method="get" id="search" class="search">            
+            <label for="q" style="display: none;">Search LimeCast</label>
+            <input class="text search" id="q" name="q" size="15" type="text" value="Search LimeCast" tabindex="1" />
+            <button type="submit">
+              <span>Search</span>
+            </button>
+          </form>
+        </li>
+        <li id="nav_signin">
+          <%= link_to "Sign up", new_user_url, :class => 'signup', :rel => '.login_pop' %> |
+          <%= link_to "Sign in", new_session_url, :class => 'login', :rel => '.login_pop' -%>
+        </li>
+        <li id="nav_home"><%= link_to "Home", root_url %></li>
         <li id="nav_popular"><%= link_to "Popular", popular_url %></li>
         <li id="nav_add"><%= link_to "Add Podcast", add_url %></li>
       </ul>
     </div>
     This is the text
+    <div class="push"></div>
+  </div>
+
+  <div id="footer">
+    <ul>
+      <li><%= link_to "Blog", "http://limecast.limespot.com" %></li>
+      <li><%= link_to "Terms of use", "/use" %></li>
+      <li><%= link_to "Privacy", "/privacy" %></li>
+      <li><%= link_to "Open source", "http://wiki.limewire.org/index.php?title=LimeCast" %></li>
+    </ul>
   </div>
 </body>
 </html>

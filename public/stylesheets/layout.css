@@ -11,11 +11,50 @@ body {
 	padding: 0 100px;
 }
 
+input.text,
+textarea.text {
+  background: #F3F3F3 url("../images/content/input_bg.png") repeat-x left top;
+  border: 1px solid #212121;
+  padding: 4px;
+}
+
+/**** =Global submit button ***************/
+/* Setting general button styles.
+	 Background position can't be set to "top",
+	 because of Firefox behavior.
+	 overflow: visible; is to remove magic padding in IE. */
+button {
+	text-align: center;
+	background: url('../imgs/button_add.png') no-repeat right;
+	border: 0;
+	margin: 0;
+	padding: 3px 4px 0 0;
+	overflow: visible;
+	cursor: pointer;
+	position: relative;
+}
+/* Sets the general styles for the span within the button
+	content, and the starting image. This image contains the
+	rounded corners to the left and is as wide as
+	the widest button might become. */
+button span {
+	position: relative;
+	display: block;
+	white-space: nowrap;
+	height: 31px;
+	color: #fff;
+	font: bold 12px/23px Helvetica, Arial, sans-serif;
+	background: url('/imgs/button_add_left.png') no-repeat left top;
+	padding: 3px 5px 0 12px;
+}
+
+.push { height: 70px; }
+
+
 /**********/
 /* Header */
 /**********/
 #header {
-	background: green;
 	height: 35px;
 	position: relative;
 }
@@ -40,59 +79,66 @@ body {
 }
 
 #header #nav {
-	padding-top: 5px;
+	padding-top: 2px;
 }
 
-#header #nav li {
-	display: inline;
-}
-
-#header #nav #signin,
-#header #nav #search {
+#header #nav_signin,
+#header #nav_search {
 	float: right;
+	margin-left: 10px;
 }
 
-#header #nav #nav_all a,
+#header #nav_signin {
+	margin-top: 8px;
+}
+
+#header #nav #nav_home,
+#header #nav #nav_popular,
+#header #nav #nav_add {
+	float: left;
+}
+
+#header #nav #nav_home a,
 #header #nav #nav_popular a,
 #header #nav #nav_add a {
-	width: 60px;
 	height: 15px;
+	margin-top: 9px;
 	display: block;
+	text-indent: -5000px;
 }
 
-#header #nav #nav_all a { background: url('../imgs/all.png') top left no-repeat; }
-#header #nav #nav_all a:hover { background: url('../imgs/all.png') top left no-repeat; }
+#header #nav #nav_home a { width: 65px; background: url('/imgs/home.png') top left no-repeat; }
+#header #nav #nav_home a:hover { background: url('/imgs/home_over.png') top left no-repeat; }
 
-#header #nav #nav_popular a { background: url('../imgs/popular.png') top left no-repeat; }
-#header #nav #nav_popular a:hover { background: url('../imgs/popular.png') top left no-repeat; }
+#header #nav #nav_popular a { width:80px; background: url('/imgs/popular.png') top left no-repeat; }
+#header #nav #nav_popular a:hover { background: url('/imgs/popular_over.png') top left no-repeat; }
 
-#header #nav li #nav_add a { background: url('../imgs/add_podcast.png') top left no-repeat;}
+#header #nav #nav_add a { width: 120px; background: url('/imgs/add_podcast.png') top left no-repeat;}
+#header #nav #nav_add a:hover { width: 120px; background: url('/imgs/add_podcast_over.png') top left no-repeat;}
 
-a#nav_home:hover {
-	background: url('../imgs/home_o.png') top left no-repeat;
+#header #nav #nav_search input.text {
+	background: url('/imgs/search_input.png') no-repeat;
+	border: 0px;
+	color: rgb(169, 169, 169);
+	font-size: 1.2em;
+	height: 24px;
+	outline: none;
+	padding: 2px 0px 0px 5px;
+	width: 160px;
 }
 
-a#nav_browse:hover {
-	background: url('../imgs/browse_o.png') top left no-repeat;
+#header #nav #nav_search button {
+	width: 30px;
+	background: url('../imgs/search_button.png') no-repeat right;
+	position: relative;
+	top: -3px;
+	left: -5px;
 }
 
-a#nav_pop:hover {
-	background: url('../imgs/popular_o.png') top left no-repeat;
-}
-
-a#add_podcast:hover {
-	background: url('../imgs/add_podcast_over.png') top left no-repeat;
-}
-
-
-a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop span {
+#header #nav #nav_search button span {
 	margin-left: -5000px;
+	width: 30px;
 }
-
-
-
-
-
 
 
 /***********/
@@ -101,4 +147,31 @@ a#add_podcast span, a#logo span, a#nav_home span, a#nav_browse span, a#nav_pop s
 #content {
 	background: red;
 	height: 100%;
+}
+
+/**********/
+/* Footer */
+/**********/
+#footer {
+	background: green;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	background: #313131 url('../imgs/bg_footer.png') -2px left repeat-x;
+}
+
+#footer ul {
+	margin: 0 100px;
+	height: 70px;
+}
+
+#footer ul li {
+	padding: 20px 10px 0 10px;
+	font-size: 1.1em;
+	float: left;
+}
+
+#footer ul li a {
+	color: #FFF;
 }

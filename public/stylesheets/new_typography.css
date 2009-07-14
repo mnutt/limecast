@@ -21,5 +21,6 @@ h4 {font-size: 1.4em;}
 
 .search_term { background: lemonchiffon; }
 
-#header #nav li a { font-size: 1.8em; }
+#header #nav li { font-size: 1.3em; }
+#header #nav li#nav_search input.text { font-size: 0.9em; }
 

@@ -283,4 +283,9 @@ module ApplicationHelper
   def sparkline(data_points=[])
     image_tag sparkline_link(data_points)
   end
+
+  def custom_button(text="", options={})
+    content_tag :button, content_tag(:span, text), options.merge(:type => "submit")
+    # "<button type=\"submit\"><span>#{text}</span></button>"
+  end
 end

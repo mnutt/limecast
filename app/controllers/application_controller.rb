@@ -160,4 +160,14 @@ class ApplicationController < ActionController::Base
         return false
       end
     end
+
+    # Omit AJAX from CSFR protection; we can remove this overwritten method
+    # when we upgrade to Rails 3.
+    def verified_request?
+      !protect_against_forgery?   ||
+      request.method == :get      ||
+      request.xhr?                ||
+      !verifiable_request_format? ||
+      form_authenticity_token == params[request_forgery_protection_token]
+    end
 end

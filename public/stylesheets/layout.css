@@ -25,13 +25,13 @@ textarea.text {
 	 overflow: visible; is to remove magic padding in IE. */
 button {
 	text-align: center;
-	background: url('../imgs/button_add.png') no-repeat right;
 	border: 0;
 	margin: 0;
 	padding: 3px 4px 0 0;
 	overflow: visible;
 	cursor: pointer;
 	position: relative;
+	background: url('../imgs/button_add.png') no-repeat right;
 }
 /* Sets the general styles for the span within the button
 	content, and the starting image. This image contains the
@@ -48,7 +48,8 @@ button span {
 	padding: 3px 5px 0 12px;
 }
 
-.push { height: 70px; }
+.header_push { height: 35px; }
+.footer_push { height: 70px; }
 
 
 /**********/
@@ -56,7 +57,12 @@ button span {
 /**********/
 #header {
 	height: 35px;
-	position: relative;
+	background: #313131 url('../imgs/background.png') top left repeat-x; 
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	z-index: 3;
 }
 
 #header h1 {
@@ -78,7 +84,8 @@ button span {
 	background: url('../imgs/logo_over.png') top left no-repeat;
 }
 
-#header #nav {
+#header ul {
+	margin: 0 100px;
 	padding-top: 2px;
 }
 
@@ -92,31 +99,31 @@ button span {
 	margin-top: 8px;
 }
 
-#header #nav #nav_home,
-#header #nav #nav_popular,
-#header #nav #nav_add {
+#header #nav_home,
+#header #nav_popular,
+#header #nav_add {
 	float: left;
 }
 
-#header #nav #nav_home a,
-#header #nav #nav_popular a,
-#header #nav #nav_add a {
+#header #nav_home a,
+#header #nav_popular a,
+#header #nav_add a {
 	height: 15px;
 	margin-top: 9px;
 	display: block;
 	text-indent: -5000px;
 }
 
-#header #nav #nav_home a { width: 65px; background: url('/imgs/home.png') top left no-repeat; }
-#header #nav #nav_home a:hover { background: url('/imgs/home_over.png') top left no-repeat; }
+#header #nav_home a { width: 65px; background: url('/imgs/home.png') top left no-repeat; }
+#header #nav_home a:hover { background: url('/imgs/home_over.png') top left no-repeat; }
+        
+#header #nav_popular a { width:80px; background: url('/imgs/popular.png') top left no-repeat; }
+#header #nav_popular a:hover { background: url('/imgs/popular_over.png') top left no-repeat; }
+        
+#header #nav_add a { width: 120px; background: url('/imgs/add_podcast.png') top left no-repeat;}
+#header #nav_add a:hover { width: 120px; background: url('/imgs/add_podcast_over.png') top left no-repeat;}
 
-#header #nav #nav_popular a { width:80px; background: url('/imgs/popular.png') top left no-repeat; }
-#header #nav #nav_popular a:hover { background: url('/imgs/popular_over.png') top left no-repeat; }
-
-#header #nav #nav_add a { width: 120px; background: url('/imgs/add_podcast.png') top left no-repeat;}
-#header #nav #nav_add a:hover { width: 120px; background: url('/imgs/add_podcast_over.png') top left no-repeat;}
-
-#header #nav #nav_search input.text {
+#header #nav_search input.text {
 	background: url('/imgs/search_input.png') no-repeat;
 	border: 0px;
 	color: rgb(169, 169, 169);
@@ -127,7 +134,7 @@ button span {
 	width: 160px;
 }
 
-#header #nav #nav_search button {
+#header #nav_search button {
 	width: 30px;
 	background: url('../imgs/search_button.png') no-repeat right;
 	position: relative;
@@ -135,7 +142,7 @@ button span {
 	left: -5px;
 }
 
-#header #nav #nav_search button span {
+#header #nav_search button span {
 	margin-left: -5000px;
 	width: 30px;
 }
@@ -145,7 +152,8 @@ button span {
 /* Content */
 /***********/
 #content {
-	background: red;
+/*	background: red;*/
+	background: #F1F1F1 url('/imgs/bg_content.png') 0px 0px repeat-x;
 	height: 100%;
 }
 
@@ -158,7 +166,7 @@ button span {
 	bottom: 0px;
 	left: 0px;
 	width: 100%;
-	background: #313131 url('../imgs/bg_footer.png') -2px left repeat-x;
+	background: #313131 url('/imgs/bg_footer.png') -2px left repeat-x;
 }
 
 #footer ul {
@@ -175,3 +183,71 @@ button span {
 #footer ul li a {
 	color: #FFF;
 }
+
+/**********/
+/* Auth   */
+/**********/
+
+#auth {
+	display: ;none;
+	position: absolute;
+	top: 45px;
+	right: 120px;
+	border: solid 1px #A9A9A9;
+	width: 300px;
+	background: #FFF;
+	opacity: 0.8;
+	padding: 5px 5px 5px 15px;
+	box-shadow: 5px 5px 5px #888;
+	-moz-box-shadow: 5px 5px 5px #888;
+	-webkit-box-shadow: 5px 5px 5px #888;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#auth .arrow {
+	position: absolute;
+	top: -11px;
+	left: 20px;
+}
+
+#auth h4 {
+	margin: 10px 0 20px 0;
+	font-size: 1.8em;
+}
+
+#auth p {
+	margin: 10px 0;
+	padding: 0 25px 0 100px;
+}
+
+#auth p.message {
+	text-align: right;
+	padding-left: 0;
+}
+
+#auth p.buttons {
+	text-align: right;
+}
+
+#auth form input.text {
+	background: url('/imgs/input.png') no-repeat;
+	border: none;
+	display: block;
+	font-size: 1.2em;
+	height: 24px;
+	overflow: hidden;
+	padding: 5px;
+	width: 165px;
+}
+
+#auth form label {
+	font-weight: bold;
+	font-size: 1em;
+	width: 100px;
+	padding-top: 5px;
+	margin-left: -100px;
+	display: block;
+	float: left;
+}
+

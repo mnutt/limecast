@@ -37,7 +37,7 @@ function setupCluetips() {
   $('a.tips').cluetip(default_options);
   
   if(!LOGGED_IN) {
-    $.extend(default_options, {activation: 'click', sticky: true, onShow: function(){$.quickSignIn.setup()}});
+    // $.extend(default_options, {activation: 'click', sticky: true, onShow: function(){$.quickSignIn.setup()}});
 
     $.extend(default_options, {positionBy: 'auto', leftOffset: -10});
     $('#podcast_tag_form_cluetip_link').cluetip(default_options);
@@ -55,6 +55,11 @@ function setupCluetips() {
   }
 }
 
+function setupSignin() {
+  $("#auth").authSetup();
+  $('#sign_in').authLink();
+}
+
 function setupTabs() {
   $('.tabify').tabs({ navClass: 'tabs', containerClass: 'tabs-cont' });
 }
@@ -63,6 +68,7 @@ $(function() {
   defaultText();
   truncatedText();
   favoriteLink();
-  setupCluetips();
-  setupTabs();
+//  setupCluetips();
+//  setupTabs();
+  setupSignin();
 });

@@ -1,5 +1,6 @@
 <% @title = "#{unescape_entities(h(@episode.title))}" -%>
 <% @show_ads = true -%>
+<% stylesheet_link "episode" -%>
 <% javascript_include "review_edit", "episode_delete", "download_button" -%>
 
 <% @classes = %{episode show} -%>

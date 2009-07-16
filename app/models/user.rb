@@ -37,17 +37,17 @@ class User < ActiveRecord::Base
   attr_accessor :password # Virtual attribute for the unencrypted password
   attr_accessor_with_default :messages, []
 
-  validates_presence_of     :login
   validates_presence_of     :email
   validates_presence_of     :password,                   :if => :password_required?
   validates_length_of       :password, :within => 4..40, :if => :password_required?
-  validates_length_of       :login,    :within => 3..40
+  validates_length_of       :login,    :within => 3..40, :allow_nil => true
   validates_length_of       :email,    :within => 3..100
-  validates_uniqueness_of   :login, :case_sensitive => false
+  validates_uniqueness_of   :login, :case_sensitive => false, :allow_nil => true
   validates_uniqueness_of   :email, :case_sensitive => false
   validates_format_of       :email, :with => %r{^(?:[_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
-  validates_format_of       :login, :with => /^[A-Za-z0-9\-\_\.]+$/
+  validates_format_of       :login, :with => /^[A-Za-z0-9\-\_\.]+$/, :allow_nil => true
   before_save :encrypt_password
+  before_save :set_login
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
@@ -220,11 +220,21 @@ class User < ActiveRecord::Base
     # before filter
     def encrypt_password
       return if password.blank?
+
       self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--") if new_record?
       self.crypted_password = encrypt(password)
     end
 
     def password_required?
       (crypted_password.blank? || !password.blank?) && state != 'passive'
+    end
+
+    def set_login
+      return unless login.blank?
+      
+      self.login = email.split('@').first
+      self.login.increment!(nil, 2) while User.exists?(["login = ? AND id != ?", login, id.to_i])
+
+      return login
     end
 end

@@ -55,9 +55,9 @@ function setupCluetips() {
   }
 }
 
-function setupSignin() {
-  $("#auth").authSetup();
-  $('#sign_in').authLink();
+function setupAuth() {
+  $("#auth form").authSetup();
+  $('#auth_link').authLink();
 }
 
 function setupTabs() {
@@ -70,5 +70,5 @@ $(function() {
   favoriteLink();
 //  setupCluetips();
 //  setupTabs();
-  setupSignin();
+  setupAuth();
 });

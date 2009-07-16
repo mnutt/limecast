@@ -35,10 +35,7 @@
           </button>
         </form>
       </li>
-      <li id="nav_signin">
-        <%= link_to "Sign up", new_user_url, :class => 'signup', :id => 'sign_up' %> |
-        <%= link_to "Sign in", new_session_url, :class => 'login', :id => 'sign_in' -%>
-      </li>
+      <li id="nav_auth"><%= link_to "Sign up, or sign in", new_session_url, :class => 'auth_link' %></li>
       <li id="nav_logo"><h1><%= link_to "LimeCast", root_url %></h1></li>
       <li id="nav_home"><%= link_to "Home", root_url %></li>
       <li id="nav_popular"><%= link_to "Popular", popular_url %></li>
@@ -63,17 +60,17 @@
   <div id="auth">
     <img src="/imgs/arrow_up.gif" class="arrow" />
     <h4>Sign in to LimeCast</h4>
-      <% form_for :user, :url => session_path, :html => {:class => "clearfix"} do |f| -%>
+      <% form_for :user, :url => session_path do |f| -%>
       <p>
-        <%= label :user, :login, "User name" %>
-        <%= text_field :user, :login, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255 %>
+        <%= label :user, :email, "Email&nbsp;/&nbsp;Login" %>
+        <%= text_field :user, :email, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255 %>
       </p>
       <p>
         <%= label :user, :password, "Password" %>
-        <%= text_field :user, :password, :class => "text", :tabindex => 3, :size => 15, :maxlength => 255 %>
+        <%= password_field :user, :password, :class => "text", :tabindex => 3, :size => 15, :maxlength => 255 %>
       </p>
       <p class="message">
-         <%= link_to "I forgot my password.", forgot_password_url %>
+         <%= link_to "I forgot my password", forgot_password_url %>
       </p>
       <p class="buttons">
         <%= custom_button "Sign in", :id => "sign_in" %>

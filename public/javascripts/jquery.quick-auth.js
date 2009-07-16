@@ -23,22 +23,44 @@ jQuery.fn.extend({
     });
 
     auth.find('#sign_in').click(function(event){
-      // me.find('.response_container').html('');
-      // if(!me.find('.sign_up:visible').length) { // if signup hasn't happened yet, just show full signup form
-      //   $.post(me.attr('action'), me.serialize(), $.quickSignIn.signinSubmitCallback, 'json');
-      // } else {
-      //   $.post(me.attr('action'), me.serialize(), $.quickSignIn.signupSubmitCallback, 'json');
-      // }
-      alert('signined');
+      auth.attr('action', '/session');
+      auth.find('.message').html('');
+      $.post(auth.attr('action'), auth.serialize(), function(resp){
+        if(resp.success) { // success, no reload
+          if(resp.profileLink) { $('#nav_auth').html(resp.profileLink); }
+        } else { // no success
+          auth.find('.message').html(resp.html);
+
+          // Focus the correct input
+          if(/Please type your password/i.test(resp.html)) $('#user_password').focus();
+          if(/Please type your email address/i.test(resp.html)) $('#user_email').focus();
+        }
+        return false;
+      }, 'json');
       event.stopPropagation();
       return false;
     });
 
     // Show the full signup form on clicking the 'Sign Up' button
     auth.find('#sign_up').click(function(event){
-      // if signup hasn't happened yet, just show full signup form
-      // if(!me.find('.sign_up:visible').length) $.quickSignIn.showSignUp();
-      alert('signuped');
+      auth.attr('action', '/users');
+      auth.find('.message').html('');
+      $.post(auth.attr('action'), auth.serialize(), function(resp){
+        if(resp.success) { // success, no reload
+          if(resp.profileLink) { $('#nav_auth').html(resp.profileLink); }
+          // $.quickSignIn.reset();
+
+        // } else if(resp.success && me.attr('reloadPage') != 'false') { // success reload
+        //   window.location.reload();
+        } else { // no success
+          auth.find('.message').html(resp.html);
+
+          // Focus the correct input
+          if(/Please type your password/.test(resp.html)) auth.find('#user_password').focus();
+          if(/Please type your email address/.test(resp.html)) auth.find('#user_email').focus();
+        }
+        return false;
+      }, 'json');
       event.stopPropagation();
       return false;
     });

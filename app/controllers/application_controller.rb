@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   protected
     def authenticate
-      self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
+      self.current_user = @user = User.authenticate(params[:user][:email], params[:user][:password])
 
       if logged_in?
         claim_records

@@ -57,7 +57,7 @@ function setupCluetips() {
 
 function setupAuth() {
   $("#auth form").authSetup();
-  $('#auth_link').authLink();
+  $("#auth_link").authLink();
 }
 
 function setupTabs() {

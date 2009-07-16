@@ -6,7 +6,8 @@ jQuery.fn.extend({
       var link = $(this);
 
       link.mousedown(function(){
-        $("#auth").toggle();
+        $("#auth").toggle().find("#user_email").focus();
+        return false;
       }).click(function(){
         return false;
       });
@@ -14,56 +15,42 @@ jQuery.fn.extend({
   },
 
   authSetup: function(options) {
-    var auth = $(this);
+    var auth_form = $(this);
+
+    // Enable X button & esc to close auth
+    $("#auth .close").mousedown(function(){ $("#auth").toggle(); return false; });
+    auth_form.find('input').keydown(function(e){ if(e.keyCode == 27) $("#auth").toggle(); return false; });
 
     // Makes the form use AJAX
-    auth.submit(function(event){
-      auth.find('#sign_in').click();
+    auth_form.submit(function(event){
+      auth_form.find('#sign_in').click();
       return false; // the form submission will be handled through specific Form Element events
     });
 
-    auth.find('#sign_in').click(function(event){
-      auth.attr('action', '/session');
-      auth.find('.message').html('');
-      $.post(auth.attr('action'), auth.serialize(), function(resp){
+    var callback = function(event){
+      auth_form.attr('action', ($(this).attr('id') == 'sign_up' ? '/users' : '/session'));
+      auth_form.find('.message').html('');
+      $.post(auth_form.attr('action'), auth_form.serialize(), function(resp){
         if(resp.success) { // success, no reload
           if(resp.profileLink) { $('#nav_auth').html(resp.profileLink); }
+          // window.location.reload();
         } else { // no success
-          auth.find('.message').html(resp.html);
-
+          auth_form.find('.message').html(resp.html);
+          auth_form.effect("shake", { times:1, distance: 5 }, 50);
+          
           // Focus the correct input
           if(/Please type your password/i.test(resp.html)) $('#user_password').focus();
-          if(/Please type your email address/i.test(resp.html)) $('#user_email').focus();
+          else $('#user_email').focus();
+          $('#user_email').focus();
         }
-        return false;
+ //       return false;
       }, 'json');
       event.stopPropagation();
       return false;
-    });
+    };
 
-    // Show the full signup form on clicking the 'Sign Up' button
-    auth.find('#sign_up').click(function(event){
-      auth.attr('action', '/users');
-      auth.find('.message').html('');
-      $.post(auth.attr('action'), auth.serialize(), function(resp){
-        if(resp.success) { // success, no reload
-          if(resp.profileLink) { $('#nav_auth').html(resp.profileLink); }
-          // $.quickSignIn.reset();
-
-        // } else if(resp.success && me.attr('reloadPage') != 'false') { // success reload
-        //   window.location.reload();
-        } else { // no success
-          auth.find('.message').html(resp.html);
-
-          // Focus the correct input
-          if(/Please type your password/.test(resp.html)) auth.find('#user_password').focus();
-          if(/Please type your email address/.test(resp.html)) auth.find('#user_email').focus();
-        }
-        return false;
-      }, 'json');
-      event.stopPropagation();
-      return false;
-    });
+    auth_form.find('#sign_in').click(callback);
+    auth_form.find('#sign_up').click(callback);
 
     // me.find('.signin_button').click(function(event){
     //   if(me.find('.sign_up:visible').length) { // if signup hasn't happened yet, just show full signup form
@@ -72,17 +59,12 @@ jQuery.fn.extend({
     //   return false;
     // });
 
-    // Handles clicking the X button to close the quick sign in box
-    // me.find('a.close').click(this.reset);
 
-    // Keypress to handle pressing escape to close box.
-    // me.find('input').keydown(function(e){ if(e.keyCode == 27) $.quickSignIn.reset(); });
-
-    auth.find('input.text')[0].focus();
+    auth_form.find('input.text')[0].focus();
 
     // $.quickSignIn.showOverlay();
 
-    return auth;
+    return auth_form;
   }
 
   // inputDefaultText: function(value, options) {

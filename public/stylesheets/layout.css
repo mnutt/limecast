@@ -211,6 +211,16 @@ button span {
 	left: 85px;
 }
 
+#auth .close {
+	float: right;
+	margin: 0 10px 0 0;
+}
+
+#auth .close span {
+	font-size: 1.4em;
+	padding-left: 9px;
+}
+
 #auth h4 {
 	margin: 10px 0 20px 0;
 	font-size: 1.8em;

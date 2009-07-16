@@ -15,7 +15,7 @@ if(ARGV[0])
   exit
 end
 
-sleeptime = 4.hours
+sleeptime = 4 * 60 * 60 # 4 hours
 
 while true
   QueuedFeed.parsed.each do |qf|

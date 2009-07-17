@@ -1,5 +1,5 @@
 $.ajaxSetup({
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+  'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript")}
 })
 
 // Method hooks up all of the input text boxes that should have default labels
@@ -58,6 +58,7 @@ function setupCluetips() {
 function setupAuth() {
   $("#auth form").authSetup();
   $("#auth_link").authLink();
+  $("#sign_out_link").signoutSetup();
 }
 
 function setupTabs() {
@@ -68,7 +69,7 @@ $(function() {
   defaultText();
   truncatedText();
   favoriteLink();
+  setupAuth();
 //  setupCluetips();
 //  setupTabs();
-  setupAuth();
 });

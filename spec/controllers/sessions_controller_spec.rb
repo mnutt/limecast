@@ -19,16 +19,23 @@ describe SessionsController do
 
 
   def do_post
-    post :create, :user => { :login => @user.login, :password => @user.password }
+    post :create, :user => { :email => @user.email, :password => @user.password }
   end
 
-  it 'login and redirect' do
-    post :create, :user => { :login => @user.login, :password => @user.password }
+  it 'login with email and redirect' do
+    post :create, :user => { :email => @user.email, :password => @user.password }
     session[:user_id].should_not be_nil
     @user.reload.logged_in_at.to_i.should == Time.now.to_i
     response.should be_redirect
   end
 
+  it 'login with user login and redirect' do
+    post :create, :user => { :email => @user.login, :password => @user.password }
+    session[:user_id].should_not be_nil
+    @user.reload.logged_in_at.to_i.should == Time.now.to_i
+    response.should be_redirect
+  end
+  
   it 'login and claim reviews' do
     @review = Factory.create(:review, :reviewer => nil)
     @podcast = @review.episode.podcast
@@ -40,33 +47,33 @@ describe SessionsController do
   end
 
   it 'fails login and does not redirect' do
-    post :create, :user => { :login => @user.login, :password => "xxxx" }, :format => 'js'
+    post :create, :user => { :email => @user.email, :password => "xxxx" }, :format => 'js'
     session[:user_id].should be_nil
     response.should be_success
     decode(response)['html'].should =~ /User and password don\t match./
   end
 
   it 'fails login and notices when new email has been given' do
-    post :create, :user => { :login => 'newemail@example.com', :password => 'xxxx' }, :format => 'js'
+    post :create, :user => { :email => 'newemail@example.com', :password => 'xxxx' }, :format => 'js'
     session[:user_id].should be_nil
     response.should be_success
     response.body.should =~ /This email is new to us./
   end
 
   it 'logs out' do
-    post :create, :user => { :login => @user.login, :password => @user.password }
-    get :destroy
+    post :create, :user => { :email => @user.email, :password => @user.password }, :format => 'js'
+    get :destroy, :format => 'js'
     session[:user_id].should be_nil
-    response.should be_redirect
+    response.body.should =~ /sign up.*sign in/i
   end
 
   it 'remembers me' do
-    post :create, :user => { :login => @user.login, :password => @user.password }
+    post :create, :user => { :email => @user.email, :password => @user.password }
     response.cookies["auth_token"].should_not be_nil
   end
 
   it 'deletes token on logout' do
-    post :create, :user => { :login => @user.login, :password => @user.password }
+    post :create, :user => { :email => @user.email, :password => @user.password }
     get :destroy
     response.cookies["auth_token"].should == nil
   end

@@ -4,5 +4,5 @@
 <% else -%>
   { success: true, 
     html: "Successful signin, <%= escape_javascript link_to_profile(current_user) -%>.",
-    profileLink: "<%= escape_javascript render(:partial => "layouts/sign_in_area") %>" }
+    profileLink: "<%= escape_javascript render(:partial => 'sessions/auth') %>" }
 <% end -%>

@@ -189,8 +189,9 @@ button span {
 /**********/
 
 #auth {
-	display: ;none;
+	display: none;
 	position: absolute;
+	z-index: 1;
 	top: 45px;
 	right: 120px;
 	border: solid 1px #A9A9A9;
@@ -237,7 +238,6 @@ button span {
 #auth p.message {
 	text-align: right;
 	padding-left: 0;
-	min-height: 1em;
 }
 
 #auth p.buttons {
@@ -264,4 +264,13 @@ button span {
 	display: block;
 	float: left;
 }
+
+#authOverlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
 

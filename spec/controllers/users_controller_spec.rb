@@ -19,14 +19,6 @@ describe UsersController do
     session[:user_id].should be(User.last.id)
   end
 
-  it 'requires login on signup' do
-    lambda do
-      create_user(:user => {:login => nil}, :format => 'js')
-      assigns[:user].errors.on(:login).should_not be_nil
-      response.should be_success
-    end.should_not change(User, :count)
-  end
-
   it 'requires password on signup' do
     lambda do
       create_user(:user => {:password => nil}, :format => 'js')
@@ -44,7 +36,7 @@ describe UsersController do
   end
 
   def create_user(options = {})
-    post :create, {:user => {:login => 'quire', :email => 'quire@example.com', :password => 'quire'}}.merge(options)
+    post :create, {:user => {:email => 'quire@example.com', :password => 'quire'}}.merge(options)
   end
 end
 
@@ -53,7 +45,7 @@ describe UsersController, "handling POST /users" do
 
   describe "when the email is bad" do
     before do
-      post :create, {:user => {:login => 'quire', :password => 'blah'}, :format => 'js'}
+      post :create, {:user => {:password => 'blah'}, :format => 'js'}
     end
 
     it 'should not succeed' do
@@ -67,7 +59,7 @@ describe UsersController, "handling POST /users" do
 
   describe "when the password is bad" do
     before do
-      post :create, :user => {:login => 'quire'}, :format => 'js'
+      post :create, :user => {:email => 'quire@example.com'}, :format => 'js'
     end
 
     it 'should not succeed' do
@@ -79,24 +71,10 @@ describe UsersController, "handling POST /users" do
     end
   end
 
-  describe "when the user name is bad" do
-    before do
-      post :create, :user => {:email => "quire@example.com", :password => 'goodpass'}, :format => 'js'
-    end
-
-    it 'should not succeed' do
-      decode(response)["success"].should be_false
-    end
-
-    it 'should report that the user name should be entered' do
-      decode(response)["html"].should =~ /Choose your new user name/
-    end
-  end
-
   describe "when the email is known, and the password is right" do
     before do
-      @user = Factory.create(:user, :login => 'quire', :password => 'quire', :email => 'quire@example.com')
-      post :create, :user => {:login => 'quire', :password => 'quire'}, :format => 'js'
+      @user = Factory.create(:user, :password => 'quire', :email => 'quire@example.com')
+      post :create, :user => {:email => 'quire@example.com', :password => 'quire'}, :format => 'js'
     end
 
     it 'should succeed' do
@@ -104,15 +82,14 @@ describe UsersController, "handling POST /users" do
     end
 
     it 'should return the user link' do
-      decode(response)["html"].should =~ /Successful signin\,.*quire/
+      decode(response)["html"].should =~ /Successful signin\,.*quire.*/
     end
   end
 
   describe "when the email is known, but the password is wrong" do
     before do
-      @user = Factory.create(:user, :login => 'quire', :email => 'quire@example.com')
-      post :create, :user => {:login => 'quire',
-                              :email => 'quire@example.com',
+      @user = Factory.create(:user, :email => 'quire@example.com')
+      post :create, :user => {:email => 'quire@example.com',
                               :password => 'bad'} , :format => 'js'
     end
 
@@ -121,14 +98,14 @@ describe UsersController, "handling POST /users" do
     end
 
     it 'should report that the email matches, but password is wrong' do
-      decode(response)["html"].should =~ /Sorry/
+      decode(response)["html"].should =~ /This email is already signed up/
     end
   end
 
-  describe "when the user name has already been taken" do
+  describe "when the email has already been taken" do
     before do
-      @user = Factory.create(:user)
-      post :create, :user => {:login => @user.login, :password => "goodpass", :email => "quire@example.com"}, :format => 'js'
+      @user = Factory.create(:user, :email => "quire@example.com")
+      post :create, :user => {:password => "goodpass", :email => "quire@example.com"}, :format => 'js'
     end
 
     it 'should not succeed' do
@@ -136,7 +113,7 @@ describe UsersController, "handling POST /users" do
     end
 
     it 'should report that the username has already been taken' do
-      response.body.should =~ /Sorry, this user name is taken/
+      response.body.should =~ /This email is already signed up/
     end
   end
 
@@ -146,7 +123,7 @@ describe UsersController, "handling POST /users" do
 
   describe "when the new user can be created" do
     before do
-      post :create, :user => {:login => "quire", :password => "goodpass", :email => "quire@example.com"}, :format => 'js'
+      post :create, :user => {:password => "goodpass", :email => "quire@example.com"}, :format => 'js'
     end
 
     it 'should succeed' do

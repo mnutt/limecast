@@ -37,14 +37,7 @@
           </button>
         </form>
       </li>
-      <li id="nav_auth">
-        <% if current_user -%>
-          <strong><%= link_to_profile current_user -%></strong> |
-          <%= link_to_with_icon "Sign out", :signout, session_url, :method => 'delete' %>
-        <% else -%>
-          <%= link_to "Sign up, or sign in", new_session_url, :id => 'auth_link' %>
-        <% end -%>
-      </li>
+      <li id="nav_auth"><%= render :partial => "sessions/auth" %></li>
       <li id="nav_logo"><h1><%= link_to "LimeCast", root_url %></h1></li>
       <li id="nav_home"><%= link_to "Home", root_url %></li>
       <li id="nav_popular"><%= link_to "Popular", popular_url %></li>
@@ -68,7 +61,7 @@
   
   <div id="auth">
     <img src="/imgs/arrow_up.gif" class="arrow" />
-    <%= custom_button "☓", :class => "close" %>
+    <%= custom_button "☓", :class => "close", :alt => "close this box" %>
     <h4>Sign in to LimeCast</h4>
       <% form_for :user, :url => session_path do |f| -%>
       <p>

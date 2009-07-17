@@ -19,6 +19,9 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_back_or_default('/')
+    respond_to do |format|
+      format.js { render :partial => "auth" }
+      format.html { redirect_back_or_default('/') }
+    end
   end
 end

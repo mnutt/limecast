@@ -65,7 +65,7 @@ class Podcast < ActiveRecord::Base
                     :path => ":rails_root/public/podcast_:attachment/:id/:style/:basename.:extension",
                     :url  => "/podcast_:attachment/:id/:style/:basename.:extension",
                     :styles => { :square  => ["85x85#", :png],
-                                 :small   => ["170x170#", :png],
+                                 :small   => ["160x160#", :png],
                                  :large   => ["300x300>", :png],
                                  :icon    => ["25x25#", :png],
                                  :favicon => ["16x16#", :ico],

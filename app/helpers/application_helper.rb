@@ -288,4 +288,8 @@ module ApplicationHelper
     content_tag :button, content_tag(:span, text), options.merge(:type => "submit")
     # "<button type=\"submit\"><span>#{text}</span></button>"
   end
+
+  def callout(text)
+    "<div class=\"callout\"><ul><li>#{text}</li></ul></div>"
+  end
 end

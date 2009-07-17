@@ -15,8 +15,8 @@ jQuery.fn.extend({
   },
   
   authOverlay: function() {
-    if($("#authOverlay").size() == 0) $('body').append('<div id="authOverlay"></div>');
-    $("#authOverlay").mousedown(function(){
+    if($("#auth_overlay").size() == 0) $('body').append('<div id="auth_overlay"></div>');
+    $("#auth_overlay").mousedown(function(){
       $("#auth").authReset();
       $(this).remove();
     }).css('height', $('body').attr('clientHeight')+'px');;
@@ -43,7 +43,7 @@ jQuery.fn.extend({
       $.post(auth_form.attr('action'), auth_form.serialize(), function(resp){
         if(resp.success) { // success, no reload
           if(resp.profileLink) { 
-            $("#authOverlay").remove();
+            $("#auth_overlay").remove();
             $('#nav_auth').html(resp.profileLink);
             $('#auth').authReset();
             $("#sign_out_link").signoutSetup();

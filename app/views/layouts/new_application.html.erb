@@ -12,7 +12,7 @@
 
   <%= rss_link(@podcast) %>
 
-  <%= stylesheet_link_tag "reset", "new_typography", "layout", :cache => 'all' %>
+  <%= stylesheet_link_tag "reset", "new_typography", "layout", "content", :cache => 'all' %>
   <%= stylesheet_link_actions -%>
 
   <%= javascript_include_tag 'jquery', 
@@ -29,7 +29,7 @@
   <div id="header">
     <ul>
       <li id="nav_search">
-        <form action="/search" method="get" id="search" class="search">            
+        <form action="/search" method="get" id="search" class="search">
           <label for="q" style="display: none;">Search LimeCast</label>
           <input class="text search" id="q" name="q" size="15" type="text" value="Search LimeCast" tabindex="1" />
           <button type="submit">
@@ -47,6 +47,7 @@
 
   <div id="content">
     <div class="header_push"></div>
+    <%= yield %>
     <div class="footer_push"></div>
   </div>
 
@@ -80,6 +81,10 @@
         <%= custom_button "Sign up", :id => "sign_up" %>
       </p>
     <% end -%>
+  </div>
+
+  <div id="sidebar_ads">
+    <%= @ads %>
   </div>
 </body>
 </html>

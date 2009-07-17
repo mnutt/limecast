@@ -1,8 +1,29 @@
 <% @title = "#{unescape_entities(h(@episode.title))}" -%>
 <% @show_ads = true -%>
-<% stylesheet_link "episode" -%>
 <% javascript_include "review_edit", "episode_delete", "download_button" -%>
 
 <% @classes = %{episode show} -%>
 
-<%= render :partial => "summary" -%>
+<h2><%=h @podcast.title %></h2> <%= callout link_to_podcast(@podcast, :text => "Go to series page") -%>
+<h3><%=h @episode.title -%></h3>
+<h6 id="page_type">PODCAST EPISODE</h6>
+
+<br />
+
+<div id="preview">
+  <%= render :partial => 'video_player', :object => @episode -%>
+  <%= link_to_episode(@episode.previous_episode, :text => "Older episode", :class => "previous") if @episode.previous_episode -%>
+  <%= link_to_episode(@episode.next_episode,     :text => "Newer episode", :class => "next")     if @episode.next_episode -%>
+</div>
+
+<h4>About this episode</h4>
+<p>
+  <em><strong>5 minute preview</strong>
+  <%- if @episode.duration -%>(Full download is <%= @episode.duration.to_duration -%>)<%- end -%></em>
+</p>
+<br />
+<p id="summary">
+  <em><%= @episode.published_at.to_date %></em> &ndash; <%= sanitize_summary @episode.summary -%>
+</p>
+
+<%= render :partial => "download_button" -%>

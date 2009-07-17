@@ -8,7 +8,7 @@ html {
 body {
 	height: 100%;
 	background: #313131 url('../imgs/background.png') top left repeat-x; 
-	padding: 0 100px;
+	padding: 0 220px;
 }
 
 input.text,
@@ -48,7 +48,7 @@ button span {
 	padding: 3px 5px 0 12px;
 }
 
-.header_push { height: 35px; }
+.header_push { height: 50px; }
 .footer_push { height: 70px; }
 
 
@@ -85,7 +85,7 @@ button span {
 }
 
 #header ul {
-	margin: 0 100px;
+	margin: 0 220px;
 	padding-top: 2px;
 }
 
@@ -115,13 +115,13 @@ button span {
 }
 
 #header #nav_home a { width: 65px; background: url('/imgs/home.png') top left no-repeat; }
-#header #nav_home a:hover { background: url('/imgs/home_over.png') top left no-repeat; }
+#header #nav_home a:hover { background-image: url('/imgs/home_over.png'); }
         
 #header #nav_popular a { width:80px; background: url('/imgs/popular.png') top left no-repeat; }
-#header #nav_popular a:hover { background: url('/imgs/popular_over.png') top left no-repeat; }
+#header #nav_popular a:hover { background-image: url('/imgs/popular_over.png'); }
         
 #header #nav_add a { width: 120px; background: url('/imgs/add_podcast.png') top left no-repeat;}
-#header #nav_add a:hover { width: 120px; background: url('/imgs/add_podcast_over.png') top left no-repeat;}
+#header #nav_add a:hover { background-image: url('/imgs/add_podcast_over.png');}
 
 #header #nav_search input.text {
 	background: url('/imgs/search_input.png') no-repeat;
@@ -152,25 +152,26 @@ button span {
 /* Content */
 /***********/
 #content {
-/*	background: red;*/
 	background: #F1F1F1 url('/imgs/bg_content.png') 0px 0px repeat-x;
 	height: 100%;
+	display: relative;
+	padding: 0 20px;
 }
 
 /**********/
 /* Footer */
 /**********/
 #footer {
-	background: green;
 	position: absolute;
 	bottom: 0px;
 	left: 0px;
+	z-index: 4;
 	width: 100%;
 	background: #313131 url('/imgs/bg_footer.png') -2px left repeat-x;
 }
 
 #footer ul {
-	margin: 0 100px;
+	margin: 0 220px;
 	height: 70px;
 }
 
@@ -193,11 +194,11 @@ button span {
 	position: absolute;
 	z-index: 1;
 	top: 45px;
-	right: 120px;
+	right: 240px;
 	border: solid 1px #A9A9A9;
 	width: 320px;
 	background: #FFF;
-	opacity: 0.8;
+	opacity: 0.9;
 	padding: 5px 5px 5px 15px;
 	box-shadow: 5px 5px 5px #888;
 	-moz-box-shadow: 5px 5px 5px #888;
@@ -232,9 +233,6 @@ button span {
 	padding: 0 15px 0 100px;
 }
 
-#auth p a {
-}
-
 #auth p.message {
 	text-align: right;
 	padding-left: 0;
@@ -265,7 +263,7 @@ button span {
 	float: left;
 }
 
-#authOverlay {
+#auth_overlay {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -273,4 +271,16 @@ button span {
 	height: 100%;
 }
 
+
+/***************/
+/* Sidebar Ads */
+/***************/
+
+#sidebar_ads {
+	position: absolute;
+	right: 30px;
+	top: 60px;
+	z-index: 3;
+	width: 160px;
+}
 

@@ -61,7 +61,7 @@ class Source < ActiveRecord::Base
   named_scope :with_screenshot, :conditions => "sources.screenshot_file_size IS NOT NULL && sources.screenshot_file_size > 0"
   named_scope :sorted_by_bitrate, :include => :podcast, :order => "podcasts.bitrate"
 
-  has_attached_file :screenshot, :styles => { :square => ["95x95#", :png] },
+  has_attached_file :screenshot, :styles => { :square => ["95x95#", :jpg] },
                     :url  => "/:attachment/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/:attachment/:id/:style/:basename.:extension"
   has_attached_file :preview,

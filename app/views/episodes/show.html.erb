@@ -4,26 +4,30 @@
 
 <% @classes = %{episode show} -%>
 
-<h2><%=h @podcast.title %></h2> <%= callout link_to_podcast(@podcast, :text => "Go to series page") -%>
-<h3><%=h @episode.title -%></h3>
-<h6 id="page_type">PODCAST EPISODE</h6>
-
-<br />
-
-<div id="preview">
-  <%= render :partial => 'video_player', :object => @episode -%>
-  <%= link_to_episode(@episode.previous_episode, :text => "Older episode", :class => "previous") if @episode.previous_episode -%>
-  <%= link_to_episode(@episode.next_episode,     :text => "Newer episode", :class => "next")     if @episode.next_episode -%>
-</div>
-
-<h4>About this episode</h4>
 <p>
-  <em><strong>5 minute preview</strong>
-  <%- if @episode.duration -%>(Full download is <%= @episode.duration.to_duration -%>)<%- end -%></em>
+  <%= link_to h(@podcast.title), podcast_url(@podcast) %>
 </p>
-<br />
-<p id="summary">
-  <em><%= @episode.published_at.to_date %></em> &ndash; <%= sanitize_summary @episode.summary -%>
+
+<h2><%=h @episode.title -%></h2>
+
+<p>
+  <%= link_to "< Newer", episode_url(@podcast, @newer) if @newer %> 
+  <%= @podcast.episodes.sorted.index(@episode) + 1 %> of <%= @podcast.episodes.count -%> 
+  <%= link_to "Older >", episode_url(@podcast, @older) if @older %> 
+</p>
+
+<p>
+  <%= @episode.published_at.to_date %> 
+  <%= "(#{@episode.duration.to_duration.to_s(false)})" if @episode.duration -%>
+</p>
+
+<p>
+  <%= sanitize_summary @episode.summary -%>
+</p>
+
+<p>
+  <%= video_tag([@source.preview.url, @source.ogg_preview.url], :poster => @source.screenshot.url, 
+      :autobuffer => true, :controls => true, :width => 540) if @source %>
 </p>
 
 <%= render :partial => "download_button" -%>

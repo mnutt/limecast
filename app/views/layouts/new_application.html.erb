@@ -83,8 +83,12 @@
     <% end -%>
   </div>
 
-  <div id="sidebar_ads">
+  <p id="left">
+    <%= image_tag(@podcast.logo(:small)) if @podcast %>
+  </p>
+
+  <p id="right">
     <%= @ads %>
-  </div>
+  </p>
 </body>
 </html>

@@ -1,3 +1,7 @@
+/***************************************************/
+/* STYLE GUIDE: keep markup simple, keep CSS clean */
+/***************************************************/
+
 /**********/
 /* General */
 /**********/
@@ -7,8 +11,8 @@ html {
 
 body {
 	height: 100%;
-	background: #313131 url('../imgs/background.png') top left repeat-x; 
 	padding: 0 220px;
+	background: #F1F1F1 url('/imgs/bg_content.png') 0px 0px repeat-x;
 }
 
 input.text,
@@ -85,7 +89,7 @@ button span {
 }
 
 #header ul {
-	margin: 0 220px;
+	margin: 0 10px;
 	padding-top: 2px;
 }
 
@@ -152,10 +156,9 @@ button span {
 /* Content */
 /***********/
 #content {
-	background: #F1F1F1 url('/imgs/bg_content.png') 0px 0px repeat-x;
+	background: #f1f1f1 url('/imgs/bg_content.png') 0px 0px repeat-x;
 	height: 100%;
 	display: relative;
-	padding: 0 20px;
 }
 
 /**********/
@@ -194,7 +197,7 @@ button span {
 	position: absolute;
 	z-index: 1;
 	top: 45px;
-	right: 240px;
+	right: 220px;
 	border: solid 1px #A9A9A9;
 	width: 320px;
 	background: #FFF;
@@ -210,7 +213,7 @@ button span {
 #auth .arrow {
 	position: absolute;
 	top: -11px;
-	left: 85px;
+	right: 10px;
 }
 
 #auth .close {
@@ -273,14 +276,22 @@ button span {
 
 
 /***************/
-/* Sidebar Ads */
+/* Sidebars */
 /***************/
 
-#sidebar_ads {
+#left,
+#right {
 	position: absolute;
-	right: 30px;
 	top: 60px;
 	z-index: 3;
 	width: 160px;
 }
 
+#left { left: 30px; }
+#right { right: 30px; }
+
+#left {
+	box-shadow: 3px 3px 2px #888;
+	-moz-box-shadow: 3px 3px 2px #888;
+	-webkit-box-shadow: 3px 3px 2px #888;
+}

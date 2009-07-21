@@ -20,7 +20,7 @@
 </p>
 
 <ul class="episodes">
-  <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes -%>
+  <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes.sorted -%>
 </ul>
 
 <!-- Info: -->

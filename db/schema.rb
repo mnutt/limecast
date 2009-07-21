@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090706195830) do
+ActiveRecord::Schema.define(:version => 20090721144122) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(:version => 20090706195830) do
     t.string   "title"
     t.string   "guid"
     t.text     "xml"
-    t.boolean  "archived",               :default => false
-    t.text     "subtitle"
-    t.integer  "daily_order",            :default => 1
+    t.boolean  "archived",                                     :default => false
+    t.text     "subtitle",               :limit => 2147483647
+    t.integer  "daily_order",                                  :default => 1
+    t.date     "published_on"
   end
 
   add_index "episodes", ["podcast_id"], :name => "index_episodes_on_podcast_id"
@@ -70,29 +71,29 @@ ActiveRecord::Schema.define(:version => 20090706195830) do
     t.string   "owner_email"
     t.string   "owner_name"
     t.string   "title"
-    t.boolean  "has_previews",         :default => true
-    t.boolean  "has_p2p_acceleration", :default => true
+    t.boolean  "has_previews",                               :default => true
+    t.boolean  "has_p2p_acceleration",                       :default => true
     t.boolean  "button_installed"
-    t.boolean  "protected",            :default => false
-    t.integer  "favorites_count",      :default => 0
+    t.boolean  "protected",                                  :default => false
+    t.integer  "favorites_count",                            :default => 0
     t.string   "url"
     t.string   "itunes_link"
-    t.string   "state",                :default => "pending"
+    t.string   "state",                                      :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
     t.text     "xml"
-    t.integer  "ability",              :default => 0
+    t.integer  "ability",                                    :default => 0
     t.string   "generator"
     t.string   "xml_title"
-    t.text     "description"
+    t.text     "description",          :limit => 2147483647
     t.string   "language"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.string   "logo_file_size"
     t.string   "error"
-    t.string   "custom_title",         :default => ""
-    t.text     "subtitle"
+    t.string   "custom_title",                               :default => ""
+    t.text     "subtitle",             :limit => 2147483647
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true

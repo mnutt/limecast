@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090706195830
+# Schema version: 20090721144122
 #
 # Table name: podcasts
 #
@@ -45,7 +45,7 @@ require 'timeout'
 class Podcast < ActiveRecord::Base
   has_many :recommendations, :order => 'weight DESC'
   has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast
-  has_many :episodes, :order => "published_at DESC, daily_order DESC", :dependent => :destroy
+  has_many :episodes, :dependent => :destroy
   has_many :reviews, :through => :episodes, :conditions => "reviews.user_id IS NOT NULL"
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites

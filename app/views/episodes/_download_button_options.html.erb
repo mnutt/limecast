@@ -1,12 +1,16 @@
-<%- format = download_button_options -%>
+<%- format, sources = *download_button_options -%>
 <li>
-  <p><%= podcasts_label_from_format(format[0]) -%></p>
-  <span class="v_options">
-    <% delimited_items(format[1], "|") do |source, delimiter| -%>
-      <%= link_to default_bitrate_label(source.podcast.bitrate), source.url,
-            :id    => "podcast_#{source.podcast.id}",
+  <%= podcasts_label_from_format(format) -%>
+  <span>
+    <% delimited_items(sources, "|") do |source, delimiter| -%>
+      <%= link_to default_bitrate_label(source.bitrate.blank? ? podcast.bitrate : source.bitrate), 
+            source.url,
+            :class => "web_link",
             :title => [source.resolution, "bitrate: #{source.podcast.formatted_bitrate}"].compact.join(" | ") -%>
-      <%= link_to source.magnet_url, source.magnet_url, :id => "podcast_#{source.podcast.id}_magnet", :style => "display:none;" -%>
+      <%= link_to default_bitrate_label(source.bitrate.blank? ? podcast.bitrate : source.bitrate), 
+            source.magnet_url,
+            :class => "magnet_link",
+            :title => [source.resolution, "bitrate: #{source.podcast.formatted_bitrate}"].compact.join(" | ") -%>
       <%= delimiter -%>
     <% end %>
   </span>

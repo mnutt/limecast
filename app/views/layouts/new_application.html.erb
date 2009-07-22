@@ -22,7 +22,7 @@
                              'jquery.shake',
                              :cache => 'jquery-all' -%>
   <%= javascript_include_tag 'nbga-1.0', 'application' -%>
-  <%#= javascript_include_actions -%>
+  <%= javascript_include_actions -%>
 </head>
 
 <body class="<%= @classes -%><%= " status_#@error" if @error %>">
@@ -32,9 +32,7 @@
         <form action="/search" method="get" id="search" class="search">
           <label for="q" style="display: none;">Search LimeCast</label>
           <input class="text search" id="q" name="q" size="15" type="text" value="Search LimeCast" tabindex="1" />
-          <button type="submit">
-            <span>Search</span>
-          </button>
+          <button type="submit"><span>Search</span></button>
         </form>
       </li>
       <li id="nav_auth"><%= render :partial => "sessions/auth" %></li>
@@ -44,13 +42,46 @@
       <li id="nav_add"><%= link_to "Add Podcast", add_url %></li>
     </ul>
   </div>
+  
+  <div id="wrapper">
+    <p id="left">
+      <%= image_tag(@podcast.logo(:small)) if @podcast %>
+    </p>
 
-  <div id="content">
-    <div class="header_push"></div>
-    <%= yield %>
-    <div class="footer_push"></div>
+    <p id="right">
+      <%= @ads %>
+    </p>
+
+    <div id="content" class="clearfix">
+      <div class="header_push"></div>
+      <%= yield %>
+      <div class="footer_push"></div>
+    </div>
+
+    <div id="auth">
+      <img src="/imgs/arrow_up.gif" class="arrow" />
+      <%= custom_button "☓", :class => "close", :alt => "close this box" %>
+      <h4>Sign in to LimeCast</h4>
+        <% form_for :user, :url => session_path do |f| -%>
+        <p>
+          <%= label :user, :email, "Email&nbsp;/&nbsp;Login" %>
+          <%= text_field :user, :email, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255 %>
+        </p>
+        <p>
+          <%= label :user, :password, "Password" %>
+          <%= password_field :user, :password, :class => "text", :tabindex => 3, :size => 15, :maxlength => 255 %>
+        </p>
+        <p class="message">
+           <%= link_to "I forgot my password", forgot_password_url %>
+        </p>
+        <p class="buttons">
+          <%= custom_button "Sign in", :id => "sign_in" %>
+          <%= custom_button "Sign up", :id => "sign_up" %>
+        </p>
+      <% end -%>
+    </div>
   </div>
-
+  
   <div id="footer">
     <ul>
       <li><%= link_to "Blog", "http://limecast.limespot.com" %></li>
@@ -59,36 +90,5 @@
       <li><%= link_to "Open source", "http://wiki.limewire.org/index.php?title=LimeCast" %></li>
     </ul>
   </div>
-  
-  <div id="auth">
-    <img src="/imgs/arrow_up.gif" class="arrow" />
-    <%= custom_button "☓", :class => "close", :alt => "close this box" %>
-    <h4>Sign in to LimeCast</h4>
-      <% form_for :user, :url => session_path do |f| -%>
-      <p>
-        <%= label :user, :email, "Email&nbsp;/&nbsp;Login" %>
-        <%= text_field :user, :email, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255 %>
-      </p>
-      <p>
-        <%= label :user, :password, "Password" %>
-        <%= password_field :user, :password, :class => "text", :tabindex => 3, :size => 15, :maxlength => 255 %>
-      </p>
-      <p class="message">
-         <%= link_to "I forgot my password", forgot_password_url %>
-      </p>
-      <p class="buttons">
-        <%= custom_button "Sign in", :id => "sign_in" %>
-        <%= custom_button "Sign up", :id => "sign_up" %>
-      </p>
-    <% end -%>
-  </div>
-
-  <p id="left">
-    <%= image_tag(@podcast.logo(:small)) if @podcast %>
-  </p>
-
-  <p id="right">
-    <%= @ads %>
-  </p>
 </body>
 </html>

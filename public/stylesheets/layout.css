@@ -11,8 +11,14 @@ html {
 
 body {
 	height: 100%;
-	padding: 0 220px;
 	background: #F1F1F1 url('/imgs/bg_content.png') 0px 0px repeat-x;
+}
+
+#wrapper {
+	position: relative;
+	min-height: 100%;
+	height: auto;
+	margin: 0 220px;
 }
 
 input.text,
@@ -53,7 +59,10 @@ button span {
 }
 
 .header_push { height: 50px; }
-.footer_push { height: 70px; }
+.footer_push { height: 100px; }
+
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { display: inline-block; }  /* for IE/Mac */
 
 
 /**********/
@@ -157,7 +166,9 @@ button span {
 /***********/
 #content {
 	background: #f1f1f1 url('/imgs/bg_content.png') 0px 0px repeat-x;
+	min-height: 720px; /* be nice to right column (ads) */
 	height: 100%;
+	width: 100%;
 	display: relative;
 }
 
@@ -165,12 +176,15 @@ button span {
 /* Footer */
 /**********/
 #footer {
-	position: absolute;
+/*	position: absolute;
 	bottom: 0px;
-	left: 0px;
+*/
+	position: relative;
 	z-index: 4;
 	width: 100%;
 	background: #313131 url('/imgs/bg_footer.png') -2px left repeat-x;
+	height: 70px;
+	margin-top: -70px;
 }
 
 #footer ul {
@@ -279,16 +293,12 @@ button span {
 /* Sidebars */
 /***************/
 
-#left,
-#right {
-	position: absolute;
-	top: 60px;
-	z-index: 3;
+#left, #right {
 	width: 160px;
 }
 
-#left { left: 30px; }
-#right { right: 30px; }
+#left { float: left; margin: 60px 0 0 -190px; }
+#right { float: right; margin: 60px -190px 0 0; }
 
 #left {
 	box-shadow: 3px 3px 2px #888;

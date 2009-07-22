@@ -2,26 +2,22 @@
   PODCAST_ID = <%= @episode.podcast_id -%>;
 </script>
 
+<div id="download">
+  <a href="#" class="link"><strong>Download full version</strong><em>Web | MP4 - HD</em></a>
+  <a href="#" class="options_link">More download options</a>
 
-<div id="download_button">
-  <div id="dl_links">
-    <a href="#" class="download">
-      <h3>Download full version</h3>
-      <p><span>Web | MP4 - HD</span></p>
-    </a>
-  </div>
-  
-  <a href="#" class="opener options">More download options</a>
-  
-  <% rounded_corner_tag(:id => "download_dropdown") do -%>
-    <span class="delivery_method">
-      <p>Choose your delivery method:</p>
-      <input class="radio" id="w" name="download" type="radio" value="Web" checked="checked" /><label for="w">Web</label>
-      <input class="radio" id="m" name="download" type="radio" value="LimeWire" /><label for="m">LimeWire</label>
-    </span>
+  <div id="download_options" class="web">
+    <p>
+      Choose your delivery method:<br />
+      <input value="web" id="w" name="d" type="radio" checked="checked" /><label for="w">Web</label>
+      <input value="magnet" id="m" name="d" type="radio" /><label for="m">LimeWire</label>
+    </p>
     <ul>
       <%= render :partial => "download_button_options", :collection => @episode.sources.group_by(&:format) -%>
     </ul>
-  <% end -%>
+  </div>
+
+  <%# rounded_corner_tag(:id => "download_dropdown") do -%>
+  <%# end -%>
   
 </div>

@@ -3,6 +3,100 @@
 /***************************************************/
 
 /***************/
+/* Superbutton */
+/***************/
+
+#download {
+	position: relative;
+	top: 20px;
+	width: 230px;
+	height: 41px;
+	z-index: 3;
+  background: url("../imgs/download_left.png") no-repeat top left;
+}
+
+#download .link {
+	display: block;
+	height: 36px;
+	width: 183px;
+	color: #FFF;
+	padding-top: 5px;
+	margin-left: 45px;
+	line-height: 1.4em;
+	font-size: 1.2em;
+	outline: none;
+	background: url("/imgs/download_right.png") no-repeat top right;
+}
+
+#download .link strong {
+	display: block;
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 1.3em;
+}
+
+#download .link em {
+	font-size: 0.9em;
+}
+
+#download a.options_link {
+	background: url("/imgs/icons/arrow.gif") no-repeat right;
+	padding-right: 15px;
+	display: block;
+	position: absolute;
+	top: 42px;
+	right: 5px;
+	font-size: 1.2em;
+	z-index: 1;
+}
+
+#download_options {
+	background: #FFF;
+	position: absolute;
+	top: 42px;
+	display: none;
+	width: 210px;
+	z-index: 1;
+	border-right: solid 2px #CCC;
+	border-bottom: solid 2px #CCC;
+	padding: 10px;
+}
+
+#download_options p {
+	font-size: 1.2em;
+	color: #666;
+}
+
+#download_options.web a.magnet_link { display: none; }
+#download_options.magnet a.web_link { display: none; }
+
+#download_options p label {
+	padding: 0 5px 0 2px;
+	color: #111;
+}
+
+#download_options ul {
+	margin-top: 10px;
+	font-size: 1.2em;
+}
+
+#download_options ul li  {
+	display: block;
+	padding: 3px 0;
+	border-bottom: 1px dotted #ddd;
+	overflow: hidden;
+}
+
+#download_options ul li:last-child {
+	border-bottom: none;
+}
+
+#download_options ul li span {
+	float: right;
+}
+
+
+
+/***************/
 /* Preview     */
 /***************/
 

@@ -1,5 +1,5 @@
 module PodcastsHelper
-  def podcasts_label_from_format(format)
+  def long_format(format)
     {
       "mov" => "Quicktime",
       nil   => "Unknown"

@@ -1,72 +1,32 @@
-
-function update_selected_link(link){
-  $("#download_dropdown a").removeClass("circle");
-  link.addClass("circle");
-}
-
-function update_selected_type(type){
-  $("input[type=radio][value=" + type + "]").attr("checked", "checked");
-}
-
-function downloadUrl(delivery, id) {
-  if(delivery == "LimeWire") {
-    return $('#' + id + '_magnet').attr('href');
-  }
-  return $('#' + id).attr('href');
-};
-
-function read_cookie(){
-  var id = $.cookie('podcast_' + PODCAST_ID + '_download');
-  return id;
-}
-
-function update_cookie(id){
-  $.cookie('podcast_' + PODCAST_ID + '_download', id);
-}
-
-function update_download_button(link, type){
-  var url  = link.attr('href');
-  var info = link.parents('li:first').find('p').text() + " - " + link.text();
-
-  $("#download_button a.download").attr("href", downloadUrl(type, link.attr('id')));
-  $("#download_button a.download span").text(type + " | " + info);
-}
-
 $(function(){
-  var default_link = "#download_dropdown li a:first-child";
-  var default_type = "Web";
-  var cookie = read_cookie();
-  // Sets the default download link on the page
-  var name = default_link;
-  if(cookie) { name = "#" + cookie.split(',')[0]; }
+  var updateDownloadLabels = function(){
+    $("#download label").each(function(i, label){
+      var type = $(this).attr('for');
+      var select = $("#download select#" + type);
+      var val  = select[0].options[select[0].selectedIndex].innerHTML;
+      $(label).html(val + "&nbsp;▾");
+    });
+  };
 
-  var link = $(name);
-  if(link.length != 1) {
-    link = $(default_link);
-  }
+  var updateDownloadButton = function(){
+    updateDownloadLabels();
 
-  // Sets the download type on the page
-  var type = default_type;
-  if(cookie) {
-    type = cookie.split(',')[1];
-  }
+    // download link
+    var formats = $('#download select#format').val().split('|');
+    switch($('#download select#delivery').val()) {
+      case 'web':
+        $('#download a.submit').attr('href', formats[0]);
+        break;
+      case 'torrent':
+        $('#download a.submit').attr('href', formats[1]);
+        break;
+      case 'magnet':
+        $('#download a.submit').attr('href', formats[2]);
+        break;
+    };
+  };
 
-  update_download_button(link, type);
-  update_selected_link(link);
-  update_selected_type(type);
-
-  $("#download_dropdown li a").click(function(e) {
-    var type = $("input[type=radio]:checked").attr('value');
-    update_download_button($(this), type);
-    update_selected_link($(this));
-
-    // XXX: %23 is # ... Doesnt seem to be working in firefox. Bug with encoding? should be able to take '#' out.
-    update_cookie($(this).attr('id') + "," + type);
-  });
-
-  $("#download_button a.opener, #download_dropdown a").click(function() {
-    $("#download_dropdown").toggle()
-    return false;
-  });
+  $("#download select").change(updateDownloadButton);
+  updateDownloadButton();
 });
 

@@ -1,23 +1,24 @@
-<script type="text/javascript">
-  PODCAST_ID = <%= @episode.podcast_id -%>;
-</script>
+<form id="download" class="clearfix">
+  <p>
+    <label for="format">▾</label>
+    <select name="format" id="format">
+      <% @episode.sources.each do |source| -%>
+      <option value="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>"><%= long_format source.format %></option>
+      <% end -%>
+    </select>
+  </p>
 
-<div id="download">
-  <a href="#" class="link"><strong>Download full version</strong><em>Web | MP4 - HD</em></a>
-  <a href="#" class="options_link">More download options</a>
+  <p>
+    <label for="delivery">▾</label>
+    <select name="delivery" id="delivery">▾
+      <option value="web">Web</option>
+      <option value="torrent">Torrent</option>
+      <option value="magnet">Magnet</option>
+    </select>
+  </p>
 
-  <div id="download_options" class="web">
-    <p>
-      Choose your delivery method:<br />
-      <input value="web" id="w" name="d" type="radio" checked="checked" /><label for="w">Web</label>
-      <input value="magnet" id="m" name="d" type="radio" /><label for="m">LimeWire</label>
-    </p>
-    <ul>
-      <%= render :partial => "download_button_options", :collection => @episode.sources.group_by(&:format) -%>
-    </ul>
-  </div>
-
-  <%# rounded_corner_tag(:id => "download_dropdown") do -%>
-  <%# end -%>
-  
-</div>
+  <p class="submit">
+    <%= link_to "Download", @episode.sources.first.url %>
+    <input type="submit" value="download" />
+  </p>
+</form>

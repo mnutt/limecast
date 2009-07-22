@@ -127,7 +127,7 @@ class SourceProcessor
     audio_bitrate     = 64.kilobytes # 96.kilobytes
     video_frame_rate  = 20
     audio_sample_rate = 44100
-    size              = info.resized_size_of_video
+    size              = info.resized_size_of_video(16)
     start             = info.screenshot_time(start_offset || 0)
 
     options = {

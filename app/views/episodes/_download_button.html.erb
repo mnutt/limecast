@@ -2,8 +2,14 @@
   <div>
     <a class="format" href="#" rel="formats">Format&nbsp;▾</a>
     <ul class="formats">
-      <% @episode.sources.each_with_index do |source, i| -%>
-      <li class="<%= 'selected' if i == 0 %>" rel="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>"><%= long_format(source.format) %></li>
+      <% @episode.sources.sorted_by_extension_and_bitrate.reverse.each_with_index do |source, i| -%>
+      <li class="<%= 'selected' if i == 0 %>" name="<%= source.formatted_bitrate -%> <%= h source.extension -%>" rel="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>">
+        <%= h source.file_name %>
+        <span><%= [source.formatted_bitrate,
+             source.size.to_file_size.to_s(true, false),
+             source.resolution,
+             source.formatted_framerate].reject(&:blank?).join(', ') %></span>
+      </li>
       <% end -%>
     </ul>
   </div>
@@ -11,9 +17,9 @@
   <div>
     <a class="delivery" href="#" rel="deliveries">Delivery&nbsp;▾</a>
     <ul class="deliveries">
-      <li rel="web" class="selected">Web</li>
-      <li rel="torrent">Torrent</li>
-      <li rel="magnet">Magnet</li>
+      <li rel="web" name="Web" class="selected">Web</li>
+      <li rel="torrent" name="Torrent">Torrent</li>
+      <li rel="magnet" name="Magnet">Magnet</li>
     </ul>
   </div>
 

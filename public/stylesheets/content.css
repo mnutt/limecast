@@ -30,7 +30,7 @@
 	color: #000;
 }
 
-.superbutton div ul {
+.superbutton ul {
 	position: absolute;
 	top: 2.5em;
 	left: 5px;
@@ -39,7 +39,7 @@
 	border-width: 0px 1px 1px 1px;
 }
 
-.superbutton div ul li {
+.superbutton li {
 	display: block;
 	padding: 5px 7px;
 	border: 0px;
@@ -47,12 +47,22 @@
 	background: #FFF;
 }
 
+.superbutton li span {
+	display: block;
+	color: #919191;
+}
+
 .superbutton li.selected {
-	font-weight: bold;
+	background: #C1C1C1;
+	color: #010101;
+}
+
+.superbutton li.selected span {
+	color: #313131;
 }
 
 .superbutton li:hover {
-	background: #CCC;
+	background: #E1E1E1;
 }
 
 .superbutton a.button {

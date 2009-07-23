@@ -3,7 +3,7 @@ $(function(){
     $("#download div a").each(function(i, a){
       var type = $(this).attr('rel');
       var list = $("#download ." + type);
-      var val  = list.find(".selected").html();
+      var val  = list.find(".selected").attr('name');
       $(a).html(val + "&nbsp;▾");
     });
   };

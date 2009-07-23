@@ -1,12 +1,12 @@
 /***************************************************/
 /* STYLE GUIDE: keep markup simple, keep CSS clean */
 /***************************************************/
-body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 62.5%;}
+body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 62.5%; color: #171717;}
 
 a {color: #2951a5; text-decoration: none;}
 a:hover {text-decoration: underline;}
 
-p {color: #171717; font-size: 1.2em; line-height: 1.5em; font-weight: normal;}
+p {font-size: 1.2em; line-height: 1.5em; font-weight: normal;}
 
 .light {color: #a9a9a9;}
 

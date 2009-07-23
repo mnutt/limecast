@@ -59,7 +59,9 @@ class Source < ActiveRecord::Base
   named_scope :sorted, lambda {|*col| {:order => "#{col[0] || 'episodes.published_at'} DESC", :include => :episode} }
   named_scope :with_preview, :conditions => "sources.preview_file_size IS NOT NULL && sources.preview_file_size > 1023"
   named_scope :with_screenshot, :conditions => "sources.screenshot_file_size IS NOT NULL && sources.screenshot_file_size > 0"
-  named_scope :sorted_by_bitrate, :include => :podcast, :order => "podcasts.bitrate"
+  named_scope :sorted_by_bitrate, :order => "bitrate_from_feed DESC, bitrate_from_ffmpeg DESC"
+  named_scope :sorted_by_extension, :order => "extension_from_feed DESC, extension_from_disk DESC"
+  named_scope :sorted_by_extension_and_bitrate, :order => "extension_from_feed DESC, extension_from_disk DESC, bitrate_from_feed DESC, bitrate_from_ffmpeg DESC"
 
   has_attached_file :screenshot, :styles => { :square => ["95x95#", :jpg] },
                     :url  => "/:attachment/:id/:style/:basename.:extension",
@@ -119,7 +121,7 @@ class Source < ActiveRecord::Base
   end
 
   def resolution
-    [self.width, self.height].join("x") if self.width && self.height
+    @resolution ||= ([self.width, self.height].join("x") if self.width && self.height)
   end
 
   def size
@@ -136,6 +138,10 @@ class Source < ActiveRecord::Base
 
   def formatted_bitrate
     bitrate.to_bitrate.to_s if bitrate and bitrate > 0
+  end
+
+  def formatted_framerate
+    framerate.to_s.split(' ').first + "fps" unless framerate.blank?
   end
   
   def bitrate

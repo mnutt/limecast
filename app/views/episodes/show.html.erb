@@ -16,10 +16,10 @@
   <%= link_to "Older >", episode_url(@podcast, @older) if @older %> 
 </p>
 
-<p>
+<section>
   <%= @episode.published_at.to_date %> 
   <%= "(#{@episode.duration.to_duration.to_s(false)})" if @episode.duration -%>
-</p>
+</section>
 
 <p>
   <%= sanitize_summary @episode.summary -%>

@@ -10,52 +10,55 @@
 	position: relative;
 	top: 20px;
 	z-index: 3;
-	background: url("../imgs/button_bg.gif") repeat-x top left;
+	background: url("/imgs/button_bg.gif") repeat-x top left;
 	border: solid 1px #C3C3C3;
-	padding: 5px;
+	display: inline-block;
+	height: 2.5em;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
 
-#download p {
+#download div {
 	position: relative;
 	float: left;
-	margin: 0 5px 0 5px;
-	text-align: right;
 }
 
-#download p label {
-	position: relative;
-	right: 0px;
-	z-index: 0;
+#download div a {
 	display: block;
-	background: transparent;
+	outline: none;
+	padding: 5px 8px 4px 8px;
+	color: #000;
 }
 
-#download p select {
-	z-index: 1;
+#download div ul {
 	position: absolute;
-	top: 0px;
-	left: 0px;
-	-webkit-appearance: none;
-	background: transparent;
-	outline: 0;
-	/*text-overflow:ellipsis;*/
+	top: 2.5em;
+	left: 5px;
+	display: none;
+	border: solid #CCC;
+	border-width: 0px 1px 1px 1px;
+}
+
+#download div ul li {
+	display: block;
+	padding: 5px 7px;
 	border: 0px;
-	opacity: 0.0;
+	cursor: pointer;
+	background: #FFF;
 }
 
-#download p select option {
-	overflow: hidden;
-	text-overflow: ellipsis;
+#download li.selected {
+	font-weight: bold;
 }
 
-#download p.submit {
-	padding-left: 10px;
-	border-left: solid 1px #C3C3C3;
+#download li:hover {
+	background: #CCC;
 }
 
-#download p.submit a {
+#download a.button {
+	float: left;
+	display: block;
+	height: 2.5em;
 	color: rgb(51, 51, 51);
 	border: solid 1px #153400;
 	-moz-border-radius: 5px;
@@ -63,13 +66,10 @@
 	text-transform: uppercase;
 	/*background: #6EBC30; #358800;*/
 	background: url("/imgs/button_download_bg.gif") repeat-x top left;
-	padding: 2px;
+	padding: 0 4px;
+	line-height: 2.5em;
+	margin: -1px 0 0 10px;
 }
-
-#download p.submit input {
-	display: none;
-}
-
 
 /***************/
 /* Preview     */

@@ -1,24 +1,21 @@
-<form id="download" class="clearfix">
-  <p>
-    <label for="format">▾</label>
-    <select name="format" id="format">
-      <% @episode.sources.each do |source| -%>
-      <option value="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>"><%= long_format source.format %></option>
+<div id="download">
+  <div>
+    <a class="format" href="#" rel="formats">Format&nbsp;▾</a>
+    <ul class="formats">
+      <% @episode.sources.each_with_index do |source, i| -%>
+      <li class="<%= 'selected' if i == 0 %>" rel="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>"><%= long_format(source.format) %></li>
       <% end -%>
-    </select>
-  </p>
+    </ul>
+  </div>
 
-  <p>
-    <label for="delivery">▾</label>
-    <select name="delivery" id="delivery">▾
-      <option value="web">Web</option>
-      <option value="torrent">Torrent</option>
-      <option value="magnet">Magnet</option>
-    </select>
-  </p>
+  <div>
+    <a class="delivery" href="#" rel="deliveries">Delivery&nbsp;▾</a>
+    <ul class="deliveries">
+      <li rel="web" class="selected">Web</li>
+      <li rel="torrent">Torrent</li>
+      <li rel="magnet">Magnet</li>
+    </ul>
+  </div>
 
-  <p class="submit">
-    <%= link_to "Download", @episode.sources.first.url %>
-    <input type="submit" value="download" />
-  </p>
-</form>
+  <%= link_to "Download", @episode.sources.first.url, :target => "_blank", :class => "button" %>
+</div>

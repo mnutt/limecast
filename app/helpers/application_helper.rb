@@ -66,7 +66,7 @@ module ApplicationHelper
   end
 
   def link_to_searched_podcast(podcast)
-    link_to "<span class=\"searched\">#{h(podcast.title)}</span>", podcast_url(podcast)
+    link_to "<mark>#{h(podcast.title)}</mark>", podcast_url(podcast)
   end
 
   def link_to_episode_date(episode)
@@ -154,7 +154,7 @@ module ApplicationHelper
     text      = strip_tags(format_with_paragraph_entity(text))
     escaped   = unescape_entities(text)
     excerpted = excerpt(escaped, query.split.first, :radius => 120)
-    highlight(excerpted, query.split, :highlighter => '<span class="search_term">\1</span>')
+    highlight(excerpted, query.split, :highlighter => '<mark>\1</mark>')
   end
 
   def smart_truncate(string, length)

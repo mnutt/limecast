@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
   <title><%= "#{@title} &ndash; " if @title -%>LimeCast</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -26,31 +26,32 @@
 </head>
 
 <body class="<%= @classes -%><%= " status_#@error" if @error %>">
-  <div id="header">
-    <ul>
-      <li id="nav_search">
-        <form action="/search" method="get" id="search" class="search">
-          <label for="q" style="display: none;">Search LimeCast</label>
-          <input class="text search" id="q" name="q" size="15" type="text" value="Search LimeCast" tabindex="1" />
-          <button type="submit"><span>Search</span></button>
-        </form>
-      </li>
-      <li id="nav_auth"><%= render :partial => "sessions/auth" %></li>
-      <li id="nav_logo"><h1><%= link_to "LimeCast", root_url %></h1></li>
-      <li id="nav_home"><%= link_to "Home", root_url %></li>
-      <li id="nav_popular"><%= link_to "Popular", popular_url %></li>
-      <li id="nav_add"><%= link_to "Add Podcast", add_url %></li>
-    </ul>
-  </div>
-  
-  <div id="wrapper">
-    <p id="left">
-      <%= image_tag(@podcast.logo(:small)) if @podcast %>
-    </p>
+  <header>
+    <nav>
+      <ul>
+        <li class="search">
+          <form action="/search" method="get" id="search" class="search">
+            <label for="s" style="display: none;">Search LimeCast</label>
+            <input class="search" accesskey="s" id="s" name="s" size="15" type="search" value="Search LimeCast" tabindex="1" />
+            <button type="submit" value="Search" />
+          </form>
+        </li>
+        <li class="auth"><%= render :partial => "sessions/auth" %></li>
+        <li class="logo"><%= link_to "LimeCast", root_url %></li>
+        <li class="popular"><%= link_to "Popular", popular_url %></li>
+        <li class="add"><%= link_to "Add Podcast", add_url %></li>
+      </ul>
+    </nav>
+  </header>
 
-    <p id="right">
+  <div id="wrapper">
+    <aside id="left">
+      <%= image_tag(@podcast.logo(:small)) if @podcast %>
+    </aside>
+
+    <aside id="right">
       <%= @ads %>
-    </p>
+    </aside>
 
     <div id="content" class="clearfix">
       <div class="header_push"></div>
@@ -58,7 +59,7 @@
       <div class="footer_push"></div>
     </div>
 
-    <div id="auth">
+    <section id="auth">
       <img src="/imgs/arrow_up.gif" class="arrow" />
       <%= custom_button "☓", :class => "close", :alt => "close this box" %>
       <h4>Sign in to LimeCast</h4>
@@ -79,16 +80,16 @@
           <%= custom_button "Sign up", :id => "sign_up" %>
         </p>
       <% end -%>
-    </div>
+    </section>
   </div>
   
-  <div id="footer">
+  <footer>
     <ul>
       <li><%= link_to "Blog", "http://limecast.limespot.com" %></li>
       <li><%= link_to "Terms of use", "/use" %></li>
       <li><%= link_to "Privacy", "/privacy" %></li>
       <li><%= link_to "Open source", "http://wiki.limewire.org/index.php?title=LimeCast" %></li>
     </ul>
-  </div>
+  </footer>
 </body>
 </html>

@@ -22,6 +22,7 @@ body {
 }
 
 input.text,
+input.search,
 textarea.text {
   background: #F3F3F3 url("../images/content/input_bg.png") repeat-x left top;
   border: 1px solid #212121;
@@ -68,7 +69,8 @@ button span {
 /**********/
 /* Header */
 /**********/
-#header {
+header {
+	display: block;
 	height: 35px;
 	background: #313131 url('../imgs/background.png') top left repeat-x; 
 	position: absolute;
@@ -78,86 +80,88 @@ button span {
 	z-index: 3;
 }
 
-#header h1 {
+header nav {
+	display: block;
+	margin: 0 10px;
+	padding: 2px 0 0 0;
+	height: 33px;
+}
+
+header nav ul li.logo {
 	float: left;
-	height: 35px;
+	width: 125px;
+	height: 24px;
 	margin-top: 5px;
 }
 
-#header h1 a {
+header nav .logo a {
 	background: url('../imgs/logo.png') top left no-repeat;
 	display: block;
-	width: 125px;
-	height: 24px;
+	width: 100%;
+	height: 100%;
 	margin-right: 10px;
 	text-indent: -5000px;
 }
 
-#header h1 a:hover {
+header .logo a:hover {
 	background: url('../imgs/logo_over.png') top left no-repeat;
 }
 
-#header ul {
-	margin: 0 10px;
-	padding-top: 2px;
-}
-
-#header #nav_auth,
-#header #nav_search {
+header nav .auth,
+header nav .search {
 	float: right;
 	margin-left: 10px;
 }
 
-#header #nav_auth {
+header nav .auth {
 	margin-top: 8px;
 }
 
-#header #nav_home,
-#header #nav_popular,
-#header #nav_add {
+header nav .popular,
+header nav .add {
 	float: left;
+	margin-left: 20px;
 }
 
-#header #nav_home a,
-#header #nav_popular a,
-#header #nav_add a {
+header nav .popular a,
+header nav .add a {
 	height: 15px;
 	margin-top: 9px;
 	display: block;
 	text-indent: -5000px;
 }
 
-#header #nav_home a { width: 65px; background: url('/imgs/home.png') top left no-repeat; }
-#header #nav_home a:hover { background-image: url('/imgs/home_over.png'); }
+header nav .popular a { width:60px; background: url('/imgs/popular.png') top left no-repeat; }
+header nav .popular a:hover { background-image: url('/imgs/popular_over.png'); }
         
-#header #nav_popular a { width:80px; background: url('/imgs/popular.png') top left no-repeat; }
-#header #nav_popular a:hover { background-image: url('/imgs/popular_over.png'); }
-        
-#header #nav_add a { width: 120px; background: url('/imgs/add_podcast.png') top left no-repeat;}
-#header #nav_add a:hover { background-image: url('/imgs/add_podcast_over.png');}
+header nav .add a { width: 120px; background: url('/imgs/add_podcast.png') top left no-repeat;}
+header nav .add a:hover { background-image: url('/imgs/add_podcast_over.png');}
 
-#header #nav_search input.text {
+header nav .search form {
+	position: relative;
+	margin-right: 10px;
+}
+
+header nav .search input.search {
 	background: url('/imgs/search_input.png') no-repeat;
 	border: 0px;
 	color: rgb(169, 169, 169);
 	font-size: 1.2em;
 	height: 24px;
 	outline: none;
-	padding: 2px 0px 0px 5px;
+	padding: 4px 5px 0 5px;
 	width: 160px;
+	margin: 4px 0 0 0;
+	-webkit-appearance: textfield;
 }
 
-#header #nav_search button {
+header nav .search button {
 	width: 30px;
 	background: url('../imgs/search_button.png') no-repeat right;
-	position: relative;
-	top: -3px;
-	left: -5px;
-}
-
-#header #nav_search button span {
-	margin-left: -5000px;
-	width: 30px;
+	position: absolute;
+	top: 4px;
+	right: -12px;
+	height: 24px;
 }
 
 
@@ -175,7 +179,7 @@ button span {
 /**********/
 /* Footer */
 /**********/
-#footer {
+footer {
 /*	position: absolute;
 	bottom: 0px;
 */
@@ -187,18 +191,18 @@ button span {
 	margin-top: -70px;
 }
 
-#footer ul {
+footer ul {
 	margin: 0 220px;
 	height: 70px;
 }
 
-#footer ul li {
+footer ul li {
 	padding: 20px 10px 0 10px;
 	font-size: 1.1em;
 	float: left;
 }
 
-#footer ul li a {
+footer ul li a {
 	color: #FFF;
 }
 
@@ -211,7 +215,7 @@ button span {
 	position: absolute;
 	z-index: 1;
 	top: 45px;
-	right: 220px;
+	right: 15px;
 	border: solid 1px #A9A9A9;
 	width: 320px;
 	background: #FFF;

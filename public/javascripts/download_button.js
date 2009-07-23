@@ -1,32 +1,46 @@
 $(function(){
-  var updateDownloadLabels = function(){
-    $("#download label").each(function(i, label){
-      var type = $(this).attr('for');
-      var select = $("#download select#" + type);
-      var val  = select[0].options[select[0].selectedIndex].innerHTML;
-      $(label).html(val + "&nbsp;▾");
+  var updateDownloadAnchors = function(){
+    $("#download div a").each(function(i, a){
+      var type = $(this).attr('rel');
+      var list = $("#download ." + type);
+      var val  = list.find(".selected").html();
+      $(a).html(val + "&nbsp;▾");
     });
   };
 
-  var updateDownloadButton = function(){
-    updateDownloadLabels();
-
+  var updateDownloadButton = function(item){
+    updateDownloadAnchors();
+    
     // download link
-    var formats = $('#download select#format').val().split('|');
-    switch($('#download select#delivery').val()) {
+    var formats = $('#download .formats .selected').attr('rel').split('|');
+    switch($('#download .deliveries .selected').attr('rel')) {
       case 'web':
-        $('#download a.submit').attr('href', formats[0]);
+        $('#download a.button').attr('href', formats[0]);
         break;
       case 'torrent':
-        $('#download a.submit').attr('href', formats[1]);
+        $('#download a.button').attr('href', formats[1]);
         break;
       case 'magnet':
-        $('#download a.submit').attr('href', formats[2]);
+        $('#download a.button').attr('href', formats[2]);
         break;
     };
   };
 
-  $("#download select").change(updateDownloadButton);
-  updateDownloadButton();
-});
+  $("#download li").mousedown(function(){
+    $(this).parent().hide().find('.selected').removeClass('selected');
+    $(this).addClass('selected');
+    updateDownloadButton();
+    return false;
+  });
 
+  $("#download div a").click(function(e){
+    $(this).focus().parent().find('ul').show();
+  }).focus(function(e){
+    $(this).parent().find('ul').show();
+  }).blur(function(e){
+    $(this).parent().find('ul').hide();
+  });
+
+  updateDownloadButton();
+  // alert(document.createElement('video').nodeType);
+});

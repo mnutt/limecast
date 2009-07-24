@@ -10,20 +10,20 @@
 
 <h2><%=h @episode.title -%></h2>
 
-<p>
+<nav>
   <%= link_to "< Newer", episode_url(@podcast, @newer) if @newer %> 
   <%= @podcast.episodes.sorted.index(@episode) + 1 %> of <%= @podcast.episodes.count -%> 
   <%= link_to "Older >", episode_url(@podcast, @older) if @older %> 
-</p>
-
-<section>
-  <%= @episode.published_at.to_date %> 
-  <%= "(#{@episode.duration.to_duration.to_s(false)})" if @episode.duration -%>
-</section>
+</nav>
 
 <p>
-  <%= sanitize_summary @episode.summary -%>
+  <%= content_tag :time, @episode.published_at.to_date, :datetime => @episode.published_at.to_datetime.to_s %>
+  <%= "(#{@episode.duration.to_duration.to_s(false)})" if @episode.duration -%>
 </p>
+
+<article pubDate="<%= @episode.published_at.to_datetime.to_s %>">
+  <p><%= sanitize_summary @episode.summary -%></p>
+</article>
 
 <p>
   <%= video_tag([@source.preview.url, @source.ogg_preview.url], :poster => @source.screenshot.url, 

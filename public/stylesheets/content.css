@@ -26,11 +26,12 @@
 .superbutton div a {
 	display: block;
 	outline: none;
-	padding: 5px 8px 4px 8px;
+	padding: 5px 8px 4px 25px;
 	color: #000;
+	background: #FFF 5px center no-repeat;
 }
 
-.superbutton ul {
+.superbutton menu {
 	position: absolute;
 	top: 2.6em;
 	left: 5px;
@@ -45,11 +46,26 @@
 	padding: 5px 7px 5px 30px;
 	border: 0px;
 	cursor: pointer;
-	background: #FFF 5px center no-repeat;
+	background: #FFF url('/ims/icons/ipod.png') 5px center no-repeat;
 }
 
-.superbutton li.m4v { background-image: url('/imgs/superbutton/m4v.png'); }
-.superbutton li.magnet { background-image: url('/imgs/superbutton/magnet.png'); }
+/* Format Icons */
+.superbutton .m4v { background-image: url('/imgs/icons/m4v.png'); }
+.superbutton .ogg { background-image: url('/imgs/icons/ogg.png'); }
+.superbutton .avi { background-image: url('/imgs/icons/avi.png'); }
+.superbutton .flv { background-image: url('/imgs/icons/flv.png'); }
+.superbutton .mp3 { background-image: url('/imgs/icons/mp3.png'); }
+.superbutton .mp4 { background-image: url('/imgs/icons/mp4.png'); }
+.superbutton .wmv { background-image: url('/imgs/icons/wmv.png'); }
+
+/* Delivery Icons */
+.superbutton .web { background-image: url('/imgs/icons/web.png'); }
+.superbutton .magnet { background-image: url('/imgs/icons/magnet.png'); }
+
+/* Client Icons */
+.superbutton .rss { background-image: url('/imgs/icons/rss.png'); }
+.superbutton .itunes { background-image: url('/imgs/icons/itunes.png'); }
+.superbutton .limewire { background-image: url('/imgs/icons/limewire.png'); }
 
 .superbutton li span {
 	display: block;

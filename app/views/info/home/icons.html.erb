@@ -3,9 +3,9 @@
 <h1>icons (public/images/icons)</h1>
 
 <table>
-<% Dir.new("#{RAILS_ROOT}/public/images/icons").reject { |f| f =~ /^\./ }.each do |image| -%>
+<% Dir.new("#{RAILS_ROOT}/public/imgs/icons").reject { |f| f =~ /^\./ }.each do |image| -%>
   <tr>
-    <td style="padding: 4px"><%= image_tag "icons/#{image}" %></td>
+    <td style="padding: 4px"><%= image_tag "/imgs/icons/#{image}" %></td>
     <td><%= "#{image.split(".").first.titleize}" %></td>
     <td><%= "(#{image})" %></td>
 <% end -%>

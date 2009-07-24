@@ -1,10 +1,11 @@
 $(function(){
   var updateDownloadAnchors = function(){
     $("#download div a").each(function(i, a){
-      var type = $(this).attr('rel');
-      var list = $("#download ." + type);
-      var val  = list.find(".selected").attr('name');
-      $(a).html(val + "&nbsp;▾");
+      var type  = $(this).attr('rel');
+      var li    = $("#download ." + type).find("[selected=selected]");
+      var text  = li.attr('name')  + "&nbsp;▾";
+      var klass = li.attr('class');
+      $(a).html(text).addClass(klass);
     });
   };
 
@@ -12,8 +13,8 @@ $(function(){
     updateDownloadAnchors();
     
     // download link
-    var formats = $('#download .formats .selected').attr('rel').split('|');
-    switch($('#download .deliveries .selected').attr('rel')) {
+    var formats = $('#download .formats [selected=selected]').attr('rel').split('|');
+    switch($('#download .deliveries [selected=selected]').attr('rel')) {
       case 'web':
         $('#download a.button').attr('href', formats[0]);
         break;
@@ -27,20 +28,20 @@ $(function(){
   };
 
   $("#download li").mousedown(function(){
-    $(this).parent().hide().find('.selected').removeClass('selected');
-    $(this).addClass('selected');
+    $(this).parent().hide().find('[selected=selected]').attr('selected', null);
+    $(this).attr('selected', 'selected');
     updateDownloadButton();
     return false;
   });
 
   $("#download div a").click(function(e){
-    $(this).focus().parent().find('ul').show();
+    $(this).focus().parent().find('menu').show();
+    return false;
   }).focus(function(e){
-    $(this).parent().find('ul').show();
+    $(this).parent().find('menu').show();
   }).blur(function(e){
-    $(this).parent().find('ul').hide();
+    $(this).parent().find('menu').hide();
   });
 
   updateDownloadButton();
-  // alert(document.createElement('video').nodeType);
 });

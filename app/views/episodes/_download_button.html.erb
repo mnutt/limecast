@@ -1,9 +1,9 @@
 <div id="download" class="superbutton">
   <div>
-    <a class="format" href="#" rel="formats">Format&nbsp;▾</a>
-    <ul class="formats">
+    <a href="#" rel="formats">Format&nbsp;▾</a>
+    <menu class="formats">
       <% @episode.sources.sorted_by_extension_and_bitrate.reverse.each_with_index do |source, i| -%>
-      <li class="<%= source.extension %><%= ' selected' if i == 0 %>" name="<%= source.formatted_bitrate -%> <%= h source.extension -%>" rel="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>">
+      <li class="<%= source.extension %>" <%= 'selected="selected"' if i == 0 %> name="<%= source.formatted_bitrate -%> <%= h source.extension -%>" rel="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>">
         <%= h source.file_name %>
         <span><%= [source.formatted_bitrate,
              source.size.to_file_size.to_s(true, false),
@@ -11,16 +11,16 @@
              source.formatted_framerate].reject(&:blank?).join(', ') %></span>
       </li>
       <% end -%>
-    </ul>
+    </menu>
   </div>
 
   <div>
-    <a class="delivery" href="#" rel="deliveries">Delivery&nbsp;▾</a>
-    <ul class="deliveries">
-      <li rel="web" name="Web" class="web selected">Web</li>
-      <li rel="torrent" name="Torrent" class="torrent">Torrent</li>
+    <a href="#" rel="deliveries">Delivery&nbsp;▾</a>
+    <menu class="deliveries">
+      <li rel="web" name="Web" class="web" selected="selected">Web</li>
       <li rel="magnet" name="Magnet" class="magnet">Magnet</li>
-    </ul>
+      <li rel="torrent" name="Torrent" class="torrent">Torrent</li>
+    </menu>
   </div>
 
   <%= link_to "Download", @episode.sources.first.url, :target => "_blank", :class => "button" %>

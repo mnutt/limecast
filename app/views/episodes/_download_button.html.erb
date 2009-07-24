@@ -1,7 +1,7 @@
 <div id="download" class="superbutton">
   <div>
     <a href="#" rel="formats">Format&nbsp;▾</a>
-    <menu class="formats">
+    <menu class="formats" type="list">
       <% @episode.sources.sorted_by_extension_and_bitrate.reverse.each_with_index do |source, i| -%>
       <li class="<%= source.extension %>" <%= 'selected="selected"' if i == 0 %> name="<%= source.formatted_bitrate -%> <%= h source.extension -%>" rel="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>">
         <%= h source.file_name %>
@@ -16,7 +16,7 @@
 
   <div>
     <a href="#" rel="deliveries">Delivery&nbsp;▾</a>
-    <menu class="deliveries">
+    <menu class="deliveries" type="list">
       <li rel="web" name="Web" class="web" selected="selected">Web</li>
       <li rel="magnet" name="Magnet" class="magnet">Magnet</li>
       <li rel="torrent" name="Torrent" class="torrent">Torrent</li>

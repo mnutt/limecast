@@ -5,7 +5,7 @@ $(function(){
       var li    = $("#download ." + type).find("[selected=selected]");
       var text  = li.attr('name')  + "&nbsp;▾";
       var klass = li.attr('class');
-      $(a).html(text).addClass(klass);
+      $(a).html(text).removeClass().addClass(klass);
     });
   };
 

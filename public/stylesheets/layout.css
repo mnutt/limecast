@@ -29,6 +29,10 @@ textarea.text {
   padding: 4px;
 }
 
+address { display: block; }
+
+p, nav, address, .superbutton { margin: 0 0 14px 0; }
+
 /**** =Global submit button ***************/
 /* Setting general button styles.
 	 Background position can't be set to "top",

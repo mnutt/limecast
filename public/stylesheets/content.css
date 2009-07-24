@@ -2,18 +2,18 @@
 /* STYLE GUIDE: keep markup simple, keep CSS clean */
 /***************************************************/
 
+
 /***************/
 /* Superbutton */
 /***************/
 
 .superbutton {
 	position: relative;
-	top: 20px;
 	z-index: 3;
 	background: url("/imgs/button_bg.gif") #FDFDFD repeat-x top left;
 	border: solid 1px #C3C3C3;
 	display: inline-block;
-	height: 2.5em;
+	height: 2.3em;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
@@ -26,14 +26,14 @@
 .superbutton div a {
 	display: block;
 	outline: none;
-	padding: 5px 8px 4px 25px;
+	padding: 6px 8px 4px 25px;
 	color: #000;
 	background: #FFF 5px center no-repeat;
 }
 
 .superbutton menu {
 	position: absolute;
-	top: 2.6em;
+	top: 2.3em;
 	left: 5px;
 	z-index: 1;
 	display: none;
@@ -65,7 +65,7 @@
 /* Client Icons */
 .superbutton .rss { background-image: url('/imgs/icons/rss.png'); }
 .superbutton .itunes { background-image: url('/imgs/icons/itunes.png'); }
-.superbutton .limewire { background-image: url('/imgs/icons/limewire.png'); }
+.superbutton .miro { background-image: url('/imgs/icons/miro.png'); }
 
 .superbutton li span {
 	display: block;
@@ -89,67 +89,49 @@
 .superbutton a.button {
 	float: left;
 	display: block;
-	height: 2.5em;
+	height: 2.3em;
 	color: rgb(51, 51, 51);
 	border: solid 1px #153400;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+	outline: none;
 	text-transform: uppercase;
-	/*background: #6EBC30; #358800;*/
-	background: url("/imgs/button_download_bg.gif") #CBE19B repeat-x top left;
 	padding: 0 4px;
-	line-height: 2.5em;
+	line-height: 2.3em;
 	margin: -1px 0 0 10px;
+	background: #CBE19B repeat-x top left;
 }
+
+#download a.button { background: url("/imgs/button_download_bg.gif"); }
+#subscribe a.button { background: url("/imgs/button_download_bg.gif"); }
 
 /***************/
-/* Preview     */
+/* Podcast     */
 /***************/
 
-#page_type {
-	position: absolute;
-	top: 60px;
-	right: 250px;
-	margin-top: -25px;
-	padding: 17px 32px 13px 0;
-	background: url('/imgs/icons/series.png') center right no-repeat;
-}
-
-.episode h6#page_type {
-	margin-top: -20px;
-	padding: 17px 30px 10px 0;
-	background: url('/imgs/icons/episode.png') center right no-repeat;
-}
-
-
-/***************/
-/* Preview     */
-/***************/
-#preview {
-	clear: left;
-	float: left;
-	margin-right: 20px;
-	width: 460px;
-}
-
-.episode.show #preview {
-	float: left;
-}
-
-#preview .previous {
-	display: block;
-	width: auto;
-	float: left;
+.podcast.show h3,
+.podcast.show h4 {
 	font-size: 1.2em;
 }
 
-#preview .next {
-	display: block;
-	width: auto;
-	float: right;
-	text-align: right;
-	font-size: 1.2em;
+
+address a.rss { padding: 1px 0 0 20px; background: url('/imgs/icons/rss.png') no-repeat top left; }
+address a.itunes { padding: 1px 0 0 20px; background: url('/imgs/icons/itunes.png') no-repeat bottom left; }
+
+ul.tags,
+ul.tags li,
+ul.similar,
+ul.similar li {
+	display: inline;
 }
+
+.episode { margin: 7px 0; }
+.episode h4 { display: inline; white-space: nowrap; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis;  }
+.episode.expanded article,
+.episode.expanded p { display: block; }
+.episode.collapsed article,
+.episode.collapsed p { display: none; }
+
 
 /***************/
 /* Episode     */

@@ -3,9 +3,7 @@
 <% javascript_include "download_button" -%>
 <% @classes = %{episode show} -%>
 
-<p>
-  <%= link_to h(@podcast.title), podcast_url(@podcast) %>
-</p>
+<p><%= link_to h(@podcast.title), podcast_url(@podcast) %></p>
 
 <h2><%=h @episode.title -%></h2>
 
@@ -16,7 +14,7 @@
 </nav>
 
 <p>
-  <%= content_tag :time, @episode.published_at.to_date, :datetime => @episode.published_at.to_datetime.to_s %>
+  <time datetime="<%= @episode.published_at.to_datetime.to_s %>"><%= @episode.published_at.to_date %></time>
   <%= "(#{@episode.duration.to_duration.to_s(false)})" if @episode.duration -%>
 </p>
 
@@ -25,8 +23,9 @@
 </article>
 
 <p>
-  <%= video_tag([@source.preview.url, @source.ogg_preview.url], :poster => @source.screenshot.url, 
-      :autobuffer => true, :controls => true, :width => 540) if @source %>
+  <%= video_tag([@source.preview.url, @source.ogg_preview.url], 
+      :poster => @source.screenshot.url, 
+      :controls => true, :width => 540) if @source %>
 </p>
 
-<%= render :partial => "download_button" -%>
+<%= render :partial => "superbutton" -%>

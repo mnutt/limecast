@@ -43,11 +43,11 @@ class PodcastsController < ApplicationController
   def show
     @podcast ||= Podcast.find_by_slug(params[:podcast_slug])
 
-    @newest_episode = @podcast.newest_episode
+    @episode = @podcast.newest_episode
 
     @episodes = @podcast.episodes.all(:include => :sources, :limit => 5, :order => "published_at DESC")
     @related  = @podcast.related_podcasts
-    @reviews  = @podcast.reviews.claimed.all
+    @reviews  = @podcast.reviews.claimed
     @review   = Review.new(:episode => @newest_episode)
   end
 

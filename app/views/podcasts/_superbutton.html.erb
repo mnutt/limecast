@@ -1,0 +1,21 @@
+<div id="subscribe" class="superbutton">
+  <div>
+    <a href="#" rel="deliveries">Delivery&nbsp;▾</a>
+    <menu class="deliveries" type="list">
+      <li rel="<%= @podcast.url %>" name="Web" class="web" selected="selected">Web</li>
+      <li rel="<%= magnet_feed_url @podcast.to_filename_param('magnet') %>" name="Magnet" class="magnet">Magnet</li>
+      <li rel="<%= torrent_feed_url @podcast.to_filename_param('torrent') %>" name="Torrent" class="torrent">Torrent</li>
+    </menu>
+  </div>
+
+  <div>
+    <a href="#" rel="destinations">Destination&nbsp;▾</a>
+    <menu class="destinations" type="list">
+      <li rel="rss" name="RSS" class="rss" selected="selected">RSS</li>
+      <li rel="itunes" name="iTunes" class="itunes">iTunes</li>
+      <li rel="miro" name="Miro" class="miro">Miro</li>
+    </menu>
+  </div>
+
+  <%= link_to "Subscribe", @podcast.url, :target => "_blank", :class => "button" %>
+</div>

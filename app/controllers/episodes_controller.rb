@@ -27,7 +27,7 @@ class EpisodesController < ApplicationController
     @older   = @episode.previous_episode
     @source  = @episode.sources.with_screenshot.with_preview.first
 
-    render :layout => "new_application"
+    render
   end
 
   def destroy

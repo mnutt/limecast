@@ -1,9 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
-  <title>
-    <%= "#{@title} &mdash; " if @title -%> LimeCast
-  </title>
+  <title><%= "#{@title} &ndash; " if @title -%>LimeCast</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="description" content="Open podcast directory and archive"/>
 
@@ -12,114 +10,86 @@
   <link rel="icon" type="<%= @podcast.logo.content_type %>" href="<%= @podcast.logo.url(:icon) -%>" />
 <% end -%>
 
-  <%= rss_link(@podcast) -%>
+  <%= rss_link(@podcast) %>
 
-  <%= stylesheet_link_tag "reset", "global", "typography", "icons", "presentation", :cache => 'all' -%>
+  <%= stylesheet_link_tag "reset", "new_typography", "layout", "content", :cache => 'all' %>
   <%= stylesheet_link_actions -%>
 
-  <!--[if IE 6]>
-    <%= stylesheet_link_tag 'base_ie6', 'application_ie6' -%>
-  <![endif]-->
-  <!--[if IE 7]>
-    <%= stylesheet_link_tag 'base_ie7', 'application_ie7' -%>
-  <![endif]-->
-
   <%= javascript_include_tag 'jquery', 
-                             'jquery-periodic', 
-                             'jquery.tabs', 
-                             'jquery.cookie', 
-                             'jquery.flash',
-                             'jquery.dropdown', 
                              'jquery.default-text', 
-                             'jquery.hover-and-focus', 
-                             'jquery.dimensions',
-                             'jquery.hoverIntent',
-                             'jquery.cluetip',
+                             'jquery.quick-auth',
+                             'jquery.restful-delete',
+                             'jquery.shake',
                              :cache => 'jquery-all' -%>
-        <%= javascript_include_tag 'nbga-1.0' -%>
-
-  <script type="text/javascript">
-          ga().config({id: '<%= @tracker -%>'}).track();
-        </script>
-
-
-  <script type="text/javascript">
-    <% if protect_against_forgery? -%>
-    AUTH_TOKEN = "<%= form_authenticity_token -%>";
-    <% end -%>
-    LOGGED_IN  = <%= !!logged_in? %>;
-  </script>
-
-  <%= javascript_include_tag 'quick_sign_in', 
-                            'restful_delete',
-                            'application',
-                            :cache => 'all' %>
-
+  <%= javascript_include_tag 'nbga-1.0', 'application' -%>
   <%= javascript_include_actions -%>
-  <%#= javascript_include_tag 'test_helpers' -%>
 </head>
 
 <body class="<%= @classes -%><%= " status_#@error" if @error %>">
+  <header>
+    <nav>
+      <ul>
+        <li class="search">
+          <form action="/search" method="get" id="search" class="search">
+            <label for="s" style="display: none;">Search LimeCast</label>
+            <input class="search" accesskey="s" id="s" name="s" size="15" type="search" value="Search LimeCast" tabindex="1" />
+            <button type="submit" value="Search" />
+          </form>
+        </li>
+        <li class="auth"><%= render :partial => "sessions/auth" %></li>
+        <li class="logo"><%= link_to "LimeCast", root_url %></li>
+        <li class="popular"><%= link_to "Popular", popular_url %></li>
+        <li class="add"><%= link_to "Add Podcast", add_url %></li>
+      </ul>
+    </nav>
+  </header>
+
   <div id="wrapper">
+    <aside id="left">
+      <%= image_tag(@podcast.logo(:small)) if @podcast %>
+    </aside>
 
-      <div id="header">
-    
-        <div id="utility_nav">
-          <%= render :partial => "layouts/sign_in_area" -%>
-        </div>
+    <aside id="right">
+      <%= @ads %>
+    </aside>
 
-        <div id="global_nav">
-          <a href="/" id="logo"><span>LimeCast</span></a>
-          <ul>
-            <li><a href="/" id="nav_home"><span>Home</span></a></li>
-            <li><a href="/popular" id="nav_pop"><span>Popular</span></a></li>
-            <li><a href="/add" id="add_podcast"><span>Add podcast</span></a><li>
-          </ul>
-        </div> <!-- /global_nav -->
-    
-        <form action="/search" method="get" id="search" class="search">            
-          <label for="q" style="display: none;">Search LimeCast</label>
-          <input class="text search" id="q" name="q" size="15" type="text" value="Search LimeCast" tabindex="1" />
-          <button type="submit">
-            <span>Search</span>
-          </button>
-        </form>
-    
-      </div> <!-- /header -->
-      
-      <!-- HACK Use content wrapper so we can use margin on #content div. -->
-      <div id="content_wrapper">
-        <div id="content" class="clearfix">
-          <%= yield %>
-        </div> <!-- /content -->
-        <div class="push"><!-- ^_^ //--></div>
-      </div> <!-- /content_wrapper -->
+    <section id="content" class="clearfix">
+      <div class="header_push"></div>
+      <%= yield %>
+      <div class="footer_push"></div>
+    </section>
 
-  </div> <!-- /wrapper -->
-
-  <div id="foot_wrapper">
-    <div id="footer">
-
-      <div class="section">
-        <ul>
-          <li class="blog">
-            <a href="http://limecast.limespot.com/"><span>Blog</span></a>
-          </li>
-          <li class="use">
-            <a href="/use"><span>Terms of use</span></a>
-          </li>
-          <li class="privacy">
-            <a href="/privacy"><span>Privacy</span></a>
-          </li>
-          <li class="opensource">
-            <a href="http://wiki.limewire.org/index.php?title=LimeCast"><span>Open source</span></a>
-          </li>
-        </ul>
-      </div>
-
-    </div> <!-- /footer -->
-  </div> <!-- /foot_wrapper -->
-
-  <%= render :partial => 'users/quick_signin', :locals => { }  -%>
+    <section id="auth">
+      <img src="/imgs/arrow_up.gif" class="arrow" />
+      <%= custom_button "☓", :class => "close", :alt => "close this box" %>
+      <h4>Sign in to LimeCast</h4>
+        <% form_for :user, :url => session_path do |f| -%>
+        <p>
+          <%= label :user, :email, "Email&nbsp;/&nbsp;Login" %>
+          <%= text_field :user, :email, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255 %>
+        </p>
+        <p>
+          <%= label :user, :password, "Password" %>
+          <%= password_field :user, :password, :class => "text", :tabindex => 3, :size => 15, :maxlength => 255 %>
+        </p>
+        <p class="message">
+           <%= link_to "I forgot my password", forgot_password_url %>
+        </p>
+        <p class="buttons">
+          <%= custom_button "Sign in", :id => "sign_in" %>
+          <%= custom_button "Sign up", :id => "sign_up" %>
+        </p>
+      <% end -%>
+    </section>
+  </div>
+  
+  <footer>
+    <ul>
+      <li><%= link_to "Blog", "http://limecast.limespot.com" %></li>
+      <li><%= link_to "Terms of use", "/use" %></li>
+      <li><%= link_to "Privacy", "/privacy" %></li>
+      <li><%= link_to "Open source", "http://wiki.limewire.org/index.php?title=LimeCast" %></li>
+    </ul>
+  </footer>
 </body>
 </html>

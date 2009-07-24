@@ -6,7 +6,9 @@ body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 62.5%; colo
 a {color: #2951a5; text-decoration: none;}
 a:hover {text-decoration: underline;}
 
-p, nav {font-size: 1.2em; line-height: 1.5em; font-weight: normal;}
+#wrapper { font-size: 1.2em; }
+
+p, nav, address, aside { line-height: 1.5em; font-weight: normal;}
 
 .light {color: #a9a9a9;}
 

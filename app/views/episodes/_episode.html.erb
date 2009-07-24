@@ -2,14 +2,18 @@
 
 <li class="episode <%= is_expanded ? 'expanded' : 'collapsed' %>">
   <%= link_to "#{is_expanded ? '▼' : '►'}", "#", :class => "toggle" %>
-  <h3>
+  <h4>
     <%= link_to episode.date_title, episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips" -%>
     <%= episode.title %>&nbsp;<span>(<%= time_to_words(episode.duration, true).gsub(/ /, '&nbsp;') -%>)</span>
-  </h3>
-  <div class="details">
-    <p><%= page_description(episode.summary) -%></p>
-    <% if episode.sources.with_screenshot.with_preview.first -%>
-    <div class="preview"><%= render :partial => 'episodes/video_player', :object => episode, :locals => {:attrs => {:width => 540}} -%></div>
-    <% end -%>
-  </div>
+  </h4>
+
+  <article><%= page_description(episode.summary) -%></article>
+
+<% if source = episode.sources.with_screenshot.with_preview.first -%>
+  <p>
+    <%= video_tag([source.preview.url, source.ogg_preview.url], 
+        :poster => source.screenshot.url, 
+        :autobuffer => true, :controls => true, :width => 540) %>
+  </p>
+<% end -%>
 </li>

@@ -1,34 +1,84 @@
-<% @classes = %{podcast show} -%>
 <% @title = h(@podcast.title) -%>
 <% @show_ads = true -%>
-<% stylesheet_link "podcast_show" -%>
-<% javascript_include "limecast_form", "podcast", "reviews" -%>
+<% javascript_include "subscribe_button" -%>
+<% @classes = %{podcast show} -%>
+
+<h1>
+  <%= h(@podcast.title) %>
+</h1>
+
+<address>
+  <%= link_to(h(@podcast.clean_site), @podcast.site) unless @podcast.clean_site.blank? %>
+  <%= " &ndash; #{link_to_rss(@podcast)}" unless @podcast.url.blank? -%>
+  <%= " &ndash; #{link_to_itunes(@podcast)}" unless @podcast.itunes_link.blank? -%>
+  <br />
+  <%= "Made by #{link_to @podcast.owner.login, @podcast.owner, :type => :author}" if @podcast.owner %>
+  <%= "Found by #{link_to @podcast.finder.login, @podcast.finder}" if @podcast.finder %>
+</address>
+
+<%= render :partial => "superbutton", :locals => {:episode => @episode} -%>
+
+<address>
+  New episode <%= link_to @episode.date_title, link_to_episode(@episode) %>
+  <time datetime="<%= @episode.published_at.to_datetime.to_s %>"><%= time_to_words(Time.now - @episode.published_at, false) %></time> ago<br />
+  <%= link_to @podcast.episodes.count, episodes_url(@podcast) -%> episodes
+  since <%= link_to @podcast.oldest_episode.date_title, link_to_episode(@podcast.oldest_episode) -%>
+  every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><br/>
+  Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
+</address>
+
+<p>
+  <%= link_to "Favorite" %>
+  <%= link_to "Digg" %>
+  <%= link_to "Reddit" %>
+  <%= link_to "Facebook" %>
+  <%= link_to "Delicious" %>
+</p>
+
+<section>
+  <h3>Description</h3>
+
+  <article>
+    <%= unescape_entities h(@podcast.description) %>
+  </article>
+
+  <div>Tags <ul class="tags"><%= comma_separated_list_items @podcast.tags.map {|t| link_to_tag(t)} -%></ul></div>
+
+  <div>Similar to <ul class="similar"><%= comma_separated_list_items @related.map {|p| link_to(p) } -%></ul></div>
+</section>
+
+<section>
+  <h3>Episodes (<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</h3>
+  <ul id="podcast_episodes">
+    <%= render :partial => "episodes/episode", :collection => @episodes -%>
+  </ul>
+</section>
+
+<section>
+  <h3>Reviews (<%= @reviews.count(:select => "*") %>)</h3>
+
+  <nav>
+      <%= link_to "All (#{@reviews.count(:select => "*")})", "#podcast_reviews", :class => "all", :rel => "all" %>
+      <%= link_to "Positive (#{@reviews.that_are_positive.count(:select => "*")})", "#podcast_reviews", :class => "positive", :rel => "positive" %>
+      <%= link_to "Negative (#{@reviews.that_are_negative.count(:select => "*")})", "#podcast_reviews", :class => "negative", :rel => "negative" %>
+  </nav>
+
+  <ul class="reviews">
+    <%= render :partial => 'reviews/review', :collection => @reviews.reverse, :locals => {:editable => true} -%>
+  </ul>
+
+  <div id="review_doit">
+    <% if can_add_reviews?(@episode) %>
+      <%= render :partial => 'reviews/add_review', :object => @podcast -%>
+    <% end %>
+  </div> 
 
 
-<div class="summary clearfix">
-  <%= render :partial => 'podcasts/summary' -%>
-</div>
+</section>
 
-<div id="podcast_content" class="clearfix">
-  <h2>Latest Episodes <span>(<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</span></h2>
-
-  <div id="episode_list">
-    <%= render :partial => 'episodes/episodes', :object => @episodes, :locals => {:podcast => @podcast} %>
-  </div>
-  
-  <div id="podcast_reviews">
-    <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => {:podcast => @podcast} %>
-  </div>
-
-</div> <!-- /podcast_content -->
-
-<div id="series_page_goog">
-  <%= google_ads -%>
-</div>
-
-<% rounded_corner_tag(:class => "related") do -%>
-<h3>Related podcasts</h3>
+<%# rounded_corner_tag(:class => "related") do -%>
+<!-- <h3>Related podcasts</h3>
 <ul id="all_podcasts">
-  <%= render :partial => "recommendations/recommendation", :collection => @related -%>
-</ul>
-<% end -%>
+  <%#= render :partial => "recommendations/recommendation", :collection => @related -%>
+</ul> -->
+<%# end -%>

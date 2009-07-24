@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>
+    <%= "#{@title} &mdash; " if @title -%> LimeCast
+  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="description" content="Open podcast directory and archive"/>
+
+<% if @podcast && !@podcast.new_record? -%>
+  <link rel="shortcut icon" type="image/x-icon" href="<%= @podcast.logo.url(:favicon) -%>" />
+  <link rel="icon" type="<%= @podcast.logo.content_type %>" href="<%= @podcast.logo.url(:icon) -%>" />
+<% end -%>
+
+  <%= rss_link(@podcast) -%>
+
+  <%= stylesheet_link_tag "reset", "global", "typography", "icons", "presentation", :cache => 'all' -%>
+  <%= stylesheet_link_actions -%>
+
+  <!--[if IE 6]>
+    <%= stylesheet_link_tag 'base_ie6', 'application_ie6' -%>
+  <![endif]-->
+  <!--[if IE 7]>
+    <%= stylesheet_link_tag 'base_ie7', 'application_ie7' -%>
+  <![endif]-->
+
+  <%= javascript_include_tag 'jquery', 
+                             'jquery-periodic', 
+                             'jquery.tabs', 
+                             'jquery.cookie', 
+                             'jquery.flash',
+                             'jquery.dropdown', 
+                             'jquery.default-text', 
+                             'jquery.hover-and-focus', 
+                             'jquery.dimensions',
+                             'jquery.hoverIntent',
+                             'jquery.cluetip',
+                             :cache => 'jquery-all' -%>
+        <%= javascript_include_tag 'nbga-1.0' -%>
+
+  <script type="text/javascript">
+          ga().config({id: '<%= @tracker -%>'}).track();
+        </script>
+
+
+  <script type="text/javascript">
+    <% if protect_against_forgery? -%>
+    AUTH_TOKEN = "<%= form_authenticity_token -%>";
+    <% end -%>
+    LOGGED_IN  = <%= !!logged_in? %>;
+  </script>
+
+  <%= javascript_include_tag 'quick_sign_in', 
+                            'restful_delete',
+                            'application',
+                            :cache => 'all' %>
+
+  <%= javascript_include_actions -%>
+  <%#= javascript_include_tag 'test_helpers' -%>
+</head>
+
+<body class="<%= @classes -%><%= " status_#@error" if @error %>">
+  <div id="wrapper">
+
+      <div id="header">
+    
+        <div id="utility_nav">
+          <%= render :partial => "layouts/sign_in_area" -%>
+        </div>
+
+        <div id="global_nav">
+          <a href="/" id="logo"><span>LimeCast</span></a>
+          <ul>
+            <li><a href="/" id="nav_home"><span>Home</span></a></li>
+            <li><a href="/popular" id="nav_pop"><span>Popular</span></a></li>
+            <li><a href="/add" id="add_podcast"><span>Add podcast</span></a><li>
+          </ul>
+        </div> <!-- /global_nav -->
+    
+        <form action="/search" method="get" id="search" class="search">            
+          <label for="q" style="display: none;">Search LimeCast</label>
+          <input class="text search" id="q" name="q" size="15" type="text" value="Search LimeCast" tabindex="1" />
+          <button type="submit">
+            <span>Search</span>
+          </button>
+        </form>
+    
+      </div> <!-- /header -->
+      
+      <!-- HACK Use content wrapper so we can use margin on #content div. -->
+      <div id="content_wrapper">
+        <div id="content" class="clearfix">
+          <%= yield %>
+        </div> <!-- /content -->
+        <div class="push"><!-- ^_^ //--></div>
+      </div> <!-- /content_wrapper -->
+
+  </div> <!-- /wrapper -->
+
+  <div id="foot_wrapper">
+    <div id="footer">
+
+      <div class="section">
+        <ul>
+          <li class="blog">
+            <a href="http://limecast.limespot.com/"><span>Blog</span></a>
+          </li>
+          <li class="use">
+            <a href="/use"><span>Terms of use</span></a>
+          </li>
+          <li class="privacy">
+            <a href="/privacy"><span>Privacy</span></a>
+          </li>
+          <li class="opensource">
+            <a href="http://wiki.limewire.org/index.php?title=LimeCast"><span>Open source</span></a>
+          </li>
+        </ul>
+      </div>
+
+    </div> <!-- /footer -->
+  </div> <!-- /foot_wrapper -->
+
+  <%= render :partial => 'users/quick_signin', :locals => { }  -%>
+</body>
+</html>

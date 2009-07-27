@@ -1,32 +1,23 @@
-<%- with_podcast_reference = false if with_podcast_reference.nil? -%>
-<%- with_helpfulness       = true if with_helpfulness.nil? -%>
-<%- truncate_length        ||= -1 -%>
-<%- editable               = local_assigns.has_key?(:editable) && current_user && review.writable_by?(current_user) -%>
-
-<li id="<%= dom_id review %>" class="<%= cycle "odd", "even" -%> review <%= review.positive? ? "positive" : "negative" %> clearfix">
-  <div class="show_review">
-    <%- if with_podcast_reference -%>
-      <h3>Left for <%= link_to_podcast(review.episode.podcast) -%></h3>
-    <%- end -%>
-
-
-    <div class="summary">
-      <span class="title"><%= review.title -%></span>
-      <span class="info light">
-        <%= review_by_line(review) -%>
-        <%= " &mdash; #{link_to("edit", edit_review_url(review.episode.podcast, review), :class => 'edit')}" if editable %>
-        <%= " / #{link_to("delete", review_url(review.episode.podcast, review), :class => 'delete')}" if editable %>
-      </span>
-      <span class="body"><p><%= truncated_text unescape_entities(review.body), truncate_length -%></p></span>
-
-      <%= render :partial => "reviews/helpfulness", :object => review if with_helpfulness -%>
-    </div>
+<li id="<%= dom_id review %>" class="review <%= review.positive? ? "positive" : "negative" %>">
+  <div class="details">
+    <%= link_to podcast_url(podcast) unless @podcast %>
+    <h5><%= unescape_entities review.title %></h5> 
+    <%= unescape_entities review.body %>
+    <%= "by #{link_to review.reviewer.login, user_url(review.reviewer)}" %> 
+    <%= "on #{review.created_at.to_date.to_s}" %> 
   </div>
-  
-  <% if editable -%>
-  <div class="edit_review" style="display: none;">
-    <%= render :partial => 'reviews/form', :locals => {:options => {:cancel => true}, 
-                                                       :podcast => review.episode.podcast, :review => review} %>
+
+  <div>
+    <% if current_user && review.writable_by?(current_user) -%>
+    <%= link_to "Edit", edit_podcast_url(@podcast), :class => "edit" %> / 
+    <%= link_to "Delete", podcast_url(@podcast), :class => "delete" %> ,
+    <% end -%>
+
+    <%= link_to "Insightful", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'insightful'), :class => 'rate insightful login' -%> / 
+    <%= link_to "Not Insightful", rate_review_url(:podcast_slug => review.episode.podcast.to_param, :id => review, :rating => 'not_insightful'), :class => 'rate not_insightful login' -%>
   </div>
-  <% end -%>
+
+  <%= render :partial => 'reviews/form', 
+             :locals => {:options => {:cancel => true}, 
+                         :podcast => review.episode.podcast, :review => review} if current_user && review.writable_by?(current_user) %>
 </li>

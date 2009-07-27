@@ -44,7 +44,7 @@ jQuery.fn.extend({
         if(resp.success) { // success, no reload
           if(resp.profileLink) { 
             $("#auth_overlay").remove();
-            $('#nav_auth').html(resp.profileLink);
+            $('nav .auth').html(resp.profileLink);
             $('#auth').authReset();
             $("#sign_out_link").signoutSetup();
           } else window.location.reload();
@@ -73,7 +73,7 @@ jQuery.fn.extend({
     // Enable signout link
     $(this).click(function(e){
       $.post($(this).attr('href'), {_method:'delete'}, function(res){ 
-        $("#nav_auth").html(res);
+        $("nav .auth").html(res);
         $("#auth_link").authLink();
         $("#auth form").authSetup();
       });

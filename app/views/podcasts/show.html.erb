@@ -19,21 +19,22 @@
 <%= render :partial => "superbutton", :locals => {:episode => @episode} -%>
 
 <address>
-  New episode <%= link_to @episode.date_title, link_to_episode(@episode) %>
+  New episode <%= link_to @episode.date_title, episode_url(@podcast, @episode) %>
   <time datetime="<%= @episode.published_at.to_datetime.to_s %>"><%= time_to_words(Time.now - @episode.published_at, false) %></time> ago<br />
-  <%= link_to @podcast.episodes.count, episodes_url(@podcast) -%> episodes
+  <%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%> episodes
   since <%= link_to @podcast.oldest_episode.date_title, link_to_episode(@podcast.oldest_episode) -%>
   every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><br/>
   Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
 </address>
 
-<p>
-  <%= link_to "Favorite" %>
-  <%= link_to "Digg" %>
-  <%= link_to "Reddit" %>
-  <%= link_to "Facebook" %>
-  <%= link_to "Delicious" %>
-</p>
+<section>
+  <%= link_to "Favorite this!", favorite_podcast_url(@podcast) %>
+  (or add to
+  <%= link_to "Digg", "http://digg.com/submit?phase=2&url=#{podcast_url(@podcast)}" %>, 
+  <%= link_to "Reddit", "http://reddit.com/submit?url=#{podcast_url(@podcast)}&title=LimeCast%3A%20#{h(@podcast.title)}" %>, 
+  <%= link_to "Facebook", "http://www.facebook.com/share.php?src=bm&v=4&i=1248710348&u=#{podcast_url(@podcast)}&t=#{h(@podcast.title)}" %>, 
+  <%= link_to "Delicious", "http://del.icio.us/post?url=#{podcast_url(@podcast)}&title=LimeCast%3A%20#{h(@podcast.title)}" %>)
+</section>
 
 <section>
   <h3>Description</h3>
@@ -41,40 +42,46 @@
   <article>
     <%= unescape_entities h(@podcast.description) %>
   </article>
-
-  <div>Tags <ul class="tags"><%= comma_separated_list_items @podcast.tags.map {|t| link_to_tag(t)} -%></ul></div>
-
-  <div>Similar to <ul class="similar"><%= comma_separated_list_items @related.map {|p| link_to(p) } -%></ul></div>
 </section>
 
 <section>
+  Tags <ul class="tags"><%= comma_separated_list_items @podcast.tags.map {|t| link_to_tag(t)} -%></ul>
+</section>
+
+<% unless @related.empty? -%>
+<section>
+  Similar to <ul class="similar"><%= comma_separated_list_items @related.map {|p| link_to(p) } -%></ul>
+</section>
+<% end -%>
+
+<section id="episodes">
   <h3>Episodes (<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</h3>
   <ul id="podcast_episodes">
     <%= render :partial => "episodes/episode", :collection => @episodes -%>
   </ul>
+  <%= link_to "All #{@podcast.episodes.count} episodes", podcast_episodes_url(@podcast) %>
 </section>
 
-<section>
+<section id="reviews">
   <h3>Reviews (<%= @reviews.count(:select => "*") %>)</h3>
 
   <nav>
-      <%= link_to "All (#{@reviews.count(:select => "*")})", "#podcast_reviews", :class => "all", :rel => "all" %>
-      <%= link_to "Positive (#{@reviews.that_are_positive.count(:select => "*")})", "#podcast_reviews", :class => "positive", :rel => "positive" %>
-      <%= link_to "Negative (#{@reviews.that_are_negative.count(:select => "*")})", "#podcast_reviews", :class => "negative", :rel => "negative" %>
+    <%= link_to "All (#{@reviews.count(:select => "*")})", "#reviews", :class => "all" %>
+    <%= link_to "Positive (#{@reviews.that_are_positive.count(:select => "*")})", "#reviews", :class => "positive" %>
+    <%= link_to "Negative (#{@reviews.that_are_negative.count(:select => "*")})", "#reviews", :class => "negative" %>
   </nav>
 
-  <ul class="reviews">
+  <ul class="all">
     <%= render :partial => 'reviews/review', :collection => @reviews.reverse, :locals => {:editable => true} -%>
   </ul>
-
-  <div id="review_doit">
-    <% if can_add_reviews?(@episode) %>
-      <%= render :partial => 'reviews/add_review', :object => @podcast -%>
-    <% end %>
-  </div> 
-
-
 </section>
+
+<% if can_add_reviews?(@podcast) %>
+<section id="review">
+  <h3>Review this series</h3>
+  <%= render :partial => 'reviews/form', :locals => {:podcast => @podcast, :review => (@review.new_record? ? @review : @podcast.episodes.first.reviews.build)} %>
+</section> 
+<% end %>
 
 <%# rounded_corner_tag(:class => "related") do -%>
 <!-- <h3>Related podcasts</h3>

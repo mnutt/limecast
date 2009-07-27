@@ -1,7 +1,5 @@
-<% is_expanded = episode_counter.zero? %>
-
-<li class="episode <%= is_expanded ? 'expanded' : 'collapsed' %>">
-  <%= link_to "#{is_expanded ? '▼' : '►'}", "#", :class => "toggle" %>
+<li class="episode <%= 'open' if episode_counter.zero? %>">
+  <%= link_to "#{episode_counter.zero? ? '▼' : '►'}", "#", :class => "toggle" %>
   <h4>
     <%= link_to episode.date_title, episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips" -%>
     <%= episode.title %>&nbsp;<span>(<%= time_to_words(episode.duration, true).gsub(/ /, '&nbsp;') -%>)</span>

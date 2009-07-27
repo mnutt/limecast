@@ -45,7 +45,7 @@ class PodcastsController < ApplicationController
 
     @episode = @podcast.newest_episode
 
-    @episodes = @podcast.episodes.all(:include => :sources, :limit => 5, :order => "published_at DESC")
+    @episodes = @podcast.episodes.all(:include => :sources, :limit => 3, :order => "published_at DESC")
     @related  = @podcast.related_podcasts
     @reviews  = @podcast.reviews.claimed
     @review   = Review.new(:episode => @newest_episode)

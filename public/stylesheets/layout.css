@@ -21,47 +21,50 @@ body {
 	margin: 0 220px;
 }
 
-input.text,
-input.search,
-textarea.text {
-  background: #F3F3F3 url("../images/content/input_bg.png") repeat-x left top;
-  border: 1px solid #212121;
-  padding: 4px;
+input.search {
+	background: #F3F3F3 url("/imgs/content/input_bg.png") repeat-x left top;
+	border: 1px solid #212121;
+	padding: 4px;
+}
+
+
+input[type=text] {
+	border: none;
+	background: url('/imgs/input_heading.png') top left no-repeat;
+	width: 343px;
+	height: 28px;
+	font-size: 1.1em;
+	padding: 5px 5px 0 5px;
+	outline: 0px;
+}
+
+textarea {
+	background: url('/imgs/textarea.png') top left no-repeat;
+	resize: none; /* for Safari's resize widget */
+	width: 392px;
+	height: 120px;
+	border-color: #FFF; /* Safari won't allow no-border on textarea */
+	outline: 0px;
+	padding: 4px;
+	font-size: 1.1em;
+}
+
+button {
+	height: 30px;
+	padding: 3px 6px;
+	cursor: pointer;
+	border: solid 0px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	background: url('/imgs/button.png') #333 repeat-x right;
+	color: #E1E1E1;
+	white-space: nowrap;
+	font: bold 12px/23px Helvetica, Arial, sans-serif;
 }
 
 address { display: block; }
+address, section { margin: 0 0 14px 0; }
 
-p, nav, address, .superbutton { margin: 0 0 14px 0; }
-
-/**** =Global submit button ***************/
-/* Setting general button styles.
-	 Background position can't be set to "top",
-	 because of Firefox behavior.
-	 overflow: visible; is to remove magic padding in IE. */
-button {
-	text-align: center;
-	border: 0;
-	margin: 0;
-	padding: 3px 4px 0 0;
-	overflow: visible;
-	cursor: pointer;
-	position: relative;
-	background: url('../imgs/button_add.png') no-repeat right;
-}
-/* Sets the general styles for the span within the button
-	content, and the starting image. This image contains the
-	rounded corners to the left and is as wide as
-	the widest button might become. */
-button span {
-	position: relative;
-	display: block;
-	white-space: nowrap;
-	height: 31px;
-	color: #fff;
-	font: bold 12px/23px Helvetica, Arial, sans-serif;
-	background: url('/imgs/button_add_left.png') no-repeat left top;
-	padding: 3px 5px 0 12px;
-}
 
 .header_push { height: 50px; }
 .footer_push { height: 100px; }
@@ -184,9 +187,6 @@ header nav .search button {
 /* Footer */
 /**********/
 footer {
-/*	position: absolute;
-	bottom: 0px;
-*/
 	position: relative;
 	z-index: 4;
 	width: 100%;
@@ -223,7 +223,7 @@ footer ul li a {
 	border: solid 1px #A9A9A9;
 	width: 320px;
 	background: #FFF;
-	opacity: 0.9;
+	opacity: 0.8;
 	padding: 5px 5px 5px 15px;
 	box-shadow: 5px 5px 5px #888;
 	-moz-box-shadow: 5px 5px 5px #888;
@@ -240,7 +240,7 @@ footer ul li a {
 
 #auth .close {
 	float: right;
-	margin: 0 10px 0 0;
+	margin: 10px 10px 0 0;
 }
 
 #auth .close span {

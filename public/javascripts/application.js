@@ -5,7 +5,7 @@ $.ajaxSetup({
 // Method hooks up all of the input text boxes that should have default labels
 function defaultText() {
   $("#podcast_url, #accounts_forgot_password #email, #search_podcast_s, " + 
-    "#s, #user_tagging_tag_string").inputDefaultText();
+    "#s, #user_tagging_tag_string, #review_body, #review_title").inputDefaultText();
 }
 
 // Handles truncated "more" and "less" links
@@ -65,10 +65,25 @@ function setupTabs() {
   $('.tabify').tabs({ navClass: 'tabs', containerClass: 'tabs-cont' });
 }
 
+function toggleLinks() {
+  $('a.toggle').mousedown(function(){
+    $(this).html($(this).html()=='▼'?'►':'▼').parents('li').toggleClass('open');
+    return false;
+  }).click(function(){return false;});
+}
+
+function reviewLinks() {
+  $('#reviews nav a').mousedown(function(){ $('#reviews ul').removeClass().addClass($(this).attr('class')); }).click(function(){return false;});
+  $('#reviews li a.edit').mousedown(function(){ $(this).parents('li.review').addClass('editing'); }).click(function(){return false;});
+  $('#reviews li a.cancel').mousedown(function(){ $(this).parents('li.review').removeClass('editing'); }).click(function(){return false;});
+}
+
 $(function() {
   defaultText();
   truncatedText();
   favoriteLink();
+  toggleLinks();
+  reviewLinks();
   setupAuth();
 //  setupCluetips();
 //  setupTabs();

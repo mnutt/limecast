@@ -61,7 +61,7 @@
 
     <section id="auth">
       <img src="/imgs/arrow_up.gif" class="arrow" />
-      <%= custom_button "☓", :class => "close", :alt => "close this box" %>
+      <button type="submit" class="close" alt="close this box">☓</button>
       <h4>Sign in to LimeCast</h4>
         <% form_for :user, :url => session_path do |f| -%>
         <p>
@@ -76,8 +76,8 @@
            <%= link_to "I forgot my password", forgot_password_url %>
         </p>
         <p class="buttons">
-          <%= custom_button "Sign in", :id => "sign_in" %>
-          <%= custom_button "Sign up", :id => "sign_up" %>
+          <button type="submit" id="sign_in">Sign in</button>
+          <button type="submit" id="sign_up">Sign up</button>
         </p>
       <% end -%>
     </section>

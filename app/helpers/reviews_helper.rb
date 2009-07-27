@@ -1,10 +1,6 @@
 module ReviewsHelper
-  def can_add_reviews?(episode)
-    if current_user.nil?
-      episode.open_for_reviews?
-    else
-      !episode.been_reviewed_by?(current_user) && episode.open_for_reviews?
-    end
+  def can_add_reviews?(podcast)
+    current_user.nil? || !podcast.been_reviewed_by?(current_user)
   end
 
   def review_rating(review, with_label = false)

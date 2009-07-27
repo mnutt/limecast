@@ -3,6 +3,7 @@
 /***************************************************/
 
 
+
 /***************/
 /* Superbutton */
 /***************/
@@ -28,14 +29,14 @@
 	outline: none;
 	padding: 6px 8px 4px 25px;
 	color: #000;
-	background: #FFF 5px center no-repeat;
+	background: #FFF url('/ims/icons/ipod.png') 5px 6px no-repeat;
 }
 
 .superbutton menu {
 	position: absolute;
 	top: 2.3em;
 	left: 5px;
-	z-index: 1;
+	z-index: 7;
 	display: none;
 	border: solid #CCC;
 	border-width: 1px 1px 1px 1px;
@@ -46,7 +47,7 @@
 	padding: 5px 7px 5px 30px;
 	border: 0px;
 	cursor: pointer;
-	background: #FFF url('/ims/icons/ipod.png') 5px center no-repeat;
+	background: #FFF url('/ims/icons/ipod.png') 5px 6px no-repeat;
 }
 
 /* Format Icons */
@@ -61,6 +62,7 @@
 /* Delivery Icons */
 .superbutton .web { background-image: url('/imgs/icons/web.png'); }
 .superbutton .magnet { background-image: url('/imgs/icons/magnet.png'); }
+.superbutton .torrent { background-image: url('/imgs/icons/torrent.png'); }
 
 /* Client Icons */
 .superbutton .rss { background-image: url('/imgs/icons/rss.png'); }
@@ -72,17 +74,17 @@
 	color: #717171;
 }
 
-.superbutton li.selected {
-	background-color: #C1C1C1;
+.superbutton li[selected=selected] {
+	border: dotted 1px #919191;
 	color: #010101;
 }
 
-.superbutton li.selected span {
+.superbutton li[selected=selected] span {
 	color: #313131;
 }
 
 .superbutton li:hover,
-.superbutton li.selected:hover {
+.superbutton li[selected=selected]:hover {
 	background-color: #E1E1E1;
 }
 
@@ -127,12 +129,24 @@ ul.similar li {
 
 .episode { margin: 7px 0; }
 .episode h4 { display: inline; white-space: nowrap; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis;  }
-.episode.expanded article,
-.episode.expanded p { display: block; }
-.episode.collapsed article,
-.episode.collapsed p { display: none; }
+.episode article,
+.episode p { display: none; }
+.episode.open article,
+.episode.open p { display: block; }
 
-
+#reviews h5 { display: inline; }
+#reviews nav a.positive, #reviews li label.positive, 
+#reviews nav a.negative, #reviews li label.negative { padding-left: 20px; }
+#reviews .positive { background: url('/imgs/icons/thumbs_up.png') no-repeat top left; }
+#reviews .negative { background: url('/imgs/icons/thumbs_down.png') no-repeat top left; }
+#reviews ul.positive li.negative { display: none; }
+#reviews ul.negative li.positive { display: none; }
+#reviews li .details { text-indent: 20px !important; white-space: nowrap; text-overflow: ellipsis; -webkit-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -o-text-overflow: ellipsis; }
+#reviews li form { display: none; }
+#reviews li.editing { padding-left: 0px; background-image: none; }
+#reviews li.editing div { display: none; }
+#reviews li.editing form { display: block; }
+#reviews li { margin-top: 14px; }
 /***************/
 /* Episode     */
 /***************/

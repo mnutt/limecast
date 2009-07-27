@@ -227,7 +227,11 @@ class Podcast < ActiveRecord::Base
   def miro_url
     "http://subscribe.getmiro.com/?url1=#{url}"
   end
-
+  
+  def been_reviewed_by?(user)
+    reviews.map(&:reviewer).include?(user)
+  end
+  
   # XXX: Write spec for this
   def blacklist!
     Blacklist.create(:domain => url)

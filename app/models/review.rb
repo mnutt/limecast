@@ -50,7 +50,7 @@ class Review < ActiveRecord::Base
     return false unless user
     return true if user.admin?
 
-    user == self.reviewer && self.editable?
+    user == self.reviewer
   end
 
   def rated_by?(user)
@@ -59,10 +59,6 @@ class Review < ActiveRecord::Base
 
   def claim_by(user)
     update_attribute(:reviewer, user)
-  end
-
-  def editable?
-    self.episode.open_for_reviews? && self.review_ratings.count == 0
   end
 
   def insightful

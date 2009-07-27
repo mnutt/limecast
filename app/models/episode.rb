@@ -120,11 +120,6 @@ class Episode < ActiveRecord::Base
     self.podcast.writable_by?(user)
   end
 
-  def been_reviewed_by?(user)
-    reviewers.reload
-    !!user && reviewers.count(:conditions => {:id => user.id}) > 0
-  end
-
   def open_for_reviews?
     self.podcast.episodes.newest.first.id == self.id
   end

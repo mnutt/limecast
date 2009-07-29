@@ -1,8 +1,8 @@
 <% unless logged_in? %>
   { success: false,
-    html: "<p><%= escape_javascript create_session_error(params) -%></p>" }
+    html: "<%= escape_javascript create_session_error(params) -%>" }
 <% else -%>
   { success: true, 
     html: "Successful signin, <%= escape_javascript link_to_profile(current_user) -%>.",
-    profileLink: "<%= escape_javascript render(:partial => "layouts/sign_in_area") %>" }
+    profileLink: "<%= escape_javascript render(:partial => 'sessions/auth') %>" }
 <% end -%>

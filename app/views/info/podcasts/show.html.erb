@@ -20,7 +20,7 @@
 </p>
 
 <ul class="episodes">
-  <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes -%>
+  <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes.sorted -%>
 </ul>
 
 <!-- Info: -->
@@ -162,7 +162,7 @@
 
   <tr>
     <td class="key" title="Link anchor for the page, shortened and formatted, linked to the podcaster's website">site</td>
-    <td><%= link_to_podcast_home(@podcast) -%></td>
+    <td><%= link_to_podcast(@podcast) -%></td>
   </tr>
 
   <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>

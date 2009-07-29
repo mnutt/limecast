@@ -84,7 +84,7 @@ Factory.sequence :url do |n|
 end
 
 Factory.define :user do |u|
-  u.login    { Factory.next :login }
+  u.login    nil
   u.email    { Factory.next :email }
   u.password 'password'
   u.salt     'NaCl'

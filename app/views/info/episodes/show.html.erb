@@ -12,17 +12,6 @@
 <!-- Media -->
 <%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted_by_bitrate} %>
 
-<!-- <% if @source = @episode.newest_source -%>
-  <% if newer_episode = @podcast.episodes.oldest.after(@episode).first
-       @newer = newer_episode.sources.first
-     end
-     if older_episode = @podcast.episodes.newest.before(@episode).first
-       @older = older_episode.sources.first
-     end 
-  -%>
-  <%#= render :file => 'info/sources/show.html.erb', :layout => false -%>
-<% end -%> -->
-
 <!-- Text -->
 <table>
   <tr>

@@ -7,7 +7,6 @@ $.fn.extend({
         $.ajax({
           type: 'post',
           url:  $(this).attr('href'),
-          data: '_method=delete&authenticity_token=' + encodeURIComponent(AUTH_TOKEN),
           dataType: (opts.dataType || 'html'),
           success: opts.success,
           failure: opts.failure

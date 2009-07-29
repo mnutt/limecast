@@ -23,7 +23,11 @@ class EpisodesController < ApplicationController
     @episode = @podcast.episodes.find_by_slug(params[:episode])
     raise ActiveRecord::RecordNotFound if @episode.nil? || params[:episode].nil?
 
-    @review = Review.new(:episode => @episode)
+    @newer   = @episode.next_episode
+    @older   = @episode.previous_episode
+    @source  = @episode.sources.with_screenshot.with_preview.first
+
+    render
   end
 
   def destroy

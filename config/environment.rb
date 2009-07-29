@@ -80,7 +80,8 @@ end
 
 # Load /lib files
 %w{file_size duration convenience array_ext object_ext date_ext permalink_fu_ext
-   string_ext integer_ext numeric_ext pretty_printer podcast_processor source_processor}.each do |lib|
+   string_ext integer_ext numeric_ext pretty_printer podcast_processor source_processor
+   tag_helper_ext asset_tag_helper_ext}.each do |lib|
   require lib
 end
 

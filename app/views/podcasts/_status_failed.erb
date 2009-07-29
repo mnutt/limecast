@@ -1,4 +1,4 @@
-<p class="status_message finished">
+<span class="status_message finished">
   <% if @queued_feed.duplicate? -%>
     I've already got <%= link_to_podcast(@podcast) -%>!
   <% elsif @queued_feed.invalid_xml? -%>
@@ -16,4 +16,4 @@
   <% end -%>
 
   <span class="arrow_down">Please try again</span>
-</p>
+</span>

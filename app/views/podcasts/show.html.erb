@@ -1,34 +1,72 @@
-<% @classes = %{podcast show} -%>
 <% @title = h(@podcast.title) -%>
 <% @show_ads = true -%>
-<% stylesheet_link "podcast_show" -%>
-<% javascript_include "limecast_form", "podcast", "reviews" -%>
+<% javascript_include "subscribe_button" -%>
+<% @classes = %{podcast show} -%>
 
+<h1><%= h(@podcast.title) %></h1>
 
-<div class="summary clearfix">
-  <%= render :partial => 'podcasts/summary' -%>
-</div>
+<address>
+  <%= link_to(h(@podcast.clean_site), @podcast.site) unless @podcast.clean_site.blank? %>
+  <%= " &ndash; #{link_to_rss(@podcast)}" unless @podcast.url.blank? -%>
+  <%= " &ndash; #{link_to_itunes(@podcast)}" unless @podcast.itunes_link.blank? -%>
+  <br />
+  <%= "Made by #{link_to @podcast.owner.login, @podcast.owner, :type => :author}" if @podcast.owner %>
+  <%= "Found by #{link_to @podcast.finder.login, @podcast.finder}" if @podcast.finder %>
+</address>
 
-<div id="podcast_content" class="clearfix">
-  <h2>Latest Episodes <span>(<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</span></h2>
+<%= render :partial => "superbutton", :locals => {:episode => @episode} -%>
 
-  <div id="episode_list">
-    <%= render :partial => 'episodes/episodes', :object => @episodes, :locals => {:podcast => @podcast} %>
-  </div>
-  
-  <div id="podcast_reviews">
-    <%= render :partial => 'reviews/reviews', :object => @podcast.reviews, :locals => {:podcast => @podcast} %>
-  </div>
+<address>
+  New episode <%= link_to @episode.date_title, episode_url(@podcast, @episode) %>
+  <time datetime="<%= @episode.published_at.to_datetime.to_s %>"><%= time_to_words(Time.now - @episode.published_at, false) %></time> ago<br />
+  <%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%> episodes
+  since <%= link_to @podcast.oldest_episode.date_title, link_to_episode(@podcast.oldest_episode) -%>
+  every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><br/>
+  Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
+</address>
 
-</div> <!-- /podcast_content -->
+<section>
+  <%= link_to "Favorite this!", favorite_podcast_url(@podcast) %>
+  (or add to
+  <%= link_to "Digg", "http://digg.com/submit?phase=2&url=#{podcast_url(@podcast)}" %>, 
+  <%= link_to "Reddit", "http://reddit.com/submit?url=#{podcast_url(@podcast)}&title=LimeCast%3A%20#{h(@podcast.title)}" %>, 
+  <%= link_to "Facebook", "http://www.facebook.com/share.php?src=bm&v=4&i=1248710348&u=#{podcast_url(@podcast)}&t=#{h(@podcast.title)}" %>, 
+  <%= link_to "Delicious", "http://del.icio.us/post?url=#{podcast_url(@podcast)}&title=LimeCast%3A%20#{h(@podcast.title)}" %>)
+</section>
 
-<div id="series_page_goog">
-  <%= google_ads -%>
-</div>
+<section>
+  <h3>Description</h3>
 
-<% rounded_corner_tag(:class => "related") do -%>
-<h3>Related podcasts</h3>
-<ul id="all_podcasts">
-  <%= render :partial => "recommendations/recommendation", :collection => @related -%>
-</ul>
+  <article>
+    <%= unescape_entities h(@podcast.description) %>
+  </article>
+</section>
+
+<section>
+  Tags <ul class="tags"><%= comma_separated_list_items @podcast.tags.map {|t| link_to_tag(t)} -%></ul>
+</section>
+
+<% unless @related.empty? -%>
+<section>
+  Similar to <ul class="similar"><%= comma_separated_list_items @related.map {|p| link_to(p) } -%></ul>
+</section>
 <% end -%>
+
+<section id="episodes">
+  <h3>Episodes (<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</h3>
+  <ul>
+    <%= render :partial => "episodes/episode", :collection => @episodes -%>
+  </ul>
+  <%= link_to "All #{@podcast.episodes.count} episodes", podcast_episodes_url(@podcast) %>
+</section>
+
+<%= render :partial => "reviews/reviews", :object => @podcast.reviews.claimed %>
+
+
+
+<%# rounded_corner_tag(:class => "related") do -%>
+<!-- <h3>Related podcasts</h3>
+<ul id="all_podcasts">
+  <%#= render :partial => "recommendations/recommendation", :collection => @related -%>
+</ul> -->
+<%# end -%>

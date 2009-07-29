@@ -127,7 +127,7 @@ class SourceProcessor
     audio_bitrate     = 64.kilobytes # 96.kilobytes
     video_frame_rate  = 20
     audio_sample_rate = 44100
-    size              = info.resized_size_of_video
+    size              = info.resized_size_of_video(16)
     start             = info.screenshot_time(start_offset || 0)
 
     options = {
@@ -198,7 +198,7 @@ class SourceProcessor
       size = info.resized_size_of_video
     
       t = info.screenshot_time(info.duration)
-      screenshot_cmd = "ffmpeg -y -i #{self.tmp_file} -vframes 1 -s #{size} -ss #{t} -an -vcodec png -f rawvideo #{self.screenshot_tmp_file}"
+      screenshot_cmd = "ffmpeg -y -i #{self.tmp_file} -vframes 1 -s #{size} -ss #{t} -an -vcodec jpg -f rawvideo #{self.screenshot_tmp_file}"
       logger.info screenshot_cmd
       `#{screenshot_cmd}`
     
@@ -216,7 +216,7 @@ class SourceProcessor
   def generate_torrent
     raise "Source file does not exist" unless File.exist?(self.tmp_file)
 
-    torrent_cmd = "mktorrent -a http://tracker.limecast.com/announce -o #{self.torrent_tmp_file} -w #{source.url} #{self.tmp_file} 2>&1"
+    torrent_cmd = "mktorrent -a http://tracker.openbittorrent.com:80/announce,udp://tracker.openbittorrent.com:80/announce -o #{self.torrent_tmp_file} -w #{source.url} #{self.tmp_file} 2>&1"
     logger.info torrent_cmd
     torrent_info = `#{torrent_cmd}`
     
@@ -272,7 +272,7 @@ class SourceProcessor
   end
 
   def screenshot_tmp_file
-    "#{tmp_file}_screenshot.png" if tmp_file
+    "#{tmp_file}_screenshot.jpg" if tmp_file
   end
   
   def encoded_tmp_file(ext=nil)

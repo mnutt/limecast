@@ -61,12 +61,12 @@ module ApplicationHelper
     link_text = h(user.login)
     link_text += "" unless user.podcaster?
 
-    link_to "<span class=\"searched \">#{link_text}</span>", user_url(user),
+    link_to "<span>#{link_text}</span>", user_url(user),
     :title => "#{user.rank.capitalize} User"
   end
 
   def link_to_searched_podcast(podcast)
-    link_to "<span class=\"searched\">#{h(podcast.title)}</span>", podcast_url(podcast)
+    link_to "<mark>#{h(podcast.title)}</mark>", podcast_url(podcast)
   end
 
   def link_to_episode_date(episode)
@@ -154,7 +154,7 @@ module ApplicationHelper
     text      = strip_tags(format_with_paragraph_entity(text))
     escaped   = unescape_entities(text)
     excerpted = excerpt(escaped, query.split.first, :radius => 120)
-    highlight(excerpted, query.split, :highlighter => '<span class="search_term">\1</span>')
+    highlight(excerpted, query.split, :highlighter => '<mark>\1</mark>')
   end
 
   def smart_truncate(string, length)
@@ -282,5 +282,14 @@ module ApplicationHelper
   # that returns a 25x25 image graph
   def sparkline(data_points=[])
     image_tag sparkline_link(data_points)
+  end
+
+  def custom_button(text="", options={})
+    content_tag :button, content_tag(:span, text), options.merge(:type => "submit")
+    # "<button type=\"submit\"><span>#{text}</span></button>"
+  end
+
+  def callout(text)
+    "<div class=\"callout\"><ul><li>#{text}</li></ul></div>"
   end
 end

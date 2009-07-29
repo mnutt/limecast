@@ -1,11 +1,11 @@
 $.ajaxSetup({
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+  'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript")}
 })
 
 // Method hooks up all of the input text boxes that should have default labels
 function defaultText() {
-  $("#podcast_url, #accounts_forgot_password #email, #search_podcast_q, " + 
-    "#q, #user_tagging_tag_string").inputDefaultText();
+  $("#podcast_url, #accounts_forgot_password #email, #search_podcast_s, " + 
+    "#s, #user_tagging_tag_string, #review_body, #review_title").inputDefaultText();
 }
 
 // Handles truncated "more" and "less" links
@@ -37,7 +37,7 @@ function setupCluetips() {
   $('a.tips').cluetip(default_options);
   
   if(!LOGGED_IN) {
-    $.extend(default_options, {activation: 'click', sticky: true, onShow: function(){$.quickSignIn.setup()}});
+    // $.extend(default_options, {activation: 'click', sticky: true, onShow: function(){$.quickSignIn.setup()}});
 
     $.extend(default_options, {positionBy: 'auto', leftOffset: -10});
     $('#podcast_tag_form_cluetip_link').cluetip(default_options);
@@ -55,14 +55,46 @@ function setupCluetips() {
   }
 }
 
+function setupAuth() {
+  $("#auth form").authSetup();
+  $("#auth_link").authLink();
+  $("#sign_out_link").signoutSetup();
+}
+
 function setupTabs() {
   $('.tabify').tabs({ navClass: 'tabs', containerClass: 'tabs-cont' });
+}
+
+function toggleLinks() {
+  $('a.toggle').mousedown(function(){
+    $(this).html($(this).html()=='▼'?'►':'▼').parents('li').toggleClass('open');
+    return false;
+  }).click(function(){return false;});
+}
+
+function reviewLinks() {
+  $('#reviews nav a').mousedown(function(){ $('#reviews ul').removeClass().addClass($(this).attr('class')); }).click(function(){return false;});
+  $('#reviews li a.edit').mousedown(function(){ $(this).parents('li.review').addClass('editing'); }).click(function(){return false;});
+  $('#reviews li a.cancel').mousedown(function(){ $(this).parents('li.review').removeClass('editing'); }).click(function(){return false;});
+  $('#reviews form, #review form').submit(function(){ 
+    var form = $(this);
+    $.post(form.attr('action'), form.serialize(), function(resp){ 
+      if(resp.success) {
+        if(resp.login_required) { review_form.find('.cluetip_review_link').click(); } 
+        else { $('#reviews').replaceWith(resp.html); reviewLinks(); $("#review_body, #review_title").inputDefaultText(); }
+      } else form.find('.errors').html(resp.errors).show();
+    }, 'json');
+    return false;
+  });
 }
 
 $(function() {
   defaultText();
   truncatedText();
   favoriteLink();
-  setupCluetips();
-  setupTabs();
+  toggleLinks();
+  reviewLinks();
+  setupAuth();
+//  setupCluetips();
+//  setupTabs();
 });

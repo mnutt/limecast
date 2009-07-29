@@ -1,18 +1,12 @@
 <%- show_favorite = false if show_favorite.nil? -%>
 
-<div class="podcast_block">
-  <div class="preview">
-    <%= link_to display_cover_art(podcast), podcast_url(podcast) -%>
-  </div>
+<li>
+  <%= link_to display_cover_art(podcast, :size => :thumb), podcast_url(podcast) -%>
+  <h3><%= link_to link_to_podcast(podcast) -%></h3>
+  <!-- <p><%#= truncated_text sanitize_condensed_summary(podcast.description), 100 -%></p> -->
 
-  <div class="description">
-    <h3><%= link_to link_to_podcast(podcast) -%></h3>
-    <p><%= truncated_text sanitize_condensed_summary(podcast.description), 100 -%></p>
+  <%#= render :partial => "tags/tags", :object => podcast.tags -%>
+  <%#= render :partial => "podcasts/social", :locals => {:podcast => podcast} -%>
 
-    <%= render :partial => "tags/tags", :object => podcast.tags -%>
-    <%= render :partial => "podcasts/social", :locals => {:podcast => podcast} -%>
-
-    <%= render :partial => "podcasts/favorite", :locals => {:podcast => podcast} if show_favorite -%>
-
-  </div>
-</div>
+  <%#= render :partial => "podcasts/favorite", :locals => {:podcast => podcast} if show_favorite -%>
+</li>

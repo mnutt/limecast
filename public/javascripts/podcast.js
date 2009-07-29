@@ -24,28 +24,8 @@ function podcastTagEdit() {
   $('.tags .delete').restfulDelete({ confirmed:function(link){ link.parent().fadeOut(); } });
 }
 
-function podcastEpisodesLinks() {
-  $('a.toggle').mousedown(function(){
-    var parent = $(this).parents('li.episode');
-    if(parent.hasClass('expanded')) {
-      parent.removeClass('expanded').addClass('collapsed');
-    } else {
-      var parent = $(this).parents('.collapsed');
-      var preview = parent.find('.preview');
-      var container = preview.find('.container');
-      parent.removeClass('collapsed').addClass('expanded');
-      if(container.length == 1 && container.find('img').length == 0 && container.attr('poster')) {
-        hook_up_preview(preview.find('.container'));
-        preview.removeClass('delayed');
-      }
-    }
-    return false;
-  }).click(function(){return false;});
-}
-
 $(document).ready(function() {
   podcastTagEdit();
-  podcastEpisodesLinks();
   
   $("#subscribe_options li a").click(function(){ return false; });
   $("#s_options_toggle").click(function(e){

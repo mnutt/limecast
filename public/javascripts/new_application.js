@@ -1,0 +1,1 @@
+ga().config({id: '<%= @tracker -%>'}).track();

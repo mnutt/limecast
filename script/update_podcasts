@@ -7,7 +7,7 @@ if(ARGV[0])
   begin
     podcast = Podcast.find(ARGV[0])
     @logger.info "Getting episodes for #{podcast.title}"
-    qf = podcast.queued_feed || podcast.create_queued_feed(:url => podcast.url)
+    qf = podcast.queued_feed || QueudFeed.create(:podcast_id => podcast.id, :url => podcast.url)
     PodcastProcessor.process(qf, @logger)
   rescue Exception => e
     @logger.fatal "There was a problem: #{e.message}"

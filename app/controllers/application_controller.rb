@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   protected
     def authenticate
-      self.current_user = @user = User.authenticate(params[:user][:login], params[:user][:password])
+      self.current_user = @user = User.authenticate(params[:user][:email], params[:user][:password])
 
       if logged_in?
         claim_records
@@ -124,6 +124,7 @@ class ApplicationController < ActionController::Base
 
     def logout
       self.current_user.forget_me if logged_in?
+      self.current_user = nil
       cookies.delete :auth_token
       reset_session
     end
@@ -152,12 +153,22 @@ class ApplicationController < ActionController::Base
     # If +func+ is passed in, this only returns true if the func is true for at least one of the records
     # of this class in the session[:unclaimed_records]
     def has_unclaimed_record?(klass, func=nil)
-      if session[:unclaimed_records] && session[:unclaimed_records][klass.to_s] && records = klass.find(session[:unclaimed_records][klass.to_s])
+      if session[:unclaimed_records] && session[:unclaimed_records][klass.to_s] && records = klass.find(session[:unclaimed_records][klass.to_s].compact!)
         return false if records.empty?
         return false if func && !records.any?(&func)
         return true
       else
         return false
       end
+    end
+
+    # Omit AJAX from CSFR protection; we can remove this overwritten method
+    # when we upgrade to Rails 3.
+    def verified_request?
+      !protect_against_forgery?   ||
+      request.method == :get      ||
+      request.xhr?                ||
+      !verifiable_request_format? ||
+      form_authenticity_token == params[request_forgery_protection_token]
     end
 end

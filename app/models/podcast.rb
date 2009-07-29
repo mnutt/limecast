@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090706195830
+# Schema version: 20090728145034
 #
 # Table name: podcasts
 #
@@ -45,8 +45,9 @@ require 'timeout'
 class Podcast < ActiveRecord::Base
   has_many :recommendations, :order => 'weight DESC'
   has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast
-  has_many :episodes, :order => "published_at DESC, daily_order DESC", :dependent => :destroy
-  has_many :reviews, :through => :episodes, :conditions => "reviews.user_id IS NOT NULL"
+  has_many :episodes, :dependent => :destroy
+  has_many :reviews, :conditions => "reviews.user_id IS NOT NULL"
+  has_many :reviewers, :through => :reviews, :source => :reviewer
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites
   has_many :taggings, :dependent => :destroy, :include => :tag, :order => 'tags.name ASC'
@@ -55,6 +56,7 @@ class Podcast < ActiveRecord::Base
   has_many :sources, :dependent => :destroy
 
   has_one  :newest_episode, :class_name => 'Episode', :order => "published_at DESC"
+  has_one  :oldest_episode, :class_name => 'Episode', :order => "published_at ASC"
   has_one  :newest_source, :class_name => 'Source', :include => :episode, :order => "episodes.published_at DESC"
   has_one  :queued_feed, :dependent => :destroy
 
@@ -65,7 +67,7 @@ class Podcast < ActiveRecord::Base
                     :path => ":rails_root/public/podcast_:attachment/:id/:style/:basename.:extension",
                     :url  => "/podcast_:attachment/:id/:style/:basename.:extension",
                     :styles => { :square  => ["85x85#", :png],
-                                 :small   => ["170x170#", :png],
+                                 :small   => ["160x160#", :png],
                                  :large   => ["300x300>", :png],
                                  :icon    => ["25x25#", :png],
                                  :favicon => ["16x16#", :ico],
@@ -216,7 +218,7 @@ class Podcast < ActiveRecord::Base
   end
   
   def formatted_bitrate
-    self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
+    bitrate.to_bitrate.to_s if bitrate and bitrate > 0
   end
 
   def itunes_url
@@ -226,7 +228,11 @@ class Podcast < ActiveRecord::Base
   def miro_url
     "http://subscribe.getmiro.com/?url1=#{url}"
   end
-
+  
+  def been_reviewed_by?(user)
+    reviewers.include?(user)
+  end
+  
   # XXX: Write spec for this
   def blacklist!
     Blacklist.create(:domain => url)

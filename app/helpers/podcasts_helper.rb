@@ -1,5 +1,5 @@
 module PodcastsHelper
-  def podcasts_label_from_format(format)
+  def long_format(format)
     {
       "mov" => "Quicktime",
       nil   => "Unknown"
@@ -53,21 +53,13 @@ module PodcastsHelper
     link_to text, podcast_url(:podcast_slug => podcast.clean_url), :title => "Subscribe to the series & view the episode list"
   end
 
-  def link_to_podcast_home(podcast)
-    link_to h(podcast.clean_site), h(podcast.site)
-  end
-
   def link_to_itunes(podcast)
     url = "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=#{podcast.itunes_link}"
     link_to("iTunes", url, :class => "itunes", :title => "View #{podcast.title} in iTunes")
   end
-  
-  def link_to_found_by(podcast)
-    link_to "Found by <span>#{podcast.finder.login}</span>", user_url(podcast.finder)
-  end
 
-  def link_to_made_by(podcast)
-    link_to "Made by <span>#{podcast.owner.login}</span>", user_url(podcast.owner)
+  def link_to_rss(podcast)
+    link_to("RSS", podcast.url, :class => "rss", :title => "View #{podcast.title} RSS")
   end
 
   def cover_art(podcast, size = :small)

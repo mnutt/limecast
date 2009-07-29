@@ -1,0 +1,289 @@
+/***************************************************/
+/* STYLE GUIDE: keep markup simple, keep CSS clean */
+/***************************************************/
+
+
+/***************/
+/* Home				 */
+/***************/
+
+#welcome {
+	position: relative;
+	margin-top: -15px;
+	height: 139px;
+	background: url('../imgs/bg_mission.png') bottom left no-repeat;
+}
+
+#welcome h1 {
+	color: #DBDBDB;
+	display: block;
+	width: 443px;
+	position: relative;
+	left: 97px;
+	top: 8px;
+	padding: 0;
+	margin: 0;
+	float: none;
+	line-height: 1em;
+	font-size: 1.7em;
+	font-weight: normal;
+}
+
+#welcome h1 strong {
+	color: #CBEA97;
+	font-weight: normal;
+}
+
+#welcome p {
+	margin-top: 10px;
+	margin-left: 97px;
+	width: 460px;
+}
+
+#welcome p a {
+	color: #DBDBDB;
+}
+
+#welcome p a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+#featured {
+	padding: 0 20px 0 20px;
+	background: url('../imgs/bg_hp_featured.png') #CCEB98 top left repeat-x;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#featured h2 {
+	font-size: 1.6em;
+	margin: 14px 0;
+	color: #171717;
+}
+
+#featured section h3 {
+	margin: 0;
+	font-size: 1.1em;
+}
+
+#featured section {
+	width: 50%;
+	padding: 0;
+	float: left;
+	font-size: 1.1em;
+}
+
+#featured section h3, 
+#featured section p {
+	margin: 0 14px 0 0;
+}
+
+#featured section img {
+	float: left;
+	margin: 0 14px 14px 14px;
+}
+
+#make, #player {
+	margin: 10px 0 20px 0;
+	padding-bottom: 10px;
+	width: 48%;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow: 1px 2px 2px #888;
+	-moz-box-shadow: 1px 2px 2px #888;
+	-webkit-box-shadow: 1px 2px 2px #888;
+}
+
+#make { margin-right: 4%; min-height: 110px; float: left; background: url('/imgs/make.png') bottom left no-repeat; }
+#player { min-height: 110px; float: right; background: url('/imgs/player.png') bottom left no-repeat; }
+
+#make h3,
+#player h3 {
+	font-size: 1.2em;
+}
+
+#make h3,
+#make p {
+	margin: 0 10px 0 120px;
+}
+
+#player h3,
+#player p,
+#player ul {
+  margin: 0 10px 0 140px;
+  padding-right: 10px;
+}
+
+
+/***************/
+/* Superbutton */
+/***************/
+
+.superbutton {
+	position: relative;
+	z-index: 5;
+	background: url("/imgs/button_bg.gif") #FDFDFD repeat-x top left;
+	border: solid 1px #C3C3C3;
+	display: inline-block;
+	height: 2.3em;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.superbutton div {
+	position: relative;
+	float: left;
+}
+
+.superbutton div a {
+	display: block;
+	outline: none;
+	padding: 6px 8px 4px 25px;
+	color: #000;
+	background: url('/ims/icons/ipod.png') 5px 6px no-repeat;
+}
+
+.superbutton menu {
+	position: absolute;
+	top: 2.3em;
+	left: 5px;
+	z-index: 7;
+	display: none;
+	border: solid #CCC;
+	border-width: 1px 1px 1px 1px;
+}
+
+.superbutton li {
+	display: block;
+	padding: 5px 7px 5px 30px;
+	border: 0px;
+	cursor: pointer;
+	background: #FFF url('/ims/icons/ipod.png') 5px 6px no-repeat;
+}
+
+/* Format Icons */
+.superbutton .m4v { background-image: url('/imgs/icons/m4v.png'); }
+.superbutton .ogg { background-image: url('/imgs/icons/ogg.png'); }
+.superbutton .avi { background-image: url('/imgs/icons/avi.png'); }
+.superbutton .flv { background-image: url('/imgs/icons/flv.png'); }
+.superbutton .mp3 { background-image: url('/imgs/icons/mp3.png'); }
+.superbutton .mp4 { background-image: url('/imgs/icons/mp4.png'); }
+.superbutton .wmv { background-image: url('/imgs/icons/wmv.png'); }
+
+/* Delivery Icons */
+.superbutton .web { background-image: url('/imgs/icons/web.png'); }
+.superbutton .magnet { background-image: url('/imgs/icons/magnet.png'); }
+.superbutton .torrent { background-image: url('/imgs/icons/torrent.png'); }
+
+/* Client Icons */
+.superbutton .rss { background-image: url('/imgs/icons/rss.png'); }
+.superbutton .itunes { background-image: url('/imgs/icons/itunes.png'); }
+.superbutton .miro { background-image: url('/imgs/icons/miro.png'); }
+
+.superbutton li span {
+	display: block;
+	color: #717171;
+}
+
+.superbutton li[selected=selected] {
+	border: dotted 1px #616161;
+	color: #010101;
+}
+
+.superbutton li[selected=selected] span {
+	color: #313131;
+}
+
+.superbutton li:hover,
+.superbutton li[selected=selected]:hover {
+	background-color: #E1E1E1;
+}
+
+.superbutton a.button {
+	float: left;
+	display: block;
+	height: 2.3em;
+	color: rgb(51, 51, 51);
+	border: solid 1px #153400;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	outline: none;
+	text-transform: uppercase;
+	padding: 0 4px;
+	line-height: 2.3em;
+	margin: -1px 0 0 10px;
+	background: #CBE19B repeat-x top left;
+}
+
+#download a.button { background: url("/imgs/button_download_bg.gif"); }
+#subscribe a.button { background: url("/imgs/button_download_bg.gif"); }
+
+/***************/
+/* Podcast		 */
+/***************/
+
+.podcast.show h3,
+.podcast.show h4 { font-size: 1.2em; }
+.podcast.show address a.rss { padding: 1px 0 0 20px; background: url('/imgs/icons/rss.png') no-repeat top left; }
+.podcast.show address a.itunes { padding: 1px 0 0 20px; background: url('/imgs/icons/itunes.png') no-repeat bottom left; }
+
+ul.tags,
+ul.tags li,
+ul.similar,
+ul.similar li {
+	display: inline;
+}
+
+#episodes li.episode { margin: 7px 0; }
+#episodes li.episode h4 { width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
+#episodes li.episode.open h4 { white-space: normal; }
+#episodes li.episode article,
+#episodes li.episode p { display: none; }
+#episodes li.episode.open article,
+#episodes li.episode.open p { display: block; }
+
+#reviews h5 { display: inline; }
+#reviews nav a.positive, #reviews label.positive, 
+#reviews nav a.negative, #reviews label.negative { padding-left: 20px; }
+#reviews .positive { background: url('/imgs/icons/thumbs_up.png') no-repeat top left; }
+#reviews .negative { background: url('/imgs/icons/thumbs_down.png') no-repeat top left; }
+#reviews li { margin-top: 14px; }
+#reviews ul.positive li.negative { display: none; }
+#reviews ul.negative li.positive { display: none; }
+#reviews li .details { text-indent: 20px; }
+#reviews li form { display: none; }
+#reviews li.editing { padding-left: 0px; background-image: none; }
+#reviews li.editing div { display: none; }
+#reviews li.editing form { display: block; }
+#reviews li form .errors { color: red; }
+
+/********************/
+/* Popular Podcasts */
+/********************/
+.podcast.popular #podcasts li h3 { display: inline; font-size: 1.1em; font-weight: normal; }
+.podcast.popular #podcasts li { margin: 0 0 3px 0; }
+
+
+/***************/
+/* Add Podcast */
+/***************/
+.podcast.new abbr { padding-left: 18px; background: url('/imgs/icons/rss.png') no-repeat top left;	}
+.podcast.new #new_podcast, .podcast.new .added_podcast { padding: 0; margin: 0 0 4px 0; }
+.podcast.new #new_podcast input[type=text],
+.podcast.new .added_podcast input[type=text] { margin: 0; font-size: 1.2em; width: 490px; background-image: url('/imgs/input_long.png'); }
+.podcast.new .added_podcast input[type=text] { color: #919191; }
+.podcast.new .added_podcast .status { margin: 14px 0 0 0; }
+.podcast.new .arrow_down { background: url("/imgs/icons/arrow_down.png") no-repeat right center; padding: 0 18px 0 0; }
+
+
+/***************/
+/* Episode		 */
+/***************/
+
+.episode.show h1 { font-size: 1em; font-weight: normal; }
+.episode.index h3,
+.episode.index h4 { font-size: 1.2em; }
+

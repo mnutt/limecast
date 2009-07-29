@@ -1,0 +1,28 @@
+/***************************************************/
+/* STYLE GUIDE: keep markup simple, keep CSS clean */
+/***************************************************/
+body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 62.5%; color: #171717;}
+
+a {color: #2951a5; text-decoration: none;}
+a:hover {text-decoration: underline;}
+
+#wrapper { font-size: 1.3em; }
+
+p, nav, address, aside { line-height: 1.5em; font-weight: normal;}
+
+.light {color: #a9a9a9;}
+
+h1, h2, h3, h4, h5, h6 {font-family: Helvetica, Arial, Verdana, sans-serif; color: #171717; font-weight: bold; margin: 0;}
+
+h1 {font-size: 2em;}
+h2 {font-size: 2em;}
+h3 {font-size: 1.8em;}
+h4 {font-size: 1.5em;}
+
+.inline { display: inline; }
+
+.search_term { background: lemonchiffon; }
+
+#header ul li { font-size: 1.3em; }
+#header ul li#nav_search input.text { font-size: 0.9em; }
+

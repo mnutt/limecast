@@ -1,8 +1,8 @@
-<% if @user.new_record? -%>
+<% if @user.new_record? || current_user.nil? -%>
   { success: false,
-    html: "<p><%= escape_javascript create_user_error(@user) -%></p>" }
+    html: "<%= escape_javascript create_user_error(@user) -%>" }
 <% else -%>
   { success: true,
     html: "Successful signup, <%= escape_javascript link_to_profile(current_user) -%>.",
-    profileLink: "<%= escape_javascript render(:partial => "layouts/sign_in_area") %>" }
+    profileLink: "<%= escape_javascript render(:partial => 'sessions/auth') %>" }
 <% end -%>

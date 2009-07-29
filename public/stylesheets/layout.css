@@ -1,0 +1,306 @@
+/***************************************************/
+/* STYLE GUIDE: keep markup simple, keep CSS clean */
+/***************************************************/
+
+/**********/
+/* General */
+/**********/
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	background: #F1F1F1 url('/imgs/bg_content.png') 0px 0px repeat-x;
+}
+
+#wrapper {
+	position: relative;
+	min-height: 100%;
+	height: auto;
+	margin: 0 220px;
+}
+
+input.search {
+	background: #F3F3F3 url("/imgs/content/input_bg.png") repeat-x left top;
+	border: 1px solid #212121;
+	padding: 4px;
+}
+
+
+input[type=text] {
+	border: none;
+	background: url('/imgs/input_heading.png') top left no-repeat;
+	width: 343px;
+	height: 28px;
+	font-size: 1.1em;
+	padding: 5px 5px 0 5px;
+	outline: 0px;
+}
+
+textarea {
+	background: url('/imgs/textarea.png') top left no-repeat;
+	resize: none; /* for Safari's resize widget */
+	width: 392px;
+	height: 120px;
+	border-color: #FFF; /* Safari won't allow no-border on textarea */
+	outline: 0px;
+	padding: 4px;
+	font-size: 1.1em;
+}
+
+button {
+	height: 30px;
+	padding: 3px 6px;
+	cursor: pointer;
+	border: solid 0px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	background: url('/imgs/button.png') #333 repeat-x right;
+	color: #E1E1E1;
+	white-space: nowrap;
+	font: bold 12px/23px Helvetica, Arial, sans-serif;
+}
+
+address { display: block; }
+address, section { margin: 0 0 14px 0; }
+
+
+.header_push { height: 50px; }
+.footer_push { height: 100px; }
+
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { display: inline-block; }  /* for IE/Mac */
+
+
+/**********/
+/* Header */
+/**********/
+header {
+	display: block;
+	height: 35px;
+	background: #313131 url('../imgs/background.png') top left repeat-x; 
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	z-index: 3;
+}
+
+header nav {
+	display: block;
+	margin: 0 10px;
+	padding: 2px 0 0 0;
+	height: 33px;
+}
+
+header nav ul li.logo {
+	float: left;
+	width: 125px;
+	height: 24px;
+	margin-top: 5px;
+}
+
+header nav a { font-size: 1.2em; }
+
+header nav .logo a {
+	background: url('../imgs/logo.png') top left no-repeat;
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin-right: 10px;
+	text-indent: -5000px;
+}
+
+header .logo a:hover {
+	background: url('../imgs/logo_over.png') top left no-repeat;
+}
+
+header nav .auth,
+header nav .search {
+	float: right;
+	margin-left: 10px;
+}
+
+header nav .auth {
+	margin-top: 8px;
+}
+
+header nav .popular,
+header nav .add {
+	float: left;
+	margin-left: 20px;
+}
+
+header nav .popular a,
+header nav .add a {
+	height: 15px;
+	margin-top: 9px;
+	display: block;
+	text-indent: -5000px;
+}
+
+header nav .popular a { width:60px; background: url('/imgs/popular.png') top left no-repeat; }
+header nav .popular a:hover { background-image: url('/imgs/popular_over.png'); }
+        
+header nav .add a { width: 120px; background: url('/imgs/add_podcast.png') top left no-repeat;}
+header nav .add a:hover { background-image: url('/imgs/add_podcast_over.png');}
+
+header nav .search form {
+	position: relative;
+	margin-right: 10px;
+}
+
+header nav .search input.search {
+	background: url('/imgs/search_input.png') no-repeat;
+	border: 0px;
+	color: rgb(169, 169, 169);
+	font-size: 1.2em;
+	height: 24px;
+	outline: none;
+	padding: 4px 5px 0 5px;
+	width: 160px;
+	margin: 4px 0 0 0;
+	-webkit-appearance: textfield;
+}
+
+header nav .search button {
+	width: 30px;
+	background: url('../imgs/search_button.png') no-repeat right;
+	position: absolute;
+	top: 4px;
+	right: -12px;
+	height: 24px;
+}
+
+
+/***********/
+/* Content */
+/***********/
+#content {
+	background: #f1f1f1 url('/imgs/bg_content.png') 0px 0px repeat-x;
+	min-height: 720px; /* be nice to right column (ads) */
+	height: 100%;
+	width: 100%;
+	display: relative;
+}
+
+/**********/
+/* Footer */
+/**********/
+footer {
+	position: relative;
+	z-index: 4;
+	width: 100%;
+	background: #313131 url('/imgs/bg_footer.png') -2px left repeat-x;
+	height: 70px;
+	margin-top: -70px;
+}
+
+footer ul {
+	margin: 0 220px;
+	height: 70px;
+}
+
+footer ul li {
+	padding: 20px 10px 0 10px;
+	font-size: 1.1em;
+	float: left;
+}
+
+footer ul li a {
+	color: #FFF;
+}
+
+/**********/
+/* Auth   */
+/**********/
+
+#auth {
+	display: none;
+	position: absolute;
+	z-index: 6;
+	top: 45px;
+	right: 15px;
+	border: solid 1px #A9A9A9;
+	width: 330px;
+	background: #FFF;
+	opacity: 0.9;
+	text-align: right;
+	padding: 15px 15px 15px 15px;
+	box-shadow: 5px 5px 5px #888;
+	-moz-box-shadow: 5px 5px 5px #888;
+	-webkit-box-shadow: 3px 3px 5px #888;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#auth .arrow {
+	position: absolute;
+	top: -11px;
+	right: 10px;
+}
+
+#auth .close {
+	float: right;
+}
+
+#auth h4 {
+	text-align: left;
+	margin: 0 0 20px 0;
+	font-size: 1.8em;
+}
+
+#auth p.message {
+	text-align: right;
+	padding-left: 0;
+	margin: 10px 0;
+}
+
+#auth form input.text {
+	background: url('/imgs/input.png') no-repeat;
+	border: none;
+	display: block;
+	font-size: 1.2em;
+	height: 24px;
+	overflow: hidden;
+	padding: 5px;
+	margin-left: 10px;
+	width: 165px;
+	float: right;
+}
+
+#auth form label {
+	font-weight: bold;
+	font-size: 1.2em;
+	text-align: right;
+	padding: 5px 0 0 0;
+	display: block;
+	height: 29px;
+}
+
+#auth_overlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+/***************/
+/* Sidebars */
+/***************/
+
+#left, #right {
+	width: 160px;
+}
+
+#left { float: left; margin: 60px 0 0 -190px; }
+#right { float: right; margin: 60px -190px 0 0; }
+
+#left img {
+	box-shadow: 3px 3px 2px #888;
+	-moz-box-shadow: 3px 3px 2px #888;
+	-webkit-box-shadow: 3px 3px 2px #888;
+}

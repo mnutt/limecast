@@ -39,8 +39,19 @@ describe User do
     end
   end
 
-  it 'should require login' do
-    lambda { u = Factory.create(:user, :login => nil) }.should raise_error(ActiveRecord::RecordInvalid)
+  it 'should not require login' do
+    lambda { u = Factory.create(:user, :login => nil) }.should_not raise_error
+  end
+
+  it 'should set the login to 1st part of email if blank' do
+    Factory.create(:user, :email => "ton-ton@hoth.com", :login => nil).login.should == "ton-ton"
+  end
+
+  it 'should increment the login when autosetting if login exists' do
+    Factory.create(:user, :email => "ton-ton@hoth.com", :login => nil).login.should == "ton-ton"
+    Factory.create(:user, :email => "ton-ton@hooth.com", :login => nil).login.should == "ton-ton2"
+    Factory.create(:user, :email => "ton-ton@hoooth.com", :login => nil).login.should == "ton-ton3"
+    Factory.create(:user, :email => "ton-ton@hooooth.com", :login => nil).login.should == "ton-ton4"
   end
 
   it 'requires password' do

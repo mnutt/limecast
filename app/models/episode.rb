@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090706195830
+# Schema version: 20090728145034
 #
 # Table name: episodes
 #
@@ -19,6 +19,7 @@
 #  archived               :boolean(1)    
 #  subtitle               :text(21474836 
 #  daily_order            :integer(4)    default(1)
+#  published_on           :date          
 #
 
 class Episode < ActiveRecord::Base
@@ -41,11 +42,17 @@ class Episode < ActiveRecord::Base
   named_scope :archived, {:conditions => {:archived => true}}
   named_scope :with_same_title_as, lambda {|who| {:conditions => {:podcast_id => who.podcast.id, :clean_url => who.clean_url}} }
   named_scope :without, lambda {|who| (who.nil?||who.id.nil?) ? {} : {:conditions => ["episodes.id NOT IN (?)", who.id]} }
-  named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at DESC"} }
-  named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_at ASC"} }
-  named_scope :after,  lambda {|other| {:conditions => ["published_at > ?", other.published_at]} }
-  named_scope :before, lambda {|other| {:conditions => ["published_at < ?", other.published_at]} }
-  named_scope :sorted, {:order => "published_at DESC"}
+  named_scope :next, lambda { |e| {
+    :conditions => ["(published_on > ? OR (published_on = ? AND daily_order = ?))", e.published_on, e.published_on, e.daily_order + 1],
+    :order => "published_at ASC, daily_order ASC"
+  } }
+  named_scope :previous, lambda { |e| { 
+    :conditions => ["(published_on < ? OR (published_on = ? AND daily_order = ?))", e.published_on, e.published_on, e.daily_order - 1], 
+    :order => "published_at DESC, daily_order DESC"
+  } }
+  named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_on DESC, daily_order DESC"} }
+  named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_on ASC, daily_order ASC"} }
+  named_scope :sorted, {:order => "published_on DESC, daily_order DESC"}
   named_scope :sorted_by_bitrate_and_format, :include => [:podcast], :order => "podcasts.bitrate ASC, sources.format ASC"
 
   define_index do
@@ -68,11 +75,11 @@ class Episode < ActiveRecord::Base
   end
 
   def next_episode
-    Episode.oldest.after(self).find_by_podcast_id(podcast_id) rescue nil
+    podcast.episodes.next(self).find(:first) rescue nil
   end
 
   def previous_episode
-    Episode.newest.before(self).find_by_podcast_id(podcast_id) rescue nil
+    podcast.episodes.previous(self).find(:first) rescue nil
   end
   
   def clean_url
@@ -112,11 +119,6 @@ class Episode < ActiveRecord::Base
 
   def writable_by?(user)
     self.podcast.writable_by?(user)
-  end
-
-  def been_reviewed_by?(user)
-    reviewers.reload
-    !!user && reviewers.count(:conditions => {:id => user.id}) > 0
   end
 
   def open_for_reviews?

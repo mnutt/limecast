@@ -1,17 +1,16 @@
 <% @title = "#{h(@podcast.title)} Episodes" -%>
 <% @show_ads = true -%>
-<% stylesheet_link "podcast_show" -%>
 <% javascript_include "podcast" -%>
+<% @classes = %{episode index} -%>
 
 <h1><%= link_to h(@podcast.title), podcast_url(@podcast) %></h1>
 
-<div id="podcast_content">
-  
-  <h2>Episodes<span>(<%= @podcast.episodes.count -%>)</span></h2>
+<section id="episodes">
+  <h3>Episodes <span>(<%= @podcast.episodes.count -%>)</span></h3>
 
-  <div id="episode_list">
-    <%= render :partial => 'episodes/episodes', :object => @episodes, :locals => {:podcast => @podcast} %>
-  </div>
+  <br />
 
-</div> <!-- /podcast_content -->
-
+  <ul>
+    <%= render :partial => "episodes/episode", :collection => @episodes -%>
+  </ul>
+</section>

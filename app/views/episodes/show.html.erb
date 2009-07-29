@@ -1,7 +1,31 @@
 <% @title = "#{unescape_entities(h(@episode.title))}" -%>
 <% @show_ads = true -%>
-<% javascript_include "review_edit", "episode_delete", "download_button" -%>
-
+<% javascript_include "download_button" -%>
 <% @classes = %{episode show} -%>
 
-<%= render :partial => "summary" -%>
+<h1><%= link_to h(@podcast.title), podcast_url(@podcast) %></h1>
+
+<h2><%=h @episode.title -%></h2>
+
+<nav>
+  <%= link_to "< Newer", episode_url(@podcast, @newer) if @newer %> 
+  <%= @podcast.episodes.sorted.index(@episode) + 1 %> of <%= @podcast.episodes.count -%> 
+  <%= link_to "Older >", episode_url(@podcast, @older) if @older %> 
+</nav>
+
+<p>
+  <time datetime="<%= @episode.published_at.to_datetime.to_s %>"><%= @episode.published_at.to_date %></time>
+  <%= "(#{@episode.duration.to_duration.to_s(false)})" if @episode.duration -%>
+</p>
+
+<article pubDate="<%= @episode.published_at.to_datetime.to_s %>">
+  <p><%= sanitize_summary @episode.summary -%></p>
+</article>
+
+<p>
+  <%= video_tag([@source.preview.url, @source.ogg_preview.url], 
+      :poster => @source.screenshot.url, 
+      :controls => true, :width => 540) if @source %>
+</p>
+
+<%= render :partial => "superbutton" -%>

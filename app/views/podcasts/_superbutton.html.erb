@@ -1,0 +1,36 @@
+<% # formats is unused for now, just picking highest quality source -%>
+<% @source = @podcast.sources.sorted_by_bitrate.first -%>
+
+<section id="subscribe" class="superbutton">
+  <div>
+    <a href="#" rel="formats">Format&nbsp;▾</a>
+    <menu class="formats" type="list">
+      <li class="<%= @source.extension %>" selected="selected" name="<%= @source.formatted_bitrate -%> <%= h @source.extension -%>" rel="<%= [@source.url, @source.torrent.url, @source.magnet_url].join('|') %>">
+        <span><%= [@source.formatted_bitrate,
+             @source.size.to_file_size.to_s(true, false),
+             @source.resolution,
+             @source.formatted_framerate].reject(&:blank?).join(',&nbsp;') %></span>
+      </li>
+    </menu>
+  </div>
+
+  <div>
+    <a href="#" rel="deliveries">Delivery&nbsp;▾</a>
+    <menu class="deliveries" type="list">
+      <li rel="<%= @podcast.url %>" name="Web" class="web" selected="selected">Web</li>
+      <li rel="<%= magnet_feed_url @podcast.to_filename_param('magnet') %>" name="Magnet" class="magnet">Magnet</li>
+      <li rel="<%= torrent_feed_url @podcast.to_filename_param('torrent') %>" name="Torrent" class="torrent">Torrent</li>
+    </menu>
+  </div>
+
+  <div>
+    <a href="#" rel="destinations">Destination&nbsp;▾</a>
+    <menu class="destinations" type="list">
+      <li rel="rss" name="RSS" class="rss" selected="selected">RSS</li>
+      <li rel="itunes" name="iTunes" class="itunes">iTunes</li>
+      <li rel="miro" name="Miro" class="miro">Miro</li>
+    </menu>
+  </div>
+
+  <%= link_to "Subscribe", @podcast.url, :target => "_blank", :class => "button" %>
+</section>

@@ -1,8 +1,6 @@
-
-
 <li id="<%=h dom_id(review) -%>" class="review <%= review.positive? ? "positive" : "negative" %> clearfix">
 
-    <h3>Left for <%= link_to review.episode.podcast.title, podcast_url(:podcast_slug => review.episode.podcast) -%></h3>
+<h3>Left for <%= link_to review.episode.podcast.title, podcast_url(:podcast_slug => review.episode.podcast) -%></h3>
 
 
   <div class="info">

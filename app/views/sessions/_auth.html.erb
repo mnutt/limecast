@@ -1,0 +1,6 @@
+<% if current_user -%>
+  <strong><%= link_to_profile current_user -%></strong> |
+  <%= link_to "Sign out", session_url, :id => "sign_out_link" %>
+<% else -%>
+  <%= link_to "Sign up, or sign in", new_session_url, :id => 'auth_link' %>
+<% end -%>

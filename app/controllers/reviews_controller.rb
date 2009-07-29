@@ -6,11 +6,11 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    review_params = params[:review].slice(:title, :body, :positive, :episode_id)
     @podcast      = Podcast.find_by_slug(params[:podcast_slug])
+    raise ActiveRecord::RecordNotFound if @podcast.nil?
 
-    unless has_unclaimed_record?(Review, lambda {|r| r.episode.podcast == @podcast })
-      @review = Review.create(review_params)
+    unless has_unclaimed_record?(Review, lambda {|r| r.podcast == @podcast })
+      @review = @podcast.reviews.create(params[:review].slice(:title, :body, :positive))
       remember_unclaimed_record(@review) if @review
     end
 

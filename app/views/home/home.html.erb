@@ -1,7 +1,54 @@
+<% @no_ads = true -%>
 <% @classes = %{home} -%>
-<% @full_width = true -%>
 
-<div class="summary">
+<section id="welcome">
+  <h1>WELCOME TO LIMECAST, <br /><strong>THE WEB’S OPEN PODCAST DIRECTORY AND ARCHIVE</strong></h1>
+  <p>
+    Peer-to-peer technology is reducing the distribution cost of open media to darn near zero. 
+    We're building software tools to let everyone 
+    <a href="http://wiki.limewire.org/index.php?title=LimeCast">Get Involved</a>.
+  </p>
+</section>
+
+<section id="featured" class="clearfix">
+  <h2>Featured Podcasts</h2>
+
+  <section class="clearfix">
+    <%= link_to display_cover_art(@podcast1), podcast_url(@podcast1) -%>
+    <h3><%= link_to @podcast1.title.gsub(/ /, '&nbsp;'), podcast_url(@podcast1), :title => "Subscribe to the series & view the episode list" %></h3>
+    <p><%= truncate sanitize_condensed_summary(@podcast1.description), 100 -%></p>
+  </section>
+
+  <section class="clearfix">
+    <%= link_to display_cover_art(@podcast2), podcast_url(@podcast2) -%>
+    <h3><%= link_to @podcast2.title.gsub(/ /, '&nbsp;'), podcast_url(@podcast2), :title => "Subscribe to the series & view the episode list" %></h3>
+    <p><%= truncate sanitize_condensed_summary(@podcast2.description), 100 -%></p>
+  </section>
+</section>
+
+<section id="make">
+  <h3>Start your own show</h3>
+  <p>
+    <a href="http://makeinternettv.org/" target="_blank">Make Internet TV</a> has all the steps. 
+    Check out <a href="/tracker" target="_blank">LimeTracker</a>, 
+    a BitTorrent tracker that makes podcast RSS feeds.
+  </p>
+</section>
+
+<section id="player">
+  <h3>Watch full screen and in HD</h3>
+  <p>
+    Download the LimeCast Player powered by <a href="http://getmiro.com/" target="_blank">Miro</a>.
+  </p>
+  <ul>
+    <li><a href="http://limecast.com/LimeCast.exe">Windows (25MB)</a></li>
+    <li><a href="http://limecast.com/LimeCast.dmg">Mac (16MB)</a></li>
+  </ul>
+</section>
+
+
+
+<!-- <div class="summary">
   <div id="mission">
     <h1><span>WELCOME TO LIMECAST, <br /><strong>THE WEB’S OPEN PODCAST DIRECTORY AND ARCHIVE</strong></span></h1>
     <p>
@@ -9,56 +56,22 @@
     </p>
   </div>
 
-  <div id="featured_cont">
-    <div id="featured">
-      <h2>Featured Podcasts</h2>
-
-      <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("COOP") || Podcast.all[0]), :locals => {:is_first => true} -%>
-      <%= render :partial => "home/description", :object => (Podcast.find_by_clean_url("Diggnation") || Podcast.all[1]) -%>
-    </div>
-  </div>
-
   <div id="pop_recent_cont" class="tabify">
     <ul>
-      <!-- <li><a href="#popular"><h4>Popular series</h4></a></li> -->
       <li><a href="#recent_epsiodes"><h4>Recent episodes</h4></a></li>
     </ul>
 
     <%#= render :partial => 'popular_series' -%>
-    <%= render :partial => 'recent_episodes' -%>
-  </div> <!-- /pop_recent_cont --> 
+    <%#= render :partial => 'recent_episodes' -%>
+  </div> 
 
   <div id="tags_review_cont" class="tabify">
     <ul>
-      <!-- <li><a href="#tags_hp"><h4>Polular tags</h4></a></li> -->
       <li><a href="#recent_reviews"><h4>Recent reviews</h4></a></li>
     </ul>
 
     <%#= render :partial => 'popular_tags' -%>
-    <%= render :partial => 'recent_reviews' -%>
-  </div> <!-- /pop_recent_cont -->
+    <%#= render :partial => 'recent_reviews' -%>
+  </div> 
 
-  <div id="hp_tower">
-    <div>
-      <h3>Start your own show</h3>
-      <p>
-        <a href="http://makeinternettv.org/" target="_blank">Make Internet TV</a> has all the steps. 
-        Check out <a href="/tracker" target="_blank">LimeTracker</a>, 
-        a BitTorrent tracker that makes podcast RSS feeds.
-      </p>
-    </div>
-  </div>
-
-  <div id="hp_open">
-    <div>
-      <h3>Watch full screen and in HD</h3>
-      <p>
-        Download the LimeCast Player powered by <a href="http://getmiro.com/" target="_blank">Miro</a>.
-      </p>
-      <ul>
-        <li><a href="http://limecast.com/LimeCast.exe">Windows (25MB)</a></li>
-        <li><a href="http://limecast.com/LimeCast.dmg">Mac (16MB)</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
+</div> -->

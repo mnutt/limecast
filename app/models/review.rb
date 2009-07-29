@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090721144122
+# Schema version: 20090728145034
 #
 # Table name: reviews
 #
@@ -10,13 +10,13 @@
 #  updated_at     :datetime      
 #  title          :string(255)   
 #  positive       :boolean(1)    
-#  episode_id     :integer(4)    
 #  insightful     :integer(4)    default(0)
 #  not_insightful :integer(4)    default(0)
+#  podcast_id     :integer(4)    
 #
 
 class Review < ActiveRecord::Base
-  belongs_to :episode
+  belongs_to :podcast
   belongs_to :reviewer, :class_name => 'User', :foreign_key => 'user_id'
 
   has_many :review_ratings, :dependent => :destroy
@@ -24,16 +24,15 @@ class Review < ActiveRecord::Base
   after_create  { |c| c.reviewer.calculate_score! if c.reviewer }
   after_destroy { |c| c.reviewer.calculate_score! if c.reviewer }
 
-  validates_presence_of :episode_id, :body
+  validates_presence_of :podcast_id, :body
 
   named_scope :older_than, lambda {|date| {:conditions => ["reviews.created_at < (?)", date]} }
   named_scope :newer_than, lambda {|who| {:conditions => ["reviews.created_at >= (?)", who.created_at]} }
   named_scope :without, lambda {|who| {:conditions => ["reviews.id NOT IN (?)", who.id]} }
-  named_scope :for_podcast, lambda {|podcast| {:conditions => {:episode_id => podcast.episodes.map(&:id)}} }
+  named_scope :for_podcast, lambda {|podcast| {:conditions => {:podcast_id => podcast.id}} }
   named_scope :that_are_positive, :conditions => {:positive => true}
   named_scope :that_are_negative, :conditions => {:positive => false}
   named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "created_at DESC"} }
-  named_scope :with_episode, :conditions => "reviews.episode_id IS NOT null"
   named_scope :unclaimed, :conditions => "user_id IS NULL"
   named_scope :claimed, :conditions => "user_id IS NOT NULL"
   named_scope :by_admin, :conditions => "users.admin = 1", :include => :reviewer
@@ -42,7 +41,7 @@ class Review < ActiveRecord::Base
   define_index do
     indexes :title, :body
 
-    has episode.podcast(:id), :as => :podcast_id
+    has podcast(:id), :as => :podcast_id
     has :created_at
   end
 

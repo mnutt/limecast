@@ -29,14 +29,8 @@
   <header>
     <nav>
       <ul>
-        <li class="search">
-          <form action="/search" method="get" id="search" class="search">
-            <label for="s" style="display: none;">Search LimeCast</label>
-            <input class="search" accesskey="s" id="s" name="s" size="15" type="search" value="Search LimeCast" tabindex="1" />
-            <button type="submit" value="Search" />
-          </form>
-        </li>
-        <li class="auth"><%= render :partial => "sessions/auth" %></li>
+        <li class="search"><%= render "search/form" %></li>
+        <li class="auth"><%= render "sessions/auth" %></li>
         <li class="logo"><%= link_to "LimeCast", root_url %></li>
         <li class="popular"><%= link_to "Popular", popular_url %></li>
         <li class="add"><%= link_to "Add Podcast", add_url %></li>
@@ -46,14 +40,14 @@
 
   <div id="wrapper">
     <aside id="left">
-      <%= image_tag(@podcast.logo(:small)) if @podcast %>
+      <%= image_tag(@podcast.logo(:small)) if @podcast && !@podcast.new_record? %>
     </aside>
 
     <aside id="right">
-      <%= @ads %>
+      <%= @ads unless @no_ads %>
     </aside>
 
-    <section id="content" class="clearfix">
+    <section id="content">
       <div class="header_push"></div>
       <%= yield %>
       <div class="footer_push"></div>
@@ -63,22 +57,17 @@
       <img src="/imgs/arrow_up.gif" class="arrow" />
       <button type="submit" class="close" alt="close this box">☓</button>
       <h4>Sign in to LimeCast</h4>
-        <% form_for :user, :url => session_path do |f| -%>
-        <p>
-          <%= label :user, :email, "Email&nbsp;/&nbsp;Login" %>
-          <%= text_field :user, :email, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255 %>
-        </p>
-        <p>
-          <%= label :user, :password, "Password" %>
-          <%= password_field :user, :password, :class => "text", :tabindex => 3, :size => 15, :maxlength => 255 %>
-        </p>
-        <p class="message">
-           <%= link_to "I forgot my password", forgot_password_url %>
-        </p>
-        <p class="buttons">
-          <button type="submit" id="sign_in">Sign in</button>
-          <button type="submit" id="sign_up">Sign up</button>
-        </p>
+      <% form_for :user, :url => session_path do |f| -%>
+        <%= text_field :user, :email, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255 %>
+        <%= label :user, :email, "Email&nbsp;/&nbsp;Login" %>
+
+        <%= password_field :user, :password, :class => "text", :tabindex => 3, :size => 15, :maxlength => 255 %>
+        <%= label :user, :password, "Password" %>
+
+        <p class="message"><%= link_to "I forgot my password", forgot_password_url %></p>
+
+        <button type="submit" id="sign_in">Sign in</button>
+        <button type="submit" id="sign_up">Sign up</button>
       <% end -%>
     </section>
   </div>

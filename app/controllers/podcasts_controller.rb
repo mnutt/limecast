@@ -48,7 +48,7 @@ class PodcastsController < ApplicationController
     @episodes = @podcast.episodes.all(:include => :sources, :limit => 3, :order => "published_at DESC")
     @related  = @podcast.related_podcasts
     @reviews  = @podcast.reviews.claimed
-    @review   = Review.new(:episode => @newest_episode)
+    @review   = @podcast.reviews.build
   end
 
   # GET /plain_feeds/:id.xml

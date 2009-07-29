@@ -3,9 +3,7 @@
 <% javascript_include "subscribe_button" -%>
 <% @classes = %{podcast show} -%>
 
-<h1>
-  <%= h(@podcast.title) %>
-</h1>
+<h1><%= h(@podcast.title) %></h1>
 
 <address>
   <%= link_to(h(@podcast.clean_site), @podcast.site) unless @podcast.clean_site.blank? %>
@@ -56,32 +54,15 @@
 
 <section id="episodes">
   <h3>Episodes (<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</h3>
-  <ul id="podcast_episodes">
+  <ul>
     <%= render :partial => "episodes/episode", :collection => @episodes -%>
   </ul>
   <%= link_to "All #{@podcast.episodes.count} episodes", podcast_episodes_url(@podcast) %>
 </section>
 
-<section id="reviews">
-  <h3>Reviews (<%= @reviews.count(:select => "*") %>)</h3>
+<%= render :partial => "reviews/reviews", :object => @podcast.reviews.claimed %>
 
-  <nav>
-    <%= link_to "All (#{@reviews.count(:select => "*")})", "#reviews", :class => "all" %>
-    <%= link_to "Positive (#{@reviews.that_are_positive.count(:select => "*")})", "#reviews", :class => "positive" %>
-    <%= link_to "Negative (#{@reviews.that_are_negative.count(:select => "*")})", "#reviews", :class => "negative" %>
-  </nav>
 
-  <ul class="all">
-    <%= render :partial => 'reviews/review', :collection => @reviews.reverse, :locals => {:editable => true} -%>
-  </ul>
-</section>
-
-<% if can_add_reviews?(@podcast) %>
-<section id="review">
-  <h3>Review this series</h3>
-  <%= render :partial => 'reviews/form', :locals => {:podcast => @podcast, :review => (@review.new_record? ? @review : @podcast.episodes.first.reviews.build)} %>
-</section> 
-<% end %>
 
 <%# rounded_corner_tag(:class => "related") do -%>
 <!-- <h3>Related podcasts</h3>

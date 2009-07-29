@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090706195830
+# Schema version: 20090728145034
 #
 # Table name: episodes
 #
@@ -19,6 +19,7 @@
 #  archived               :boolean(1)    
 #  subtitle               :text(21474836 
 #  daily_order            :integer(4)    default(1)
+#  published_on           :date          
 #
 
 class Episode < ActiveRecord::Base

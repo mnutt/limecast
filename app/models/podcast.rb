@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090721144122
+# Schema version: 20090728145034
 #
 # Table name: podcasts
 #
@@ -46,7 +46,8 @@ class Podcast < ActiveRecord::Base
   has_many :recommendations, :order => 'weight DESC'
   has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast
   has_many :episodes, :dependent => :destroy
-  has_many :reviews, :through => :episodes, :conditions => "reviews.user_id IS NOT NULL"
+  has_many :reviews, :conditions => "reviews.user_id IS NOT NULL"
+  has_many :reviewers, :through => :reviews, :source => :reviewer
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites
   has_many :taggings, :dependent => :destroy, :include => :tag, :order => 'tags.name ASC'
@@ -217,7 +218,7 @@ class Podcast < ActiveRecord::Base
   end
   
   def formatted_bitrate
-    self.bitrate.to_bitrate.to_s if self.bitrate and self.bitrate > 0
+    bitrate.to_bitrate.to_s if bitrate and bitrate > 0
   end
 
   def itunes_url
@@ -229,7 +230,7 @@ class Podcast < ActiveRecord::Base
   end
   
   def been_reviewed_by?(user)
-    reviews.map(&:reviewer).include?(user)
+    reviewers.include?(user)
   end
   
   # XXX: Write spec for this

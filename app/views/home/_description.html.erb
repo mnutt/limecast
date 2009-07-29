@@ -1,17 +1,2 @@
 <% podcast = description -%>
 
-<div class="podcast_block">
-  <div class="preview">
-    <%= link_to display_cover_art(podcast), podcast_url(podcast) -%>
-  </div>
-  
-  <div class="description">
-    <h3><%= link_to_podcast(podcast) -%></h3>
-    <p><%= truncated_text sanitize_condensed_summary(podcast.description), 100 -%></p>
-    
-    <%= render :partial => "podcasts/social_favs", :locals => {:podcast => podcast} -%>
-
-
-  </div>
-</div>
-

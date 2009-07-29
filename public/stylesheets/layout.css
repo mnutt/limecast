@@ -101,6 +101,8 @@ header nav ul li.logo {
 	margin-top: 5px;
 }
 
+header nav a { font-size: 1.2em; }
+
 header nav .logo a {
 	background: url('../imgs/logo.png') top left no-repeat;
 	display: block;
@@ -217,17 +219,18 @@ footer ul li a {
 #auth {
 	display: none;
 	position: absolute;
-	z-index: 1;
+	z-index: 6;
 	top: 45px;
 	right: 15px;
 	border: solid 1px #A9A9A9;
-	width: 320px;
+	width: 330px;
 	background: #FFF;
-	opacity: 0.8;
-	padding: 5px 5px 5px 15px;
+	opacity: 0.9;
+	text-align: right;
+	padding: 15px 15px 15px 15px;
 	box-shadow: 5px 5px 5px #888;
 	-moz-box-shadow: 5px 5px 5px #888;
-	-webkit-box-shadow: 5px 5px 5px #888;
+	-webkit-box-shadow: 3px 3px 5px #888;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
@@ -240,31 +243,18 @@ footer ul li a {
 
 #auth .close {
 	float: right;
-	margin: 10px 10px 0 0;
-}
-
-#auth .close span {
-	font-size: 1.4em;
-	padding-left: 9px;
 }
 
 #auth h4 {
-	margin: 10px 0 20px 0;
+	text-align: left;
+	margin: 0 0 20px 0;
 	font-size: 1.8em;
-}
-
-#auth p {
-	margin: 10px 0;
-	padding: 0 15px 0 100px;
 }
 
 #auth p.message {
 	text-align: right;
 	padding-left: 0;
-}
-
-#auth p.buttons {
-	text-align: right;
+	margin: 10px 0;
 }
 
 #auth form input.text {
@@ -275,17 +265,18 @@ footer ul li a {
 	height: 24px;
 	overflow: hidden;
 	padding: 5px;
+	margin-left: 10px;
 	width: 165px;
+	float: right;
 }
 
 #auth form label {
 	font-weight: bold;
 	font-size: 1.2em;
-	width: 130px;
+	text-align: right;
 	padding: 5px 0 0 0;
-	margin-left: -100px;
 	display: block;
-	float: left;
+	height: 29px;
 }
 
 #auth_overlay {
@@ -308,7 +299,7 @@ footer ul li a {
 #left { float: left; margin: 60px 0 0 -190px; }
 #right { float: right; margin: 60px -190px 0 0; }
 
-#left {
+#left img {
 	box-shadow: 3px 3px 2px #888;
 	-moz-box-shadow: 3px 3px 2px #888;
 	-webkit-box-shadow: 3px 3px 2px #888;

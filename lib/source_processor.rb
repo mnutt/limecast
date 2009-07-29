@@ -216,7 +216,7 @@ class SourceProcessor
   def generate_torrent
     raise "Source file does not exist" unless File.exist?(self.tmp_file)
 
-    torrent_cmd = "mktorrent -a http://tracker.limecast.com/announce -o #{self.torrent_tmp_file} -w #{source.url} #{self.tmp_file} 2>&1"
+    torrent_cmd = "mktorrent -a http://tracker.openbittorrent.com:80/announce,udp://tracker.openbittorrent.com:80/announce -o #{self.torrent_tmp_file} -w #{source.url} #{self.tmp_file} 2>&1"
     logger.info torrent_cmd
     torrent_info = `#{torrent_cmd}`
     

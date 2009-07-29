@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090721144122) do
+ActiveRecord::Schema.define(:version => 20090728145034) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -134,12 +134,11 @@ ActiveRecord::Schema.define(:version => 20090721144122) do
     t.datetime "updated_at"
     t.string   "title"
     t.boolean  "positive"
-    t.integer  "episode_id"
     t.integer  "insightful",     :default => 0
     t.integer  "not_insightful", :default => 0
+    t.integer  "podcast_id"
   end
 
-  add_index "reviews", ["episode_id"], :name => "index_reviews_on_episode_id"
   add_index "reviews", ["user_id"], :name => "index_reviews_on_user_id"
 
   create_table "sources", :force => true do |t|

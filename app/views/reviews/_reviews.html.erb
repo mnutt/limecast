@@ -1,0 +1,21 @@
+<section id="reviews">
+  <h3>Reviews (<%= reviews.count(:select => "*") %>)</h3>
+
+  <nav>
+    <%= link_to "All (#{reviews.count(:select => "*")})", "#reviews", :class => "all" %>
+    <%= link_to "Positive (#{reviews.that_are_positive.count(:select => "*")})", "#reviews", :class => "positive" %>
+    <%= link_to "Negative (#{reviews.that_are_negative.count(:select => "*")})", "#reviews", :class => "negative" %>
+  </nav>
+
+  <ul class="all">
+    <%= render :partial => 'reviews/review', :collection => reviews.reverse, :locals => {:editable => true} -%>
+  </ul>
+
+  <br />
+  
+  <% if can_add_reviews?(@podcast) %>
+  <h3>Review this series!</h3>
+  <%= render :partial => 'reviews/form', :locals => {:review => (@review.new_record? ? @review : @podcast.reviews.build)} %>
+  <% end %>
+
+</section>

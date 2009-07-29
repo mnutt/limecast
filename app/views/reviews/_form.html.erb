@@ -1,9 +1,10 @@
 <% options ||= {} -%>
+<% podcast = review.podcast -%>
 
-<% form_for review, 
-            :url => (review.new_record? ? reviews_url(:podcast_slug => podcast) : review_url(:podcast_slug => podcast, :id => review)), 
-            :html => {:class => "review_form"} do |f| -%>
-  <%= f.hidden_field :episode_id -%>
+<% form_for review,
+            :url => (review.new_record? ? reviews_url(:podcast_slug => podcast) : review_url(:podcast_slug => podcast, :id => review)) do |f| -%>
+
+  <p class="errors"></p>
 
   <p>
     <%= f.label :positive_true, "Positive", :class => 'positive' %>
@@ -21,7 +22,5 @@
   
   <button type="submit">Save</button>
   
-  <a href="#" class="cluetip_review_link" onclick="return false;" rel=".login_pop" style="visibility: hidden;"><!-- //--></a>
-
   <%= link_to "cancel", "#", :class => 'cancel' if options[:cancel] -%>
 <% end -%>

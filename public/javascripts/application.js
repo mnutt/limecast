@@ -76,6 +76,16 @@ function reviewLinks() {
   $('#reviews nav a').mousedown(function(){ $('#reviews ul').removeClass().addClass($(this).attr('class')); }).click(function(){return false;});
   $('#reviews li a.edit').mousedown(function(){ $(this).parents('li.review').addClass('editing'); }).click(function(){return false;});
   $('#reviews li a.cancel').mousedown(function(){ $(this).parents('li.review').removeClass('editing'); }).click(function(){return false;});
+  $('#reviews form, #review form').submit(function(){ 
+    var form = $(this);
+    $.post(form.attr('action'), form.serialize(), function(resp){ 
+      if(resp.success) {
+        if(resp.login_required) { review_form.find('.cluetip_review_link').click(); } 
+        else { $('#reviews').replaceWith(resp.html); reviewLinks(); $("#review_body, #review_title").inputDefaultText(); }
+      } else form.find('.errors').html(resp.errors).show();
+    }, 'json');
+    return false;
+  });
 }
 
 $(function() {

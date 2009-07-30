@@ -82,7 +82,7 @@ function reviewLinks() {
     var form = $(this);
     $.post(form.attr('action'), form.serialize(), function(resp){ 
       if(resp.success) {
-        if(resp.login_required) { review_form.find('.cluetip_review_link').click(); } 
+        if(resp.login_required) { form.find('.cluetip_review_link').click(); } 
         else { $('#reviews').replaceWith(resp.html); reviewLinks(); $("#review_body, #review_title").inputDefaultText(); }
       } else form.find('.errors').html(resp.errors).show();
     }, 'json');

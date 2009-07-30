@@ -232,6 +232,7 @@ ul.similar li {
 #episodes li.episode.open h4 { white-space: normal; }
 #episodes li.episode article,
 #episodes li.episode p { display: none; }
+#episodes li.episode p img { visibility: hidden; }
 #episodes li.episode.open article,
 #episodes li.episode.open p { display: block; }
 

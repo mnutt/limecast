@@ -26,6 +26,8 @@
 /* Add Podcast */
 /***************/
 
+.podcast.new .added_podcast input[type=text] { margin-right: 5px; }
+
 /***************/
 /* Episode		 */
 /***************/

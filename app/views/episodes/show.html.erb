@@ -23,7 +23,8 @@
 </article>
 
 <% if @source -%>
-<p class="preview scale" poster="<%= @source.screenshot.url %>" rel="<%= @source.preview.url %>">
+<p class="preview scale">
+  <%= image_tag @source.screenshot.url, :alt => @source.screenshot.url, :rel => @source.preview.url %>
   <%#= video_tag([@source.preview.url, @source.ogg_preview.url], 
       :poster => @source.screenshot.url, 
       :controls => true, :width => 540) if @source %>

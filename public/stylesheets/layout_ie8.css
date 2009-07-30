@@ -6,7 +6,9 @@
 /* General */
 /**********/
 body { text-align: center; }
+
 header, footer, #wrapper { text-align: left; }
+
 
 /**********/
 /* Header */
@@ -36,3 +38,8 @@ header nav .auth {
 /***************/
 /* Sidebars */
 /***************/
+
+#left img {
+	filter: "progid:DXImageTransform.Microsoft.dropShadow(OffX=3, OffY=3, Direction=135, Color=#888888)";
+	-ms-filter: "progid:DXImageTransform.Microsoft.dropShadow(OffX=3, OffY=3, Direction=135, Color=#888888)";
+}

@@ -11,7 +11,7 @@ $(document).ready(function(){
     $('#added_podcast_list').append(form_clone.wrap('li'));
 
     // reset the form
-    $('#podcast').hide();
+    $('#new_podcast').hide();
     $('#podcast_url').unbind().val("").blur(); // unbind the jquery.default-text.js stuff, set val to empty, and blur it so focus works
 
     // FIX

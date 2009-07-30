@@ -203,7 +203,7 @@ $$.pluginOptions = {
  *
 **/
 $$.replace = function(htmlOptions) {
-	this.innerHTML = '<div class="alt">'+this.innerHTML+'</div>';
+  $(this).wrapInner("<div class=\"alt\"></div>");
 	jQuery(this)
 		.addClass('flash-replaced')
 		.prepend($$.transform(htmlOptions));

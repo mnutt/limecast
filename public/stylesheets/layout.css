@@ -48,7 +48,8 @@ textarea {
 	resize: none; /* for Safari's resize widget */
 	width: 392px;
 	height: 120px;
-	border-color: #FFF; /* Safari won't allow no-border on textarea */
+	border: solid 0px #FFF; /* Safari won't allow no-border on textarea */
+	overflow: auto;
 	outline: 0px;
 	padding: 4px;
 	font-size: 1.1em;
@@ -198,18 +199,20 @@ footer {
 	position: relative;
 	z-index: 4;
 	width: 100%;
-	background: #313131 url('/imgs/bg_footer.png') -2px left repeat-x;
+	background: #313131 url('/imgs/bg_footer.png') 0px -3px repeat-x;
 	height: 70px;
-	margin-top: -70px;
+	margin-top: -84px;
 }
 
 footer ul {
 	margin: 0 220px;
 	height: 70px;
+	padding: 0px;
 }
 
 footer ul li {
 	padding: 20px 10px 0 10px;
+	margin: 0px;
 	font-size: 1.1em;
 	float: left;
 }
@@ -227,7 +230,7 @@ footer ul li a {
 	position: absolute;
 	z-index: 6;
 	top: 45px;
-	right: 15px;
+	right: 100px;
 	border: solid 1px #A9A9A9;
 	width: 330px;
 	background: #FFF;
@@ -301,6 +304,9 @@ footer ul li a {
 #left, #right {
 	width: 160px;
 }
+
+.home #wrapper #left,
+.home #wrapper #right { display: none; }
 
 #left { float: left; margin: 60px 0 0 -190px; }
 #right { float: right; margin: 60px -190px 0 0; }

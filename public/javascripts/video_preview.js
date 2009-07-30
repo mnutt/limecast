@@ -11,8 +11,6 @@ var imgLoaded = function(img){
 
 var hook_up_preview = function(container){
   var container = $(container);
-  var screenshot = container.attr('poster');
-  container.html('<img style="visibility: hidden;" alt="' + screenshot + '" src="' + screenshot + '" />');
   var img = container.find('img');
 
   var checkForImgLoaded = function(img) {
@@ -33,8 +31,8 @@ var hook_up_preview = function(container){
     }
 
     var flashvars = {
-      previewURL: container.attr('poster'),
-      videoURL:   container.attr('rel'),
+      previewURL: img.attr('src'),
+      videoURL:   img.attr('rel'),
       totalTime:  5 * 60
     };
 

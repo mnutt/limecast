@@ -23,6 +23,11 @@
                              :cache => 'jquery-all' -%>
   <%= javascript_include_tag 'nbga-1.0', 'application' -%>
   <%= javascript_include_actions -%>
+  
+  <!--[if IE 8]>
+    <%= stylesheet_link_tag 'layout_ie8', 'content_ie8' -%>
+    <%= javascript_include_tag 'jquery.html5shiv.js' %>
+  <![endif]-->
 </head>
 
 <body class="<%= @classes -%><%= " status_#@error" if @error %>">

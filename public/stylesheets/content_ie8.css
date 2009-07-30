@@ -1,0 +1,31 @@
+/***************************************************/
+/* STYLE GUIDE: keep markup simple, keep CSS clean */
+/***************************************************/
+
+
+/***************/
+/* Home				 */
+/***************/
+
+#make { padding-top: 15px; background: transparent url('/imgs/hp_tower.png') top left no-repeat; }
+#player { padding-top: 15px; background: transparent url('/imgs/hp_open.png') top left no-repeat; }
+
+/***************/
+/* Superbutton */
+/***************/
+
+/***************/
+/* Podcast		 */
+/***************/
+
+/********************/
+/* Popular Podcasts */
+/********************/
+
+/***************/
+/* Add Podcast */
+/***************/
+
+/***************/
+/* Episode		 */
+/***************/

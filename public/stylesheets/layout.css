@@ -109,7 +109,7 @@ header nav ul li.logo {
 header nav a { font-size: 1.2em; }
 
 header nav .logo a {
-	background: url('../imgs/logo.png') top left no-repeat;
+	background: url('/imgs/logo.png') top left no-repeat;
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -118,7 +118,7 @@ header nav .logo a {
 }
 
 header .logo a:hover {
-	background: url('../imgs/logo_over.png') top left no-repeat;
+	background: url('/imgs/logo_over.png') top left no-repeat;
 }
 
 header nav .auth,
@@ -176,6 +176,7 @@ header nav .search button {
 	top: 4px;
 	right: -12px;
 	height: 24px;
+	text-indent: -5000px;
 }
 
 

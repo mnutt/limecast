@@ -64,7 +64,7 @@ jQuery.fn.extend({
     auth_form.find('#sign_in').click(callback);
     auth_form.find('#sign_up').click(callback);
 
-    auth_form.find('input.text')[0].focus();
+    auth_form.find('input[type=text]').focus();
 
     return auth_form;
   },

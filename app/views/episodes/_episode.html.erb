@@ -8,8 +8,8 @@
   <article><%= page_description(episode.summary) -%></article>
 
 <% if source = episode.sources.with_screenshot.with_preview.first -%>
-  <p>
-    <%= video_tag([source.preview.url, source.ogg_preview.url], 
+  <p class="preview scale" poster="<%= source.screenshot.url %>" rel="<%= source.preview.url %>">
+    <%#= video_tag([source.preview.url, source.ogg_preview.url], 
         :poster => source.screenshot.url, 
         :autobuffer => true, :controls => true, :width => 540) %>
   </p>

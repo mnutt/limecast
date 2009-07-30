@@ -21,6 +21,11 @@ body {
 	margin: 0 220px;
 }
 
+.home #wrapper { 
+	margin: 0 auto;
+	width: 980px;
+}
+
 input.search {
 	background: #F3F3F3 url("/imgs/content/input_bg.png") repeat-x left top;
 	border: 1px solid #212121;

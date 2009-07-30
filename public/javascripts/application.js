@@ -68,6 +68,8 @@ function setupTabs() {
 function toggleLinks() {
   $('a.toggle').mousedown(function(){
     $(this).html($(this).html()=='▼'?'►':'▼').parents('li').toggleClass('open');
+    var preview = $(this).parents('li').find('p.preview');
+    if(preview.length > 0) { hook_up_preview(preview); }
     return false;
   }).click(function(){return false;});
 }

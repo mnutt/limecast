@@ -82,7 +82,7 @@
 
 #featured section img {
 	float: left;
-	margin: 0 14px 14px 14px;
+	margin: 0 14px 14px 0;
 }
 
 #make, #player {
@@ -97,25 +97,15 @@
 	-webkit-box-shadow: 1px 2px 2px #888;
 }
 
-#make { margin-right: 4%; min-height: 110px; float: left; background: url('/imgs/make.png') bottom left no-repeat; }
-#player { min-height: 110px; float: right; background: url('/imgs/player.png') bottom left no-repeat; }
+#make { margin-right: 4%; min-height: 110px; float: left; background: #EEE url('/imgs/make.png') bottom left no-repeat; }
+#player { min-height: 110px; float: right; background: #EEE url('/imgs/player.png') bottom left no-repeat; }
 
-#make h3,
-#player h3 {
-	font-size: 1.2em;
-}
+#make h3, #player h3 { font-size: 1.2em; }
+#make h3 { margin: 10px 10px 0 120px; }
+#player h3 { margin: 10px 10px 0 140px; }
+#make p { margin: 0 10px 0 120px; }
 
-#make h3,
-#make p {
-	margin: 0 10px 0 120px;
-}
-
-#player h3,
-#player p,
-#player ul {
-  margin: 0 10px 0 140px;
-  padding-right: 10px;
-}
+#player p, #player ul { margin: 0 10px 0 140px; }
 
 
 /***************/

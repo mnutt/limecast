@@ -1,6 +1,6 @@
 <% @title = "#{unescape_entities(h(@episode.title))}" -%>
 <% @show_ads = true -%>
-<% javascript_include "download_button" -%>
+<% javascript_include "jquery.flash", "video_preview", "download_button" -%>
 <% @classes = %{episode show} -%>
 
 <h1><%= link_to h(@podcast.title), podcast_url(@podcast) %></h1>
@@ -22,10 +22,12 @@
   <p><%= sanitize_summary @episode.summary -%></p>
 </article>
 
-<p>
-  <%= video_tag([@source.preview.url, @source.ogg_preview.url], 
+<% if @source -%>
+<p class="preview scale" poster="<%= @source.screenshot.url %>" rel="<%= @source.preview.url %>">
+  <%#= video_tag([@source.preview.url, @source.ogg_preview.url], 
       :poster => @source.screenshot.url, 
       :controls => true, :width => 540) if @source %>
 </p>
+<% end -%>
 
 <%= render :partial => "superbutton" -%>

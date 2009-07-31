@@ -100,6 +100,14 @@ function reviewLinks() {
   });
 }
 
+function setupUserPage() {
+  $('.user.show #user ul:first').show();
+  $('.user.show #user nav a').click(function(){
+    $('.user.show #user ul').hide();
+    $($(this).attr('href')).show();
+  });
+}
+
 $(function() {
   defaultText();
   truncatedText();
@@ -107,6 +115,7 @@ $(function() {
   toggleLinks();
   reviewLinks();
   setupAuth();
+  setupUserPage();
 //  setupCluetips();
 //  setupTabs();
 });

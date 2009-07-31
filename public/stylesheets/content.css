@@ -278,3 +278,32 @@ ul.similar li {
 .episode.index h3,
 .episode.index h4 { font-size: 1.2em; }
 
+/***************/
+/* Users       */
+/***************/
+
+.user.show h1 { margin: 0 0 14px 0; }
+.user.show #user nav a { 
+	display: inline-block;
+	font-weight: bold;
+	font-size: 1.1em;
+	background: #FFF;
+	padding: 14px;
+	border: solid #DFDFDF;
+	border-width: 1px 1px 0 1px;
+	border-radius: 4px; 
+	-webkit-border-radius: 4px; 
+	-moz-border-radius: 4px; 
+}
+.user.show #user li h3 { font-size: 1.1em; display: inline; font-weight: normal; }
+.user.show #user li { margin: 0 0 3px 0; }
+.user.show #user ul { 
+	display: none;
+	margin-top: -5px;
+	border: solid 1px #D4D4D4; 
+	border-radius: 4px; 
+	-webkit-border-radius: 4px; 
+	-moz-border-radius: 4px; 
+	background: #FFF; 
+	padding: 10px;
+}

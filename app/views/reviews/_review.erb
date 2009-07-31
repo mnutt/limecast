@@ -1,12 +1,13 @@
 <li id="<%= dom_id review %>" class="review <%= review.positive? ? "positive" : "negative" %>">
   <div class="details">
-    <%= link_to podcast_url(review.podcast) unless @podcast %>
+    <%= link_to review.podcast.title, podcast_url(review.podcast) unless @podcast %>
     <h5><%= unescape_entities review.title %></h5> 
     <%= unescape_entities review.body %>
     <%= "by #{link_to review.reviewer.login, user_url(review.reviewer)}" %> 
     <%= "on #{review.created_at.to_date.to_s}" %> 
   </div>
 
+  <% if editable && editable != false -%>
   <div>
     <% if current_user && review.writable_by?(current_user) -%>
     <%= link_to "Edit", edit_podcast_url(@podcast), :class => "edit" %> / 
@@ -20,4 +21,5 @@
   <%= render :partial => 'reviews/form', 
              :locals => { :options => {:cancel => true}, 
                           :review => review} if current_user && review.writable_by?(current_user) %>
+  <% end -%>
 </li>

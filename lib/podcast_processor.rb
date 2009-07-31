@@ -27,7 +27,7 @@ class PodcastProcessor
 
   def initialize(queued_feed, logger)
     @qf = queued_feed
-    @logger = logger
+    @logger = logger || @logger = Logger.new(RAILS_ROOT + "/log/update_podcasts.log")
   end
   
   def process

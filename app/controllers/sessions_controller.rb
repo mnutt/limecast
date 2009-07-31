@@ -15,6 +15,10 @@ class SessionsController < ApplicationController
       format.html { redirect_back_or_default('/') }
       format.js { render :layout => false }
     end
+  rescue => e
+    logger.info "\n\nerror was #{e.inspect}\n\n"
+    logger.info "\n\nerror was #{e.backtrace}\n\n"
+    raise e
   end
 
   def destroy

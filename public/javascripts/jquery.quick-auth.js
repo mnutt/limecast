@@ -25,6 +25,18 @@ jQuery.fn.extend({
   
   authReset: function() { $(this).hide().find('.message').html('<a href="/forgot">I forgot my password</a>').end().find('form')[0].reset(); },
   
+  authTmpSetup: function() {
+    var offset = $(this).offset();
+    x = offset.left - 200;
+    y = offset.top + $(this).height() + 10;
+    $("#auth").
+      authOverlay().
+      show().
+      css({left:x,top:y}).
+      find("#user_email").
+      focus();
+  },
+  
   authSetup: function(options) {
     var auth_form = $(this);
 
@@ -42,7 +54,9 @@ jQuery.fn.extend({
       auth_form.attr('action', ($(this).attr('id') == 'sign_up' ? '/users' : '/session'));
       $.post(auth_form.attr('action'), auth_form.serialize(), function(resp){
         if(resp.success) { // success, no reload
-          if(resp.profileLink) { 
+          if(resp.reload) {
+            window.location.reload();
+          } else if(resp.profileLink) { 
             $("#auth_overlay").remove();
             $('nav .auth').html(resp.profileLink);
             $('#auth').authReset();

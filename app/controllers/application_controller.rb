@@ -143,17 +143,25 @@ class ApplicationController < ActionController::Base
     def claim_records
       session[:unclaimed_records].each_pair do |klass, record_ids|
         record_ids.each do |record_id|
-          record = klass.constantize.find(record_id)
-          record.claim_by(current_user) if record
+          if record = (klass.constantize.find(record_id) rescue nil)
+            record.claim_by(current_user)
+            @claimed_records = true
+          end
         end
       end.clear if session[:unclaimed_records]
     end
+    
+    # A ivar to record if we've claimed any records in this request
+    def claimed_records? 
+      @claimed_records || false
+    end
+    helper_method :claimed_records?
 
     # Returns true if the non-logged-in user has the given class in their session's unclaimed_records.
     # If +func+ is passed in, this only returns true if the func is true for at least one of the records
     # of this class in the session[:unclaimed_records]
     def has_unclaimed_record?(klass, func=nil)
-      if session[:unclaimed_records] && session[:unclaimed_records][klass.to_s] && records = klass.find(session[:unclaimed_records][klass.to_s].compact!)
+      if session[:unclaimed_records] && session[:unclaimed_records][klass.to_s] && session[:unclaimed_records][klass.to_s].compact! && records = klass.find(session[:unclaimed_records][klass.to_s])
         return false if records.empty?
         return false if func && !records.any?(&func)
         return true

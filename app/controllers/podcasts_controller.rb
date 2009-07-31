@@ -42,6 +42,7 @@ class PodcastsController < ApplicationController
   # GET /:podcast_slug
   def show
     @podcast ||= Podcast.find_by_slug(params[:podcast_slug])
+    @favorited = current_user && current_user.favorite_podcasts.include?(@podcast)
 
     @episode = @podcast.newest_episode
 
@@ -151,14 +152,18 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
     unless has_unclaimed_record?(Favorite, lambda {|f| f.podcast == @podcast })
-      @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, current_user)
-      @favorite.new_record? ? @favorite.save : @favorite.destroy
-      remember_unclaimed_record(@favorite)
+      @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, (current_user.id if logged_in?))
+      if @favorite.new_record?
+        @favorite.save
+        remember_unclaimed_record(@favorite)
+      else
+        @favorite.destroy
+      end
     end
 
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js { render :json => {:logged_in => logged_in?} }
+      format.json { render :json => {:logged_in => logged_in?} }
     end
   end
 

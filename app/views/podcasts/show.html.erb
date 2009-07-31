@@ -26,7 +26,7 @@
 </address>
 
 <section>
-  <%= link_to "Favorite this!", favorite_podcast_url(@podcast) %>
+  <%= link_to (@favorited ? "Remove from favorites" : "Favorite this!"), favorite_podcast_url(@podcast), :class => "favorite" %>
   (or add to
   <%= link_to "Digg", "http://digg.com/submit?phase=2&url=#{podcast_url(@podcast)}" %>, 
   <%= link_to "Reddit", "http://reddit.com/submit?url=#{podcast_url(@podcast)}&title=LimeCast%3A%20#{h(@podcast.title)}" %>, 

@@ -3,6 +3,7 @@
     html: "<%= escape_javascript create_user_error(@user) -%>" }
 <% else -%>
   { success: true,
+    reload: <%= claimed_records? %>,
     html: "Successful signup, <%= escape_javascript link_to_profile(current_user) -%>.",
     profileLink: "<%= escape_javascript render(:partial => 'sessions/auth') %>" }
 <% end -%>

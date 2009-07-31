@@ -337,7 +337,7 @@ class Podcast < ActiveRecord::Base
       t = Tag.find_by_name(tag_name) || Tag.create(:name => tag_name)
       self.tags << t unless self.tags.include?(t)
 
-      if user && user.is_a?(User)
+      if user && user.is_a?(User) && !user.new_record?
         tagging = taggings(true).find_by_tag_id(t.id)
         tagging.users << user unless tagging.users.include?(user)
       end

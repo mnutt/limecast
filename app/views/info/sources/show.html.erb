@@ -57,7 +57,7 @@
   <tr>
     <td class="key" title="">framerate</td>
     <td>
-      <%= non_blank @source.framerate.to_f -%>
+      <%= @source.framerate.blank? ? blankness : "#{@source.framerate.to_f}fps" -%>
     </td>
   </tr>
   

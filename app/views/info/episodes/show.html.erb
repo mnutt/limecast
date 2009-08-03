@@ -10,7 +10,7 @@
 <%= render :partial => 'info/podcasts/info_source_table', :locals => {:options => {:episode => @episode}} -%>
 
 <!-- Media -->
-<%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted_by_bitrate} %>
+<%= render :partial => "info/sources/info_medias", :locals => {:sources => @episode.sources.sorted_by_bitrate.reverse} %>
 
 <!-- Text -->
 <table>
@@ -73,13 +73,6 @@
 
   <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
-  <!-- <tr>
-    <td class="key" title="Raw XML item GUID">xml&nbsp;guid</td>
-    <td>
-      <%= non_blank @episode.guid -%>
-    </td>
-  </tr> -->
-  
   <tr>
     <td class="key" title="Raw XML item title">xml&nbsp;title</td>
     <td>

@@ -2,22 +2,16 @@
 
 <table class="medias">
 <% sources.each do |source| -%>
-  <tr>
+  <tr class="media">
     <td>
-      <table class="media">
-        <tr>
-          <td>
-            <% link_to info_source_url(source.podcast, source.episode, source.id) do -%><%= non_blank source.podcast.formatted_bitrate -%> <%= non_blank source.extension -%><% end -%>
-            <%= non_blank source.size.to_file_size.to_s(true, false).downcase -%> 
-            <%= non_blank source.resolution -%> 
-            <%= non_blank source.framerate.to_s.split(' ').first -%> 
-            <%= source.episode.duration == 0 ? blankness : source.episode.duration.to_i.to_duration -%>
-            <%= link_to("magnet #{non_blank source.sha1hash.to_s[0..7]}", source.magnet_url) -%>
-            <%= source.sha1hash.blank? ? blankness : link_to(source.torrent.url.split('/').last, source.torrent.url) -%>
-            <%= link_to(h(source.file_name), source.url) -%>
-          </td>
-        </tr>
-      </table>
+      <% link_to info_source_url(source.podcast, source.episode, source.id) do -%><%= non_blank source.formatted_bitrate -%> <%= non_blank source.extension -%><% end -%>
+      <%= non_blank source.size.to_file_size.to_s(true, false).downcase -%> 
+      <%= non_blank source.resolution -%> 
+      <%= source.framerate.blank? ? blankness : "#{source.framerate.to_s.split(' ').first}fps" -%> 
+      <%= source.episode.duration == 0 ? blankness : source.episode.duration.to_i.to_duration -%>
+      <%= link_to("magnet", source.magnet_url) -%>
+      <%= source.torrent.file? ? link_to("torrent", source.torrent.url) : blankness -%>
+      <%= link_to(h(source.file_name), source.url) -%>
     </td>
   </tr>
 <% end -%>

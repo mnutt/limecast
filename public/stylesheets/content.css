@@ -161,6 +161,7 @@
 .superbutton .flv { background-image: url('/imgs/icons/flv.png'); }
 .superbutton .mp3 { background-image: url('/imgs/icons/mp3.png'); }
 .superbutton .mp4 { background-image: url('/imgs/icons/mp4.png'); }
+.superbutton .mov { background-image: url('/imgs/icons/mov.png'); }
 .superbutton .wmv { background-image: url('/imgs/icons/wmv.png'); }
 
 /* Delivery Icons */

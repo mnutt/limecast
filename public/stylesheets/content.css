@@ -256,6 +256,7 @@ ul.similar li {
 /********************/
 .podcast.popular #podcasts li h3 { display: inline; font-size: 1.1em; font-weight: normal; }
 .podcast.popular #podcasts li { margin: 0 0 3px 0; }
+.podcast.popular #podcasts li img { width: 16px; }
 
 
 /***************/

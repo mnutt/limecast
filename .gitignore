@@ -24,7 +24,6 @@ backups/*
 public/screenshots
 public/previews
 public/ogg_previews
-public/logos
 public/torrents
 public/feed_logos
 public/podcast_logos

@@ -71,13 +71,6 @@ q:before, q:after {
 	content: '';
 	content: none;
 }
-abbr,acronym { 
-	border: 0; 
-} 
-abbr[title], dfn[title] {
-	border-bottom: 1px dotted #000;
-	cursor: help;
-}
 input, select {
 	vertical-align: middle;
 }

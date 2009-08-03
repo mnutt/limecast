@@ -1,4 +1,3 @@
-<% javascript_include "jquery.flash", "video_preview" -%>
 
 <% @title = "#{@podcast.title} &ndash; #{@episode.date_title} #{@source.formatted_bitrate} #{@source.extension}" -%>
 <h1>source</h1>
@@ -78,57 +77,61 @@
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
     <td class="key" title="">magnet</td>
     <td>
-      <%= link_to @source.magnet_url.gsub(/&/, '<br />&'), @source.magnet_url -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="key" title="">torrent</td>
-    <td>
-      <%= @source.torrent.file? ? link_to(@source.torrent.url, @source.torrent.url) : blankness -%>
+      <%= link_to @source.magnet_url.gsub(/[&?]/, '<br />&'), @source.magnet_url -%>
     </td>
   </tr>
 
   <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
-    <td class="key" title="Flash player presenting the video or audio preview">preview&nbsp;(h.264&nbsp;mp4)</td>
-    <td class="preview">
-      <div>
-    <% if @source.preview_type == 'video' -%>
-      <%= render :partial => 'info/episodes/video_player', :object => @source, :locals => {:format => :mp4, :attrs => {:class => "scale", :width => 540}} -%>
-    <% else -%>
-      <%= render :partial => 'info/episodes/audio_player', :object => @source %>
-    <% end -%>
-      </div>
+    <td class="key" title="">torrent</td>
+    <td>
+      <%= @source.torrent.file? ? link_to("http://#{controller.request.host}#{@source.torrent.url}", @source.torrent.url) : blankness -%>
     </td>
   </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Flash player presenting the video or audio preview">preview</td>
+    <td class="preview">
+      <%= video_tag([@source.preview.url, @source.ogg_preview.url], 
+          :poster => @source.screenshot.url, 
+          :controls => true, :width => 540) if @source %>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
 
   <tr>
     <td class="key" title="The video still image FFmpeg took from the episode shown inline">video still</td>
     <td>
     <%- if @source.screenshot? -%>
-      <%= image_tag(@source.screenshot.url, {:rel => @source.preview.url, :alt => "#{@episode.title} cover art"}) -%>
+      <%= image_tag(@source.screenshot.url, :alt => "#{@episode.title} cover art") -%>
     <%- else -%>
        <%= blankness -%>
     <%- end -%>
     </td>
   </tr>
 
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
     <td class="key" title="A link to the mp4 preview video FFmpeg clipped from the episode, and the file size">mp4&nbsp;video&nbsp;preview</td>
     <td>
-      <%= @source.preview.url =~ /missing\.png$/ ? blankness : link_to(@source.preview.url, @source.preview.url) + " #{FileSize.new(@source.preview_file_size.to_i || 0)}"-%>
+      <%= @source.preview.file? ? link_to("http://#{controller.request.host}#{@source.preview.url(:original, false)}", @source.preview.url(:original, false)) + " #{FileSize.new(@source.preview_file_size.to_i || 0)}" : blankness -%>
     </td>
   </tr>
 
   <tr>
     <td class="key" title="A link to the ogg preview video FFmpeg clipped from the episode, and the file size">ogg&nbsp;video&nbsp;preview</td>
     <td>
-      <%= @source.ogg_preview.url =~ /missing\.png$/ ? blankness : link_to(@source.ogg_preview.url, @source.ogg_preview.url) + " #{FileSize.new(@source.ogg_preview_file_size.to_i || 0)}"-%>
+      <%= @source.ogg_preview.file? ? link_to("http://#{controller.request.host}#{@source.ogg_preview.url(:original, false)}", @source.ogg_preview.url(:original, false)) + " #{FileSize.new(@source.ogg_preview_file_size.to_i || 0)}" : blankness -%>
     </td>
   </tr>
 
@@ -137,7 +140,7 @@
   <tr>
     <td class="key" title="Verbose debug output from FFmpeg, including all the metadata it read. If it failed for any reason, the specifics of that should be kept here.">ffmpeg&nbsp;output</td>
     <td>
-      <%= @source.ffmpeg_info.blank? ? blankness : "<pre>#{@source.ffmpeg_info}</pre>" -%>
+      <%= @source.ffmpeg_info.blank? ? blankness : "<pre class=\"formatted-xml\">#{@source.ffmpeg_info}</pre>" -%>
     </td>
   </tr>
 
@@ -146,7 +149,7 @@
   <tr>
     <td class="key" title="Verbose debug output from cURL, including all the response headers it received. If the download 404ed, that should show up here.">curl&nbsp;output</td>
     <td>
-      <%= @source.curl_info.blank? ? blankness : "<pre>#{@source.curl_info}</pre>" -%>
+      <%= @source.curl_info.blank? ? blankness : "<pre class=\"formatted-xml\">#{@source.curl_info}</pre>" -%>
     </td>
   </tr>
 </table>

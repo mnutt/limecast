@@ -1,5 +1,5 @@
 <% # formats is unused for now, just picking highest quality source -%>
-<% @source = @podcast.sources.sorted_by_bitrate.first -%>
+<% if @source = @podcast.sources.sorted_by_bitrate.first -%>
 
 <section id="subscribe" class="superbutton">
   <div>
@@ -34,3 +34,5 @@
 
   <%= link_to "Subscribe", @podcast.url, :target => "_blank", :class => "button" %>
 </section>
+
+<% end -%>

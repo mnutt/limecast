@@ -1,30 +1,94 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <title>The page you were looking for doesn't exist (404)</title>
-	<style type="text/css">
-		body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-		div.dialog {
-			width: 25em;
-			padding: 0 4em;
-			margin: 4em auto 0 auto;
-			border: 1px solid #ccc;
-			border-right-color: #999;
-			border-bottom-color: #999;
-		}
-		h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-	</style>
+  <title>Not Found &ndash; LimeCast</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="description" content="Open podcast directory and archive"/>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/podcast_logos/5/favicon/obama08_podcast1.ico" />
+  <link rel="icon" type="image/jpeg" href="/podcast_logos/5/icon/obama08_podcast1.png" />
+
+  <link rel="alternate" type="application/rss+xml" title="730k mp4" href="http://feeds.feedburner.com/Obama08VideoPodcast" />
+
+  <link href="/stylesheets/reset.css?1249329595" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/new_typography.css?1248990601" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/layout.css?1248991722" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/content.css?1249327481" media="screen" rel="stylesheet" type="text/css" />
+  
+  <script src="/javascripts/jquery.js?1247595832" type="text/javascript"></script>
+  <script src="/javascripts/jquery.default-text.js?1238791545" type="text/javascript"></script>
+  <script src="/javascripts/jquery.quick-auth.js?1249066417" type="text/javascript"></script>
+  <script src="/javascripts/jquery.restful-delete.js?1248893664" type="text/javascript"></script>
+  <script src="/javascripts/jquery.shake.js?1248893664" type="text/javascript"></script>  <script src="/javascripts/nbga-1.0.js?1237911574" type="text/javascript"></script>
+  <script src="/javascripts/application.js?1249076037" type="text/javascript"></script>  <script src="/javascripts/jquery.flash.js?1248988235" type="text/javascript"></script>
+  <!--[if IE 8]>
+    <link href="/stylesheets/layout_ie8.css?1248992331" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/content_ie8.css?1248990888" media="screen" rel="stylesheet" type="text/css" />    <script src="/javascripts/jquery.html5shiv.js?1248981825" type="text/javascript"></script>
+  <![endif]-->
 </head>
 
-<body>
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <h1>The page you were looking for doesn't exist.</h1>
-    <p>You may have mistyped the address or the page may have moved.</p>
+<body class="podcast show">
+  <header>
+    <nav>
+      <ul>
+        <li class="search"><form action="/search" method="get" id="search" class="search">
+          <label for="s" style="display: none;">Search LimeCast</label>
+          <input class="search" accesskey="s" id="s" name="s" size="15" type="search" value="Search LimeCast" tabindex="1" />
+          <button type="submit" value="Search">Go</button>
+        </form>
+        </li>
+        <li class="auth">  <strong><a href="http://local.limecast.com/user/tzaharia" title="Regular User"><span>tzaharia</span></a></strong> |
+          <a href="http://local.limecast.com/session" id="sign_out_link">Sign out</a>
+        </li>
+        <li class="logo"><a href="http://local.limecast.com/">LimeCast</a></li>
+        <li class="popular"><a href="http://local.limecast.com/popular">Popular</a></li>
+        <li class="add"><a href="http://local.limecast.com/add">Add Podcast</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="wrapper">
+    <aside id="left">
+    </aside>
+
+    <aside id="right">
+    </aside>
+
+    <section id="content">
+      <div class="header_push"></div>
+      
+      <h1>The page you were looking for doesn't exist.</h1>
+
+      <p>You may have mistyped the address or the page may have moved.</p>
+
+      <div class="footer_push"></div>
+    </section>
+
+    <section id="auth">
+      <img src="/imgs/arrow_up.gif" class="arrow" />
+      <button type="submit" class="close" alt="close this box">☓</button>
+      <h4>Sign in to LimeCast</h4>
+      <form action="/session" method="post"><div style="margin:0;padding:0"><input name="authenticity_token" type="hidden" value="vHUhQgrSRH4GqT/mQb5RKPZs+4UPM23mRKRhb6+Nc/4=" /></div>        <input class="text" id="user_email" maxlength="255" name="user[email]" size="15" tabindex="2" type="text" />
+        <label for="user_email">Email&nbsp;/&nbsp;Login</label>
+
+        <input class="text" id="user_password" maxlength="255" name="user[password]" size="15" tabindex="3" type="password" />
+        <label for="user_password">Password</label>
+
+        <p class="message"><a href="http://local.limecast.com/forgot">I forgot my password</a></p>
+
+        <button type="submit" id="sign_in">Sign in</button>
+        <button type="submit" id="sign_up">Sign up</button>
+      </form>    </section>
   </div>
+  
+  <footer>
+    <ul>
+      <li><a href="http://limecast.limespot.com">Blog</a></li>
+      <li><a href="/use">Terms of use</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+      <li><a href="http://wiki.limewire.org/index.php?title=LimeCast">Open source</a></li>
+    </ul>
+  </footer>
 </body>
 </html>
+

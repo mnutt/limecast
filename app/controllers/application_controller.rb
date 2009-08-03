@@ -95,6 +95,10 @@ class ApplicationController < ActionController::Base
       render_exception(405, "Method Not Allowed")
     end
 
+    def render_500
+      render_exception(500, "Site Issues")
+    end
+
     def render_exception(status, title = "Server Error")
       @title = title
       @error = status

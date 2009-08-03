@@ -113,7 +113,7 @@
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td class="key" title="Badges the system has assigned this podcast">badges</td>
-    <td><%= (@podcast.tags.badges.map{|b| link_to b.name, info_tag_url(b) } + @podcast.additional_badges).join(", ") -%></td>
+    <td><%= ([@podcast.tags.badges.map(&:name) + @podcast.additional_badges].flatten.map{|b| link_to b, info_tag_url(b) }).join(" ") -%></td>
   </tr>
   <tr>
     <td class="key" title="Badges the system has not assigned this podcast">not&nbsp;badges</td>
@@ -137,10 +137,14 @@
       <% end %>
     </td>
   </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
   <tr>
     <td class="key" title="List of links to review info pages">reviews</td>
     <td><%= @podcast.reviews.empty? ? blankness : @podcast.reviews.map{|r| link_to(h(r.reviewer.login), info_review_url(@podcast, r)) }.join(", ") -%></td>
   </tr>
+
   <tr>
     <td class="key" title="Related podcasts">related</td>
     <td><%= @podcast.related_podcasts.empty? ? blankness : @podcast.related_podcasts.map{|p| link_to h(p.title), info_podcast_url(p)}.join(", ") -%></td>

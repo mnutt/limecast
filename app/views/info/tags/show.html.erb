@@ -1,11 +1,18 @@
 <h1>tag</h1>
 
-<!-- Taggings -->
 <ul>
+<% if @badge -%>
+  <!-- Badges -->
+  <% @podcasts.each do |podcast| -%>
+    <li><%= link_to podcast.title, info_podcast_url(podcast) -%></li>
+  <% end -%>
+<% else -%>
+  <!-- Taggings -->
   <% @tag.taggings.sorted_by_podcast.select{|t| t.podcast}.each do |tagging| -%>
     <li>
       <%= link_to tagging.podcast.title, info_podcast_url(tagging.podcast) -%> 
       by <%= tagging.user ? tagging.user.login : "autotagger" -%>
     </li>
   <% end -%>
+<% end -%>
 </ul>

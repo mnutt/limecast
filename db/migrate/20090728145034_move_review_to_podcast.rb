@@ -1,4 +1,4 @@
-class Episode
+class Review
   belongs_to :podcast
   belongs_to :episode
 end

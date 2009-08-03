@@ -308,3 +308,4 @@ ul.similar li {
 	background: #FFF; 
 	padding: 10px;
 }
+.user.show #user li img { width: 16px; }

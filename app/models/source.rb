@@ -98,9 +98,8 @@ class Source < ActiveRecord::Base
   def to_param
     podcast_name = episode.podcast.clean_url
     episode_date = episode.clean_url
-    bitrate      = podcast.formatted_bitrate 
-  
-    "#{id}-#{podcast_name}-#{episode_date}-#{bitrate}-#{extension}"
+
+    "#{id}-#{podcast_name}-#{episode_date}-#{formatted_bitrate}-#{extension}"
   end
   
   # Note: we'll use this as the defacto format instead of format() because

@@ -1,3 +1,8 @@
+class Episode
+  belongs_to :podcast
+  belongs_to :episode
+end
+
 class MoveReviewToPodcast < ActiveRecord::Migration
   def self.up
     add_column :reviews, :podcast_id, :integer

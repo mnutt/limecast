@@ -13,8 +13,6 @@
 #  owner_email          :string(255)   
 #  owner_name           :string(255)   
 #  title                :string(255)   
-#  has_previews         :boolean(1)    default(TRUE)
-#  has_p2p_acceleration :boolean(1)    default(TRUE)
 #  button_installed     :boolean(1)    
 #  protected            :boolean(1)    
 #  favorites_count      :integer(4)    default(0)

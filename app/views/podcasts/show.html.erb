@@ -16,6 +16,7 @@
 
 <%= render :partial => "superbutton", :locals => {:episode => @episode} -%>
 
+<% if @episode -%>
 <address>
   New episode <%= link_to @episode.date_title, episode_url(@podcast, @episode) %>
   <time datetime="<%= @episode.published_at.to_datetime.to_s %>"><%= time_to_words(Time.now - @episode.published_at, false) %></time> ago<br />
@@ -24,6 +25,7 @@
   every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><br/>
   Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
 </address>
+<% end -%>
 
 <section>
   <%= link_to (@favorited ? "Remove from favorites" : "Favorite this!"), favorite_podcast_url(@podcast), :class => "favorite" %>

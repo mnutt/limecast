@@ -61,18 +61,7 @@
       <%= @podcast.protected? ? "true" : "false" %>
     </td>
   </tr>
-  <tr>
-    <td class="key" title="True if the user has enabled P2P acceleration for this podcast in LimeCast Edit">p2p&nbsp;enabled</td>
-    <td>
-      <%= @podcast.has_p2p_acceleration ? "true" : "false" -%>
-    </td>
-  </tr>
-  <tr>
-    <td class="key" title="True if the user has enabled media preview for this podcast">preview&nbsp;enabled</td>
-    <td>
-      <%= @podcast.has_previews ? "true" : "false" -%>
-    </td>
-  </tr>
+
   <tr>
     <td class="key" title="iTunes ID linked to iTunes directory, if set">itunes</td>
     <td>

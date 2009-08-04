@@ -45,11 +45,11 @@
 
   <div id="wrapper">
     <aside id="left">
-      <%= image_tag(@podcast.logo(:small)) if @podcast && !@podcast.new_record? %>
+      <%= image_tag(@podcast.logo(:small)) if !@error && @podcast && !@podcast.new_record? %>
     </aside>
 
     <aside id="right">
-      <%= @ads unless @no_ads %>
+      <%= @ads unless @no_ads || @error %>
     </aside>
 
     <section id="content">

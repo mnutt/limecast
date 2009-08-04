@@ -32,8 +32,6 @@ class Episode < ActiveRecord::Base
     :styles => { :square => ["85x85#", :png],
                  :small  => ["170x170#", :png] }
 
-  has_many :reviews, :dependent => :destroy
-  has_many :reviewers, :through => :reviews
   has_many :sources, :dependent => :destroy
   has_one  :newest_source, :class_name => "Source", :order => "sources.published_at DESC"
 
@@ -83,11 +81,11 @@ class Episode < ActiveRecord::Base
   end
   
   def clean_url
-    daily_order > 1 ? "#{published_at.to_date.to_s(:url)}-#{daily_order}" : published_at.to_date.to_s(:url)
+    daily_order > 1 ? "#{published_at.to_date.to_s(:url)}-#{daily_order}" : published_at.to_date.to_s(:url) unless published_at.nil?
   end
   
   def date_title
-    daily_order > 1 ? "#{published_at.to_date.to_s(:title)} (#{daily_order})" : published_at.to_date.to_s(:title)
+    daily_order > 1 ? "#{published_at.to_date.to_s(:title)} (#{daily_order})" : published_at.to_date.to_s(:title) unless published_at.nil?
   end
   
   # def generate_date_title
@@ -119,10 +117,6 @@ class Episode < ActiveRecord::Base
 
   def writable_by?(user)
     self.podcast.writable_by?(user)
-  end
-
-  def open_for_reviews?
-    self.podcast.episodes.newest.first.id == self.id
   end
 
   # Returns "video" if video is available, "audio" if audio but not video is available, and nil if neither.

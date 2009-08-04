@@ -31,4 +31,4 @@
 </p>
 <% end -%>
 
-<%= render :partial => "superbutton" -%>
+<%= render :partial => "superbutton" unless @episode.sources.empty? -%>

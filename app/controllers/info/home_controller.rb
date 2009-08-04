@@ -8,7 +8,6 @@ class Info::HomeController < ApplicationController
       @user_stats    << User.older_than(date).count
       @podcast_stats << Podcast.older_than(date).count
       @hd_stats      << Podcast.tagged_with("hd").older_than(date).count
-      @p2p_stats     << Podcast.older_than(date).count(:conditions => {:has_p2p_acceleration => true})
       @review_stats  << Review.older_than(date).count
       date = date.last_month.beginning_of_month
     end

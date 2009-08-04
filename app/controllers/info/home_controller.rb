@@ -28,7 +28,7 @@ class Info::HomeController < ApplicationController
     @podcasts = Podcast.sorted
 
     if File.exist?(File.join(RAILS_ROOT, '..', '..', 'current'))
-      @release = Time.parse(RAILS_ROOT.split("/").last) rescue nil
+      @release = Time.parse(RAILS_ROOT.split("/").last + '+0000') rescue nil # add +0000 since the deploy date is UTC
     else
       @release = "(not deployed)"
     end

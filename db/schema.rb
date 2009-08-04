@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090728145034) do
+ActiveRecord::Schema.define(:version => 20090804151958) do
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -71,19 +71,17 @@ ActiveRecord::Schema.define(:version => 20090728145034) do
     t.string   "owner_email"
     t.string   "owner_name"
     t.string   "title"
-    t.boolean  "has_previews",         :default => true
-    t.boolean  "has_p2p_acceleration", :default => true
     t.boolean  "button_installed"
-    t.boolean  "protected",            :default => false
-    t.integer  "favorites_count",      :default => 0
+    t.boolean  "protected",         :default => false
+    t.integer  "favorites_count",   :default => 0
     t.string   "url"
     t.string   "itunes_link"
-    t.string   "state",                :default => "pending"
+    t.string   "state",             :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
     t.text     "xml"
-    t.integer  "ability",              :default => 0
+    t.integer  "ability",           :default => 0
     t.string   "generator"
     t.string   "xml_title"
     t.text     "description"
@@ -92,7 +90,7 @@ ActiveRecord::Schema.define(:version => 20090728145034) do
     t.string   "logo_content_type"
     t.string   "logo_file_size"
     t.string   "error"
-    t.string   "custom_title",         :default => ""
+    t.string   "custom_title",      :default => ""
     t.text     "subtitle"
   end
 

@@ -1,10 +1,14 @@
 /***************************************************/
 /* STYLE GUIDE: keep markup simple, keep CSS clean */
 /***************************************************/
-body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 62.5%; color: #171717;}
+body { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 62.5%; color: #171717; }
 
-a {color: #2951a5; text-decoration: none;}
-a:hover {text-decoration: underline;}
+a { color: #2951A5; text-decoration: underline; }
+a:hover { text-decoration: underline; }
+
+header nav a,
+a.toggle,
+.superbutton a { text-decoration: none; }
 
 #wrapper { font-size: 1.3em; }
 

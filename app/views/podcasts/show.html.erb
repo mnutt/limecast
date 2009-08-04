@@ -6,9 +6,9 @@
 <h1><%= h(@podcast.title) %></h1>
 
 <address>
-  <%= link_to(h(@podcast.clean_site), @podcast.site) unless @podcast.clean_site.blank? %>
-  <%= " &ndash; #{link_to_rss(@podcast)}" unless @podcast.url.blank? -%>
-  <%= " &ndash; #{link_to_itunes(@podcast)}" unless @podcast.itunes_link.blank? -%>
+  <%= link_to(h(@podcast.clean_site), @podcast.site) unless @podcast.clean_site.blank? %> 
+  <%= link_to_rss(@podcast) unless @podcast.url.blank? -%> 
+  <%= link_to_itunes(@podcast) unless @podcast.itunes_link.blank? -%> 
   <br />
   <%= "Made by #{link_to @podcast.owner.login, @podcast.owner, :type => :author}" if @podcast.owner %>
   <%= "Found by #{link_to @podcast.finder.login, @podcast.finder}" if @podcast.finder %>

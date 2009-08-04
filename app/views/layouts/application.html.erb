@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <title><%= "#{@title} &ndash; " if @title -%>LimeCast</title>
+  <title><%= "#{@title} - " if @title -%>LimeCast</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="description" content="Open podcast directory and archive"/>
+  <meta name="keywords" content="open, podcast, podcasts, directory, archive"/>
 
 <% if @podcast && !@podcast.new_record? -%>
   <link rel="shortcut icon" type="image/x-icon" href="<%= @podcast.logo.url(:favicon) -%>" />
@@ -37,7 +38,6 @@
         <li class="search"><%= render "search/form" %></li>
         <li class="auth"><%= render "sessions/auth" %></li>
         <li class="logo"><%= link_to "LimeCast", root_url %></li>
-        <li class="popular"><%= link_to "Popular", popular_url %></li>
         <li class="add"><%= link_to "Add Podcast", add_url %></li>
       </ul>
     </nav>

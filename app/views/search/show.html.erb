@@ -1,0 +1,30 @@
+<% @title = "Search" -%>
+<% @classes = %{search show} -%>
+<%# javascript_include "search" -%>
+
+
+<h1>Search results for '<em><%= h @parsed_query -%></em>'<%= " in podcast #{link_to @podcast.title, podcast_url(@podcast)}" if @podcast %></h1>
+
+<section id="results">
+  <nav>
+    <%= link_to "Podcasts (#{@podcasts.size})", '#podcasts' unless @podcasts.empty? %>
+    <%= link_to "Episodes (#{@episodes.size})", '#episodes' unless @episodes.empty? %>
+    <%= link_to "Reviews (#{@reviews.size})", '#reviews' unless @reviews.empty? %>
+  </nav>
+  
+  <% unless @podcasts.empty? -%>
+  <ul id="podcasts"><%= render :partial => 'podcast', :collection => @podcasts -%></ul>
+  <% end -%>
+
+  <% unless @episodes.empty? -%>
+  <ul id="episodes"><%= render :partial => 'episode', :collection => @episodes -%></ul>
+  <% end -%>
+
+  <% unless @reviews.empty? -%>
+  <ul id="reviews"><%= render :partial => 'review', :collection => @reviews -%></ul>
+  <% end -%>
+    
+  <% if @podcasts.empty? && @reviews.empty? && @episodes.empty? -%>
+  <p>No results returned</p>
+  <% end  -%>
+</section>

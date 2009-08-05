@@ -5,7 +5,7 @@ $.ajaxSetup({
 // Method hooks up all of the input text boxes that should have default labels
 function defaultText() {
   $("#podcast_url, #accounts_forgot_password #email, #search_podcast_s, " + 
-    "#s, #user_tagging_tag_string, #review_body, #review_title").inputDefaultText();
+    "#query, #user_tagging_tag_string, #review_body, #review_title").inputDefaultText();
 }
 
 // Handles truncated "more" and "less" links
@@ -100,13 +100,10 @@ function reviewLinks() {
   });
 }
 
-function setupUserPage() {
-  $('.user.show #user ul:first').show();
-  $('.user.show #user nav a').click(function(){
-    $('.user.show #user ul').hide();
-    $($(this).attr('href')).show();
-  });
+function setupTabs() {
+  $('#user, #results').tabs();
 }
+
 
 $(function() {
   defaultText();
@@ -115,7 +112,6 @@ $(function() {
   toggleLinks();
   reviewLinks();
   setupAuth();
-  setupUserPage();
+  setupTabs();
 //  setupCluetips();
-//  setupTabs();
 });

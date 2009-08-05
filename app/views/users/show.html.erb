@@ -1,6 +1,5 @@
 <% @title = h(@user.login) -%>
 <% @classes = %{user show} -%>
-<%# javascript_include "limecast_form" -%>
  
 
 <h1><%=h @user.login -%><%= "" unless @user.podcaster? %>'s profile</h1>

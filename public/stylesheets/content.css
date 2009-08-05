@@ -309,3 +309,36 @@ ul.similar li {
 	padding: 10px;
 }
 .user.show #user li img { width: 16px; }
+
+
+/***************/
+/* Search      */
+/***************/
+
+.search.show h1 { margin: 0 0 14px 0; }
+.search.show #results nav a { 
+	display: inline-block;
+	font-weight: bold;
+	font-size: 1.1em;
+	background: #FFF;
+	padding: 14px;
+	border: solid #DFDFDF;
+	border-width: 1px 1px 0 1px;
+	border-radius: 4px; 
+	-webkit-border-radius: 4px; 
+	-moz-border-radius: 4px; 
+}
+.search.show #results li h3 { font-size: 1.1em; display: inline; font-weight: normal; }
+.search.show #results li { margin: 0 0 3px 0; }
+.search.show #results ul { 
+	display: none;
+	margin-top: -5px;
+	border: solid 1px #D4D4D4; 
+	border-radius: 4px; 
+	-webkit-border-radius: 4px; 
+	-moz-border-radius: 4px; 
+	background: #FFF; 
+	padding: 10px;
+}
+.search.show #results li img { width: 16px; }
+

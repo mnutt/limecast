@@ -1,17 +1,25 @@
-<li id="<%=h dom_id(review) -%>" class="review <%= review.positive? ? "positive" : "negative" %> clearfix">
-
-<h3>Left for <%= link_to review.episode.podcast.title, podcast_url(:podcast_slug => review.episode.podcast) -%></h3>
-
-
-  <div class="info">
-    <cite><%= link_to_profile review.reviewer if review.reviewer-%></cite>
-    <span class="created_at light"><%= time_ago_in_words review.created_at %> ago</span>
-    <!--<a href="#" class="allreviews">See all my reviews</a>-->
+<li id="<%= dom_id review %>" class="review <%= review.positive? ? "positive" : "negative" %>">
+  <div class="details">
+    <%= link_to review.podcast.title, podcast_url(review.podcast) unless @podcast %>
+    <h5><%= search_excerpt unescape_entities(review.title) %></h5> 
+    <%= search_excerpt unescape_entities(review.body), @parsed_query  %>
+    <%= "by #{link_to review.reviewer.login, user_url(review.reviewer)}" %> 
+    <%= "on #{review.created_at.to_date.to_s}" %> 
   </div>
 
-  <div class="summary">
-    <span class="title"><%= review.title -%></span>
+  <% if local_assigns[:editable] -%>
+  <div>
+    <% if current_user && review.writable_by?(current_user) -%>
+    <%= link_to "Edit", edit_podcast_url(@podcast), :class => "edit" %> / 
+    <%= link_to "Delete", podcast_url(@podcast), :class => "delete" %> ,
+    <% end -%>
 
-    <span class="body"><%= search_excerpt(review.body, @parsed_q) -%></span>
+    <%= link_to "Insightful", rate_review_url(:podcast_slug => review.podcast.to_param, :id => review, :rating => 'insightful'), :class => 'rate insightful login' -%> / 
+    <%= link_to "Not Insightful", rate_review_url(:podcast_slug => review.podcast.to_param, :id => review, :rating => 'not_insightful'), :class => 'rate not_insightful login' -%>
   </div>
+
+  <%= render :partial => 'reviews/form', 
+             :locals => { :options => {:cancel => true}, 
+                          :review => review} if current_user && review.writable_by?(current_user) %>
+  <% end -%>
 </li>

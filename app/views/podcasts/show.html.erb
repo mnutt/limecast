@@ -20,7 +20,7 @@
 <address>
   New episode <%= link_to @episode.date_title, episode_url(@podcast, @episode) %>
   <time datetime="<%= @episode.published_at.to_datetime.to_s %>"><%= time_to_words(Time.now - @episode.published_at, false) %></time> ago<br />
-  <%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%> episodes
+  <%= link_to pluralize(@podcast.episodes.count, "episode"), podcast_episodes_url(@podcast) -%>
   since <%= link_to @podcast.oldest_episode.date_title, link_to_episode(@podcast.oldest_episode) -%>
   every <%= time_to_words(@podcast.average_time_between_episodes, false) -%><br/>
   Total run time <%= time_to_words(@podcast.total_run_time, false) -%>
@@ -28,12 +28,7 @@
 <% end -%>
 
 <section>
-  <%= link_to (@favorited ? "Remove from favorites" : "Favorite this!"), favorite_podcast_url(@podcast), :class => "favorite" %>
-  (or add to
-  <%= link_to "Digg", "http://digg.com/submit?phase=2&url=#{podcast_url(@podcast)}" %>, 
-  <%= link_to "Reddit", "http://reddit.com/submit?url=#{podcast_url(@podcast)}&title=LimeCast%3A%20#{h(@podcast.title)}" %>, 
-  <%= link_to "Facebook", "http://www.facebook.com/share.php?src=bm&v=4&i=1248710348&u=#{podcast_url(@podcast)}&t=#{h(@podcast.title)}" %>, 
-  <%= link_to "Delicious", "http://del.icio.us/post?url=#{podcast_url(@podcast)}&title=LimeCast%3A%20#{h(@podcast.title)}" %>)
+  <%= link_to (@favorited ? "Unfavorite" : "Favorite"), favorite_podcast_url(@podcast), :class => "favorite" %>
 </section>
 
 <section>
@@ -45,7 +40,7 @@
 </section>
 
 <section>
-  Tags <ul class="tags"><%= comma_separated_list_items @podcast.tags.map {|t| link_to_tag(t)} -%></ul>
+  <ul class="tags"><%= @podcast.tags.map {|t| "<li>#{link_to_tag(t)}</li>" }.join(' ') -%></ul>
 </section>
 
 <% unless @related.empty? -%>

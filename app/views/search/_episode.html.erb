@@ -1,22 +1,10 @@
-<li><div class="episode">
+<li>
+  <%= link_to display_cover_art(episode.podcast, :size => :thumb), podcast_url(episode.podcast) -%>
+  <h3>
+    <%= link_to_podcast(episode.podcast) -%>
+    <%= link_to episode.title, episode_url(episode.podcast, episode) %>
+  </h3>
 
-  <div class="no_screenshot">
-
-    <h3><%= link_to episode.title, episode_url(episode.podcast, episode) -%></h3>
-    
-    <p class="details"><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></p>
-    <p><%=  search_excerpt(sanitize_condensed_summary(episode.summary), @parsed_q) -%></p>
-    
-    
-    <div class="preview">
-      <%= image_tag(episode.podcast.logo.url(:icon), :alt => "#{episode.podcast.title} cover art") -%>
-    </div>
-
-      <h5>From the <%= link_to episode.podcast.title, podcast_url(:podcast_slug => episode.podcast), :title => "Subscribe to the series & view the episode list" -%> podcast series</h5>
-    
-    
-
-  </div>
-</div>
-
+  <date><%= episode.published_at.to_date -%> - <%= time_to_words(episode.duration) -%></date>
+  <p><%= search_excerpt(sanitize_condensed_summary(episode.summary), @parsed_query) -%></p>
 </li>

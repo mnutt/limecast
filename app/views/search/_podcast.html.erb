@@ -1,13 +1,5 @@
-<div class="podcast_block">
-  <div class="preview">
-    <%= display_cover_art(podcast) -%>
-  </div>
-
-  <div class="description">
-    <h3><%= link_to_podcast(podcast) -%></h3>
-    <p>
-      <%= search_excerpt(podcast.description || "", @parsed_q) -%>
-    </p>
-    <%= render :partial => "tags/tags", :object => podcast.tags -%>
-  </div>
-</div>
+<li>
+  <%= link_to display_cover_art(podcast, :size => :thumb), podcast_url(podcast) -%>
+  <h3><%= link_to_podcast(podcast) -%></h3>
+  <p><%= search_excerpt sanitize_condensed_summary(podcast.description), @parsed_query -%></p>
+</li>

@@ -2,14 +2,10 @@
 <% @no_ads = true -%>
 <% @classes = %{podcast index} -%>
 
-<section class="popular">
+<section id="podcasts">
   <h2>All podcasts</h2>
   
   <ul>
-    <% @podcasts.each do |podcast| -%>
-      <li id="<%=h dom_id(podcast) -%>" class="podcast">
-        <%= image_tag podcast.logo.url(:icon) %> <%= link_to podcast.title, podcast_url(:podcast_slug => podcast) -%>
-      </li>
-    <% end -%>
+    <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
   </ul>
 </section>

@@ -4,7 +4,7 @@
 
 
 /***************/
-/* Home				 */
+/* Home        */
 /***************/
 
 #welcome {
@@ -212,7 +212,7 @@
 #subscribe a.button { background: url("/imgs/button_subscribe_bg.gif"); }
 
 /***************/
-/* Podcast		 */
+/* Podcast     */
 /***************/
 
 .podcast.show h3,
@@ -227,6 +227,7 @@ ul.similar li {
 	display: inline;
 }
 
+#episodes li.episode .toggle { position: absolute; left: -1.5em; z-index: 100; }
 #episodes li.episode { margin: 7px 0; }
 #episodes li.episode h4 { width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
 #episodes li.episode.open h4 { white-space: normal; }
@@ -250,6 +251,13 @@ ul.similar li {
 #reviews li.editing div { display: none; }
 #reviews li.editing form { display: block; }
 #reviews li form .errors { color: red; }
+
+/********************/
+/* All Podcasts */
+/********************/
+.podcast.index #podcasts li h3 { display: inline; font-size: 1.1em; font-weight: normal; }
+.podcast.index #podcasts li { margin: 0 0 3px 0; }
+.podcast.index #podcasts li img { width: 16px; }
 
 /********************/
 /* Popular Podcasts */

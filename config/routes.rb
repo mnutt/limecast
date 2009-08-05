@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :user_taggings
 
-  map.search    '/search', :controller => 'search', :action => 'index'
+  map.search    '/search', :controller => 'search', :action => 'show'
   map.search_google '/search/google', :controller => 'search', :action => 'google' # for SEO
 
   map.login     '/login',         :controller => 'sessions', :action => 'new'

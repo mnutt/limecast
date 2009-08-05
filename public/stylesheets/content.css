@@ -16,6 +16,7 @@
 
 #welcome h1 {
 	color: #DBDBDB;
+	text-transform: uppercase;
 	display: block;
 	width: 443px;
 	position: relative;
@@ -229,8 +230,7 @@ ul.similar li {
 
 #episodes li.episode .toggle { position: absolute; left: -1.5em; z-index: 100; }
 #episodes li.episode { margin: 7px 0; }
-#episodes li.episode h4 { width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
-#episodes li.episode.open h4 { white-space: normal; }
+#episodes li.episode h4 { font-size: 1em; font-weight: normal; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
 #episodes li.episode article,
 #episodes li.episode p { display: none; }
 #episodes li.episode p img { visibility: hidden; }
@@ -238,8 +238,7 @@ ul.similar li {
 #episodes li.episode.open p { display: block; }
 
 #reviews h5 { display: inline; }
-#reviews nav a.positive, #reviews label.positive, 
-#reviews nav a.negative, #reviews label.negative { padding-left: 20px; }
+#reviews nav a.positive, #reviews nav a.negative { padding-left: 20px; }
 #reviews .positive { background: url('/imgs/icons/thumbs_up.png') no-repeat top left; }
 #reviews .negative { background: url('/imgs/icons/thumbs_down.png') no-repeat top left; }
 #reviews li { margin-top: 14px; }

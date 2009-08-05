@@ -57,8 +57,25 @@
   <%= link_to "All #{@podcast.episodes.count} episodes", podcast_episodes_url(@podcast) %>
 </section>
 
-<%= render :partial => "reviews/reviews", :object => @podcast.reviews.claimed %>
+<section id="reviews">
+  <h3>Reviews</h3>
 
+  <% unless [@reviews.that_are_positive, @reviews.that_are_negative].any? { |r| r.count(:select => "*").zero? } -%>
+  <nav>
+    <%= link_to "All (#{@reviews.count(:select => "*")})", "#reviews", :class => "all" -%>
+    <%= link_to "Positive (#{@reviews.that_are_positive.count(:select => "*")})", "#reviews", :class => "positive" -%>
+    <%= link_to "Negative (#{@reviews.that_are_negative.count(:select => "*")})", "#reviews", :class => "negative" -%>
+  </nav>
+  <% end -%>
+
+  <ul class="all">
+    <%= render :partial => 'reviews/review', :collection => @reviews.reverse, :locals => {:editable => true} -%>
+  </ul>
+
+  <br />
+  
+  <%= render :partial => 'reviews/form', :locals => {:review => @review} if can_add_reviews?(@podcast) %>
+</section>
 
 
 <%# rounded_corner_tag(:class => "related") do -%>

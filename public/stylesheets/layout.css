@@ -39,7 +39,7 @@ input[type=text] {
 	width: 343px;
 	height: 28px;
 	font-size: 1.1em;
-	padding: 5px 5px 0 5px;
+	padding: 8px 5px 0 5px;
 	outline: 0px;
 }
 
@@ -53,6 +53,7 @@ textarea {
 	outline: 0px;
 	padding: 4px;
 	font-size: 1.1em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 button {
@@ -72,7 +73,7 @@ address { display: block; }
 address, section { margin: 0 0 14px 0; }
 
 
-.header_push { height: 65px; }
+.header_push { height: 60px; } /* minus 5 points because the line-height adds to the h1/h2/h3s */
 .footer_push { height: 100px; }
 
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }

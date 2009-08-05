@@ -7,16 +7,16 @@
   <p class="errors"></p>
 
   <p>
-    <%= f.label :positive_true, "Positive", :class => 'positive' %>
-    <%= f.radio_button :positive, true, :class => 'radio', :checked => "checked" -%>
+    <%= f.radio_button :positive, true, :class => 'radio', :checked => "checked", :id => "review_positive_true#{'_'+dom_id(review)}" -%>
+    <%= f.label "positive_true#{'_'+dom_id(review)}", "Positive" %>
 
-    <%= f.label :positive_false, "Negative", :class => 'negative' %>
-    <%= f.radio_button :positive, false, :class => 'radio' -%>
+    <%= f.radio_button :positive, false, :class => 'radio', :id => "review_positive_false#{'_'+dom_id(review)}" -%>
+    <%= f.label "positive_false#{'_'+dom_id(review)}", "Negative" %>
 
-    <%= f.label :title, "Heading" %><br />
+    <%= f.label :title, "Title..." %><br />
     <%= f.text_field :title, :size => 50 -%>
 
-    <%= f.label :body, "Your review of #{h podcast.title}" %><br />
+    <%= f.label :body, "My review of #{h podcast.title}..." %><br />
     <%= f.text_area :body, :rows => 4, :cols => 50 -%>
   </p>
   

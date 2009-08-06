@@ -2,7 +2,8 @@
 <% podcast = review.podcast -%>
 
 <% form_for review,
-            :url => (review.new_record? ? reviews_url(:podcast_slug => podcast) : review_url(:podcast_slug => podcast, :id => review)) do |f| -%>
+            :url => (review.new_record? ? reviews_url(:podcast_slug => podcast) : review_url(:podcast_slug => podcast, :id => review)),
+            :html => {:class => "review_form"} do |f| -%>
 
   <p class="errors"></p>
 

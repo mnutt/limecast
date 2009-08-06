@@ -15,4 +15,6 @@
         :autobuffer => true, :controls => true, :width => 540) %>
   </p>
 <% end -%>
+
+  <%= render :partial => "episodes/superbutton", :locals => {:episode => episode} unless episode.sources.empty? %>
 </li>

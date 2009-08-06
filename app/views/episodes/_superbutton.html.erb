@@ -1,8 +1,8 @@
-<div id="download" class="superbutton clearfix">
+<div class="download superbutton clearfix">
   <div>
     <a href="#" rel="formats">Format&nbsp;▾</a>
     <menu class="formats" type="list">
-      <% @episode.sources.sorted_by_extension_and_bitrate.reverse.each_with_index do |source, i| -%>
+      <% episode.sources.sorted_by_extension_and_bitrate.reverse.each_with_index do |source, i| -%>
       <li class="<%= source.extension %>" <%= 'selected="selected"' if i == 0 %> name="<%= source.formatted_bitrate -%> <%= h source.extension -%>" rel="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>">
         <%= h source.file_name %>
         <span><%= [source.formatted_bitrate,
@@ -23,5 +23,5 @@
     </menu>
   </div>
 
-  <%= link_to "Download", @episode.sources.first.url, :target => "_blank", :class => "button" %>
+  <%= link_to "Download", episode.sources.first.url, :target => "_blank", :class => "button" %>
 </div>

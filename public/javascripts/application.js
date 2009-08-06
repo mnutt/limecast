@@ -5,7 +5,7 @@ $.ajaxSetup({
 // Method hooks up all of the input text boxes that should have default labels
 function defaultText() {
   $("#podcast_url, #accounts_forgot_password #email, #search_podcast_s, " + 
-    "#query, #user_tagging_tag_string, #review_body, #review_title").inputDefaultText();
+    "#query, #user_tagging_tag_string, .review_form input[type=text], .review_form textarea").inputDefaultText();
 }
 
 // Handles truncated "more" and "less" links
@@ -104,6 +104,10 @@ function setupTabs() {
   $('#user, #results').tabs();
 }
 
+function setupSuperbuttons() {
+  $('.download.superbutton').downloadSuperbutton();
+  $('.subscribe.superbutton').subscribeSuperbutton();
+}
 
 $(function() {
   defaultText();
@@ -113,5 +117,5 @@ $(function() {
   reviewLinks();
   setupAuth();
   setupTabs();
-//  setupCluetips();
+  setupSuperbuttons();
 });

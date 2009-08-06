@@ -6,6 +6,8 @@ body { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 62.5%; col
 a { color: #2951A5; text-decoration: underline; }
 a:hover { text-decoration: underline; }
 
+input, textarea { font-family: Verdana, Arial, Helvetica, sans-serif; }
+
 header nav a,
 a.toggle,
 .superbutton a { text-decoration: none; }

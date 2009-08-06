@@ -14,20 +14,13 @@ jQuery.fn.extend({
       var defaultTxt = label.text();
       label.hide();
       
-      var blur = function(){
-        if (input.val() == "") {
-          input.val(defaultTxt).css("color", options.blurColor);
-        }
-      }
-      var focus = function(){
-        if(input.val() == defaultTxt) {
-          input.val("").css("color", options.focusColor);
-        }
-      };
-
-      blur();
-      input.focus(focus);
-      input.blur(blur);
+      input.focus(function(){
+        if(input.val() == defaultTxt) input.val("").css("color", options.focusColor);
+      });
+      input.blur(function(){
+        if (input.val() == "") input.val(defaultTxt).css("color", options.blurColor);
+      })
+      input.focus().blur();
 
       input.parents('form').submit(function(){
         if(input.val() == defaultTxt) input.val('');

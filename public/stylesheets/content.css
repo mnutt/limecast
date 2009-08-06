@@ -120,6 +120,7 @@
 	border: solid 1px #C3C3C3;
 	display: inline-block;
 	height: 2.3em;
+	margin-top: 8px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
@@ -141,7 +142,7 @@
 	position: absolute;
 	top: 2.3em;
 	left: 5px;
-	z-index: 7;
+	z-index: 6;
 	display: none;
 	border: solid #CCC;
 	border-width: 1px 1px 1px 1px;
@@ -151,6 +152,7 @@
 	display: block;
 	padding: 5px 7px 5px 30px;
 	border: 0px;
+	white-space: nowrap;
 	cursor: pointer;
 	background: #FFF url('/ims/icons/ipod.png') 5px 6px no-repeat;
 }
@@ -209,8 +211,8 @@
 	background: #CBE19B repeat-x top left;
 }
 
-#download a.button { background: url("/imgs/button_download_bg.gif"); }
-#subscribe a.button { background: url("/imgs/button_subscribe_bg.gif"); }
+.download a.button { background: url("/imgs/button_download_bg.gif"); }
+.subscribe a.button { background: url("/imgs/button_subscribe_bg.gif"); }
 
 /***************/
 /* Podcast     */
@@ -232,10 +234,12 @@ ul.similar li {
 #episodes li.episode { margin: 7px 0; }
 #episodes li.episode h4 { font-size: 1em; font-weight: normal; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
 #episodes li.episode article,
-#episodes li.episode p { display: none; }
+#episodes li.episode p, 
+#episodes li.episode .superbutton { display: none; }
 #episodes li.episode p img { visibility: hidden; }
 #episodes li.episode.open article,
 #episodes li.episode.open p { display: block; }
+#episodes li.episode.open .superbutton { display: inline-block; }
 
 #reviews h5 { display: inline; }
 #reviews nav a.positive, #reviews nav a.negative { padding-left: 20px; }
@@ -250,6 +254,8 @@ ul.similar li {
 #reviews li.editing div { display: none; }
 #reviews li.editing form { display: block; }
 #reviews li form .errors { color: red; }
+#reviews form input[type=radio] { margin-top: -4px; }
+#reviews form input[type=text], #reviews form textarea { width: 98%; margin-bottom: 4px; }
 
 /********************/
 /* All Podcasts */
@@ -272,7 +278,7 @@ ul.similar li {
 .podcast.new abbr { padding-left: 18px; background: url('/imgs/icons/rss.png') no-repeat top left;	}
 .podcast.new #new_podcast, .podcast.new .added_podcast { padding: 0; margin: 0 0 4px 0; }
 .podcast.new #new_podcast input[type=text],
-.podcast.new .added_podcast input[type=text] { margin: 0; font-size: 1.2em; width: 490px; background-image: url('/imgs/input_long.png'); }
+.podcast.new .added_podcast input[type=text] { margin: 0; font-size: 1.2em; width: 490px; height: 26px; }
 .podcast.new .added_podcast input[type=text] { color: #919191; }
 .podcast.new .added_podcast .status { margin: 14px 0 0 0; }
 .podcast.new .arrow_down { background: url("/imgs/icons/arrow_down.png") no-repeat right center; padding: 0 18px 0 0; }

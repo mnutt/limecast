@@ -3,7 +3,7 @@
 <% javascript_include "jquery.flash", "video_preview", "download_button" -%>
 <% @classes = %{episode show} -%>
 
-<h1><%= link_to h(@podcast.title), podcast_url(@podcast) %></h1>
+<p><%= link_to h(@podcast.title), podcast_url(@podcast) %></p>
 
 <h2><%=h @episode.title -%></h2>
 
@@ -31,4 +31,4 @@
 </p>
 <% end -%>
 
-<%= render :partial => "superbutton" unless @episode.sources.empty? -%>
+<%= render :partial => "superbutton", :locals => {:episode => @episode} unless @episode.sources.empty? -%>

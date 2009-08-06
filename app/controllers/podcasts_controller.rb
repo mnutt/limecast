@@ -52,6 +52,11 @@ class PodcastsController < ApplicationController
     @review   = @podcast.reviews.build
   end
 
+  # GET /:podcast_slug/cover
+  def cover
+    @podcast ||= Podcast.find_by_slug(params[:podcast_slug])
+  end
+
   # GET /plain_feeds/:id.xml
   # GET /torrent_feeds/:id.xml
   # GET /magnet_feeds/:id.xml

@@ -32,7 +32,7 @@
 </section>
 
 <section>
-  <h3>Description</h3>
+  <h2>Description</h2>
 
   <article>
     <%= unescape_entities h(@podcast.description) %>
@@ -50,7 +50,7 @@
 <% end -%>
 
 <section id="episodes">
-  <h3>Episodes (<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</h3>
+  <h2>Episodes (<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</h2>
   <ul>
     <%= render :partial => "episodes/episode", :collection => @episodes -%>
   </ul>
@@ -58,7 +58,7 @@
 </section>
 
 <section id="reviews">
-  <h3>Reviews</h3>
+  <h2>Reviews</h2>
 
   <% unless [@reviews.that_are_positive, @reviews.that_are_negative].any? { |r| r.count(:select => "*").zero? } -%>
   <nav>

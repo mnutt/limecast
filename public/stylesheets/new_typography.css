@@ -18,11 +18,8 @@ p, nav, address, aside { line-height: 1.5em; font-weight: normal;}
 
 .light {color: #a9a9a9;}
 
-h1, h2, h3 {
-	font-family: Helvetica, Arial, Verdana, sans-serif; 
-}
-
 h1, h2, h3, h4, h5, h6 {
+	font-family: Helvetica, Arial, Verdana, sans-serif; 
 	color: #171717; 
 	font-weight: bold; 
 }

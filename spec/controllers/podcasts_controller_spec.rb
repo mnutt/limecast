@@ -261,12 +261,23 @@ describe PodcastsController do
     end
   end
 
+  describe "handling GET /:podcast_slug/cover" do
+    before do
+      get :cover, :podcast_slug => @podcast.clean_url
+    end
 
+    it "should be successful" do
+      response.should be_success
+    end
 
+    it "should render the cover template" do
+      response.should render_tmemplate('cover')
+    end
 
-
-
-
+    it "should assign the podcast" do
+      assigns[:podcast].should == @podcast
+    end
+  end
 
   # specs taken from FeedControllerSpec
   describe "handling GET /add" do

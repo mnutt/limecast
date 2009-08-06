@@ -218,8 +218,7 @@
 /* Podcast     */
 /***************/
 
-.podcast.show h3,
-.podcast.show h4 { font-size: 1.2em; }
+.podcast.show h2 { font-size: 1.2em; }
 .podcast.show address a.rss { padding: 1px 0 0 20px; background: url('/imgs/icons/rss.png') no-repeat top left; }
 .podcast.show address a.itunes { padding: 1px 0 0 20px; background: url('/imgs/icons/itunes.png') no-repeat bottom left; }
 
@@ -232,7 +231,7 @@ ul.similar li {
 
 #episodes li.episode .toggle { position: absolute; left: -1.5em; z-index: 100; }
 #episodes li.episode { margin: 7px 0; }
-#episodes li.episode h4 { font-size: 1em; font-weight: normal; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
+#episodes li.episode h3 { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 1em; font-weight: normal; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
 #episodes li.episode article,
 #episodes li.episode p, 
 #episodes li.episode .superbutton { display: none; }
@@ -241,7 +240,7 @@ ul.similar li {
 #episodes li.episode.open p { display: block; }
 #episodes li.episode.open .superbutton { display: inline-block; }
 
-#reviews h5 { display: inline; }
+#reviews h5 { font-family: Verdana, Arial, Helvetica, sans-serif; display: inline; }
 #reviews nav a.positive, #reviews nav a.negative { padding-left: 20px; }
 #reviews .positive { background: url('/imgs/icons/thumbs_up.png') no-repeat top left; }
 #reviews .negative { background: url('/imgs/icons/thumbs_down.png') no-repeat top left; }
@@ -260,14 +259,14 @@ ul.similar li {
 /********************/
 /* All Podcasts */
 /********************/
-.podcast.index #podcasts li h3 { display: inline; font-size: 1.1em; font-weight: normal; }
+.podcast.index #podcasts li h3 { font-family: Verdana, Arial, Helvetica, sans-serif; display: inline; font-size: 1.1em; font-weight: normal; }
 .podcast.index #podcasts li { margin: 0 0 3px 0; }
 .podcast.index #podcasts li img { width: 16px; }
 
 /********************/
 /* Popular Podcasts */
 /********************/
-.podcast.popular #podcasts li h3 { display: inline; font-size: 1.1em; font-weight: normal; }
+.podcast.popular #podcasts li h3 { font-family: Verdana, Arial, Helvetica, sans-serif; display: inline; font-size: 1.1em; font-weight: normal; }
 .podcast.popular #podcasts li { margin: 0 0 3px 0; }
 .podcast.popular #podcasts li img { width: 16px; }
 
@@ -289,8 +288,8 @@ ul.similar li {
 /***************/
 
 .episode.show h1 { font-size: 1em; font-weight: normal; }
-.episode.index h3,
-.episode.index h4 { font-size: 1.2em; }
+.episode.index h2,
+.episode.index h3 { font-size: 1.2em; }
 
 /***************/
 /* Users       */

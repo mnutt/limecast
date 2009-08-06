@@ -46,7 +46,9 @@
 
   <div id="wrapper">
     <aside id="left">
-      <%= image_tag(@podcast.logo(:small)) if !@error && @podcast && !@podcast.new_record? %>
+      <% if !@error && @podcast && !@podcast.new_record? && action_name != 'cover' -%>
+        <%= link_to(image_tag(@podcast.logo(:small)), (controller_name == 'podcasts' ? cover_url(@podcast) : podcast_url(@podcast)))  %>
+      <% end -%>
     </aside>
 
     <aside id="right">

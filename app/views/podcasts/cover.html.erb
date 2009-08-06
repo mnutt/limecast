@@ -1,0 +1,11 @@
+<% @title = h(@podcast.title) -%>
+<% @no_ads = true -%>
+<% @classes = %{podcast show} -%>
+
+<h1><%= link_to h(@podcast.title), podcast_url(@podcast) %></h1>
+
+<br />
+
+<section>
+  <%= image_tag @podcast.logo(:large) %>
+</section>

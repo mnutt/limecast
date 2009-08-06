@@ -3,7 +3,7 @@ root_path = File.join(File.dirname(__FILE__), '..')
 require "#{root_path}/config/environment.rb"
 
 Podcast.all.each do |p|
-  qf = QueuedFeed.find_or_initialize_by_url(p.url)
+  qf = QueuedPodcast.find_or_initialize_by_url(p.url)
   qf.update_attributes(
     :state      => p.state || "parsed",
     :error      => p.error,

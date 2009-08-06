@@ -169,9 +169,9 @@ class MockLogger
   end
 end
 
-def mod_and_run_podcast_processor(queued_feed, mod = FetchExample)
+def mod_and_run_podcast_processor(queued_podcast, mod = FetchExample)
   logger = MockLogger.new
-  fp = PodcastProcessor.new(queued_feed, logger)
+  fp = PodcastProcessor.new(queued_podcast, logger)
   fp.extend(mod)
   fp.process
 end

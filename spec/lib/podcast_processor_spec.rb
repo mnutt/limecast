@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe PodcastProcessor, "parsing" do
 
   before do
-    @qf = QueuedFeed.create(:url => "http://google.com/rss.xml")
+    @qf = QueuedPodcast.create(:url => "http://google.com/rss.xml")
     lambda { mod_and_run_podcast_processor(@qf, FetchExample) }.should change { Podcast.count }.by(1)
     @podcast = @qf.podcast
   end
@@ -41,7 +41,7 @@ describe PodcastProcessor, "parsing" do
     user = Factory.create(:user, :email => "john.doe@example.com")
     @podcast = Factory.create(:podcast, :site => "http://www.example.com/")
 
-    @qf = QueuedFeed.create(:url => @podcast.url, :podcast_id => @podcast.id, :user => user)
+    @qf = QueuedPodcast.create(:url => @podcast.url, :podcast_id => @podcast.id, :user => user)
     mod_and_run_podcast_processor(@qf, FetchExample)
 
     @podcast.reload.finder.should == user
@@ -52,7 +52,7 @@ end
 
 describe PodcastProcessor, "parsing Chinese Feed" do
   before do
-    @qf = QueuedFeed.create(:url => "http://google.com/rss.xml")
+    @qf = QueuedPodcast.create(:url => "http://google.com/rss.xml")
     lambda { mod_and_run_podcast_processor(@qf, FetchChineseFeed) }.should change { Podcast.count }.by(1)
     @podcast = @qf.podcast
   end
@@ -82,7 +82,7 @@ end
 
 describe PodcastProcessor, "failing" do
   before do
-    @qf = QueuedFeed.create(:url => "http://google.com/rss.xml")
+    @qf = QueuedPodcast.create(:url => "http://google.com/rss.xml")
     mod_and_run_podcast_processor(@qf, FetchRegularFeed)
   end
 
@@ -97,7 +97,7 @@ end
 # Podcast is already in the system, looking it up by url.
 describe PodcastProcessor, "being reparsed" do
   before do
-    @qf = Factory.create(:queued_feed)
+    @qf = Factory.create(:queued_podcast)
     mod_and_run_podcast_processor(@qf, FetchExample)
     @podcast = @qf.podcast
   end
@@ -125,10 +125,10 @@ end
 
 describe PodcastProcessor, "parsing a podcast's second feed" do
   before do
-    @qf = Factory.create(:queued_feed)
+    @qf = Factory.create(:queued_podcast)
     mod_and_run_podcast_processor(@qf, FetchExample)
     @podcast = @qf.podcast.reload
-    @qf2 = QueuedFeed.create(:url => (@qf.url.split('/')[0..-2].join+'feed_two.xml'))
+    @qf2 = QueuedPodcast.create(:url => (@qf.url.split('/')[0..-2].join+'feed_two.xml'))
   end
 
   it 'should not change the podcast' do
@@ -142,7 +142,7 @@ end
 
 describe Podcast, "updating episodes" do
   before do
-    @qf = Factory.create(:queued_feed)
+    @qf = Factory.create(:queued_podcast)
     mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS)
     @podcast = @qf.podcast
   end
@@ -216,7 +216,7 @@ end
 describe Podcast, "when a weird server error occurs" do
   before do
     @podcast = Factory.create(:podcast)
-    @qf = Factory.create :queued_feed, :url => 'http://localhost:7', :podcast_id => @podcast
+    @qf = Factory.create :queued_podcast, :url => 'http://localhost:7', :podcast_id => @podcast
   end
 
   it 'should save the error that an unknown exception occurred' do
@@ -228,7 +228,7 @@ end
 
 describe Podcast, "being created" do
   before do
-    @qf = Factory.create :queued_feed
+    @qf = Factory.create :queued_podcast
     mod_and_run_podcast_processor(@qf, FetchRegularFeed)
     @podcast = Factory.create(:podcast)
   end

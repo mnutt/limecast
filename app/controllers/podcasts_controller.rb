@@ -68,23 +68,23 @@ class PodcastsController < ApplicationController
 
   # GET /:podcast_slug
   def status
-    @queued_feed = QueuedFeed.find_by_url(params[:podcast])
-    @podcast     = @queued_feed.podcast if @queued_feed
+    @queued_podcast = QueuedPodcast.find_by_url(params[:podcast])
+    @podcast     = @queued_podcast.podcast if @queued_podcast
 
     # See http://wiki.limewire.org/index.php?title=LimeCast_Add#Messages
     # Unexpected errors
-    if @queued_feed.nil?
+    if @queued_podcast.nil?
       render :partial => 'status_error'
     # Successes
-    elsif @podcast && @queued_feed.parsed? && queued_feed_created_just_now_by_user?(@queued_feed)
+    elsif @podcast && @queued_podcast.parsed? && queued_podcast_created_just_now_by_user?(@queued_podcast)
       render :partial => 'status_added'
-    elsif @podcast && @queued_feed.parsed?
+    elsif @podcast && @queued_podcast.parsed?
       render :partial => 'status_conflict'
     # Progress
-    elsif @queued_feed.pending?
+    elsif @queued_podcast.pending?
       render :partial => 'status_loading'
     # Expected errors
-    elsif !@queued_feed.failed?
+    elsif !@queued_podcast.failed?
       render :partial => 'status_failed'
     # Really unexpected errors
     else
@@ -94,13 +94,13 @@ class PodcastsController < ApplicationController
   
   # POST /podcasts?url=...
   def create
-    @queued_feed = QueuedFeed.find_or_initialize_by_url(params[:podcast][:url])
+    @queued_podcast = QueuedPodcast.find_or_initialize_by_url(params[:podcast][:url])
 
-    if @queued_feed.new_record?
-      @queued_feed.save
-      remember_unclaimed_record(@queued_feed)
+    if @queued_podcast.new_record?
+      @queued_podcast.save
+      remember_unclaimed_record(@queued_podcast)
     else
-      @queued_feed.save
+      @queued_podcast.save
     end
 
     render :nothing => true
@@ -174,15 +174,15 @@ class PodcastsController < ApplicationController
 
   protected
 
-    def queued_feed_in_session?(queued_feed)
-      has_unclaimed_record?(QueuedFeed, lambda {|i| i.id == queued_feed.id })
+    def queued_podcast_in_session?(queued_podcast)
+      has_unclaimed_record?(QueuedPodcast, lambda {|i| i.id == queued_podcast.id })
     end
 
-    def queued_feed_created_by_user?(queued_feed)
-      queued_feed_in_session?(queued_feed) or queued_feed.user == current_user
+    def queued_podcast_created_by_user?(queued_podcast)
+      queued_podcast_in_session?(queued_podcast) or queued_podcast.user == current_user
     end
 
-    def queued_feed_created_just_now_by_user?(queued_feed)
-      queued_feed_created_by_user?(queued_feed) && queued_feed.created_at > 2.minutes.ago
+    def queued_podcast_created_just_now_by_user?(queued_podcast)
+      queued_podcast_created_by_user?(queued_podcast) && queued_podcast.created_at > 2.minutes.ago
     end
 end

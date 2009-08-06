@@ -1,7 +1,7 @@
 # == Schema Information
 # Schema version: 20090728145034
 #
-# Table name: queued_feeds
+# Table name: queued_podcasts
 #
 #  id         :integer(4)    not null, primary key
 #  url        :string(255)   
@@ -16,10 +16,8 @@
 require 'open-uri'
 require 'timeout'
 
-# XXX: Rename to FeedUrl
-class QueuedFeed < ActiveRecord::Base
+class QueuedPodcast < ActiveRecord::Base
   belongs_to :user
-  belongs_to :podcast
 
   validates_presence_of   :url
   validates_uniqueness_of :url
@@ -53,7 +51,7 @@ class QueuedFeed < ActiveRecord::Base
   end
 
   def url=(val)
-    val = QueuedFeed.clean_url(val)
+    val = QueuedPodcast.clean_url(val)
     write_attribute(:url, val)
   end
 

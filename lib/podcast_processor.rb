@@ -17,22 +17,22 @@ class PodcastProcessor
 
   attr_accessor :podcast, :logger
 
-  def self.process(queued_feed, logger=nil)
-    self.new(queued_feed, logger).process
+  def self.process(queued_podcast, logger=nil)
+    self.new(queued_podcast, logger).process
   end
 
-  def self.process_archives(queued_feed, logger=nil)
-    self.new(queued_feed, logger).process_archives
+  def self.process_archives(queued_podcast, logger=nil)
+    self.new(queued_podcast, logger).process_archives
   end
 
-  def initialize(queued_feed, logger)
-    @qf = queued_feed
+  def initialize(queued_podcast, logger)
+    @qp = queued_podcast
     @logger = logger || @logger = Logger.new(RAILS_ROOT + "/log/update_podcasts.log")
   end
   
   def process
     ActiveRecord::Base.transaction do
-      @podcast = @qf.podcast || Podcast.new(:url => @qf.url)
+      @podcast = @qp.podcast || Podcast.new(:url => @qp.url)
 
       if invalid_address?
         @state = "invalid_address"
@@ -80,13 +80,13 @@ class PodcastProcessor
     end
 
     log_failed(exception)
-    PodcastMailer.deliver_failed_queued_feed(@qf, exception)
+    PodcastMailer.deliver_failed_queued_podcast(@qp, exception)
     # We saved the duplicate feed id to a variable so that we could point this feed to the correct one
-    @qf.update_attributes(:state => @state || 'failed', :podcast_id => @duplicate_podcast_id, :error => exception.class.to_s)
+    @qp.update_attributes(:state => @state || 'failed', :podcast_id => @duplicate_podcast_id, :error => exception.class.to_s)
   end
 
   def process_archives
-    @podcast = @qf.podcast || Podcast.new(:url => @qf.url)
+    @podcast = @qp.podcast || Podcast.new(:url => @qp.url)
     
     begin
       update_archives!
@@ -96,9 +96,9 @@ class PodcastProcessor
       end
 
       log_failed(exception)
-      PodcastMailer.deliver_failed_queued_feed(@qf, exception)
+      PodcastMailer.deliver_failed_queued_podcast(@qp, exception)
       # We saved the duplicate feed id to a variable so that we could point this feed to the correct one
-      @qf.update_attributes(:state => @state || 'failed', :podcast_id => @duplicate_podcast_id, :error => exception.class.to_s)
+      @qp.update_attributes(:state => @state || 'failed', :podcast_id => @duplicate_podcast_id, :error => exception.class.to_s)
     end
   end
 
@@ -106,7 +106,7 @@ class PodcastProcessor
     logger.fatal exception
     logger.fatal exception.backtrace.join("\n")
     stored_exception = {
-      :podcast => @qf.url,
+      :podcast => @qp.url,
       :klass => exception.class.to_s,
       :message => exception.to_s,
       :backtrace => exception.backtrace
@@ -120,7 +120,7 @@ class PodcastProcessor
   # we can mock it easier.
   def fetch
     Timeout::timeout(15) do
-      OpenURI::open_uri(@qf.url, "User-Agent" => "LimeCast/0.1") do |f|
+      OpenURI::open_uri(@qp.url, "User-Agent" => "LimeCast/0.1") do |f|
         f.read
       end
     end
@@ -131,7 +131,7 @@ class PodcastProcessor
 
   def update_podcast!
     @podcast.attributes = {
-      :finder      => @qf.user,
+      :finder      => @qp.user,
       :bitrate     => @rpodcast_feed.bitrate.nearest_multiple_of(64),
       :generator   => @rpodcast_feed.generator,
       :ability     => ABILITY,
@@ -148,7 +148,7 @@ class PodcastProcessor
     @podcast.download_logo(@rpodcast_feed.image) unless @rpodcast_feed.image.nil?
     @podcast.save!
 
-    @qf.update_attributes(
+    @qp.update_attributes(
       :podcast_id => @podcast.id,
       :error      => '',
       :state      => 'parsed'
@@ -163,7 +163,7 @@ class PodcastProcessor
     tags << "torrent" if @rpodcast_feed.torrent?
     tags << "creativecommons" if @rpodcast_feed.creative_commons?
     tags << "explicit" if @rpodcast_feed.explicit?
-    @podcast.tag_string = tags.join(" "), (@podcast.owner || @qf.user)
+    @podcast.tag_string = tags.join(" "), (@podcast.owner || @qp.user)
   end
 
   def update_episodes!
@@ -255,11 +255,11 @@ class PodcastProcessor
   protected
 
   def invalid_address?
-    !@qf.url =~ %r{^([^/]*//)?([^/]+)}
+    !@qp.url =~ %r{^([^/]*//)?([^/]+)}
   end
 
   def banned?
-    !!(Blacklist.find_by_domain($2) if @qf.url =~ %r{^([^/]*//)?([^/]+)})
+    !!(Blacklist.find_by_domain($2) if @qp.url =~ %r{^([^/]*//)?([^/]+)})
   end
 
   def no_enclosure?

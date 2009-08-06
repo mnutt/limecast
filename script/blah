@@ -64,5 +64,5 @@ qf = ["http://feeds.feedburner.com/Obama08VideoPodcast",
 
 qf.each do |url|
   puts 'adding '+url
-  QueuedFeed.create(:url => url, :user => User.first)
+  QueuedPodcast.create(:url => url, :user => User.first)
 end

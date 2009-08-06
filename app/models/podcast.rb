@@ -56,7 +56,7 @@ class Podcast < ActiveRecord::Base
   has_one  :newest_episode, :class_name => 'Episode', :order => "published_at DESC"
   has_one  :oldest_episode, :class_name => 'Episode', :order => "published_at ASC"
   has_one  :newest_source, :class_name => 'Source', :include => :episode, :order => "episodes.published_at DESC"
-  has_one  :queued_feed, :dependent => :destroy
+  has_one  :queued_podcast, :dependent => :destroy
 
   belongs_to :owner, :class_name => 'User'
   belongs_to :finder, :class_name => 'User'

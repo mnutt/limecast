@@ -1,15 +1,15 @@
 <span class="status_message finished">
-  <% if @queued_feed.duplicate? -%>
+  <% if @queued_podcast.duplicate? -%>
     I've already got <%= link_to_podcast(@podcast) -%>!
-  <% elsif @queued_feed.invalid_xml? -%>
+  <% elsif @queued_podcast.invalid_xml? -%>
     That's not an RSS feed.
-  <% elsif @queued_feed.no_enclosure? -%>
+  <% elsif @queued_podcast.no_enclosure? -%>
     That's a text RSS feed, not an audio or video podcast.
-  <% elsif @queued_feed.invalid_address? -%>
+  <% elsif @queued_podcast.invalid_address? -%>
     That's not a web address.
-  <% elsif @queued_feed.blacklisted? -%>
+  <% elsif @queued_podcast.blacklisted? -%>
     I can't take feeds from that site!
-  <% elsif %w(SocketError Timeout::Error Errno::ENETUNREACH OpenURI::HTTPError).include?(@queued_feed.error) -%>
+  <% elsif %w(SocketError Timeout::Error Errno::ENETUNREACH OpenURI::HTTPError).include?(@queued_podcast.error) -%>
     Not found.
   <% else -%>
     There was some sort of error adding the podcast.  It's probably a bug, and we're on it.  

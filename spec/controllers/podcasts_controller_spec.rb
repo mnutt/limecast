@@ -4,7 +4,7 @@ describe PodcastsController do
 
   describe "handling GET /all.xml" do
     before(:each) do
-      qf = Factory.create(:queued_feed)
+      qf = Factory.create(:queued_podcast)
       mod_and_run_podcast_processor(qf)
       @podcast = qf.podcast
     end
@@ -31,7 +31,7 @@ describe PodcastsController do
 
   describe "handling GET /" do
     before(:each) do
-      qf = Factory.create(:queued_feed)
+      qf = Factory.create(:queued_podcast)
       mod_and_run_podcast_processor(qf)
       @podcast = qf.podcast
     end
@@ -58,7 +58,7 @@ describe PodcastsController do
 
   describe "handling GET /:podcast_slug" do
     before(:each) do
-      qf = Factory.create(:queued_feed)
+      qf = Factory.create(:queued_podcast)
       mod_and_run_podcast_processor(qf)
       @podcast = qf.podcast
     end
@@ -307,18 +307,18 @@ describe PodcastsController do
     end
 
     it 'should save an unclaimed feed' do
-      assigns[:queued_feed].should be_kind_of(QueuedFeed)
-      assigns[:queued_feed].should_not be_new_record
-      assigns[:queued_feed].user.should be_nil
-      QueuedFeed.unclaimed.should include(assigns[:queued_feed])
+      assigns[:queued_podcast].should be_kind_of(QueuedPodcast)
+      assigns[:queued_podcast].should_not be_new_record
+      assigns[:queued_podcast].user.should be_nil
+      QueuedPodcast.unclaimed.should include(assigns[:queued_podcast])
     end
 
     it 'should add the feed to the session' do
-      session[:unclaimed_records]['QueuedFeed'].should include(assigns[:queued_feed].id)
+      session[:unclaimed_records]['QueuedPodcast'].should include(assigns[:queued_podcast].id)
     end
 
     it 'should not associate the feed with a user' do
-      assigns[:queued_feed].user.should be_nil
+      assigns[:queued_podcast].user.should be_nil
     end
   end
 
@@ -330,25 +330,25 @@ describe PodcastsController do
     end
 
     it 'should save the feed' do
-      assigns(:queued_feed).should be_kind_of(QueuedFeed)
-      assigns(:queued_feed).should_not be_new_record
+      assigns(:queued_podcast).should be_kind_of(QueuedPodcast)
+      assigns(:queued_podcast).should_not be_new_record
     end
 
     it 'should associate the feed with the user' do
-      assigns(:queued_feed).user.should == @user
+      assigns(:queued_podcast).user.should == @user
     end
 
     it 'should create a feed' do
-      assigns(:queued_feed).should be_kind_of(QueuedFeed)
-      assigns(:queued_feed).url.should == "http://example.com/podcast/feed.xml"
+      assigns(:queued_podcast).should be_kind_of(QueuedPodcast)
+      assigns(:queued_podcast).url.should == "http://example.com/podcast/feed.xml"
     end
   end
 
   describe "POST /status" do
     describe "for a podcast that has not yet been parsed" do
       before(:each) do
-        @queued_feed = Factory.create(:queued_feed, :state => nil)
-        post :status, :podcast => @queued_feed.url
+        @queued_podcast = Factory.create(:queued_podcast, :state => nil)
+        post :status, :podcast => @queued_podcast.url
       end
 
       it 'should render the loading template' do
@@ -359,11 +359,11 @@ describe PodcastsController do
     describe "for a podcast that has been parsed" do
       before(:each) do
         @podcast = Factory.create(:podcast)
-        @queued_feed = Factory.create(:queued_feed, :podcast => @podcast)
+        @queued_podcast = Factory.create(:queued_podcast, :podcast => @podcast)
 
-        controller.should_receive(:queued_feed_created_just_now_by_user?).and_return(true)
+        controller.should_receive(:queued_podcast_created_just_now_by_user?).and_return(true)
 
-        post :status, :podcast => @queued_feed.url
+        post :status, :podcast => @queued_podcast.url
       end
 
       it 'should render the added template' do
@@ -375,9 +375,9 @@ describe PodcastsController do
       describe "because it was not a web address" do
         before(:each) do
           @podcast = Factory.create(:podcast)
-          @queued_feed = Factory.create(:queued_feed, :podcast => @podcast, :state => "failed")
+          @queued_podcast = Factory.create(:queued_podcast, :podcast => @podcast, :state => "failed")
 
-          post :status, :podcast => @queued_feed.url
+          post :status, :podcast => @queued_podcast.url
         end
 
         it 'should render the error template' do

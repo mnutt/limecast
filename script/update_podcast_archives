@@ -5,7 +5,7 @@ require "#{root_path}/config/environment.rb"
 begin 
   podcast = Podcast.find(ARGV[0])
   puts "Getting archived episodes for #{podcast.title}"
-  qf = podcast.queued_feed || podcast.create_queued_feed
+  qf = podcast.queued_podcast || podcast.create_queued_podcast
   PodcastProcessor.process_archives(qf)
 rescue Exception => e
   puts "There was a problem: #{e.message}"

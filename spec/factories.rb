@@ -15,7 +15,7 @@ Factory.define :user_tagging do |t|
   t.user { Factory.create :user }
 end
 
-Factory.define :queued_feed do |q|
+Factory.define :queued_podcast do |q|
   q.podcast { Factory.create :podcast }
   q.url     { Factory.next :url }
   q.state   "parsed"

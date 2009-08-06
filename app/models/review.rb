@@ -25,6 +25,7 @@ class Review < ActiveRecord::Base
   after_destroy { |c| c.reviewer.calculate_score! if c.reviewer }
 
   validates_presence_of :podcast_id, :body
+  validates_uniqueness_of :user_id, :scope => :podcast_id
 
   named_scope :older_than, lambda {|date| {:conditions => ["reviews.created_at < (?)", date]} }
   named_scope :newer_than, lambda {|who| {:conditions => ["reviews.created_at >= (?)", who.created_at]} }

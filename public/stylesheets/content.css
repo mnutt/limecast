@@ -241,13 +241,13 @@ ul.similar li {
 #episodes li.episode.open .superbutton { display: inline-block; }
 
 #reviews h5 { font-family: Verdana, Arial, Helvetica, sans-serif; display: inline; }
-#reviews nav a.positive, #reviews nav a.negative { padding-left: 20px; }
+#reviews .positive, #reviews .negative { padding-left: 20px; }
 #reviews .positive { background: url('/imgs/icons/thumbs_up.png') no-repeat top left; }
 #reviews .negative { background: url('/imgs/icons/thumbs_down.png') no-repeat top left; }
 #reviews li { margin-top: 14px; }
 #reviews ul.positive li.negative { display: none; }
 #reviews ul.negative li.positive { display: none; }
-#reviews li .details { text-indent: 20px; }
+#reviews li .details { }
 #reviews li form { display: none; }
 #reviews li.editing { padding-left: 0px; background-image: none; }
 #reviews li.editing div { display: none; }

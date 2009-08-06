@@ -11,7 +11,7 @@
   <div>
     <% if current_user && review.writable_by?(current_user) -%>
     <%= link_to "Edit", edit_podcast_url(@podcast), :class => "edit" %> / 
-    <%= link_to "Delete", podcast_url(@podcast), :class => "delete" %> ,
+    <%= link_to "Delete", review_url(@podcast, review), :class => "delete" %> ,
     <% end -%>
 
     <%= link_to "Insightful", rate_review_url(:podcast_slug => review.podcast.to_param, :id => review, :rating => 'insightful'), :class => 'rate insightful login' -%> / 

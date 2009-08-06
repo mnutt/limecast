@@ -68,7 +68,7 @@
   </nav>
   <% end -%>
 
-  <ul class="all">
+  <ul>
     <%= render :partial => 'reviews/review', :collection => @reviews.reverse, :locals => {:editable => true} -%>
   </ul>
 

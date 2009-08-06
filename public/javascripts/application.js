@@ -82,6 +82,13 @@ function toggleLinks() {
 function reviewLinks() {
   $('#reviews nav a').mousedown(function(){ $('#reviews ul').removeClass().addClass($(this).attr('class')); }).click(function(){return false;});
   $('#reviews li a.edit').mousedown(function(){ $(this).parents('li.review').addClass('editing'); }).click(function(){return false;});
+  $('#reviews li a.delete').restfulDelete({
+    dataType: 'json',
+    success: function(resp){ 
+      $('#reviews ul').html(resp.html);
+      reviewLinks(); 
+    }
+  });
   $('#reviews li a.cancel').mousedown(function(){ $(this).parents('li.review').removeClass('editing'); }).click(function(){return false;});
   $('#reviews form, #review form').submit(function(event){ 
     var form = $(this);
@@ -90,7 +97,8 @@ function reviewLinks() {
         if(resp.login_required) { 
           form.authTmpSetup();
         } else { 
-          $('#reviews').replaceWith(resp.html); 
+          $('#reviews ul').html(resp.html); 
+          form.remove();
           reviewLinks(); 
           $("#review_body, #review_title").inputDefaultText();
         }

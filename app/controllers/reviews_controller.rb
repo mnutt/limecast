@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
     raise ActiveRecord::RecordNotFound if @podcast.nil?
 
     unless has_unclaimed_record?(Review, lambda {|r| r.podcast == @podcast })
-      @review = @podcast.reviews.create(params[:review].slice(:title, :body, :positive))
+      @review = @podcast.reviews.create(params[:review].slice(:title, :body, :positive).merge(:user_id => current_user.id))
       remember_unclaimed_record(@review) if @review
     end
 
@@ -43,7 +43,6 @@ class ReviewsController < ApplicationController
   def destroy
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @review = @podcast.reviews.find(params[:id])
-    session[:reviews].delete(params[:id]) if session[:reviews]
 
     save_response(nil, @review.destroy)
   end
@@ -52,7 +51,7 @@ class ReviewsController < ApplicationController
 
   def save_response(review, success)
     if success
-      render :json => {:success => true, :html => render_to_string(:partial => 'reviews/reviews', :object => @podcast.reviews.claimed, :locals => {:podcast => @podcast, :editable => true})}
+      render :json => {:success => true, :html => render_to_string(:partial => 'reviews/review', :collection => @podcast.reviews.claimed.reverse, :locals => {:editable => true})}
     else
       render :json => {:success => false, :errors => "There was a problem:<br /> #{review.errors.full_messages.join('.<br /> ')}."}
     end

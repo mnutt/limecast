@@ -7,6 +7,7 @@ $.fn.extend({
         $.ajax({
           type: 'post',
           url:  $(this).attr('href'),
+          data: (opts.data || {'_method':'delete'}),
           dataType: (opts.dataType || 'html'),
           success: opts.success,
           failure: opts.failure

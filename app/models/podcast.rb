@@ -337,7 +337,7 @@ class Podcast < ActiveRecord::Base
 
       if user && user.is_a?(User) && !user.new_record?
         tagging = taggings(true).find_by_tag_id(t.id)
-        tagging.users << user unless tagging.users.include?(user)
+        tagging.users << user unless tagging.users.include?(user) rescue ActiveRecord::RecordInvalid
       end
     end
   end

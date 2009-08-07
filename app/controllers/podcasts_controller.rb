@@ -84,7 +84,7 @@ class PodcastsController < ApplicationController
     elsif @queued_podcast.pending?
       render :partial => 'status_loading'
     # Expected errors
-    elsif !@queued_podcast.failed?
+    elsif @queued_podcast.failed?
       render :partial => 'status_failed'
     # Really unexpected errors
     else

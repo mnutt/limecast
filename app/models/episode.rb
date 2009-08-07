@@ -50,7 +50,7 @@ class Episode < ActiveRecord::Base
   } }
   named_scope :newest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_on DESC, daily_order DESC"} }
   named_scope :oldest, lambda {|*count| {:limit => (count[0] || 1), :order => "published_on ASC, daily_order ASC"} }
-  named_scope :sorted, {:order => "published_on DESC, daily_order DESC"}
+  named_scope :sorted, {:order => "daily_order DESC, published_on DESC"}
   named_scope :sorted_by_bitrate_and_format, :include => [:podcast], :order => "podcasts.bitrate ASC, sources.format ASC"
 
   define_index do

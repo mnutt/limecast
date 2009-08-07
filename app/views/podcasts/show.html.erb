@@ -3,7 +3,7 @@
 <% javascript_include "jquery.flash", "video_preview", "superbutton" -%>
 <% @classes = %{podcast show} -%>
 
-<h1><%= h(@podcast.title) %></h1>
+<h2><%= h(@podcast.title) %></h2>
 
 <address>
   <%= link_to(h(@podcast.clean_site), @podcast.site) unless @podcast.clean_site.blank? %> 
@@ -32,14 +32,12 @@
 </section>
 
 <section>
-  <h2>Description</h2>
+  <h3>Description</h3>
 
   <article>
     <%= unescape_entities h(@podcast.description) %>
   </article>
-</section>
 
-<section>
   <ul class="tags"><%= @podcast.tags.map {|t| "<li>#{link_to_tag(t)}</li>" }.join(' ') -%></ul>
 </section>
 
@@ -50,7 +48,7 @@
 <% end -%>
 
 <section id="episodes">
-  <h2>Episodes (<%= link_to @podcast.episodes.count, podcast_episodes_url(@podcast) -%>)</h2>
+  <h3>Episodes</h3>
   <ul>
     <%= render :partial => "episodes/episode", :collection => @episodes -%>
   </ul>
@@ -58,7 +56,7 @@
 </section>
 
 <section id="reviews">
-  <h2>Reviews</h2>
+  <h3>Reviews</h3>
 
   <% unless [@reviews.that_are_positive, @reviews.that_are_negative].any? { |r| r.count(:select => "*").zero? } -%>
   <nav>

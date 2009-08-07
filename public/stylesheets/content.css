@@ -218,7 +218,6 @@
 /* Podcast     */
 /***************/
 
-.podcast.show h2 { font-size: 1.2em; }
 .podcast.show address a.rss { padding: 1px 0 0 20px; background: url('/imgs/icons/rss.png') no-repeat top left; }
 .podcast.show address a.itunes { padding: 1px 0 0 20px; background: url('/imgs/icons/itunes.png') no-repeat bottom left; }
 
@@ -287,9 +286,6 @@ ul.similar li {
 /* Episode		 */
 /***************/
 
-.episode.show h1 { font-size: 1em; font-weight: normal; }
-.episode.index h2,
-.episode.index h3 { font-size: 1.2em; }
 
 /***************/
 /* Users       */

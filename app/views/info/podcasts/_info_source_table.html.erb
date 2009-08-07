@@ -13,7 +13,7 @@
     <th><%= controller.controller_name == "podcasts" ? content_tag(:strong, podcast.title) : link_to(podcast.title, info_podcast_url(podcast)) -%></th>
     <th><%= link_to "rss", podcast.url %><sup><%= podcast.ability -%></sup></th>
   </tr>
-  <% (episode ? [episode] : podcast.episodes.sorted).each do |e| -%>
+  <% (episode ? [episode] : podcast.episodes.sort_by(&:daily_order).sort_by(&:published_at).reverse).each do |e| -%>
     <tr>
       <td class="extra"><%= link_to "site", episode_url(podcast, e) %></td>
       <td>

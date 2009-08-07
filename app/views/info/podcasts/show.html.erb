@@ -2,7 +2,9 @@
 <h1>podcast</h1>
 
 <!-- Map -->
+<% logger.info "\n\nSTART\n\n" -%>
 <%= render :partial => 'info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
+<% logger.info "\n\nEND\n\n" -%>
 
 <!-- Episodes -->
 <p class="episode_info">

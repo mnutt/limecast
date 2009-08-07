@@ -50,6 +50,25 @@ class QueuedPodcast < ActiveRecord::Base
     url = 'http://' + url.to_s unless url.to_s =~ %r{://}
     url
   end
+  
+  # Ensures that all QueuedPodcasts either are attached to a Podcast
+  # or are destroyed.
+  def self.synchronize_all
+    # find or create the podcast if it isn't linked
+    self.find_each do |qp|
+      if qp.podcast.nil?
+        qp.podcast = Podcast.find_by_url(qp.url)
+        qp.podcast.nil? ? qp.destroy : qp.save
+      end
+    end
+
+    # create a QueuedPodcast for Podcasts without one
+    Podcast.find_each do |p|
+      if p.queued_podcast.nil?
+        QueuedPodcast.create(:podcast_id => p.id, :url => p.url, :user_id => p.finder_id, :state => (p.state || 'parsed'))
+      end
+    end
+  end
 
   def url=(val)
     val = QueuedPodcast.clean_url(val)

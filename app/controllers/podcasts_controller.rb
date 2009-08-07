@@ -68,7 +68,7 @@ class PodcastsController < ApplicationController
 
   # GET /:podcast_slug
   def status
-    @queued_podcast = QueuedPodcast.find_by_url(params[:podcast])
+    @queued_podcast = QueuedPodcast.find_by_clean_url(params[:podcast])
     @podcast     = @queued_podcast.podcast if @queued_podcast
 
     # See http://wiki.limewire.org/index.php?title=LimeCast_Add#Messages

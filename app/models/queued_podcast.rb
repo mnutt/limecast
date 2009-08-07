@@ -27,6 +27,9 @@ class QueuedPodcast < ActiveRecord::Base
   named_scope :unclaimed, :conditions => {:user_id => nil}#"user_id IS NULL"
   named_scope :claimed, :conditions => "user_id IS NOT NULL"
   named_scope :parsed, :conditions => {:state => 'parsed'}
+  named_scope :by_url, lambda { |url|
+    {:conditions => { :url => QueuedPodcast.clean_url(url) }}
+  }
   def pending?;         self.state == 'pending' || self.state.nil? end
   def parsed?;          self.state == 'parsed' end
   def failed?;          self.state == 'failed' end
@@ -76,14 +79,10 @@ class QueuedPodcast < ActiveRecord::Base
   end
 
   def self.find_or_initialize_by_url(url)
-    self.find_by_clean_url(self.clean_url(url)) || self.new(:url => url)
+    self.by_url(url).first || self.new(:url => url)
   end
 
   def self.find_or_create_by_url(url)
-    self.find_by_clean_url(self.clean_url(url)) || self.create(:url => url)
-  end
-
-  def self.find_by_clean_url(url)
-    self.find_by_url(self.clean_url(url))
+    self.by_url(url).first || self.create(:url => url)
   end
 end

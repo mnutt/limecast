@@ -18,6 +18,7 @@ require 'timeout'
 
 class QueuedPodcast < ActiveRecord::Base
   belongs_to :user
+  belongs_to :podcast
 
   validates_presence_of   :url
   validates_uniqueness_of :url

@@ -119,7 +119,7 @@
   <tr>
     <td class="key" title="Search this podcast box">search</td>
     <td>
-      <% form_for :podcast, :url => { :controller => "/search", :action => "index" }, 
+      <% form_for :podcast, :url => "/search", 
                   :html => {:method => :get, :onsubmit => "if(!this.q.value.match(/podcast\:#{@podcast.clean_url}/gi)) this.q.value = this.q.value + \" podcast:#{@podcast.clean_url}\""} do |f| %>
       <input class="text search" id="q" name="q" size="15" type="text" value="" tabindex="1" />
       <input type="submit" value="search" />

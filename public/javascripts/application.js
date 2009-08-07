@@ -112,11 +112,6 @@ function setupTabs() {
   $('#user, #results').tabs();
 }
 
-function setupSuperbuttons() {
-  $('.download.superbutton').downloadSuperbutton();
-  $('.subscribe.superbutton').subscribeSuperbutton();
-}
-
 $(function() {
   defaultText();
   truncatedText();
@@ -125,5 +120,4 @@ $(function() {
   reviewLinks();
   setupAuth();
   setupTabs();
-  setupSuperbuttons();
 });

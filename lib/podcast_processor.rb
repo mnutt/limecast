@@ -176,9 +176,7 @@ class PodcastProcessor
 
       # Skip if this might be a duplicate episode (where title changed)
       next if episode.new_record? &&
-              @podcast.sources.all.map(&:size_from_xml).any? { |size| 
-                size.to_i > 0 && @podcast.sources.exists?(["size_from_xml IN (?)", ss.map(&:size)])
-              }
+              @podcast.sources.exists?(["size_from_xml > 0 AND size_from_xml IN (?)", ss.map(&:size)]) 
 
       episode.attributes = { :archived     => false,
                              :summary      => e.summary.to_s.strip,

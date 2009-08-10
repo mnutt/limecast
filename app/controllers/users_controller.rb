@@ -31,7 +31,6 @@ class UsersController < ApplicationController
     end
 
     @user = User.new(params[:user].slice(:password, :email, :login))
-    @user.unconfirm
     @user.save if @user.valid?
 
     respond_to do |format|

@@ -4,9 +4,9 @@ describe PodcastsController do
 
   describe "handling GET /all.xml" do
     before(:each) do
-      qf = Factory.create(:queued_podcast)
-      mod_and_run_podcast_processor(qf)
-      @podcast = qf.podcast
+      qp = Factory.create(:queued_podcast)
+      mod_and_run_podcast_processor(qp)
+      @podcast = qp.podcast
     end
 
     def do_get
@@ -31,9 +31,9 @@ describe PodcastsController do
 
   describe "handling GET /" do
     before(:each) do
-      qf = Factory.create(:queued_podcast)
-      mod_and_run_podcast_processor(qf)
-      @podcast = qf.podcast
+      qp = Factory.create(:queued_podcast)
+      mod_and_run_podcast_processor(qp)
+      @podcast = qp.podcast
     end
 
     def do_get
@@ -58,9 +58,9 @@ describe PodcastsController do
 
   describe "handling GET /:podcast_slug" do
     before(:each) do
-      qf = Factory.create(:queued_podcast)
-      mod_and_run_podcast_processor(qf)
-      @podcast = qf.podcast
+      qp = Factory.create(:queued_podcast)
+      mod_and_run_podcast_processor(qp)
+      @podcast = qp.podcast
     end
 
     def do_get
@@ -84,7 +84,7 @@ describe PodcastsController do
   end
 
   describe "handling DELETE /mypodcast" do
-    describe "when user is the podcast owner" do
+    describe "when user is the podcast author" do
 
       before(:each) do
         @user = mock_model(User)
@@ -132,7 +132,7 @@ describe PodcastsController do
   end
 
   describe "handling PUT /:podcast" do
-    describe "when user is the podcast owner" do
+    describe "when user is the podcast author" do
 
       def do_put(options={:custom_title => "Custom Title"})
         put :update, :podcast_slug => @podcast.clean_url, :podcast => options
@@ -140,7 +140,7 @@ describe PodcastsController do
 
       before(:each) do
         @user = Factory.create(:user)
-        @podcast = Factory.create(:parsed_podcast, :state => 'parsed', :owner_email => @user.email, :owner_id => @user.id)
+        @podcast = Factory.create(:parsed_podcast, :state => 'parsed', :author_email => @user.email)
 
         Podcast.stub!(:find_by_slug).and_return(@podcast)
         @podcast.should_receive(:writable_by?).and_return(true)
@@ -194,14 +194,14 @@ describe PodcastsController do
 
       before(:each) do
         @user = Factory.create(:user)
-        @podcast = Factory.create(:podcast, :finder => @user, :owner_email => "test@example.com")
+        @podcast = Factory.create(:podcast, :finder => @user, :author_email => "test@example.com")
         login(@user)
 
-        put :update, :podcast_slug => @podcast.clean_url, :podcast => {:owner_email => "malicious@example.com"}
+        put :update, :podcast_slug => @podcast.clean_url, :podcast => {:author_email => "malicious@example.com"}
       end
 
       it "should not change the params" do
-        assigns(:podcast).owner_email.should == "test@example.com"
+        assigns(:podcast).author_email.should == "test@example.com"
       end
     end
   end
@@ -215,10 +215,10 @@ describe PodcastsController do
     end
 
     def do_post(podcast)
-      xhr :post, :favorite, :podcast_slug => podcast.clean_url
+      xhr :post, :favorite, :podcast_slug => podcast.clean_url, :format => 'json'
     end
 
-    it "should be successful" do
+    it "should be redirect" do
       do_post(@podcast).should be_success
     end
 
@@ -263,6 +263,7 @@ describe PodcastsController do
 
   describe "handling GET /:podcast_slug/cover" do
     before do
+      @podcast = Factory.create(:podcast)
       get :cover, :podcast_slug => @podcast.clean_url
     end
 
@@ -271,7 +272,7 @@ describe PodcastsController do
     end
 
     it "should render the cover template" do
-      response.should render_tmemplate('cover')
+      response.should render_template('cover')
     end
 
     it "should assign the podcast" do
@@ -381,7 +382,7 @@ describe PodcastsController do
         end
 
         it 'should render the error template' do
-          response.should render_template('podcasts/_status_error')
+          response.should render_template('podcasts/_status_failed')
         end
       end
 

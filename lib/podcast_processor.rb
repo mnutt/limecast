@@ -33,6 +33,7 @@ class PodcastProcessor
   def process
     ActiveRecord::Base.transaction do
       @podcast = @qp.podcast || Podcast.new(:url => @qp.url)
+      @podcast.valid?
 
       if invalid_address?
         @state = "invalid_address"
@@ -136,8 +137,8 @@ class PodcastProcessor
       :generator   => @rpodcast_feed.generator,
       :ability     => ABILITY,
       :xml         => @content,
-      :owner_email => @rpodcast_feed.owner_email.to_s.gsub(/\(.*\)/, '').strip,
-      :owner_name  => @rpodcast_feed.owner_name,
+      :author_email => @rpodcast_feed.owner_email.to_s.gsub(/\(.*\)/, '').strip,
+      :author_name  => @rpodcast_feed.owner_name,
       :xml_title   => @rpodcast_feed.title.to_s.strip,
       :subtitle    => @rpodcast_feed.subtitle.to_s.strip,
       :description => @rpodcast_feed.summary.to_s.strip,
@@ -163,7 +164,7 @@ class PodcastProcessor
     tags << "torrent" if @rpodcast_feed.torrent?
     tags << "creativecommons" if @rpodcast_feed.creative_commons?
     tags << "explicit" if @rpodcast_feed.explicit?
-    @podcast.tag_string = tags.join(" "), (@podcast.owner || @qp.user)
+    @podcast.tag_string = tags.join(" "), (@podcast.author.user || @qp.user)
   end
 
   def update_episodes!

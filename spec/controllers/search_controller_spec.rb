@@ -7,7 +7,7 @@ describe SearchController do
     end
 
     def do_get
-      get :index, :q => 'foooooobarrrr'
+      get :show, :query => 'foooooobarrrr'
     end
 
     it "should be successful" do
@@ -22,9 +22,9 @@ describe SearchController do
       assigns(:reviews).should == []
     end
 
-    it "should render index template" do
+    it "should render show template" do
       do_get
-      response.should render_template('index')
+      response.should render_template('show')
     end
   end
 

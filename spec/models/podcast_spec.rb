@@ -336,38 +336,14 @@ describe Podcast, "permissions" do
     end
 
     it 'should have write access even if finder is unconfirmed' do
-      @user.state = "pending"
+      @user.confirmed = false
       @podcast.writable_by?(@user).should == true
     end
 
     it 'should have write access even if there is an owner set' do
-      @owner = Factory.create(:user)
-      @podcast.update_attribute(:owner_email, @owner.email)
+      @author = Factory.create(:user)
+      @podcast.update_attribute(:author_email, @author.email)
       @podcast.writable_by?(@user).should == true
-    end
-  end
-
-  describe "the owner" do
-    before do
-      @podcast = Factory.create(:podcast)
-      @user = @podcast.owner
-      @user.confirm
-      @user.save
-    end
-
-    it 'should have write access' do
-      @podcast.user_is_owner?(@user).should == true
-      @podcast.writable_by?(@user).should == true
-    end
-
-    it 'should NOT have write access if owner is unconfirmed' do
-      @user.state = "pending"
-      @podcast.should_not be_writable_by(@user)
-    end
-
-    it 'should create the owner User if not found' do
-      create_podcast = lambda { p = Factory.create(:podcast, :owner_email => 'foobar@baz.com') }
-      create_podcast.should change { User.count }.by(1)
     end
   end
 
@@ -386,8 +362,8 @@ describe Podcast, "permissions" do
     before do
       @finder = Factory.create(:user)
       @admin = Factory.create(:admin_user)
-      @podcast = Factory.create(:podcast, :owner_email => "the.owner@email.com", :finder_id => @finder.id)
-      @owner = @podcast.owner
+      @author = Factory.create(:user, :email => "the.owner@gmail.com")
+      @podcast = Factory.create(:podcast, :author_email => @author.email, :finder_id => @finder.id)
     end
 
     # Gods can edit everything
@@ -408,18 +384,8 @@ describe Podcast, "permissions" do
       @podcast.editors.should_not include(@finder)
     end
 
-    it "should not include a passive finder" do
-      @finder.update_attribute(:state, 'passive')
-      @podcast.editors.should_not include(@owner)
-    end
-
-    it "should not include a passive owner" do
-      @podcast.editors.should_not include(@owner)
-    end
-
-    it "should include a confirmed owner" do
-      @owner.update_attribute(:state, 'confirmed')
-      @podcast.editors.should include(@owner)
+    it "should include the author" do
+      @podcast.editors.should include(@author)
     end
   end
 end
@@ -486,19 +452,39 @@ end
 
 describe Podcast, "finding or creating owner" do
   before do
-    @podcast = Factory.build(:podcast, :title => "FOoooooobar", :owner_email => "some.owner@here.com")
+    @podcast = Factory.build(:podcast, :title => "FOoooooobar", :author_email => "some.owner@here.com")
     @save_podcast = lambda { @podcast.save }
   end
 
-  it "should set and create the passive owner if the owner doesn't exist" do
-    @save_podcast.should change { User.all.size }.by(1)
-    @podcast.owner.should == User.last
-    @podcast.owner.should be_passive
+  it "should set and create the author if the author doesn't exist" do
+    @save_podcast.should change { Author.all.size }.by(1)
+    @podcast.author.should == Author.last
+    @podcast.author.name.should == "some_owner"
   end
 
   it "should find and set the owner if owner exists" do
-    owner = Factory.create(:user, :email => @podcast.owner_email)
+    author = Factory.create(:author, :email => @podcast.author_email)
     @save_podcast.should_not change { User.all.size }
-    @podcast.owner.should == owner
+    @podcast.author.should == author
+  end
+end
+
+describe Podcast do
+  before do
+    @podcast = Factory.create(:podcast)
+    @user    = Factory.create(:user)
+  end
+
+  it 'should not have been_reviewed_by? a user if the podcast has no reviews' do
+    @podcast.been_reviewed_by?(@user).should be_false
+  end
+
+  it 'should have been_reviewed_by? a user if they commented on an podcast' do
+    Factory.create(:review, :podcast => @podcast, :reviewer => @user)
+    @podcast.been_reviewed_by?(@user).should be_true
+  end
+
+  it 'should not have_been_reviewed_by? a nil user' do
+    @podcast.been_reviewed_by?(nil).should be_false
   end
 end

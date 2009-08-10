@@ -9,7 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090806192519) do
+ActiveRecord::Schema.define(:version => 20090810141555) do
+
+  create_table "authors", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authors", ["email"], :name => "index_authors_on_email"
+  add_index "authors", ["name"], :name => "index_authors_on_name"
 
   create_table "blacklists", :force => true do |t|
     t.string   "domain"
@@ -43,9 +53,9 @@ ActiveRecord::Schema.define(:version => 20090806192519) do
     t.string   "title"
     t.string   "guid"
     t.text     "xml"
-    t.boolean  "archived",               :default => false
-    t.text     "subtitle"
-    t.integer  "daily_order",            :default => 1
+    t.boolean  "archived",                                     :default => false
+    t.text     "subtitle",               :limit => 2147483647
+    t.integer  "daily_order",                                  :default => 1
     t.date     "published_on"
   end
 
@@ -67,35 +77,33 @@ ActiveRecord::Schema.define(:version => 20090806192519) do
     t.datetime "updated_at"
     t.integer  "category_id"
     t.string   "clean_url"
-    t.integer  "owner_id"
-    t.string   "owner_email"
-    t.string   "owner_name"
     t.string   "title"
     t.boolean  "button_installed"
-    t.boolean  "protected",         :default => false
-    t.integer  "favorites_count",   :default => 0
+    t.boolean  "protected",                               :default => false
+    t.integer  "favorites_count",                         :default => 0
     t.string   "url"
     t.string   "itunes_link"
-    t.string   "state",             :default => "pending"
+    t.string   "state",                                   :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
     t.text     "xml"
-    t.integer  "ability",           :default => 0
+    t.integer  "ability",                                 :default => 0
     t.string   "generator"
     t.string   "xml_title"
-    t.text     "description"
+    t.text     "description",       :limit => 2147483647
     t.string   "language"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.string   "logo_file_size"
     t.string   "error"
-    t.string   "custom_title",      :default => ""
-    t.text     "subtitle"
+    t.string   "custom_title",                            :default => ""
+    t.text     "subtitle",          :limit => 2147483647
+    t.string   "author_name"
+    t.string   "author_email"
   end
 
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
-  add_index "podcasts", ["owner_id"], :name => "index_podcasts_on_owner_id"
 
   create_table "queued_podcasts", :force => true do |t|
     t.string   "url"
@@ -244,13 +252,13 @@ ActiveRecord::Schema.define(:version => 20090806192519) do
     t.datetime "remember_token_expires_at"
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
-    t.string   "state",                                   :default => "passive"
     t.datetime "deleted_at"
     t.boolean  "admin"
     t.string   "reset_password_code"
     t.datetime "reset_password_sent_at"
     t.integer  "score",                                   :default => 0
     t.datetime "logged_in_at"
+    t.boolean  "confirmed",                               :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

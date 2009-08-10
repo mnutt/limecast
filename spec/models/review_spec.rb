@@ -3,19 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Review do
   before do
     @review = Factory.create(:review)
-    @episode = @review.episode
-    @podcast = @episode.podcast
-  end
-
-  it 'should be modifiable if it is on the most recent episode of a podcast.' do
-    @review.should be_editable
-  end
-
-  it "shouldn't be modifiable if it is on an episode that isnt most recent." do
-    Factory.create(:episode, :podcast => @podcast, :published_at => 20.days.from_now)
-
-    # Original review
-    @review.should_not be_editable
+    @podcast = @review.podcast
   end
 
   it 'should not be able to be rated multiple times by the same person' do

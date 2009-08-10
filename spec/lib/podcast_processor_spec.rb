@@ -4,9 +4,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe PodcastProcessor, "parsing" do
 
   before do
-    @qf = QueuedPodcast.create(:url => "http://google.com/rss.xml")
-    lambda { mod_and_run_podcast_processor(@qf, FetchExample) }.should change { Podcast.count }.by(1)
-    @podcast = @qf.podcast
+    @author = Factory.create(:user, :email => "john.doe@example.com")
+    @qp = QueuedPodcast.create(:url => "http://google.com/rss.xml")
+    lambda { mod_and_run_podcast_processor(@qp, FetchExample) }.should change { Podcast.count }.by(1)
+    @podcast = @qp.podcast
   end
 
   it 'should set the title of the podcast' do
@@ -32,29 +33,30 @@ describe PodcastProcessor, "parsing" do
   it 'should add tags' do
     @podcast.tag_string.should include('technology', 'gadgets', 'tvandfilm')
     @podcast.tags.size.should == 3
-    @podcast.taggers.should include(@podcast.owner)
+    @podcast.taggers.should include(@author)
   end
 
-  it 'should associate the podcast with the user as owner' do
+  it 'should associate the podcast with the user as author' do
     User.destroy_all
 
     user = Factory.create(:user, :email => "john.doe@example.com")
     @podcast = Factory.create(:podcast, :site => "http://www.example.com/")
 
-    @qf = QueuedPodcast.create(:url => @podcast.url, :podcast_id => @podcast.id, :user => user)
-    mod_and_run_podcast_processor(@qf, FetchExample)
+    @qp = QueuedPodcast.create(:url => @podcast.url, :podcast_id => @podcast.id, :user => user)
+    mod_and_run_podcast_processor(@qp, FetchExample)
 
     @podcast.reload.finder.should == user
     @podcast.should be_kind_of(Podcast)
-    @podcast.owner.should == user
+    @podcast.author.user.should == user
   end
 end
 
 describe PodcastProcessor, "parsing Chinese Feed" do
   before do
-    @qf = QueuedPodcast.create(:url => "http://google.com/rss.xml")
-    lambda { mod_and_run_podcast_processor(@qf, FetchChineseFeed) }.should change { Podcast.count }.by(1)
-    @podcast = @qf.podcast
+    @author = Factory.create(:user, :email => "webmaster@rthk.org.hk")
+    @qp = QueuedPodcast.create(:url => "http://google.com/rss.xml")
+    lambda { mod_and_run_podcast_processor(@qp, FetchChineseFeed) }.should change { Podcast.count }.by(1)
+    @podcast = @qp.podcast
   end
 
   it 'should set the title of the podcast' do
@@ -76,20 +78,20 @@ describe PodcastProcessor, "parsing Chinese Feed" do
   it 'should add tags' do
     @podcast.tag_string.should include('gadgets', 'hd', 'newsandpolitics')
     @podcast.tags.size.should == 3
-    @podcast.taggers.should include(@podcast.owner)
+    @podcast.taggers.should include(@author)
   end
 end
 
 describe PodcastProcessor, "failing" do
   before do
-    @qf = QueuedPodcast.create(:url => "http://google.com/rss.xml")
-    mod_and_run_podcast_processor(@qf, FetchRegularFeed)
+    @qp = QueuedPodcast.create(:url => "http://google.com/rss.xml")
+    mod_and_run_podcast_processor(@qp, FetchRegularFeed)
   end
 
   it 'should not create a Podcast' do
-    PodcastProcessor.process(@qf, MockLogger.new)
+    PodcastProcessor.process(@qp, MockLogger.new)
 
-    @qf.podcast.should be_nil
+    @qp.podcast.should be_nil
   end
 end
 
@@ -97,9 +99,9 @@ end
 # Podcast is already in the system, looking it up by url.
 describe PodcastProcessor, "being reparsed" do
   before do
-    @qf = Factory.create(:queued_podcast)
-    mod_and_run_podcast_processor(@qf, FetchExample)
-    @podcast = @qf.podcast
+    @qp = Factory.create(:queued_podcast)
+    mod_and_run_podcast_processor(@qp, FetchExample)
+    @podcast = @qp.podcast
   end
 
   it 'should set the title of the podcast' do
@@ -125,26 +127,26 @@ end
 
 describe PodcastProcessor, "parsing a podcast's second feed" do
   before do
-    @qf = Factory.create(:queued_podcast)
-    mod_and_run_podcast_processor(@qf, FetchExample)
-    @podcast = @qf.podcast.reload
-    @qf2 = QueuedPodcast.create(:url => (@qf.url.split('/')[0..-2].join+'feed_two.xml'))
+    @qp = Factory.create(:queued_podcast)
+    mod_and_run_podcast_processor(@qp, FetchExample)
+    @podcast = @qp.podcast.reload
+    @qp2 = QueuedPodcast.create(:url => (@qp.url.split('/')[0..-2].join+'feed_two.xml'))
   end
 
   it 'should not change the podcast' do
-    lambda { mod_and_run_podcast_processor(@qf2, FetchExample) }.should_not change { @podcast.reload.updated_at}
+    lambda { mod_and_run_podcast_processor(@qp2, FetchExample) }.should_not change { @podcast.reload.updated_at}
   end
 
   it 'should increment podcasts' do
-    lambda { mod_and_run_podcast_processor(@qf2, FetchExample) }.should change(Podcast, :count).by(1)
+    lambda { mod_and_run_podcast_processor(@qp2, FetchExample) }.should change(Podcast, :count).by(1)
   end
 end
 
 describe Podcast, "updating episodes" do
   before do
-    @qf = Factory.create(:queued_podcast)
-    mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS)
-    @podcast = @qf.podcast
+    @qp = Factory.create(:queued_podcast)
+    mod_and_run_podcast_processor(@qp, FetchExampleWithMRSS)
+    @podcast = @qp.podcast
   end
 
   it 'should create some episodes' do
@@ -153,7 +155,7 @@ describe Podcast, "updating episodes" do
 
   it 'should not duplicate episodes that already exist' do
     @podcast.episodes(true).count.should == 4
-    mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS)
+    mod_and_run_podcast_processor(@qp, FetchExampleWithMRSS)
     @podcast.episodes(true).count.should == 4
   end
 
@@ -164,7 +166,7 @@ describe Podcast, "updating episodes" do
                    :podcast => @podcast, 
                    :size_from_xml => "8727310")
     @podcast.episodes(true).count.should == 1
-    lambda { mod_and_run_podcast_processor(@qf, FetchExampleWithMRSS) }.should change { @podcast.episodes.count }.by(3)
+    lambda { mod_and_run_podcast_processor(@qp, FetchExampleWithMRSS) }.should change { @podcast.episodes.count }.by(3)
   end
   
   it 'should create 4 sources for any given episode (from enclosure + mrss)' do
@@ -216,28 +218,28 @@ end
 describe Podcast, "when a weird server error occurs" do
   before do
     @podcast = Factory.create(:podcast)
-    @qf = Factory.create :queued_podcast, :url => 'http://localhost:7', :podcast_id => @podcast
+    @qp = Factory.create :queued_podcast, :url => 'http://localhost:7', :podcast_id => @podcast
   end
 
   it 'should save the error that an unknown exception occurred' do
-    PodcastProcessor.process(@qf, MockLogger.new)
+    PodcastProcessor.process(@qp, MockLogger.new)
 
-    @qf.error.should == "Errno::ECONNREFUSED"
+    @qp.error.should == "Errno::ECONNREFUSED"
   end
 end
 
 describe Podcast, "being created" do
   before do
-    @qf = Factory.create :queued_podcast
-    mod_and_run_podcast_processor(@qf, FetchRegularFeed)
+    @qp = Factory.create :queued_podcast
+    mod_and_run_podcast_processor(@qp, FetchRegularFeed)
     @podcast = Factory.create(:podcast)
   end
 
   describe 'with normal RSS feed' do
     it 'should save the error that the feed is not for a podcast' do
-      mod_and_run_podcast_processor(@qf, FetchRegularFeed)
+      mod_and_run_podcast_processor(@qp, FetchRegularFeed)
 
-      @qf.error.should == "PodcastProcessor::NoEnclosureException"
+      @qp.error.should == "PodcastProcessor::NoEnclosureException"
     end
   end
 
@@ -245,10 +247,10 @@ describe Podcast, "being created" do
     it 'should save the error that the site is on the blacklist' do
       Blacklist.create!(:domain => "restrictedsite")
 
-      @qf.update_attributes :url => "http://restrictedsite/bad/feed.xml"
-      mod_and_run_podcast_processor(@qf, FetchRegularFeed)
+      @qp.update_attributes :url => "http://restrictedsite/bad/feed.xml"
+      mod_and_run_podcast_processor(@qp, FetchRegularFeed)
 
-      @qf.error.should == "PodcastProcessor::BannedFeedException"
+      @qp.error.should == "PodcastProcessor::BannedFeedException"
     end
   end
 end

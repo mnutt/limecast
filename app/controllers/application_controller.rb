@@ -136,11 +136,12 @@ class ApplicationController < ActionController::Base
     # Stores another 'ClassName' => [id] pair in the session for the person to claim when they signin
     def remember_unclaimed_record(record)
       if logged_in?
-        record.reload.claim_by(current_user)
+        record.claim_by(current_user)
       else
         session[:unclaimed_records] ||= {}
         (session[:unclaimed_records][record.class.to_s] ||= []) << record.id
       end
+      record
     end
 
     # Claims the unclaimed records stored in the session
@@ -165,7 +166,7 @@ class ApplicationController < ActionController::Base
     # If +func+ is passed in, this only returns true if the func is true for at least one of the records
     # of this class in the session[:unclaimed_records]
     def has_unclaimed_record?(klass, func=nil)
-      if session[:unclaimed_records] && session[:unclaimed_records][klass.to_s] && session[:unclaimed_records][klass.to_s].compact! && records = klass.find(session[:unclaimed_records][klass.to_s])
+      if session[:unclaimed_records] && session[:unclaimed_records][klass.to_s] && records = klass.find(session[:unclaimed_records][klass.to_s].compact)
         return false if records.empty?
         return false if func && !records.any?(&func)
         return true

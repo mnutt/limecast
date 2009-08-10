@@ -38,7 +38,7 @@ describe UserTagging, "being created" do
   end
 
   it 'should allow a podcast editor to add infinite UserTaggings' do
-    @podcast.update_attributes(:owner_id => @user1.id, :owner_email => @user1.email)
+    @podcast.update_attributes(:author_email => @user1.email)
 
     50.times do |i|
       tag = Factory.create(:tag)

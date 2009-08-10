@@ -26,7 +26,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
   has_many :podcasts, :foreign_key => 'finder_id', :uniq => true
-  has_many :owned_podcasts, :class_name => 'Podcast', :foreign_key => 'owner_id'
   has_many :reviews, :dependent => :destroy
   has_many :review_ratings, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
@@ -51,21 +50,12 @@ class User < ActiveRecord::Base
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :state
+  attr_accessible :login, :email, :password, :confirmed
 
   named_scope :older_than, lambda {|date| {:conditions => ["users.created_at < (?)", date]} }
   named_scope :frequent_users, {:conditions => ["users.logged_in_at > (?)", 29.days.ago]}
   named_scope :admins, {:conditions => {:admin => true}}
   named_scope :nonadmins, {:conditions => "admin IS NULL OR admin IS FALSE"}
-  named_scope :nonpassive, { :conditions => "users.state IS NULL OR users.state != 'passive'" }
-  named_scope :makers, { :select => "users.*, count(podcasts.id) as podcast_count", :joins => :owned_podcasts, :group => "users.id", :having => "podcast_count > 0" }
-
-  # States
-  %w(passive unconfirmed confirmed).each do |meth|
-    named_scope meth.to_sym, {:conditions => {:state => meth}}
-    define_method("#{meth}?") { state == meth.to_s }
-  end
-
 
   define_index do
     indexes :login, :email
@@ -85,29 +75,6 @@ class User < ActiveRecord::Base
   # Encrypts some data with the salt.
   def self.encrypt(password, salt)
     Digest::SHA1.hexdigest("--#{salt}--#{password}--")
-  end
-
-  def self.find_or_create_by_email(email)
-    user = find_or_initialize_by_email(email)
-    user.save if user.new_record?
-
-    return user
-  end
-
-  def self.find_or_initialize_by_email(email)
-    if user = User.find_by_email(email)
-      # Do nothing
-    else
-      login = email.blank? ? "user" : email.to_s.gsub(/[^A-Za-z0-9\s]/, "")[0..39]
-
-      login = "#{login} 2" if User.exists?(:login => login)
-      login.increment! while User.exists?(:login => login)
-
-      user = User.new(:state => 'passive', :email => email, :login => login)
-      user.generate_reset_password_code
-    end
-
-    return user
   end
 
   # Returns the first 6 bytes from a salted hexdigest (the full string is unnecessary)
@@ -165,11 +132,6 @@ class User < ActiveRecord::Base
     save(false)
   end
 
-  # Make sure the state is a string; symbols get serialized in the db
-  def state=(val)
-    write_attribute(:state, val.to_s)
-  end
-
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
@@ -186,7 +148,7 @@ class User < ActiveRecord::Base
 
   # Returns true if the user has just been activated.
   def recently_confirmed?
-    @confirmed
+    @recently_confirmed
   end
 
   def to_param
@@ -194,21 +156,21 @@ class User < ActiveRecord::Base
   end
 
   def podcaster?
-    self.owned_podcasts.count > 0
+    Podcast.by(self).count > 0
   end
 
   def unconfirm
-    self.state           = "unconfirmed"
+    self.confirmed       = false
     self.deleted_at      = nil
     self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
   end
 
   def confirm
-    @confirmed           = true
+    @recently_confirmed  = true
+    self.confirmed       = true
     self.activated_at    = Time.now.utc
     self.deleted_at      = nil
     self.activation_code = nil
-    self.state           = 'confirmed'
   end
 
   # This user has only been saved once.
@@ -226,7 +188,7 @@ class User < ActiveRecord::Base
     end
 
     def password_required?
-      (crypted_password.blank? || !password.blank?) && state != 'passive'
+      crypted_password.blank? || !password.blank?
     end
 
     def set_login

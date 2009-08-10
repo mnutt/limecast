@@ -38,7 +38,7 @@ describe SessionsController do
   
   it 'login and claim reviews' do
     @review = Factory.create(:review, :reviewer => nil)
-    @podcast = @review.episode.podcast
+    @podcast = @review.podcast
     session[:unclaimed_records] = {'Review' => [@review.id]}
 
     lambda { do_post }.should change { @podcast.reload.reviews.count }.by(1)

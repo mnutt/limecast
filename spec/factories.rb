@@ -24,7 +24,7 @@ end
 Factory.define :podcast, :class => Podcast do |p|
   p.site  { Factory.next :site }
   p.clean_url { Factory.next :title }
-  p.owner_email { Factory.next :email }
+  p.author_email { Factory.next :email }
 
   # new attrs taken from Feed during Podcast/Feed merge
   p.url { "#{Factory.next :site}/feed.xml" }
@@ -35,7 +35,7 @@ end
 
 Factory.define :parsed_podcast, :class => Podcast do |p|
   p.site  { Factory.next :site }
-  p.owner_email { Factory.next :email }
+  p.author_email { Factory.next :email }
 
   # new attrs taken from Feed uring Podcast/Feed merge
   p.clean_url { Factory.next :title }
@@ -83,12 +83,16 @@ Factory.sequence :url do |n|
   Factory.next(:site) + "/#{n}_feed.xml"
 end
 
+Factory.define :author do |a|
+  a.email     { Factory.next :email }
+end
+
 Factory.define :user do |u|
-  u.login    nil
-  u.email    { Factory.next :email }
-  u.password 'password'
-  u.salt     'NaCl'
-  u.state    'confirmed'
+  u.login     nil
+  u.email     { Factory.next :email }
+  u.password  'password'
+  u.salt      'NaCl'
+  u.confirmed true
 end
 
 Factory.define :passive_user, :class => User do |u|
@@ -101,27 +105,27 @@ Factory.define :passive_user, :class => User do |u|
 end
 
 Factory.define :unconfirmed_user, :class => User do |u|
-  u.login    { Factory.next :login }
-  u.email    { Factory.next :email }
-  u.password 'password'
-  u.salt     'NaCl'
-  u.state    'unconfirmed'
+  u.login     { Factory.next :login }
+  u.email     { Factory.next :email }
+  u.password  'password'
+  u.salt      'NaCl'
+  u.confirmed false
   u.activation_code { Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join ) }
 end
 
 Factory.define :admin_user, :class => User do |u|
-  u.login    'admin'
-  u.email    'admin@podcasts.example.com'
-  u.password 'password'
-  u.salt     'NaCl'
-  u.state    'confirmed'
+  u.login     'admin'
+  u.email     'admin@podcasts.example.com'
+  u.password  'password'
+  u.salt      'NaCl'
+  u.confirmed true
 
   u.admin true
 end
 
 Factory.define :review, :class => Review do |r|
   r.association :reviewer, :factory => :user
-  r.association :episode, :factory => :episode
+  r.association :podcast, :factory => :podcast
 
   r.title    'My first podcast review'
   r.body     'This podcast was very verbose! Loreim ipsum ftw.'

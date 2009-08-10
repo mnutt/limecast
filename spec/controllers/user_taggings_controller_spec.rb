@@ -107,10 +107,10 @@ describe UserTaggingsController do
       lambda { do_delete }.should change { UserTagging.count }.by(-1)
     end
 
-    it "should delete the UserTagging as owner" do
-      owner = Factory.create(:user)
-      @podcast.update_attributes :owner_email => owner.email, :owner_id => owner.id
-      login(owner)
+    it "should delete the UserTagging as author" do
+      author = Factory.create(:user)
+      @podcast.update_attributes :author_email => author.email
+      login(author)
       lambda { do_delete }.should change { UserTagging.count }.by(-1)
     end
 

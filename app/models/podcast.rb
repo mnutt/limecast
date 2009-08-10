@@ -58,7 +58,6 @@ class Podcast < ActiveRecord::Base
   has_one  :newest_source, :class_name => 'Source', :include => :episode, :order => "episodes.published_at DESC"
   has_one  :queued_podcast, :dependent => :destroy
 
-  belongs_to :owner, :class_name => 'User'
   belongs_to :finder, :class_name => 'User'
 
   has_attached_file :logo,
@@ -71,6 +70,7 @@ class Podcast < ActiveRecord::Base
                                  :favicon => ["16x16#", :ico],
                                  :thumb   => ["16x16#", :png] }
 
+  named_scope :by, lambda { |user_or_author| {:conditions => {:author_email => user_or_author.email}} }
   named_scope :older_than, lambda {|date| {:conditions => ["podcasts.created_at < (?)", date]} }
   named_scope :parsed, :conditions => {:state => 'parsed'}
   named_scope :tagged_with, lambda { |*tags|
@@ -98,8 +98,8 @@ class Podcast < ActiveRecord::Base
   before_validation :set_title
   before_validation :sanitize_title
   before_validation :sanitize_url
-  before_save :find_or_create_owner
   before_save :store_last_changes
+  before_create :set_author
   after_destroy :update_finder_score
 
   validates_presence_of   :title, :unless => Proc.new { |podcast| podcast.new_record? }
@@ -109,9 +109,9 @@ class Podcast < ActiveRecord::Base
 
   # Search
   define_index do
-    indexes :title, :site, :description, :owner_name, 
-            :owner_email, :url, :subtitle, :language
-    indexes owner.login, :as => :owner
+    indexes :title, :site, :description, :author_name, 
+            :author_email, :url, :subtitle, :language
+    indexes author.name, :as => :author
     indexes episodes.title, :as => :episode_title
     indexes episodes.summary, :as => :episode_summary
     indexes tags.name, :as => :tag # includes badges
@@ -123,6 +123,10 @@ class Podcast < ActiveRecord::Base
     i = self.find_by_clean_url(slug)
     raise ActiveRecord::RecordNotFound if i.nil? || slug.nil?
     i
+  end
+
+  def author
+    Author.find_or_create_by_email(author_email.strip)
   end
 
   def apparent_format
@@ -298,9 +302,9 @@ class Podcast < ActiveRecord::Base
     return false
   end
 
-  def user_is_owner?(user)
-    return false if owner.nil? or user.nil?
-    owner.id == user.id
+  def user_is_author?(user)
+    return false if author.nil? or user.nil?
+    author.id == user.id
   end
 
  # An array of users that tagged this podcast
@@ -314,10 +318,9 @@ class Podcast < ActiveRecord::Base
     @editors = returning([]) do |e|
       e << User.admins.all
       e << finder if finder && !protected?
-      e << owner if owner && owner.confirmed?
+      e << author.user if author && author.user
       e.flatten!
       e.compact!
-      e.reject!(&:passive?)
     end
     @editors
   end
@@ -337,7 +340,11 @@ class Podcast < ActiveRecord::Base
 
       if user && user.is_a?(User) && !user.new_record?
         tagging = taggings(true).find_by_tag_id(t.id)
-        tagging.users << user unless tagging.users.include?(user) rescue ActiveRecord::RecordInvalid
+        begin
+          tagging.users << user unless tagging.users.include?(user) 
+        rescue ActiveRecord::RecordInvalid => e
+          puts "\n\n\nerror in tag_string= #{e}\n\n"
+        end
       end
     end
   end
@@ -416,14 +423,6 @@ class Podcast < ActiveRecord::Base
     return clean_url
   end
 
-  def find_or_create_owner
-    return true if (!self.owner_id.blank? || self.owner_email.blank?) && !self.owner_email_changed?
-
-    self.owner = User.find_or_create_by_email(owner_email)
-
-    return true
-  end
-
   # Rails dirty objects stores the current changes only until the object is saved
   def store_last_changes
     @last_changes = changes
@@ -431,5 +430,9 @@ class Podcast < ActiveRecord::Base
 
   def update_finder_score
     finder.calculate_score! if finder
+  end
+
+  def set_author
+    Author.find_or_create_by_email(author_email.strip)
   end
 end

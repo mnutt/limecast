@@ -4,8 +4,7 @@ describe ReviewsController do
   before(:each) do
     @user = Factory.create(:user)
     @podcast = Factory.create(:podcast)
-    @episode = Factory.create(:episode, :podcast => @podcast)
-    @review = Factory.create(:review, :reviewer => @user, :episode => @episode)
+    @review = Factory.create(:review, :reviewer => @user, :podcast => @podcast)
     login(@user)
   end
 
@@ -22,11 +21,11 @@ describe ReviewsController do
 
   describe "handling POST /:podcast_slug/reviews" do
     def do_put
-      put :create, :podcast_slug => @podcast.clean_url, :review => { :title => 'new', :body => 'review', :episode_id => @episode.id }
+      put :create, :podcast_slug => @podcast.clean_url, :review => { :title => 'new', :body => 'review' }
     end
 
-    it "should update the review" do
-      lambda { do_put }.should change { @podcast.reviews(true).count }.by(1)
+    it "should create the review" do
+      lambda { do_put }.should change { Review.count }.by(1)
       assigns(:review).title.should == 'new'
       assigns(:review).body.should == 'review'
     end
@@ -46,8 +45,7 @@ describe ReviewsController do
 
       it "should only be able to be reviewed one by a user" do
         @podcast = Factory.create(:podcast)
-        @episode = Factory.create(:episode, :podcast => @podcast)
-        review = Factory.create(:review, :reviewer => nil, :episode => @episode)
+        review = Factory.create(:review, :reviewer => nil, :podcast => @podcast)
         @controller.send(:remember_unclaimed_record, review)
 
         lambda { do_put }.should_not change { Review.count }
@@ -90,7 +88,6 @@ describe ReviewsController do
     end
 
     def do_get(review, rating)
-      request.env['HTTP_REFERER'] = ""
       get :rate, :podcast_slug => @podcast.clean_url, :id => review.id, :rating => rating
     end
 

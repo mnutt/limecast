@@ -156,7 +156,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
 
     unless has_unclaimed_record?(Favorite, lambda {|f| f.podcast == @podcast })
-      @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, (current_user.id if logged_in?))
+      @favorite = Favorite.find_or_initialize_by_podcast_id_and_user_id(@podcast.id, (current_user.id rescue nil))
       if @favorite.new_record?
         @favorite.save
         remember_unclaimed_record(@favorite)
@@ -166,7 +166,7 @@ class PodcastsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_back_or_default('/') }
       format.json { render :json => {:logged_in => logged_in?} }
     end
   end

@@ -3,7 +3,7 @@
 ENV["RAILS_ENV"] ||= "test"
 $: << File.dirname(__FILE__)
 
-ENV['DO_NOT_LOAD_FEED_OBSERVER'] ||= 'true'
+ENV['DO_NOT_LOAD_PODCAST_OBSERVER'] ||= 'true'
 
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec/autorun'
@@ -159,7 +159,7 @@ module FetchRegularFeed
   end
 end
 
-class Feed
+class Podcast
   def download_logo(*args); end
 end
 

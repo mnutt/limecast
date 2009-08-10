@@ -9,7 +9,7 @@ describe User do
     @user = Factory.create(:user)
   end
 
-  describe 'commenting on an Episode' do
+  describe 'commenting on a Podcast' do
     it 'should increase score' do
       lambda do
         Factory.create(:review, :reviewer => @user)
@@ -138,52 +138,41 @@ describe User do
       setup_actionmailer
     end
 
-    it 'should send welcome email after an unconfirmed user is created' do
-      user = Factory.build(:user, :login => 'mylogin', :email => 'someone@limewire.com')
-      user.unconfirm
-      user.save
-      ActionMailer::Base.deliveries.size.should == 1
-      ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == user.email
-      ActionMailer::Base.deliveries.first.body.should =~ /You've joined LimeCast, the web's open podcast directory and archive./
-      ActionMailer::Base.deliveries.first.body.should =~ /Click to confirm your email/
-    end
-
-    it 'should NOT send welcome email after a passive user is created' do
-      Factory.create(:user, :login => 'mylogin', :state => 'passive', :email => 'someone@limewire.com')
-      ActionMailer::Base.deliveries.size.should == 0
-    end
+    # it 'should send welcome email after an unconfirmed user is created' do
+    #   user = Factory.build(:user, :login => 'mylogin', :email => 'someone@limewire.com')
+    #   user.unconfirm
+    #   user.save
+    #   ActionMailer::Base.deliveries.size.should == 1
+    #   ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == user.email
+    #   ActionMailer::Base.deliveries.first.body.should =~ /You've joined LimeCast, the web's open podcast directory and archive./
+    #   ActionMailer::Base.deliveries.first.body.should =~ /Click to confirm your email/
+    # end
 
     it 'should NOT send welcome email after a confirmed user is created' do
-      Factory.create(:user, :login => 'mylogin', :state => 'confirmed', :email => 'someone@limewire.com')
+      Factory.create(:user, :login => 'mylogin', :confirmed => true, :email => 'someone@limewire.com')
       ActionMailer::Base.deliveries.size.should == 0
     end
 
-    it 'should send reconfirm email after confirmed email is changed' do
-      user = Factory.create(:user, :email => 'someone@limewire.com')
-      change_email = lambda { user.update_attribute(:email, 'my.new.email.address@limewire.com') }
-      change_email.should change { ActionMailer::Base.deliveries.size }.by(1)
-      user.reload.should be_unconfirmed
-      ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == 'my.new.email.address@limewire.com'
-      ActionMailer::Base.deliveries.first.subject.should == 'Confirm new email'
-      ActionMailer::Base.deliveries.first.body.should =~ /You've changed your email address in LimeCast.\nClick to confirm your new email/
-    end
+    # it 'should send reconfirm email after confirmed email is changed' do
+    #   user = Factory.create(:user, :email => 'someone@limewire.com')
+    #   change_email = lambda { user.update_attribute(:email, 'my.new.email.address@limewire.com') }
+    #   change_email.should change { ActionMailer::Base.deliveries.size }.by(1)
+    #   user.reload.should_not be_confirmed
+    #   ActionMailer::Base.deliveries.first.to_addrs[0].to_s.should == 'my.new.email.address@limewire.com'
+    #   ActionMailer::Base.deliveries.first.subject.should == 'Confirm new email'
+    #   ActionMailer::Base.deliveries.first.body.should =~ /You've changed your email address in LimeCast.\nClick to confirm your new email/
+    # end
 
-    it 'should send reconfirm email after unconfirmed email is changed' do
-      user = Factory.create(:unconfirmed_user, :email => 'someone@limewire.com')
-      lambda {
-        user.update_attribute(:email, 'my.new.email.addresssss@limewire.com')
-      }.should change { ActionMailer::Base.deliveries.size }.by(1)
-      user.should be_unconfirmed
-      ActionMailer::Base.deliveries.last.to_addrs[0].to_s.should == 'my.new.email.addresssss@limewire.com'
-      ActionMailer::Base.deliveries.last.subject.should == 'Confirm new email'
-      ActionMailer::Base.deliveries.last.body.should =~ /You've changed your email address in LimeCast.\nClick to confirm your new email/
-    end
-
-    it 'should NOT send reconfirm email after passive email is changed' do
-      user = Factory.create(:user, :state => 'passive', :email => 'someone@limewire.com')
-      change_email = lambda { user.update_attribute(:email, 'my.new.email.addresssss@limewire.com') }
-      change_email.should_not change { ActionMailer::Base.deliveries.size }
-    end
+    # it 'should send reconfirm email after unconfirmed email is changed' do
+    #   user = Factory.create(:unconfirmed_user, :email => 'someone@limewire.com')
+    #   lambda {
+    #     user.update_attribute(:email, 'my.new.email.addresssss@limewire.com')
+    #   }.should change { ActionMailer::Base.deliveries.size }.by(1)
+    #   user.should_not be_confirmed
+    #   ActionMailer::Base.deliveries.last.to_addrs[0].to_s.should == 'my.new.email.addresssss@limewire.com'
+    #   ActionMailer::Base.deliveries.last.subject.should == 'Confirm new email'
+    #   ActionMailer::Base.deliveries.last.body.should =~ /You've changed your email address in LimeCast.\nClick to confirm your new email/
+    # end
 
     after(:each) do
       reset_actionmailer

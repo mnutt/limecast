@@ -157,7 +157,7 @@ describe UsersController, "handling PUT /user/:user" do
     end
 
     it "should set the user to pending" do
-      assigns(:user).should be_unconfirmed
+      assigns(:user).should_not be_confirmed
       assigns(:user).activation_code.should_not be_nil
     end
 

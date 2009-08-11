@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090811155056) do
+ActiveRecord::Schema.define(:version => 20090811161932) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
@@ -109,11 +109,10 @@ ActiveRecord::Schema.define(:version => 20090811155056) do
     t.string   "error"
     t.string   "custom_title",                            :default => ""
     t.text     "subtitle",          :limit => 2147483647
-    t.string   "author_email"
     t.string   "author_name"
+    t.string   "author_email"
   end
 
-  add_index "podcasts", ["author_email"], :name => "index_podcasts_on_author_email"
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
 
   create_table "queued_podcasts", :force => true do |t|
@@ -216,7 +215,6 @@ ActiveRecord::Schema.define(:version => 20090811155056) do
     t.integer  "users_count"
     t.integer  "users_confirmed_count"
     t.integer  "users_unconfirmed_count"
-    t.integer  "users_passive_count"
     t.integer  "reviews_count"
     t.datetime "created_at"
     t.integer  "podcasts_from_trackers_count"
@@ -224,7 +222,7 @@ ActiveRecord::Schema.define(:version => 20090811155056) do
     t.integer  "podcasts_on_google_first_page_count"
     t.integer  "users_admins_count"
     t.integer  "users_nonadmins_count"
-    t.integer  "users_makers_count"
+    t.integer  "authors_count"
     t.integer  "reviews_by_admins_count"
     t.integer  "reviews_by_nonadmins_count"
   end

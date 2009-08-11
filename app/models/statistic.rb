@@ -35,9 +35,4 @@ class Statistic < ActiveRecord::Base
       stats.sort_by(&:created_at).first
     }
   end
-
-  # Returns number of users who aren't admins or makers  or passive.
-  def users_community_count
-    users_count.to_i - (users_passive_count.to_i + users_makers_count.to_i + users_admins_count.to_i)
-  end
 end

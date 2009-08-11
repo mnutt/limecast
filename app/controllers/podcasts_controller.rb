@@ -64,7 +64,7 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.find(params[:id])
 
     # log the request
-    frs = FeedRequestStatistic.create(:podcast_id => @podcast,
+    frs = FeedRequestStatistic.create(:podcast_id => @podcast.id,
                                       :feed_type  => params[:type].to_s,
                                       :ip_address => request.remote_ip,
                                       :user_agent => request.env["HTTP_USER_AGENT"],

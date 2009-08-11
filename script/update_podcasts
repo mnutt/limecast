@@ -18,6 +18,7 @@ end
 sleeptime = 4 * 60 * 60 # 4 hours
 
 while true
+  @logger.info "Synchronize all QueuedPodcasts with Podcasts"
   QueuedPodcast.synchronize_all # ensure each QP has a Podcast and each Pocast has a QP
 
   QueuedPodcast.parsed.each do |qf|

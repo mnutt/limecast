@@ -77,7 +77,7 @@ class PodcastProcessor
     exception = $!
 
     if ActiveRecord::RecordInvalid === exception
-      @state = "invalid_xml"
+      @state = "invalid_record"
     end
 
     log_failed(exception)
@@ -93,7 +93,7 @@ class PodcastProcessor
       update_archives!
     rescue => exception
       if ActiveRecord::RecordInvalid === exception
-        @state = "invalid_xml"
+        @state = "invalid_record"
       end
 
       log_failed(exception)

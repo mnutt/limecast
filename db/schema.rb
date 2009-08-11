@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090810141555) do
+ActiveRecord::Schema.define(:version => 20090811155056) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
@@ -70,6 +70,16 @@ ActiveRecord::Schema.define(:version => 20090810141555) do
 
   add_index "favorites", ["podcast_id"], :name => "index_favorites_on_episode_id"
   add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
+
+  create_table "feed_request_statistics", :force => true do |t|
+    t.string   "feed_type"
+    t.string   "ip_address"
+    t.string   "user_agent"
+    t.string   "referer"
+    t.integer  "podcast_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "podcasts", :force => true do |t|
     t.string   "site"

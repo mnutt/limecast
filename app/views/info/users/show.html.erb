@@ -91,21 +91,21 @@
   <tr>
     <td class="key" title="Reviews the user wrote">Reviewed:</td>
     <td>
-      <%= @user.reviews.map { |r| link_to h(r.title), info_review_url(r.episode.podcast, r) }.to_sentence -%>
+      <%= @user.reviews.map { |r| link_to h(r.title), info_review_url(r.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
     <td class="key" title="Reviews the user found insightful">Insightful:</td>
     <td>
-      <%= @user.review_ratings.insightful.map(&:review).compact.map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
+      <%= @user.review_ratings.insightful.map(&:review).compact.map { |r| link_to h(r.podcast.title), review_url(r.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 
   <tr>
     <td class="key" title="Reviews the user found not insightful">Not Insightful:</td>
     <td>
-      <%= @user.review_ratings.not_insightful.map(&:review).compact.map { |r| link_to h(r.episode.podcast.title), review_url(r.episode.podcast, r) }.to_sentence -%>
+      <%= @user.review_ratings.not_insightful.map(&:review).compact.map { |r| link_to h(r.podcast.title), review_url(r.podcast, r) }.to_sentence -%>
     </td>
   </tr>
 

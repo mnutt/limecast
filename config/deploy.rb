@@ -40,7 +40,7 @@ task :backup, :roles => :db, :only => { :primary => true } do
     YAML::load(@data)
   end
 
-  run "mysqldump -u limecast -p#{database['production']['password']} limecast |bzip2 -c > #{filename}" do |ch, stream, out|
+  run "mysqldump -u #{database['production']['username']} -p#{database['production']['password']} #{database['production']['database']} |bzip2 -c > #{filename}" do |ch, stream, out|
     ch.send_data "#{production_database_password}\n" if out =~ /^Enter password:/
   end
   `rsync #{user}@#{domain}:#{filename} #{File.dirname(__FILE__)}/../backups/`

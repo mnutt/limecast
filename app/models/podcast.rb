@@ -1,39 +1,38 @@
 # == Schema Information
-# Schema version: 20090728145034
+# Schema version: 20090811161932
 #
 # Table name: podcasts
 #
-#  id                   :integer(4)    not null, primary key
-#  site                 :string(255)   
-#  created_at           :datetime      
-#  updated_at           :datetime      
-#  category_id          :integer(4)    
-#  clean_url            :string(255)   
-#  owner_id             :integer(4)    
-#  owner_email          :string(255)   
-#  owner_name           :string(255)   
-#  title                :string(255)   
-#  button_installed     :boolean(1)    
-#  protected            :boolean(1)    
-#  favorites_count      :integer(4)    default(0)
-#  url                  :string(255)   
-#  itunes_link          :string(255)   
-#  state                :string(255)   default("pending")
-#  bitrate              :integer(4)    
-#  finder_id            :integer(4)    
-#  format               :string(255)   
-#  xml                  :text          
-#  ability              :integer(4)    default(0)
-#  generator            :string(255)   
-#  xml_title            :string(255)   
-#  description          :text(21474836 
-#  language             :string(255)   
-#  logo_file_name       :string(255)   
-#  logo_content_type    :string(255)   
-#  logo_file_size       :string(255)   
-#  error                :string(255)   
-#  custom_title         :string(255)   default("")
-#  subtitle             :text(21474836 
+#  id                :integer(4)    not null, primary key
+#  site              :string(255)   
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  category_id       :integer(4)    
+#  clean_url         :string(255)   
+#  title             :string(255)   
+#  button_installed  :boolean(1)    
+#  protected         :boolean(1)    
+#  favorites_count   :integer(4)    default(0)
+#  url               :string(255)   
+#  itunes_link       :string(255)   
+#  state             :string(255)   default("pending")
+#  bitrate           :integer(4)    
+#  finder_id         :integer(4)    
+#  format            :string(255)   
+#  xml               :text          
+#  ability           :integer(4)    default(0)
+#  generator         :string(255)   
+#  xml_title         :string(255)   
+#  description       :text(21474836 
+#  language          :string(255)   
+#  logo_file_name    :string(255)   
+#  logo_content_type :string(255)   
+#  logo_file_size    :string(255)   
+#  error             :string(255)   
+#  custom_title      :string(255)   default("")
+#  subtitle          :text(21474836 
+#  author_email      :string(255)   
+#  author_name       :string(255)   
 #
 
 require 'paperclip_file'

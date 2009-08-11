@@ -164,7 +164,7 @@ class PodcastProcessor
     tags << "torrent" if @rpodcast_feed.torrent?
     tags << "creativecommons" if @rpodcast_feed.creative_commons?
     tags << "explicit" if @rpodcast_feed.explicit?
-    @podcast.tag_string = tags.join(" "), ((@podcast.author.user if @podcast.author) || @qp.user)
+    @podcast.tag_string = tags.join(" "), (@podcast.author || @qp).user
   end
 
   def update_episodes!

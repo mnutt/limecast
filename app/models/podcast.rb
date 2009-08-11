@@ -44,7 +44,7 @@ class Podcast < ActiveRecord::Base
   has_many :recommendations, :order => 'weight DESC'
   has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast
   has_many :episodes, :dependent => :destroy
-  has_many :reviews, :conditions => "reviews.user_id IS NOT NULL"
+  has_many :reviews, :conditions => "reviews.user_id IS NOT NULL", :dependent => :destroy
   has_many :reviewers, :through => :reviews, :source => :reviewer
   has_many :favorites, :dependent => :destroy
   has_many :favoriters, :source => :user, :through => :favorites
@@ -85,7 +85,6 @@ class Podcast < ActiveRecord::Base
   named_scope :sorted_by_newest_episode, :include => :newest_episode, :order => "episodes.published_at DESC"
   named_scope :from_limetracker, :conditions => ["podcasts.generator LIKE ?", "%limecast.com/tracker%"]
   named_scope :with_itunes_link, :conditions => 'podcasts.itunes_link IS NOT NULL and podcasts.itunes_link <> ""'
-  named_scope :parsed, :conditions => {:state => 'parsed'}
   named_scope :unclaimed, :conditions => "finder_id IS NULL"
   named_scope :claimed, :conditions => "finder_id IS NOT NULL"
   named_scope :found_by_admin, :include => :finder, :conditions => ["users.admin = ?", true]
@@ -99,7 +98,7 @@ class Podcast < ActiveRecord::Base
   before_validation :sanitize_title
   before_validation :sanitize_url
   before_save :store_last_changes
-  before_create :set_author
+  before_save :set_author
   after_destroy :update_finder_score
 
   validates_presence_of   :title, :unless => Proc.new { |podcast| podcast.new_record? }
@@ -126,7 +125,7 @@ class Podcast < ActiveRecord::Base
   end
 
   def author
-    Author.find_or_create_by_email(author_email.strip)
+    Author.find_or_create_by_email(author_email.to_s.strip) unless author_email.blank?
   end
 
   def apparent_format
@@ -433,6 +432,6 @@ class Podcast < ActiveRecord::Base
   end
 
   def set_author
-    Author.find_or_create_by_email(author_email.strip)
+    Author.find_or_create_by_email(author_email.strip) if author_email_changed?
   end
 end

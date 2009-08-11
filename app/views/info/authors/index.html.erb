@@ -1,0 +1,8 @@
+<h1>author</h1>
+<ul>
+  <% @authors.each do |author| -%>
+    <li>
+      <%= link_to author.name, info_author_url(author) -%> <%= "(#{author.podcasts.count})" %>
+    </li>
+  <% end -%>
+</ul>

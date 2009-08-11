@@ -10,7 +10,7 @@
   <%= link_to_rss(@podcast) unless @podcast.url.blank? -%> 
   <%= link_to_itunes(@podcast) unless @podcast.itunes_link.blank? -%> 
   <br />
-  <%= "Made by #{link_to @podcast.owner.login, @podcast.owner, :type => :author}" if @podcast.owner %>
+  <%= "Made by #{link_to @podcast.author.name, author_url(@podcast.author), :type => :author}" if @podcast.author && @podcast.author.podcasts.count > 1 %>
   <%= "Found by #{link_to @podcast.finder.login, @podcast.finder}" if @podcast.finder %>
 </address>
 

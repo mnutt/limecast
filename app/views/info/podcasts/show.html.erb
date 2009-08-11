@@ -188,11 +188,7 @@
 
   <tr>
     <td class="key" title="Link to author page">author</td>
-    <td><%= blankness -%></td>
-  </tr>
-  <tr>
-    <td class="key" title="The user who makes this podcast based on the current email address in the XML">makes</td>
-    <td><%= info_user_link(@podcast.owner) -%></td>
+    <td><%= @podcast.author ? link_to(@podcast.author.name, info_author_url(@podcast.author)) : blankness -%></td>
   </tr>
   <tr>
     <td class="key" title="The user who added this feed, if any">found</td>

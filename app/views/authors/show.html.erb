@@ -1,0 +1,14 @@
+<% @title = h(@author.name) -%>
+<% @classes = %{user show} -%>
+ 
+
+<h1><%=h @author.name -%>'s profile</h1>
+
+<section id="user">
+  <nav>
+    <%= link_to "Created (#{@author.podcasts.count})", '#owned' if @author.podcasts.count > 0 %>
+
+  <% if @author.podcasts.count > 0 -%>
+  <ul id="owned"><%= render :partial => 'podcasts/podcast', :collection => @author.podcasts -%></ul>
+  <% end -%>
+</section>

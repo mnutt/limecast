@@ -99,6 +99,10 @@ class User < ActiveRecord::Base
     update_attribute :score, (podcasts(true).size + reviews(true).size)
   end
 
+  def owned_podcasts
+    Podcast.by(self)
+  end
+
   def new?
     created_at == updated_at
   end

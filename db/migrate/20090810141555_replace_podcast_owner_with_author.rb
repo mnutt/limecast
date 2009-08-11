@@ -19,9 +19,10 @@ class ReplacePodcastOwnerWithAuthor < ActiveRecord::Migration
     
     Podcast.find_each do |p|
       a = Author.find_or_initialize_by_email(p.author_email)
-      a.author_name = p.author_name unless p.author_name.blank?
+      a.name = p.author_name unless p.author_name.blank?
       a.save!
     end
+    add_index :podcasts, :author_email
 
     User.destroy_all(:state => "passive")
     add_column :users, :confirmed, :boolean, :default => false

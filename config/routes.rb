@@ -32,8 +32,10 @@ ActionController::Routing::Routes.draw do |map|
     info.icons      '/icons',           :controller => 'home',  :action => 'icons'
     info.tags       '/tags',            :controller => 'tags',  :action => 'index'
     info.tag        '/tag/:tag',        :controller => 'tags',  :action => 'show'
-    info.user       '/users',           :controller => 'users', :action => 'index'
+    info.users      '/users',           :controller => 'users', :action => 'index'
     info.user       '/user/:user_slug', :controller => 'users', :action => 'show'
+    info.authors    '/authors',         :controller => 'authors', :action => 'index'
+    info.author     '/author/:author_slug', :controller => 'authors', :action => 'show'
     info.titles     '/titles',          :controller => 'podcasts', :action => 'titles'
     info.ihash      '/hash',            :controller => 'podcasts', :action => 'hash'
     info.add        '/add',             :controller => 'podcasts', :action => 'add'
@@ -61,6 +63,10 @@ ActionController::Routing::Routes.draw do |map|
     u.all_users       '/user',                      :action => 'index'
     u.user            '/user/:user_slug',           :action => 'show', :conditions => {:method => :get}
     u.user            '/user/:user_slug',           :action => 'update', :conditions => {:method => :put}
+  end
+  
+  map.with_options :controller => 'authors' do |a|
+    a.author  '/by/:author_slug', :action => 'show'
   end
 
   map.with_options :controller => 'home' do |h|

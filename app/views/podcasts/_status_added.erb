@@ -1,15 +1,15 @@
 <span class="status_message finished">
   Yum! I've added <%= link_to_podcast(@podcast) -%>
   
-  <% if @podcast.respond_to?(:owner) and @podcast.owner -%>
-    <% if current_user and @podcast.owner == current_user -%>
-      by you, <%= link_to_profile(@podcast.owner) -%>. <span class="arrow_down">More please</span>
+  <% if @podcast.respond_to?(:author) and @podcast.author -%>
+    <% if current_user and @podcast.author.user and @podcast.author.user == current_user -%>
+      by you, <%= link_to_profile(@podcast.author.user) -%>. <span class="arrow_down">More please</span>
     <% else -%>
-      by <%= link_to_profile(@podcast.owner) -%>. You get +1 point
+      by <%= link_to(@podcast.author.name, "/by/#{@podcast.author.name}") -%>. You get +1 point
       and a link for finding it. <span class="arrow_down">More please</span>
     <% end -%>
   <% else -%>
-    and emailed <%= "#{h @podcast.owner_name.strip}, " unless @podcast.owner_name.nil? || @podcast.owner_name.empty? -%>the maker. You get +1 point and a link for finding it. <span class="arrow_down">More please</span>
+    and emailed <%= "#{h @podcast.author_name.strip}, " unless @podcast.author_name.nil? || @podcast.author_name.empty? -%>the maker. You get +1 point and a link for finding it. <span class="arrow_down">More please</span>
   <% end -%>
   <script type="text/javascript">
   <% unless logged_in? -%>

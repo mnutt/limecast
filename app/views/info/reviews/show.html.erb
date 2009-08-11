@@ -5,8 +5,8 @@
   </tr>
 
   <tr>
-    <td class="key">Episode</td>
-    <td><%= link_to h(@review.title), info_episode_url(@review.episode.podcast, @review) %></td>
+    <td class="key">Podcast</td>
+    <td><%= link_to h(@review.title), info_podcast_url(@review.podcast) %></td>
   </tr>
 
   <tr>

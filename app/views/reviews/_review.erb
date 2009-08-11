@@ -1,6 +1,6 @@
 <li id="<%= dom_id review %>" class="review <%= review.positive? ? "positive" : "negative" %>">
   <div class="details">
-    <%= link_to review.podcast.title, podcast_url(review.podcast) unless @podcast %>
+    <%= link_to review.podcast.title, podcast_url(review.podcast) unless review.podcast.nil? || @podcast %>
     <h5><%= unescape_entities review.title %></h5> 
     <%= unescape_entities review.body %>
     <%= "by #{link_to review.reviewer.login, user_url(review.reviewer)}" %> 

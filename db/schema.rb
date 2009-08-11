@@ -99,10 +99,11 @@ ActiveRecord::Schema.define(:version => 20090810141555) do
     t.string   "error"
     t.string   "custom_title",                            :default => ""
     t.text     "subtitle",          :limit => 2147483647
-    t.string   "author_name"
     t.string   "author_email"
+    t.string   "author_name"
   end
 
+  add_index "podcasts", ["author_email"], :name => "index_podcasts_on_author_email"
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
 
   create_table "queued_podcasts", :force => true do |t|

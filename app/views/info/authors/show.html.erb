@@ -1,0 +1,34 @@
+<h1>author</h1>
+
+<table>
+  <tr>
+    <td class="key">User:</td>
+    <td>
+      <%= @author.user ? link_to(@author.user.login, info_user_url(@author.user)) : blankness -%>
+    </td>
+  </tr>
+  
+  <tr>
+    <td class="key">Email:</td>
+    <td>
+      <%= logged_in? && current_user.admin? ? @author.email : @author.email.gsub(/[^@]/, '*') -%>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="key" title="Author name, like Author Name">Name:</td>
+    <td>
+      <%= @author.name -%>
+    </td>
+  </tr>
+
+  <tr><td colspan="2">&nbsp;<!-- section divider //--></td></tr>
+
+  <tr>
+    <td class="key" title="Feeds the user makes">Makes:</td>
+    <td>
+      <%= @author.podcasts.map { |p| link_to h(p.title), info_podcast_url(p) }.to_sentence -%>
+    </td>
+  </tr>
+  
+</table>

@@ -10,9 +10,9 @@ class EpisodesController < ApplicationController
   end
 
   def search
-    @q        = params[:q]
+    @query    = params[:query]
     @podcast  = Podcast.find_by_slug(params[:podcast_slug])
-    @episodes = @podcast.episodes.search(@q, :include => [:podcast]).compact.uniq.sort_by(&:published_at)
+    @episodes = @podcast.episodes.search(@query, :include => [:podcast]).compact.uniq.sort_by(&:published_at)
     render :action => 'index'
   end
 

@@ -449,26 +449,6 @@ describe Podcast, "detecting LimeTracker" do
   end
 end
 
-
-describe Podcast, "finding or creating owner" do
-  before do
-    @podcast = Factory.build(:podcast, :title => "FOoooooobar", :author_email => "some.owner@here.com")
-    @save_podcast = lambda { @podcast.save }
-  end
-
-  it "should set and create the author if the author doesn't exist" do
-    @save_podcast.should change { Author.all.size }.by(1)
-    @podcast.author.should == Author.last
-    @podcast.author.name.should == "some_owner"
-  end
-
-  it "should find and set the owner if owner exists" do
-    author = Factory.create(:author, :email => @podcast.author_email)
-    @save_podcast.should_not change { User.all.size }
-    @podcast.author.should == author
-  end
-end
-
 describe Podcast do
   before do
     @podcast = Factory.create(:podcast)
@@ -486,5 +466,34 @@ describe Podcast do
 
   it 'should not have_been_reviewed_by? a nil user' do
     @podcast.been_reviewed_by?(nil).should be_false
+  end
+end
+
+describe Podcast do
+  before do
+    @podcast = Factory.create(:podcast, :author_email => 'a@b.com', :author_name => 'aaa')
+    @podcast2 = Factory.create(:podcast, :author_email => 'a@b.com', :author_name => 'bbb')
+  end
+
+  describe 'autocreating an author' do
+    it 'should find or create the author based on email' do
+      lambda { @podcast.author }.should change(Author, :count).by(1)
+      lambda { @podcast.author }.should_not change(Author, :count)
+    end
+
+    it 'should autocreate the author with the same name and email' do
+      @podcast.author.email.should == "a@b.com"
+      @podcast.author.name.should == "aaa"
+    end
+
+    it 'should not create another author if it already exists' do
+      @podcast.author
+      lambda { @podcast2.author }.should_not change(Author, :count)
+    end
+
+    it 'should not overwrite the author name if it was already set' do
+      @podcast.author
+      @podcast2.author.name.should == 'aaa'
+    end
   end
 end

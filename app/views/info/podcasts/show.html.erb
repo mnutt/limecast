@@ -2,7 +2,7 @@
 <h1>podcast</h1>
 
 <!-- Map -->
-<%= render :partial => 'info_source_table', :locals => {:options => {:podcast => @podcast}} -%>
+<%= render :partial => 'info_source_table', :locals => {:options => {:podcast => @podcast, :episodes => @episodes}} -%>
 
 <!-- Episodes -->
 <p class="episode_info">
@@ -20,7 +20,7 @@
 </p>
 
 <ul class="episodes">
-  <%= render :partial => 'episodes/info_line', :collection => @podcast.episodes.sorted -%>
+  <%= render :partial => 'episodes/info_line', :collection => @episodes -%>
 </ul>
 
 <!-- Info: -->

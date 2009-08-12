@@ -137,7 +137,7 @@ class PodcastProcessor
       :generator   => @rpodcast_feed.generator,
       :ability     => ABILITY,
       :xml         => @content,
-      :author_email => @rpodcast_feed.owner_email.to_s.gsub(/\(.*\)/, '').strip,
+      :author_email => (@rpodcast_feed.owner_email).to_s.gsub(/\(.*\)/, '').strip,
       :author_name  => @rpodcast_feed.owner_name,
       :xml_title   => @rpodcast_feed.title.to_s.strip,
       :subtitle    => @rpodcast_feed.subtitle.to_s.strip,

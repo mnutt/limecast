@@ -97,7 +97,6 @@ class Podcast < ActiveRecord::Base
   before_validation :sanitize_title
   before_validation :sanitize_url
   before_save :store_last_changes
-  before_save :set_author
   after_destroy :update_finder_score
 
   validates_presence_of   :title, :unless => Proc.new { |podcast| podcast.new_record? }
@@ -124,7 +123,12 @@ class Podcast < ActiveRecord::Base
   end
 
   def author
-    Author.find_or_create_by_email(author_email.to_s.strip) unless author_email.blank?
+    return nil if author_email.blank?
+
+    @author ||= Author.find_or_initialize_by_email(author_email.to_s.strip) 
+    @author.name = author_name if @author.name.blank?
+    @author.save
+    @author
   end
 
   def apparent_format
@@ -428,9 +432,5 @@ class Podcast < ActiveRecord::Base
 
   def update_finder_score
     finder.calculate_score! if finder
-  end
-
-  def set_author
-    Author.find_or_create_by_email(author_email.strip) if author_email_changed?
   end
 end

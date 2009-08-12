@@ -44,7 +44,7 @@ describe EpisodesController do
     end
 
     def do_get(podcast, query='')
-      get :search, :podcast_slug => podcast, :q => query
+      get :search, :podcast_slug => podcast, :query => query
     end
 
     it "should be successful" do

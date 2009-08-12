@@ -1,6 +1,7 @@
 class Info::PodcastsController < InfoController
   def show
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
+    @episodes = @podcast.episodes.sort_by(&:daily_order).sort_by(&:published_at).reverse
   end
 
   def add

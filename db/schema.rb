@@ -9,15 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090811161932) do
+ActiveRecord::Schema.define(:version => 20090812161438) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "clean_url"
   end
 
+  add_index "authors", ["clean_url"], :name => "index_authors_on_clean_url"
   add_index "authors", ["email"], :name => "index_authors_on_email"
   add_index "authors", ["name"], :name => "index_authors_on_name"
 

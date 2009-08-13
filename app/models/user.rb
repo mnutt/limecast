@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
   named_scope :frequent_users, {:conditions => ["users.logged_in_at > (?)", 29.days.ago]}
   named_scope :admins, {:conditions => {:admin => true}}
   named_scope :nonadmins, {:conditions => "admin IS NULL OR admin IS FALSE"}
+  named_scope :authors, lambda { {:conditions => ["email IN (?)", Author.all.map(&:email)]} }
   named_scope :confirmed, {:conditions => {:confirmed => true}}
   named_scope :unconfirmed, {:conditions => {:confirmed => false}}
 

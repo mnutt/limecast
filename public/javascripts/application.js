@@ -83,6 +83,9 @@ function editLinks() {
   $('#edit a.edit').mousedown(function(){
     $(this).hide().parent().find('form').show();
   }).click(function(){return false;});
+  $('#edit button.cancel').mousedown(function(){
+    $(this).parents('form').hide().parent().find('a.edit').show();
+  }).click(function(){return false;});
 }
 
 function reviewLinks() {

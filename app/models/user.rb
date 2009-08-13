@@ -47,7 +47,6 @@ class User < ActiveRecord::Base
   validates_format_of       :email, :with => %r{^(?:[_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
   validates_format_of       :login, :with => /^[A-Za-z0-9\-\_\.]+$/, :allow_nil => true
   before_save :encrypt_password
-  before_save :unconfirm
   before_validation :set_login
 
   # prevents a user from submitting a crafted form that bypasses activation
@@ -203,7 +202,7 @@ class User < ActiveRecord::Base
     def set_login
       return unless login.blank?
       
-      self.login = email.split('@').first || 'user'
+      self.login = email.to_s.split('@').first || 'user'
       self.login = login.gsub(/[^a-zA-Z0-9]/, '_').gsub(/_+/, '_')
       self.login = login.increment!(nil, 2) while User.exists?(["login = ? AND id != ?", login, id.to_i])
 

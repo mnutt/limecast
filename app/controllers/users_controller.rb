@@ -30,6 +30,7 @@ class UsersController < ApplicationController
     end
 
     @user = User.new(params[:user].slice(:password, :email, :login))
+    @user.confirm
     @user.save if @user.valid?
 
     respond_to do |format|

@@ -1,19 +1,61 @@
-<div class="field">
-  <%= user_form.label :login, "Sign in" -%>
-  <%= user_form.text_field :login, :class => "text" -%>
-</div>  
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <th><%= user_form.label :login, "Login" -%></th>
+    <td>
+      <%= user_form.text_field :login, :class => "text" -%>
+    </td>
+    <td>
+      <%= error_message_on "user", "login", :css_class => "errors", :prepend_text => "Login ", :append_text => "." %>
+      <em>Changing your name also changes the URL of this page</em>
+    </td>
+  </tr>
 
-<div class="field">
-  <%= user_form.label :email, "Email" -%>
-  <%= user_form.text_field :email, :class => "text" -%>
-</div>  
+  <tr>
+    <th><%= user_form.label :email, "Email" -%></th>
+    <td>
+      <%= user_form.text_field :email, :class => "text" -%>
+    </td>
+    <td>
+      <%= error_message_on "user", "email", :css_class => "errors", :prepend_text => "Email ", :append_text => "." %>
+      <em>
+        <% if user_form.object.confirmed? -%>
+          Email confirmed
+        <% elsif "figure this out later".blank? -%>
+          Confirm email
+        <% elsif !user_form.object.activation_code.blank? -%>
+          Check your email for a link to confirm it
+        <% elsif "figure this out later".blank? -%>
+          We already sent you a note. Please check your email
+        <% end -%>
+      </em>
+    </td>
+  </tr>
 
-<div class="field">
-  <%= user_form.label :password, "New Password" -%>
-  <%= user_form.password_field :password, :class => "text" -%>
-</div>  
-
-<div class="field">
-  <%= user_form.check_box :_delete %>
-  <%= user_form.label :_delete, 'Delete account' %>
-</div>
+  <tr>
+    <th><%= user_form.label :password, "New&nbsp;Password" -%></th>
+    <td>
+      <%= user_form.password_field :password, :class => "text" -%>
+    </td>
+    <td>
+      <%= error_message_on "user", "password", :css_class => "errors", :prepend_text => "Password ", :append_text => "." %>
+      <em>Type a new password here to change it</em>
+    </td>
+  </tr>
+  
+  <tr>
+    <th>
+      <%= user_form.label :_delete, 'Delete&nbsp;Account' %>
+    </th>
+    <td colspan="2">
+      <%= user_form.check_box :_delete %> 
+      <em>This will delete the reviews you wrote, but not the podcasts you make or found</em>
+    </td>
+  </tr>
+  
+  <tr class="controls">
+    <td colspan="3">
+      <button type="submit" class="save">Save</button>
+      <button type="submit" class="cancel">Cancel</button>
+    </td>
+  </tr>
+</table>

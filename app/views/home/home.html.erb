@@ -16,13 +16,13 @@
   <section class="clearfix">
     <%= link_to display_cover_art(@podcast1), podcast_url(@podcast1) -%>
     <h3><%= link_to @podcast1.title.gsub(/ /, '&nbsp;'), podcast_url(@podcast1), :title => "Subscribe to the series & view the episode list" %></h3>
-    <p><%= truncate sanitize_condensed_summary(@podcast1.description), 100 -%></p>
+    <p><%= truncate sanitize_condensed_summary(@podcast1.description), :length => 100 -%></p>
   </section>
 
   <section class="clearfix">
     <%= link_to display_cover_art(@podcast2), podcast_url(@podcast2) -%>
     <h3><%= link_to @podcast2.title.gsub(/ /, '&nbsp;'), podcast_url(@podcast2), :title => "Subscribe to the series & view the episode list" %></h3>
-    <p><%= truncate sanitize_condensed_summary(@podcast2.description), 100 -%></p>
+    <p><%= truncate sanitize_condensed_summary(@podcast2.description), :length => 100 -%></p>
   </section>
 </section>
 

@@ -1,15 +1,15 @@
-<div id="edit_actions" class="clearfix">
+<section id="edit">
   <% if current_user == @user -%>
-    <span class="label">This is me!</span>
+    This is me!
   <% elsif current_user.admin? -%>
-    <span class="label">I can do anything!</span>
+    I can do anything!
   <% end -%>
-  <%= link_to_with_icon "Edit", :edit, edit_user_url(@user), :id => "edit_link", 
-                                :style => (editing?(@user) ? "display: none;" : "") %>
-  
-</div>
-<br />
+  <%= link_to "Edit", edit_user_url(@user), :class => "edit", 
+              :style => (editing?(@user) ? "display: none;" : "") %>
 
-<% limecast_form_for @user, :show => editing?(@user) do |user_form| -%>
-  <%= render :partial => "users/form", :locals => {:user_form => user_form} -%>
-<% end -%>
+  <br />
+  <% form_for @user, :html => {:style => "#{'display:none; ' unless editing?(@user)}"} do |user_form| -%>
+    <%= render :partial => "users/form", :locals => {:user_form => user_form} -%>
+  <% end -%>
+</section>
+

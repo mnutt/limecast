@@ -198,7 +198,7 @@ class SourceProcessor
       size = info.resized_size_of_video
     
       t = info.screenshot_time(info.duration)
-      screenshot_cmd = "ffmpeg -y -i #{self.tmp_file} -vframes 1 -s #{size} -ss #{t} -an -vcodec jpg -f rawvideo #{self.screenshot_tmp_file}"
+      screenshot_cmd = "ffmpeg -y -i #{self.tmp_file} -t 1 -s #{size} -ss #{t} -an -f mjpeg #{self.screenshot_tmp_file}"
       logger.info screenshot_cmd
       `#{screenshot_cmd}`
     

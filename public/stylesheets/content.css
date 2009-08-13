@@ -251,7 +251,6 @@ ul.similar li {
 #reviews li.editing { padding-left: 0px; background-image: none; }
 #reviews li.editing div { display: none; }
 #reviews li.editing form { display: block; }
-#reviews li form .errors { color: red; }
 #reviews form input[type=radio] { margin-top: -4px; }
 #reviews form input[type=text], #reviews form textarea { width: 98%; margin-bottom: 4px; }
 

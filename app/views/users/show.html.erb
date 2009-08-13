@@ -2,9 +2,9 @@
 <% @classes = %{user show} -%>
  
 
-<h1><%=h @user.login -%>'s profile</h1>
+<%= render :partial => 'users/edit' if current_user && (current_user == @user || current_user.admin?) %>
 
-<%#= render :partial => 'users/edit' if current_user && (current_user == @user || current_user.admin?) %>
+<h1><%=h @user.login -%></h1>
 
 <section id="user">
   <nav>

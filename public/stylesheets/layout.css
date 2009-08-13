@@ -26,7 +26,8 @@ body {
 	width: 980px;
 }
 
-input[type=text] {
+input[type=text],
+input[type=password] {
 	width: 150px;
 	height: 16px;
 	padding: 3px 4px 2px 4px;
@@ -43,6 +44,7 @@ textarea {
 }
 
 input[type=text], 
+input[type=password],
 textarea {
 	font-size: 12px;
 	outline: 0px;
@@ -72,6 +74,8 @@ button {
 	font: bold 12px/23px Helvetica, Arial, sans-serif;
 }
 
+form .errors { display: inline; }
+
 address { display: block; }
 address, section { margin: 0 0 14px 0; }
 
@@ -81,6 +85,48 @@ address, section { margin: 0 0 14px 0; }
 
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 .clearfix { display: inline-block; }  /* for IE/Mac */
+
+#edit form { 
+	position: relative;
+	display: inline-block;
+	margin: 14px 0 0 0;
+	padding: 14px;
+	background-color: #E7EB99;
+	background: -moz-gradient(radial, left top, 10, left top, 300, color-stop(0.5, #E7EB99), from(#FFF), to(#E7EB99)); 
+	background: -webkit-gradient(radial, left top, 10, left top, 300, color-stop(0.5, #E7EB99), from(#FFF), to(#E7EB99)); 
+	background: -o-gradient(radial, left top, 10, left top, 300, color-stop(0.5, #E7EB99), from(#FFF), to(#E7EB99)); 
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+
+#edit form table td {
+	vertical-align: top;
+	padding: 0 14px 14px 0;
+}
+
+#edit form table tr.controls td {
+}
+
+#edit form table th {
+}
+
+#edit form em {
+}
+
+#edit form label {
+	font-weight: bold;
+	display: inline-block;
+	height: 16px;
+	padding: 3px 14px 2px 4px;
+	vertical-align: bottom;
+}
+
+#edit form p.controls {
+	margin-top: 14px;
+}
+
 
 
 /**********/
@@ -224,7 +270,7 @@ footer ul li a {
 	position: absolute;
 	z-index: 6;
 	top: 45px;
-	right: 100px;
+	right: 50px;
 	border: solid 1px #A9A9A9;
 	width: 330px;
 	background: #FFF;

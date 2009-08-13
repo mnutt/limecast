@@ -79,6 +79,12 @@ function toggleLinks() {
   }).click(function(){return false;});
 }
 
+function editLinks() {
+  $('#edit a.edit').mousedown(function(){
+    $(this).hide().parent().find('form').show();
+  }).click(function(){return false;});
+}
+
 function reviewLinks() {
   $('#reviews nav a').mousedown(function(){ $('#reviews ul').removeClass().addClass($(this).attr('class')); }).click(function(){return false;});
   $('#reviews li a.edit').mousedown(function(){ $(this).parents('li.review').addClass('editing'); }).click(function(){return false;});
@@ -118,6 +124,7 @@ $(function() {
   favoriteLink();
   toggleLinks();
   reviewLinks();
+  editLinks();
   setupAuth();
   setupTabs();
 });

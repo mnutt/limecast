@@ -3,6 +3,167 @@
 /***************************************************/
 
 
+/******************/
+/* Media Controls */
+/******************/
+
+figure.media {
+	position: relative; 
+	bottom: 0px; 
+	z-index: 98; 
+	display: inline-block;
+	margin-bottom: 7%;
+}
+
+figure.media .controls {
+	position: relative;
+	left: -1px;
+	height: 30px; 
+	width: 100%; 
+	background: #FFF; 
+	color: #FFF;
+	padding: 0px;
+	margin: -3px 0 0 0;
+	background: url("/imgs/button_bg.gif") #FDFDFD repeat-x top left;
+	border: solid #C3C3C3;
+	border-width: 0px 1px 1px 1px;
+	-moz-border-radius-bottomleft: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+}
+
+figure.media .controls button.start {
+	position: absolute; 
+	z-index: 99; 
+	top: -750%; 
+	left: 42%;
+	width: 100px; 
+	height: 100px;
+	font-size: 46px;
+	background: #FFF;
+	color: #000;
+	-moz-border-radius-bottomleft: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+}
+
+figure.media .controls button.play {
+	width: 30px; 
+	height: 100%;
+	float: left;
+	line-height: 100%;
+	color: #000;
+	background: #FFF;
+}
+
+figure.media .controls button.pause { 
+	width: 30px; 
+	height: 100%; 
+	display: none;
+	float: left;
+	line-height: 100%;
+	color: #000;
+	background: #FFF;
+}
+
+figure.media .controls progress {
+	padding: 0px;
+	display: block;
+	height: 30px;
+	margin: 0 150px 0 30px;
+	color: white; 
+	background: #CCC;
+}
+
+figure.media .controls meter.time {
+	display: inline-block;
+	height: 100%;
+	padding: 0 2px;
+	margin-right: 10px;
+	font-size: 11px;
+	line-height: 30px;
+	float: right;
+	color: #000;
+}
+
+figure.media .controls button.mute {
+	width: 40px;
+	height: 100%;
+	float: right;
+	font-size: 16px;
+	line-height: 150%;
+	color: #000;
+	background: #FFF;
+	outline: none;
+}
+
+figure.media .controls button.mute.muted {
+	color: #AAA;
+}
+
+figure.media .controls button.mute:hover + .volume,
+figure.media .controls .volume:hover {
+	display: block;
+}
+
+figure.media .controls .volume {
+	position: absolute;
+	right: 2px;
+	top: -150px;
+	z-index: 2;
+	width: 35px;
+	border: solid 0px;
+	display: none;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+}
+
+figure.media .controls .volume button {
+	background: #FFF;
+	text-indent: -5000px;
+	display: block;
+	width: 100%;
+	outline: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+}
+
+figure.media .controls .volume button:first-child {
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+}
+figure.media .controls .volume button[value=very-quiet] { background: #FFF; }
+figure.media .controls .volume button[value=quiet] { background: #DDD; }
+figure.media .controls .volume button[value=medium] { background: #BBB; }
+figure.media .controls .volume button[value=loud] { background: #999; }
+figure.media .controls .volume button[value=very-loud] { background: #777; }
+figure.media .controls .volume button[class=selected] { background: #2951A5; }
+figure.media .controls .volume button:hover { background: #4B73C7; }
+
+/*figure.media .controls .volume:hover span {
+	display: block;
+}*/
+
+figure.media .controls progress div {
+	height: 30px; 
+	width: 0%; 
+	padding: 0px;
+	margin: 0px;
+	line-height: 26px;
+	text-indent: -6px;
+	font-size: 16px;
+	display: inline-block;
+	background: #AAA; 
+	direction: rtl;
+	color: black;
+}
+
 /***************/
 /* Home        */
 /***************/
@@ -14,7 +175,7 @@
 	background: url('../imgs/bg_mission.png') bottom left no-repeat;
 }
 
-#welcome h1 {
+#welcome h2 {
 	color: #DBDBDB;
 	text-transform: uppercase;
 	display: block;
@@ -26,11 +187,9 @@
 	margin: 0;
 	float: none;
 	line-height: 1em;
-	font-size: 1.7em;
-	font-weight: normal;
 }
 
-#welcome h1 strong {
+#welcome h2 strong {
 	color: #CBEA97;
 	font-weight: normal;
 }
@@ -38,7 +197,7 @@
 #welcome p {
 	margin-top: 10px;
 	margin-left: 97px;
-	width: 460px;
+	width: 440px;
 }
 
 #welcome p a {
@@ -59,21 +218,18 @@
 }
 
 #featured h2 {
-	font-size: 1.6em;
 	margin: 14px 0;
 	color: #171717;
 }
 
 #featured section h3 {
 	margin: 0;
-	font-size: 1.1em;
 }
 
 #featured section {
 	width: 50%;
 	padding: 0;
 	float: left;
-	font-size: 1.1em;
 }
 
 #featured section h3, 
@@ -101,7 +257,6 @@
 #make { margin-right: 4%; min-height: 110px; float: left; background: #EEE url('/imgs/make.png') bottom left no-repeat; }
 #player { min-height: 110px; float: right; background: #EEE url('/imgs/player.png') bottom left no-repeat; }
 
-#make h3, #player h3 { font-size: 1.2em; }
 #make h3 { margin: 10px 10px 0 120px; }
 #player h3 { margin: 10px 10px 0 140px; }
 #make p { margin: 0 10px 0 120px; }
@@ -121,8 +276,10 @@
 	display: inline-block;
 	height: 2.3em;
 	margin-top: 8px;
+	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+	-o-border-radius: 5px;
 }
 
 .superbutton div {
@@ -230,16 +387,18 @@ ul.similar li {
 
 #episodes li.episode .toggle { position: absolute; left: -1.5em; z-index: 100; }
 #episodes li.episode { margin: 7px 0; }
-#episodes li.episode h3 { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 1em; font-weight: normal; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
+#episodes li.episode details { width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
 #episodes li.episode article,
 #episodes li.episode p, 
+#episodes li.episode video,
 #episodes li.episode .superbutton { display: none; }
 #episodes li.episode p img { visibility: hidden; }
 #episodes li.episode.open article,
+#episodes li.episode.open video,
 #episodes li.episode.open p { display: block; }
 #episodes li.episode.open .superbutton { display: inline-block; }
 
-#reviews h5 { font-family: Verdana, Arial, Helvetica, sans-serif; display: inline; }
+#reviews h5 { display: inline; }
 #reviews .positive, #reviews .negative { padding-left: 20px; }
 #reviews .positive { background: url('/imgs/icons/thumbs_up.png') no-repeat top left; }
 #reviews .negative { background: url('/imgs/icons/thumbs_down.png') no-repeat top left; }
@@ -257,14 +416,14 @@ ul.similar li {
 /********************/
 /* All Podcasts */
 /********************/
-.podcast.index #podcasts li h3 { font-family: Verdana, Arial, Helvetica, sans-serif; display: inline; font-size: 1.1em; font-weight: normal; }
+.podcast.index #podcasts li h3 { display: inline; }
 .podcast.index #podcasts li { margin: 0 0 3px 0; }
 .podcast.index #podcasts li img { width: 16px; }
 
 /********************/
 /* Popular Podcasts */
 /********************/
-.podcast.popular #podcasts li h3 { font-family: Verdana, Arial, Helvetica, sans-serif; display: inline; font-size: 1.1em; font-weight: normal; }
+.podcast.popular #podcasts li h3 { }
 .podcast.popular #podcasts li { margin: 0 0 3px 0; }
 .podcast.popular #podcasts li img { width: 16px; }
 
@@ -275,7 +434,7 @@ ul.similar li {
 .podcast.new abbr { padding-left: 18px; background: url('/imgs/icons/rss.png') no-repeat top left;	}
 .podcast.new #new_podcast, .podcast.new .added_podcast { padding: 0; margin: 0 0 4px 0; }
 .podcast.new #new_podcast input[type=text],
-.podcast.new .added_podcast input[type=text] { margin: 0; font-size: 1.2em; width: 490px; height: 26px; }
+.podcast.new .added_podcast input[type=text] { margin: 0; width: 490px; height: 26px; }
 .podcast.new .added_podcast input[type=text] { color: #919191; }
 .podcast.new .added_podcast .status { margin: 14px 0 0 0; }
 .podcast.new .arrow_down { background: url("/imgs/icons/arrow_down.png") no-repeat right center; padding: 0 18px 0 0; }
@@ -285,7 +444,6 @@ ul.similar li {
 /* Episode		 */
 /***************/
 
-
 /***************/
 /* Users       */
 /***************/
@@ -294,7 +452,6 @@ ul.similar li {
 .user.show #user nav a { 
 	display: inline-block;
 	font-weight: bold;
-	font-size: 1.1em;
 	background: #FFF;
 	padding: 14px;
 	border: solid #DFDFDF;
@@ -303,7 +460,7 @@ ul.similar li {
 	-webkit-border-radius: 4px; 
 	-moz-border-radius: 4px; 
 }
-.user.show #user li h3 { font-size: 1.1em; display: inline; font-weight: normal; }
+.user.show #user li h3 { display: inline; }
 .user.show #user li { margin: 0 0 3px 0; }
 .user.show #user ul { 
 	display: none;
@@ -325,8 +482,6 @@ ul.similar li {
 .search.show h1 { margin: 0 0 14px 0; }
 .search.show #results nav a { 
 	display: inline-block;
-	font-weight: bold;
-	font-size: 1.1em;
 	background: #FFF;
 	padding: 14px;
 	border: solid #DFDFDF;
@@ -335,7 +490,7 @@ ul.similar li {
 	-webkit-border-radius: 4px; 
 	-moz-border-radius: 4px; 
 }
-.search.show #results li h3 { font-size: 1.1em; display: inline; font-weight: normal; }
+.search.show #results li h3 { display: inline; }
 .search.show #results li { margin: 0 0 3px 0; }
 .search.show #results ul { 
 	display: none;

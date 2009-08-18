@@ -1,9 +1,9 @@
 <% @title = h(@podcast.title) -%>
 <% @show_ads = true -%>
-<% javascript_include "jquery.flash", "video_preview", "superbutton" -%>
+<% javascript_include "jquery.media", "superbutton" # "jquery.flash", "video_preview", -%>
 <% @classes = %{podcast show} -%>
 
-<h2><%= h(@podcast.title) %></h2>
+<h1><%= h(@podcast.title) %></h1>
 
 <address>
   <%= link_to(h(@podcast.clean_site), @podcast.site) unless @podcast.clean_site.blank? %> 

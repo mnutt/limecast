@@ -6,6 +6,7 @@
     <a href="#" rel="formats">Format&nbsp;▾</a>
     <menu class="formats" type="list">
       <li class="<%= @source.extension %>" selected="selected" name="<%= @source.formatted_bitrate -%> <%= h @source.extension -%>" rel="<%= [@source.url, @source.torrent.url, @source.magnet_url].join('|') %>">
+        <%= h @source.file_name %>
         <span><%= [@source.formatted_bitrate,
              @source.size.to_file_size.to_s(true, false),
              @source.resolution,

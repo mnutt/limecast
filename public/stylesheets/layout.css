@@ -40,13 +40,11 @@ textarea {
 	height: 120px;
 	overflow: auto;
 	padding: 4px;
-	font-size: 1.1em;
 }
 
 input[type=text], 
 input[type=password],
 textarea {
-	font-size: 12px;
 	outline: 0px;
 	border: solid 1px #807E7E;
 	background: #FAFAFA;
@@ -71,7 +69,7 @@ button {
 	background: url('/imgs/button.png') #333 repeat-x right;
 	color: #E1E1E1;
 	white-space: nowrap;
-	font: bold 12px/23px Helvetica, Arial, sans-serif;
+	font-weight: bold;
 }
 
 form .errors { display: inline; }
@@ -128,7 +126,6 @@ address, section { margin: 0 0 14px 0; }
 }
 
 
-
 /**********/
 /* Header */
 /**********/
@@ -156,8 +153,6 @@ header nav ul li.logo {
 	height: 24px;
 	margin-top: 5px;
 }
-
-header nav a { font-size: 1.2em; }
 
 header nav .logo a {
 	background: url('/imgs/logo.png') top left no-repeat;
@@ -215,7 +210,6 @@ header nav .search button {
 	padding: 0;
 	cursor: pointer;
 	text-indent: -5000px;
-	font: Arial;
 	position: absolute;
 	bottom: 1px;
 	right: 3px;
@@ -253,7 +247,6 @@ footer ul {
 footer ul li {
 	padding: 20px 10px 0 10px;
 	margin: 0px;
-	font-size: 1.1em;
 	float: left;
 }
 
@@ -297,7 +290,6 @@ footer ul li a {
 #auth h4 {
 	text-align: left;
 	margin: 0 0 20px 0;
-	font-size: 1.8em;
 }
 
 #auth p.message {
@@ -310,7 +302,6 @@ footer ul li a {
 	background: url('/imgs/input.png') no-repeat;
 	border: none;
 	display: block;
-	font-size: 1.2em;
 	height: 24px;
 	overflow: hidden;
 	padding: 5px;
@@ -321,7 +312,6 @@ footer ul li a {
 
 #auth form label {
 	font-weight: bold;
-	font-size: 1.2em;
 	text-align: right;
 	padding: 5px 0 0 0;
 	display: block;

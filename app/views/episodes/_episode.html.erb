@@ -1,19 +1,29 @@
 <li class="episode <%= 'open' if episode_counter.zero? %>">
   <%= link_to "#{episode_counter.zero? ? '▼' : '►'}", "#", :class => "toggle" %>
-  <h3>
+  <details>
     <%= link_to episode.date_title, episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips" -%>
     <%= episode.title %>&nbsp;<span>(<%= time_to_words(episode.duration, true).gsub(/ /, '&nbsp;') -%>)</span>
-  </h3>
+  </details>
 
   <article><%= page_description(episode.summary) -%></article>
 
 <% if source = episode.sources.with_screenshot.with_preview.first -%>
-  <p class="preview scale">
-    <%= image_tag source.screenshot.url, :alt => source.screenshot.url, :rel => source.preview.url %>
-    <%#= video_tag([source.preview.url, source.ogg_preview.url], 
-        :poster => source.screenshot.url, 
-        :autobuffer => true, :controls => true, :width => 540) %>
-  </p>
+  <!-- <p class="preview scale"> -->
+    <%#= image_tag source.screenshot.url, :alt => source.screenshot.url, :rel => source.preview.url %>
+
+  <figure class="media">
+    <%= video_tag([source.preview.url, source.ogg_preview.url], 
+      :poster => source.screenshot.url, 
+      :controls => true, :width =>540) %>
+    <div class="controls">
+      <button class="large_play">►</button>
+      <button class="play">►</button>
+      <button class="pause">||</button>
+      <progress><hr /></progress>
+      <span></span>
+    </div>
+  </figure>  
+  <!-- </p> -->
 <% end -%>
 
   <%= render :partial => "episodes/superbutton", :locals => {:episode => episode} unless episode.sources.empty? %>

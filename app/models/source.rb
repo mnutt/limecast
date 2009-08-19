@@ -59,6 +59,7 @@ class Source < ActiveRecord::Base
   named_scope :sorted, lambda {|*col| {:order => "#{col[0] || 'episodes.published_at'} DESC", :include => :episode} }
   named_scope :with_preview, :conditions => "sources.preview_file_size IS NOT NULL && sources.preview_file_size > 1023"
   named_scope :with_screenshot, :conditions => "sources.screenshot_file_size IS NOT NULL && sources.screenshot_file_size > 0"
+  named_scope :audio, :conditions => "sources.content_type_from_http LIKE 'audio%' OR sources.content_type_from_feed LIKE 'audio%'"
   named_scope :sorted_by_bitrate, :order => "bitrate_from_feed DESC, bitrate_from_ffmpeg DESC"
   named_scope :sorted_by_extension, :order => "extension_from_feed DESC, extension_from_disk DESC"
   named_scope :sorted_by_extension_and_bitrate, :order => "extension_from_feed DESC, extension_from_disk DESC, bitrate_from_feed DESC, bitrate_from_ffmpeg DESC"
@@ -127,6 +128,10 @@ class Source < ActiveRecord::Base
     self.size_from_disk || self.size_from_xml || 0
   end
 
+  def content_type
+    self.content_type_from_feed || self.content_type_from_disk || ""
+  end
+
   def duration
     if(duration_from_ffmpeg && duration_from_ffmpeg > 0)
       duration_from_ffmpeg
@@ -157,8 +162,16 @@ class Source < ActiveRecord::Base
   
   # Returns "video" if video is available, "audio" if audio but not video is available, and nil if neither.
   def preview_type
-    return "video" if %w(mp4 m4v mov flv avi asf).include? format
+    return "video" if %w(mp4 m4v mov flv avi asf).include?(format)
     return "audio" if !format.blank?
     return nil
+  end
+
+  def video?
+    self.content_type =~ /^video/
+  end
+
+  def audio?
+    self.content_type =~ /^audio/
   end
 end

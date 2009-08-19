@@ -25,7 +25,7 @@ class EpisodesController < ApplicationController
 
     @newer   = @episode.next_episode
     @older   = @episode.previous_episode
-    @source  = @episode.sources.with_screenshot.with_preview.first
+    @source  = @episode.sources.with_screenshot.with_preview.first || @episode.sources.audio.first
 
     render
   end

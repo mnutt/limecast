@@ -24,11 +24,21 @@
 
 <% if @source -%>
 <figure class="media">
-  <%= video_tag([@source.preview.url, @source.ogg_preview.url], 
-    :poster => @source.screenshot.url, 
-    :controls => true, :width => 540) %>
+  <% if @source.video? -%>
+    <%= video_tag [@source.preview.url, @source.ogg_preview.url], 
+                  :poster => @source.screenshot.url, :controls => true, :width => 540, 
+                  :rel => h(@episode.title),
+                  :id => dom_id(@source) %>
+  <% elsif @source.audio? -%>
+    <%= audio_tag [@source.url], 
+                  :controls => true, :width => 540, 
+                  :rel => h(@episode.title),
+                  :id => dom_id(@source) %>
+  <% end -%>
   <div class="controls" style="display: none;">
+    <% if @source.video? -%>
     <button class="start">►<div>Preview</div></button>
+    <% end -%>
     <button class="play">►</button>
     <button class="pause">||</button>
     <button class="mute">♫</button>

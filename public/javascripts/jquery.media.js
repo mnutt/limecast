@@ -32,24 +32,35 @@ jQuery.fn.extend({
   
   play: function() {
     var t = $(this);
-    if(t.attr('tagName') == "VIDEO") {
-      t[0].play();
-      if(t.data("interval") == undefined) {
-        t.data("interval", window.setInterval(function(){ t.updateMediaProgress(); }, 100));
-      };
-    }
+    t[0].play();
+    if(!t.data("interval") || t.data("interval") == undefined) {
+      t.data("interval", window.setInterval(function(){ t.updateMediaProgress(); }, 100));
+    };
   },
   
   pause: function(){
     t = $(this);
-    if(t.attr('tagName') == "VIDEO") {
-      t[0].pause();
-      window.clearInterval(t.data("interval"));
-      t.data("interval", null);
-    }
+    t[0].pause();
+    window.clearInterval(t.data("interval"));
+    t.data("interval", null);
+  },
+
+  fallbackToFlashAudio: function() {
+    this.each(function(){
+      var audio = $(this);
+      var source = $(this).find('source').attr('src');
+      var width = (audio.attr('width') || 540);
+      $('<script src="/flash/audio-player/audio-player.js" type="text/javascript"></script>').appendTo(document.body);
+      AudioPlayer.setup("/flash/audio-player/player.swf", { width: width });
+      AudioPlayer.embed(audio.attr('id'), {  
+          soundFile: source,
+          titles: audio.attr('rel'),
+          autostart: "no"  
+      });
+    });
   },
   
-  fallbackToFlash: function(elements) {
+  fallbackToFlashVideo: function() {
     this.each(function(){
       var video = $(this);
       var poster = video.attr('poster');
@@ -73,72 +84,88 @@ jQuery.fn.extend({
     });
   },
   
-  initVideo: function(value, options) {
-    // var videoSection = document.getElementById('video');
-    // var videoElement = document.createElement('video');
-    // var support = videoElement.canPlayType('video/x-new-fictional-format;codecs="kittens,bunnies"');
+  initAudio: function() {
+    var audio = $(this);
+    if(audio.size() == 0) return false;
 
-    // Check for video tag and video codec support
-    if (!this[0].canPlayType || (this[0].canPlayType('video/mp4') == "no" && this[0].canPlayType('video/ogg') == "no")) {
-      this.fallbackToFlash();
+    // Check for audio tag and audio codec support
+    var format = audio.find('source')[0].src.split('.').pop();
+    if (!audio[0].canPlayType || (audio[0].canPlayType('audio/'+format) != "maybe" && audio[0].canPlayType('audio/'+format) != "probably")) {
+      this.fallbackToFlashAudio();
       return false;
     }
+    
+    this.initMediaControls();
+  },
+  
+  initVideo: function() {
+    var video = $(this);
+    if(video.size() == 0) return false;
 
-    this.each(function(){
-      var tag = $(this).attr('controls', false).mousedown(function(){
-        if(tag[0].paused) { tag.play(); start.hide(); play.hide(); pause.show();}
-        else { tag.pause(); play.show(); pause.hide() };
-      });
-      var container = tag.parent();
-      var controls = container.find('.controls');
-      var start = controls.find('.start').mousedown(function(){
-        tag.play(); start.hide(); play.hide(); pause.show();
-      });
-      var play = controls.find('.play').mousedown(function(){
-        tag.play(); start.hide(); play.hide(); pause.show();
-      });
-      var pause = controls.find('.pause').mousedown(function(){
-        tag.pause(); play.show(); pause.hide();
-      });
-      var progress = controls.find('progress').
-        attr('max', tag.
-        attr('duration')).
-        attr('value', 0).
-        click(function(e){
-          var left = progress.pagePosition().left + 30;
-          var ratio = ((e.pageX - left) / progress[0].clientWidth);
-          var pos = ratio * tag[0].duration;
-          tag[0].currentTime = pos;
-          tag.updateMediaProgress();
-        });
-      var time = controls.find('.time').html((0).secondsToTime() + ' / ' + (tag.attr('duration') || 0).secondsToTime());
-      var mute = controls.find('.mute').mousedown(function(){
-        tag.attr('muted', !tag.attr('muted'));
-        mute.toggleClass('muted');
-      });
-      var volume = controls.find('.volume');
-      var volume_buttons = volume.find('button').mousedown(function(){
-        volume_buttons.removeClass('selected');
-        $(this).addClass('selected');
-        switch($(this).val()) {
-          case 'very-quiet': var vol = 0.1; break;
-          case 'quiet': var vol = 0.3; break;
-          case 'medium': var vol = 0.5; break;
-          case 'loud': var vol = 0.8; break;
-          case 'very-loud': var vol = 1.0; break;
-        }
-        if (tag.attr('muted')) mute.mousedown();
-        tag.attr('volume', vol);
-        e.stopPropagation();
-        return false;
-      });
-
-     tag.updateMediaProgress();
-     controls.show();
+    // Check for video tag and video codec support
+    if (!video[0].canPlayType || (video[0].canPlayType('video/mp4') == "no" && video[0].canPlayType('video/ogg') == "no")) {
+      this.fallbackToFlashVideo();
+      return false;
+    }
+    this.initMediaControls();
+  },
+  
+  initMediaControls: function() {
+    var tag = $(this).attr('controls', false).mousedown(function(){
+      if(tag[0].paused) { tag.play(); start.hide(); play.hide(); pause.show();}
+      else { tag.pause(); play.show(); pause.hide() };
     });
+    var container = tag.parent().css('width', '540px');
+    var controls = container.find('.controls');
+    var start = controls.find('.start').mousedown(function(){
+      tag.play(); start.hide(); play.hide(); pause.show();
+    });
+    var play = controls.find('.play').mousedown(function(){
+      tag.play(); if(start) start.hide(); play.hide(); pause.show();
+    });
+    var pause = controls.find('.pause').mousedown(function(){
+      tag.pause(); play.show(); pause.hide();
+    });
+    var progress = controls.find('progress').
+      attr('max', tag.
+      attr('duration')).
+      attr('value', 0).
+      click(function(e){
+        var left = progress.pagePosition().left + 30;
+        var ratio = ((e.pageX - left) / progress[0].clientWidth);
+        var pos = ratio * tag[0].duration;
+        tag.attr('currentTime', pos);
+        tag.updateMediaProgress();
+      });
+    var time = controls.find('.time');
+    setTimeout(function(){ time.html((0).secondsToTime() + ' / ' + (tag.attr('duration') || 0).secondsToTime()) }, 500);
+    var mute = controls.find('.mute').mousedown(function(){
+      tag.attr('muted', !tag.attr('muted'));
+      mute.toggleClass('muted');
+    });
+    var volume = controls.find('.volume');
+    var volume_buttons = volume.find('button').mousedown(function(e){
+      volume_buttons.removeClass('selected');
+      $(this).addClass('selected');
+      switch($(this).val()) {
+        case 'very-quiet': var vol = 0.1; break;
+        case 'quiet': var vol = 0.3; break;
+        case 'medium': var vol = 0.5; break;
+        case 'loud': var vol = 0.8; break;
+        case 'very-loud': var vol = 1.0; break;
+      }
+      if (tag.attr('muted')) mute.mousedown();
+      tag.attr('volume', vol);
+      e.stopPropagation();
+      return false;
+    });
+
+   tag.updateMediaProgress();
+   controls.show();
   }
 });
 
 $(function() {
   $('video').initVideo();
+  $('audio').initAudio();
 });

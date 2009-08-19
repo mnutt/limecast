@@ -22,13 +22,6 @@ var hook_up_preview = function(container){
   }
 
   var loadSwf = function(img) {
-    if(container.hasClass('scale')) {
-      var scaleToWidth = 540;
-      var h = (scaleToWidth / img.attr('width')) * img.attr('height');
-      var size = {height: h + 2, width: Math.round(scaleToWidth)};
-    } else {
-      var size = {height: img.attr('height'), width: img.attr('width')};
-    }
 
     var flashvars = {
       previewURL: img.attr('src'),

@@ -23,27 +23,27 @@
 </article>
 
 <% if @source -%>
-  <figure class="media">
-    <%= video_tag([@source.preview.url, @source.ogg_preview.url], 
-      :poster => @source.screenshot.url, 
-      :controls => true, :width =>540) if @source.preview_type == "video" %>
-    <div class="controls">
-      <button class="start">►</button>
-      <button class="play">►</button>
-      <button class="pause">||</button>
-      <button class="mute">♫</button>
-      <div class="volume">
-        <button value="very-loud" class="selected">Very Loud</button>
-        <button value="loud">Loud</button>
-        <button value="medium">Medium</button>
-        <button value="quiet">Quiet</button>
-        <button value="very-quiet">Very Quiet</button>
-      </div>
-      <meter class="time"></meter>
-      <progress><div>⚫</div></progress>
+<figure class="media">
+  <%= video_tag([@source.preview.url, @source.ogg_preview.url], 
+    :poster => @source.screenshot.url, 
+    :controls => true, :width => 540) %>
+  <div class="controls" style="display: none;">
+    <button class="start">►<div>Preview</div></button>
+    <button class="play">►</button>
+    <button class="pause">||</button>
+    <button class="mute">♫</button>
+    <div class="volume">
+      <button value="very-loud" class="selected">Very Loud</button>
+      <button value="loud">Loud</button>
+      <button value="medium">Medium</button>
+      <button value="quiet">Quiet</button>
+      <button value="very-quiet">Very Quiet</button>
     </div>
-  </figure>  
-  <br />
+    <meter class="time"></meter>
+    <progress><div>⚫</div></progress>
+  </div>
+</figure>  
+<br />
 <% end -%>
 
 <%= render :partial => "superbutton", :locals => {:episode => @episode} unless @episode.sources.empty? -%>

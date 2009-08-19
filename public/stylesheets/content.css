@@ -12,7 +12,7 @@ figure.media {
 	bottom: 0px; 
 	z-index: 98; 
 	display: inline-block;
-	margin-bottom: 7%;
+	margin-bottom: 10px;
 }
 
 figure.media .controls {
@@ -47,6 +47,10 @@ figure.media .controls button.start {
 	-moz-border-radius-bottomright: 5px;
 	-webkit-border-bottom-left-radius: 5px;
 	-webkit-border-bottom-right-radius: 5px;
+}
+
+figure.media .controls button.start div {
+	font-size: 22px;
 }
 
 figure.media .controls button.play {
@@ -390,12 +394,12 @@ ul.similar li {
 #episodes li.episode details { width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
 #episodes li.episode article,
 #episodes li.episode p, 
-#episodes li.episode video,
+#episodes li.episode figure.media,
 #episodes li.episode .superbutton { display: none; }
 #episodes li.episode p img { visibility: hidden; }
 #episodes li.episode.open article,
-#episodes li.episode.open video,
 #episodes li.episode.open p { display: block; }
+#episodes li.episode.open figure.media,
 #episodes li.episode.open .superbutton { display: inline-block; }
 
 #reviews h5 { display: inline; }

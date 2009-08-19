@@ -49,7 +49,41 @@ jQuery.fn.extend({
     }
   },
   
+  fallbackToFlash: function(elements) {
+    this.each(function(){
+      var video = $(this);
+      var poster = video.attr('poster');
+      var source = $(this).find('source').attr('src');
+      var img = $('<img style="visibility: hidden;" src="'+poster+'" />').appendTo(document.body);
+      var i = 0;
+      var addFlash = function(){
+        if(img.attr('width') == 0) {
+          setTimeout(addFlash, 100);
+        } else {
+          var width = (video.attr('width') || img.attr('width'));
+          var height = (width / img.attr('width')) * img.attr('height');
+          var embed = $('<embed pluginspage="http://www.adobe.com/go/getflashplayer" type="application/x-shockwave-flash" />').
+            attr('flashvars', 'previewURL='+poster+'&videoURL='+source+'&totalTime='+300).
+            attr('width', width).
+            attr('height', height).
+            attr('src', '/flash/CastPlayer.swf').
+            appendTo(video);
+        }
+      }();
+    });
+  },
+  
   initVideo: function(value, options) {
+    // var videoSection = document.getElementById('video');
+    // var videoElement = document.createElement('video');
+    // var support = videoElement.canPlayType('video/x-new-fictional-format;codecs="kittens,bunnies"');
+
+    // Check for video tag and video codec support
+    if (!this[0].canPlayType || (this[0].canPlayType('video/mp4') == "no" && this[0].canPlayType('video/ogg') == "no")) {
+      this.fallbackToFlash();
+      return false;
+    }
+
     this.each(function(){
       var tag = $(this).attr('controls', false).mousedown(function(){
         if(tag[0].paused) { tag.play(); start.hide(); play.hide(); pause.show();}
@@ -100,6 +134,7 @@ jQuery.fn.extend({
       });
 
      tag.updateMediaProgress();
+     controls.show();
     });
   }
 });

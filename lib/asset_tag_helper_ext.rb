@@ -17,6 +17,11 @@ module ActionView
      end
      alias_method :path_to_video, :video_path # aliased to avoid conflicts with an video_path named route
 
+     def audio_path(source)
+       compute_public_path(source, 'audios')
+     end
+     alias_method :path_to_audio, :audio_path # aliased to avoid conflicts with an video_path named route
+
      # Returns an html video tag for the +sources+. If +sources+ is a string,
      # a single video tag will be returned. If +sources+ is an array, a video
      # tag with nested source tags for each source will be returned. The
@@ -66,6 +71,25 @@ module ActionView
        else
          options[:src] = path_to_video(sources)
          tag("video", options)
+       end
+     end
+     
+     def audio_tag(sources, options = {})
+       options.symbolize_keys!
+  
+       options[:poster] = path_to_image(options[:poster]) if options[:poster]
+  
+       if size = options.delete(:size)
+         options[:width], options[:height] = size.split("x") if size =~ %r{^\d+x\d+$}
+       end
+  
+       if sources.is_a?(Array)
+         content_tag("audio", options) do
+           sources.map { |source| tag("source", :src => source) }.join
+         end
+       else
+         options[:src] = path_to_audio(sources)
+         tag("audio", options)
        end
      end
    end

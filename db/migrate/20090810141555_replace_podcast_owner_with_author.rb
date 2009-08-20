@@ -1,5 +1,12 @@
 class Author < ActiveRecord::Base
   # JIC
+  attr_accessor :clean_url
+  protected
+  def set_name_and_clean_url
+    self.name = email.to_s.dup if name.blank?
+    self.name = name.split(/@/).first
+    self.name = name.increment(" (%s)", 2) while Author.exists?(["name = ? AND id != ?", name, id.to_i])
+  end
 end
 
 class ReplacePodcastOwnerWithAuthor < ActiveRecord::Migration

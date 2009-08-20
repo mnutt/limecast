@@ -13,8 +13,8 @@
 class Author < ActiveRecord::Base
   before_validation :set_name_and_clean_url
   
-  validates_presence_of :email
-  validates_uniqueness_of :clean_url
+  # validates_presence_of :email
+  # validates_uniqueness_of :clean_url # ADD BACK LATER
 
   def user
     User.find_by_email(email.strip)
@@ -31,7 +31,7 @@ class Author < ActiveRecord::Base
 
   protected
   def set_name_and_clean_url
-    self.name = email.dup.to_s if name.blank?
+    self.name = email.to_s.dup if name.blank?
     self.name = name.split(/@/).first
     self.name = name.increment(" (%s)", 2) while Author.exists?(["name = ? AND id != ?", name, id.to_i])
 

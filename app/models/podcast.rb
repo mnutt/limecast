@@ -127,7 +127,7 @@ class Podcast < ActiveRecord::Base
 
     @author ||= Author.find_or_initialize_by_email(author_email.to_s.strip) 
     @author.name = author_name if @author.name.blank?
-    @author.save
+    @author.save 
     @author
   end
 

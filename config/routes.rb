@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
     info.authors    '/authors',         :controller => 'authors', :action => 'index'
     info.author     '/author/:author_slug', :controller => 'authors', :action => 'show'
     info.titles     '/titles',          :controller => 'podcasts', :action => 'titles'
+    info.random     '/random',          :controller => 'podcasts', :action => 'random'
     info.ihash      '/hash',            :controller => 'podcasts', :action => 'hash'
     info.add        '/add',             :controller => 'podcasts', :action => 'add'
     info.feed       '/:podcast_slug/feed/:id', :controller => 'podcasts', :action => 'show'

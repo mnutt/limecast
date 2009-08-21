@@ -1,0 +1,19 @@
+<% @title = "5 Random Podcasts" -%>
+
+<h1>random</h1>
+
+<table>
+  <tr>
+    <th class="key" title="Podcast title and link">title</th>
+    <th class="key" title="Podcast url and link">url</th>
+  </tr>
+  
+  <% @podcasts.each do |podcast| -%>
+  <tr>
+    <td><%= link_to podcast.title, info_podcast_url(podcast) %></td>
+    <td>/<%= link_to podcast.clean_url, info_podcast_url(podcast) %></td>
+  </tr>
+  <% end -%>
+
+</table>
+

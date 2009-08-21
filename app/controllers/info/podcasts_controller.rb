@@ -25,5 +25,9 @@ class Info::PodcastsController < InfoController
   def titles
     @podcasts = Podcast.parsed.sorted
   end
+  
+  def random
+    @podcasts = Podcast.all(:limit => 5, :order => "RAND()")
+  end
 end
 

@@ -396,16 +396,17 @@ ul.similar li {
 
 #episodes li.episode .toggle { position: absolute; left: -1.5em; z-index: 100; }
 #episodes li.episode { margin: 7px 0; }
-#episodes li.episode details { width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
-#episodes li.episode article,
-#episodes li.episode p, 
+
+#episodes li.episode article.line { display: none; }
+#episodes li.episode article.page { display: block; }
 #episodes li.episode figure.media,
-#episodes li.episode .superbutton { display: none; }
-#episodes li.episode p img { visibility: hidden; }
-#episodes li.episode.open article,
-#episodes li.episode.open p { display: block; }
-#episodes li.episode.open figure.media,
-#episodes li.episode.open .superbutton { display: inline-block; }
+#episodes li.episode .superbutton { display: inline-block; }
+
+#episodes li.episode.closed { width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
+#episodes li.episode.closed article.line { display: inline; }
+#episodes li.episode.closed article.page,
+#episodes li.episode.closed figure.media,
+#episodes li.episode.closed .superbutton { display: none; }
 
 #reviews h5 { display: inline; }
 #reviews .positive, #reviews .negative { padding-left: 20px; }

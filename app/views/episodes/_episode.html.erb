@@ -1,11 +1,12 @@
-<li class="episode <%= 'open' if episode_counter.zero? %>">
+<li class="episode <%= 'closed' unless episode_counter.zero? %>">
   <%= link_to "#{episode_counter.zero? ? '▼' : '►'}", "#", :class => "toggle" %>
   <details>
     <%= link_to episode.date_title, episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips" -%>
     <%= episode.title %>&nbsp;<span>(<%= time_to_words(episode.duration, true).gsub(/ /, '&nbsp;') -%>)</span>
   </details>
 
-  <article><%= page_description(episode.summary) -%></article>
+  <article class="line"><%= line_description(episode.summary) -%></article>
+  <article class="page"><%= page_description(episode.summary) -%></article>
 
   <% if source = (episode.sources.with_screenshot.with_preview.first || episode.sources.audio.first) -%>
     <%= render :partial => "episodes/episode_player", :locals => {:source => source} -%>

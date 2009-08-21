@@ -1,7 +1,0 @@
-<% options ||= {} -%>
-<% episode = video_player -%>
-<% attrs ||= {} %>
-<% attrs.reverse_merge! :class => "scale", :rel => source.preview.url, :poster => source.screenshot.url if source %>
-<% (attrs[:class] ||= "") << " container" %>
-<%# javascript_include "video_preview" -%>
-

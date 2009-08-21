@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>SoundManager 2 Tutorial: Getting Started</title>
+<meta name="description" content="SoundManager 2 tutorial, example code, how to get started guide including and configuring SoundManager 2 for playing MP3 audio via Javascript." />
+<meta name="keywords" content="soundmanager2 tutorial, javascript sound, javascript audio, javascript play mp3, javascript sound control, javascript video, mp3, mp4, mpeg4, flv video" />
+<meta name="robots" content="all" />
+<meta name="author" content="Scott Schiller" />
+<meta name="copyright" content="Copyright (C) 1997 onwards Scott Schiller" />
+<meta name="language" content="en-us" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../demo/index.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../troubleshoot/debug.css" />
+<script type="text/javascript" src="../../script/soundmanager2.js"></script>
+<script type="text/javascript" src="../../demo/index.js"></script>
+<script type="text/javascript">
+	soundManager.debugMode = true;
+	soundManager.url = '../../swf/';
+	soundManager.onload = function() {
+	}
+</script>
+<script type="text/javascript" src="../../troubleshoot/debug.js"></script>
+</head>
+
+<body>
+	
+<div id="content">
+
+ <div id="top">
+
+  <h1>SoundManager 2: Getting Started</h1>
+
+	<div id="nav">
+	 <ul>
+
+	  <li>
+	   <a href="../../">Home</a>
+	  </li>
+
+	  <li>
+	   <a href="#">Demos</a>
+	   <ul>
+		<li><a href="../../demo/api/">API Examples</a></li>
+	    <li><a href="../../demo/play-mp3-links/" class="exclude">Playable MP3 links</a></li>
+		<li><a href="../../demo/page-player/">Muxtape-style UI</a></li>
+		<li><a href="../../demo/360-player/">360&deg; Player UI</a></li>
+		<li><a href="../../demo/video/">MPEG4 Video Player</a></li>
+		<li><a href="../../demo/video/basic.html" class="norewrite">Basic Video Template</a></li>
+	    <li><a href="../../demo/mpc/">Drum Machine (MPC)</a></li>
+		<li><a href="../../demo/animation/">DOM/Animation Demos</a></li>
+		<li><a href="../../demo/flashblock/">FlashBlock Handling</a></li>
+		<li><a href="../../demo/template/">Basic Template</a></li>
+	   </ul>
+	  </li>
+
+	  <li>
+	   <strong><a href="../getstarted/">Getting Started</a></strong>
+	   <ul>
+		<li><a href="../getstarted/#how-sm2-works">How SoundManager 2 works</a></li>
+		<li><a href="../getstarted/#basic-inclusion">Including SM2 on your site</a></li>
+		<li><a href="../getstarted/#troubleshooting">Troubleshooting</a></li>
+	   </ul>
+	  </li>
+
+	  <li>
+	   <a href="..">Documentation</a>
+	   <ul>
+		<li><a href="../#sm-config">SoundManager Properties</a></li>
+		<li><a href="../#sound-object-properties">Sound Object Properties</a></li>
+		<li><a href="../#smdefaults">Global Sound Defaults</a></li>
+		<li><a href="../#api">SoundManager Core API</a></li>
+		<li><a href="../#smsoundmethods">Sound Object (SMSound) API</a></li>
+	   </ul>
+	  </li>
+	
+	  <li>
+	   <a href="../download/">Download</a>
+	   <ul>
+		<li><a href="../download/#latest">Get SoundManager 2</a></li>
+		<li><a href="../download/#revision-history">Revision History</a></li>
+	   </ul>
+	  </li>
+	
+	  <li>
+	   <a href="../technotes/">Technical Notes</a>
+	   <ul>
+		<li><a href="../technotes/#requirements">System Requirements</a></li>
+		<li><a href="../technotes/#debug-output">Debug + Console Output</a></li>
+	   </ul>
+	  </li>
+
+	  <li>
+	   <a href="../resources/">Resources</a>
+	   <ul>
+		<li><a href="../resources/#licensing">Licensing</a></li>
+		<li><a href="../resources/#related">Related Projects</a></li>
+		<li><a href="http://getsatisfaction.com/schillmania/products/schillmania_soundmanager_2/">SM2 support / discussion</a></li>
+		<li><a href="http://www.schillmania.com/content/react/contact/">Contact Info @ Schillmania.com</a></li>
+	   </ul>
+	  </li>
+
+	 </ul>
+	 <div class="clear"></div>
+	</div>
+	
+ </div>
+
+ <div id="main" class="triple">
+
+		<div class="columnar">
+			<div class="c1">
+				<h2>How SoundManager Works</h2>
+				<p>It starts out easy, but you can go down the rabbit hole if you want.</p>
+			</div>
+			
+			<div class="c2">
+				
+				<div class="f-block">
+
+				 <!--
+				 <p style="margin-top:1px"><strong><strong>SoundManager 2 makes it easier to play MP3 audio cross browser / platform, using Javascript.</strong></strong></p>
+			 -->
+			
+				 <h3>SoundManager 2 Tutorial: What, Why, How</h3>
+			
+				 <p><strong>Problem:</strong> Browsers lack good, consistent native audio/video support. (HTML 5's &lt;audio&gt; and &lt;video&gt; are on the way, but not universal yet.)</p>
+				 <p><strong>Solution:</strong> Javascript API via Flash + ExternalInterface, works almost everywhere</p>
+				 <p>SoundManager 2 wraps and extends the Flash Sound API, and exposes it to Javascript. (The flash portion is hidden, transparent to both developers and end users.)</p>
+
+				</div>
+
+			  <div class="f-block c-basic-use">
+
+
+			  <h4 id="basic-inclusion">Including SoundManager</h4>
+
+			  <p>Within <code class="in">&lt;head&gt;</code>:</p>
+			  <pre>&lt;script type="text/javascript" src="<span>soundmanager2.js</span>"&gt;&lt;/script&gt;</pre>
+
+			  <p>Alternate "minified" version (no debug output nor comments, 60% reduction in file size, as light as 6 KB with gzip):</p>
+			  <pre>&lt;script type="text/javascript" src="<span>soundmanager2-nodebug-jsmin.js</span>"&gt;&lt;/script&gt;</pre>
+			
+			  <h4 id="basic-template">Basic SoundManager Template</h4>
+
+			  <p>For a live example of a page including SoundManager 2, check the <a href="../../demo/template/" title="SoundManager 2 template example" onclick="checkDomain(this)">bare-bones template</a>.</p>
+
+
+<h4 id="tech-architecture">How SoundManager 2 Really Works</h4>
+
+<p>SoundManager 2 is the result of Javascript talking to a hidden Flash movie. The Flash layer is not a concern for you as a developer, but it is the component which makes audio control possible.</p>
+
+<style type="text/css">
+
+
+
+</style>
+
+<div class="figure">
+
+ <div class="code">
+  <span>soundmanager2.js</span> <span class="mid">&lt;-flash externalinterface magic-&gt;</span> <span>soundmanager2.swf</span> <span class="mid">&lt;- HTTP -&gt;</span> <span>.mp3/.mp4</span>
+ </div>
+
+</div>
+
+<p>Flash can expose methods to Javascript via ExternalInterface, allowing bi-directional calls to be made and thus providing additional functionality to Javascript.</p>
+
+
+			  </div>
+			
+			  <div class="f-block f-onload">
+
+			  <h4>Startup / Initialization</h4>
+
+			  <p class="in">A single Javascript include will link in all of the required code for the library, which will automatically begin loading either at <code>document.onDOMContentLoaded()</code> if supported, or alternately, after <code>window.onload()</code> (eg., IE 6 and others.) The default behaviour is to start "as soon as possible", but the library can be configured to wait for <code>window.onload()</code> in all cases as well. Loading and initialisation are separate events.</p>
+
+			  <p class="in">Once initialised, SM2 will call either <code>soundManager.onload()</code> or <code>soundManager.onerror()</code>, event handlers which you can define just as with <code>window.onload()</code>.</p>
+			
+			  <h4>SoundManager onload/onerror Event Handlers</h4>
+			
+<pre class="block"><code>soundManager.onload = function() {
+  <span><span>// SM2 is ready to go!</span></span>
+  var mySound = soundManager.createSound({
+    id: '<span>aSound</span>',
+    url: '<span>/path/to/an.mp3</span>',
+    volume: <span>50</span>
+  });
+  mySound.play();
+}
+
+soundManager.onerror = function() {
+  <span><span>// SM2 could not start, no sound support, something broke etc. Handle gracefully.</span></span>
+  disableSoundInMyApp(); <span><span>// for example</span></span>
+}</code></pre>
+
+<p>If you want to get fancier, a more flexible <a href="../#soundmanager-onready">soundManager.onready()</a> method can be used in place of the above.</p>
+
+			  </div>
+
+				
+			</div>
+			
+		</div>
+
+				<div class="columnar">
+
+					<div class="c1">
+						<h2>Sound Options Object Format</h2>
+						<p>Object Literal, JSON-style form passed to <code>createSound()</code> and <code>play()</code></p>
+					</div>
+
+					<div class="c2">
+
+						  <div class="f-block s-onload"> <!-- f-createsound s-sid s-url s-autoload s-autoplay s-onload -->
+
+						  <h3 id="object-literal-format">Object Literal Format</h3>
+
+						  <p>Sounds can be created with instance-specific parameters in an object literal (JSON) format, where omitted parameters inherit default values as defined in soundManager.</p>
+
+<pre class="block"><code>soundManager.createSound({
+  id: '<span>mySound</span>',
+  url: '<span>/path/to/some.mp3</span>',
+  autoLoad: <span>true</span>,
+  autoPlay: <span>false</span>,
+  onload: <span>function() {
+    alert('<span>The sound </span>'+<span>this.sID</span>+'<span> loaded!</span>');
+  }</span>,
+  volume: <span>50</span>
+</span>});</code></pre>
+
+						  <p>This object can also be passed as an optional argument to the <code class="in">play</code> method, overriding options set at creation time.</p>
+
+						  <p>For a full list of available options, see <a href="#sound-properties" title="SoundManager 2 API info: Sound Properties" onclick="resetFilter()">Sound Properties Object</a></p>
+
+						  </div>
+
+
+					</div>
+
+				</div>
+		
+		<div class="columnar">
+			<div class="c1">
+				<h2>"Use Responsibly"</h2>
+				<p>Only you can prevent audio pollution?</p>
+			</div>
+			
+			<div class="c2">
+				
+			  <div class="f-block">
+
+			  <h3>A Word Of Vice</h3>
+			  <p>Not every button, link, element or paragraph on the web needs to zoom, move, change colour <em>and</em> be noisy, repetitive and annoying all at the same time. Use your own discretion!</p>
+			  <p>Sites which automatically start playing background sound, and/or don't have volume or mute controls are the kind of things you should avoid building. As a developer, gentle reader, you may eventually find yourself in such a situation. Please do your part in enhancing the web with sound if you use SM2, while at the same time keeping it audibly usable. :)</p>
+
+			  </div>
+				
+			</div>
+
+		</div>
+		
+		<div id="troubleshooting" class="columnar">
+
+			<div class="c1">
+				<h2>Troubleshooting</h2>
+				<p>Console-style messaging, useful for troubleshooting start-up and runtime issues.</p>
+			</div>
+			
+			<div class="c2">
+
+				<h3>SoundManager 2 Start-up and Debug Tools</h3>
+				<p>This troubleshooting tool can come in handy for debugging SM2 start-up problems.</p>
+
+				<div id="sm2-test">
+				 <ul class="items">
+
+				  <li id="d-onload" class="default">
+				   <h3><span class="yay">OK</span><span class="boo">FAIL</span><span class="default">N/A</span><span class="unknown">Unknown</span><span>SoundManager 2 start-up</span></h3>
+				   <div id="sm2-startup" class="details">
+				    <p>soundManager.onload() or soundManager.onerror() is ultimately called when start-up completes.</p>
+				    <p>If you're seeing a failure, refer to the below for troubleshooting details for common causes.</p>
+				   </div>
+				  </li>
+
+				  <li id="d-hasflash" class="default">
+				   <h3><span class="yay">OK</span><span class="boo">Error</span><span class="default">N/A</span><span class="unknown">Unknown</span><span>Flash</span></h3>
+				   <div class="details">
+				    <p>The Flash 8 plugin is a minimal requirement for SoundManager 2, but the exact requirement varies based on soundManager.flashVersion. You are currently using <b id="d-flashversion">[unknown]</b>.</p>
+				   </div>
+				  </li>
+
+				  <li id="d-swf" class="default">
+				   <h3><span class="yay">OK</span><span class="boo">Error</span><span class="default">N/A</span><span class="unknown">Unknown</span><span>Flash SWF</span></h3>
+				   <div class="details">
+				    <p>SoundManager 2 must load a flash movie before initialisation can proceed. If you have errors here, check that soundManager.url is correctly defined and that the URL being loaded is correct.</p>
+				   <p>If the Flash movie URL is OK, Flash security or flash blockers are the likely cause. Check the section below.</p>
+				   </div>
+				  </li>
+
+				  <li id="d-flashtojs" class="default">
+				   <h3><span class="yay">OK</span><span class="boo">Error</span><span class="default">N/A</span><span class="unknown">Unknown</span><span>Flash -&gt; JS</span></h3>
+				   <div class="details">
+				    <p>Once the flash component of SM2 has loaded, it tries to make a call to Javascript-land. This is a common point of failure, for security reasons:</p>
+				    <ul>
+				     <li>Offline viewing (file:// or c:\path\) counts as "cross-domain" access. Flash security "whitelisting" is required to allow Flash + JS to work.</li>
+				     <li style="margin-top:0.5em">Flash blockers (FlashBlock, "click to flash" etc.) preventing flash load and start-up - need whitelisting/"allow this domain" to work smoothly. If you suspect blocking is the issue, try the <a href="../../demo/flashblock/">SoundManager 2 Flashblock demo</a>.</li>
+				     <li style="margin-top:0.5em">Online viewing (HTTP/S): Same-domain security rules apply to HTML + Flash content by default (crossdomain.xml/allowDomain() in .AS source required to override.)</li>
+				    </ul>
+
+				    <div id="d-flashtojs-offline">
+				     <h4>Offline viewing: Adding a "trusted location" to the Flash Security Settings Panel</h4>
+				     <p>The Flash Player Global Security Settings Panel is a web-based control panel which allows you to configure Flash security. You will need to add the path of the SoundManager 2 project in order for it to work "offline" (ie., when viewing via file:// or c:/)</p>
+				     <p id="ss"><a href="#screenshots" onclick="document.getElementById('ss-box').style.display = 'block';document.getElementById('ss').style.display='none';return false">Show me how</a>: Adding a "trusted location"</p>
+				     <div id="ss-box" style="display:none">
+					  <h4>Illustrated guide: Adding a "trusted location" in Flash</h4>
+				      <p>Below: Adding a location, and selecting "Browse for folder" (or directory), to whitelist the SoundManager 2 project directory for offline viewing.</p>
+				      <p><img src="../../troubleshoot/fpgss-add-location.png" alt="Adding a location: Browse for the file or directory to whitelist" style="width:100%;_width:auto;min-width:72px;max-width:396px" /></p>
+				      <p><img src="../../troubleshoot/fpgss-added-location.png" alt="Whitelisted location has now been added, JS + Flash will work under this path" style="width:100%;_width:auto;min-width:72px;max-width:396px" /></p>
+				     </div>
+				     <p><a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html" target="_blank" class="feature">Launch the Flash Security Settings Panel</a></p>
+				    </div>
+
+				    <div id="d-flashtojs-online">
+					 <h4>Online viewing: Cross-domain security restrictions</h4>
+				     	 <p>HTML page on domain A loading .SWF from domain B: Flash security prevents JS + Flash when a cross-domain XML permission file is not available on domain B, and/or flash movie was not compiled with allowDomain('domainA') or allowDomain('*') - note that the SWF distributed with SM2 does not use this by default; try using the cross-domain version of the SWF, or compile your own which whitelists your own domain(s).</p>
+
+					 <h4>Flash Blockers</h4>
+					 <p>Browser extensions/add-ons like "FlashBlock" and "click to flash" can prevent the .SWF from loading, and this will mean SM2 will time-out and fail waiting for a response from Flash. For development, it's best to whitelist the domain(s) or the .SWF for SM2 to allow it to work.</p>
+					 <p>Have a flash blocker installed? Want to test it? Try the <a href="../../demo/flashblock">SoundManager 2 Flashblock demo</a>.</p>
+
+				    </div>
+
+				   </div>
+				  </li>
+
+				  <li id="d-jstoflash" class="default">
+				   <h3><span class="yay">OK</span><span class="boo">Error</span><span class="default">N/A</span><span class="unknown">Unknown</span><span>JS -&gt; Flash</span></h3>
+				   <div class="details">
+				    <p>At this point, Javascript attempts to respond to Flash's initial outgoing Flash -&gt; JS call, completing the test for JS/flash communication. If SM2 does not receive a response from flash, it will eventually fail.</p>
+				    <p>Offline viewing conditions and cross-domain security rules will prevent Flash &lt;-&gt; JS communication. See the details of Flash -&gt; JS for information.</p>
+				   </div>   
+				  </li>
+
+				  <li id="d-soundtest" class="default">
+				   <h3><span class="yay">OK</span><span class="boo">Error</span><span class="default">N/A</span><span class="unknown">Unknown</span><span>Sound test</span></h3>
+				   <div class="details">
+				    <p>Here, a simple createSound() call is made to test SM2's actual operation. A sound should load and play provided SM2 was able to start successfully.</p>
+				   </div>
+				  </li>
+
+				 </ul>
+				</div>
+			
+				<p>Flash detection code from <a href="http://www.featureblend.com/javascript-flash-detection-library.html" title="Javascript flash detection library">Flash Detect</a> (featureblend.com)</p>
+				
+				<h3>Standalone version of troubleshooting tool</h3>
+				<p class="in">For debugging your development/production environment with this widget, see the <a href="../../troubleshoot/" title="SoundManager 2: Standalone debug widget">troubleshooting</a> subdirectory of the SoundManager 2 package.</p>
+
+
+				<h3>Live Debug Output</h3>
+				<p>SoundManager 2 relies on Javascript and Flash communicating via ExternalInterface, and this is subject to a number of timing, loading and browser security conditions. Because of this complexity, debug information is essential for troubleshooting start-up, loading, initialization and error conditions between Flash and Javascript.</p>
+				<p class="in">With debug mode enabled via <code>soundManager.debugMode = true</code>, SM2 can write helpful troubleshooting information to javascript <code>console.log()</code>-style interfaces. Additionally, output can be written to an optional DIV element with the ID of "<code>soundmanager-debug</code>".</p>
+				<p>If loading from the local filesystem (offline eg. file://, not over HTTP), Flash security is likely preventing SM2 from talking to Javascript. You will need to add this project's directory to the trusted locations in the <a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html">Flash global security settings panel</a>, or simply view this page over HTTP.</p>
+				<p>Below is a live example of debug output.</p>
+				<div id="live-debug" class="block">
+				 <div id="soundmanager-debug" class="code">
+				  <!-- live debug goes here -->
+				 </div>
+				</div>
+				<p>For more examples of live debug output, see the <a href="../../demo/template/" title="Basic SoundManager 2 template">Basic Template</a>, <a href="../../demo/api/" title="API demo">API demo</a> and other demos in the top navigation.</p>
+			</div>
+			
+		</div>
+
+	<div id="col3" class="c3">
+
+ 
+  <div id="get-satisfaction" class="box">
+   <div id="gsfn_list_widget">
+    <h2><a href="http://getsatisfaction.com/schillmania/products/schillmania_soundmanager_2/" title="User discussion, FAQs and support for SoundManager 2" rel="nofollow">Discussion / Support</a><span class="l"></span><span class="r"></span></h2>
+    <div id="gsfn_content"></div>
+    <div class="powered_by"><a href="http://getsatisfaction.com/">Get Satisfaction support network</a></div>
+   </div>
+  <!-- /.box -->
+
+  </div>
+
+ <div id="shortcuts">
+
+ </div>
+
+
+
+	</div>
+	
+	<div class="clear"></div>
+
+ <!-- /main -->
+ </div>
+
+ <!-- /content -->
+ </div>
+
+<script type="text/javascript">
+init();
+sm2DebugInit();
+</script>
+	
+</body>
+
+</html>

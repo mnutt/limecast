@@ -1,0 +1,34 @@
+<figure class="media">
+  <% if source.video? -%>
+    <%= video_tag [source.preview.url, source.ogg_preview.url], 
+                  :poster => source.screenshot.url, :width => 540, 
+                  :rel => h(source.episode.title),
+                  :style => "display: none;",
+                  :id => dom_id(source) %>
+  <% elsif source.audio? -%>
+    <%= audio_tag [source.url], 
+                  :width => 540, 
+                  :autobuffer => true,
+                  :style => "display: none;",
+                  :rel => h(source.episode.title),
+                  :id => dom_id(source) %>
+  <% end -%>
+  <div class="controls" style="display: none;">
+    <% if source.video? -%>
+    <button class="start">►<div>Preview</div></button>
+    <% end -%>
+    <button class="play">►</button>
+    <button class="pause">||</button>
+    <button class="mute">volume</button>
+    <div class="volume">
+      <button value="very-loud" class="selected">Very Loud</button>
+      <button value="loud">Loud</button>
+      <button value="medium">Medium</button>
+      <button value="quiet">Quiet</button>
+      <button value="very-quiet">Very Quiet</button>
+    </div>
+    <meter class="time"></meter>
+    <div class="progress"><div>⚫</div></div> <!-- can't use the progress tag because IE can't traverse its insides; could we put the inner div outside of it somehow? //-->
+  </div>
+</figure>  
+<br />

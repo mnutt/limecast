@@ -76,7 +76,7 @@ figure.media .controls button.pause {
 	background: #FFF;
 }
 
-figure.media .controls progress {
+figure.media .controls .progress {
 	padding: 0px;
 	display: block;
 	height: 30px;
@@ -103,12 +103,13 @@ figure.media .controls button.mute {
 	font-size: 16px;
 	line-height: 150%;
 	color: #000;
-	background: #FFF;
 	outline: none;
+	text-indent: -5000px;
+	background: url('/imgs/icons/audio_on.png') #FFF 50% 50% no-repeat;
 }
 
 figure.media .controls button.mute.muted {
-	color: #AAA;
+	background-image: url('/imgs/icons/audio_off.png');
 }
 
 figure.media .controls button.mute:hover + .volume,
@@ -131,11 +132,11 @@ figure.media .controls .volume {
 }
 
 figure.media .controls .volume button {
-	background: #FFF;
 	text-indent: -5000px;
 	display: block;
 	width: 100%;
 	outline: 0px;
+	background: #FFF no-repeat 50% 50%;
 	-moz-border-radius: 0px;
 	-webkit-border-radius: 0px;
 }
@@ -146,19 +147,19 @@ figure.media .controls .volume button:first-child {
 	-webkit-border-top-left-radius: 5px;
 	-webkit-border-top-right-radius: 5px;
 }
-figure.media .controls .volume button[value=very-quiet] { background: #FFF; }
-figure.media .controls .volume button[value=quiet] { background: #DDD; }
-figure.media .controls .volume button[value=medium] { background: #BBB; }
-figure.media .controls .volume button[value=loud] { background: #999; }
-figure.media .controls .volume button[value=very-loud] { background: #777; }
-figure.media .controls .volume button[class=selected] { background: #2951A5; }
-figure.media .controls .volume button:hover { background: #4B73C7; }
+figure.media .controls .volume button[value=very-quiet] { background-image: url('/imgs/icons/audio_1.png'); }
+figure.media .controls .volume button[value=quiet] { background-image: url('/imgs/icons/audio_2.png'); }
+figure.media .controls .volume button[value=medium] { background-image: url('/imgs/icons/audio_3.png'); }
+figure.media .controls .volume button[value=loud] { background-image: url('/imgs/icons/audio_4.png'); }
+figure.media .controls .volume button[value=very-loud] { background-image: url('/imgs/icons/audio_5.png'); }
+figure.media .controls .volume button[class=selected] { background-color: #333; }
+figure.media .controls .volume button:hover { background-color: #AAA; }
 
 /*figure.media .controls .volume:hover span {
 	display: block;
 }*/
 
-figure.media .controls progress div {
+figure.media .controls .progress div {
 	height: 30px; 
 	width: 0%; 
 	padding: 0px;
@@ -166,9 +167,9 @@ figure.media .controls progress div {
 	line-height: 26px;
 	text-indent: -6px;
 	font-size: 16px;
-	display: inline-block;
 	background: #AAA; 
 	direction: rtl;
+	text-align: right;
 	color: black;
 }
 
@@ -300,7 +301,7 @@ figure.media .controls progress div {
 	outline: none;
 	padding: 6px 8px 4px 25px;
 	color: #000;
-	background: url('/ims/icons/ipod.png') 5px 6px no-repeat;
+	background: url('/imgs/icons/ipod.png') 5px 6px no-repeat;
 }
 
 .superbutton menu {
@@ -319,7 +320,7 @@ figure.media .controls progress div {
 	border: 0px;
 	white-space: nowrap;
 	cursor: pointer;
-	background: #FFF url('/ims/icons/ipod.png') 5px 6px no-repeat;
+	background: #FFF url('/imgs/icons/ipod.png') 5px 6px no-repeat;
 }
 
 /* Format Icons */

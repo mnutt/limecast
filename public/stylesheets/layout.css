@@ -34,8 +34,6 @@ input[type=password] {
 }
 
 textarea {
-	background: url('/imgs/textarea.png') top left no-repeat;
-	resize: none; /* for Safari's resize widget */
 	width: 392px;
 	height: 120px;
 	overflow: auto;

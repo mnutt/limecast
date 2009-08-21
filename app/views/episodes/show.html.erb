@@ -22,38 +22,6 @@
   <p><%= sanitize_summary @episode.summary -%></p>
 </article>
 
-<% if @source -%>
-<figure class="media">
-  <% if @source.video? -%>
-    <%= video_tag [@source.preview.url, @source.ogg_preview.url], 
-                  :poster => @source.screenshot.url, :controls => true, :width => 540, 
-                  :rel => h(@episode.title),
-                  :id => dom_id(@source) %>
-  <% elsif @source.audio? -%>
-    <%= audio_tag [@source.url], 
-                  :controls => true, :width => 540, 
-                  :rel => h(@episode.title),
-                  :id => dom_id(@source) %>
-  <% end -%>
-  <div class="controls" style="display: none;">
-    <% if @source.video? -%>
-    <button class="start">►<div>Preview</div></button>
-    <% end -%>
-    <button class="play">►</button>
-    <button class="pause">||</button>
-    <button class="mute">♫</button>
-    <div class="volume">
-      <button value="very-loud" class="selected">Very Loud</button>
-      <button value="loud">Loud</button>
-      <button value="medium">Medium</button>
-      <button value="quiet">Quiet</button>
-      <button value="very-quiet">Very Quiet</button>
-    </div>
-    <meter class="time"></meter>
-    <progress><div>⚫</div></progress>
-  </div>
-</figure>  
-<br />
-<% end -%>
+<%= render :partial => "episodes/episode_player", :locals => {:source => @source} if @source -%>
 
 <%= render :partial => "superbutton", :locals => {:episode => @episode} unless @episode.sources.empty? -%>

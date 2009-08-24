@@ -1,0 +1,50 @@
+/***************************************************/
+/* STYLE GUIDE: keep markup simple, keep CSS clean */
+/***************************************************/
+
+/**********/
+/* General */
+/**********/
+body { text-align: center; }
+
+header, footer, #wrapper { text-align: left; }
+
+
+/**********/
+/* Header */
+/**********/
+header nav ul  {
+}
+
+header nav .auth {
+}
+
+header nav .search form,
+header nav .search form input {
+	float: left;
+}
+
+
+/***********/
+/* Content */
+/***********/
+
+
+/**********/
+/* Footer */
+/**********/
+
+
+/**********/
+/* Auth   */
+/**********/
+
+
+/***************/
+/* Sidebars */
+/***************/
+
+#left img {
+	filter: "progid:DXImageTransform.Microsoft.dropShadow(OffX=3, OffY=3, Direction=135, Color=#888888)";
+	-ms-filter: "progid:DXImageTransform.Microsoft.dropShadow(OffX=3, OffY=3, Direction=135, Color=#888888)";
+}

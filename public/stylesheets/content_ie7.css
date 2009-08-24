@@ -1,0 +1,48 @@
+/***************************************************/
+/* STYLE GUIDE: keep markup simple, keep CSS clean */
+/***************************************************/
+
+
+/***************/
+/* Home				 */
+/***************/
+
+#make { padding-top: 15px; background: transparent url('/imgs/hp_tower.png') top left no-repeat; }
+#player { padding-top: 15px; background: transparent url('/imgs/hp_open.png') top left no-repeat; }
+
+/***************/
+/* Superbutton */
+/***************/
+
+.superbutton {
+}
+
+.subscribe.superbutton {
+	width: 350px;
+}
+
+.download.superbutton {
+	width: 300px;
+}
+
+.superbutton a.button {
+	float: right;
+}
+
+/***************/
+/* Podcast		 */
+/***************/
+
+/********************/
+/* Popular Podcasts */
+/********************/
+
+/***************/
+/* Add Podcast */
+/***************/
+
+.podcast.new .added_podcast input[type=text] { margin-right: 5px; }
+
+/***************/
+/* Episode		 */
+/***************/

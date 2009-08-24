@@ -27,10 +27,15 @@ figure.media .controls {
 	background: url("/imgs/button_bg.gif") #FDFDFD repeat-x top left;
 	border: solid #C3C3C3;
 	border-width: 1px 1px 1px 1px;
-	-moz-border-radius-bottomleft: 5px;
-	-moz-border-radius-bottomright: 5px;
-	-webkit-border-bottom-left-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+figure.media video + .controls {
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-topright: 0px;
+	-webkit-border-top-left-radius: 0px;
+	-webkit-border-top-right-radius: 0px;
 }
 
 figure.media video {

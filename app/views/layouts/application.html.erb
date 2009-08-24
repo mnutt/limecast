@@ -30,6 +30,11 @@
     <%= stylesheet_link_tag 'layout_ie8', 'content_ie8' -%>
     <%= javascript_include_tag 'jquery.html5shiv.js' %>
   <![endif]-->
+
+  <!--[if IE 7]>
+    <%= stylesheet_link_tag 'layout_ie7', 'content_ie7' -%>
+    <%= javascript_include_tag 'jquery.html5shiv.js' %>
+  <![endif]-->
 </head>
 
 <body class="<%= @classes -%><%= " status_#@error" if @error %>">

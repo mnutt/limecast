@@ -1,0 +1,21 @@
+<% @title = "Recently Discovered Episodes (24 hours)" -%>
+
+<h1>recently discovered episodes</h1>
+
+<table>
+  <tr>
+    <th class="key" title="Podcast title and link">podcast</th>
+    <th class="key" title="Episode date, title and link">episode</th>
+    <th>created at</th>
+  </tr>
+  
+  <% @episodes.each do |episode| -%>
+  <tr>
+    <td><%= link_to h(episode.podcast.title), info_podcast_url(episode.podcast) %></td>
+    <td><%= link_to episode.date_title, info_episode_url(episode.podcast, episode) %> <%= h(episode.title) %></td>
+    <td><%= relative_time episode.created_at %></td>
+  </tr>
+  <% end -%>
+
+</table>
+

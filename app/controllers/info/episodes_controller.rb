@@ -5,5 +5,9 @@ class Info::EpisodesController < InfoController
     @newer   = @episode.next_episode
     @older   = @episode.previous_episode
   end
+
+  def recent
+    @episodes = Episode.all(:include => :podcast, :conditions => ["created_at > ?", 24.hours.ago], :order => "created_at DESC")
+  end
 end
 

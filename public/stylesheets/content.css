@@ -164,9 +164,9 @@ figure.media .controls .progress div {
 	width: 0%; 
 	padding: 0px;
 	margin: 0px;
-	line-height: 26px;
-	text-indent: -6px;
-	font-size: 16px;
+	line-height: 28px;
+	text-indent: -7px;
+	font-size: 20px;
 	background: #AAA; 
 	direction: rtl;
 	text-align: right;
@@ -174,7 +174,7 @@ figure.media .controls .progress div {
 }
 
 /***************/
-/* Home        */
+/* Home        *
 /***************/
 
 #welcome {

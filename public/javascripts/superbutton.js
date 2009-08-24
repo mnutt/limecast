@@ -26,24 +26,24 @@ jQuery.fn.extend({
             button.find('a.button').attr('href', formats[2]);
             break;
         };
-        
-        // download events
-        button.find('li').mousedown(function(){
-          $(this).parent().hide().find('[selected=selected]').attr('selected', null);
-          $(this).attr('selected', 'selected');
-          updateDownloadButton();
-          return false;
-        });
-
-        button.find('div a').click(function(e){
-          $(this).focus().parent().find('menu').show();
-          return false;
-        }).focus(function(e){
-          $(this).parent().find('menu').show();
-        }).blur(function(e){
-          $(this).parent().find('menu').hide();
-        });
       };
+
+      // download events
+      button.find('li').mousedown(function(){
+        $(this).parent().hide().find('[selected=selected]').attr('selected', null);
+        $(this).attr('selected', 'selected');
+        updateDownloadButton();
+        return false;
+      });
+
+      button.find('div a').click(function(e){
+        $(this).focus().parent().find('menu').show();
+        return false;
+      }).focus(function(e){
+        $(this).parent().find('menu').show();
+      }).blur(function(e){
+        $(this).parent().find('menu').hide();
+      });
 
       updateDownloadButton();
     });
@@ -76,24 +76,24 @@ jQuery.fn.extend({
             button.find('a.button').attr('href', 'http://subscribe.getmiro.com/?url1=' + url);
             break;
         };
-        
-        // subscribe events
-        button.find('li').mousedown(function(){
-          $(this).parent().hide().find('[selected=selected]').attr('selected', null);
-          $(this).attr('selected', 'selected');
-          updateSubscribeButton();
-          return false;
-        });
-
-        button.find('div a').click(function(e){
-          $(this).focus().parent().find('menu').show();
-          return false;
-        }).focus(function(e){
-          $(this).parent().find('menu').show();
-        }).blur(function(e){
-          $(this).parent().find('menu').hide();
-        });
       };
+        
+      // subscribe events
+      button.find('li').mousedown(function(){
+        $(this).parent().hide().find('[selected=selected]').attr('selected', null);
+        $(this).attr('selected', 'selected');
+        updateSubscribeButton();
+        return false;
+      });
+
+      button.find('div a').click(function(e){
+        $(this).focus().parent().find('menu').show();
+        return false;
+      }).focus(function(e){
+        $(this).parent().find('menu').show();
+      }).blur(function(e){
+        $(this).parent().find('menu').hide();
+      });
 
       updateSubscribeButton();
     });

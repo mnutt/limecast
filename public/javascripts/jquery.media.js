@@ -126,9 +126,9 @@ jQuery.fn.extend({
       video.attr('is_flash',true); // just so we know it's flash
       var poster = video.attr('poster');
       var source = $(this).find('source').attr('src');
-      var img = $('<img style="visibility:; hidden;" src="'+poster+'" />').appendTo(document.body);
+      var img = $('<img style="visibility: hidden; position: absolute; top: -5000px;" src="'+poster+'" />').appendTo(document.body);
       var i = 0;
-      var addFlash = function(){
+      function addFlash() {
         if(img.attr('width') == 0) {
           setTimeout(addFlash, 100);
         } else {
@@ -141,7 +141,8 @@ jQuery.fn.extend({
             attr('src', '/flash/CastPlayer.swf').
             appendTo(video.parent());
         }
-      }();
+      };
+      addFlash();
       video.initMediaControls();
     });
   },
@@ -164,7 +165,11 @@ jQuery.fn.extend({
     if(video_tags.size() == 0) return false;
 
     // Check for video tag and video codec support
-    if (!video_tags[0].canPlayType || (video_tags[0].canPlayType && video_tags[0].canPlayType('video/mp4') == "no" && video_tags[0].canPlayType('video/ogg') == "no"))
+    // if (!video_tags[0].canPlayType || (video_tags[0].canPlayType && video_tags[0].canPlayType('video/mp4') == "no" && video_tags[0].canPlayType('video/ogg') == "no"))
+    // ***************************
+    // NOTE: had problems with encoded FLV previews (frozen Safari & FF), so we're going to use 
+    //       Flash Video for all, for now :( 
+    if (true) 
      video_tags.fallbackToFlashVideo();
     else 
       $.each(video_tags, function(i, v){ $(v).show().initMediaControls() });

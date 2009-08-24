@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   before_filter :read_ads
   def read_ads
     ad_file = "#{RAILS_ROOT}/private/ads.txt"
-    @ads ||= "" #File.read(ad_file) if File.exist?(ad_file)
+    @ads ||= File.read(ad_file) if File.exist?(ad_file)
   end
 
   protected

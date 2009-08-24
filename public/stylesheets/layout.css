@@ -11,7 +11,7 @@ html {
 
 body {
 	height: 100%;
-	background: #F1F1F1 url('/imgs/bg_content.png') 0px 0px repeat-x;
+	background: #F1F1F1;
 }
 
 #wrapper {
@@ -130,7 +130,7 @@ address, section { margin: 0 0 14px 0; }
 header {
 	display: block;
 	height: 35px;
-	background: #313131 url('../imgs/background.png') top left repeat-x; 
+	background: #CCC url('/imgs/bg_header.png') bottom left repeat-x;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -149,7 +149,7 @@ header nav ul li.logo {
 	float: left;
 	width: 125px;
 	height: 24px;
-	margin-top: 5px;
+	margin-top: 3px;
 }
 
 header nav .logo a {
@@ -172,7 +172,7 @@ header nav .search {
 }
 
 header nav .auth {
-	margin-top: 8px;
+	margin-top: 6px;
 }
 
 header nav .add {
@@ -218,7 +218,7 @@ header nav .search button {
 /* Content */
 /***********/
 #content {
-	background: #f1f1f1 url('/imgs/bg_content.png') 0px 0px repeat-x;
+	background: #F1F1F1;
 	min-height: 720px; /* be nice to right column (ads) */
 	height: 100%;
 	width: 100%;
@@ -232,7 +232,7 @@ footer {
 	position: relative;
 	z-index: 4;
 	width: 100%;
-	background: #313131 url('/imgs/bg_footer.png') 0px -3px repeat-x;
+	background: #CCC url('/imgs/bg_footer.png') 0px 0px repeat-x;
 	height: 70px;
 	margin-top: -84px;
 }
@@ -249,7 +249,6 @@ footer ul li {
 }
 
 footer ul li a {
-	color: #FFF;
 }
 
 /**********/

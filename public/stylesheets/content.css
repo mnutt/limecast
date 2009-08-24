@@ -10,7 +10,7 @@
 figure.media {
 	position: relative; 
 	bottom: 0px; 
-	z-index: 98; 
+	z-index: 5; 
 	display: inline-block;
 	margin: 14px 0;
 }
@@ -466,7 +466,6 @@ ul.similar li {
 .user.show h1 { margin: 0 0 14px 0; }
 .user.show #user nav a { 
 	display: inline-block;
-	font-weight: bold;
 	background: #FFF;
 	padding: 14px;
 	border: solid #DFDFDF;
@@ -475,6 +474,7 @@ ul.similar li {
 	-webkit-border-radius: 4px; 
 	-moz-border-radius: 4px; 
 }
+.user.show #user nav a.selected { font-weight: bold; }
 .user.show #user li h3 { display: inline; }
 .user.show #user li { margin: 0 0 3px 0; }
 .user.show #user ul { 
@@ -505,6 +505,7 @@ ul.similar li {
 	-webkit-border-radius: 4px; 
 	-moz-border-radius: 4px; 
 }
+.search.show #results nav a.selected { font-weight: bold; }
 .search.show #results li h3 { display: inline; }
 .search.show #results li { margin: 0 0 3px 0; }
 .search.show #results ul { 

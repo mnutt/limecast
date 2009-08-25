@@ -12,9 +12,9 @@ class Info::SourcesController < InfoController
 
     # forgive me for I have sinned by loading all these objects into memory ^o^
     @sources = case @value
-               when "largest" then Source.all.reject { |s| s.bitrate.zero? }.sort_by(&:bitrate).reverse[0..@limit-1]
-               when "smallest" then Source.all.reject { |s| s.bitrate.zero? }.sort_by(&:bitrate)[0..@limit-1]
-               when "unknown" then Source.all.select { |s| s.bitrate.zero? }[0..@limit-1]
-    end if @filter == 'bitrate'
+               when "largest" then Source.all.reject { |s| s.send(@filter).zero? }.sort_by(&@filter.to_sym).reverse[0..@limit-1]
+               when "smallest" then Source.all.reject { |s| s.send(@filter).zero? }.sort_by(&@filter.to_sym)[0..@limit-1]
+               when "unknown" then Source.all.select { |s| s.send(@filter).zero? }[0..@limit-1]
+               end
   end
 end

@@ -69,11 +69,29 @@
   <li><%= link_to "Use", info_stats_url -%></li>
   <li><%= link_to "Titles", info_titles_url -%></li>
   <li><%= link_to "Random", info_random_url -%></li>
-  <li><%= link_to "Recent Episodes", info_recent_episodes_url -%></li>
-  <li>Sources by bitrate: 
-    <%= link_to "Unknown", info_sources_url(:filter => "bitrate", :value => "unknown") -%>
-    <%= link_to "Smallest", info_sources_url(:filter => "bitrate", :value => "smallest") -%>
-    <%= link_to "Largest", info_sources_url(:filter => "bitrate", :value => "largest") -%>
+  <li>Episodes:
+    <ul>
+      <li><%= link_to "Recently Discovered", info_recent_episodes_url -%></li>
+    </ul>
+  </li>
+  <li>Sources: 
+    <ul>
+      <li>by bitrate:
+        <%= link_to "Unknown", info_sources_url(:filter => "bitrate", :value => "unknown") -%>
+        <%= link_to "Smallest", info_sources_url(:filter => "bitrate", :value => "smallest") -%>
+        <%= link_to "Largest", info_sources_url(:filter => "bitrate", :value => "largest") -%>
+      </li>
+      <li>by size:
+        <%= link_to "Unknown", info_sources_url(:filter => "size", :value => "unknown") -%>
+        <%= link_to "Smallest", info_sources_url(:filter => "size", :value => "smallest") -%>
+        <%= link_to "Largest", info_sources_url(:filter => "size", :value => "largest") -%>
+      </li>
+      <li>by duration: 
+        <%= link_to "Unknown", info_sources_url(:filter => "duration", :value => "unknown") -%>
+        <%= link_to "Smallest", info_sources_url(:filter => "duration", :value => "smallest") -%>
+        <%= link_to "Largest", info_sources_url(:filter => "duration", :value => "largest") -%>
+      </li>
+    </ul>
   </li>
 </ul>
 

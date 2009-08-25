@@ -1,12 +1,16 @@
 <% @title = "sources" -%>
 
-<h1>sources</h1>
+<h1>sources by <%= @value %> <%= @filter %></h1>
 
 <ul>
   <% @sources.each do |source| -%>
   <li>
     <% if @filter == 'bitrate' -%>
-    <%= source.bitrate.zero? ? blankness : source.bitrate.to_formatted_s %> kb/sec
+    <%= source.bitrate.zero? ? blankness : "#{source.bitrate.to_formatted_s} kb/sec" %>
+    <% elsif @filter == 'size' -%>
+    <%= source.size.zero? ? blankness : source.size.to_file_size.to_s(true, false) %>
+    <% elsif @filter == 'duration' -%>
+    <%= source.duration.zero? ? blankness : source.duration.to_duration %>
     <% end %>
     <%= info_source_link(source) -%>
     <%= link_to source.episode.date_title, episode_url(source.podcast, source.episode) -%>

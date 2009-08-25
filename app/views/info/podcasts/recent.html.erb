@@ -1,0 +1,21 @@
+<% @title = "Recently Added Podcasts" -%>
+
+<h1>recently added podcasts</h1>
+
+<table>
+  <tr>
+    <th class="key" title="Date added">Added on</th>
+    <th class="key" title="User with link">by</th>
+    <th class="key" title="Title with link">title</th>
+  </tr>
+  
+  <% @podcasts.each do |podcast| -%>
+  <tr>
+    <td><%= relative_time podcast.created_at %></td>
+    <td><%= info_user_link podcast.finder %></td>
+    <td><%= link_to h(podcast.title), info_podcast_url(podcast) %></td>
+  </tr>
+  <% end -%>
+
+</table>
+

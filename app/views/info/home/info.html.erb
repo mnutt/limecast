@@ -70,6 +70,11 @@
   <li><%= link_to "Titles", info_titles_url -%></li>
   <li><%= link_to "Random", info_random_url -%></li>
   <li><%= link_to "Recent Episodes", info_recent_episodes_url -%></li>
+  <li>Sources by bitrate: 
+    <%= link_to "Unknown", info_sources_url(:filter => "bitrate", :value => "unknown") -%>
+    <%= link_to "Smallest", info_sources_url(:filter => "bitrate", :value => "smallest") -%>
+    <%= link_to "Largest", info_sources_url(:filter => "bitrate", :value => "largest") -%>
+  </li>
 </ul>
 
 <!-- Podcasts -->

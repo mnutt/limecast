@@ -26,6 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout    '/logout',        :controller => 'sessions', :action => 'destroy'
 
   map.namespace :info do |info|
+    info.sources    '/sources/:filter/:value', :controller => 'sources', :action => 'index', :filter => nil, :value => nil
     info.root                           :controller => 'home',  :action => 'info'
     info.stats      '/stats',           :controller => 'home',  :action => 'stats'
     info.stats      '/use',             :controller => 'home',  :action => 'usage' # use() is already used by the ToS page

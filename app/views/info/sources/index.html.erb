@@ -1,0 +1,17 @@
+<% @title = "sources" -%>
+
+<h1>sources</h1>
+
+<ul>
+  <% @sources.each do |source| -%>
+  <li>
+    <% if @filter == 'bitrate' -%>
+    <%= source.bitrate.zero? ? blankness : source.bitrate.to_formatted_s %> kb/sec
+    <% end %>
+    <%= info_source_link(source) -%>
+    <%= link_to source.episode.date_title, episode_url(source.podcast, source.episode) -%>
+    <%= link_to h(source.podcast.title), podcast_url(source.podcast) %>
+  </li>
+  <% end -%>
+</ul>
+

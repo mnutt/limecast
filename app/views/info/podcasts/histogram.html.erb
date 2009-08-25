@@ -3,7 +3,7 @@
 <h1>histogram of podcasts</h1>
 
 <ul>
-<% @podcasts.keys.sort.each do |duration| -%>
-  <li><%= duration %> seconds: <%= @podcasts[duration].map { |p| link_to '#', info_podcast_url(p) }.join(' ') unless @podcasts[duration].blank? %></li>
+<% (1..(@podcasts.keys.sort.last)).select { |d| ((d*@minutes) % @minutes).zero? }.each do |duration| -%>
+  <li><%= pluralize (duration*@minutes), "minute" %>: <%= @podcasts[duration].map { |p| link_to '#', info_podcast_url(p) }.join(' ') unless @podcasts[duration].blank? %></li>
 <% end -%>
 </ul>

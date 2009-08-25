@@ -5,9 +5,12 @@ class Info::PodcastsController < InfoController
 
   def histogram
     # group them by minutes
+    @minutes = 5
     @podcasts = Podcast.all(:include => :recent_episodes)
-    @podcasts.reject! { |p| (p.recent_episodes.sum(:duration).round / 60).to_i.zero? }
-    @podcasts = @podcasts.group_by { |p| (p.recent_episodes.sum(:duration).round / 60).to_i }
+    @podcasts.reject! { |p| (p.recent_episodes.sum(:duration).round / (60 * @minutes)).to_i.zero? }
+    @podcasts = @podcasts.group_by { |p| 
+      (p.recent_episodes.sum(:duration).round / (60 * @minutes)).to_i
+    }
   end
 
   def show

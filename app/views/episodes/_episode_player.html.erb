@@ -1,6 +1,6 @@
 <figure class="media">
   <% if source.video? -%>
-    <%= video_tag [source.preview.url, source.ogg_preview.url], 
+    <%= video_tag [source.preview.url], 
                   :poster => source.screenshot.url, :width => 540, 
                   :rel => h(source.episode.title),
                   :style => "display: none;",

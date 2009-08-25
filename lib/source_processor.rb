@@ -176,7 +176,9 @@ class SourceProcessor
   def encode_preview_video
     logger.info "Encoding preview videos"
     encode_video(:preview)
-    encode_video(:ogg_preview)
+    # NOTE: taking out OGG preview right now because 
+    #       we had problems with compressed FLV->OGG in Firefox 3.5 :(
+    # encode_video(:ogg_preview)
   end
 
   def encode_random_video

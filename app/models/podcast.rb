@@ -43,6 +43,7 @@ class Podcast < ActiveRecord::Base
   has_many :recommendations, :order => 'weight DESC'
   has_many :recommended_podcasts, :through => :recommendations, :source => :related_podcast
   has_many :episodes, :dependent => :destroy
+  has_many :recent_episodes, :class_name => 'Episode', :conditions => ["published_at > ?", 30.days.ago]
   has_many :reviews, :conditions => "reviews.user_id IS NOT NULL", :dependent => :destroy
   has_many :reviewers, :through => :reviews, :source => :reviewer
   has_many :favorites, :dependent => :destroy

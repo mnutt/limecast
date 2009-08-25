@@ -3,6 +3,13 @@ class Info::PodcastsController < InfoController
     @podcasts = Podcast.find(:all, :order => "created_at DESC", :limit => 20)
   end
 
+  def histogram
+    # group them by minutes
+    @podcasts = Podcast.all(:include => :recent_episodes)
+    @podcasts.reject! { |p| (p.recent_episodes.sum(:duration).round / 60).to_i.zero? }
+    @podcasts = @podcasts.group_by { |p| (p.recent_episodes.sum(:duration).round / 60).to_i }
+  end
+
   def show
     @podcast = Podcast.find_by_slug(params[:podcast_slug])
     @episodes = @podcast.episodes.sort_by(&:daily_order).sort_by(&:published_at).reverse

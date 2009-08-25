@@ -1,0 +1,9 @@
+<% @title = "Histogram of Podcasts" -%>
+
+<h1>histogram of podcasts</h1>
+
+<ul>
+<% @podcasts.keys.sort.each do |duration| -%>
+  <li><%= duration %> seconds: <%= @podcasts[duration].map { |p| link_to '#', info_podcast_url(p) }.join(' ') unless @podcasts[duration].blank? %></li>
+<% end -%>
+</ul>

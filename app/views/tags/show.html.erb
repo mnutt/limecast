@@ -1,27 +1,12 @@
-<% @title = h(@tag.name) -%>
-<% @full_width = true -%>
-<% @classes = %{tags} -%>
+<% @title = "Podcasts Tagged '#{h(@tag.name)}'" -%>
+<% @classes = %{podcast index} -%>
 
-<div class="summary">
-  <h1>Tag: <%= h @tag.name -%></h1>
-  <% rounded_corner_tag(:class => "main", :id => "browse") do -%>
-    <%= paginate_podcasts(@podcasts) -%>
+<section id="podcasts">
+  <h2>Podcasts Tagged '<%= h(@tag.name) %>'</h2>
+  
+  <br />
+  <ul>
+    <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
+  </ul>
+</section>
 
-    <ul class="podcasts">
-      <%= render :partial => 'podcasts/podcast', :collection => @podcasts -%>
-    </ul>
-
-    <%= paginate_podcasts(@podcasts) -%>
-  <% end -%>
-
-
-</div>
-</div>
-
-<%= google_ads -%>
-<p class="per_page clear">
-  View: <% delimited_items([5, 10, 20, 50]) do |count, comma| -%>
-    <%= link_to count, { :limit => count}, {:class => ((params[:limit] || 10).to_i == count) ? "pp_current" : nil} -%><%= comma -%>
-  <% end -%>
-  per page
-</p>

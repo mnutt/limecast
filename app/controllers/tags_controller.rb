@@ -5,6 +5,6 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find_by_name!(params[:tag])
-    @podcasts = @tag.podcasts.paginate(:page => (params[:page] || 1), :per_page => params[:limit] || 10)
+    @podcasts = @tag.podcasts.all
   end
 end

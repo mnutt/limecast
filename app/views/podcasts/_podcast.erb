@@ -1,7 +1,11 @@
 <%- show_favorite = false if show_favorite.nil? -%>
 
 <li>
-  <%= link_to display_cover_art(podcast, :size => :thumb), podcast_url(podcast) -%>
+  <% if podcast.logo? -%>
+    <%= link_to display_cover_art(podcast, :size => :thumb), podcast_url(podcast) -%>
+  <% else -%>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  <% end -%>
   <h3><%= link_to_podcast(podcast) -%></h3>
   <!-- <p><%#= truncated_text sanitize_condensed_summary(podcast.description), 100 -%></p> -->
 

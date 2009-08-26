@@ -75,6 +75,6 @@ module PodcastsHelper
 
     defaults = { :alt => "#{podcast.title} cover art", :class => "logo" }.merge(opts)
 
-    image_tag(cover_art(podcast, size))
+    image_tag(podcast.logo.url(size)) if podcast.logo? 
   end
 end

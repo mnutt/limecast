@@ -26,6 +26,14 @@
   </section>
 </section>
 
+<section id="tags">
+  <ul>
+    <% @tags.each do |tag| -%>
+    <li class="rating_<%= tag.rating %>"><%= link_to h(tag.name), tag_url(tag.name) %></li>
+    <% end -%>
+  </ul>
+</section>
+
 <section id="make">
   <h3>Start your own show</h3>
   <p>

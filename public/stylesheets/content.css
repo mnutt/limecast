@@ -223,6 +223,47 @@ figure.media .controls .progress div {
 	text-decoration: underline;
 }
 
+#tags {
+	padding: 10px;
+	background: #EEE;
+	box-shadow: 1px 2px 2px #888;
+	-moz-box-shadow: 1px 2px 2px #888;
+	-webkit-box-shadow: 1px 2px 2px #888;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#tags li {
+	display: inline;
+	line-height: 16px;
+}
+
+#tags li a {
+	text-decoration: none;
+}
+
+#tags li.rating_10 { font-size: 2.0em; }
+#tags li.rating_9 { font-size: 1.8em; }
+#tags li.rating_8 { font-size: 1.7em; }
+#tags li.rating_7 { font-size: 1.5em; }
+#tags li.rating_6 { font-size: 1.4em; }
+#tags li.rating_5 { font-size: 1.2em; }
+#tags li.rating_4 { font-size: 1.2em; }
+#tags li.rating_3 { font-size: 1.1em; }
+#tags li.rating_2 { font-size: 1.0em; }
+#tags li.rating_1 { font-size: 0.9em; }
+#tags li.rating_0 { font-size: 0.8em; }
+
+
+/*#tags li.rating_10,
+#tags li.rating_9,
+#tags li.rating_8, 
+#tags li.rating_7, 
+#tags li.rating_6, 
+#tags li.rating_5  { font-weight: bold; }
+*/
+
 #featured {
 	padding: 0 20px 0 20px;
 	background: url('../imgs/bg_hp_featured.png') #CCEB98 top left repeat-x;
@@ -254,6 +295,9 @@ figure.media .controls .progress div {
 #featured section img {
 	float: left;
 	margin: 0 14px 14px 0;
+	box-shadow: 3px 3px 2px #888;
+	-moz-box-shadow: 3px 3px 2px #888;
+	-webkit-box-shadow: 3px 3px 2px #888;
 }
 
 #make, #player {

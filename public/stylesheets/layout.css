@@ -262,10 +262,9 @@ footer ul li a {
 	top: 45px;
 	right: 50px;
 	border: solid 1px #A9A9A9;
-	width: 330px;
+	width: 220px;
 	background: #FFF;
 	opacity: 0.9;
-	text-align: right;
 	padding: 15px 15px 15px 15px;
 	box-shadow: 5px 5px 5px #888;
 	-moz-box-shadow: 5px 5px 5px #888;
@@ -281,22 +280,23 @@ footer ul li a {
 }
 
 #auth .close {
-	float: right;
-}
-
-#auth h4 {
-	text-align: left;
-	margin: 0 0 20px 0;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 25px;
 }
 
 #auth p.message {
-	text-align: right;
 	padding-left: 0;
 	margin: 10px 0;
 }
 
+#auth form {
+	margin: 20px 0 0 0;
+}
+
 #auth form input.text {
-	background: url('/imgs/input.png') no-repeat;
+/*	background: url('/imgs/input.png') no-repeat;
 	border: none;
 	display: block;
 	height: 24px;
@@ -305,14 +305,16 @@ footer ul li a {
 	margin-left: 10px;
 	width: 165px;
 	float: right;
+*/
+	margin-top: 5px;
 }
 
 #auth form label {
 	font-weight: bold;
-	text-align: right;
 	padding: 5px 0 0 0;
 	display: block;
-	height: 29px;
+	width: 50px;
+	float: left;
 }
 
 #auth_overlay {

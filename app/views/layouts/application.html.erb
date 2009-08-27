@@ -69,13 +69,13 @@
     <section id="auth">
       <img src="/imgs/arrow_up.gif" class="arrow" />
       <button type="submit" class="close" alt="close this box">☓</button>
-      <h4>Sign in to LimeCast</h4>
+      <p>Sign in to LimeCast</p>
       <% form_for :user, :url => session_path do |f| -%>
+        <%= label :user, :email, "Email" %>
         <%= text_field :user, :email, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255 %>
-        <%= label :user, :email, "Email&nbsp;/&nbsp;Login" %>
-
+        <br />
+        <%= label :user, :password, "Pass" %>
         <%= password_field :user, :password, :class => "text", :tabindex => 3, :size => 15, :maxlength => 255 %>
-        <%= label :user, :password, "Password" %>
 
         <p class="message"><%= link_to "I forgot my password", forgot_password_url %></p>
 

@@ -6,7 +6,7 @@
   <% else -%>
     &nbsp;&nbsp;&nbsp;&nbsp;
   <% end -%>
-  <h3><%= link_to_podcast(podcast) -%></h3>
+  <%= link_to h(podcast.title), podcast_url(podcast) -%>
   <!-- <p><%#= truncated_text sanitize_condensed_summary(podcast.description), 100 -%></p> -->
 
   <%#= render :partial => "tags/tags", :object => podcast.tags -%>

@@ -3,10 +3,10 @@
 <% @classes = %{episode index} -%>
 <% javascript_include "jquery.flash", "video_preview", "download_button" -%>
 
-<h1><%= link_to h(@podcast.title), podcast_url(@podcast) %></h1>
+<p><%= link_to h(@podcast.title), podcast_url(@podcast) %></p>
 
 <section id="episodes">
-  <h3>Episodes <span>(<%= @podcast.episodes.count -%>)</span></h3>
+  <h2>Episodes <span>(<%= @podcast.episodes.count -%>)</span></h2>
 
   <br />
 

@@ -2,7 +2,7 @@
   <%= link_to "#{episode_counter.zero? ? '▼' : '►'}", "#", :class => "toggle" %>
   <details>
     <%= link_to episode.date_title, episode_url(:podcast_slug => @podcast, :episode => episode), :rel =>  "div##{h dom_id(episode)}", :class => "tips" -%>
-    <%= episode.title %>&nbsp;<span>(<%= time_to_words(episode.duration, true).gsub(/ /, '&nbsp;') -%>)</span>
+    <%= episode.title %>&nbsp;<span><%= "(#{time_to_words(episode.duration, true).gsub(/ /, '&nbsp;')})" unless episode.duration.to_i == 0 -%></span>
   </details>
 
   <article class="line"><%= line_description(episode.summary) -%></article>

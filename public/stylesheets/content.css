@@ -243,18 +243,6 @@ figure.media .controls .progress div {
 	text-decoration: none;
 }
 
-#tags li.rating_10 { font-size: 2.0em; }
-#tags li.rating_9 { font-size: 1.8em; }
-#tags li.rating_8 { font-size: 1.7em; }
-#tags li.rating_7 { font-size: 1.5em; }
-#tags li.rating_6 { font-size: 1.4em; }
-#tags li.rating_5 { font-size: 1.2em; }
-#tags li.rating_4 { font-size: 1.2em; }
-#tags li.rating_3 { font-size: 1.1em; }
-#tags li.rating_2 { font-size: 1.0em; }
-#tags li.rating_1 { font-size: 0.9em; }
-#tags li.rating_0 { font-size: 0.8em; }
-
 
 /*#tags li.rating_10,
 #tags li.rating_9,

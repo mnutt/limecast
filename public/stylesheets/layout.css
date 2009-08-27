@@ -182,13 +182,10 @@ header nav .add {
 
 header nav .add a {
 	height: 15px;
-	margin-top: 9px;
+	margin-top: 7px;
+	font-size: 1.1em;
 	display: block;
-	text-indent: -5000px;
 }
-
-header nav .add a { width: 120px; background: url('/imgs/add_podcast.png') top left no-repeat;}
-header nav .add a:hover { background-image: url('/imgs/add_podcast_over.png');}
 
 header nav .search form {
 	position: relative;

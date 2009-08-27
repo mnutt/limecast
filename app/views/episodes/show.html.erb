@@ -1,6 +1,6 @@
 <% @title = "#{unescape_entities(h(@episode.title))}" -%>
 <% @show_ads = true -%>
-<% javascript_include "jquery.media", "superbutton" # "jquery.flash", "video_preview", -%>
+<% javascript_include "jquery.media", "superbutton" -%>
 <% @classes = %{episode show} -%>
 
 <p><%= link_to h(@podcast.title), podcast_url(@podcast) %></p>

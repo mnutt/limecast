@@ -109,7 +109,7 @@ jQuery.fn.extend({
         audio.attr('flash_id', audio.attr('id')+'_flash').attr('is_flash'); // the ref for soundmanager
         soundManager.createSound({
           id: audio.attr('flash_id'), 
-          url: audio.find('source').attr('src')
+          url: audio.attr('src')
           // autoload: true,
           // whileloading: function(){ audio.updateTime(); },
         });
@@ -125,7 +125,7 @@ jQuery.fn.extend({
       var video = $(this);
       video.attr('is_flash',true); // just so we know it's flash
       var poster = video.attr('poster');
-      var source = $(this).find('source').attr('src');
+      var source = $(this).attr('src');
       var img = $('<img style="visibility: hidden; position: absolute; top: -5000px;" src="'+poster+'" />').appendTo(document.body);
       var i = 0;
       function addFlash() {
@@ -152,7 +152,7 @@ jQuery.fn.extend({
     if(audio_tags.size() == 0) return false;
 
     // Check for audio tag and audio codec support
-    var format = audio_tags.find('source').attr('src').split('.').pop();
+    var format = audio_tags.attr('src').split('.').pop();
     if(format == 'mp3' || format == 'mp4') format = 'mpeg';
     if (!audio_tags[0].canPlayType || (audio_tags[0].canPlayType('audio/'+format) != "maybe" && audio_tags[0].canPlayType('audio/'+format) != "probably"))
       audio_tags.fallbackToFlashAudio();
@@ -228,6 +228,6 @@ jQuery.fn.extend({
 });
 
 $(function() {
-  $('video').initVideo();
-  $('audio').initAudio();
+  $('.video').initVideo();
+  $('.audio').initAudio();
 });

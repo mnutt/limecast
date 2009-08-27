@@ -1,7 +1,7 @@
 <% @title = "#{h(@podcast.title)} Episodes" -%>
 <% @show_ads = true -%>
 <% @classes = %{episode index} -%>
-<% javascript_include "jquery.flash", "video_preview", "download_button" -%>
+<% javascript_include "jquery.media", "superbutton" -%>
 
 <p><%= link_to h(@podcast.title), podcast_url(@podcast) %></p>
 

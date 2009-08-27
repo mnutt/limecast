@@ -1,12 +1,25 @@
 <figure class="media">
   <% if source.video? -%>
-    <%= video_tag [source.preview.url], 
+    <%= content_tag :div, "",
+                          :src => source.preview.url,
+                          :class => "video",
+                          :width => 540,
+                          :poster => source.screenshot.url,
+                          :rel => h(source.episode.title),
+                          :id => dom_id(source) %>
+    <%#= video_tag [source.preview.url], 
                   :poster => source.screenshot.url, :width => 540, 
                   :rel => h(source.episode.title),
                   :style => "display: none;",
                   :id => dom_id(source) %>
   <% elsif source.audio? -%>
-    <%= audio_tag [source.url], 
+    <%= content_tag :div, "",
+                          :src => source.url,
+                          :class => "audio",
+                          :width => 540,
+                          :rel => h(source.episode.title),
+                          :id => dom_id(source) %>
+    <%#= audio_tag [source.url], 
                   :width => 540, 
                   :autobuffer => true,
                   :style => "display: none;",

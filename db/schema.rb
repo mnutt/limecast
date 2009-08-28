@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090812161438) do
+ActiveRecord::Schema.define(:version => 20090828201559) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
@@ -111,10 +111,11 @@ ActiveRecord::Schema.define(:version => 20090812161438) do
     t.string   "error"
     t.string   "custom_title",                            :default => ""
     t.text     "subtitle",          :limit => 2147483647
-    t.string   "author_name"
     t.string   "author_email"
+    t.string   "author_name"
   end
 
+  add_index "podcasts", ["author_email"], :name => "index_podcasts_on_author_email"
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
 
   create_table "queued_podcasts", :force => true do |t|
@@ -245,6 +246,12 @@ ActiveRecord::Schema.define(:version => 20090812161438) do
     t.boolean "blacklisted"
     t.integer "map_to_id"
     t.integer "taggings_count"
+  end
+
+  create_table "user_surfed_episodes", :force => true do |t|
+    t.integer  "episode_id"
+    t.integer  "user_id"
+    t.datetime "viewed_at"
   end
 
   create_table "user_taggings", :force => true do |t|

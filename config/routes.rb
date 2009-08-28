@@ -76,6 +76,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options :controller => 'home' do |h|
     h.root                        :action => 'home'
+    h.surf        '/surf',        :action => 'surf', :conditions => {:method => :post}
     h.use         '/use',         :action => 'use'
     h.privacy     '/privacy',     :action => 'privacy'
     h.team        '/team',        :action => 'team'

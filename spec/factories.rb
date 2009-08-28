@@ -142,4 +142,3 @@ Factory.define :favorite, :class => Favorite do |c|
   c.association :user, :factory => :user
   c.association :podcast, :factory => :podcast
 end
-

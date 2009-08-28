@@ -33,7 +33,10 @@ class Episode < ActiveRecord::Base
                  :small  => ["170x170#", :png] }
 
   has_many :sources, :dependent => :destroy
+  has_many :sources_with_preview_and_screenshot, :class_name => "Source", 
+           :conditions => "sources.preview_file_size IS NOT NULL && sources.preview_file_size > 1023 && sources.screenshot_file_size IS NOT NULL && sources.screenshot_file_size > 0"
   has_one  :newest_source, :class_name => "Source", :order => "sources.published_at DESC"
+  has_one  :surf_episode
 
   validates_presence_of :podcast_id, :published_at
 

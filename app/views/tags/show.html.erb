@@ -1,8 +1,8 @@
-<% @title = "Podcasts Tagged '#{h(@tag.name)}'" -%>
+<% @title = "Podcasts Tagged '#{@badge || h(@tag.name)}'" -%>
 <% @classes = %{podcast index} -%>
 
 <section id="podcasts">
-  <h1><%= h(@tag.name) %></h1>
+  <h1><%= @badge || h(@tag.name) %></h1>
   
   <br />
   <ul>

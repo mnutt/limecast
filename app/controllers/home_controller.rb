@@ -19,7 +19,7 @@ class HomeController < ApplicationController
 
     @surf_episode = Episode.first(:joins => :sources_with_preview_and_screenshot,
                                   :order => "published_at DESC", 
-                                  :conditions => ["episodes.published_at > ? AND episodes.id NOT IN (?)", 10.days.ago, surfed_episodes])
+                                  :conditions => ["episodes.published_at > ? AND episodes.id NOT IN (?)", surf_window, surfed_episodes])
     @surf_episode = Episode.first(:order => "published_at DESC",
                                   :joins => :sources_with_preview_and_screenshot) if @surf_episode.nil?
   end
@@ -37,7 +37,9 @@ class HomeController < ApplicationController
     @surf_episode = params[:direction] == 'previous' ? previous_surfed_episode : next_surfed_episode
 
     if @surf_episode.nil?
-      @surf_episode = Episode.first(:order => "published_at #{params[:direction] == 'previous' ? 'ASC' : 'DESC'}", :joins => :sources_with_preview_and_screenshot)
+      @surf_episode = Episode.first(:order => "episodes.published_at #{params[:direction] == 'previous' ? 'ASC' : 'DESC'}", 
+                                      :joins => :sources_with_preview_and_screenshot,
+                                      :conditions => ["episodes.published_at > ?", surf_window])
     end
     
     respond_to do |format|
@@ -50,15 +52,19 @@ class HomeController < ApplicationController
   end
   
   private
+  def surf_window
+    10.days.ago
+  end
+  
   def next_surfed_episode # AKA the next one that's older
     Episode.first(:joins => :sources_with_preview_and_screenshot, 
       :order => "published_at DESC", 
-      :conditions => ["episodes.published_at < ? AND episodes.published_at > ? AND episodes.id != ?", @episode.published_at, 10.days.ago, @episode.id])
+      :conditions => ["episodes.published_at < ? AND episodes.published_at > ? AND episodes.id != ?", @episode.published_at, surf_window, @episode.id])
   end
   
   def previous_surfed_episode # AKA the next one that's newer
     Episode.first(:joins => :sources_with_preview_and_screenshot, 
       :order => "published_at ASC", 
-      :conditions => ["episodes.published_at > ? AND episodes.id != ?", @episode.published_at, @episode.id])
+      :conditions => ["episodes.published_at > ? AND episodes.published_at > ? AND episodes.id != ?", @episode.published_at, surf_window, @episode.id])
   end
 end

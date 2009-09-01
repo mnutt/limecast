@@ -361,7 +361,7 @@ class Podcast < ActiveRecord::Base
     return @additional_badges if @additional_badges && !reload
 
     @additional_badges = returning [] do |ab|
-      ab << language unless language.blank?
+      ab << language unless language.blank? || language !~ /^[-_a-zA-Z0-9]$/
 
       if e = episodes.newest[0]
         ab << 'current' if e.published_at > 30.days.ago

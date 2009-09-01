@@ -186,14 +186,13 @@ figure.media .controls .progress div {
 	position: relative;
 	margin-top: -15px;
 	height: 139px;
-	background: url('../imgs/bg_mission.png') bottom left no-repeat;
+	background: #2A68B6 url('../imgs/bg_radio_tower.png') bottom left no-repeat;
 }
 
 #welcome h2 {
 	color: #DBDBDB;
 	text-transform: uppercase;
 	display: block;
-	width: 443px;
 	position: relative;
 	left: 97px;
 	top: 8px;
@@ -211,7 +210,6 @@ figure.media .controls .progress div {
 #welcome p {
 	margin-top: 10px;
 	margin-left: 97px;
-	width: 440px;
 }
 
 #welcome p a {

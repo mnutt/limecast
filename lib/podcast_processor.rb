@@ -142,7 +142,7 @@ class PodcastProcessor
       :xml_title   => @rpodcast_feed.title.to_s.strip,
       :subtitle    => @rpodcast_feed.subtitle.to_s.strip,
       :description => @rpodcast_feed.summary.to_s.strip,
-      :language    => @rpodcast_feed.language,
+      :language    => (@rpodcast_feed.language !~ /^[-_a-zA-Z0-9]$/ ? nil : @rpodcast_feed.language),
       :site        => @rpodcast_feed.link,
       :state       => "parsed"
     }

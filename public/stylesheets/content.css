@@ -188,6 +188,12 @@ figure.media .controls .progress div {
 	padding: 5px 0;
 	height: 100px;
 	background: #2A68B6 url('../imgs/bg_radio_tower.png') bottom left no-repeat;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow: 1px 2px 2px #888;
+	-moz-box-shadow: 1px 2px 2px #888;
+	-webkit-box-shadow: 1px 2px 2px #888;
 }
 
 #welcome h2 {
@@ -223,18 +229,24 @@ figure.media .controls .progress div {
 	text-decoration: underline;
 }
 
-#surf,
-#tags {
+#featured,
+#surf, 
+#tags,
+#make,
+#player {
+	background: #FFF;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+	box-shadow: 1px 2px 2px #888;
+	-moz-box-shadow: 1px 2px 2px #888;
+	-webkit-box-shadow: 1px 2px 2px #888;
 }
 
 #surf {
 	width: 930px;
 	height: 300px;
 	padding: 0px 25px;
-	background: #CCEB99; 
 	position: relative;
 	overflow: hidden;
 }
@@ -291,20 +303,6 @@ figure.media .controls .progress div {
 
 #tags li a {
 	text-decoration: none;
-}
-
-#featured,
-#surf, 
-#tags,
-#make,
-#player {
-	background: #FFF;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	box-shadow: 1px 2px 2px #888;
-	-moz-box-shadow: 1px 2px 2px #888;
-	-webkit-box-shadow: 1px 2px 2px #888;
 }
 
 #featured {

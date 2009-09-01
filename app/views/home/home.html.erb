@@ -1,5 +1,6 @@
 <% @no_ads = true -%>
 <% @classes = %{home} -%>
+<% javascript_include "jquery.media" -%>
 
 <section id="welcome">
   <h2>Welcome to LimeCast, <br /><strong>the web's open podcast directory and archive</strong></h2>
@@ -10,9 +11,11 @@
   </p>
 </section>
 
-<section id="featured" class="clearfix">
-  <h2>Featured Podcasts</h2>
+<section id="surf" class="clearfix">
+  <%= render :partial => "surf_episode", :object => @surf_episode %>
+</section>
 
+<section id="featured" class="clearfix">
   <section class="clearfix">
     <%= link_to display_cover_art(@podcast1), podcast_url(@podcast1) -%>
     <h3><%= link_to @podcast1.title.gsub(/ /, '&nbsp;'), podcast_url(@podcast1), :title => "Subscribe to the series & view the episode list" %></h3>

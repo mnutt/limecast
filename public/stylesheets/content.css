@@ -223,15 +223,49 @@ figure.media .controls .progress div {
 	text-decoration: underline;
 }
 
+#surf,
 #tags {
-	padding: 10px;
-	background: #EEE;
-	box-shadow: 1px 2px 2px #888;
-	-moz-box-shadow: 1px 2px 2px #888;
-	-webkit-box-shadow: 1px 2px 2px #888;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+}
+
+#surf {
+	width: 930px;
+	padding: 0px 25px;
+	background: #CCEB99; 
+	position: relative;
+}
+
+#surf figure.media {
+	margin: 20px 15px 10px 20px;
+	float: left;
+}
+
+#surf h3,
+#surf p {
+	margin-right: 10px;
+}
+
+#surf button {
+	position: absolute;
+	height: 100%;
+	background: #B6D48B;
+	color: #2B69B6;
+	margin: 0px;
+	font-size: 1.3em;
+}
+#surf button.next { right: 0px; }
+#surf button.previous { left: 0px; }
+#surf button:active {
+	background: #A5C380;
+	color: #1D4B82;
+}
+
+#tags {
+	padding: 20px;
+	float: left;
+	background: #CCEB99; 
 }
 
 #tags li {
@@ -243,17 +277,8 @@ figure.media .controls .progress div {
 	text-decoration: none;
 }
 
-
-/*#tags li.rating_10,
-#tags li.rating_9,
-#tags li.rating_8, 
-#tags li.rating_7, 
-#tags li.rating_6, 
-#tags li.rating_5  { font-weight: bold; }
-*/
-
 #featured {
-	padding: 0 20px 0 20px;
+	padding: 20px 20px 0 20px;
 	background: url('../imgs/bg_hp_featured.png') #CCEB98 top left repeat-x;
 	border-radius: 5px;
 	-moz-border-radius: 5px;

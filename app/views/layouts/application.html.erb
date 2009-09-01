@@ -20,7 +20,7 @@
                              'jquery.default-text', 
                              'jquery.quick-auth',
                              'jquery.restful-delete',
-                             'jquery.shake',
+                             'jquery.effects',
                              'jquery.tabs',
                              :cache => 'jquery-all' -%>
   <%= javascript_include_tag 'nbga-1.0', 'application' -%>
@@ -60,7 +60,7 @@
       <%= @ads unless @no_ads || @error %>
     </aside>
 
-    <section id="content">
+    <section id="content" class="clearfix">
       <div class="header_push"></div>
       <%= yield %>
       <div class="footer_push"></div>

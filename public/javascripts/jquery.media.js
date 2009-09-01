@@ -180,7 +180,7 @@ jQuery.fn.extend({
       if(tag.paused()) { tag.play(); start.hide(); play.hide(); pause.show();}
       else { tag.pause(); play.show(); pause.hide() };
     });
-    var container = tag.parent().css('width', '540px');
+    var container = tag.parent();
     var controls = container.find('.controls');
     var start = controls.find('.start').mousedown(function(){
       tag.play(); start.hide(); play.hide(); pause.show();

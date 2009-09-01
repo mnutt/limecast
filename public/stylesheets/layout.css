@@ -76,8 +76,8 @@ address { display: block; }
 address, section { margin: 0 0 14px 0; }
 
 
-.header_push { height: 60px; } /* minus 5 points because the line-height adds to the h1/h2/h3s */
-.footer_push { height: 100px; }
+.header_push { clear: left; height: 60px; } /* minus 5 points because the line-height adds to the h1/h2/h3s */
+.footer_push { clear: left; height: 100px; }
 
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 .clearfix { display: inline-block; }  /* for IE/Mac */
@@ -231,7 +231,7 @@ footer {
 	width: 100%;
 	background: #CCC url('/imgs/bg_footer.png') 0px 0px repeat-x;
 	height: 70px;
-	margin-top: -84px;
+	margin-top: -70px;
 }
 
 footer ul {

@@ -1,14 +1,16 @@
-<figure class="media">
+<% width ||= 540 %>
+
+<figure class="media" width="<%= width %>">
   <% if source.video? -%>
     <%= content_tag :div, "",
                           :src => source.preview.url,
                           :class => "video",
-                          :width => 540,
+                          :width => width,
                           :poster => source.screenshot.url,
                           :rel => h(source.episode.title),
                           :id => dom_id(source) %>
     <%#= video_tag [source.preview.url], 
-                  :poster => source.screenshot.url, :width => 540, 
+                  :poster => source.screenshot.url, :width => width, 
                   :rel => h(source.episode.title),
                   :style => "display: none;",
                   :id => dom_id(source) %>
@@ -16,11 +18,11 @@
     <%= content_tag :div, "",
                           :src => source.url,
                           :class => "audio",
-                          :width => 540,
+                          :width => width,
                           :rel => h(source.episode.title),
                           :id => dom_id(source) %>
     <%#= audio_tag [source.url], 
-                  :width => 540, 
+                  :width => width, 
                   :autobuffer => true,
                   :style => "display: none;",
                   :rel => h(source.episode.title),

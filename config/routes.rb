@@ -75,12 +75,12 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.with_options :controller => 'home' do |h|
-    h.root                        :action => 'home'
-    h.surf        '/surf',        :action => 'surf', :conditions => {:method => :post}
-    h.use         '/use',         :action => 'use'
-    h.privacy     '/privacy',     :action => 'privacy'
-    h.team        '/team',        :action => 'team'
-    h.guide       '/guide',       :action => 'guide'
+    h.root                            :action => 'home'
+    h.surf        '/surf/:direction', :action => 'surf', :direction => nil, :conditions => {:method => :post}
+    h.use         '/use',             :action => 'use'
+    h.privacy     '/privacy',         :action => 'privacy'
+    h.team        '/team',            :action => 'team'
+    h.guide       '/guide',           :action => 'guide'
   end
 
   map.with_options :controller => 'podcasts' do |p|

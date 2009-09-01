@@ -121,6 +121,21 @@ function setupTabs() {
   $('#user, #results').tabs();
 }
 
+function setupSurf() {
+  $('#surf button.next').click(function(){
+    $.post('/surf/next', {'episode_id': $(this).attr('rel')}, function(resp){
+      $("#surf").html(resp).find('.video').initVideo();
+     setupSurf();
+    });
+  });
+  $('#surf button.previous').click(function(){
+    $.post('/surf/previous', {'episode_id': $(this).attr('rel')}, function(resp){
+      $('#surf').html(resp).find('.video').initVideo();
+      setupSurf();
+    });
+  });
+}
+
 $(function() {
   defaultText();
   truncatedText();
@@ -130,4 +145,5 @@ $(function() {
   editLinks();
   setupAuth();
   setupTabs();
+  setupSurf();
 });

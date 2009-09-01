@@ -156,7 +156,7 @@ class ApplicationController < ActionController::Base
       end.clear if session[:unclaimed_records]
     end
     
-    # A ivar to record if we've claimed any records in this request
+    # An ivar to record if we've claimed any records in this request
     def claimed_records? 
       @claimed_records || false
     end

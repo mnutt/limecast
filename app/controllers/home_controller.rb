@@ -19,7 +19,7 @@ class HomeController < ApplicationController
 
     @surf_episode = Episode.first(:joins => :sources_with_preview_and_screenshot,
                                   :order => "published_at DESC", 
-                                  :conditions => ["episodes.published_at > ? AND episodes.id NOT IN (?)", 30.days.ago, surfed_episodes])
+                                  :conditions => ["episodes.published_at > ? AND episodes.id NOT IN (?)", 10.days.ago, surfed_episodes])
     @surf_episode = Episode.first(:order => "published_at DESC",
                                   :joins => :sources_with_preview_and_screenshot) if @surf_episode.nil?
   end
@@ -35,6 +35,10 @@ class HomeController < ApplicationController
     end
 
     @surf_episode = params[:direction] == 'previous' ? previous_surfed_episode : next_surfed_episode
+
+    if @surf_episode.nil?
+      @surf_episode = Episode.first(:order => "published_at #{params[:direction] == 'previous' ? 'ASC' : 'DESC'}", :joins => :sources_with_preview_and_screenshot)
+    end
     
     respond_to do |format|
       if @surf_episode.nil?
@@ -49,7 +53,7 @@ class HomeController < ApplicationController
   def next_surfed_episode # AKA the next one that's older
     Episode.first(:joins => :sources_with_preview_and_screenshot, 
       :order => "published_at DESC", 
-      :conditions => ["episodes.published_at < ? AND episodes.published_at > ? AND episodes.id != ?", @episode.published_at, 30.days.ago, @episode.id])
+      :conditions => ["episodes.published_at < ? AND episodes.published_at > ? AND episodes.id != ?", @episode.published_at, 10.days.ago, @episode.id])
   end
   
   def previous_surfed_episode # AKA the next one that's newer

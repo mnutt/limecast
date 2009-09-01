@@ -185,7 +185,8 @@ figure.media .controls .progress div {
 #welcome {
 	position: relative;
 	margin-top: -15px;
-	height: 139px;
+	padding: 5px 0;
+	height: 100px;
 	background: #2A68B6 url('../imgs/bg_radio_tower.png') bottom left no-repeat;
 }
 

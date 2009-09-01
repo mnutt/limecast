@@ -3,12 +3,12 @@
 
   <%= image_tag @surf_episode.podcast.logo(:small) %>
 
-  <%= render :partial => "episodes/episode_player", :locals => {:source => @surf_episode.sources.with_preview.with_screenshot.first, :width => 320, :height => 240} -%>
+  <%= render :partial => "episodes/episode_player", :locals => {:source => @surf_episode.sources.with_preview.with_screenshot.first, :width => 360, :height => 270} -%>
 
   <div>
     <h3><%= link_to h(@surf_episode.podcast.title), podcast_url(@surf_episode.podcast) %></h3>
     <p><% link_to episode_url(@surf_episode.podcast, @surf_episode) do %><time datetime="<%= @surf_episode.published_at.to_datetime.to_s %>"><%= @surf_episode.published_at.to_date %></time><% end -%></p>
     <p><em><%= h(@surf_episode.title) %></em></p>
-    <p><%= sanitize_summary @surf_episode.summary -%></p>
+    <p><%= page_description @surf_episode.summary -%></p>
     <p><%= " (#{@surf_episode.duration.to_duration.to_s(false)})" if @surf_episode.duration -%></p>
   </div>

@@ -232,7 +232,7 @@ figure.media .controls .progress div {
 
 #surf {
 	width: 930px;
-	height: 270px;
+	height: 300px;
 	padding: 0px 25px;
 	background: #CCEB99; 
 	position: relative;
@@ -252,10 +252,10 @@ figure.media .controls .progress div {
 }
 
 #surf div {
-	width: 385px;
+	width: 345px;
 	position: absolute;
 	top: 15px;
-	left: 555px;
+	left: 595px;
 }
 
 #surf button {

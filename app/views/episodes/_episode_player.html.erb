@@ -1,4 +1,5 @@
 <% width ||= 540 %>
+<% height ||= "" %>
 
 <figure class="media" width="<%= width %>">
   <% if source.video? -%>
@@ -6,6 +7,7 @@
                           :src => source.preview.url,
                           :class => "video",
                           :width => width,
+                          :height => height,
                           :poster => source.screenshot.url,
                           :rel => h(source.episode.title),
                           :id => dom_id(source) %>
@@ -19,6 +21,7 @@
                           :src => source.url,
                           :class => "audio",
                           :width => width,
+                          :height => height,
                           :rel => h(source.episode.title),
                           :id => dom_id(source) %>
     <%#= audio_tag [source.url], 

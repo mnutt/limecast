@@ -232,34 +232,50 @@ figure.media .controls .progress div {
 
 #surf {
 	width: 930px;
+	height: 270px;
 	padding: 0px 25px;
 	background: #CCEB99; 
 	position: relative;
+	overflow: hidden;
+}
+
+#surf img {
+	position: absolute;
+	top: 15px;
+	left: 45px;
 }
 
 #surf figure.media {
-	margin: 20px 15px 10px 20px;
-	float: left;
+	position: absolute;
+	top: 0px;
+	left: 220px;
 }
 
-#surf h3,
-#surf p {
-	margin-right: 10px;
+#surf div {
+	width: 385px;
+	position: absolute;
+	top: 15px;
+	left: 555px;
 }
 
 #surf button {
 	position: absolute;
 	height: 100%;
-	background: #B6D48B;
+	background: #FFF;
 	color: #2B69B6;
 	margin: 0px;
 	font-size: 1.3em;
+	outline: none;
 }
 #surf button.next { right: 0px; }
 #surf button.previous { left: 0px; }
+#surf button:hover {
+	background: #F1F1F1;
+}
 #surf button:active {
-	background: #A5C380;
+	background: #C1C1C1;
 	color: #1D4B82;
+	outline: none;
 }
 
 #tags {
@@ -277,9 +293,22 @@ figure.media .controls .progress div {
 	text-decoration: none;
 }
 
+#featured,
+#surf, 
+#tags,
+#make,
+#player {
+	background: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow: 1px 2px 2px #888;
+	-moz-box-shadow: 1px 2px 2px #888;
+	-webkit-box-shadow: 1px 2px 2px #888;
+}
+
 #featured {
 	padding: 20px 20px 0 20px;
-	background: url('../imgs/bg_hp_featured.png') #CCEB98 top left repeat-x;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -317,16 +346,12 @@ figure.media .controls .progress div {
 	margin: 10px 0 20px 0;
 	padding-bottom: 10px;
 	width: 48%;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	box-shadow: 1px 2px 2px #888;
-	-moz-box-shadow: 1px 2px 2px #888;
-	-webkit-box-shadow: 1px 2px 2px #888;
+	background-repeat: no-repeat;
+	background-position: bottom left;
 }
 
-#make { margin-right: 4%; min-height: 110px; float: left; background: #EEE url('/imgs/make.png') bottom left no-repeat; }
-#player { min-height: 110px; float: right; background: #EEE url('/imgs/player.png') bottom left no-repeat; }
+#make { margin-right: 4%; min-height: 110px; float: left; background-image: url('/imgs/make.png'); }
+#player { min-height: 110px; float: right; background-image: url('/imgs/player.png'); }
 
 #make h3 { margin: 10px 10px 0 120px; }
 #player h3 { margin: 10px 10px 0 140px; }

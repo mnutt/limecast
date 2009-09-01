@@ -133,7 +133,7 @@ jQuery.fn.extend({
           setTimeout(addFlash, 100);
         } else {
           var width = (video.attr('width') || img.attr('width'));
-          var height = (width / img.attr('width')) * img.attr('height');
+          var height = (video.attr('height') || (width / img.attr('width')) * img.attr('height'));
           var embed = $('<embed pluginspage="http://www.adobe.com/go/getflashplayer" type="application/x-shockwave-flash" />').
             attr('flashvars', 'previewURL='+poster+'&videoURL='+source+'&totalTime='+300).
             attr('width', width).
@@ -143,7 +143,6 @@ jQuery.fn.extend({
         }
       };
       addFlash();
-      video.initMediaControls();
     });
   },
   

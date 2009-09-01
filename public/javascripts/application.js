@@ -124,8 +124,9 @@ function setupTabs() {
 function setupSurf() {
   $('#surf button.next').click(function(){
     $.post('/surf/next', {'episode_id': $(this).attr('rel')}, function(resp){
-      $("#surf").html(resp).find('.video').initVideo();
-     setupSurf();
+      $("#surf").html(resp);
+      $("#surf").find('.video').initVideo();
+      setupSurf();
     });
   });
   $('#surf button.previous').click(function(){

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090828201559) do
+ActiveRecord::Schema.define(:version => 20090902151036) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
@@ -111,11 +111,10 @@ ActiveRecord::Schema.define(:version => 20090828201559) do
     t.string   "error"
     t.string   "custom_title",                            :default => ""
     t.text     "subtitle",          :limit => 2147483647
-    t.string   "author_email"
     t.string   "author_name"
+    t.string   "author_email"
   end
 
-  add_index "podcasts", ["author_email"], :name => "index_podcasts_on_author_email"
   add_index "podcasts", ["clean_url"], :name => "index_podcasts_on_clean_url", :unique => true
 
   create_table "queued_podcasts", :force => true do |t|
@@ -210,6 +209,8 @@ ActiveRecord::Schema.define(:version => 20090828201559) do
 
   add_index "sources", ["episode_id"], :name => "index_sources_on_episode_id"
   add_index "sources", ["podcast_id"], :name => "index_sources_on_podcast_id"
+  add_index "sources", ["preview_file_size"], :name => "index_sources_on_preview_file_size"
+  add_index "sources", ["screenshot_file_size"], :name => "index_sources_on_screenshot_file_size"
 
   create_table "statistics", :force => true do |t|
     t.integer  "podcasts_count"

@@ -46,12 +46,15 @@ class Tag < ActiveRecord::Base
     tcount = (taggings_count || 0)
     
     # add badges
-    tcount += case name
-              when 'current' then Podcast.all.map(&:newest_episode).compact.select { |e| e.published_at > 30.days.ago }.size
-              when 'stale' then Podcast.all.map(&:newest_episode).compact.select { |e| e.published_at > 90.days.ago && e.published_at <= 30.days.ago }.size
-              when 'archive' then Podcast.all.map(&:newest_episode).compact.select { |e| e.published_at <= 90.days.ago }.size
-              else 0
-              end
+    if %w(current stale archive).include?(name)
+      e = Episode.all(:group => :podcast_id, :order => "published_at DESC")
+      tcount += case name
+                when 'current' then e.select { |e| e.published_at > 30.days.ago }.size
+                when 'stale' then e.select { |e| e.published_at > 90.days.ago && e.published_at <= 30.days.ago }.size
+                when 'archive' then e.select { |e| e.published_at <= 90.days.ago }.size
+                end
+    end
+
     tcount = max if tcount > max
 
     norm = (tcount - min).abs

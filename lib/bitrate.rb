@@ -43,6 +43,6 @@ class Bitrate
   end
 
   def label(unit)
-    {:mbps => "mbps", :kbps => "kbps", :bps => "bbps"}[unit]
+    {:mbps => "mbps", :kbps => "kbps", :bps => "bps"}[unit]
   end
 end

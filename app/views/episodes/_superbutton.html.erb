@@ -3,12 +3,12 @@
     <a href="#" rel="formats">Format&nbsp;▾</a>
     <menu class="formats" type="list">
       <% episode.sources.sorted_by_extension_and_bitrate.reverse.each_with_index do |source, i| -%>
-      <li class="<%= source.extension %>" <%= 'selected="selected"' if i == 0 %> name="<%= source.formatted_bitrate -%> <%= h source.extension -%>" rel="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>">
+      <li class="<%= source.extension %>" <%= 'selected="selected"' if i == 0 %> name="<%= source.size.to_file_size.to_s(true, false) -%> <%= h source.extension -%>" rel="<%= [source.url, source.torrent.url, source.magnet_url].join('|') %>">
         <%= h source.file_name %>
         <span><%= [source.formatted_bitrate,
              source.size.to_file_size.to_s(true, false),
              source.resolution,
-             source.formatted_framerate].reject(&:blank?).join(', ') %></span>
+             source.formatted_framerate].reject(&:blank?).join('&nbsp;') %></span>
       </li>
       <% end -%>
     </menu>

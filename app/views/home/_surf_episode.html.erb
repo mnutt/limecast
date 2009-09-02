@@ -1,14 +1,14 @@
-  <button class="previous" rel="<%= @surf_episode.id %>">◀</button>
-  <button class="next" rel="<%= @surf_episode.id %>">►</button>
+  <button class="previous" rel="<%= @episode.id %>">◀</button>
+  <button class="next" rel="<%= @episode.id %>">►</button>
 
-  <%= image_tag @surf_episode.podcast.logo(:small) %>
+  <%= image_tag @episode.podcast.logo(:small) %>
 
-  <%= render :partial => "episodes/episode_player", :locals => {:source => @surf_episode.sources.with_preview.with_screenshot.first, :width => 360, :height => 270} -%>
+  <%= render :partial => "episodes/episode_player", :locals => {:source => @episode.sources.with_preview.with_screenshot.first, :width => 360, :height => 270} -%>
 
   <div>
-    <h3><%= link_to h(@surf_episode.podcast.title), podcast_url(@surf_episode.podcast) %></h3>
-    <p><% link_to episode_url(@surf_episode.podcast, @surf_episode) do %><time datetime="<%= @surf_episode.published_at.to_datetime.to_s %>"><%= @surf_episode.published_at.to_date %></time><% end -%></p>
-    <p><em><%= h(@surf_episode.title) %></em></p>
-    <p><%= sanitize_summary @surf_episode.summary -%></p>
-    <p><%= " (#{@surf_episode.duration.to_duration.to_s(false)})" if @surf_episode.duration -%></p>
+    <h3><%= link_to h(@episode.podcast.title), podcast_url(@episode.podcast) %></h3>
+    <p><% link_to episode_url(@episode.podcast, @episode) do %><time datetime="<%= @episode.published_at.to_datetime.to_s %>"><%= @episode.published_at.to_date %></time><% end -%></p>
+    <p><em><%= h(@episode.title) %></em></p>
+    <p><%= sanitize_summary @episode.summary -%></p>
+    <p><%= " (#{@episode.duration.to_duration.to_s(false)})" if @episode.duration -%></p>
   </div>

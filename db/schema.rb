@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090902151036) do
+ActiveRecord::Schema.define(:version => 20090902161645) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
@@ -231,6 +231,11 @@ ActiveRecord::Schema.define(:version => 20090902151036) do
     t.integer  "reviews_by_nonadmins_count"
   end
 
+  create_table "surf_episodes", :force => true do |t|
+    t.integer "episode_id"
+    t.integer "order"
+  end
+
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "podcast_id"
@@ -247,12 +252,6 @@ ActiveRecord::Schema.define(:version => 20090902151036) do
     t.boolean "blacklisted"
     t.integer "map_to_id"
     t.integer "taggings_count"
-  end
-
-  create_table "user_surfed_episodes", :force => true do |t|
-    t.integer  "episode_id"
-    t.integer  "user_id"
-    t.datetime "viewed_at"
   end
 
   create_table "user_taggings", :force => true do |t|

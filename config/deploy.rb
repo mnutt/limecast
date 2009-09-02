@@ -189,6 +189,7 @@ namespace :limecast do
     desc 'Configure the crontab'
     task :crontab, :roles => :app do
       cron =  "5,35 * * * * cd #{current_path} && RAILS_ENV=production rake ts:in > /dev/null\n"
+      cron << "0 0 * * * cd #{current_path} && RAILS_ENV=production script/runner \"SurfEpisode.reset_queue\" > /dev/null"
       cron << "0,20,40 * * * * cd #{current_path} && RAILS_ENV=production script/purge_unclaimed_taggings > /dev/null\n"
       if domain == 'limecast.com'
         cron << "*/10 * * * * cd #{current_path} && RAILS_ENV=production script/check_dotcom 2> /dev/null\n"

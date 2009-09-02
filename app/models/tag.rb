@@ -43,21 +43,8 @@ class Tag < ActiveRecord::Base
     min    = Tag.minimum('taggings_count') || 0
     max    = Tag.maximum('taggings_count') || 1
     spread = max - min
-    tcount = (taggings_count || 0)
     
-    # add badges
-    if %w(current stale archive).include?(name)
-      e = Episode.all(:group => :podcast_id, :order => "published_at DESC")
-      tcount += case name
-                when 'current' then e.select { |e| e.published_at > 30.days.ago }.size
-                when 'stale' then e.select { |e| e.published_at > 90.days.ago && e.published_at <= 30.days.ago }.size
-                when 'archive' then e.select { |e| e.published_at <= 90.days.ago }.size
-                end
-    end
-
-    tcount = max if tcount > max
-
-    norm = (tcount - min).abs
+    norm = (taggings_count.to_i - min).abs
 
     rating = (norm.to_f / max * 10).ceil.to_s
   end

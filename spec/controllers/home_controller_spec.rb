@@ -2,9 +2,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe HomeController do
   before do
-    @episode = Factory.create(:episode, :published_at => 7.days.ago, :sources => [Factory.create(:source, :screenshot_file_size => 12345, :preview_file_size => 12345)])
-    @episode2 = Factory.create(:episode, :published_at => 8.days.ago, :sources => [Factory.create(:source, :screenshot_file_size => 12345, :preview_file_size => 12345)])
-    @episode3 = Factory.create(:episode, :published_at => 9.days.ago, :sources => [Factory.create(:source, :screenshot_file_size => 12345, :preview_file_size => 12345)])
+    @episode = Factory.create(:episode, :published_at => 3.days.ago, :sources => [Factory.create(:source, :published_at => 3.days.ago, :screenshot_file_size => 12345, :preview_file_size => 12345)])
+    @episode2 = Factory.create(:episode, :published_at => 4.days.ago, :sources => [Factory.create(:source, :published_at => 4.days.ago, :screenshot_file_size => 12345, :preview_file_size => 12345)])
+    @episode3 = Factory.create(:episode, :published_at => 5.days.ago, :sources => [Factory.create(:source, :published_at => 5.days.ago, :screenshot_file_size => 12345, :preview_file_size => 12345)])
   end
 
   describe "when logged in" do

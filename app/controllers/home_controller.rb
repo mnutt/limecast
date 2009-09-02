@@ -16,12 +16,10 @@ class HomeController < ApplicationController
                        else
                          !has_unclaimed_record?(UserSurfedEpisode) ? [0] : session[:unclaimed_records]['UserSurfedEpisode'].map { |_| UserSurfedEpisode.find(_).episode.id }
                        end
-
-    @surf_episode = Episode.first(:joins => :sources_with_preview_and_screenshot,
-                                  :order => "published_at DESC", 
-                                  :conditions => ["episodes.published_at > ? AND episodes.id NOT IN (?)", surf_window, surfed_episodes])
-    @surf_episode = Episode.first(:order => "published_at DESC",
-                                  :joins => :sources_with_preview_and_screenshot) if @surf_episode.nil?
+    source = Source.with_preview.with_screenshot.first(:order => "published_at DESC",
+      :conditions => ["published_at > ? AND episode_id NOT IN (?)", surf_window, surfed_episodes])
+    source = Source.with_preview.with_screenshot.first(:order => "published_at DESC") if source.nil?
+    @surf_episode = source.episode unless source.nil?
   end
 
   # POST /surf/next?episode_id=1
@@ -36,11 +34,8 @@ class HomeController < ApplicationController
 
     @surf_episode = params[:direction] == 'previous' ? previous_surfed_episode : next_surfed_episode
 
-    if @surf_episode.nil?
-      @surf_episode = Episode.first(:order => "episodes.published_at #{params[:direction] == 'previous' ? 'ASC' : 'DESC'}", 
-                                      :joins => :sources_with_preview_and_screenshot,
-                                      :conditions => ["episodes.published_at > ?", surf_window])
-    end
+    @surf_episode = Source.with_preview.with_screenshot.first(:order => "published_at #{params[:direction] == 'previous' ? 'ASC' : 'DESC'}", 
+                      :conditions => ["published_at > ?", surf_window]).episode if @surf_episode.nil?
     
     respond_to do |format|
       if @surf_episode.nil?
@@ -57,14 +52,14 @@ class HomeController < ApplicationController
   end
   
   def next_surfed_episode # AKA the next one that's older
-    Episode.first(:joins => :sources_with_preview_and_screenshot, 
-      :order => "published_at DESC", 
-      :conditions => ["episodes.published_at < ? AND episodes.published_at > ? AND episodes.id != ?", @episode.published_at, surf_window, @episode.id])
+    source = Source.with_preview.with_screenshot.first(:order => "published_at DESC",
+      :conditions => ["published_at < ? AND published_at > ? AND episode_id != ?", @episode.published_at, surf_window, @episode.id])
+    source.episode unless source.nil?
   end
   
   def previous_surfed_episode # AKA the next one that's newer
-    Episode.first(:joins => :sources_with_preview_and_screenshot, 
-      :order => "published_at ASC", 
-      :conditions => ["episodes.published_at > ? AND episodes.published_at > ? AND episodes.id != ?", @episode.published_at, surf_window, @episode.id])
+    source = Source.with_preview.with_screenshot.first(:order => "published_at ASC",
+      :conditions => ["published_at > ? AND published_at > ? AND episode_id != ?", @episode.published_at, surf_window, @episode.id])
+    source.episode unless source.nil?
   end
 end

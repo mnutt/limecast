@@ -81,7 +81,7 @@ class PodcastProcessor
     end
 
     log_failed(exception)
-    PodcastMailer.deliver_failed_queued_podcast(@qp, exception)
+    # PodcastMailer.deliver_failed_queued_podcast(@qp, exception)
     # We saved the duplicate feed id to a variable so that we could point this feed to the correct one
     @qp.update_attributes(:state => @state || 'failed', :podcast_id => @duplicate_podcast_id, :error => exception.class.to_s)
   end
@@ -97,7 +97,7 @@ class PodcastProcessor
       end
 
       log_failed(exception)
-      PodcastMailer.deliver_failed_queued_podcast(@qp, exception)
+      # PodcastMailer.deliver_failed_queued_podcast(@qp, exception)
       # We saved the duplicate feed id to a variable so that we could point this feed to the correct one
       @qp.update_attributes(:state => @state || 'failed', :podcast_id => @duplicate_podcast_id, :error => exception.class.to_s)
     end

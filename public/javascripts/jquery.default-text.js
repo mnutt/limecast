@@ -16,11 +16,14 @@ jQuery.fn.extend({
       
       input.focus(function(){
         if(input.val() == defaultTxt) input.val("").css("color", options.focusColor);
+        return false;
       });
       input.blur(function(){
         if (input.val() == "") input.val(defaultTxt).css("color", options.blurColor);
+        return false;
       })
-      input.focus().blur();
+      input.trigger('focus');
+      input.trigger('blur');
 
       input.parents('form').submit(function(){
         if(input.val() == defaultTxt) input.val('');

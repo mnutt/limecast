@@ -1,26 +1,36 @@
 <% # formats is unused for now, just picking highest quality source -%>
-<% if @source = @podcast.sources.sorted_by_bitrate.first -%>
+<% if !@podcast.alt_urls.empty? || @source = @podcast.sources.sorted_by_bitrate.first -%>
 
 <section class="subscribe superbutton">
   <div>
     <a href="#" rel="formats">Format&nbsp;▾</a>
     <menu class="formats" type="list">
-      <li class="<%= @source.extension %>" selected="selected" name="<%= @source.formatted_bitrate -%> <%= h @source.extension -%>" rel="<%= [@source.url, @source.torrent.url, @source.magnet_url].join('|') %>">
+    <% if @source -%>
+      <li class="<%= @source.extension %>" selected="selected" name="<%= @source.formatted_bitrate -%> <%= h @source.extension -%>" rel="<%= [@podcast.url, torrent_feed_url(@podcast.to_filename_param('torrent')), magnet_feed_url(@podcast.to_filename_param('magnet'))].join('|') %>">
         <%= h @source.file_name %>
         <span><%= [@source.formatted_bitrate,
              @source.size.to_file_size.to_s(true, false),
              @source.resolution,
              @source.formatted_framerate].reject(&:blank?).join('&nbsp;') %></span>
       </li>
+    <% elsif !@podcast.alt_urls.empty? -%>
+      <% @podcast.alt_urls.each do |alt_url| -%>
+      <li class="<%= alt_url.extension %>" <%= 'selected="selected"' if alt_url == @podcast.alt_urls.first %> name="<%= alt_url.formatted_bitrate -%> <%= h alt_url.extension -%>" rel="<%= [alt_url.url, torrent_feed_url(@podcast.to_filename_param('torrent')), magnet_feed_url(@podcast.to_filename_param('magnet'))].join('|') %>">
+        <%= h alt_url.url %>
+        <span><%= [alt_url.formatted_bitrate,
+             alt_url.size.to_file_size.to_s(true, false)].reject(&:blank?).join('&nbsp;') %></span>
+      </li>
+      <% end -%>
+    <% end -%>
     </menu>
   </div>
 
   <div>
     <a href="#" rel="deliveries">Delivery&nbsp;▾</a>
     <menu class="deliveries" type="list">
-      <li rel="<%= @podcast.url %>" name="Web" class="web" selected="selected">Web</li>
-      <li rel="<%= magnet_feed_url @podcast.to_filename_param('magnet') %>" name="Magnet" class="magnet">Magnet</li>
-      <li rel="<%= torrent_feed_url @podcast.to_filename_param('torrent') %>" name="Torrent" class="torrent">Torrent</li>
+      <li name="Web" class="web" selected="selected">Web</li>
+      <li name="Magnet" class="magnet">Magnet</li>
+      <li name="Torrent" class="torrent">Torrent</li>
     </menu>
   </div>
 

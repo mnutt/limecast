@@ -363,7 +363,6 @@ figure.media .controls .progress div {
 
 .superbutton {
 	position: relative;
-	z-index: 5;
 	background: url("/imgs/button_bg.gif") #FDFDFD repeat-x top left;
 	border: solid 1px #C3C3C3;
 	display: inline-block;

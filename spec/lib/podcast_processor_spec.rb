@@ -232,7 +232,7 @@ describe Podcast, "being created" do
   before do
     @qp = Factory.create :queued_podcast
     mod_and_run_podcast_processor(@qp, FetchRegularFeed)
-    @podcast = Factory.create(:podcast)
+    @podcast = @qp.podcast
   end
 
   describe 'with normal RSS feed' do
@@ -253,6 +253,27 @@ describe Podcast, "being created" do
       @qp.error.should == "PodcastProcessor::BannedFeedException"
     end
   end
+  
+  describe "with a funneled feed" do
+    it "should add all the combinificator:source tags as PodcastAltUrls" do
+      lambda { mod_and_run_podcast_processor(@qp, FetchFunnelFeed) }.should change { @podcast.alt_urls.count }.by(9)
+      @qp.podcast.alt_urls.map(&:url).should == %w(http://revision3.com/diggnation/feed/mp4-hd30/
+      http://revision3.com/diggnation/feed/quicktime-high-definition/
+      http://revision3.com/diggnation/feed/quicktime-large/
+      http://revision3.com/diggnation/feed/quicktime-small/
+      http://revision3.com/diggnation/feed/wmv-large/
+      http://revision3.com/diggnation/feed/wmv-small/
+      http://revision3.com/diggnation/feed/xvid-large/
+      http://revision3.com/diggnation/feed/xvid-small/
+      http://revision3.com/diggnation/feed/mp3/)
+    end
+    
+    it "should set the latest enclosure size, bitrate, and extension for each alt_url" do
+      mod_and_run_podcast_processor(@qp, FetchFunnelFeed)
+      @qp.podcast.alt_urls.first.url.should == "http://revision3.com/diggnation/feed/mp4-hd30/"
+      @qp.podcast.alt_urls.first.size.should == 568539428
+      @qp.podcast.alt_urls.first.bitrate.should == 1963
+      @qp.podcast.alt_urls.first.extension.should == "mp4"
+    end
+  end
 end
-
-

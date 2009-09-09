@@ -64,7 +64,18 @@ jQuery.fn.extend({
         });
 
         // subscribe link
-        var url = button.find('.deliveries [selected=selected]').attr('rel');
+        switch(button.find('.deliveries [selected=selected]').attr('class')) {
+          case 'web':
+            var url = button.find('.formats [selected=selected]').attr('rel').split('|')[0];
+            break;
+          case 'torrent':
+            var url = button.find('.formats [selected=selected]').attr('rel').split('|')[1];
+            break;
+          case 'magnet':
+            var url = button.find('.formats [selected=selected]').attr('rel').split('|')[2];
+            break;
+        };
+        console.log(url);
         switch(button.find('.destinations [selected=selected]').attr('rel')) {
           case 'rss':
             button.find('a.button').attr('href', url);

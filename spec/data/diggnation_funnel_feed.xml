@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:amp="http://www.adobe.com/amp/1.0" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:cnettv="http://cnettv.com/mrss/" version="2.0" xmlns:feedfunnel="http://limecast.com/feedfunnelrss" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    
+    <link>http://revision3.com/diggnation</link>
+    <description>Diggnation is a weekly tech/web culture show based on the top digg.com social bookmarking news stories.</description>
+    <language>en-us</language>
+    <cnettv:partnerId>27842</cnettv:partnerId>
+    <itunes:category text="Technology">
+      <itunes:category text="Tech News"></itunes:category>
+    </itunes:category>
+    <itunes:explicit>yes</itunes:explicit>
+    <itunes:summary>Diggnation is a weekly tech/web culture show based on the top digg.com social bookmarking news stories.</itunes:summary>
+    <itunes:subtitle>Diggnation is a weekly tech/web culture show based on the top digg.com social bookmarking news stories.</itunes:subtitle>
+    <itunes:author>Revision3</itunes:author>
+    <itunes:owner>
+      <itunes:email>feedback@revision3.com</itunes:email>
+      <itunes:name>Revision3</itunes:name>
+    </itunes:owner>
+    <itunes:image href="http://bitcast-a.bitgravity.com/revision3/images/shows/diggnation/diggnation.jpg"></itunes:image>
+    <itunes:keywords>alex albrecht, digg, digg.com, diggnation, kevin rose, revision3</itunes:keywords>
+    <image>
+      <title>Diggnation (MP3)</title>
+      <width>100</width>
+      <height>100</height>
+      <link>http://revision3.com/diggnation</link>
+      <url>http://bitcast-a.bitgravity.com/revision3/images/shows/diggnation/diggnation.jpg</url>
+    </image>
+    <!-- Adobe Media Player Network Assets -->
+    <amp:networkLogo>http://bitcast-a.bitgravity.com/revision3/images/revision3_networklogo.jpg</amp:networkLogo>
+    <amp:networkHalfBanner>http://bitcast-a.bitgravity.com/revision3/images/revision3_halfbanner.jpg</amp:networkHalfBanner>
+    <amp:networkBackground>http://bitcast-a.bitgravity.com/revision3/images/revision3_background.jpg</amp:networkBackground>
+    <!-- Adobe Media Player Show Assets -->
+    <amp:background>http://bitcast-a.bitgravity.com/revision3/images/shows/diggnation/diggnation_background.jpg</amp:background>
+    <amp:banner>http://bitcast-a.bitgravity.com/revision3/images/shows/diggnation/diggnation_fullbanner.jpg</amp:banner>
+    <amp:halfBanner>http://bitcast-a.bitgravity.com/revision3/images/shows/diggnation/diggnation_halfbanner.jpg</amp:halfBanner>
+    <atom:link href="http://revision3.com/diggnation/feed/mp3/" rel="self"></atom:link>
+
+    
+    
+  <title>Diggnation</title>
+  <combinificator:group>
+    <combinificator:source isPrimary="false" url="http://revision3.com/diggnation/feed/mp4-hd30/">
+      <combinificator:enclosure duration="2316" size="568539428" url="http://www.podtrac.com/pts/redirect.mp4/bitcast-a.bitgravity.com/revision3/web/diggnation/0219/diggnation--0219--handmade--hd720p30.h264.mp4" type="video/mp4"></combinificator:enclosure>
+    </combinificator:source>
+    <combinificator:source isPrimary="false" url="http://revision3.com/diggnation/feed/quicktime-high-definition/">
+      <combinificator:enclosure duration="2316" size="476982528" url="http://www.podtrac.com/pts/redirect.mp4/bitcast-a.bitgravity.com/revision3/web/diggnation/0219/diggnation--0219--handmade--hd.h264.mp4" type="video/mp4"></combinificator:enclosure>
+    </combinificator:source>
+    <combinificator:source isPrimary="false" url="http://revision3.com/diggnation/feed/quicktime-large/">
+      <combinificator:enclosure duration="2316" size="385712306" url="http://www.podtrac.com/pts/redirect.mp4/bitcast-a.bitgravity.com/revision3/web/diggnation/0219/diggnation--0219--handmade--large.h264.mp4" type="video/mp4"></combinificator:enclosure>
+    </combinificator:source><combinificator:source isPrimary="false" url="http://revision3.com/diggnation/feed/quicktime-small/">
+      <combinificator:enclosure duration="2316" size="135318410" url="http://www.podtrac.com/pts/redirect.mp4/bitcast-a.bitgravity.com/revision3/web/diggnation/0219/diggnation--0219--handmade--small.h264.mp4" type="video/mp4"></combinificator:enclosure>
+    </combinificator:source>
+    <combinificator:source isPrimary="false" url="http://revision3.com/diggnation/feed/wmv-large/">
+      <combinificator:enclosure duration="2316" size="385987610" url="http://www.podtrac.com/pts/redirect.wmv/bitcast-a.bitgravity.com/revision3/web/diggnation/0219/diggnation--0219--handmade--large.wmv9.wmv" type="video/x-ms-wmv"></combinificator:enclosure>
+    </combinificator:source>
+    <combinificator:source isPrimary="false" url="http://revision3.com/diggnation/feed/wmv-small/">
+      <combinificator:enclosure duration="2316" size="147700570" url="http://www.podtrac.com/pts/redirect.wmv/bitcast-a.bitgravity.com/revision3/web/diggnation/0219/diggnation--0219--handmade--small.wmv9.wmv" type="video/x-ms-wmv"></combinificator:enclosure>
+    </combinificator:source>
+    <combinificator:source isPrimary="false" url="http://revision3.com/diggnation/feed/xvid-large/">
+      <combinificator:enclosure duration="2316" size="330597352" url="http://www.podtrac.com/pts/redirect.avi/bitcast-a.bitgravity.com/revision3/web/diggnation/0219/diggnation--0219--handmade--large.xvid.avi" type="video/x-msvideo"></combinificator:enclosure>
+    </combinificator:source>
+    <combinificator:source isPrimary="false" url="http://revision3.com/diggnation/feed/xvid-small/">
+      <combinificator:enclosure duration="2316" size="214916040" url="http://www.podtrac.com/pts/redirect.avi/bitcast-a.bitgravity.com/revision3/web/diggnation/0219/diggnation--0219--handmade--small.xvid.avi" type="video/x-msvideo"></combinificator:enclosure>
+    </combinificator:source>
+    <combinificator:source isPrimary="true" url="http://revision3.com/diggnation/feed/mp3/">
+      <combinificator:enclosure duration="2316" size="37923840" url="http://www.podtrac.com/pts/redirect.mp3/bitcast-a.bitgravity.com/revision3/web/diggnation/0219/diggnation--0219--handmade--large.lame.mp3" type="audio/mpeg"></combinificator:enclosure>
+    </combinificator:source>
+  </combinificator:group>
+  <item>
+      <title>Poolside at Night in Arizona - Diggnation</title>
+      <link>http://revision3.com/diggnation/phoenixhotel</link>
+      <description>
+Coming straight from the infamous Phoenix heat... Progger! Plus, Brett Favre signs to Minnesota, &quot;Apple Store Kid&quot; does Boom Boom Pow, the worst bid ever on The Price is Right, Microsoft Banned from selling Word in the US, and arguably one of the most epic Rick Astley mashups to date.
+      </description>
+      <content:encoded>
+Coming straight from the infamous Phoenix heat... Progger! Plus, Brett Favre signs to Minnesota, &quot;Apple Store Kid&quot; does Boom Boom Pow, the worst bid ever on The Price is Right, Microsoft Banned from selling Word in the US, and arguably one of the most epic Rick Astley mashups to date.
+      </content:encoded>
+      <author>feedback@revision3.com (Revision3)</author>
+      <pubDate>Wed, 02 Sep 2009 04:05:00 GMT</pubDate>
+      <cnettv:lastModDate>Wed, 02 Sep 2009 04:05:00 GMT</cnettv:lastModDate>
+      <itunes:explicit>yes</itunes:explicit>
+      <itunes:keywords>kevin rose, alex albrecht, apple, nin, diggnation, microsoft, david prager, rick astley, rickroll, phoenix, tempe, arizona, nine inch nails. brett favre, vikings</itunes:keywords>
+      <itunes:author>Revision3</itunes:author>
+      <itunes:subtitle>
+Coming straight from the infamous Phoenix heat... Progger! Plus, Brett Favre signs to Minnesota, &quot;Apple Store Kid&quot; does Boom Boom Pow, the worst bid ever on The Price is Right, Microsoft Banned from selling Word in the US, and arguably one of the most ep
+      </itunes:subtitle>
+      <guid isPermaLink="false">/diggnation/0218/diggnation--0218--phoenixhotel--large.lame.mp3</guid>
+      
+      
+      <cnettv:franchiseID>46</cnettv:franchiseID>
+    <enclosure url="http://www.podtrac.com/pts/redirect.mp3/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--large.lame.mp3" type="audio/mpeg" length="43529867"></enclosure><media:group><media:content url="http://www.podtrac.com/pts/redirect.mp4/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--large.h264.mp4" type="video/mp4" fileSize="443147542"></media:content><media:content url="http://www.podtrac.com/pts/redirect.wmv/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--small.wmv9.wmv" type="video/x-ms-wmv" fileSize="173331026"></media:content><media:content url="http://www.podtrac.com/pts/redirect.avi/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--small.xvid.avi" type="video/x-msvideo" fileSize="250397608"></media:content><media:content url="http://www.podtrac.com/pts/redirect.avi/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--large.xvid.avi" type="video/x-msvideo" fileSize="385306260"></media:content><media:content url="http://www.podtrac.com/pts/redirect.wmv/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--large.wmv9.wmv" type="video/x-ms-wmv" fileSize="456402210"></media:content><media:content url="http://www.podtrac.com/pts/redirect.mp4/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--hd.h264.mp4" type="video/mp4" fileSize="554121383"></media:content><media:content url="http://www.podtrac.com/pts/redirect.mp3/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--large.lame.mp3" type="audio/mpeg" fileSize="43529867"></media:content><media:content url="http://www.podtrac.com/pts/redirect.mp4/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--hd720p30.h264.mp4" type="video/mp4" fileSize="659663669"></media:content><media:content url="http://www.podtrac.com/pts/redirect.mp4/bitcast-a.bitgravity.com/revision3/web/diggnation/0218/diggnation--0218--phoenixhotel--small.h264.mp4" type="video/mp4" fileSize="148688784"></media:content></media:group>
+  </item>
+</channel>
+
+</rss>

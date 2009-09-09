@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090811161932
+# Schema version: 20090908160006
 #
 # Table name: authors
 #
@@ -8,6 +8,7 @@
 #  email      :string(255)   
 #  created_at :datetime      
 #  updated_at :datetime      
+#  clean_url  :string(255)   
 #
 
 class Author < ActiveRecord::Base

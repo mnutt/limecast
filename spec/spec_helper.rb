@@ -158,6 +158,11 @@ module FetchRegularFeed
     File.open("#{RAILS_ROOT}/spec/data/regularfeed.xml").read
   end
 end
+module FetchFunnelFeed
+  def fetch
+    File.open("#{RAILS_ROOT}/spec/data/diggnation_funnel_feed.xml").read
+  end
+end
 
 class Podcast
   def download_logo(*args); end

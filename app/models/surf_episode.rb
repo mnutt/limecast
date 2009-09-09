@@ -1,3 +1,13 @@
+# == Schema Information
+# Schema version: 20090908160006
+#
+# Table name: surf_episodes
+#
+#  id         :integer(4)    not null, primary key
+#  episode_id :integer(4)    
+#  order      :integer(4)    
+#
+
 class SurfEpisode < ActiveRecord::Base
   belongs_to :episode
 

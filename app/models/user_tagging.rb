@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090811161932
+# Schema version: 20090908160006
 #
 # Table name: user_taggings
 #

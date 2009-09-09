@@ -64,6 +64,7 @@ class PodcastProcessor
 
       update_podcast!
       update_tags!
+      update_alt_urls!
 
       if duplicate_feed?
         @state = "duplicate"
@@ -130,6 +131,18 @@ class PodcastProcessor
     raise InvalidAddressException
   end
 
+  # By making the fetch_alt_url method return the XML instead of saving it to an ivar,
+  # we can mock it easier.
+  def fetch_alt_url(url)
+    Timeout::timeout(15) do
+      OpenURI::open_uri(url, "User-Agent" => "LimeCast/0.1") do |f|
+        f.read
+      end
+    end
+  rescue NoMethodError
+    ""
+  end
+
   def update_podcast!
     @podcast.attributes = {
       :finder      => @qp.user,
@@ -142,7 +155,7 @@ class PodcastProcessor
       :xml_title   => @rpodcast_feed.title.to_s.strip,
       :subtitle    => @rpodcast_feed.subtitle.to_s.strip,
       :description => @rpodcast_feed.summary.to_s.strip,
-      :language    => (@rpodcast_feed.language !~ /^[-_a-zA-Z0-9]$/ ? nil : @rpodcast_feed.language),
+      :language    => @rpodcast_feed.language.to_s.gsub(/[^-_a-zA-Z0-9]/, ''),
       :site        => @rpodcast_feed.link,
       :state       => "parsed"
     }
@@ -155,7 +168,7 @@ class PodcastProcessor
       :state      => 'parsed'
     )
   end
-
+  
   def update_tags!
     tags = @rpodcast_feed.categories.compact.map { |t| Tag.tagize(t) }
     tags << "hd" if @rpodcast_feed.hd?
@@ -165,6 +178,17 @@ class PodcastProcessor
     tags << "creativecommons" if @rpodcast_feed.creative_commons?
     tags << "explicit" if @rpodcast_feed.explicit?
     @podcast.tag_string = tags.join(" "), (@podcast.author || @qp).user
+  end
+
+  def update_alt_urls!
+    # Add the alt_urls
+    @rpodcast_feed.combinificator_sources.each do |cs| 
+      alt_url = @podcast.alt_urls.find_or_initialize_by_url(cs.url)
+      
+      alt_url.update_attributes(:bitrate => cs.enclosure.bitrate,
+                                :extension => cs.enclosure.extension,
+                                :size => cs.enclosure.size) if cs.enclosure
+    end
   end
 
   def update_episodes!

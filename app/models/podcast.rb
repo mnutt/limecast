@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090811161932
+# Schema version: 20090908160006
 #
 # Table name: podcasts
 #
@@ -52,6 +52,7 @@ class Podcast < ActiveRecord::Base
   has_many :tags, :through => :taggings, :order => 'tags.name ASC'
   has_many :badges, :source => :tag, :through => :taggings, :conditions => {:badge => true}, :order => 'name ASC'
   has_many :sources, :dependent => :destroy
+  has_many :alt_urls, :class_name => 'PodcastAltUrl', :dependent => :destroy
 
   has_one  :newest_episode, :class_name => 'Episode', :order => "published_at DESC"
   has_one  :oldest_episode, :class_name => 'Episode', :order => "published_at ASC"

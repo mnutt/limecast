@@ -25,6 +25,8 @@
                              :cache => 'jquery-all' -%>
   <%= javascript_include_tag 'nbga-1.0', 'application' -%>
   <%= javascript_include_actions -%>
+
+  <script type="text/javascript">ga().config({id: '<%= @tracker -%>'}).track();</script>
   
   <!--[if IE 8]>
     <%= stylesheet_link_tag 'layout_ie8', 'content_ie8' -%>

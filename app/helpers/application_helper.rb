@@ -129,7 +129,7 @@ module ApplicationHelper
     if leave_dirty
       unescaped_html
     else
-      sanitize unescaped_html
+      sanitize unescaped_html, :tags => []
     end
   end
 

@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     @tags = Tag.all(:order => "taggings_count DESC").sort_by &:rand
 
     # Surf
-    @episode = SurfEpisode.first(:order => "RAND()").episode
+    @episode = SurfEpisode.first(:order => "RAND()").episode rescue nil
   end
 
   # POST /surf/next?episode_id=1

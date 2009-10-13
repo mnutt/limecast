@@ -147,8 +147,8 @@ class SourceProcessor
       filename = encoded_tmp_file(:mp4)
       options.merge!(
         :f      => :mp4,         # format (container)
-        :vcodec => :libx264,     # video codec
-        :acodec => :libfaad,     # audio codec
+        :vcodec => :h264,        # video codec
+#        :acodec => :libfaad,    # audio codec
         :crf    => 22            # for h264 processing
       )
     when :ogg_preview

@@ -103,7 +103,7 @@ module ApplicationHelper
     "#{datestamp}#{' '+timestamp if with_time} #{ago}"
   end
 
-  def unescape_entities(html)
+  def unescape_entities(html, leave_dirty = false)
     return nil if html.nil?
     unescaped_html = html
     unescaped_html.gsub!(/&#x26;/, "&amp;")
@@ -125,7 +125,12 @@ module ApplicationHelper
     # Replace CDATA junk
     unescaped_html.gsub!(/\<\!\[CDATA\[/, '')
     unescaped_html.gsub!(/\]\]\>/, '')
-    return unescaped_html
+
+    if leave_dirty
+      unescaped_html
+    else
+      sanitize unescaped_html, :tags => []
+    end
   end
 
   def sanitize_summary(html)

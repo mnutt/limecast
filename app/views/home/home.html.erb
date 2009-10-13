@@ -12,9 +12,11 @@
   </p>
 </section>
 
+<% if @episode -%>
 <section id="surf" class="clearfix">
-  <%= render :partial => "surf_episode", :object => @surf_episode %>
+  <%= render :partial => "surf_episode" %>
 </section>
+<% end -%>
 
 <section id="featured" class="clearfix">
   <section class="clearfix">

@@ -361,15 +361,17 @@ class Podcast < ActiveRecord::Base
   def additional_badges(reload=false)
     return @additional_badges if @additional_badges && !reload
 
-    @additional_badges = returning [] do |ab|
-      ab << language unless language.blank? || language !~ /^[-_a-zA-Z0-9]$/
+    @additional_badges = []
 
-      if e = episodes.newest[0]
-        ab << 'current' if e.published_at > 30.days.ago
-        ab << 'stale'   if e.published_at <= 30.days.ago && e.published_at > 90.days.ago
-        ab << 'archive' if e.published_at <= 90.days.ago
-      end
+    @additional_badges << language unless language.blank? || language !~ /^[-_a-zA-Z0-9]+$/
+
+    if e = episodes.newest[0]
+      @additional_badges << 'current' if e.published_at > 30.days.ago
+      @additional_badges << 'stale'   if e.published_at <= 30.days.ago && e.published_at > 90.days.ago
+      @additional_badges << 'archive' if e.published_at <= 90.days.ago
     end
+
+    @additional_badges
   end
 
   def new?

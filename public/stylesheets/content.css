@@ -265,6 +265,7 @@ figure.media .controls .progress div {
 
 #surf div {
 	width: 345px;
+	padding-bottom: 10px;
 	position: absolute;
 	top: 15px;
 	left: 595px;

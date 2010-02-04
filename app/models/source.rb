@@ -100,7 +100,20 @@ class Source < ActiveRecord::Base
     podcast_name = episode.podcast.clean_url
     episode_date = episode.clean_url
 
-    "#{id}-#{podcast_name}-#{episode_date}-#{formatted_bitrate}-#{extension}"
+
+    # NOTE from 2/4/10: taking out formatted_bitrate from source.to_param for now because
+    #                   the source might not have a bitrate before it generates the torrent
+    #                   (if it wasn't in the feed) and the filename would be missing that, so we have:
+    #                   47905-Diggnation-2009-Sep-23--avi.torrent
+    #                     instead of the ideal:
+    #                   47905-Diggnation-2009-Sep-23-742kbps-avi.torrent
+    # 
+    #                   So when we're ready to regenerate the sources again (raising the version number)
+    #                   we can either fix the torrent to be generated after the update_source() call, or
+    #                   make this to_param format a bit prettier
+    #
+    # "#{id}-#{podcast_name}-#{episode_date}-#{formatted_bitrate}-#{extension}"
+    "#{id}-#{podcast_name}-#{episode_date}--#{extension}"
   end
   
   # Note: we'll use this as the defacto format instead of format() because

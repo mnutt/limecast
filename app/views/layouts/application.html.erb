@@ -74,7 +74,7 @@
       <p>Sign in to LimeCast</p>
       <% form_for :user, :url => session_path do |f| -%>
         <%= label :user, :email, "Email" %>
-        <%= text_field :user, :email, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255, :value => nil %>
+        <%= text_field :user, :email, :class => "text", :tabindex => 2, :size => 15, :maxlength => 255, :value => "" %>
         <br />
         <%= label :user, :password, "Pass" %>
         <%= password_field :user, :password, :class => "text", :tabindex => 3, :size => 15, :maxlength => 255 %>

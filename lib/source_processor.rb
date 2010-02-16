@@ -147,7 +147,7 @@ class SourceProcessor
       filename = encoded_tmp_file(:mp4)
       options.merge!(
         :f      => :mp4,         # format (container)
-        :vcodec => :h264,        # video codec
+        :vcodec => :libx264,     # video codec
 #        :acodec => :libfaad,    # audio codec
         :crf    => 22            # for h264 processing
       )

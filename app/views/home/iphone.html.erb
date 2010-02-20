@@ -3,9 +3,9 @@
   <li class="clearfix">
     <article class="page"><%= image_tag episode.podcast.logo.url(:square) %><strong><%= h episode.title %></strong>&mdash;<%= line_description(episode.summary) %></article>
     <div class="buttons">
-    <% if preview = episode.sources.with_preview.for_iphone.sort_by(&:size)[0] %>
-      <%= link_to "Preview #{preview.preview.size.to_i.to_file_size.to_s(true, false)} ▶", preview.preview.url, :class => 'play' %>
-    <% end -%>
+    <%# if preview = episode.sources.with_preview.for_iphone.sort_by(&:size)[0] %>
+      <%#= link_to "Preview #{preview.preview.size.to_i.to_file_size.to_s(true, false)} ▶", preview.preview.url, :class => 'play' %>
+    <%# end -%>
     
     <% if audio = episode.sources.for_iphone.select(&:audio?).sort_by(&:size)[0] %>
       <%= link_to "Audio #{audio.size.to_i.to_file_size.to_s(true, false)} ▶", audio.url, :class => 'play' %>

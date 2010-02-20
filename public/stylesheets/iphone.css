@@ -78,6 +78,9 @@ a.play {
   padding: 2px 5px;
   color: #EEE;
   text-decoration: none;
+
+	-webkit-box-shadow: 1px 1px 1px #888;
+  border-radius: 25px;
   -webkit-border-radius: 25px;
 }
 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title><%= "#{@title} - " if @title -%>LimeCast</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="description" content="Open podcast directory and archive"/>
+  <meta name="keywords" content="open, podcast, podcasts, directory, archive"/>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> 
+   
+  <%= rss_link(@podcast) %>
+
+  <%= stylesheet_link_tag "reset", "new_typography", "iphone", :cache => 'all' %>
+
+  <%= javascript_include_tag 'nbga-1.0' -%>
+
+  <script type="text/javascript">ga().config({id: '<%= @tracker -%>'}).track();</script>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="logo"><%= link_to "LimeCast", root_url %></li>
+        <li class="extra"><%= link_to "All Previews ▶", iphone_url(:preview => true, :format => :m3u), :class => 'play' %><%= link_to "All ▶", iphone_url(:format => :m3u), :class => 'play' %></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="wrapper">
+    <section id="content" class="clearfix">
+      <div class="header_push"></div>
+      <%= yield %>
+      <div class="footer_push"></div>
+    </section>
+  </div>
+</body>
+</html>

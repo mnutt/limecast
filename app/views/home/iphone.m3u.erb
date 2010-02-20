@@ -1,0 +1,7 @@
+#EXTM3U - LimeCast Podcast Directory - Recent Episodes
+<% @episodes.each do |episode| %>
+<% if source = episode.sources.first -%>
+#EXTINF - <%= source.duration %>,<%= episode.podcast.title.delete("-") %> - <%= episode.title.delete("-") %>
+<%= @previews ? "http://limecast.com#{source.preview.url}" : source.url %>
+<% end -%>
+<% end -%>

@@ -55,9 +55,9 @@ ActiveRecord::Schema.define(:version => 20090908160006) do
     t.string   "title"
     t.string   "guid"
     t.text     "xml"
-    t.boolean  "archived",                                     :default => false
-    t.text     "subtitle",               :limit => 2147483647
-    t.integer  "daily_order",                                  :default => 1
+    t.boolean  "archived",               :default => false
+    t.text     "subtitle"
+    t.integer  "daily_order",            :default => 1
     t.date     "published_on"
   end
 
@@ -99,30 +99,30 @@ ActiveRecord::Schema.define(:version => 20090908160006) do
     t.datetime "updated_at"
     t.integer  "category_id"
     t.string   "clean_url"
+    t.string   "author_email"
+    t.string   "author_name"
     t.string   "title"
     t.boolean  "button_installed"
-    t.boolean  "protected",                               :default => false
-    t.integer  "favorites_count",                         :default => 0
+    t.boolean  "protected",         :default => false
+    t.integer  "favorites_count",   :default => 0
     t.string   "url"
     t.string   "itunes_link"
-    t.string   "state",                                   :default => "pending"
+    t.string   "state",             :default => "pending"
     t.integer  "bitrate"
     t.integer  "finder_id"
     t.string   "format"
     t.text     "xml"
-    t.integer  "ability",                                 :default => 0
+    t.integer  "ability",           :default => 0
     t.string   "generator"
     t.string   "xml_title"
-    t.text     "description",       :limit => 2147483647
+    t.text     "description"
     t.string   "language"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.string   "logo_file_size"
     t.string   "error"
-    t.string   "custom_title",                            :default => ""
-    t.text     "subtitle",          :limit => 2147483647
-    t.string   "author_email"
-    t.string   "author_name"
+    t.string   "custom_title",      :default => ""
+    t.text     "subtitle"
   end
 
   add_index "podcasts", ["author_email"], :name => "index_podcasts_on_author_email"

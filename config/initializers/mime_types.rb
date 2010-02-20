@@ -4,3 +4,4 @@
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
 Mime::Type.register "application/x-bittorrent", :torrent
+Mime::Type.register "audio/mpegurl", :m3u

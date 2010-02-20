@@ -52,7 +52,7 @@
 #
 
 class Source < ActiveRecord::Base
-  IPHONE_EXTENSIONS = %w(mp3 mp4 wav m4v mov)
+  IPHONE_EXTENSIONS = %w(mp3 mp4 wav m4v mov m4a)
 
   belongs_to :episode
   belongs_to :podcast

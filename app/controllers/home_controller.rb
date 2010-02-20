@@ -37,7 +37,7 @@ class HomeController < ApplicationController
   def iphone
     # @episodes = Episode.all(:limit => 2) #, :order => "RAND()")
     # @sources = Source.with_screenshot.all(:order => "RAND()", :limit => 5, :include => :episode)
-    @episodes = SurfEpisode.all.map(&:episode) rescue nil
+    @episodes = SurfEpisode.all(:limit => 20).map(&:episode) rescue nil
     
     respond_to do |format|
       format.m3u { @previews = params.has_key?(:preview); render :action => 'iphone', :layout => false }

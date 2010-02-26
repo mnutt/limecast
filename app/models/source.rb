@@ -52,7 +52,7 @@
 #
 
 class Source < ActiveRecord::Base
-  IPHONE_EXTENSIONS = %w(mp3 m4a) # mp4 wav m4v mov)
+  IPHONE_EXTENSIONS = %w(mp3 m4a mp4) # mp4 wav m4v mov)
 
   belongs_to :episode
   belongs_to :podcast
@@ -65,7 +65,8 @@ class Source < ActiveRecord::Base
   named_scope :sorted_by_bitrate, :order => "bitrate_from_feed DESC, bitrate_from_ffmpeg DESC"
   named_scope :sorted_by_extension, :order => "extension_from_feed DESC, extension_from_disk DESC"
   named_scope :sorted_by_extension_and_bitrate, :order => "extension_from_feed DESC, extension_from_disk DESC, bitrate_from_feed DESC, bitrate_from_ffmpeg DESC"
-  named_scope :for_iphone, :conditions => ["extension_from_feed IN (?) OR extension_from_disk IN (?)", IPHONE_EXTENSIONS, IPHONE_EXTENSIONS]
+  named_scope :for_iphone, :conditions => ["(extension_from_feed IN (?) OR extension_from_disk IN (?))", IPHONE_EXTENSIONS, IPHONE_EXTENSIONS]
+  named_scope :audio, :conditions => "width IS NULL AND height IS NULL"
 
   has_attached_file :screenshot, :styles => { :square => ["95x95#", :jpg] },
                     :url  => "/:attachment/:id/:style/:basename.:extension",

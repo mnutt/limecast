@@ -1,5 +1,6 @@
 <ul id="episodes">
-<% @episodes.each do |episode| -%>
+<% @sources.each do |source| -%>
+  <% episode = source.episode %>
   <li class="clearfix">
     <article class="page"><%= image_tag episode.podcast.logo.url(:square) %><strong><%= h episode.title %></strong>&mdash;<%= line_description(episode.summary) %></article>
     <div class="buttons">
@@ -7,13 +8,13 @@
       <%#= link_to "Preview #{preview.preview.size.to_i.to_file_size.to_s(true, false)} ▶", preview.preview.url, :class => 'play' %>
     <%# end -%>
     
-    <% if audio = episode.sources.for_iphone.select(&:audio?).sort_by(&:size)[0] %>
-      <%= link_to "Audio #{audio.size.to_i.to_file_size.to_s(true, false)} ▶", audio.url, :class => 'play' %>
-    <% end -%>
+    <%# if audio = episode.sources.for_iphone.audio.sort_by(&:size)[0] %>
+      <%= link_to "Audio #{source.size.to_i.to_file_size.to_s(true, false)} ▶", source.url, :class => 'play' %>
+    <%# end -%>
 
-    <% if video = episode.sources.for_iphone.reject(&:audio?).sort_by(&:size)[0] %>
-      <%= link_to "Video #{video.size.to_i.to_file_size.to_s(true, false)} ▶", video.url, :class => 'play' %>
-    <% end -%>
+    <%# if video = episode.sources.for_iphone.reject(&:audio?).sort_by(&:size)[0] %>
+      <%#= link_to "Video #{video.size.to_i.to_file_size.to_s(true, false)} ▶", video.url, :class => 'play' %>
+    <%# end -%>
     </div>
   </li>
 <% end -%>

@@ -35,8 +35,8 @@ class HomeController < ApplicationController
 
   # GET /iphone
   def iphone
-    @sources = Source.for_iphone.audio.all(:conditions => ["id in (?)", SurfEpisode.all.map(&:episode_id)], :limit => 20, :order => :published_at)
-    @episodes = Episode.all(:limit => 20) #, :order => "RAND()")
+    @sources = Source.for_iphone.audio.all(:limit => 20, :order => :published_at)
+    # @episodes = Episode.all(:limit => 20) #, :order => "RAND()")
     # @sources = Source.with_screenshot.all(:order => "RAND()", :limit => 5, :include => :episode)
     #@episodes = SurfEpisode.all.map(&:episode) rescue nil
     

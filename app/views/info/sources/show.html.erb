@@ -100,7 +100,7 @@
   <tr>
     <td class="key" title="Flash player presenting the video or audio preview">preview</td>
     <td class="preview">
-      <%= video_tag([@source.preview.url, @source.ogg_preview.url], 
+      <%= video_tag([@source.preview.url], 
           :poster => @source.screenshot.url, 
           :controls => true, :width => 540) if @source %>
     </td>
@@ -125,13 +125,6 @@
     <td class="key" title="A link to the mp4 preview video FFmpeg clipped from the episode, and the file size">mp4&nbsp;video&nbsp;preview</td>
     <td>
       <%= @source.preview.file? ? link_to("http://#{controller.request.host}#{@source.preview.url(:original, false)}", @source.preview.url(:original, false)) + " #{FileSize.new(@source.preview_file_size.to_i || 0)}" : blankness -%>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="key" title="A link to the ogg preview video FFmpeg clipped from the episode, and the file size">ogg&nbsp;video&nbsp;preview</td>
-    <td>
-      <%= @source.ogg_preview.file? ? link_to("http://#{controller.request.host}#{@source.ogg_preview.url(:original, false)}", @source.ogg_preview.url(:original, false)) + " #{FileSize.new(@source.ogg_preview_file_size.to_i || 0)}" : blankness -%>
     </td>
   </tr>
 

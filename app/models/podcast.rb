@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090908160006
+# Schema version: 20100504173954
 #
 # Table name: podcasts
 #
@@ -9,6 +9,8 @@
 #  updated_at        :datetime      
 #  category_id       :integer(4)    
 #  clean_url         :string(255)   
+#  author_email      :string(255)   
+#  author_name       :string(255)   
 #  title             :string(255)   
 #  button_installed  :boolean(1)    
 #  protected         :boolean(1)    
@@ -19,7 +21,7 @@
 #  bitrate           :integer(4)    
 #  finder_id         :integer(4)    
 #  format            :string(255)   
-#  xml               :text          
+#  xml               :text(16777215 
 #  ability           :integer(4)    default(0)
 #  generator         :string(255)   
 #  xml_title         :string(255)   
@@ -31,8 +33,6 @@
 #  error             :string(255)   
 #  custom_title      :string(255)   default("")
 #  subtitle          :text(21474836 
-#  author_email      :string(255)   
-#  author_name       :string(255)   
 #
 
 require 'paperclip_file'

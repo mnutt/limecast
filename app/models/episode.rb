@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20090908160006
+# Schema version: 20100504173954
 #
 # Table name: episodes
 #
 #  id                     :integer(4)    not null, primary key
 #  podcast_id             :integer(4)    
-#  summary                :text          
+#  summary                :text(16777215 
 #  published_at           :datetime      
 #  created_at             :datetime      
 #  updated_at             :datetime      

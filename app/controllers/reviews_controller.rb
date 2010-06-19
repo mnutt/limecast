@@ -10,7 +10,9 @@ class ReviewsController < ApplicationController
     raise ActiveRecord::RecordNotFound if @podcast.nil?
 
     unless has_unclaimed_record?(Review, lambda {|r| r.podcast == @podcast })
-      @review = @podcast.reviews.create(params[:review].slice(:title, :body, :positive).merge(:user_id => (current_user.id rescue nil)))
+      @review = @podcast.reviews.build(params[:review].slice(:title, :body, :positive))
+      @review.user_id = current_user.id if current_user.id
+      @review.save
       @review = remember_unclaimed_record(@review) if @review
     end
 

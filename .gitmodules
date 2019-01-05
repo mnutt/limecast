@@ -3,7 +3,7 @@
 	url = git://github.com/rails/in_place_editing.git
 [submodule "vendor/plugins/thinking-sphinx"]
 	path = vendor/plugins/thinking-sphinx
-	url = git://github.com/freelancing-god/thinking-sphinx.git
+	url = git://github.com/pat/thinking-sphinx.git
 [submodule "vendor/gems/factory_girl"]
 	path = vendor/gems/factory_girl
 	url = git://github.com/thoughtbot/factory_girl.git
@@ -45,7 +45,7 @@
 	url = git://github.com/mnutt/acts_as_state_machine.git
 [submodule "vendor/plugins/permalink_fu"]
 	path = vendor/plugins/permalink_fu
-	url = git://github.com/github/permalink_fu.git
+	url = git://github.com/technoweenie/permalink_fu.git
 [submodule "vendor/plugins/action_assets_helper"]
 	path = vendor/plugins/action_assets_helper
 	url = git://github.com/tiegz/action_assets_helper.git
